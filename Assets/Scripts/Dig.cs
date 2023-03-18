@@ -43,7 +43,7 @@ public class Dig : MonoBehaviour
         {
             float hungrydeclineSpeed = 5;
             player.status.hungry -= hungrydeclineSpeed;
+            player.hungry_alter.Invoke();
         }
-        player.hungry_alter.Invoke();
     }
 }
