@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Status))]
 public class PlayerController : MonoBehaviour
 {
     public Status status;
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
         if (direction != 0)
         {
             Vector3 Direction = new Vector3(direction, 1, 1);
-            transform.localScale = new Vector3 (transform.localScale.x * direction, transform.localScale.y, transform.localScale.z) ;
+            transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z) ;
             direction_alter.Invoke();
         }
     }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(Rigidbody2D))]
+
 public class Move : MonoBehaviour
 {
     private PlayerController player;
@@ -39,8 +42,6 @@ public class Move : MonoBehaviour
             crawlUp = true;
 
         direction = Input.GetAxisRaw("Horizontal");
-        player.SetDirection(direction);
-        
     }
     void FixedUpdate()
     {
@@ -54,6 +55,7 @@ public class Move : MonoBehaviour
         Vector2 v = Vector2.zero;
 
         m_rigidbody.velocity = Vector2.SmoothDamp(m_rigidbody.velocity, TargetVelocity, ref v, 0.06f);
+        player.SetDirection(direction);
 
         if (jump && isGround)
             m_rigidbody.AddForce(new Vector2(0, jumpForce));
