@@ -12,7 +12,7 @@ public class Move : MonoBehaviour
 
     private Rigidbody2D m_rigidbody;
 
-    private float direction;
+    public float direction;
     private bool jump;
     private bool crawlUp;
     private bool isGround;

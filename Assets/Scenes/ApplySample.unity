@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8b3a37fea221d419fd0e03ffccfaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
   groundCheck: {fileID: 773969161}
   speed: 5
   jumpForce: 465
@@ -442,11 +443,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354034895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.51, y: 1.51, z: 0}
+  m_LocalPosition: {x: -0.72, y: 1.35, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1195835165}
+  - {fileID: 2089383821}
   - {fileID: 773969161}
   - {fileID: 690172172}
   m_Father: {fileID: 0}
@@ -464,9 +466,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fb1cc443a31354a9588eb4dcba02f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Digging: 0
-  HitPointDown:
-  - {fileID: 1195835165}
+  direction: 0
+  DiggingDown: 0
+  DiggingHorizontal: 0
+  HitPointDown: {fileID: 1195835165}
+  HitPointHorizontal: {fileID: 2089383821}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -9489,7 +9493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1195835165}
   m_Layer: 0
-  m_Name: DigPoint
+  m_Name: DigPointDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9503,7 +9507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1195835164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9706,7 +9710,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -472292411
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -23814,3 +23818,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2089383820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2089383821}
+  m_Layer: 0
+  m_Name: DigPointHorizontal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2089383821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089383820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354034902}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
