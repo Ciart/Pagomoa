@@ -1,28 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+using Tiles;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Brick : MonoBehaviour
 {
-    public Tilemap tilemap;
-    // Start is called before the first frame update
-    void Start()
+    public Tilemap groundTilemap;
+
+    public Tilemap mineralTilemap;
+
+    public MineralEntity mineralEntity;
+
+    public DiggableTile GetTile(Vector3Int position)
     {
-        tilemap = GetComponent<Tilemap>();
+        return groundTilemap.GetTile<DiggableTile>(position);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void MakeDot(Vector3 Pos, int tier = 0)
     {
+        Vector3Int cellPosition = groundTilemap.WorldToCell(Pos);
+        
+        var mineralTile = mineralTilemap.GetTile<MineralTile>(cellPosition);
 
-    }
+        if (mineralTile is not null && mineralTile.data.tier <= tier)
+        {
+            var entity = Instantiate(mineralEntity, mineralTilemap.layoutGrid.GetCellCenterWorld(cellPosition), Quaternion.identity);
+            entity.Data = mineralTile.data;
+        }
 
-    public void MakeDot(Vector3 Pos)
-    {
-        Vector3Int cellPosition = tilemap.WorldToCell(Pos);
-
-        tilemap.SetTile(cellPosition, null);
+        mineralTilemap.SetTile(cellPosition, null);
+        groundTilemap.SetTile(cellPosition, null);
     }
 }
 

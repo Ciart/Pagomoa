@@ -25,8 +25,10 @@ public class PlayerController : MonoBehaviour
             oxygen_alter = new UnityEvent();
         if (hungry_alter == null)
             hungry_alter = new UnityEvent();
+        if (direction_alter == null)
+            direction_alter = new UnityEvent();
     }
-    void FixedUpdate()
+void FixedUpdate()
     {
         float declineSpeed = 0.05f;
         

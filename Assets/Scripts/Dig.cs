@@ -10,7 +10,9 @@ public class Dig : MonoBehaviour
     public float direction;
     public bool DiggingDown;
     public bool DiggingHorizontal;
-   
+
+    public float digSpeed = 10f;
+
     [SerializeField] public Transform HitPointDown;
     [SerializeField] public Transform HitPointHorizontal;
     private void Awake()
@@ -45,33 +47,28 @@ public class Dig : MonoBehaviour
     }
     public void _Dig()
     {
-       
+        Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+
         bool CheckDig = false;
         if (DiggingDown)
         {
-            Collider2D overCollider2d = Physics2D.OverlapCircle(HitPointDown.position, 0.1f, player.WhatisGround);
             Vector3 SizeL = new Vector3(HitPointDown.position.x - 0.3f, HitPointDown.position.y, HitPointDown.position.z);
             Vector3 SizeR = new Vector3(HitPointDown.position.x + 0.3f, HitPointDown.position.y, HitPointDown.position.z);
-            if (overCollider2d != null)
-            {
-                overCollider2d.transform.GetComponent<Brick>().MakeDot(SizeL);
-                overCollider2d.transform.GetComponent<Brick>().MakeDot(SizeR);
-                CheckDig = true;
-            }
+            StartCoroutine("_Digging", SizeL);
+            StartCoroutine("_Digging", SizeR);
+            //Ground.MakeDot(SizeL);
+            //Ground.MakeDot(SizeR);
+            CheckDig = true;
         }
         else if (DiggingHorizontal)
         {
-            
-            Collider2D overCollider2d = Physics2D.OverlapCircle(HitPointHorizontal.position, 0.1f, player.WhatisGround);
-            
             Vector3 SizeU = new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y + 0.3f, HitPointHorizontal.position.z);
             Vector3 SizeD = new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y - 0.3f, HitPointHorizontal.position.z);
-            if (overCollider2d != null)
-            {
-                overCollider2d.transform.GetComponent<Brick>().MakeDot(SizeU);
-                overCollider2d.transform.GetComponent<Brick>().MakeDot(SizeD);
-                CheckDig = true;
-            }
+            StartCoroutine("_Digging", SizeU);
+            StartCoroutine("_Digging", SizeD);
+            //Ground.MakeDot(SizeU);
+            //Ground.MakeDot(SizeD);
+            CheckDig = true;
         }
 
         if (CheckDig)
@@ -80,5 +77,17 @@ public class Dig : MonoBehaviour
             player.status.hungry -= hungrydeclineSpeed;
             player.hungry_alter.Invoke();
         }
+    }
+    IEnumerator _Digging(Vector3 point)
+    {
+        Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+
+        var tile = Ground.GetTile(Ground.groundTilemap.layoutGrid.WorldToCell(point));
+        if (!tile) yield break;
+        float spendTIme = tile.strength / digSpeed;
+
+        Debug.Log($"광물 굴착시간: {spendTIme}");
+        yield return new WaitForSeconds(spendTIme);
+        Ground.MakeDot(point);
     }
 }
