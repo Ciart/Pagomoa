@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
+    [SerializeField] Image digbar;
     public void UpdateOxygenBar()
     {
         Status playerstat = transform.parent.GetComponent<Status>();
@@ -22,5 +23,15 @@ public class UIManager : MonoBehaviour
     public void SetPlayerUIDirection()
     {
         transform.localScale = new Vector3(transform.parent.localScale.x, 1, 1);
+    }
+    public void SetDigGage()
+    {
+        Dig dig = GameObject.Find("Player").GetComponent<Dig>();
+        digbar.fillAmount = dig.DigHoldTIme/dig.StandTime;
+        digbar.enabled = true;
+    }
+    public void SetDigGagefalse()
+    {
+        digbar.enabled = false;
     }
 }

@@ -2,92 +2,138 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerController))]
 public class Dig : MonoBehaviour
 {
+    public UnityEvent OnDigEvent;
+    public UnityEvent DiggingEvent;
+    [System.Serializable]
+    public class BoolEvent : UnityEvent<bool> { }
+    
+
     private PlayerController player;
     public float direction;
-    public bool DiggingDown;
-    public bool DiggingHorizontal;
-
     public float digSpeed = 10f;
+
+    public bool Digging;
+    bool isDigging;
 
     [SerializeField] public Transform HitPointDown;
     [SerializeField] public Transform HitPointHorizontal;
+
+
+    public float DigHoldTIme = 0;
+    public float StandTime = 0;
+
+    Vector3Int DigSpot1 = Vector3Int.zero;
+    Vector3Int DigSpot2 = Vector3Int.zero;
+
+
     private void Awake()
     {
         player = GetComponent<PlayerController>();
+        if (OnDigEvent == null)
+            OnDigEvent = new UnityEvent();
+        if (DiggingEvent == null)
+            DiggingEvent = new UnityEvent();
     }
     void Update()
     {
         direction = Input.GetAxisRaw("Horizontal");
+
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(direction == 0)
-                DiggingDown = true;
-            
-            else if(direction != 0)
-                DiggingHorizontal = true;
-        }
+            isDigging = true;
+        if (Input.GetKeyUp(KeyCode.Space))
+            isDigging = false;
+
+        // 땅파기 최초시작시 실행할 코드
     }
     void FixedUpdate()
     {
-        if (DiggingDown)
+        if (isDigging)
+        {
+            Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+            Debug.Log("굴착시작! ");
+            if (direction == 0)
+            {
+                DigSpot1 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector2(HitPointDown.position.x - 0.3f, HitPointDown.position.y));
+                DigSpot2 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector2(HitPointDown.position.x + 0.3f, HitPointDown.position.y));
+            }
+            else
+            {
+                DigSpot1 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y + 0.3f));
+                DigSpot2 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y - 0.3f));
+            }
+            Digging = true;
+        }
+        else
+        {
+            Digging = false;
+            DigHoldTIme = 0;
+        }
+
+
+        if (Digging)
         {
             _Dig();
-            DiggingDown = false;
+            DigHoldTIme += Time.fixedDeltaTime;
         }
-        else if (DiggingHorizontal)
+        else
         {
-            _Dig();
-            DiggingHorizontal = false;
+            DigHoldTIme = 0;
+            OnDigEvent.Invoke();
+
         }
-        
+
     }
     public void _Dig()
     {
+        DiggingEvent.Invoke();
         Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
 
-        bool CheckDig = false;
-        if (DiggingDown)
+        var tile1 = Ground.GetTile(DigSpot1);
+        var tile2 = Ground.GetTile(DigSpot2);
+        if (!(tile1 || tile2))
         {
-            Vector3 SizeL = new Vector3(HitPointDown.position.x - 0.3f, HitPointDown.position.y, HitPointDown.position.z);
-            Vector3 SizeR = new Vector3(HitPointDown.position.x + 0.3f, HitPointDown.position.y, HitPointDown.position.z);
-            StartCoroutine("_Digging", SizeL);
-            StartCoroutine("_Digging", SizeR);
-            //Ground.MakeDot(SizeL);
-            //Ground.MakeDot(SizeR);
-            CheckDig = true;
-        }
-        else if (DiggingHorizontal)
-        {
-            Vector3 SizeU = new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y + 0.3f, HitPointHorizontal.position.z);
-            Vector3 SizeD = new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y - 0.3f, HitPointHorizontal.position.z);
-            StartCoroutine("_Digging", SizeU);
-            StartCoroutine("_Digging", SizeD);
-            //Ground.MakeDot(SizeU);
-            //Ground.MakeDot(SizeD);
-            CheckDig = true;
+            Digging = false;
+            return;
         }
 
-        if (CheckDig)
+        bool CheckDig = false;
+        float spendTIme;
+        if (tile1)
         {
+            spendTIme = tile1.strength / digSpeed;
+            StandTime = spendTIme;
+            Debug.Log($"광물1 굴착시간: {spendTIme}");
+            if (spendTIme <= DigHoldTIme)
+            {
+                Ground.MakeDot(DigSpot1);
+                CheckDig = true;
+            }
+        }
+        if (tile2)
+        {
+            spendTIme = tile2.strength / digSpeed;
+            StandTime = spendTIme;
+
+            Debug.Log($"광물2 굴착시간: {spendTIme}");
+            if (spendTIme <= DigHoldTIme)
+            {
+                Ground.MakeDot(DigSpot2);
+                CheckDig = true;
+            }
+        }
+        if (CheckDig && (!Ground.GetTile(DigSpot1))&& (!Ground.GetTile(DigSpot2)))
+        {
+            DigHoldTIme = 0;
+            isDigging = true;
             float hungrydeclineSpeed = 5;
             player.status.hungry -= hungrydeclineSpeed;
             player.hungry_alter.Invoke();
+            //Debug.Log("초기화" + Digging);
         }
-    }
-    IEnumerator _Digging(Vector3 point)
-    {
-        Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
-
-        var tile = Ground.GetTile(Ground.groundTilemap.layoutGrid.WorldToCell(point));
-        if (!tile) yield break;
-        float spendTIme = tile.strength / digSpeed;
-
-        Debug.Log($"광물 굴착시간: {spendTIme}");
-        yield return new WaitForSeconds(spendTIme);
-        Ground.MakeDot(point);
     }
 }
