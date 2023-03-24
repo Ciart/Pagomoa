@@ -18,19 +18,12 @@ public class Dig : MonoBehaviour
     public float direction;
     public float digSpeed = 10f;
 
-    public bool Digging;
-    bool isDigging;
-
     [SerializeField] public Transform HitPointDown;
     [SerializeField] public Transform HitPointHorizontal;
 
-
-    public float DigHoldTIme = 0;
-    public float StandTime = 0;
-
-    Vector3Int DigSpot1 = Vector3Int.zero;
-    Vector3Int DigSpot2 = Vector3Int.zero;
-
+    bool readyToDig;
+    bool canDig = true;
+    float charging = 0;
 
     private void Awake()
     {
@@ -45,97 +38,89 @@ public class Dig : MonoBehaviour
         direction = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.Space))
-            isDigging = true;
+            readyToDig = true;
         if (Input.GetKeyUp(KeyCode.Space))
-            isDigging = false;
-
-        // 땅파기 최초시작시 실행할 코드
+            readyToDig = false;
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (isDigging)
+        Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+        if (readyToDig && canDig)
         {
-            Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
-            Debug.Log("굴착시작! ");
+            Vector3Int po1;
+            Vector3Int po2;
             if (direction == 0)
             {
-                DigSpot1 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector2(HitPointDown.position.x - 0.3f, HitPointDown.position.y));
-                DigSpot2 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector2(HitPointDown.position.x + 0.3f, HitPointDown.position.y));
+                po1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                po2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
             }
             else
             {
-                DigSpot1 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y + 0.3f));
-                DigSpot2 = Ground.groundTilemap.layoutGrid.WorldToCell(new Vector3(HitPointHorizontal.position.x, HitPointHorizontal.position.y - 0.3f));
+                po1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position + new Vector3(0, 0.3f, 0));
+                po2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position - new Vector3(0, 0.3f, 0));
             }
-            Digging = true;
-        }
-        else
-        {
-            Digging = false;
-            DigHoldTIme = 0;
-        }
-
-
-        if (Digging)
-        {
-            _Dig();
-            
-        }
-        else
-        {
-            DigHoldTIme = 0;
-            OnDigEvent.Invoke();
+            StartCoroutine(PA(po1, po2));
 
         }
-
     }
-    public void _Dig()
+    void ICanDig()
     {
-        DiggingEvent.Invoke(DigHoldTIme, StandTime);
+        canDig = true;
+        charging = 0;
+        OnDigEvent.Invoke();
+    }
+    IEnumerator PA(Vector3Int point1, Vector3Int point2)
+    {
+        canDig = false;
+
         Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+        var tile1 = Ground.GetTile(point1);
+        var tile2 = Ground.GetTile(point2);
+        if (tile1 || tile2)
+        {
+            Debug.Log("굴착시작!");
+            float time1 = 0;
+            float time2 = 0; 
+            if(tile1) time1 = tile1.strength / digSpeed;
+            if(tile2) time2 = tile2.strength / digSpeed;
 
-        var tile1 = Ground.GetTile(DigSpot1);
-        var tile2 = Ground.GetTile(DigSpot2);
-        if (!(tile1 || tile2))
-        {
-            Digging = false;
-            DigHoldTIme = 0;
-            return;
-        }
-        DigHoldTIme += Time.fixedDeltaTime;
-        bool CheckDig = false;
-        float spendTIme;
-        if (tile1)
-        {
-            spendTIme = tile1.strength / digSpeed;
-            StandTime = spendTIme;
-            Debug.Log($"광물1 굴착시간: {spendTIme}");
-            if (spendTIme <= DigHoldTIme)
+            Vector3Int currentPos1 = point1;
+            Vector3Int currentPos2 = point2;
+            while (readyToDig && (time1 > charging || time2 > charging))
             {
-                Ground.MakeDot(DigSpot1);
-                CheckDig = true;
-            }
-        }
-        if (tile2)
-        {
-            spendTIme = tile2.strength / digSpeed;
-            StandTime = spendTIme;
+                //Debug.Log("굴착중!");
+                if (direction == 0)
+                {
+                    currentPos1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                    currentPos2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                }
+                else
+                {
+                    currentPos1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position + new Vector3(0, 0.3f, 0));
+                    currentPos2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position - new Vector3(0, 0.3f, 0));
+                }
 
-            Debug.Log($"광물2 굴착시간: {spendTIme}");
-            if (spendTIme <= DigHoldTIme)
-            {
-                Ground.MakeDot(DigSpot2);
-                CheckDig = true;
+                charging += Time.fixedDeltaTime;
+                float time = time1 >= time2 ? time1 : time2;
+                DiggingEvent.Invoke(charging, time);
+
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
+                // 파던 위치가 달라지면 초기화 및 탈출
+                if ((currentPos1 != point1) || (currentPos2 != point2))
+                {
+                    Debug.Log("파던 위치가 달라졌잖아! 취소!");
+                    ICanDig();
+                    yield break;
+                }
             }
+            if(time1 <= charging)
+                Ground.MakeDot(point1);
+            if(time2 <= charging)
+                Ground.MakeDot(point2);
+            ICanDig();
         }
-        if (CheckDig && (!Ground.GetTile(DigSpot1))&& (!Ground.GetTile(DigSpot2)))
-        {
-            DigHoldTIme = 0;
-            isDigging = true;
-            float hungrydeclineSpeed = 5;
-            player.status.hungry -= hungrydeclineSpeed;
-            player.hungry_alter.Invoke(player.status.hungry, player.status.max_hungry);
-            //Debug.Log("초기화" + Digging);
-        }
+        else
+            ICanDig();
+            //Debug.Log("없어!");
     }
 }

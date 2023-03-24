@@ -534,11 +534,8 @@ MonoBehaviour:
       m_Calls: []
   direction: 0
   digSpeed: 10
-  Digging: 0
   HitPointDown: {fileID: 1195835165}
   HitPointHorizontal: {fileID: 2089383821}
-  DigHoldTIme: 0
-  StandTime: 0
 --- !u!114 &354034904
 MonoBehaviour:
   m_ObjectHideFlags: 0
