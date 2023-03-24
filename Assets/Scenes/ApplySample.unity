@@ -359,51 +359,16 @@ MonoBehaviour:
   WhatisGround:
     serializedVersion: 2
     m_Bits: 8
+  oxygen_consume: 0.001
   oxygen_alter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 690172171}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: UpdateOxygenBar
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   hungry_alter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 690172171}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: UpdateHungryBar
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   direction_alter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 690172171}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SetPlayerUIDirection
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!70 &354034899
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -566,19 +531,7 @@ MonoBehaviour:
         m_CallState: 2
   DiggingEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 690172171}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SetDigGage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   direction: 0
   digSpeed: 10
   Digging: 0
@@ -1788,7 +1741,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1246316557}
   - component: {fileID: 1246316556}
-  - component: {fileID: 1246316558}
   - component: {fileID: 1246316559}
   m_Layer: 0
   m_Name: Grid
@@ -1827,22 +1779,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1246316558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246316555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTilemap: {fileID: 2143556640}
-  mineralTilemap: {fileID: 1107110433}
-  mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
-  debugTier: 0
 --- !u!114 &1246316559
 MonoBehaviour:
   m_ObjectHideFlags: 0

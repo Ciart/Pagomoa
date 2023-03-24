@@ -8,10 +8,11 @@ using UnityEngine.Events;
 public class Dig : MonoBehaviour
 {
     public UnityEvent OnDigEvent;
-    public UnityEvent DiggingEvent;
+
+    public floatfloatEvent DiggingEvent;
+
     [System.Serializable]
-    public class BoolEvent : UnityEvent<bool> { }
-    
+    public class floatfloatEvent : UnityEvent<float, float> { }
 
     private PlayerController player;
     public float direction;
@@ -37,7 +38,7 @@ public class Dig : MonoBehaviour
         if (OnDigEvent == null)
             OnDigEvent = new UnityEvent();
         if (DiggingEvent == null)
-            DiggingEvent = new UnityEvent();
+            DiggingEvent = new floatfloatEvent();
     }
     void Update()
     {
@@ -78,7 +79,7 @@ public class Dig : MonoBehaviour
         if (Digging)
         {
             _Dig();
-            DigHoldTIme += Time.fixedDeltaTime;
+            
         }
         else
         {
@@ -90,7 +91,7 @@ public class Dig : MonoBehaviour
     }
     public void _Dig()
     {
-        DiggingEvent.Invoke();
+        DiggingEvent.Invoke(DigHoldTIme, StandTime);
         Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
 
         var tile1 = Ground.GetTile(DigSpot1);
@@ -98,9 +99,10 @@ public class Dig : MonoBehaviour
         if (!(tile1 || tile2))
         {
             Digging = false;
+            DigHoldTIme = 0;
             return;
         }
-
+        DigHoldTIme += Time.fixedDeltaTime;
         bool CheckDig = false;
         float spendTIme;
         if (tile1)
@@ -132,7 +134,7 @@ public class Dig : MonoBehaviour
             isDigging = true;
             float hungrydeclineSpeed = 5;
             player.status.hungry -= hungrydeclineSpeed;
-            player.hungry_alter.Invoke();
+            player.hungry_alter.Invoke(player.status.hungry, player.status.max_hungry);
             //Debug.Log("초기화" + Digging);
         }
     }

@@ -6,8 +6,6 @@ using UnityEngine.Events;
 public class Collect : MonoBehaviour
 {
     public UnityEvent OnCollectEvent;
-    [System.Serializable]
-    public class BoolEvent : UnityEvent<bool> { }
     private void Awake()
     {
         if (OnCollectEvent == null)

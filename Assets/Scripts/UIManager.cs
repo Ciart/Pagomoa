@@ -2,36 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
-    public void UpdateOxygenBar()
+    private void Awake()
     {
-        Status playerstat = transform.parent.GetComponent<Status>();
-        
-        oxygenbar.fillAmount = playerstat.oxygen / playerstat.max_oxygen;
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<Dig>().DiggingEvent.AddListener(SetDigGage);
+        player.GetComponent<PlayerController>().oxygen_alter.AddListener(UpdateOxygenBar);
+        player.GetComponent<PlayerController>().hungry_alter.AddListener(UpdateHungryBar);
+        player.GetComponent<PlayerController>().direction_alter.AddListener(SetPlayerUIDirection);
+
+    }
+    public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
+    {
+        oxygenbar.fillAmount = current_oxygen / max_oxygen;
     }
 
-    public void UpdateHungryBar()
+    public void UpdateHungryBar(float current_hungry, float max_hungry)
     {
-        Status playerstat = transform.parent.GetComponent<Status>();
-        hungrybar.fillAmount = playerstat.hungry / playerstat.max_hungry;
+        hungrybar.fillAmount = current_hungry / max_hungry;
     }
-    public void SetPlayerUIDirection()
+    public void SetPlayerUIDirection(float direction)
     {
-        transform.localScale = new Vector3(transform.parent.localScale.x, 1, 1);
-    }
-    public void SetDigGage()
-    {
-        Dig dig = GameObject.Find("Player").GetComponent<Dig>();
-        digbar.fillAmount = dig.DigHoldTIme/dig.StandTime;
-        digbar.enabled = true;
+        transform.localScale = new Vector3(direction, 1, 1);
     }
     public void SetDigGagefalse()
     {
         digbar.enabled = false;
+    }
+    public void SetDigGage(float holdtime, float digtime)
+    {
+        digbar.fillAmount = holdtime / digtime;
+        digbar.enabled = true;
     }
 }
