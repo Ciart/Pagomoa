@@ -42,9 +42,15 @@ public class Dig : MonoBehaviour
         direction = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             readyToDig = true;
+            GetComponent<Animator>().SetBool("dig", true);
+        }
         if (Input.GetKeyUp(KeyCode.Space))
+        {
             readyToDig = false;
+            GetComponent<Animator>().SetBool("dig", false);
+        }
     }
     private void FixedUpdate()
     {
@@ -64,7 +70,7 @@ public class Dig : MonoBehaviour
                 po2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position - new Vector3(0, 0.3f, 0));
             }
             StartCoroutine(PA(po1, po2));
-
+             
         }
     }
     void ICanDig()
