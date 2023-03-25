@@ -10,6 +10,8 @@ public class Dig : MonoBehaviour
     public UnityEvent OnDigEvent;
 
     public floatfloatEvent DiggingEvent;
+    public UnityEvent DigSuccessEvent;
+
 
     [System.Serializable]
     public class floatfloatEvent : UnityEvent<float, float> { }
@@ -30,6 +32,8 @@ public class Dig : MonoBehaviour
         player = GetComponent<PlayerController>();
         if (OnDigEvent == null)
             OnDigEvent = new UnityEvent();
+        if (DigSuccessEvent == null)
+            DigSuccessEvent = new UnityEvent();
         if (DiggingEvent == null)
             DiggingEvent = new floatfloatEvent();
     }
@@ -44,7 +48,7 @@ public class Dig : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+        MapManager Ground = GameObject.Find("Map Manager").GetComponent<MapManager>();
         if (readyToDig && canDig)
         {
             Vector3Int po1;
@@ -73,7 +77,7 @@ public class Dig : MonoBehaviour
     {
         canDig = false;
 
-        Brick Ground = GameObject.Find("Grid").GetComponent<Brick>();
+        MapManager Ground = GameObject.Find("Map Manager").GetComponent<MapManager>();
         var tile1 = Ground.GetTile(point1);
         var tile2 = Ground.GetTile(point2);
         if (tile1 || tile2)
@@ -113,10 +117,18 @@ public class Dig : MonoBehaviour
                     yield break;
                 }
             }
-            if(time1 <= charging)
-                Ground.MakeDot(point1);
-            if(time2 <= charging)
-                Ground.MakeDot(point2);
+            if (time1 <= charging)
+            {
+                Ground.BreakTile(point1);
+                player.status.hungry -= 5;
+                player.hungry_alter.Invoke(player.status.hungry, player.status.max_hungry);
+            }
+            if (time2 <= charging)
+            {
+                Ground.BreakTile(point2);
+                player.status.hungry -= 5;
+                player.hungry_alter.Invoke(player.status.hungry, player.status.max_hungry);
+            }
             ICanDig();
         }
         else
