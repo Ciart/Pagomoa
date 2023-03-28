@@ -25,7 +25,6 @@ public class Owl : MonoBehaviour
 
         if (Physics2D.OverlapCircle(transform.position, 0.5f, LayerMask.GetMask("Platform")) != null)
         {
-            Debug.Log("착지");
             m_rigidbody.gravityScale = 0;
             m_rigidbody.velocity = Vector2.zero;
             GetComponent<BoxCollider2D>().enabled = true;
@@ -69,7 +68,6 @@ public class Owl : MonoBehaviour
         if (collision.gameObject == Target)
         {
             Target = null;
-            Debug.Log("이젠 타겟아냐");
             m_rigidbody.velocity = Vector3.zero;
             m_rigidbody.gravityScale = 4;
         }

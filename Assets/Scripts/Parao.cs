@@ -61,7 +61,6 @@ public class Parao : MonoBehaviour
         if (collision.gameObject == Target)
         {
             Target = null;
-            Debug.Log("이젠 타겟아냐");
             m_rigidbody.velocity = Vector3.zero;
         }
     }
