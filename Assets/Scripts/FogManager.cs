@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -13,7 +15,7 @@ public class FogManager : MonoBehaviour
     void Start()
     {
         fogRenderer = GetComponent<SpriteRenderer>();
-        fogTexture = new Texture2D(3000, 3000);
+        fogTexture = new Texture2D(1500, 1500);
 
         for (int i = 0; i < fogTexture.width; i++)
         {
@@ -30,6 +32,7 @@ public class FogManager : MonoBehaviour
         pixelWidth = fogRenderer.sprite.texture.width;
         pixelHeight = fogRenderer.sprite.texture.height;
 
+        gameObject.AddComponent<PolygonCollider2D>();
         Debug.Log("World: " + worldWidth + ", " + worldHeight + "Pixel: " + pixelWidth + ", " + pixelHeight );
     }
     public void fadeOutFogs(CircleCollider2D sight)
@@ -38,10 +41,10 @@ public class FogManager : MonoBehaviour
         int radius = Mathf.RoundToInt(sight.bounds.size.x / 2 * pixelWidth/worldWidth);
         int distance, minXPoint, minYPoint, plusXPoint, plusYPoint;
 
-       /* for (int i = 0; i < radius; i++)
+        for (int i = 0; i < radius; i++)
         {
             distance = Mathf.RoundToInt(Mathf.Sqrt(radius * radius - i * i));
-            for(int j = 0; j < distance; j++)
+            for (int j = 0; j < distance; j++)
             {
                 minXPoint = colliderCenter.x - i;
                 plusXPoint = colliderCenter.x + i;
@@ -53,9 +56,16 @@ public class FogManager : MonoBehaviour
                 fogTexture.SetPixel(minXPoint, minYPoint, Color.clear);
                 fogTexture.SetPixel(minXPoint, plusYPoint, Color.clear);
             }
-        }*/
+        }
         fogTexture.Apply();
         MakeSprite();
+
+        //Destroy(gameObject.GetComponent<SpriteMask>());
+        Destroy(gameObject.GetComponent<PolygonCollider2D>());
+        
+        Debug.Log("¡¯¿‘");
+        //gameObject.AddComponent<SpriteMask>().sprite = fogRenderer.sprite;
+        gameObject.AddComponent<PolygonCollider2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
