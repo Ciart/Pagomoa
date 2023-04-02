@@ -59,7 +59,7 @@ public class MapManager : MonoBehaviour
         return groundTilemap.GetTile<DiggableTile>(position);
     }
 
-    public void BreakTile(Vector3Int position, int tier)
+    public void BreakTile(Vector3Int position, int tier = 10)
     {
         var mineralTile = mineralTilemap.GetTile<MineralTile>(position);
 
