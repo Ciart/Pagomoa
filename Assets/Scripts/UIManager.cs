@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
+    public GameObject InventoryUI;
+    bool ActiveInventory = false;
     private void Awake()
     {
         GameObject player = GameObject.Find("Player");
@@ -16,7 +18,16 @@ public class UIManager : MonoBehaviour
         player.GetComponent<PlayerController>().oxygen_alter.AddListener(UpdateOxygenBar);
         player.GetComponent<PlayerController>().hungry_alter.AddListener(UpdateHungryBar);
         player.GetComponent<PlayerController>().direction_alter.AddListener(SetPlayerUIDirection);
+        InventoryUI.SetActive(ActiveInventory);
 
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ActiveInventory = !ActiveInventory;
+            InventoryUI.SetActive(ActiveInventory);
+        }
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
     {
