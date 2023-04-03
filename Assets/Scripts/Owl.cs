@@ -35,12 +35,15 @@ public class Owl : MonoBehaviour
     IEnumerator Chase()
     {
         animator.SetBool("Move", true);
+        animator.SetTrigger("Find");
         Vector2 direction = (Target.transform.position - transform.position).normalized;
         float see = direction.x > 0 ? 1 : -1;
         transform.localScale = new Vector3(see * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         yield return new WaitForSeconds(1f);
+
         if (!Target) { animator.SetBool("Move", false); yield break; }
 
+        animator.SetTrigger("Chase");
         GetComponent<BoxCollider2D>().enabled = false;
         m_rigidbody.gravityScale = 0;
         while (Target)
