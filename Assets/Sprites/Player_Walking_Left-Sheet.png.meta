@@ -110,19 +110,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 2
         y: 0
         width: 27
-        height: 33
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b56876581b87d8741bbc83a466043aec
-      internalID: 1907585757
+      spriteID: e4c68bd24bad98c45a62bb648540d788
+      internalID: 363551019
       vertices: []
       indices: 
       edges: []
@@ -131,19 +131,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_1
       rect:
         serializedVersion: 2
-        x: 39
+        x: 36
         y: 0
         width: 27
-        height: 33
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff9c2b56b4f3c934e9fbcaaecb03c5a5
-      internalID: -1518478798
+      spriteID: 450b31ac80924ab4dacdf90d7a25fa93
+      internalID: -178190950
       vertices: []
       indices: 
       edges: []
@@ -152,19 +152,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 70
         y: 0
         width: 27
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b27e5383e81e1974f9757e9f6a51dc7f
-      internalID: 27699628
+      spriteID: 069257c8957240e489ff8ddb05cd8759
+      internalID: -617698167
       vertices: []
       indices: 
       edges: []
@@ -173,19 +173,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_3
       rect:
         serializedVersion: 2
-        x: 107
+        x: 104
         y: 0
         width: 27
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5f426162266f284aa46a27d4a3c47fd
-      internalID: -1167843198
+      spriteID: c1799c3f691d450498cff8fa5f7ae6e9
+      internalID: 988131978
       vertices: []
       indices: 
       edges: []
@@ -194,19 +194,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_4
       rect:
         serializedVersion: 2
-        x: 141
+        x: 138
         y: 0
         width: 27
-        height: 33
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec9d412331cf258499b3c99272a473c1
-      internalID: -697854977
+      spriteID: 6a782caee6408d24f81826fa43d9f9fb
+      internalID: -1633247241
       vertices: []
       indices: 
       edges: []
@@ -215,19 +215,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_5
       rect:
         serializedVersion: 2
-        x: 175
+        x: 172
         y: 0
         width: 27
-        height: 33
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8b103c758afbf547b9c3beaa1c1f31a
-      internalID: -1970375809
+      spriteID: 49ed26ca0136b544fa559e0d94d2b040
+      internalID: 910628838
       vertices: []
       indices: 
       edges: []
@@ -236,19 +236,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_6
       rect:
         serializedVersion: 2
-        x: 209
+        x: 206
         y: 0
         width: 27
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52d750e65cb64d04ab8b4798f4f2c754
-      internalID: -31555751
+      spriteID: 95256219e5dde3b41993ca60fa8f7da5
+      internalID: -19135591
       vertices: []
       indices: 
       edges: []
@@ -257,19 +257,19 @@ TextureImporter:
       name: Player_Walking_Left-Sheet_7
       rect:
         serializedVersion: 2
-        x: 243
+        x: 240
         y: 0
         width: 27
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93acd5176c213cd499d67af2300ca726
-      internalID: 1922746053
+      spriteID: 4d3f6f904c6fe5f46bb3db73542cf2db
+      internalID: -1222479237
       vertices: []
       indices: 
       edges: []
@@ -285,14 +285,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Walking_Left-Sheet_0: 1907585757
-      Player_Walking_Left-Sheet_1: -1518478798
-      Player_Walking_Left-Sheet_2: 27699628
-      Player_Walking_Left-Sheet_3: -1167843198
-      Player_Walking_Left-Sheet_4: -697854977
-      Player_Walking_Left-Sheet_5: -1970375809
-      Player_Walking_Left-Sheet_6: -31555751
-      Player_Walking_Left-Sheet_7: 1922746053
+      Player_Walking_Left-Sheet_0: 363551019
+      Player_Walking_Left-Sheet_1: -178190950
+      Player_Walking_Left-Sheet_2: -617698167
+      Player_Walking_Left-Sheet_3: 988131978
+      Player_Walking_Left-Sheet_4: -1633247241
+      Player_Walking_Left-Sheet_5: 910628838
+      Player_Walking_Left-Sheet_6: -19135591
+      Player_Walking_Left-Sheet_7: -1222479237
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
