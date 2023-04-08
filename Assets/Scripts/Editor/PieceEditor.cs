@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Maps;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Editor
 
         private string[] _tabStrings =
         {
-            "Mineral", "Ground"
+            "Mineral", "Ground", "Pivot"
         };
 
         private MapDatabase _database;
@@ -53,7 +54,8 @@ namespace Editor
             {
                 case 0:
                     _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.mineralName).ToArray());
+                        _database.minerals.Select(mineral => mineral.mineralName).ToArray());                    Repaint();
+                   
                     break;
                 case 1:
                     _selectGround = EditorGUILayout.Popup(_selectGround,
@@ -61,22 +63,20 @@ namespace Editor
                     break;
             }
 
-            Event e = Event.current;
-            Debug.Log(e.mousePosition);
-            Debug.Log(e.button == 0 && e.isMouse);
+            var e = Event.current;
 
             for (var x = 0; x < piece.Width; x++)
             {
                 for (var y = 0; y < piece.Height; y++)
                 {
-                    var xMin = x * 32 + 8;
-                    var yMin = y * 32 + 100;
+                    var xMin = x * 36 + 8;
+                    var yMin = y * 36 + 100;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
+                    
+                    EditorGUI.DrawRect(rect, Color.gray);
 
                     if (rect.Contains(e.mousePosition))
                     {
-                        EditorGUI.DrawRect(rect, Color.blue);
-
                         if (e.button == 0 && e.isMouse)
                         {
                             switch (_tabIndex)
@@ -87,27 +87,36 @@ namespace Editor
                                 case 1:
                                     piece.Bricks[x, y].ground = _database.grounds[_selectGround];
                                     break;
+                                case 2:
+                                    piece.Pivot = new Vector2Int(x, y);
+                                    break;
                             }
+                            
+                            EditorUtility.SetDirty(_database);
+                            Repaint();
                         }
                     }
-                    else
-                    {
-                        EditorGUI.DrawRect(rect, Color.gray);
-                    }
-                    
+
                     var ground = piece.Bricks[x, y].ground;
                     if (ground)
                     {
                         GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
                     }
-
+                    
                     var mineral = piece.Bricks[x, y].mineral;
                     if (mineral)
                     {
                         GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
                     }
+                    
                 }
             }
+            
+            var pivotX = piece.Pivot.x * 36 + 8;
+            var pivotY = piece.Pivot.y * 36 + 100;
+            var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
+            
+            EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
         }
     }
 }
