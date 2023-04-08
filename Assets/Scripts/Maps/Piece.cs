@@ -14,7 +14,7 @@ namespace Maps
             {
                 _width = value;
 
-                ResizeArray(Bricks, Width, Height);
+                Bricks = ResizeArray(Bricks, Width, Height);
             }
         }
 
@@ -27,7 +27,7 @@ namespace Maps
             {
                 _height = value;
 
-                ResizeArray(Bricks, Width, Height);
+                Bricks = ResizeArray(Bricks, Width, Height);
             }
         }
 
