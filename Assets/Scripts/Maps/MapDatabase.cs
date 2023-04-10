@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Maps
@@ -9,8 +10,18 @@ namespace Maps
 
         public Ground[] grounds;
 
-        public Piece[] pieces = {new Piece()};
+        public Piece[] pieces = { new Piece() };
 
         public int selectIndex;
+
+        public Mineral GetMineral(string name)
+        {
+            return Array.Find(minerals, mineral => mineral.name == name);
+        }
+        
+        public Ground GetGround(string name)
+        {
+            return Array.Find(grounds, ground => ground.name == name);
+        }
     }
 }

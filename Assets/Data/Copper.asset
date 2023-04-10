@@ -15,4 +15,4 @@ MonoBehaviour:
   mineralName: "\uAD6C\uB9AC"
   tier: 0
   sprite: {fileID: -1648650736, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
-  tile: {fileID: 0}
+  tile: {fileID: 11400000, guid: ddbdaecc7be7b40b0903c19d5876a1ed, type: 2}

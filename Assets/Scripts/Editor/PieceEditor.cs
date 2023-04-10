@@ -18,6 +18,10 @@ namespace Editor
 
         private MapDatabase _database;
 
+        private int _width = 2;
+
+        private int _height = 2;
+
         private int _selectMineral;
 
         private int _selectGround;
@@ -38,14 +42,39 @@ namespace Editor
             return Rect.MinMaxRect(rect.xMin / width, rect.yMin / height, rect.xMax / width, rect.yMax / height);
         }
 
+        private void OnSelectionChange()
+        {
+            if (Selection.activeObject is not MapDatabase)
+            {
+                _database = null;
+                return;
+            }
+
+            _database = (MapDatabase) Selection.activeObject;
+            
+            Repaint();
+        }
+
         private void OnGUI()
         {
-            _database = (MapDatabase)EditorGUILayout.ObjectField("Map Database", _database, typeof(MapDatabase), false);
+            if (_database is null)
+            {
+                return;
+            }
+            
+            var piece = _database.pieces[_database.selectIndex];
 
             EditorGUILayout.BeginHorizontal();
-            var piece = _database.pieces[_database.selectIndex];
-            piece.Width = Math.Clamp(EditorGUILayout.IntField("Width", piece.Width), 1, 10);
-            piece.Height = Math.Clamp(EditorGUILayout.IntField("Height", piece.Height), 1, 10);
+            _width = Math.Clamp(EditorGUILayout.IntField("Width", _width), 1, 10);
+            _height = Math.Clamp(EditorGUILayout.IntField("Height", _height), 1, 10);
+
+            if (GUILayout.Button("Resize"))
+            {
+                piece.width = _width;
+                piece.height = _height;
+                piece.ResizeBricks();
+            }
+            
             EditorGUILayout.EndHorizontal();
 
             _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings);
@@ -65,14 +94,15 @@ namespace Editor
 
             var e = Event.current;
 
-            for (var x = 0; x < piece.Width; x++)
+            for (var x = 0; x < piece.width; x++)
             {
-                for (var y = 0; y < piece.Height; y++)
+                for (var y = 0; y < piece.height; y++)
                 {
+                    ref var brick = ref piece.GetBrick(x, y);
                     var xMin = x * 36 + 8;
                     var yMin = y * 36 + 100;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
-                    
+
                     EditorGUI.DrawRect(rect, Color.gray);
 
                     if (rect.Contains(e.mousePosition))
@@ -82,10 +112,10 @@ namespace Editor
                             switch (_tabIndex)
                             {
                                 case 0:
-                                    piece.Bricks[x, y].mineral = _database.minerals[_selectMineral];
+                                    brick.mineral = _database.minerals[_selectMineral];
                                     break;
                                 case 1:
-                                    piece.Bricks[x, y].ground = _database.grounds[_selectGround];
+                                    brick.ground = _database.grounds[_selectGround];
                                     break;
                                 case 2:
                                     piece.Pivot = new Vector2Int(x, y);
@@ -97,13 +127,13 @@ namespace Editor
                         }
                     }
 
-                    var ground = piece.Bricks[x, y].ground;
+                    var ground = brick.ground;
                     if (ground)
                     {
                         GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
                     }
                     
-                    var mineral = piece.Bricks[x, y].mineral;
+                    var mineral = brick.mineral;
                     if (mineral)
                     {
                         GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));

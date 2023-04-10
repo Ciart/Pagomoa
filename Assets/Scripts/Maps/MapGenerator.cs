@@ -8,11 +8,11 @@ namespace Maps
     [RequireComponent(typeof(MapManager))]
     public class MapGenerator : MonoBehaviour
     {
+        public MapDatabase database;
+        
         public int width = 64;
         public int height = 64;
 
-        public Piece[] pieces;
-    
         private MapManager _mapManager;
 
         private List<(float, Piece)> _weightedPieces;
@@ -24,6 +24,8 @@ namespace Maps
 
         public void Preload()
         {
+            var pieces = database.pieces;
+            
             float rarityCount = pieces.Sum(piece => piece.Rarity);
 
             _weightedPieces = new List<(float, Piece)>();
@@ -57,17 +59,31 @@ namespace Maps
 
         public void Generate()
         {
-            // _map = new MapTile[width, height];
-            //
-            // for (var i = 0; i < width; i++)
-            // {
-            //     for (var j = 0; j < height; j++)
-            //     {
-            //         _map[i, j] = new MapTile() {Ground = tiles[Random.Range(0, tiles.Length)], Mineral = minerals[Random.Range(0, minerals.Length)]};
-            //         _mapManager.groundTilemap.SetTile(new Vector3Int(i, -j, 0), _map[i, j].Ground);
-            //         _mapManager.mineralTilemap.SetTile(new Vector3Int(i, -j, 0), _map[i, j].Mineral);
-            //     }
-            // }
+            _mapManager.ResetMap(width, height, database.GetGround("Dirt"));
+            
+            Preload();
+            
+            for (var i = 0; i < width; i++)
+            {
+                for (var j = 0; j < height; j++)
+                {
+                    if (Random.Range(0, 30) != 0)
+                    {
+                        continue;
+                    }
+
+                    var piece = GetRandomPiece();
+
+                    for (var x = 0; x < piece.width; x++)
+                    {
+                        for (var y = 0; y < piece.height; y++)
+                        {
+                            var position = new Vector2Int(i + x, j + y) - piece.Pivot;
+                            _mapManager.SetBrick(piece.GetBrick(x, y), position);
+                        }
+                    }
+                }
+            }
         }
     }
 }

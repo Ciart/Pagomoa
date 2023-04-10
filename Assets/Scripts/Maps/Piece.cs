@@ -3,35 +3,15 @@ using UnityEngine;
 
 namespace Maps
 {
+    [Serializable]
     public class Piece
     {
-        private int _width = 2;
-
-        public int Width
-        {
-            get => _width;
-            set
-            {
-                _width = value;
-
-                Bricks = ResizeArray(Bricks, Width, Height);
-            }
-        }
-
-        private int _height = 2;
+        public int width = 2;
         
-        public int Height
-        {
-            get => _height;
-            set
-            {
-                _height = value;
+        public int height = 2;
 
-                Bricks = ResizeArray(Bricks, Width, Height);
-            }
-        }
-
-        public Brick[,] Bricks;
+        [SerializeField]
+        private Brick[] _bricks;
         
         public Vector2Int Pivot = Vector2Int.zero;
 
@@ -39,21 +19,27 @@ namespace Maps
 
         public Piece()
         {
-            Bricks = new Brick[Width, Height];
+            _bricks = new Brick[width * height];
         }
-        
-        private static T[,] ResizeArray<T>(T[,] original, int x, int y)
+
+        public void ResizeBricks()
         {
-            var newArray = new T[x, y];
-            var minX = Math.Min(original.GetLength(0), newArray.GetLength(0));
-            var minY = Math.Min(original.GetLength(1), newArray.GetLength(1));
+            Array.Resize(ref _bricks, width * height);
+        }
 
-            for (var i = 0; i < minY; i++)
-            {
-                Array.Copy(original, i * original.GetLength(0), newArray, i * newArray.GetLength(0), minX);
-            }
+        public ref Brick GetBrick(int x, int y)
+        {
+            return ref _bricks[GetBricksIndex(x, y)];
+        }
 
-            return newArray;
+        public void SetBrick(Brick brick, int x, int y)
+        {
+            _bricks[GetBricksIndex(x, y)] = brick;
+        }
+
+        private int GetBricksIndex(int x, int y)
+        {
+            return x + y * width;
         }
     }
 }

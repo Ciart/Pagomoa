@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundName: "\uD759"
   strength: 10
-  sprite: {fileID: 577431072, guid: 6e56002d60d9842818c5acbd51e7e7b0, type: 3}
+  sprite: {fileID: -880552388, guid: 6e56002d60d9842818c5acbd51e7e7b0, type: 3}
   tile: {fileID: 11400000, guid: 4c742e36646564df9aefcfd232a6f586, type: 2}
