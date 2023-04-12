@@ -9,8 +9,10 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     private PlayerController player;
-
+    
     private Rigidbody2D m_rigidbody;
+
+    private Animator _animator;
 
     public float direction;
     private bool jump;
@@ -22,12 +24,14 @@ public class Move : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 465f;
     public float crawlSpeed = 5f;
+
     // Start is called before the first frame update
 
     void Awake()
     {
         player = GetComponent<PlayerController>();
         m_rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,6 +57,14 @@ public class Move : MonoBehaviour
         Vector2 TargetVelocity;
         TargetVelocity = crawlUp && player.GroundHeight >= transform.position.y ? new Vector2(direction * speed, crawlSpeed) : new Vector2(direction * speed, m_rigidbody.velocity.y);
         Vector2 v = Vector2.zero;
+        if (crawlUp && player.GroundHeight >= transform.position.y)
+        {
+            player.ActiveClimbingAnimation();
+        }
+        else if(!crawlUp || player.GroundHeight < transform.position.y)
+        {
+            player.DisableClimbingAnimation();
+        }
 
         m_rigidbody.velocity = Vector2.SmoothDamp(m_rigidbody.velocity, TargetVelocity, ref v, 0.06f);
         player.SetDirection(direction);

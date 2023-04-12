@@ -39,4 +39,8 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetBool("goRight", true);
         }
     }
+    void FixedUpdate()
+    {
+        
+    }
 }

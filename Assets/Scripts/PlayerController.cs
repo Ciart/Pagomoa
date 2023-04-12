@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public floatfloatEvent hungry_alter;
     public floatEvent direction_alter;
 
+    private Animator _animator;
+
     [System.Serializable]
     public class floatfloatEvent : UnityEvent<float, float> { }
     [System.Serializable]
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
             hungry_alter = new floatfloatEvent();
         if (direction_alter == null)
             direction_alter = new floatEvent();
+        _animator = GetComponent<Animator>();
     }
 void FixedUpdate()
     { 
@@ -45,10 +48,34 @@ void FixedUpdate()
     {
         if (direction != 0)
         {
+            WalingAnimation(direction);
             Vector3 Direction = new Vector3(direction, 1, 1);
             transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z) ;
             direction_alter.Invoke(direction);
         }
+        else
+        {
+            _animator.SetBool("goLeft", false);
+            _animator.SetBool("goRight", false);
+        }
     }
-
+    public void WalingAnimation(float direction)
+    {
+        if (direction == 1) { _animator.SetBool("goRight", true); }
+        else { _animator.SetBool("goLeft", true); }
+    }
+    public void ActiveClimbingAnimation()
+    {
+        if (_animator.GetInteger("climb") == 0)
+        {
+            _animator.SetInteger("climb", 1);
+        }
+    }
+    public void DisableClimbingAnimation()
+    {
+        if (_animator.GetInteger("climb") == 1)
+        {
+            _animator.SetInteger("climb", 0);
+        }
+    }
 }
