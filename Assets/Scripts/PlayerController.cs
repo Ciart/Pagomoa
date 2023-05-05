@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
             direction_alter = new floatEvent();
         _animator = GetComponent<Animator>();
     }
-void FixedUpdate()
+    void FixedUpdate()
     { 
         if (transform.position.y < GroundHeight && status.oxygen >= status.min_oxygen)
             status.oxygen -= Mathf.Abs(transform.position.y) * oxygen_consume;
@@ -48,7 +48,7 @@ void FixedUpdate()
     {
         if (direction != 0)
         {
-            WalingAnimation(direction);
+            WalkingAnimation(direction);
             Vector3 Direction = new Vector3(direction, 1, 1);
             transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z) ;
             direction_alter.Invoke(direction);
@@ -59,7 +59,7 @@ void FixedUpdate()
             _animator.SetBool("goRight", false);
         }
     }
-    public void WalingAnimation(float direction)
+    public void WalkingAnimation(float direction)
     {
         if (direction == 1) { _animator.SetBool("goRight", true); }
         else { _animator.SetBool("goLeft", true); }
@@ -73,9 +73,36 @@ void FixedUpdate()
     }
     public void DisableClimbingAnimation()
     {
-        if (_animator.GetInteger("climb") == 1)
+        if (_animator.GetInteger("climb") == 1 || _animator.GetInteger("climb") == 2)
         {
             _animator.SetInteger("climb", 0);
         }
+    }
+    public void ActiveLeftTileClimbingAnimation()
+    {
+        if (_animator.GetInteger("tileDirection") == 0)
+        {
+            _animator.SetInteger("climb", 2);
+            _animator.SetInteger("tileDirection", -1);
+        }
+    }
+    public void ActiveRightTileClimbingAnimation()
+    {
+        if (_animator.GetInteger("tileDirection") == 0)
+        {
+            _animator.SetInteger("climb", 2);
+            _animator.SetInteger("tileDirection", 1);
+        }
+    }
+    public void DisableTileClimbingAnimation()
+    {
+        if (_animator.GetInteger("tileDirection") == 1 || _animator.GetInteger("tileDirection") == -1)
+        {
+            _animator.SetInteger("tileDirection", 0);
+        }
+    }
+    public void ActiveLeftTileClimbingEndMotion()
+    {
+        
     }
 }

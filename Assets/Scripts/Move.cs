@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -53,18 +54,11 @@ public class Move : MonoBehaviour
         if(collider != null)
             isGround = true;
 
-
         Vector2 TargetVelocity;
         TargetVelocity = crawlUp && player.GroundHeight >= transform.position.y ? new Vector2(direction * speed, crawlSpeed) : new Vector2(direction * speed, m_rigidbody.velocity.y);
         Vector2 v = Vector2.zero;
-        if (crawlUp && player.GroundHeight >= transform.position.y)
-        {
-            player.ActiveClimbingAnimation();
-        }
-        else if(!crawlUp || player.GroundHeight < transform.position.y)
-        {
-            player.DisableClimbingAnimation();
-        }
+
+        PlayerClimbingAnimation();
 
         m_rigidbody.velocity = Vector2.SmoothDamp(m_rigidbody.velocity, TargetVelocity, ref v, 0.06f);
         player.SetDirection(direction);
@@ -74,5 +68,47 @@ public class Move : MonoBehaviour
 
         jump = false;
         crawlUp = false;
+
+        StartCoroutine(EndMotion()) ;
+    }
+
+    void PlayerClimbingAnimation()
+    {
+        RaycastHit2D leftTileHit = Physics2D.Raycast(transform.position, new Vector2(-1, 0), 0.42f, LayerMask.GetMask("Platform"));
+        RaycastHit2D rightTileHit = Physics2D.Raycast(transform.position, new Vector2(1, 0), 0.42f, LayerMask.GetMask("Platform"));
+
+        if (leftTileHit.collider && crawlUp && player.GroundHeight >= transform.position.y)
+        {
+            player.ActiveLeftTileClimbingAnimation();
+            player.ActiveClimbingAnimation();
+        }
+        else if (rightTileHit.collider && crawlUp && player.GroundHeight >= transform.position.y)
+        {
+            player.ActiveRightTileClimbingAnimation();
+            player.ActiveClimbingAnimation();
+        }
+        else if (crawlUp && player.GroundHeight >= transform.position.y)
+        {
+            player.DisableClimbingAnimation();
+            player.DisableTileClimbingAnimation();
+            player.ActiveClimbingAnimation();
+        }
+        else if (!crawlUp || player.GroundHeight < transform.position.y)
+        {
+            player.DisableClimbingAnimation();
+            player.DisableTileClimbingAnimation();
+        }
+    }
+    IEnumerator EndMotion()
+    {
+        yield return new WaitForSeconds(1.0f);
+        if (transform.position.y >= player.GroundHeight && transform.position.y < 1.0f)
+        {
+            player.transform.position = new Vector3(Mathf.Floor(player.transform.position.x), 2.0f, player.transform.position.z);
+            Debug.Log("x : " + Mathf.Floor(player.transform.position.x));
+            Debug.Log("y : " + Mathf.Floor(player.transform.position.y));
+            Debug.Log("z : " + Mathf.Floor(player.transform.position.z));
+            player.ActiveLeftTileClimbingEndMotion();
+        }
     }
 }
