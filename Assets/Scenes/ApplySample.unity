@@ -760,7 +760,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 10.078125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -25671,7 +25671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6995264944939636800, guid: 69d8e31e52dc02447ad848fb0f721ab9, type: 3}
       propertyPath: m_Name
-      value: owl
+      value: Owl
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25688,7 +25688,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
       propertyPath: m_Name
-      value: evilparao_owl
+      value: EvilParaoOwl
       objectReference: {fileID: 0}
     - target: {fileID: 3229346581304486645, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
       propertyPath: m_RootOrder
