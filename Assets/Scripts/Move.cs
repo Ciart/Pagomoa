@@ -101,14 +101,13 @@ public class Move : MonoBehaviour
     }
     IEnumerator EndMotion()
     {
-        yield return new WaitForSeconds(1.0f);
-        if (transform.position.y >= player.GroundHeight && transform.position.y < 1.0f)
+        if (transform.position.y >= player.GroundHeight-0.5f)
         {
             player.transform.position = new Vector3(Mathf.Floor(player.transform.position.x), 2.0f, player.transform.position.z);
-            Debug.Log("x : " + Mathf.Floor(player.transform.position.x));
-            Debug.Log("y : " + Mathf.Floor(player.transform.position.y));
-            Debug.Log("z : " + Mathf.Floor(player.transform.position.z));
             player.ActiveLeftTileClimbingEndMotion();
         }
+
+        yield return new WaitForSeconds(2.0f);
+        player.DisableLeftTileClimbingEndMotion();        
     }
 }

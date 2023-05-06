@@ -103,6 +103,10 @@ public class PlayerController : MonoBehaviour
     }
     public void ActiveLeftTileClimbingEndMotion()
     {
-        
+        _animator.SetBool("endClimb", true);
+    }
+    public void DisableLeftTileClimbingEndMotion()
+    {
+        _animator.SetBool("endClimb", false);
     }
 }
