@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6106656689615891392}
   - component: {fileID: 203254138293718782}
   m_Layer: 0
-  m_Name: evilparao_owl
+  m_Name: EvilParaoOwl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
