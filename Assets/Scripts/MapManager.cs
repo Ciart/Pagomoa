@@ -41,11 +41,11 @@ public class MapManager : MonoBehaviour
     {
         var point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -_camera.transform.position.z));
         
-        if(Input.GetMouseButtonDown(0))
-        {
-            var tile = GetTile(groundTilemap.layoutGrid.WorldToCell(point));
-            Debug.Log(tile.strength);
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    var tile = GetTile(groundTilemap.layoutGrid.WorldToCell(point));
+        //    Debug.Log(tile.strength);
+        //}
         
         if(Input.GetMouseButtonDown(1))
         {

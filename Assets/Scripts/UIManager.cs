@@ -19,7 +19,6 @@ public class UIManager : MonoBehaviour
         player.GetComponent<PlayerController>().hungry_alter.AddListener(UpdateHungryBar);
         player.GetComponent<PlayerController>().direction_alter.AddListener(SetPlayerUIDirection);
         InventoryUI.SetActive(ActiveInventory);
-
     }
     private void Update()
     {
