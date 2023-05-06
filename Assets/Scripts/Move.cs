@@ -69,7 +69,8 @@ public class Move : MonoBehaviour
         jump = false;
         crawlUp = false;
 
-        StartCoroutine(EndMotion()) ;
+        // 타일 벽타기 엔드모션 코두틴 함수
+        //StartCoroutine(EndMotion()) ;
     }
 
     void PlayerClimbingAnimation()
