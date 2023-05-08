@@ -9,14 +9,13 @@ namespace Player
     {
         private PlayerController player;
     
-        private Rigidbody2D m_rigidbody;
+        private Rigidbody2D _rigidbody;
 
         private Animator _animator;
 
         public float direction;
-        private bool jump;
-        private bool crawlUp;
-        private bool isGround;
+        private bool _jump;
+        private bool _crawlUp;
 
         public Transform groundCheck;
         
@@ -29,43 +28,42 @@ namespace Player
         void Awake()
         {
             player = GetComponent<PlayerController>();
-            m_rigidbody = GetComponent<Rigidbody2D>();
+            _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+        }
+
+        public void Jump()
+        {
+            _jump = true;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                jump = true;
-                isGround = false;
-            }
             if (Input.GetKey(KeyCode.C))
-                crawlUp = true;
+                _crawlUp = true;
 
             direction = Input.GetAxisRaw("Horizontal");
         }
         void FixedUpdate()
         {
-            Collider2D collider = Physics2D.OverlapCircle(groundCheck.position, 0.2f, player.WhatisGround);
-            if(collider != null)
-                isGround = true;
-
             Vector2 TargetVelocity;
-            TargetVelocity = crawlUp && player.GroundHeight >= transform.position.y ? new Vector2(direction * speed, crawlSpeed) : new Vector2(direction * speed, m_rigidbody.velocity.y);
+            TargetVelocity = _crawlUp && player.GroundHeight >= transform.position.y ? new Vector2(direction * speed, crawlSpeed) : new Vector2(direction * speed, _rigidbody.velocity.y);
             Vector2 v = Vector2.zero;
 
             PlayerClimbingAnimation();
 
-            m_rigidbody.velocity = Vector2.SmoothDamp(m_rigidbody.velocity, TargetVelocity, ref v, 0.06f);
+            _rigidbody.velocity = Vector2.SmoothDamp(_rigidbody.velocity, TargetVelocity, ref v, 0.06f);
             player.SetDirection(direction);
 
-            if (jump && isGround)
-                m_rigidbody.AddForce(new Vector2(0, jumpForce));
+            if (_jump)
+            {
+                _rigidbody.AddForce(new Vector2(0, jumpForce));
+             
+                _jump = false;
+            }
 
-            jump = false;
-            crawlUp = false;
+            _crawlUp = false;
 
             // Ÿ�� ��Ÿ�� ������ �ڵ�ƾ �Լ�
             //StartCoroutine(EndMotion()) ;
@@ -76,23 +74,23 @@ namespace Player
             RaycastHit2D leftTileHit = Physics2D.Raycast(transform.position, new Vector2(-1, 0), 0.42f, LayerMask.GetMask("Platform"));
             RaycastHit2D rightTileHit = Physics2D.Raycast(transform.position, new Vector2(1, 0), 0.42f, LayerMask.GetMask("Platform"));
 
-            if (leftTileHit.collider && crawlUp && player.GroundHeight >= transform.position.y)
+            if (leftTileHit.collider && _crawlUp && player.GroundHeight >= transform.position.y)
             {
                 player.ActiveLeftTileClimbingAnimation();
                 player.ActiveClimbingAnimation();
             }
-            else if (rightTileHit.collider && crawlUp && player.GroundHeight >= transform.position.y)
+            else if (rightTileHit.collider && _crawlUp && player.GroundHeight >= transform.position.y)
             {
                 player.ActiveRightTileClimbingAnimation();
                 player.ActiveClimbingAnimation();
             }
-            else if (crawlUp && player.GroundHeight >= transform.position.y)
+            else if (_crawlUp && player.GroundHeight >= transform.position.y)
             {
                 player.DisableClimbingAnimation();
                 player.DisableTileClimbingAnimation();
                 player.ActiveClimbingAnimation();
             }
-            else if (!crawlUp || player.GroundHeight < transform.position.y)
+            else if (!_crawlUp || player.GroundHeight < transform.position.y)
             {
                 player.DisableClimbingAnimation();
                 player.DisableTileClimbingAnimation();
