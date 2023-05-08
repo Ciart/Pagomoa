@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
+
+public enum PlayerState
+{
+    Idle,
+    Move,
+    Jump,
+    Dig,
+    Climb,
+}
 
 [RequireComponent(typeof(Status))]
 public class PlayerController : MonoBehaviour
 {
-    public Status status;
-
     public float GroundHeight = 0;
 
     public LayerMask WhatisGround;
@@ -16,8 +24,9 @@ public class PlayerController : MonoBehaviour
 
     public floatfloatEvent oxygen_alter;
     public floatfloatEvent hungry_alter;
-    public floatEvent direction_alter;
-
+    public floatEvent direction_alter; 
+    public Status status;
+    
     private Animator _animator;
 
     [System.Serializable]
@@ -33,6 +42,8 @@ public class PlayerController : MonoBehaviour
             hungry_alter = new floatfloatEvent();
         if (direction_alter == null)
             direction_alter = new floatEvent();
+
+        status = GetComponent<Status>();
         _animator = GetComponent<Animator>();
     }
     void FixedUpdate()
