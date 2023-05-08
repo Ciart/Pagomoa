@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19052adb9a7770044b59eed187f97d79
+guid: 58d794c2323912a48a552afc70f3bbce
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: evilparao_ow_idle_0
+      name: Attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,20 +115,20 @@ TextureImporter:
         width: 48
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9951d475cc6238418eb423bbd00f35b
-      internalID: 1080863225
+      spriteID: 3ebb5df866bb57749acf6466ee2b7bc0
+      internalID: -1462386918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: evilparao_ow_idle_1
+      name: Attack_1
       rect:
         serializedVersion: 2
         x: 48
@@ -136,20 +136,20 @@ TextureImporter:
         width: 48
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7048044b4d8866944960f023e9384704
-      internalID: -926021643
+      spriteID: b5a7f769d1d399a409993f50095fe1b1
+      internalID: -2024865902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: evilparao_ow_idle_2
+      name: Attack_2
       rect:
         serializedVersion: 2
         x: 96
@@ -157,14 +157,14 @@ TextureImporter:
         width: 48
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ddc2033d837c9343aa9a3ec55950e5a
-      internalID: -963123001
+      spriteID: 9a56fbaec5422484699d31c7f9ac9b3b
+      internalID: -1142291624
       vertices: []
       indices: 
       edges: []
@@ -180,9 +180,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      evilparao_ow_idle_0: 1080863225
-      evilparao_ow_idle_1: -926021643
-      evilparao_ow_idle_2: -963123001
+      Attack_0: -1462386918
+      Attack_1: -2024865902
+      Attack_2: -1142291624
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
