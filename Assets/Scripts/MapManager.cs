@@ -40,14 +40,14 @@ public class MapManager : MonoBehaviour
     private void Update()
     {
         var point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -_camera.transform.position.z));
-        
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    var tile = GetTile(groundTilemap.layoutGrid.WorldToCell(point));
-        //    Debug.Log(tile.strength);
-        //}
-        
-        if(Input.GetMouseButtonDown(1))
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            var tile = GetTile(groundTilemap.layoutGrid.WorldToCell(point));
+            Debug.Log(tile.strength);
+        }
+
+        if (Input.GetMouseButtonDown(1))
         {
             BreakTile(groundTilemap.layoutGrid.WorldToCell(point), debugTier);
         }

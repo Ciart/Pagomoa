@@ -14,11 +14,6 @@ public class SellNPC : MonoBehaviour
         if (SellWindowUI)
             SellWindowUI.SetActive(ActiveSellWindow);
     }
-    void OnMouseDown()
-    {
-        Debug.Log(Input.mousePosition);
-        SetSellWindow();
-    }
     public void SetSellWindow()
     {
         if (ActiveSellWindow)
