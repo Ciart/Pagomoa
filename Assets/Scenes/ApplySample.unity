@@ -396,12 +396,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18dac83e2e89aa469d1d98f38c80eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 100
+  _max_hp: 100
+  _attackpower: 100
+  _sight: 1
+  _insight: 1
+  _outsight: 1
+  _speed: 5
+  _inspeed: 5
+  _outspeed: 5
+  _dig_speed: 100
+  _crawlup_speed: 100
   _oxygen: 100
   _max_oxygen: 100
   _min_oxygen: 0
   _hungry: 100
   _max_hungry: 100
   _min_hungry: 0
+  _hp_recovery: 1
+  _oxygen_recovery: 1
+  _oxygen_consume: 1
+  _hungry_recovery: 1
+  _hungry_consume: 1
 --- !u!114 &354034897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status: {fileID: 354034896}
+  basicStatus: {fileID: 0}
   GroundHeight: 0
   WhatisGround:
     serializedVersion: 2
@@ -446,6 +463,12 @@ MonoBehaviour:
   direction_alter:
     m_PersistentCalls:
       m_Calls: []
+  equipments:
+  - {fileID: 11400000, guid: 855f74b119d7e1049955776f58f24136, type: 2}
+  - {fileID: 11400000, guid: 855f74b119d7e1049955776f58f24136, type: 2}
+  - {fileID: 11400000, guid: 855f74b119d7e1049955776f58f24136, type: 2}
+  - {fileID: 11400000, guid: 855f74b119d7e1049955776f58f24136, type: 2}
+  - {fileID: 11400000, guid: 855f74b119d7e1049955776f58f24136, type: 2}
 --- !u!70 &354034899
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -760,7 +783,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10.078125
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

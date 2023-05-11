@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d940253ce7a784a87a2978e53e8d5d, type: 3}
+  m_Name: four leaf clover
+  m_EditorClassIdentifier: 
+  itemName: "\uB124\uC78E\uD074\uB85C\uBC84"
+  itemType: 0
+  itemImage: {fileID: 1913839440, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uD589\uD589\uC6B4\uC774 \uAC00\uB4DD \uB2F4\uACA8\uC788\uB294 \uD074\uB85C\uBC84,
+    \uAC00\uC9C0\uACE0 \uC788\uC73C\uBA74 \uBB34\uC5B8\uAC00 \uC88B\uC740\uC77C\uC774
+    \uC0DD\uAE38\uC9C0\uB3C4?\uC6B4\uC774 \uAC00\uB4DD \uB2F4\uACA8\uC788\uB294 \uD074\uB85C\uBC84,
+    \uAC00\uC9C0\uACE0 \uC788\uC73C\uBA74 \uBB34\uC5B8\uAC00 \uC88B\uC740\uC77C\uC774
+    \uC0DD\uAE38\uC9C0\uB3C4?"
+  max_hp_Increase: 777
+  attackpower_increase: 0
+  out_sight_increase: 0
+  in_sight_increase: 0
+  sight_increase: 0
+  in_speed_increase: 0
+  out_speed_increase: 0
+  move_speed_increase: 0
+  dig_speed_Increase: 7
+  crawlup_speed_Increase: 0
+  max_oxygen_Increase: 0
+  max_hungry_Increase: 0
+  hp_recovery_Increase: 0
+  oxygen_recovery_Increase: 0
+  oxygen_consume_decrease: 0
+  hungry_recovery_Increase: 0
+  hungry_consume_decrease: 0
