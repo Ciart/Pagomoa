@@ -9,6 +9,8 @@ public class MapManager : MonoBehaviour
     public Tilemap groundTilemap;
     
     public Tilemap mineralTilemap;
+    
+    public float groundHeight = 0;
 
     public MineralEntity mineralEntity;
 
@@ -21,7 +23,7 @@ public class MapManager : MonoBehaviour
     {
         get
         {
-            if (_instance == null)
+            if (_instance is null)
             {
                 _instance = (MapManager)FindObjectOfType(typeof(MapManager));
             }

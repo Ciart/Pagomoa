@@ -42,12 +42,12 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 readyToDig = true;
-                GetComponent<Animator>().SetBool("dig", true);
+                // GetComponent<Animator>().SetBool("dig", true);
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 readyToDig = false;
-                GetComponent<Animator>().SetBool("dig", false);
+                // GetComponent<Animator>().SetBool("dig", false);
             }
         }
         private void FixedUpdate()
@@ -82,7 +82,7 @@ namespace Player
         {
             canDig = false;
 
-            MapManager Ground = GameObject.Find("Map Manager").GetComponent<MapManager>();
+            var Ground = MapManager.Instance;
             var tile1 = Ground.GetTile(point1);
             var tile2 = Ground.GetTile(point2);
             if (tile1 || tile2)
@@ -126,13 +126,13 @@ namespace Player
                 {
                     Ground.BreakTile(point1);
                     player.status.hungry -= 5;
-                    player.hungry_alter.Invoke(player.status.hungry, player.status.max_hungry);
+                    player.hungry_alter.Invoke(player.status.hungry, player.status.maxHungry);
                 }
                 if (time2 <= charging)
                 {
                     Ground.BreakTile(point2);
                     player.status.hungry -= 5;
-                    player.hungry_alter.Invoke(player.status.hungry, player.status.max_hungry);
+                    player.hungry_alter.Invoke(player.status.hungry, player.status.maxHungry);
                 }
                 ICanDig();
             }
