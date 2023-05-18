@@ -24,6 +24,8 @@ namespace Player
     
     public partial class PlayerController
     {
+        public event EventHandler<ChangeStateEventArgs> ChangeState;
+        
         private bool CheckClimb()
         {
             return _input.IsClimb && _map.CheckClimbable(transform.position);

@@ -5,7 +5,7 @@ namespace Player
 {
     public class PlayerInput : MonoBehaviour
     {
-        private InputActions _actions;
+        public InputActions.PlayerActions Actions;
 
         public Vector2 Move { get; private set; }
         
@@ -19,26 +19,26 @@ namespace Player
 
         private void Awake()
         {
-            _actions = new InputActions();
+            Actions = new InputActions().Player;
         }
         
         private void Update()
         {
-            Move = _actions.Player.Move.ReadValue<Vector2>();
-            IsDig = _actions.Player.Dig.IsPressed();
-            IsJump = _actions.Player.Jump.IsPressed();
-            IsClimb = _actions.Player.Climb.IsPressed();
-            IsInteraction = _actions.Player.Interaction.IsPressed();
+            Move = Actions.Move.ReadValue<Vector2>();
+            IsDig = Actions.Dig.IsPressed();
+            IsJump = Actions.Jump.IsPressed();
+            IsClimb = Actions.Climb.IsPressed();
+            IsInteraction = Actions.Interaction.IsPressed();
         }
         
         private void OnEnable()
         {
-            _actions.Player.Enable();
+            Actions.Enable();
         }
 
         private void OnDisable()
         {
-            _actions.Player.Disable();
+            Actions.Disable();
         }
     }
 }

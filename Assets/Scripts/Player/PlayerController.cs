@@ -11,34 +11,29 @@ namespace Player
 
         public bool isGrounded = false;
 
-        public Status status;
-
         private Rigidbody2D _rigidbody;
-
-        private Animator _animator;
 
         private PlayerInput _input;
 
         private PlayerMovement _movement;
+
+        private PlayerDigger _digger;
         
         private MapManager _map;
-        
-        public event EventHandler<ChangeStateEventArgs> ChangeState;
 
         private void Awake()
         {
-            status = GetComponent<Status>();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
+            _digger = GetComponent<PlayerDigger>();
             
             _map = MapManager.Instance;
         }
 
-        private void OnJump(InputAction.CallbackContext context)
+        private void TryJump()
         {
-            if (isGrounded && state is PlayerState.Climb or PlayerState.Fall)
+            if (!_input.IsJump || !isGrounded || state is PlayerState.Climb or PlayerState.Fall or PlayerState.Jump)
             {
                 return;
             }
@@ -51,7 +46,10 @@ namespace Player
         {
             UpdateState();
             
-            _actions.Player.Jump.performed += OnJump;
+            _movement.isClimb = state == PlayerState.Climb;
+            _movement.direction = _input.Move;
+            
+            TryJump();
         }
         
         private void UpdateIsGrounded()

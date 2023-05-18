@@ -6,28 +6,40 @@ using UnityEngine.Events;
 
 namespace Player
 {
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+    }
+    
     [RequireComponent(typeof(PlayerController))]
-    public class Dig : MonoBehaviour
+    public class PlayerDigger : MonoBehaviour
     {
         public UnityEvent OnDigEvent;
 
         public UnityEvent<float, float> DiggingEvent;
         public UnityEvent DigSuccessEvent;
-
-        private PlayerController player;
-        public float direction;
+        
+        public Direction direction;
         public float digSpeed = 10f;
 
         [SerializeField] public Transform HitPointDown;
         [SerializeField] public Transform HitPointHorizontal;
 
-        bool readyToDig;
-        bool canDig = true;
-        float charging = 0;
+        public bool isDig;
+        
+        private Status _status;
+
+        private bool _readyToDig;
+        private bool _canDig = true;
+        private float _charging = 0;
 
         private void Awake()
         {
-            player = GetComponent<PlayerController>();
+            _status = GetComponent<Status>();
+            
             if (OnDigEvent == null)
                 OnDigEvent = new UnityEvent();
             if (DigSuccessEvent == null)
@@ -35,30 +47,30 @@ namespace Player
             if (DiggingEvent == null)
                 DiggingEvent = new UnityEvent<float, float>();
         }
-        void Update()
-        {
-            direction = Input.GetAxisRaw("Horizontal");
 
-            if (Input.GetKeyDown(KeyCode.Space))
+        private void Update()
+        {
+            if (isDig)
             {
-                readyToDig = true;
+                _readyToDig = true;
                 // GetComponent<Animator>().SetBool("dig", true);
             }
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (isDig)
             {
-                readyToDig = false;
+                _readyToDig = false;
                 // GetComponent<Animator>().SetBool("dig", false);
             }
         }
+        
         private void FixedUpdate()
         {
             var mapManager = MapManager.Instance;
 
-            if (readyToDig && canDig)
+            if (_readyToDig && _canDig)
             {
                 Vector3Int po1;
                 Vector3Int po2;
-                if (direction == 0)
+                if (direction == Direction.Down)
                 {
                     po1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
                     po2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
@@ -74,13 +86,13 @@ namespace Player
         }
         void ICanDig()
         {
-            canDig = true;
-            charging = 0;
+            _canDig = true;
+            _charging = 0;
             OnDigEvent.Invoke();
         }
         IEnumerator PA(Vector3Int point1, Vector3Int point2)
         {
-            canDig = false;
+            _canDig = false;
 
             var Ground = MapManager.Instance;
             var tile1 = Ground.GetTile(point1);
@@ -95,7 +107,7 @@ namespace Player
 
                 Vector3Int currentPos1 = point1;
                 Vector3Int currentPos2 = point2;
-                while (readyToDig && (time1 > charging || time2 > charging))
+                while (_readyToDig && (time1 > _charging || time2 > _charging))
                 {
                     //Debug.Log("굴착중!");
                     if (direction == 0)
@@ -109,9 +121,9 @@ namespace Player
                         currentPos2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position - new Vector3(0, 0.3f, 0));
                     }
 
-                    charging += Time.fixedDeltaTime;
+                    _charging += Time.fixedDeltaTime;
                     float time = time1 >= time2 ? time1 : time2;
-                    DiggingEvent.Invoke(charging, time);
+                    DiggingEvent.Invoke(_charging, time);
 
                     yield return new WaitForSeconds(Time.fixedDeltaTime);
                     // 파던 위치가 달라지면 초기화 및 탈출
@@ -122,17 +134,17 @@ namespace Player
                         yield break;
                     }
                 }
-                if (time1 <= charging)
+                if (time1 <= _charging)
                 {
                     Ground.BreakTile(point1);
-                    player.status.hungry -= 5;
-                    player.hungry_alter.Invoke(player.status.hungry, player.status.maxHungry);
+                    _status.hungry -= 5;
+                    _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
-                if (time2 <= charging)
+                if (time2 <= _charging)
                 {
                     Ground.BreakTile(point2);
-                    player.status.hungry -= 5;
-                    player.hungry_alter.Invoke(player.status.hungry, player.status.maxHungry);
+                    _status.hungry -= 5;
+                    _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
                 ICanDig();
             }
