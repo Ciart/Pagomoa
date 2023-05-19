@@ -17,14 +17,14 @@ namespace Player
         
         public float jumpForce = 650f;
         
-        public Vector2 direction = Vector2.zero;
+        public Vector2 directionVector = Vector2.zero;
         
-        private static readonly int DirectionX = Animator.StringToHash("directionX");
-        private static readonly int DirectionY = Animator.StringToHash("directionY");
-        private static readonly int VelocityX = Animator.StringToHash("velocityX");
-        private static readonly int VelocityY = Animator.StringToHash("velocityY");
-        private static readonly int Speed = Animator.StringToHash("speed");
-        private static readonly int IsClimb = Animator.StringToHash("isClimb");
+        private static readonly int AnimatorDirectionX = Animator.StringToHash("directionX");
+        private static readonly int AnimatorDirectionY = Animator.StringToHash("directionY");
+        private static readonly int AnimatorVelocityX = Animator.StringToHash("velocityX");
+        private static readonly int AnimatorVelocityY = Animator.StringToHash("velocityY");
+        private static readonly int AnimatorSpeed = Animator.StringToHash("speed");
+        private static readonly int AnimatorIsClimb = Animator.StringToHash("isClimb");
 
         private Rigidbody2D _rigidbody;
 
@@ -48,7 +48,7 @@ namespace Player
         
         private void UpdateClimb()
         {
-            var velocity = direction.normalized * (climbSpeed * Time.deltaTime);
+            var velocity = directionVector.normalized * (climbSpeed * Time.deltaTime);
 
             // PlayerClimbingAnimation();
 
@@ -58,7 +58,7 @@ namespace Player
 
         private void UpdateWalk()
         {
-            var velocity = new Vector2(direction.x * speed * Time.deltaTime, _rigidbody.velocity.y);
+            var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.velocity.y);
 
             _rigidbody.velocity = velocity;
             _rigidbody.gravityScale = gravityScale;
@@ -87,12 +87,12 @@ namespace Player
 
         private void UpdateAnimation()
         {
-            _animator.SetFloat(DirectionX, direction.x);
-            _animator.SetFloat(DirectionY, direction.y);
-            _animator.SetFloat(VelocityX, Mathf.Abs(_rigidbody.velocity.x));
-            _animator.SetFloat(VelocityY, _rigidbody.velocity.y);
-            _animator.SetFloat(Speed, _rigidbody.velocity.magnitude / 5f);
-            _animator.SetBool(IsClimb, isClimb);
+            _animator.SetFloat(AnimatorDirectionX, directionVector.x);
+            _animator.SetFloat(AnimatorDirectionY, directionVector.y);
+            _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.velocity.x));
+            _animator.SetFloat(AnimatorVelocityY, _rigidbody.velocity.y);
+            _animator.SetFloat(AnimatorSpeed, _rigidbody.velocity.magnitude / 5f);
+            _animator.SetBool(AnimatorIsClimb, isClimb);
         }
     }
 }

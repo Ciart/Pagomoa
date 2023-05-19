@@ -427,7 +427,7 @@ MonoBehaviour:
   speed: 250
   climbSpeed: 250
   jumpForce: 650
-  direction: {x: 0, y: 0}
+  directionVector: {x: 0, y: 0}
 --- !u!114 &354034898
 MonoBehaviour:
   m_ObjectHideFlags: 0

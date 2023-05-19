@@ -13,7 +13,27 @@ namespace Player
         Left,
         Right,
     }
-    
+
+    public static class DirectionUtility
+    {
+        private static readonly Vector2 BaseVector = new Vector2(1f, 1f);
+        
+        public static Direction ToDirection(Vector2 vector)
+        {
+            var signedAngle = Vector2.SignedAngle(BaseVector, vector);
+            var angle = signedAngle < 0 ? 360 + signedAngle : signedAngle;
+
+            return angle switch
+            {
+                >= 0 and < 90 => Direction.Up,
+                >= 90 and < 180 => Direction.Left,
+                >= 180 and < 270 => Direction.Down,
+                >= 270 and < 360 => Direction.Right,
+                _ => Direction.Down
+            };
+        }
+    }
+
     [RequireComponent(typeof(PlayerController))]
     public class PlayerDigger : MonoBehaviour
     {
@@ -32,6 +52,8 @@ namespace Player
         
         private Status _status;
 
+        private static readonly int AnimatorIsDig = Animator.StringToHash("isDig");
+        
         public  bool isDig;
         private bool _canDig = true;
         private float _charging = 0;
@@ -51,7 +73,7 @@ namespace Player
 
         private void Update()
         {
-            _animator.SetBool("isDig", isDig);
+            _animator.SetBool(AnimatorIsDig, isDig);
         }
         
         private void FixedUpdate()
@@ -62,15 +84,22 @@ namespace Player
             {
                 Vector3Int po1;
                 Vector3Int po2;
-                if (direction == Direction.Down)
+                if (direction == Direction.Left)
                 {
-                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
-                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                    var position = transform.position;
+                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
+                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
+                }
+                else if (direction == Direction.Right)
+                {
+                    var position = transform.position;
+                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
+                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
                 }
                 else
                 {
-                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position + new Vector3(0, 0.3f, 0));
-                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position - new Vector3(0, 0.3f, 0));
+                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
                 }
                 StartCoroutine(PA(po1, po2));
 
@@ -86,9 +115,9 @@ namespace Player
         {
             _canDig = false;
 
-            var Ground = MapManager.Instance;
-            var tile1 = Ground.GetTile(point1);
-            var tile2 = Ground.GetTile(point2);
+            var mapManager = MapManager.Instance;
+            var tile1 = mapManager.GetTile(point1);
+            var tile2 = mapManager.GetTile(point2);
             if (tile1 || tile2)
             {
                 Debug.Log("굴착시작!");
@@ -102,15 +131,22 @@ namespace Player
                 while (isDig && (time1 > _charging || time2 > _charging))
                 {
                     //Debug.Log("굴착중!");
-                    if (direction == Direction.Down)
+                    if (direction == Direction.Left)
                     {
-                        currentPos1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
-                        currentPos2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                        var position = transform.position;
+                        currentPos1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
+                        currentPos2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        var position = transform.position;
+                        currentPos1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
+                        currentPos2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
                     }
                     else
                     {
-                        currentPos1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position + new Vector3(0, 0.3f, 0));
-                        currentPos2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointHorizontal.position - new Vector3(0, 0.3f, 0));
+                        currentPos1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                        currentPos2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
                     }
 
                     _charging += Time.fixedDeltaTime;
@@ -128,13 +164,13 @@ namespace Player
                 }
                 if (time1 <= _charging)
                 {
-                    Ground.BreakTile(point1);
+                    mapManager.BreakTile(point1);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
                 if (time2 <= _charging)
                 {
-                    Ground.BreakTile(point2);
+                    mapManager.BreakTile(point2);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
