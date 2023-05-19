@@ -48,6 +48,8 @@ namespace Player
             
             _movement.isClimb = state == PlayerState.Climb;
             _movement.direction = _input.Move;
+
+            _digger.isDig = state == PlayerState.Dig;
             
             TryJump();
         }

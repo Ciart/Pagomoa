@@ -377,6 +377,7 @@ GameObject:
   - component: {fileID: 354034903}
   - component: {fileID: 354034904}
   - component: {fileID: 354034905}
+  - component: {fileID: 354034906}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -396,12 +397,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18dac83e2e89aa469d1d98f38c80eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _oxygen: 100
-  _max_oxygen: 100
-  _min_oxygen: 0
-  _hungry: 100
-  _max_hungry: 100
-  _min_hungry: 0
+  oxygen: 100
+  oxygenConsume: 0.001
+  maxOxygen: 100
+  minOxygen: 0
+  hungry: 100
+  maxHungry: 100
+  minHungry: 0
+  oxygenAlter:
+    m_PersistentCalls:
+      m_Calls: []
+  hungryAlter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &354034897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,11 +422,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8b3a37fea221d419fd0e03ffccfaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  groundCheck: {fileID: 773969161}
-  speed: 5
-  jumpForce: 950
-  crawlSpeed: 10
+  isClimb: 0
+  gravityScale: 2.5
+  speed: 250
+  climbSpeed: 250
+  jumpForce: 650
+  direction: {x: 0, y: 0}
 --- !u!114 &354034898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,19 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  isGround: 0
-  GroundHeight: 0
-  oxygen_consume: 0.001
-  status: {fileID: 354034896}
-  oxygen_alter:
-    m_PersistentCalls:
-      m_Calls: []
-  hungry_alter:
-    m_PersistentCalls:
-      m_Calls: []
-  direction_alter:
-    m_PersistentCalls:
-      m_Calls: []
+  isGrounded: 0
 --- !u!70 &354034899
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -587,24 +584,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 354034895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fb1cc443a31354a9588eb4dcba02f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a3baccdf20f8482c9cdef7e300c47b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnDigEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 690172171}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SetDigGagefalse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   DiggingEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -615,6 +600,7 @@ MonoBehaviour:
   digSpeed: 10
   HitPointDown: {fileID: 1195835165}
   HitPointHorizontal: {fileID: 2089383821}
+  isDig: 0
 --- !u!114 &354034904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,6 +638,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &354034906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354034895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90693324e01c45be849bd36109ee9dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +757,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2052,6 +2050,7 @@ MonoBehaviour:
   backgroundTilemap: {fileID: 1344126190}
   groundTilemap: {fileID: 2143556640}
   mineralTilemap: {fileID: 1107110433}
+  groundHeight: 0
   mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
   debugTier: 10
 --- !u!4 &1135593059

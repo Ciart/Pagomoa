@@ -19,6 +19,13 @@ namespace Player
         
         public Vector2 direction = Vector2.zero;
         
+        private static readonly int DirectionX = Animator.StringToHash("directionX");
+        private static readonly int DirectionY = Animator.StringToHash("directionY");
+        private static readonly int VelocityX = Animator.StringToHash("velocityX");
+        private static readonly int VelocityY = Animator.StringToHash("velocityY");
+        private static readonly int Speed = Animator.StringToHash("speed");
+        private static readonly int IsClimb = Animator.StringToHash("isClimb");
+
         private Rigidbody2D _rigidbody;
 
         private Animator _animator;
@@ -41,7 +48,7 @@ namespace Player
         
         private void UpdateClimb()
         {
-            var velocity = direction.normalized * climbSpeed * Time.deltaTime;
+            var velocity = direction.normalized * (climbSpeed * Time.deltaTime);
 
             // PlayerClimbingAnimation();
 
@@ -74,6 +81,18 @@ namespace Player
             {
                 UpdateWalk();
             }
+
+            UpdateAnimation();
+        }
+
+        private void UpdateAnimation()
+        {
+            _animator.SetFloat(DirectionX, direction.x);
+            _animator.SetFloat(DirectionY, direction.y);
+            _animator.SetFloat(VelocityX, Mathf.Abs(_rigidbody.velocity.x));
+            _animator.SetFloat(VelocityY, _rigidbody.velocity.y);
+            _animator.SetFloat(Speed, _rigidbody.velocity.magnitude / 5f);
+            _animator.SetBool(IsClimb, isClimb);
         }
     }
 }

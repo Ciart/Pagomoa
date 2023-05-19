@@ -28,16 +28,17 @@ namespace Player
         [SerializeField] public Transform HitPointDown;
         [SerializeField] public Transform HitPointHorizontal;
 
-        public bool isDig;
+        private Animator _animator;
         
         private Status _status;
 
-        private bool _readyToDig;
+        public  bool isDig;
         private bool _canDig = true;
         private float _charging = 0;
 
         private void Awake()
         {
+            _animator = GetComponent<Animator>();
             _status = GetComponent<Status>();
             
             if (OnDigEvent == null)
@@ -50,23 +51,14 @@ namespace Player
 
         private void Update()
         {
-            if (isDig)
-            {
-                _readyToDig = true;
-                // GetComponent<Animator>().SetBool("dig", true);
-            }
-            if (isDig)
-            {
-                _readyToDig = false;
-                // GetComponent<Animator>().SetBool("dig", false);
-            }
+            _animator.SetBool("isDig", isDig);
         }
         
         private void FixedUpdate()
         {
             var mapManager = MapManager.Instance;
 
-            if (_readyToDig && _canDig)
+            if (isDig && _canDig)
             {
                 Vector3Int po1;
                 Vector3Int po2;
@@ -107,10 +99,10 @@ namespace Player
 
                 Vector3Int currentPos1 = point1;
                 Vector3Int currentPos2 = point2;
-                while (_readyToDig && (time1 > _charging || time2 > _charging))
+                while (isDig && (time1 > _charging || time2 > _charging))
                 {
                     //Debug.Log("굴착중!");
-                    if (direction == 0)
+                    if (direction == Direction.Down)
                     {
                         currentPos1 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
                         currentPos2 = Ground.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
