@@ -8,7 +8,6 @@ namespace Player
         Walk,
         Jump,
         Fall,
-        Dig,
         Climb,
     }
 
@@ -41,11 +40,6 @@ namespace Player
             return state == PlayerState.Jump;
         }
 
-        private bool CheckDig()
-        {
-            return _input.IsDig;
-        }
-
         private bool CheckWalk()
         {
             return Math.Abs(_input.Move.x) > 0;
@@ -64,10 +58,6 @@ namespace Player
             else if (CheckJump())
             {
                 return PlayerState.Jump;
-            }
-            else if (CheckDig())
-            {
-                return PlayerState.Dig;
             }
             else if (CheckWalk())
             {

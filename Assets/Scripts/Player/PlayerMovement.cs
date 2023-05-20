@@ -12,13 +12,13 @@ namespace Player
         public float gravityScale = 2.5f;
 
         public float speed = 250f;
-        
+
         public float climbSpeed = 250f;
-        
+
         public float jumpForce = 650f;
-        
+
         public Vector2 directionVector = Vector2.zero;
-        
+
         private static readonly int AnimatorDirectionX = Animator.StringToHash("directionX");
         private static readonly int AnimatorDirectionY = Animator.StringToHash("directionY");
         private static readonly int AnimatorVelocityX = Animator.StringToHash("velocityX");
@@ -31,26 +31,32 @@ namespace Player
         private Animator _animator;
 
         private MapManager _map;
-        
+
         private bool _isJump;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _map = GetComponent<MapManager>();
+
+            _map = MapManager.Instance;
         }
 
         public void Jump()
         {
             _isJump = true;
         }
-        
+
         private void UpdateClimb()
         {
             var velocity = directionVector.normalized * (climbSpeed * Time.deltaTime);
 
-            // PlayerClimbingAnimation();
+            var a = transform.position + new Vector3(0f, 1f, 0f);
+
+            if (!_map.CheckClimbable(a))
+            {
+                velocity = new Vector2(velocity.x, Mathf.Min(velocity.y, a.y));
+            }
 
             _rigidbody.velocity = velocity;
             _rigidbody.gravityScale = 0;
@@ -69,10 +75,10 @@ namespace Player
             if (_isJump)
             {
                 _rigidbody.AddForce(new Vector2(0, jumpForce));
-                
+
                 _isJump = false;
             }
-            
+
             if (isClimb)
             {
                 UpdateClimb();
@@ -87,8 +93,8 @@ namespace Player
 
         private void UpdateAnimation()
         {
-            _animator.SetFloat(AnimatorDirectionX, directionVector.x);
-            _animator.SetFloat(AnimatorDirectionY, directionVector.y);
+            _animator.SetFloat(AnimatorDirectionX, directionVector.x > 0.0001 ? 1 : 0);
+            _animator.SetFloat(AnimatorDirectionY, directionVector.y > 0.0001 ? 1 : 0);
             _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.velocity.x));
             _animator.SetFloat(AnimatorVelocityY, _rigidbody.velocity.y);
             _animator.SetFloat(AnimatorSpeed, _rigidbody.velocity.magnitude / 5f);

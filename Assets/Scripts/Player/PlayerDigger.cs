@@ -1,39 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Constants;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Player
 {
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-    }
-
-    public static class DirectionUtility
-    {
-        private static readonly Vector2 BaseVector = new Vector2(1f, 1f);
-        
-        public static Direction ToDirection(Vector2 vector)
-        {
-            var signedAngle = Vector2.SignedAngle(BaseVector, vector);
-            var angle = signedAngle < 0 ? 360 + signedAngle : signedAngle;
-
-            return angle switch
-            {
-                >= 0 and < 90 => Direction.Up,
-                >= 90 and < 180 => Direction.Left,
-                >= 180 and < 270 => Direction.Down,
-                >= 270 and < 360 => Direction.Right,
-                _ => Direction.Down
-            };
-        }
-    }
-
     [RequireComponent(typeof(PlayerController))]
     public class PlayerDigger : MonoBehaviour
     {
@@ -52,8 +25,6 @@ namespace Player
         
         private Status _status;
 
-        private static readonly int AnimatorIsDig = Animator.StringToHash("isDig");
-        
         public  bool isDig;
         private bool _canDig = true;
         private float _charging = 0;
@@ -71,11 +42,6 @@ namespace Player
                 DiggingEvent = new UnityEvent<float, float>();
         }
 
-        private void Update()
-        {
-            _animator.SetBool(AnimatorIsDig, isDig);
-        }
-        
         private void FixedUpdate()
         {
             var mapManager = MapManager.Instance;

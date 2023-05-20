@@ -1,4 +1,5 @@
 using System;
+using Constants;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ namespace Player
 
         public bool isGrounded = false;
 
+        public GameObject drill;
+        
         private Rigidbody2D _rigidbody;
 
         private PlayerInput _input;
@@ -18,7 +21,7 @@ namespace Player
         private PlayerMovement _movement;
 
         private PlayerDigger _digger;
-        
+
         private MapManager _map;
 
         private void Awake()
@@ -27,7 +30,7 @@ namespace Player
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
-            
+
             _map = MapManager.Instance;
         }
 
@@ -37,7 +40,7 @@ namespace Player
             {
                 return;
             }
-            
+
             state = PlayerState.Jump;
             _movement.Jump();
         }
@@ -45,16 +48,27 @@ namespace Player
         private void Update()
         {
             UpdateState();
-            
+
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
 
-            _digger.isDig = state == PlayerState.Dig;
-            _digger.direction = DirectionUtility.ToDirection(_input.Move);
+            if (_input.IsDig && state != PlayerState.Climb)
+            {
+                var direction = DirectionUtility.ToDirection(_input.Move);
+
+                _digger.isDig = true;
+                _digger.direction = direction == Direction.Up ? Direction.Down : direction;
+                drill.SetActive(true);
+            }
+            else
+            {
+                _digger.isDig = false;
+                drill.SetActive(false);
+            }
             
             TryJump();
         }
-        
+
         private void UpdateIsGrounded()
         {
             var position = transform.position;
