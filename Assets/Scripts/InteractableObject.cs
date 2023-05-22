@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+
+public class InteractableObject : MonoBehaviour
+{
+    public SpriteRenderer SpriteRenderer;
+    public Light2D Highlight;
+
+    void Start()
+    {
+        Debug.Log(transform.GetChild(1).name);
+        SpriteRenderer = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
+        Highlight = transform.GetChild(1).GetComponentInChildren<Light2D>();
+        SpriteRenderer.enabled = false;
+        Highlight.enabled = false;
+    }
+    public void ActiveObject()
+    {
+        SpriteRenderer.enabled = true;
+        Highlight.enabled = true;
+    }
+    public void DisableObject()
+    {
+        SpriteRenderer.enabled = false;
+        Highlight.enabled = false;
+    }
+    public void InteractObject()
+    {
+        Debug.Log("해당 오브젝트랑 상호작용 합니다.");
+    }
+}
