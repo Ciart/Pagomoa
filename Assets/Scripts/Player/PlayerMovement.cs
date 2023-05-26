@@ -16,7 +16,8 @@ namespace Player
         public float climbSpeed = 250f;
 
         public float jumpForce = 650f;
-
+      
+        // TODO: 최대 거리 검사가 필요 함.
         public Vector2 directionVector = Vector2.zero;
 
         private static readonly int AnimatorDirectionX = Animator.StringToHash("directionX");
@@ -49,7 +50,7 @@ namespace Player
 
         private void UpdateClimb()
         {
-            var velocity = directionVector.normalized * (climbSpeed * Time.deltaTime);
+            var velocity = directionVector * (climbSpeed * Time.deltaTime);
 
             var a = transform.position + new Vector3(0f, 1f, 0f);
 
