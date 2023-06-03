@@ -1,13 +1,15 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
+        public bool canMove = true;
+
         public bool isClimb;
+
+        public bool isSideWall;
 
         public float gravityScale = 2.5f;
 
@@ -16,7 +18,7 @@ namespace Player
         public float climbSpeed = 250f;
 
         public float jumpForce = 650f;
-      
+
         // TODO: 최대 거리 검사가 필요 함.
         public Vector2 directionVector = Vector2.zero;
 
@@ -26,6 +28,7 @@ namespace Player
         private static readonly int AnimatorVelocityY = Animator.StringToHash("velocityY");
         private static readonly int AnimatorSpeed = Animator.StringToHash("speed");
         private static readonly int AnimatorIsClimb = Animator.StringToHash("isClimb");
+        private static readonly int AnimatorIsSideWall = Animator.StringToHash("isSideWall");
 
         private Rigidbody2D _rigidbody;
 
@@ -52,11 +55,14 @@ namespace Player
         {
             var velocity = directionVector * (climbSpeed * Time.deltaTime);
 
-            var a = transform.position + new Vector3(0f, 1f, 0f);
+            // var a = transform.position + new Vector3(0f, 1f, 0f);
 
-            if (!_map.CheckClimbable(a))
+            if (velocity.y > 0 && !_map.CheckClimbable(transform.position))
             {
-                velocity = new Vector2(velocity.x, Mathf.Min(velocity.y, a.y));
+                // Debug.Log("a: " + (Mathf.Floor(a.y) - transform.position.y));
+                // Debug.Log("b: " + velocity.y);
+                // velocity = new Vector2(velocity.x, Mathf.Min(Mathf.Floor(a.y) - transform.position.y, velocity.y));
+                velocity.y = 0;
             }
 
             _rigidbody.velocity = velocity;
@@ -73,6 +79,11 @@ namespace Player
 
         private void FixedUpdate()
         {
+            if (!canMove)
+            {
+                return;
+            }
+
             if (_isJump)
             {
                 _rigidbody.AddForce(new Vector2(0, jumpForce));
@@ -94,12 +105,13 @@ namespace Player
 
         private void UpdateAnimation()
         {
-            _animator.SetFloat(AnimatorDirectionX, directionVector.x > 0.0001 ? 1 : 0);
-            _animator.SetFloat(AnimatorDirectionY, directionVector.y > 0.0001 ? 1 : 0);
+            _animator.SetFloat(AnimatorDirectionX, directionVector.x);
+            _animator.SetFloat(AnimatorDirectionY, directionVector.y);
             _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.velocity.x));
             _animator.SetFloat(AnimatorVelocityY, _rigidbody.velocity.y);
             _animator.SetFloat(AnimatorSpeed, _rigidbody.velocity.magnitude / 5f);
             _animator.SetBool(AnimatorIsClimb, isClimb);
+            _animator.SetBool(AnimatorIsSideWall, isSideWall);
         }
     }
 }
