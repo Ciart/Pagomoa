@@ -33,7 +33,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Climb
+  m_Name: ClimbBack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -610,7 +610,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_tileClimbEndMotion
+  m_Name: ClimbEndMotionLeft
   m_Speed: 0.6
   m_CycleOffset: 0
   m_Transitions: []
@@ -782,7 +782,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_tileClimb_right
+  m_Name: ClimbRight
   m_Speed: 0.12
   m_CycleOffset: 0
   m_Transitions:
@@ -859,7 +859,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_tileClimb_left
+  m_Name: ClimbLeft
   m_Speed: 0.12
   m_CycleOffset: 0
   m_Transitions:
@@ -1998,7 +1998,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_idle
+  m_Name: Idle
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
