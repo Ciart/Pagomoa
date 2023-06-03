@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3b77248b1695c80448a024a4d08700fd
+guid: 20003fd22c8f1024ba9c0c205e9d90cb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,127 +107,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_0
+      name: Player_TileClimbing_Left-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 34
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b2a43bb763fc2b44b7a790e93d237cb
-      internalID: -238281321
+      spriteID: 31e9287934df34e44ad7d59bb54c40ca
+      internalID: 130394971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_1
+      name: Player_TileClimbing_Left-Sheet_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 48
         y: 0
-        width: 41
-        height: 34
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8684e8015c9709e4d88ccb0874a0e11e
-      internalID: -295380077
+      spriteID: 78f395f6382c21b438e27302624dca4a
+      internalID: -178135911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_2
+      name: Player_TileClimbing_Left-Sheet_2
       rect:
         serializedVersion: 2
-        x: 81
+        x: 96
         y: 0
-        width: 41
-        height: 34
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 379b856a1e00f054ea3bad9dbef30449
-      internalID: 878928571
+      spriteID: cfdf1b10a9ae38b47a7febf89ee3d01c
+      internalID: 941781452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_3
+      name: Player_TileClimbing_Left-Sheet_3
       rect:
         serializedVersion: 2
-        x: 122
+        x: 144
         y: 0
-        width: 41
-        height: 34
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 635229a7ecd116f4c965a3df1fcfdc74
-      internalID: -2009451315
+      spriteID: d83a5d21c378df04db685b21a5b73245
+      internalID: 1881127654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_4
+      name: Player_TileClimbing_Left-Sheet_4
       rect:
         serializedVersion: 2
-        x: 163
+        x: 192
         y: 0
-        width: 41
-        height: 34
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58deb97301d81b84ca50a907f02ff32e
-      internalID: -810565646
+      spriteID: 6dc0f254abd7e714baca3b25bed72ad8
+      internalID: -52295464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_5
+      name: Player_TileClimbing_Left-Sheet_5
       rect:
         serializedVersion: 2
-        x: 204
+        x: 240
         y: 0
-        width: 41
-        height: 34
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb36ff4be0e9b454aa3269934f0d7d38
-      internalID: 1247683423
+      spriteID: f7e66298bfe24fb4fa49381c85c38c89
+      internalID: 1871148227
       vertices: []
       indices: 
       edges: []
@@ -243,12 +243,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_TileClimbing_Right-Sheet_0: -238281321
-      Player_TileClimbing_Right-Sheet_1: -295380077
-      Player_TileClimbing_Right-Sheet_2: 878928571
-      Player_TileClimbing_Right-Sheet_3: -2009451315
-      Player_TileClimbing_Right-Sheet_4: -810565646
-      Player_TileClimbing_Right-Sheet_5: 1247683423
+      Player_TileClimbing_Left-Sheet_0: 130394971
+      Player_TileClimbing_Left-Sheet_1: -178135911
+      Player_TileClimbing_Left-Sheet_2: 941781452
+      Player_TileClimbing_Left-Sheet_3: 1881127654
+      Player_TileClimbing_Left-Sheet_4: -52295464
+      Player_TileClimbing_Left-Sheet_5: 1871148227
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
