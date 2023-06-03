@@ -4,37 +4,40 @@ using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
+    public Tilemap backgroundTilemap;
+
     public Tilemap groundTilemap;
     
     public Tilemap mineralTilemap;
+    
+    public float groundHeight = 0;
 
     public MineralEntity mineralEntity;
 
     public int debugTier;
-    
-    // private static MapManager _instance = null;
+
+    private static MapManager _instance = null;
     private Camera _camera;
 
+    public static MapManager Instance
+    {
+        get
+        {
+            if (_instance is null)
+            {
+                _instance = (MapManager)FindObjectOfType(typeof(MapManager));
+            }
 
-    // public static MapManager Instance
-    // {
-    //     get
-    //     {
-    //         if (_instance == null)
-    //         {
-    //             var obj = new GameObject(nameof(MapManager));
-    //             _instance = obj.AddComponent<MapManager>();
-    //         }
-    //         
-    //         return _instance;
-    //     }
-    // }
-    
+            return _instance;
+        }
+    }
+
     private void Awake()
     {
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+
         _camera = Camera.main;
-        // _instance = this;
-        // DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -71,5 +74,17 @@ public class MapManager : MonoBehaviour
 
         groundTilemap.SetTile(position, null);
         mineralTilemap.SetTile(position, null);
+    }
+
+    public bool CheckClimbable(Vector3 position)
+    {
+        var tile = backgroundTilemap.GetTile(Vector3Int.FloorToInt(position));
+
+        if (tile is null)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

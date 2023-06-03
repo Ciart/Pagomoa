@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Player;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,10 +15,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         GameObject player = GameObject.Find("Player");
-        player.GetComponent<Dig>().DiggingEvent.AddListener(SetDigGage);
-        player.GetComponent<PlayerController>().oxygen_alter.AddListener(UpdateOxygenBar);
-        player.GetComponent<PlayerController>().hungry_alter.AddListener(UpdateHungryBar);
-        player.GetComponent<PlayerController>().direction_alter.AddListener(SetPlayerUIDirection);
+        player.GetComponent<PlayerDigger>().DiggingEvent.AddListener(SetDigGage);
+        player.GetComponent<Status>().oxygenAlter.AddListener(UpdateOxygenBar);
+        player.GetComponent<Status>().hungryAlter.AddListener(UpdateHungryBar);
         InventoryUI.SetActive(ActiveInventory);
 
     }
@@ -38,10 +38,10 @@ public class UIManager : MonoBehaviour
     {
         hungrybar.fillAmount = current_hungry / max_hungry;
     }
-    public void SetPlayerUIDirection(float direction)
-    {
-        transform.localScale = new Vector3(direction, 1, 1);
-    }
+    // public void SetPlayerUIDirection(float direction)
+    // {
+    //     transform.localScale = new Vector3(direction, 1, 1);
+    // }
     public void SetDigGagefalse()
     {
         digbar.enabled = false;
