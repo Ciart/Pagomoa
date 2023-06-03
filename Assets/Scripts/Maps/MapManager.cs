@@ -15,31 +15,32 @@ namespace Maps
 
         public int debugTier;
 
-        // private static MapManager _instance = null;
+        private static MapManager _instance = null;
+        
         private Camera _camera;
 
         private Brick[,] _map;
 
 
-        // public static MapManager Instance
-        // {
-        //     get
-        //     {
-        //         if (_instance == null)
-        //         {
-        //             var obj = new GameObject(nameof(MapManager));
-        //             _instance = obj.AddComponent<MapManager>();
-        //         }
-        //         
-        //         return _instance;
-        //     }
-        // }
+        public static MapManager Instance
+        {
+            get
+            {
+                if (_instance is null)
+                {
+                    _instance = (MapManager)FindObjectOfType(typeof(MapManager));
+                }
+
+                return _instance;
+            }
+        }
 
         private void Awake()
         {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+
             _camera = Camera.main;
-            // _instance = this;
-            // DontDestroyOnLoad(gameObject);
         }
 
         private void Update()
@@ -123,6 +124,18 @@ namespace Maps
 
             groundTilemap.SetTile(position, null);
             mineralTilemap.SetTile(position, null);
+        }
+        
+        public bool CheckClimbable(Vector3 position)
+        {
+            var tile = backgroundTilemap.GetTile(Vector3Int.FloorToInt(position));
+
+            if (tile is null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
