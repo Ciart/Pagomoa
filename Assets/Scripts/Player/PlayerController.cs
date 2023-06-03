@@ -1,7 +1,6 @@
 using System;
 using Constants;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -13,7 +12,9 @@ namespace Player
         public bool isGrounded = false;
 
         public GameObject drill;
-        
+
+        public float sideWallDirection = 1f + 0.0625f;
+
         private Rigidbody2D _rigidbody;
 
         private PlayerInput _input;
@@ -23,6 +24,8 @@ namespace Player
         private PlayerDigger _digger;
 
         private MapManager _map;
+
+        private Direction _direction;
 
         private void Awake()
         {
@@ -52,12 +55,12 @@ namespace Player
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
 
+            _direction = DirectionUtility.ToDirection(_input.Move);
+
             if (_input.IsDig && state != PlayerState.Climb)
             {
-                var direction = DirectionUtility.ToDirection(_input.Move);
-
                 _digger.isDig = true;
-                _digger.direction = direction == Direction.Up ? Direction.Down : direction;
+                _digger.direction = _direction == Direction.Up ? Direction.Down : _direction;
                 drill.SetActive(true);
             }
             else
@@ -65,7 +68,7 @@ namespace Player
                 _digger.isDig = false;
                 drill.SetActive(false);
             }
-            
+
             TryJump();
         }
 
@@ -78,9 +81,40 @@ namespace Player
             isGrounded = (bool)hit.collider;
         }
 
+        private void UpdateIsSideWall()
+        {
+            var directionVector = _input.Move.x switch
+            {
+                <= -0.0001f => Vector2.left,
+                >= 0.0001f => Vector2.right,
+                _ => Vector2.zero
+            };
+
+            if (directionVector == Vector2.zero)
+            {
+                _movement.isSideWall = false;
+                return;
+            }
+
+            var position = transform.position;
+
+            var hit = Physics2D.Raycast(position, directionVector, sideWallDirection,
+                LayerMask.GetMask("Platform"));
+            Debug.DrawRay(position, directionVector * sideWallDirection, Color.green);
+
+            if (!hit.collider)
+            {
+                _movement.isSideWall = false;
+                return;
+            }
+
+            _movement.isSideWall = true;
+        }
+
         private void FixedUpdate()
         {
             UpdateIsGrounded();
+            UpdateIsSideWall();
         }
     }
 }
