@@ -7,17 +7,21 @@ namespace Maps
 {
     public class MapManager : MonoBehaviour
     {
-        public Tilemap groundTilemap;
+        public Tilemap backgroundTilemap;
 
+        public Tilemap groundTilemap;
+        
         public Tilemap mineralTilemap;
 
+        public float groundHeight = 0;
+        
         public MineralEntity mineralEntity;
+
+        public Tile backgroundTile;
 
         public int debugTier;
 
         private static MapManager _instance = null;
-        
-        private Camera _camera;
 
         private Brick[,] _map;
 
@@ -39,30 +43,15 @@ namespace Maps
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-
-            _camera = Camera.main;
-        }
-
-        private void Update()
-        {
-            var point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
-                -_camera.transform.position.z));
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                var tile = GetTile(groundTilemap.layoutGrid.WorldToCell(point));
-                Debug.Log(tile.strength);
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                BreakTile(groundTilemap.layoutGrid.WorldToCell(point), debugTier);
-            }
         }
 
         public void ResetMap(int width, int height, Ground ground)
         {
             _map = new Brick[width, height];
+            
+            backgroundTilemap.ClearAllTiles();
+            groundTilemap.ClearAllTiles();
+            mineralTilemap.ClearAllTiles();
 
             for (var i = 0; i < width; i++)
             {
@@ -73,9 +62,17 @@ namespace Maps
             }
         }
 
-        public DiggableTile GetTile(Vector3Int position)
+        public Brick GetBrick(Vector3Int position)
         {
-            return groundTilemap.GetTile<DiggableTile>(position);
+            position.y = -position.y;
+            
+            if (0 > position.x || position.x >= _map.GetLength(0) ||
+                0 > position.y || position.y >= _map.GetLength(1))
+            {
+                return new Brick();
+            }
+            
+            return _map[position.x, position.y];
         }
 
         public void SetBrick(Brick brick, Vector2Int position, bool isRemove = false)
@@ -86,8 +83,6 @@ namespace Maps
                 return;
             }
 
-            ;
-
             var tilemapPosition = new Vector3Int(position.x, -position.y, 0);
 
             _map[position.x, position.y] = brick;
@@ -95,10 +90,12 @@ namespace Maps
             if (brick.ground is not null)
             {
                 groundTilemap.SetTile(tilemapPosition, brick.ground.tile);
+                backgroundTilemap.SetTile(tilemapPosition, backgroundTile);
             }
             else if (isRemove)
             {
                 groundTilemap.SetTile(tilemapPosition, null);
+                backgroundTilemap.SetTile(tilemapPosition, null);
             }
 
             if (brick.mineral is not null)

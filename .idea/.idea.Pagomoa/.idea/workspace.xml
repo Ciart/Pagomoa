@@ -4,24 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ca5c7a2-3572-485a-89da-ab15affd6d2b" name="Changes" comment="" />
+    <list default="true" id="1ca5c7a2-3572-485a-89da-ab15affd6d2b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/EvilParaoOwl/Attack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/EvilParaoOwl/Attack.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/EvilParaoOwl/EvilParaoOwl.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/EvilParaoOwl/EvilParaoOwl.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/EvilParaoOwl/Idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/EvilParaoOwl/Idle.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Owl/Chase.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Owl/Chase.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Owl/Find.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Owl/Find.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Owl/Findcancel.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Owl/Findcancel.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Owl/Idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Owl/Idle.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Owl/Owl.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Owl/Owl.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Snake/Chase.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Snake/Chase.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Snake/Idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Snake/Idle.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Snake/Snake.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Snake/Snake.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dirt.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dirt.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PhysicsMaterials/human.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PhysicsMaterials/human.physicsMaterial2D" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MapGeneratorScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MapGeneratorScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Maps/MapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Maps/MapGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Maps/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Maps/MapManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Status.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Status.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/Lit2DSceneTemplate.scenetemplate" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Lit2DSceneTemplate.scenetemplate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Maps/Minerals.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Maps/Minerals.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/20ec2084e3e54ecaa99fcb1c13b2e6c216e400/96/cb925091/Rect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/20ec2084e3e54ecaa99fcb1c13b2e6c216e400/ca/ac4861b8/Sprite.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/20ec2084e3e54ecaa99fcb1c13b2e6c216e400/da/89aa473f/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d18341e808be4529a1a4512a7e51ab3d940a00/59/26ef1035/Editor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dig.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Maps/MapManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "Merging feature/map-generator",
+    "git-widget-placeholder": "feature/map-generator",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>

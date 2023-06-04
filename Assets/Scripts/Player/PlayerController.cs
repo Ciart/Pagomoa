@@ -1,6 +1,8 @@
 using System;
 using Constants;
+using Maps;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -13,7 +15,9 @@ namespace Player
 
         public GameObject drill;
 
-        public float sideWallDirection = 1f + 0.0625f;
+        public float groundDistance = 1.125f;
+        
+        public float sideWallDistance = 1.0625f;
 
         private Rigidbody2D _rigidbody;
 
@@ -75,8 +79,8 @@ namespace Player
         private void UpdateIsGrounded()
         {
             var position = transform.position;
-            var hit = Physics2D.Raycast(position, Vector2.down, 1f + 0.0625f, LayerMask.GetMask("Platform"));
-            Debug.DrawRay(position, Vector2.down * (1f + 0.0625f), Color.green);
+            var hit = Physics2D.Raycast(position, Vector2.down, groundDistance, LayerMask.GetMask("Platform"));
+            Debug.DrawRay(position, Vector2.down * groundDistance, Color.green);
 
             isGrounded = (bool)hit.collider;
         }
@@ -98,9 +102,9 @@ namespace Player
 
             var position = transform.position;
 
-            var hit = Physics2D.Raycast(position, directionVector, sideWallDirection,
+            var hit = Physics2D.Raycast(position, directionVector, sideWallDistance,
                 LayerMask.GetMask("Platform"));
-            Debug.DrawRay(position, directionVector * sideWallDirection, Color.green);
+            Debug.DrawRay(position, directionVector * sideWallDistance, Color.green);
 
             if (!hit.collider)
             {

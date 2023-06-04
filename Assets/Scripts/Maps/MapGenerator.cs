@@ -20,6 +20,8 @@ namespace Maps
         private void Awake()
         {
             _mapManager = GetComponent<MapManager>();
+            
+            Generate();
         }
 
         public void Preload()
@@ -59,7 +61,7 @@ namespace Maps
 
         public void Generate()
         {
-            _mapManager.ResetMap(width, height, database.GetGround("Dirt"));
+            _mapManager.ResetMap(width, height, database.GetGround("Sand"));
             
             Preload();
             

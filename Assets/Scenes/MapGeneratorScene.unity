@@ -731,9 +731,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundTilemap: {fileID: 0}
   groundTilemap: {fileID: 569550287}
   mineralTilemap: {fileID: 6077861}
+  groundHeight: 0
   mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
+  backgroundTile: {fileID: 0}
   debugTier: 0
 --- !u!4 &28008069
 Transform:
@@ -762,15 +765,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b789feb74b7047bca62eba3f585bf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 0}
   width: 32
   height: 32
-  tiles:
-  - {fileID: 11400000, guid: 9461e9d6588ea49b2815ed2d7920cf49, type: 2}
-  - {fileID: 11400000, guid: 4c742e36646564df9aefcfd232a6f586, type: 2}
-  minerals:
-  - {fileID: 0}
-  - {fileID: 11400000, guid: ddbdaecc7be7b40b0903c19d5876a1ed, type: 2}
-  - {fileID: 11400000, guid: 4be81157078f248bdb0ef63def77ffe2, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
