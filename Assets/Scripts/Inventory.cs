@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Maps;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public List<MineralData> Minerals = new List<MineralData>();
+    public List<Mineral> Minerals = new List<Mineral>();
     public GameObject slots;
     public GameObject slot;
-    public void Add(MineralData data)
+    public void Add(Mineral data)
     {
         for (int n = 0; n < Minerals.Count; n++)
         {

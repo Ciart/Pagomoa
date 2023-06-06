@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
-  m_Name: Iron
+  m_Script: {fileID: 11500000, guid: 4705fce947de45c98128181954eb043e, type: 3}
+  m_Name: Sand
   m_EditorClassIdentifier: 
-  mineralName: "\uCCA0"
-  tier: 1
-  sprite: {fileID: 284631574, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
-  tile: {fileID: 11400000, guid: 4be81157078f248bdb0ef63def77ffe2, type: 2}
+  groundName: "\uBAA8\uB798"
+  strength: 10
+  sprite: {fileID: -880552388, guid: 6e56002d60d9842818c5acbd51e7e7b0, type: 3}
+  tile: {fileID: 11400000, guid: 5aab25ed6b2b1bb45a5d8a99e1c596b6, type: 2}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Constants;
+using Maps;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -82,8 +83,8 @@ namespace Player
             _canDig = false;
 
             var mapManager = MapManager.Instance;
-            var tile1 = mapManager.GetTile(point1);
-            var tile2 = mapManager.GetTile(point2);
+            var tile1 = mapManager.GetBrick(point1).ground;
+            var tile2 = mapManager.GetBrick(point2).ground;
             if (tile1 || tile2)
             {
                 Debug.Log("굴착시작!");
