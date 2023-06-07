@@ -11,7 +11,6 @@ public class InteractableObject : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(transform.GetChild(1).name);
         SpriteRenderer = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
         Highlight = transform.GetChild(1).GetComponentInChildren<Light2D>();
         SpriteRenderer.enabled = false;
