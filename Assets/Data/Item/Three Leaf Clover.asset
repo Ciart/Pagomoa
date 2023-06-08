@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e413ae9d5abacee44ac6f5ebc068b8dc, type: 3}
-  m_Name: ItemSample
+  m_Name: Three Leaf Clover
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: "\uC138\uC78E\uD074\uB85C\uBC84"
   itemType: 0
-  itemImage: {fileID: 0}
-  itemInfo: 
-  armorIncrease: 200
+  itemImage: {fileID: -558227242, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uC5B4\uCA4C\uBA74 \uD589\uC6B4\uC744 \uBA38\uAE08\uACE0 \uC788\uC5C8\uC744
+    \uC9C0\uB3C4 \uBAB0\uB790\uC744 \uD074\uB85C\uBC84"
+  armorIncrease: 0
   armorIncreasePercentage: 0
   attackpowerIncrease: 0
   attackpowerIncreasePercentage: 0

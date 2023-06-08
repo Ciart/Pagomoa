@@ -178,7 +178,6 @@ namespace Player
         private void Update()
         {
             UpdateOxygen();
-            Debug.Log("나 실행됩니까?" + armor);
         }
 
         public Status copy()

@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e413ae9d5abacee44ac6f5ebc068b8dc, type: 3}
+  m_Name: Abyss Lantern
+  m_EditorClassIdentifier: 
+  itemName: "\uC2EC\uC5F0\uC758 \uB79C\uD134"
+  itemType: 0
+  itemImage: {fileID: 402394799, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uAE4A\uACE0 \uAE4A\uC740 \uC5B4\uB460 \uC18D\uC5D0\uC11C \uB044\uC9D1\uC5B4\uB0B8
+    \uB79C\uD134"
+  armorIncrease: 0
+  armorIncreasePercentage: 0
+  attackpowerIncrease: 0
+  attackpowerIncreasePercentage: 0
+  sightIncrease: 0
+  sightIncreasePercentage: 0
+  inSightIncrease: 0
+  inSightIncreasePercentage: 20
+  outSightIncrease: 0
+  outSightIncreasePercentage: 0
+  speedIncrease: 0
+  speedIncreasePercentage: 5
+  inSpeedIncrease: 0
+  inSpeedIncreasePercentage: 0
+  outSpeedIncrease: 0
+  outSpeedIncreasePercentage: 0
+  digSpeedIncrease: 0
+  digSpeedIncreasePercentage: 0
+  crawlupSpeedIncrease: 0
+  crawlupSpeedIncreasePercentage: 0
+  maxOxygenIncrease: 0
+  maxOxygenIncreasePercentage: 0
+  oxygenRecoveryIncrease: 0
+  oxygenRecoveryIncreasePercentage: 0
+  oxygenConsumeDecrease: 0
+  oxygenConsumeDecreasePercentage: 0
+  maxHungryIncrease: 0
+  maxHungryIncreasePercentage: 0
+  hungryRecoveryIncrease: 0
+  hungryRecoveryIncreasePercentage: 0
+  hungryConsumeDecrease: 0
+  hungryConsumeDecreasePercentage: 0
