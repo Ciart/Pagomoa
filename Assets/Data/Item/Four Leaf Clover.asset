@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e413ae9d5abacee44ac6f5ebc068b8dc, type: 3}
+  m_Name: Four Leaf Clover
+  m_EditorClassIdentifier: 
+  itemName: "\uB124\uC78E\uD074\uB85C\uBC84"
+  itemType: 0
+  itemImage: {fileID: 1913839440, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uD589\uC6B4\uC774 \uAC00\uB4DD \uB2F4\uACA8\uC788\uB294 \uD074\uB85C\uBC84.
+    \uAC00\uC9C0\uACE0 \uC788\uC73C\uBA74 \uC88B\uC740 \uC77C\uC774 \uC0DD\uAE38\uC9C0\uB3C4?"
+  armorIncrease: 7
+  armorIncreasePercentage: 7
+  attackpowerIncrease: 7
+  attackpowerIncreasePercentage: 7
+  sightIncrease: 7
+  sightIncreasePercentage: 7
+  inSightIncrease: 7
+  inSightIncreasePercentage: 7
+  outSightIncrease: 7
+  outSightIncreasePercentage: 7
+  speedIncrease: 7
+  speedIncreasePercentage: 7
+  inSpeedIncrease: 7
+  inSpeedIncreasePercentage: 7
+  outSpeedIncrease: 7
+  outSpeedIncreasePercentage: 7
+  digSpeedIncrease: 7
+  digSpeedIncreasePercentage: 7
+  crawlupSpeedIncrease: 7
+  crawlupSpeedIncreasePercentage: 7
+  maxOxygenIncrease: 7
+  maxOxygenIncreasePercentage: 7
+  oxygenRecoveryIncrease: 7
+  oxygenRecoveryIncreasePercentage: 7
+  oxygenConsumeDecrease: 7
+  oxygenConsumeDecreasePercentage: 7
+  maxHungryIncrease: 7
+  maxHungryIncreasePercentage: 7
+  hungryRecoveryIncrease: 7
+  hungryRecoveryIncreasePercentage: 7
+  hungryConsumeDecrease: 7
+  hungryConsumeDecreasePercentage: 7
