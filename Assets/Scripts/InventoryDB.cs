@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Maps;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
 public class InventoryDB : MonoBehaviour
 {
-    public Dictionary<MineralData, int> MineralsData = new Dictionary<MineralData, int>();
+    public Dictionary<Mineral, int> MineralsData = new Dictionary<Mineral, int>();
     public Dictionary<ShopConsumptionItemData, int> ConsumptionItemsData = new Dictionary<ShopConsumptionItemData, int>();
     public List<ShopItemData> ShopItemsData = new List<ShopItemData>();
     public int Gold;
-    public void Add(MineralData data)
+    public void Add(Mineral data)
     {
         if (MineralsData.ContainsKey(data))
         {
@@ -18,7 +19,7 @@ public class InventoryDB : MonoBehaviour
         }
         MineralsData.Add(data, 1);
     }
-    public void Remove(MineralData data)
+    public void Remove(Mineral data)
     {
         if (MineralsData[data] > 1)
         {

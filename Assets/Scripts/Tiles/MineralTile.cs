@@ -1,13 +1,14 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using Maps;
 using UnityEngine.Tilemaps;
 
 namespace Tiles
 {
     public class MineralTile: Tile
     {
-        public MineralData data;
+        public Mineral data;
         
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/MineralTile")]

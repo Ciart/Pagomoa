@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Maps;
 using UnityEditor.Experimental;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
@@ -9,7 +11,7 @@ public class Slot : MonoBehaviour
     public SellUI sellBtn;
     public ShopUI buyBtn;
     public InventoryDB inventoryDB;
-    public MineralData mineralData;
+    public Mineral mineralData;
     public Inventory inventory;
     public ShopInventory shopInventory;
     public ShopItemData shopitemdata;
@@ -18,7 +20,7 @@ public class Slot : MonoBehaviour
     public BuyUI buyUI;
     public Artifact artifact;
     
-    public void SetEtcSlot(MineralData data, int count)
+    public void SetEtcSlot(Mineral data, int count)
     {
         mineralData = data;
         transform.GetChild(0).GetComponent<Image>().sprite = data.sprite;

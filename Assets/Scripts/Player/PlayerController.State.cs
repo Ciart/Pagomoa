@@ -1,0 +1,82 @@
+using System;
+
+namespace Player
+{
+    public enum PlayerState
+    {
+        Idle,
+        Walk,
+        Jump,
+        Fall,
+        Climb,
+    }
+
+    public class ChangeStateEventArgs : EventArgs
+    {
+        public PlayerState State;
+
+        public ChangeStateEventArgs(PlayerState state)
+        {
+            State = state;
+        }
+    }
+    
+    public partial class PlayerController
+    {
+        public event EventHandler<ChangeStateEventArgs> ChangeState;
+        
+        private bool CheckClimb()
+        {
+            return _input.IsClimb && _map.CheckClimbable(transform.position);
+        }
+
+        private bool CheckFall()
+        {
+            return !isGrounded && _rigidbody.velocity.y < 0;
+        }
+
+        private bool CheckJump()
+        {
+            return state == PlayerState.Jump;
+        }
+
+        private bool CheckWalk()
+        {
+            return Math.Abs(_input.Move.x) > 0;
+        }
+
+        private PlayerState CheckState()
+        {
+            if (CheckClimb())
+            {
+                return PlayerState.Climb;
+            }
+            else if (CheckFall())
+            {
+                return PlayerState.Fall;
+            }
+            else if (CheckJump())
+            {
+                return PlayerState.Jump;
+            }
+            else if (CheckWalk())
+            {
+                return PlayerState.Walk;
+            }
+
+            return PlayerState.Idle;
+        }
+
+        private void UpdateState()
+        {
+            var prevState = state;
+
+            state = CheckState();
+
+            if (prevState != state)
+            {
+                ChangeState?.Invoke(this, new ChangeStateEventArgs(state));
+            }
+        }
+    }
+}

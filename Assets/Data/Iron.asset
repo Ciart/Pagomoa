@@ -15,4 +15,5 @@ MonoBehaviour:
   mineralName: "\uCCA0"
   tier: 1
   sprite: {fileID: 284631574, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
-  price: 1000
+  tile: {fileID: 11400000, guid: 4be81157078f248bdb0ef63def77ffe2, type: 2}
+  price: 0

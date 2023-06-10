@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Maps;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +42,7 @@ public class Inventory : MonoBehaviour
                 Destroy(slot);
         }
     }
-    private void AddEtcSlot(MineralData data)
+    private void AddEtcSlot(Mineral data)
     {
         GameObject SpawnedSlot = Instantiate(slot, slots.transform);
         SpawnedSlot.SetActive(true);
@@ -62,7 +63,7 @@ public class Inventory : MonoBehaviour
     public void UpdateEtcSlot()
     {
         DeleteEtcSlot();
-        foreach(MineralData key in inventoryDB.MineralsData.Keys)
+        foreach(Mineral key in inventoryDB.MineralsData.Keys)
             AddEtcSlot(key);
     }
     public void UpdateEquipmentSlot()
