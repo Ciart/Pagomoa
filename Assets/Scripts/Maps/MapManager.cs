@@ -7,24 +7,13 @@ namespace Maps
 {
     public class MapManager : MonoBehaviour
     {
-        public Tilemap backgroundTilemap;
-
-        public Tilemap groundTilemap;
-        
-        public Tilemap mineralTilemap;
-
         public float groundHeight = 0;
         
         public MineralEntity mineralEntity;
 
-        public Tile backgroundTile;
-
-        public int debugTier;
-
         private static MapManager _instance = null;
 
         private Brick[,] _map;
-
 
         public static MapManager Instance
         {
@@ -48,10 +37,6 @@ namespace Maps
         public void ResetMap(int width, int height, Ground ground)
         {
             _map = new Brick[width, height];
-            
-            backgroundTilemap.ClearAllTiles();
-            groundTilemap.ClearAllTiles();
-            mineralTilemap.ClearAllTiles();
 
             for (var i = 0; i < width; i++)
             {
