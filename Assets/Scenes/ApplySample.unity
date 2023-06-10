@@ -466,12 +466,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oxygen: 100
-  oxygenConsume: 0.001
   maxOxygen: 100
   minOxygen: 0
+  _oxygenRecovery: 1
+  _oxygenConsume: 1
   hungry: 100
   maxHungry: 100
   minHungry: 0
+  _hungryRecovery: 1
+  _hungryConsume: 1
+  _armor: 0
+  _attackpower: 100
+  _sight: 1
+  _inSight: 1
+  _outSight: 1
+  _speed: 5
+  _inSpeed: 5
+  _outSpeed: 5
+  _digSpeed: 100
+  _crawlUpSpeed: 100
   oxygenAlter:
     m_PersistentCalls:
       m_Calls: []
@@ -513,6 +526,8 @@ MonoBehaviour:
   state: 0
   isGrounded: 0
   drill: {fileID: 1344538027}
+  _status: {fileID: 0}
+  _initialStatus: {fileID: 0}
   groundDistance: 1.125
   sideWallDistance: 1.0625
 --- !u!50 &354034900
@@ -743,9 +758,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 354034895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8103e02f710a62947b4d019aa9faeb1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 75a00f2e887ea2e429488889792b6dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipments:
+  - {fileID: 11400000, guid: 90b9432bce97cd948a1fd0378ffcda14, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

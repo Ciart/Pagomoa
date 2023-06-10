@@ -15,6 +15,10 @@ namespace Player
 
         public GameObject drill;
 
+        public Status _status;
+
+        public Status _initialStatus;
+
         public float groundDistance = 1.125f;
         
         public float sideWallDistance = 1.0625f;
@@ -33,6 +37,10 @@ namespace Player
 
         private void Awake()
         {
+            _status = GetComponent<Status>(); // 스탯 초기화
+            _initialStatus = _status.copy();  // 기본 스탯 저장
+            GetComponent<Equip>().CalEquipvalue(); // 장비 능력치 적용
+
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
@@ -120,5 +128,7 @@ namespace Player
             UpdateIsGrounded();
             UpdateIsSideWall();
         }
+
+        
     }
 }
