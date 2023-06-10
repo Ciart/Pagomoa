@@ -1,34 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class SellNPC : MonoBehaviour
 {
-    public GameObject SellWindowUI;
-    public Sellbtn sellbtn;
-    public bool ActiveSellWindow = false;
+    public GameObject ShopUI;
+    public SellUI shopbtn;
+    public GameObject ConsumptionView;
+    public GameObject EtcView;
+    public bool ActiveShopUI = false;
     private void Awake()
     {
-        if (SellWindowUI)
-            SellWindowUI.SetActive(ActiveSellWindow);
+        if (ShopUI)
+            ShopUI.SetActive(ActiveShopUI);
     }
-    public void SetSellWindow()
+    public void SetShopUI()
     {
-        if (ActiveSellWindow)
+        if (ActiveShopUI)
         {
-            ActiveSellWindow = !ActiveSellWindow;
-            SellWindowUI.SetActive(ActiveSellWindow);
-            sellbtn.ButtonOnClick = false;
-            Debug.Log(sellbtn.ButtonOnClick);
-           
+            ActiveShopUI = !ActiveShopUI;
+            ShopUI.SetActive(ActiveShopUI);
+            shopbtn.ButtonOnClick = false;
+            Debug.Log(shopbtn.ButtonOnClick);
         }
         else
         {
-            ActiveSellWindow = !ActiveSellWindow;
-            SellWindowUI.SetActive(ActiveSellWindow);
+            ActiveShopUI = !ActiveShopUI;
+            ShopUI.SetActive(ActiveShopUI);
+            ConsumptionView.SetActive(true);
+            EtcView.SetActive(false);
         }
     }
-   
 }

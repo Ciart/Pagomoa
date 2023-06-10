@@ -9,4 +9,6 @@ public class MineralData: ScriptableObject
     public int tier;
 
     public Sprite sprite;
+
+    public int price;
 }

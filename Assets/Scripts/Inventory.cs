@@ -7,9 +7,14 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public InventoryDB inventoryDB;
+    public ShopDB shopDB;
     public GameObject slots;
     public GameObject slot;
-    private void DeleteSlot()
+    public GameObject Equipmentslots;
+    public GameObject Equipmentslot;
+    public GameObject consumptionSlots;
+    public GameObject consumptionSlot;
+    private void DeleteEtcSlot()
     {
         for(int i = 0; i < slots.transform.childCount; i++)
         {
@@ -18,16 +23,60 @@ public class Inventory : MonoBehaviour
                 Destroy(slot);
         }
     }
-    private void AddSlot(MineralData data)
+    private void DeleteConsumptionSlot()
+    {
+        for (int i = 0; i < consumptionSlots.transform.childCount; i++)
+        {
+            GameObject slot = consumptionSlots.transform.GetChild(i).gameObject;
+            if (slot.activeSelf)
+                Destroy(slot);
+        }
+    }
+    private void DeleteArtifactSlot()
+    {
+        for (int i = 0; i < Equipmentslots.transform.childCount; i++)
+        {
+            GameObject slot = Equipmentslots.transform.GetChild(i).gameObject;
+            if (slot.activeSelf)
+                Destroy(slot);
+        }
+    }
+    private void AddEtcSlot(MineralData data)
     {
         GameObject SpawnedSlot = Instantiate(slot, slots.transform);
         SpawnedSlot.SetActive(true);
-        SpawnedSlot.GetComponent<Slot>().SetSlot(data, inventoryDB.MineralsData[data]);
+        SpawnedSlot.GetComponent<Slot>().SetEtcSlot(data, inventoryDB.MineralsData[data]);
     }
-    public void UpdateSlot()
+    private void AddEquipmentSlot(ShopItemData data)
     {
-        DeleteSlot();
+        GameObject SpawnedSlot = Instantiate(Equipmentslot, Equipmentslots.transform);
+        SpawnedSlot.SetActive(true);
+        SpawnedSlot.GetComponent<Slot>().SetEquipmentSlotShop(data);
+    }
+    public void AddConsumptionSlot(ShopConsumptionItemData data)
+    {
+        GameObject SpawnedSlot = Instantiate(consumptionSlot, consumptionSlots.transform);
+        SpawnedSlot.SetActive(true);
+        SpawnedSlot.GetComponent<Slot>().SetConsumptionslot(data, inventoryDB.ConsumptionItemsData[data]);
+    }
+    public void UpdateEtcSlot()
+    {
+        DeleteEtcSlot();
         foreach(MineralData key in inventoryDB.MineralsData.Keys)
-            AddSlot(key);
+            AddEtcSlot(key);
+    }
+    public void UpdateEquipmentSlot()
+    {
+        DeleteArtifactSlot();
+        foreach (ShopItemData key in inventoryDB.ShopItemsData)
+            AddEquipmentSlot(key);
+    }
+    public void UpdateConsumptionSlot()
+    {
+        DeleteConsumptionSlot();
+        foreach (ShopConsumptionItemData key in inventoryDB.ConsumptionItemsData.Keys)
+        {
+            AddConsumptionSlot(key);
+        }
     }
 }
