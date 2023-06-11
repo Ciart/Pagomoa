@@ -13,5 +13,7 @@ namespace Maps
         public Sprite sprite;
         
         public TileBase tile;
+
+        public int price;
     }
 }
