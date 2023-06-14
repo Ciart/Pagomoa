@@ -32,12 +32,12 @@ namespace Player
 
         private bool CheckFall()
         {
-            return !isGrounded && _rigidbody.velocity.y < 0;
+            return !isGrounded && _rigidbody.velocity.y <= 0;
         }
 
         private bool CheckJump()
         {
-            return state == PlayerState.Jump;
+            return state == PlayerState.Jump && _rigidbody.velocity.y > 0;
         }
 
         private bool CheckWalk()
