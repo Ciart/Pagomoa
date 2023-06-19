@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Maps
 {
-    [CreateAssetMenu(fileName = "Map Database", menuName = "Map/Database", order = 4)]
-    public class MapDatabase : ScriptableObject
+    [CreateAssetMenu(fileName = "World Database", menuName = "World/Database", order = 4)]
+    public class WorldDatabase : ScriptableObject
     {
         public Mineral[] minerals;
 

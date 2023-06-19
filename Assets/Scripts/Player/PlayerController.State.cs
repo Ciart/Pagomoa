@@ -27,7 +27,7 @@ namespace Player
         
         private bool CheckClimb()
         {
-            return _input.IsClimb && _map.CheckClimbable(transform.position);
+            return _input.IsClimb && _world.CheckClimbable(transform.position);
         }
 
         private bool CheckFall()

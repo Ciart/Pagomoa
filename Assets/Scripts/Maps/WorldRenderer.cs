@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace Maps
 {
-    public class MapRenderer : MonoBehaviour
+    public class WorldRenderer : MonoBehaviour
     {
         public Tilemap backgroundTilemap;
 

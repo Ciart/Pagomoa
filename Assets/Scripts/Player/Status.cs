@@ -149,16 +149,16 @@ namespace Player
         public UnityEvent<float, float> oxygenAlter;
         public UnityEvent<float, float> hungryAlter;
 
-        private MapManager _map;
+        private WorldManager _worldManager;
 
         private void Awake()
         {
-            _map = MapManager.Instance;
+            _worldManager = WorldManager.Instance;
         }
 
         private void UpdateOxygen()
         {
-            if (transform.position.y < _map.groundHeight && oxygen >= minOxygen)
+            if (transform.position.y < _worldManager.World.GroundHeight && oxygen >= minOxygen)
             {
                 oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
 

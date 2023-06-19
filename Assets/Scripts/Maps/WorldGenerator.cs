@@ -5,38 +5,38 @@ using Random = UnityEngine.Random;
 
 namespace Maps
 {
-    [RequireComponent(typeof(MapManager))]
-    public class MapGenerator : MonoBehaviour
+    [RequireComponent(typeof(WorldManager))]
+    public class WorldGenerator : MonoBehaviour
     {
-        public MapDatabase database;
-        
+        public WorldDatabase database;
+
         public int width = 64;
         public int height = 64;
 
-        private MapManager _mapManager;
+        private WorldManager _worldManager;
 
         private List<(float, Piece)> _weightedPieces;
 
         private void Awake()
         {
-            _mapManager = GetComponent<MapManager>();
-            
+            _worldManager = GetComponent<WorldManager>();
+
             Generate();
         }
 
         public void Preload()
         {
             var pieces = database.pieces;
-            
+
             float rarityCount = pieces.Sum(piece => piece.Rarity);
 
             _weightedPieces = new List<(float, Piece)>();
-        
+
             foreach (var piece in pieces)
             {
                 _weightedPieces.Add((piece.Rarity / rarityCount, piece));
             }
-        
+
             _weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
         }
 
@@ -61,10 +61,10 @@ namespace Maps
 
         public void Generate()
         {
-            _mapManager.ResetMap(width, height, database.GetGround("Sand"));
-            
             Preload();
-            
+
+            var world = new World(16, 4, 8, 4, 4);
+
             for (var i = 0; i < width; i++)
             {
                 for (var j = 0; j < height; j++)
@@ -81,7 +81,9 @@ namespace Maps
                         for (var y = 0; y < piece.height; y++)
                         {
                             var position = new Vector2Int(i + x, j + y) - piece.Pivot;
-                            _mapManager.SetBrick(piece.GetBrick(x, y), position);
+                            
+                            ref var brick = ref world.GetBrick(position);
+                            brick = piece.GetBrick(x, y);
                         }
                     }
                 }

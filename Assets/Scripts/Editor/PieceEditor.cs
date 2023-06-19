@@ -16,7 +16,7 @@ namespace Editor
             "Mineral", "Ground", "Pivot"
         };
 
-        private MapDatabase _database;
+        private WorldDatabase _database;
 
         private int _width = 2;
 
@@ -44,13 +44,13 @@ namespace Editor
 
         private void OnSelectionChange()
         {
-            if (Selection.activeObject is not MapDatabase)
+            if (Selection.activeObject is not WorldDatabase)
             {
                 _database = null;
                 return;
             }
 
-            _database = (MapDatabase) Selection.activeObject;
+            _database = (WorldDatabase) Selection.activeObject;
             
             Repaint();
         }
