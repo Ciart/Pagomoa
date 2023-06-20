@@ -1,4 +1,4 @@
-using Maps;
+using Worlds;
 using UnityEngine;
 
 namespace Player
@@ -44,7 +44,7 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
 
-            _world = WorldManager.Instance;
+            _world = WorldManager.instance;
         }
 
         public void Jump()

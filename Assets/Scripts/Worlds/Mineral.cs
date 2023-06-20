@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Maps
+namespace Worlds
 {
     [CreateAssetMenu(fileName = "Mineral", menuName = "World/Mineral", order = 1)]
     public class Mineral: ScriptableObject

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Maps
+namespace Worlds
 {
     [CreateAssetMenu(fileName = "Ground", menuName = "World/Ground", order = 2)]
     public class Ground: ScriptableObject

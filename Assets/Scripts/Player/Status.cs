@@ -1,5 +1,5 @@
 using System;
-using Maps;
+using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -153,12 +153,12 @@ namespace Player
 
         private void Awake()
         {
-            _worldManager = WorldManager.Instance;
+            _worldManager = WorldManager.instance;
         }
 
         private void UpdateOxygen()
         {
-            if (transform.position.y < _worldManager.World.GroundHeight && oxygen >= minOxygen)
+            if (transform.position.y < _worldManager.world.groundHeight && oxygen >= minOxygen)
             {
                 oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
 

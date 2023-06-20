@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Maps
+namespace Worlds
 {
     [CreateAssetMenu(fileName = "World Database", menuName = "World/Database", order = 4)]
     public class WorldDatabase : ScriptableObject

@@ -11,19 +11,9 @@ namespace Player
         Climb,
     }
 
-    public class ChangeStateEventArgs : EventArgs
-    {
-        public PlayerState State;
-
-        public ChangeStateEventArgs(PlayerState state)
-        {
-            State = state;
-        }
-    }
-    
     public partial class PlayerController
     {
-        public event EventHandler<ChangeStateEventArgs> ChangeState;
+        public event Action<PlayerState> changeState;
         
         private bool CheckClimb()
         {
@@ -75,7 +65,7 @@ namespace Player
 
             if (prevState != state)
             {
-                ChangeState?.Invoke(this, new ChangeStateEventArgs(state));
+                changeState?.Invoke(state);
             }
         }
     }

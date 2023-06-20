@@ -1,21 +1,24 @@
 using System;
+using System.Collections.Generic;
 using Tiles;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Maps
+namespace Worlds
 {
     public class WorldManager : MonoBehaviour
     {
         public MineralEntity mineralEntity;
 
-        public World World;
+        public World world;
 
-        public event EventHandler OnChunkChange; 
+        public event Action<Chunk> changedChunk;
 
         private static WorldManager _instance = null;
 
-        public static WorldManager Instance
+        private HashSet<Chunk> _expiredChunks = new();
+
+        public static WorldManager instance
         {
             get
             {
@@ -32,6 +35,20 @@ namespace Maps
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void LateUpdate()
+        {
+            if (_expiredChunks.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var chunk in _expiredChunks)
+            {
+                changedChunk?.Invoke(chunk);
+                _expiredChunks.Remove(chunk);
+            }
         }
 
         /// <summary>
@@ -56,7 +73,7 @@ namespace Maps
 
         public void BreakGround(Vector2Int coordinates, int tier = 10)
         {
-            var brick = World.GetBrick(coordinates, out var chunk);
+            var brick = world.GetBrick(coordinates, out var chunk);
 
             if (brick.mineral.tier <= tier)
             {
@@ -67,11 +84,13 @@ namespace Maps
 
             brick.ground = null;
             brick.mineral = null;
+
+            _expiredChunks.Add(chunk);
         }
 
         public bool CheckClimbable(Vector3 position)
         {
-            var brick = World.GetBrick(ComputeCoordinates(position));
+            var brick = world.GetBrick(ComputeCoordinates(position));
 
             return brick.wall.isClimbable;
         }

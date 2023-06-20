@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Constants;
-using Maps;
+using Worlds;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,7 +45,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            var mapManager = WorldManager.Instance;
+            var mapManager = WorldManager.instance;
 
             if (isDig && _canDig)
             {
@@ -82,9 +82,9 @@ namespace Player
         {
             _canDig = false;
 
-            var worldManager = WorldManager.Instance;
-            var tile1 = worldManager.World.GetBrick(point1).ground;
-            var tile2 = worldManager.World.GetBrick(point2).ground;
+            var worldManager = WorldManager.instance;
+            var tile1 = worldManager.world.GetBrick(point1).ground;
+            var tile2 = worldManager.world.GetBrick(point2).ground;
             if (tile1 || tile2)
             {
                 Debug.Log("굴착시작!");

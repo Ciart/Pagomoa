@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Maps;
+using Worlds;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -9,13 +9,13 @@ namespace Editor
 {
     public class PieceEditor : EditorWindow
     {
-        private int _tabIndex;
-
-        private string[] _tabStrings =
+        private readonly string[] _tabStrings =
         {
             "Mineral", "Ground", "Pivot"
         };
 
+        private int _tabIndex;
+        
         private WorldDatabase _database;
 
         private int _width = 2;
@@ -98,7 +98,7 @@ namespace Editor
             {
                 for (var y = 0; y < piece.height; y++)
                 {
-                    ref var brick = ref piece.GetBrick(x, y);
+                    var brick = piece.GetBrick(x, y);
                     var xMin = x * 36 + 8;
                     var yMin = y * 36 + 100;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
@@ -118,7 +118,7 @@ namespace Editor
                                     brick.ground = _database.grounds[_selectGround];
                                     break;
                                 case 2:
-                                    piece.Pivot = new Vector2Int(x, y);
+                                    piece.pivot = new Vector2Int(x, y);
                                     break;
                             }
                             
@@ -142,8 +142,8 @@ namespace Editor
                 }
             }
             
-            var pivotX = piece.Pivot.x * 36 + 8;
-            var pivotY = piece.Pivot.y * 36 + 100;
+            var pivotX = piece.pivot.x * 36 + 8;
+            var pivotY = piece.pivot.y * 36 + 100;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
             
             EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
