@@ -420,7 +420,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1752,6 +1752,7 @@ GameObject:
   - component: {fileID: 1135593059}
   - component: {fileID: 1135593058}
   - component: {fileID: 1135593060}
+  - component: {fileID: 1135593061}
   m_Layer: 0
   m_Name: Map Manager
   m_TagString: Untagged
@@ -1800,11 +1801,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
-  chunkSize: 0
-  top: 0
-  bottom: 0
-  left: 0
-  right: 0
+  chunkSize: 16
+  top: 4
+  bottom: 16
+  left: 4
+  right: 4
+--- !u!114 &1135593061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135593057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8410b053c044319ac8bba6de8604749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallTilemap: {fileID: 1344126190}
+  groundTilemap: {fileID: 2143556640}
+  mineralTilemap: {fileID: 1107110433}
 --- !u!213 &1145999106
 Sprite:
   m_ObjectHideFlags: 0
@@ -2193,7 +2209,7 @@ GameObject:
   - component: {fileID: 1344126190}
   - component: {fileID: 1344126189}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12129,6 +12145,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458661566}
   m_CullTransparentMesh: 1
+--- !u!1 &1554110553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+  m_PrefabInstance: {fileID: 5377345053593914676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1554110564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554110553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a00f2e887ea2e429488889792b6dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipments: []
 --- !u!1 &1702505135
 GameObject:
   m_ObjectHideFlags: 0
@@ -21561,7 +21595,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1554110564}
   m_SourcePrefab: {fileID: 100100000, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
 --- !u!1001 &5886128022861646370
 PrefabInstance:

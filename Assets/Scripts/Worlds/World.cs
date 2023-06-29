@@ -9,12 +9,13 @@ namespace Worlds
     {
         public readonly Vector2Int key;
 
-        public Brick[,] bricks;
+        public readonly Brick[] bricks;
 
         public Chunk(Vector2Int key, int size)
         {
             this.key = key;
-            bricks = new Brick[size, size];
+            bricks = new Brick[size * size];
+            Array.Fill(bricks, new Brick());
         }
     }
 
@@ -55,6 +56,7 @@ namespace Worlds
             }
         }
 
+        [CanBeNull]
         public Brick GetBrick(Vector2Int coordinates, out Chunk chunk)
         {
             if (_chunks.TryGetValue(coordinates / chunkSize, out chunk))
@@ -62,20 +64,22 @@ namespace Worlds
                 var x = coordinates.x < 0 ? chunkSize - 1 + coordinates.x % chunkSize : coordinates.x % chunkSize;
                 var y = coordinates.y < 0 ? chunkSize - 1 + coordinates.y % chunkSize : coordinates.y % chunkSize;
 
-                return chunk.bricks[x, y];
+                return chunk.bricks[x + y * chunkSize];
             }
 
             return null;
         }
 
+        [CanBeNull]
         public Brick GetBrick(Vector2Int coordinates)
         {
             return GetBrick(coordinates, out _);
         }
 
+        [CanBeNull]
         public Chunk GetChunk(Vector2Int key)
         {
-            return _chunks[key];
+            return _chunks.TryGetValue(key, out var chunk) ? chunk : null;
         }
     }
 }

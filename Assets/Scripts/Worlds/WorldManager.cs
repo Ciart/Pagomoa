@@ -10,7 +10,24 @@ namespace Worlds
     {
         public MineralEntity mineralEntity;
 
-        public World world;
+        private World _world;
+
+        public World world
+        {
+            get => _world;
+            set
+            {
+                if (_world == value)
+                {
+                    return;
+                }
+
+                _world = value;
+                createdWorld?.Invoke(_world);
+            }
+        }
+
+        public event Action<World> createdWorld;
 
         public event Action<Chunk> changedChunk;
 
@@ -71,9 +88,14 @@ namespace Worlds
             return new Vector2Int((int)position.x, (int)position.y);
         }
 
+        public Chunk GetChunkToPosition(Vector3 position)
+        {
+            return _world.GetChunk(new Vector2Int((int)position.x / _world.chunkSize, (int)position.y / _world.chunkSize));
+        }
+
         public void BreakGround(Vector2Int coordinates, int tier = 10)
         {
-            var brick = world.GetBrick(coordinates, out var chunk);
+            var brick = _world.GetBrick(coordinates, out var chunk);
 
             if (brick.mineral.tier <= tier)
             {
@@ -90,7 +112,7 @@ namespace Worlds
 
         public bool CheckClimbable(Vector3 position)
         {
-            var brick = world.GetBrick(ComputeCoordinates(position));
+            var brick = _world.GetBrick(ComputeCoordinates(position));
 
             return brick.wall.isClimbable;
         }

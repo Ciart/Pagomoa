@@ -10,15 +10,15 @@ namespace Worlds
     {
         public WorldDatabase database;
 
-        public int chunkSize;
+        public int chunkSize = 16;
 
-        public int top;
+        public int top = 4;
 
-        public int bottom;
+        public int bottom = 16;
 
-        public int left;
+        public int left = 4;
 
-        public int right;
+        public int right = 4;
 
 
         private WorldManager _worldManager;
@@ -32,7 +32,7 @@ namespace Worlds
             Generate();
         }
 
-        public void Preload()
+        private void Preload()
         {
             var pieces = database.pieces;
 
@@ -48,7 +48,7 @@ namespace Worlds
             _weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
         }
 
-        public Piece GetRandomPiece()
+        private Piece GetRandomPiece()
         {
             var pivot = Random.value;
 
