@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3585343481981625419}
   - component: {fileID: 4177568309858970068}
   - component: {fileID: 4194115565561829200}
+  - component: {fileID: 3355675721406186397}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -139,6 +140,8 @@ MonoBehaviour:
   state: 0
   isGrounded: 0
   drill: {fileID: 2289967431018751822}
+  _status: {fileID: 0}
+  _initialStatus: {fileID: 0}
   groundDistance: 1.125
   sideWallDistance: 1.0625
 --- !u!114 &6532384969457569552
@@ -174,12 +177,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oxygen: 100
-  oxygenConsume: 0.001
   maxOxygen: 100
   minOxygen: 0
+  _oxygenRecovery: 1
+  _oxygenConsume: 0.001
   hungry: 100
   maxHungry: 100
   minHungry: 0
+  _hungryRecovery: 1
+  _hungryConsume: 1
+  _armor: 0
+  _attackpower: 100
+  _sight: 1
+  _inSight: 1
+  _outSight: 1
+  _speed: 5
+  _inSpeed: 5
+  _outSpeed: 5
+  _digSpeed: 100
+  _crawlUpSpeed: 100
   oxygenAlter:
     m_PersistentCalls:
       m_Calls: []
@@ -308,6 +324,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.95382375, y: 1.8862174}
   m_EdgeRadius: 0
+--- !u!114 &3355675721406186397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106713657715818926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a00f2e887ea2e429488889792b6dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipments: []
 --- !u!1 &218849490887531847
 GameObject:
   m_ObjectHideFlags: 0
