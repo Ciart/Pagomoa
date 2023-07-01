@@ -23,20 +23,139 @@ MonoBehaviour:
     height: 4
     pivot: {x: 0, y: 0}
     rarity: 1
+    _bricks:
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
   - width: 1
     height: 1
     pivot: {x: 0, y: 0}
     rarity: 1
+    _bricks:
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
   - width: 1
     height: 1
     pivot: {x: 0, y: 0}
     rarity: 1
+    _bricks:
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
   - width: 2
     height: 4
     pivot: {x: 0, y: 0}
     rarity: 1
+    _bricks:
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
   - width: 6
     height: 2
     pivot: {x: 0, y: 0}
     rarity: 1
+    _bricks:
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 0}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
   selectIndex: 0

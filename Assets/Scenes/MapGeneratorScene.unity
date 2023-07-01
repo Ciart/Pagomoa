@@ -765,6 +765,8 @@ MonoBehaviour:
   bottom: 0
   left: 0
   right: 0
+  wall: {fileID: 0}
+  ground: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

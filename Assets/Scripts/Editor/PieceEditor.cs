@@ -11,11 +11,11 @@ namespace Editor
     {
         private readonly string[] _tabStrings =
         {
-            "Mineral", "Ground", "Pivot"
+            "Mineral", "Ground", "Pivot", "Wall"
         };
 
         private int _tabIndex;
-        
+
         private WorldDatabase _database;
 
         private int _width = 2;
@@ -50,8 +50,8 @@ namespace Editor
                 return;
             }
 
-            _database = (WorldDatabase) Selection.activeObject;
-            
+            _database = (WorldDatabase)Selection.activeObject;
+
             Repaint();
         }
 
@@ -61,7 +61,7 @@ namespace Editor
             {
                 return;
             }
-            
+
             var piece = _database.pieces[_database.selectIndex];
 
             EditorGUILayout.BeginHorizontal();
@@ -74,7 +74,7 @@ namespace Editor
                 piece.height = _height;
                 piece.ResizeBricks();
             }
-            
+
             EditorGUILayout.EndHorizontal();
 
             _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings);
@@ -83,8 +83,8 @@ namespace Editor
             {
                 case 0:
                     _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.mineralName).ToArray());                    Repaint();
-                   
+                        _database.minerals.Select(mineral => mineral.mineralName).ToArray());
+                    Repaint();
                     break;
                 case 1:
                     _selectGround = EditorGUILayout.Popup(_selectGround,
@@ -121,7 +121,7 @@ namespace Editor
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                             }
-                            
+
                             EditorUtility.SetDirty(_database);
                             Repaint();
                         }
@@ -132,20 +132,19 @@ namespace Editor
                     {
                         GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
                     }
-                    
+
                     var mineral = brick.mineral;
                     if (mineral)
                     {
                         GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
                     }
-                    
                 }
             }
-            
+
             var pivotX = piece.pivot.x * 36 + 8;
             var pivotY = piece.pivot.y * 36 + 100;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
-            
+
             EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
         }
     }

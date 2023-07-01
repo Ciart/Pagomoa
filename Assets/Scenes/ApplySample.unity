@@ -1806,6 +1806,8 @@ MonoBehaviour:
   bottom: 16
   left: 4
   right: 4
+  wall: {fileID: 0}
+  ground: {fileID: 0}
 --- !u!114 &1135593061
 MonoBehaviour:
   m_ObjectHideFlags: 0

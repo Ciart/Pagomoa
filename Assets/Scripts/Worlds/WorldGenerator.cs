@@ -20,6 +20,10 @@ namespace Worlds
 
         public int right = 4;
 
+        public Wall wall;
+
+        public Ground ground;
+
 
         private WorldManager _worldManager;
 
@@ -75,31 +79,45 @@ namespace Worlds
 
             for (var i = -left * chunkSize; i <= right * chunkSize; i++)
             {
-                for (var j = -top * chunkSize; j <= bottom * chunkSize; j++)
+                for (var j = -bottom * chunkSize; j <= top * chunkSize; j++)
                 {
-                    if (Random.Range(0, 30) != 0)
+                    if (j > 0)
                     {
                         continue;
                     }
 
-                    var piece = GetRandomPiece();
+                    var worldBrick2 = world.GetBrick(new Vector2Int(i, j));
 
-                    for (var x = 0; x < piece.width; x++)
+                    if (worldBrick2 != null)
                     {
-                        for (var y = 0; y < piece.height; y++)
-                        {
-                            var coordinates = new Vector2Int(i + x, j + y) - piece.pivot;
-                            
-                            var worldBrick = world.GetBrick(coordinates);
-
-                            if (worldBrick == null)
-                            {
-                                continue;
-                            }
-                            
-                            piece.GetBrick(x, y).CopyTo(worldBrick);
-                        }
+                        worldBrick2.wall = wall;
+                        worldBrick2.ground = ground;
                     }
+
+                    // if (Random.Range(0, 30) != 0)
+                    // {
+                    //     continue;
+                    // }
+                    //
+                    // var piece = GetRandomPiece();
+                    //
+                    // for (var x = 0; x < piece.width; x++)
+                    // {
+                    //     for (var y = 0; y < piece.height; y++)
+                    //     {
+                    //         var coordinates = new Vector2Int(i + x, j + y) - piece.pivot;
+                    //
+                    //         var worldBrick = world.GetBrick(coordinates);
+                    //
+                    //         if (worldBrick == null)
+                    //         {
+                    //             continue;
+                    //         }
+                    //
+                    //         piece.GetBrick(x, y).CopyTo(worldBrick);
+                    //         worldBrick.wall = wall;
+                    //     }
+                    // }
                 }
             }
 

@@ -98,6 +98,9 @@ namespace Worlds
 
             _worldManager.createdWorld += OnCreatedWorld;
             _worldManager.changedChunk += OnChangedChunk;
+            
+            ClearWorld();
+            NewMethod();
         }
 
         private void LateUpdate()
@@ -119,9 +122,9 @@ namespace Worlds
             var a = 2;
             var hash = new HashSet<Chunk>();
 
-            for (var i = chunk.key.x - a; i <= a; i++)
+            for (var i = chunk.key.x - a; i <= chunk.key.x + a; i++)
             {
-                for (var j = chunk.key.y - a; j <= a; j++)
+                for (var j = chunk.key.y - a; j <= chunk.key.y + a; j++)
                 {
                     var c = _worldManager.world.GetChunk(new Vector2Int(i, j));
 
