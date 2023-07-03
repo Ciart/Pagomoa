@@ -195,21 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06cfb25d961118f4d9be1fc91d3a8310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritesData:
-  - {fileID: 824159298, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: 602315920, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: 2106509457, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: 623577793, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: -520062999, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: 21300000, guid: 94e19fad18ab34771a850cd0da68ed7e, type: 3}
-  talk:
-  - "\uC74C?"
-  - "\uC65C.."
-  - "\uB610 \uBB50\uAC00 \uBB38\uC81C\uC778\uAC74\uB370.."
-  - "\uB610 \uBC84\uADF8\uC57C?"
-  - "\uADF8\uB9CC \uC880 \uD574!! \uD06C\uD751"
-  - "\uBD88\uC30D\uD574\uB77C.. \uACE0\uD1B5\uBC1B\uB124"
-  emotionId: 000000000100000002000000030000000400000005000000
+  dialogueId: 0
 --- !u!114 &2357527780685838860
 MonoBehaviour:
   m_ObjectHideFlags: 0
