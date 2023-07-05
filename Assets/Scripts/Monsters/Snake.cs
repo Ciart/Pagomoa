@@ -32,7 +32,7 @@ public class Snake : MonoBehaviour
         {
             Target = collision.gameObject;
             animator.SetTrigger("Chase");
-            Debug.Log("∆Æ∏Æ∞≈ø£≈Õ");
+            Debug.Log("Ìä∏Î¶¨Í±∞ÏóîÌÑ∞");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -42,7 +42,7 @@ public class Snake : MonoBehaviour
             Target = null;
             m_rigidbody.velocity = Vector3.zero;
             animator.SetTrigger("Idle");
-            Debug.Log("∆Æ∏Æ∞≈¿ÕΩ√∆Æ");
+            Debug.Log("Ìä∏Î¶¨Í±∞ÏùµÏãúÌä∏");
         }
     }
 }

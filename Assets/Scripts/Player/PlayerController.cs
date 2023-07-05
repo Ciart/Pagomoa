@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Constants;
 using Maps;
 using UnityEngine;
@@ -35,17 +36,20 @@ namespace Player
 
         private Direction _direction;
 
+        private PlayerGetHit _getHit;
+
         private void Awake()
         {
-            _status = GetComponent<Status>(); // ½ºÅÈ ÃÊ±âÈ­
-            _initialStatus = _status.copy();  // ±âº» ½ºÅÈ ÀúÀå
-            GetComponent<Equip>().CalEquipvalue(); // Àåºñ ´É·ÂÄ¡ Àû¿ë
+            _status = GetComponent<Status>(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+            _initialStatus = _status.copy();  // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            GetComponent<Equip>().CalEquipvalue(); // ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
-
+            _getHit = GetComponent<PlayerGetHit>();
+            
             _map = MapManager.Instance;
         }
 
@@ -123,6 +127,21 @@ namespace Player
             _movement.isSideWall = true;
         }
 
+        public void Hit(float monsterDamage)
+        {
+            if (_getHit.isInvisible == false)
+            {
+                _status.oxygen -= monsterDamage;
+                StartCoroutine(_getHit.InvincibleCool());
+            }
+            else
+            {
+                Debug.Log("ë¬´ì ì‹œê°„");
+            }
+            Debug.Log("ê³µê¸°ëŸ‰" + _status.oxygen);
+        }
+
+        
         private void FixedUpdate()
         {
             UpdateIsGrounded();
