@@ -127,18 +127,18 @@ namespace Player
             _movement.isSideWall = true;
         }
 
-        public void Hit(float monsterDamage)
+        public void Hit(float monsterDamage, Vector3 monsterPosition)
         {
             if (_getHit.isInvisible == false)
             {
                 _status.oxygen -= monsterDamage;
-                StartCoroutine(_getHit.InvincibleCool());
+                StartCoroutine(_getHit.InvincibleCool(monsterPosition));
             }
             else
             {
-                Debug.Log("무적시간");
+                // Debug.Log("무적시간");
             }
-            Debug.Log("공기량" + _status.oxygen);
+            // Debug.Log("공기량" + _status.oxygen);
         }
 
         
