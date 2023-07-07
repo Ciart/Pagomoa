@@ -83,10 +83,11 @@ namespace Worlds
                 {
                     if (j > 0)
                     {
+                        Debug.Log("Asdasd");
                         continue;
                     }
 
-                    var worldBrick2 = world.GetBrick(new Vector2Int(i, j));
+                    ref var worldBrick2 = ref world.GetBrick(new Vector2Int(i, j));
 
                     if (worldBrick2 != null)
                     {

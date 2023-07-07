@@ -64,8 +64,9 @@ namespace Worlds
             foreach (var chunk in _expiredChunks)
             {
                 changedChunk?.Invoke(chunk);
-                _expiredChunks.Remove(chunk);
             }
+            
+            _expiredChunks.Clear();
         }
 
         /// <summary>
@@ -90,14 +91,15 @@ namespace Worlds
 
         public Chunk GetChunkToPosition(Vector3 position)
         {
-            return _world.GetChunk(new Vector2Int((int)position.x / _world.chunkSize, (int)position.y / _world.chunkSize));
+            return _world.GetChunk(new Vector2Int((int)Mathf.Floor(position.x / (float)_world.chunkSize),
+                (int)Mathf.Floor(position.y / (float)_world.chunkSize)));
         }
 
         public void BreakGround(Vector2Int coordinates, int tier = 10)
         {
-            var brick = _world.GetBrick(coordinates, out var chunk);
+            ref var brick = ref _world.GetBrick(coordinates, out var chunk);
 
-            if (brick.mineral.tier <= tier)
+            if (brick.mineral is not null && brick.mineral.tier <= tier)
             {
                 var entity = Instantiate(mineralEntity, ComputePosition(coordinates),
                     Quaternion.identity);

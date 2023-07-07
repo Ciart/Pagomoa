@@ -55,25 +55,23 @@ namespace Worlds
                 }
             }
         }
-
-        [CanBeNull]
-        public Brick GetBrick(Vector2Int coordinates, out Chunk chunk)
+        
+        public ref Brick GetBrick(Vector2Int coordinates, out Chunk chunk)
         {
             if (_chunks.TryGetValue(coordinates / chunkSize, out chunk))
             {
                 var x = coordinates.x < 0 ? chunkSize - 1 + coordinates.x % chunkSize : coordinates.x % chunkSize;
                 var y = coordinates.y < 0 ? chunkSize - 1 + coordinates.y % chunkSize : coordinates.y % chunkSize;
 
-                return chunk.bricks[x + y * chunkSize];
+                return ref chunk.bricks[x + y * chunkSize];
             }
 
-            return null;
+            return ref Brick.None;
         }
-
-        [CanBeNull]
-        public Brick GetBrick(Vector2Int coordinates)
+        
+        public ref Brick GetBrick(Vector2Int coordinates)
         {
-            return GetBrick(coordinates, out _);
+            return ref GetBrick(coordinates);
         }
 
         [CanBeNull]

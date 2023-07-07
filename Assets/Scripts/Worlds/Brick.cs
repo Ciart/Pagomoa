@@ -3,8 +3,10 @@ using System;
 namespace Worlds
 {
     [Serializable]
-    public class Brick
+    public struct Brick
     {
+        public static Brick None = new Brick();
+
         public Wall wall;
         public Ground ground;
         public Mineral mineral;
@@ -15,5 +17,10 @@ namespace Worlds
             brick.ground = ground;
             brick.mineral = mineral;
         }
+
+        public static bool operator ==(Brick lhs, Brick rhs) =>
+            lhs.wall == rhs.wall && lhs.ground == rhs.ground && lhs.mineral == rhs.mineral;
+
+        public static bool operator !=(Brick lhs, Brick rhs) => !(lhs == rhs);
     }
 }

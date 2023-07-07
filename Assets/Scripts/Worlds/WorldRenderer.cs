@@ -15,6 +15,9 @@ namespace Worlds
 
         public Tilemap mineralTilemap;
 
+        [Range(1, 16)]
+        public int renderChunkRange = 2;
+
         private WorldManager _worldManager;
 
         private PlayerController _player;
@@ -51,7 +54,7 @@ namespace Worlds
             }
         }
 
-        private void UpdateChunk(Chunk chunk)
+        private void RenderChunk(Chunk chunk)
         {
             var world = _worldManager.world;
 
@@ -61,7 +64,7 @@ namespace Worlds
                 {
                     var brick = chunk.bricks[i + j * world.chunkSize];
 
-                    if (brick == null)
+                    if (brick == Brick.None)
                     {
                         continue;
                     }
@@ -78,7 +81,7 @@ namespace Worlds
         private void OnCreatedWorld(World world)
         {
             ClearWorld();
-            NewMethod();
+            RenderWorld();
         }
 
         private void OnChangedChunk(Chunk chunk)
@@ -88,7 +91,7 @@ namespace Worlds
                 return;
             }
 
-            UpdateChunk(chunk);
+            RenderChunk(chunk);
         }
 
         private void Awake()
@@ -100,17 +103,34 @@ namespace Worlds
             _worldManager.changedChunk += OnChangedChunk;
             
             ClearWorld();
-            NewMethod();
+            RenderWorld();
         }
 
         private void LateUpdate()
         {
-            NewMethod();
+            RenderWorld();
+        }
+        
+        public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)
+        {
+            if (chunk == null)
+            {
+                return;
+            }
+            
+            var position = new Vector3(chunk.key.x * chunkSize, chunk.key.y * chunkSize, 0);
+
+            Debug.DrawLine(position, position + Vector3.right * chunkSize, color);
+            Debug.DrawLine(position + Vector3.right * chunkSize, position + new Vector3(chunkSize, chunkSize, 0), color);
+            Debug.DrawLine(position + new Vector3(chunkSize, chunkSize, 0), position + Vector3.up * chunkSize, color);
+            Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
         }
 
-        private void NewMethod()
+        private void RenderWorld()
         {
             var chunk = _worldManager.GetChunkToPosition(_player.transform.position);
+
+            DrawChunkRectangle(chunk, _worldManager.world.chunkSize, Color.cyan);
 
             if (chunk == null || _currentChunk == chunk)
             {
@@ -118,13 +138,12 @@ namespace Worlds
             }
 
             _currentChunk = chunk;
-
-            var a = 2;
+            
             var hash = new HashSet<Chunk>();
 
-            for (var i = chunk.key.x - a; i <= chunk.key.x + a; i++)
+            for (var i = chunk.key.x - renderChunkRange; i <= chunk.key.x + renderChunkRange; i++)
             {
-                for (var j = chunk.key.y - a; j <= chunk.key.y + a; j++)
+                for (var j = chunk.key.y - renderChunkRange; j <= chunk.key.y + renderChunkRange; j++)
                 {
                     var c = _worldManager.world.GetChunk(new Vector2Int(i, j));
 
@@ -144,7 +163,7 @@ namespace Worlds
 
             foreach (var updateChunk in hash.Except(_renderingChunk))
             {
-                UpdateChunk(updateChunk);
+                RenderChunk(updateChunk);
             }
 
             _renderingChunk = hash;
