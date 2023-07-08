@@ -29,7 +29,7 @@ namespace Worlds
 
         public event Action<Chunk> changedChunk;
 
-        private static WorldManager _instance = null;
+        private static WorldManager _instance;
 
         private HashSet<Chunk> _expiredChunks = new();
 
@@ -118,12 +118,7 @@ namespace Worlds
             var coords = ComputeCoords(position);
             var brick = _world.GetBrick(coords.x, coords.y, out _);
 
-            if (brick is null && brick.wall is null)
-            {
-                return false;
-            }
-
-            return brick.wall.isClimbable;
+            return brick?.wall is not null && brick.wall.isClimbable;
         }
     }
 }

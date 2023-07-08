@@ -11,7 +11,7 @@ namespace Editor
     {
         private readonly string[] _tabStrings =
         {
-            "Mineral", "Ground", "Pivot", "Wall"
+            "Wall", "Ground", "Mineral", "Pivot"
         };
 
         private int _tabIndex;
@@ -22,9 +22,11 @@ namespace Editor
 
         private int _height = 2;
 
-        private int _selectMineral;
-
+        private int _selectWall;
+        
         private int _selectGround;
+
+        private int _selectMineral;
 
         [MenuItem("Window/Piece Editor")]
         private static void Init()
@@ -82,13 +84,17 @@ namespace Editor
             switch (_tabIndex)
             {
                 case 0:
-                    _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.mineralName).ToArray());
-                    Repaint();
+                    _selectWall = EditorGUILayout.Popup(_selectWall,
+                        _database.walls.Select(ground => ground.displayName).ToArray());
                     break;
                 case 1:
                     _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.groundName).ToArray());
+                        _database.grounds.Select(ground => ground.displayName).ToArray());
+                    break;
+                case 2:
+                    _selectMineral = EditorGUILayout.Popup(_selectMineral,
+                        _database.minerals.Select(mineral => mineral.displayName).ToArray());
+                    Repaint();
                     break;
             }
 
@@ -112,12 +118,15 @@ namespace Editor
                             switch (_tabIndex)
                             {
                                 case 0:
-                                    brick.mineral = _database.minerals[_selectMineral];
+                                    brick.wall = _database.walls[_selectWall];
                                     break;
                                 case 1:
                                     brick.ground = _database.grounds[_selectGround];
                                     break;
                                 case 2:
+                                    brick.mineral = _database.minerals[_selectMineral];
+                                    break;
+                                case 3:
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                             }
@@ -127,16 +136,27 @@ namespace Editor
                         }
                     }
 
-                    var ground = brick.ground;
-                    if (ground)
+                    if (_tabIndex == 0)
                     {
-                        GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
+                        var wall = brick.wall;
+                        if (wall)
+                        {
+                            GUI.DrawTextureWithTexCoords(rect, wall.sprite.texture, ComputeTexCoords(wall.sprite));
+                        }
                     }
-
-                    var mineral = brick.mineral;
-                    if (mineral)
+                    else
                     {
-                        GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
+                        var ground = brick.ground;
+                        if (ground)
+                        {
+                            GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
+                        }
+
+                        var mineral = brick.mineral;
+                        if (mineral)
+                        {
+                            GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
+                        }
                     }
                 }
             }

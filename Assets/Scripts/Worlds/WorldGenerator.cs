@@ -87,7 +87,7 @@ namespace Worlds
             {
                 for (var y = worldBottom; y < worldTop; y++)
                 {
-                    if (y > world.groundHeight)
+                    if (y >= world.groundHeight)
                     {
                         continue;
                     }
