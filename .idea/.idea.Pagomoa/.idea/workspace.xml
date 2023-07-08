@@ -8,7 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Map Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Map Database.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/PieceEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/PieceEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/Brick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/Brick.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/Piece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/Piece.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/World.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldGenerator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" afterDir="false" />
@@ -24,6 +27,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/20ec2084e3e54ecaa99fcb1c13b2e6c216e400/ba/3d6b0b42/Vector2Int.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f3ab9bec5e0b49c69509a99a02f22c8da000/ad/f876aaf1/Tilemap.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Collect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
@@ -92,10 +96,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15412">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="23904">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="15412" />
+      <option name="pid" value="23904" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -136,6 +140,8 @@
       <workItem from="1688214192296" duration="1870000" />
       <workItem from="1688217467121" duration="1387000" />
       <workItem from="1688552395835" duration="6795000" />
+      <workItem from="1688805705856" duration="7709000" />
+      <workItem from="1688819042029" duration="10140000" />
     </task>
     <servers />
   </component>
@@ -146,5 +152,37 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Worlds/Brick.cs</url>
+          <line>19</line>
+          <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Worlds\Brick.cs" initialLine="21" containingFunctionPresentation="">
+            <startOffsets>
+              <option value="411" />
+            </startOffsets>
+            <endOffsets>
+              <option value="489" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Worlds/WorldRenderer.cs</url>
+          <line>63</line>
+          <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Worlds\WorldRenderer.cs" initialLine="63" containingFunctionPresentation="Method 'RenderChunk'">
+            <startOffsets>
+              <option value="1710" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1760" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

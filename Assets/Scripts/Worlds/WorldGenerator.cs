@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -77,52 +78,62 @@ namespace Worlds
 
             var world = new World(chunkSize, top, bottom, left, right);
 
-            for (var i = -left * chunkSize; i <= right * chunkSize; i++)
+            var worldLeft = -left * chunkSize;
+            var worldRight = right * chunkSize;
+            var worldBottom = -bottom * chunkSize;
+            var worldTop = top * chunkSize;
+
+            for (var x = worldLeft; x < worldRight; x++)
             {
-                for (var j = -bottom * chunkSize; j <= top * chunkSize; j++)
+                for (var y = worldBottom; y < worldTop; y++)
                 {
-                    if (j > 0)
+                    if (y > world.groundHeight)
                     {
-                        Debug.Log("Asdasd");
                         continue;
                     }
 
-                    ref var worldBrick2 = ref world.GetBrick(new Vector2Int(i, j));
-
-                    if (worldBrick2 != null)
                     {
-                        worldBrick2.wall = wall;
-                        worldBrick2.ground = ground;
+                        var worldBrick = world.GetBrick(x, y, out _);
+                        
+                        if (worldBrick is not null)
+                        {
+                            worldBrick.wall = wall;
+                            worldBrick.ground = ground;
+                        }
                     }
 
-                    // if (Random.Range(0, 30) != 0)
-                    // {
-                    //     continue;
-                    // }
-                    //
-                    // var piece = GetRandomPiece();
-                    //
-                    // for (var x = 0; x < piece.width; x++)
-                    // {
-                    //     for (var y = 0; y < piece.height; y++)
-                    //     {
-                    //         var coordinates = new Vector2Int(i + x, j + y) - piece.pivot;
-                    //
-                    //         var worldBrick = world.GetBrick(coordinates);
-                    //
-                    //         if (worldBrick == null)
-                    //         {
-                    //             continue;
-                    //         }
-                    //
-                    //         piece.GetBrick(x, y).CopyTo(worldBrick);
-                    //         worldBrick.wall = wall;
-                    //     }
-                    // }
+                    if (Random.Range(0, 30) != 0)
+                    {
+                        continue;
+                    }
+
+                    var piece = GetRandomPiece();
+                    GeneratePiece(piece, world, x, y);
                 }
             }
 
             _worldManager.world = world;
+        }
+
+        private void GeneratePiece(Piece piece, World world, int worldX, int worldY)
+        {
+            for (var x = 0; x < piece.width; x++)
+            {
+                for (var y = 0; y < piece.height; y++)
+                {
+                    var coords = new Vector2Int(worldX + x, worldY + y) - piece.pivot;
+
+                    var worldBrick = world.GetBrick(coords.x, coords.y, out _);
+
+                    if (worldBrick is null)
+                    {
+                        continue;
+                    }
+
+                    piece.GetBrick(x, y).CopyTo(worldBrick);
+                    worldBrick.wall = wall;
+                }
+            }
         }
     }
 }

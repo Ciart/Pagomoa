@@ -54,19 +54,19 @@ namespace Player
                 if (direction == Direction.Left)
                 {
                     var position = transform.position;
-                    po1 = WorldManager.ComputeCoordinates( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
-                    po2 = WorldManager.ComputeCoordinates( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
+                    po1 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
+                    po2 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
                 }
                 else if (direction == Direction.Right)
                 {
                     var position = transform.position;
-                    po1 = WorldManager.ComputeCoordinates( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
-                    po2 = WorldManager.ComputeCoordinates( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
+                    po1 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
+                    po2 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
                 }
                 else
                 {
-                    po1 = WorldManager.ComputeCoordinates(HitPointDown.position + new Vector3(0.3f, 0, 0));
-                    po2 = WorldManager.ComputeCoordinates(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                    po1 = WorldManager.ComputeCoords(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                    po2 = WorldManager.ComputeCoords(HitPointDown.position - new Vector3(0.3f, 0, 0));
                 }
                 StartCoroutine(PA(po1, po2));
 
@@ -83,8 +83,8 @@ namespace Player
             _canDig = false;
 
             var worldManager = WorldManager.instance;
-            var tile1 = worldManager.world.GetBrick(point1).ground;
-            var tile2 = worldManager.world.GetBrick(point2).ground;
+            var tile1 = worldManager.world.GetBrick(point1.x, point1.y, out _)?.ground;
+            var tile2 = worldManager.world.GetBrick(point2.x, point2.y, out _)?.ground;
             if (tile1 || tile2)
             {
                 Debug.Log("굴착시작!");
@@ -101,19 +101,19 @@ namespace Player
                     if (direction == Direction.Left)
                     {
                         var position = transform.position;
-                        currentPos1 = WorldManager.ComputeCoordinates( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
-                        currentPos2 = WorldManager.ComputeCoordinates( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
+                        currentPos1 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
+                        currentPos2 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
                     }
                     else if (direction == Direction.Right)
                     {
                         var position = transform.position;
-                        currentPos1 = WorldManager.ComputeCoordinates( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
-                        currentPos2 = WorldManager.ComputeCoordinates( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
+                        currentPos1 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
+                        currentPos2 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
                     }
                     else
                     {
-                        currentPos1 = WorldManager.ComputeCoordinates(HitPointDown.position + new Vector3(0.3f, 0, 0));
-                        currentPos2 = WorldManager.ComputeCoordinates(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                        currentPos1 = WorldManager.ComputeCoords(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                        currentPos2 = WorldManager.ComputeCoords(HitPointDown.position - new Vector3(0.3f, 0, 0));
                     }
 
                     _charging += Time.fixedDeltaTime;
@@ -131,13 +131,13 @@ namespace Player
                 }
                 if (time1 <= _charging)
                 {
-                    worldManager.BreakGround(point1);
+                    worldManager.BreakGround(point1.x, point1.y, 10);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
                 if (time2 <= _charging)
                 {
-                    worldManager.BreakGround(point2);
+                    worldManager.BreakGround(point2.x, point2.y, 10);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }

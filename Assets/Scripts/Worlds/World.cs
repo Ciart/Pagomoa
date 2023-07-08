@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Worlds
@@ -15,7 +14,14 @@ namespace Worlds
         {
             this.key = key;
             bricks = new Brick[size * size];
-            Array.Fill(bricks, new Brick());
+
+            for (var i = 0; i < size; i++)
+            {
+                for (var j = 0; j < size; j++)
+                {
+                    bricks[i + j * size] = new Brick();
+                }
+            }
         }
     }
 
@@ -45,39 +51,41 @@ namespace Worlds
 
             _chunks = new Dictionary<Vector2Int, Chunk>();
 
-            for (var i = -this.top; i < this.bottom; i++)
+            for (var keyX = -this.left; keyX < this.right; keyX++)
             {
-                for (var j = -this.left; j < this.right; j++)
+                for (var keyY = -this.bottom; keyY < this.top; keyY++)
                 {
-                    var key = new Vector2Int(i, j);
-
+                    var key = new Vector2Int(keyX, keyY);
                     _chunks[key] = new Chunk(key, this.chunkSize);
                 }
             }
         }
-        
-        public ref Brick GetBrick(Vector2Int coordinates, out Chunk chunk)
-        {
-            if (_chunks.TryGetValue(coordinates / chunkSize, out chunk))
-            {
-                var x = coordinates.x < 0 ? chunkSize - 1 + coordinates.x % chunkSize : coordinates.x % chunkSize;
-                var y = coordinates.y < 0 ? chunkSize - 1 + coordinates.y % chunkSize : coordinates.y % chunkSize;
 
-                return ref chunk.bricks[x + y * chunkSize];
-            }
-
-            return ref Brick.None;
-        }
-        
-        public ref Brick GetBrick(Vector2Int coordinates)
-        {
-            return ref GetBrick(coordinates);
-        }
-
-        [CanBeNull]
         public Chunk GetChunk(Vector2Int key)
         {
             return _chunks.TryGetValue(key, out var chunk) ? chunk : null;
+        }
+
+        public Chunk GetChunk(int x, int y)
+        {
+            var key = new Vector2Int(Mathf.FloorToInt((float)x / chunkSize), Mathf.FloorToInt((float)y / chunkSize));
+
+            return GetChunk(key);
+        }
+
+        public Brick GetBrick(int x, int y, out Chunk chunk)
+        {
+            chunk = GetChunk(x, y);
+
+            if (chunk is null)
+            {
+                return null;
+            }
+
+            var brinkX = x < 0 ? chunkSize - 1 + (x + 1) % chunkSize  : x % chunkSize;
+            var brinkY = y < 0 ? chunkSize - 1 + (y + 1) % chunkSize : y % chunkSize;
+
+            return chunk.bricks[brinkX + brinkY * chunkSize];
         }
     }
 }

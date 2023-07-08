@@ -3,10 +3,8 @@ using System;
 namespace Worlds
 {
     [Serializable]
-    public struct Brick
+    public class Brick
     {
-        public static Brick None = new Brick();
-
         public Wall wall;
         public Ground ground;
         public Mineral mineral;
