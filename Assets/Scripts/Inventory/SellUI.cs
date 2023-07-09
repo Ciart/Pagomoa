@@ -7,7 +7,7 @@ public class SellUI : MonoBehaviour
     public GameObject ConsumptionView;
     public GameObject EtcView;
     public bool ButtonOnClick = false;
-    public ShopInventory sellUI;
+    //public ShopInventory sellUI;
     public SellNPC sellnpc;
 
     public void SellClickConsumptionButton()
@@ -26,7 +26,7 @@ public class SellUI : MonoBehaviour
     }
     public void SellClickSellExitbtn()
     {
-        sellUI.gameObject.SetActive(false);
+        //sellUI.gameObject.SetActive(false);
         ButtonOnClick = false;
         sellnpc.ActiveShopUI = false;
     }

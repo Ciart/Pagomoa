@@ -7,8 +7,8 @@ using UnityEngine.Rendering.UI;
 public class InventoryDB : MonoBehaviour
 {
     public Dictionary<Mineral, int> MineralsData = new Dictionary<Mineral, int>();
-    public Dictionary<ShopConsumptionItemData, int> ConsumptionItemsData = new Dictionary<ShopConsumptionItemData, int>();
-    public List<ShopItemData> ShopItemsData = new List<ShopItemData>();
+    public Dictionary<Item, int> ConsumptionItemsData = new Dictionary<Item, int>();
+    public List<Item> ShopItemsData = new List<Item>();
     public int Gold;
     public void Add(Mineral data)
     {
@@ -37,7 +37,7 @@ public class InventoryDB : MonoBehaviour
             Gold += data.price;
         }
     }
-    public void AddEquipmentItemData(ShopItemData data)
+    public void AddEquipmentItemData(Item data)
     {
         if (ShopItemsData.Contains(data))
         {
@@ -48,7 +48,7 @@ public class InventoryDB : MonoBehaviour
             ShopItemsData.Add(data);
         }
     }
-    public void AddConsumptionItemData(ShopConsumptionItemData data)
+    public void AddConsumptionItemData(Item data)
     {
         if (ConsumptionItemsData.ContainsKey(data))
         {
@@ -57,14 +57,14 @@ public class InventoryDB : MonoBehaviour
         }
         ConsumptionItemsData.Add(data, 1);
     }
-    public void RemoveConsumptionItemData(ShopConsumptionItemData data)
+    public void RemoveConsumptionItemData(Item data)
     {
         if (ConsumptionItemsData[data] > 1)
         {
             if (ConsumptionItemsData.ContainsKey(data))
             {
                 ConsumptionItemsData[data] -= 1;
-                Gold += data.price;
+                Gold += data.itemPrice;
                 Debug.Log(Gold);
                 return;
             }
@@ -72,10 +72,10 @@ public class InventoryDB : MonoBehaviour
         else if (ConsumptionItemsData[data] == 1)
         {
             ConsumptionItemsData.Remove(data);
-            Gold += data.price;
+            Gold += data.itemPrice;
         }
     }
-    public void RemoveArtifactItemData(ShopItemData data)
+    public void RemoveArtifactItemData(Item data)
     {
         ShopItemsData.Remove(data);
     }

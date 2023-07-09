@@ -5,22 +5,22 @@ using UnityEngine.UIElements;
 
 public class ShopDB : MonoBehaviour
 {
-    public List<ShopItemData> items = new List<ShopItemData>();
-    public List<ShopConsumptionItemData> consumptionitems = new List<ShopConsumptionItemData>();
+    public List<Item> items = new List<Item>();
+    public List<Item> consumptionitems = new List<Item>();
     public InventoryDB inventoryDB;
-    public void RemoveItem(ShopItemData data)
+    public void RemoveItem(Item data)
     {
-        if (data.price <= inventoryDB.Gold)
+        if (data.itemPrice <= inventoryDB.Gold)
         {
             items.Remove(data);
-            inventoryDB.Gold -= data.price;
+            inventoryDB.Gold -= data.itemPrice;
             inventoryDB.AddEquipmentItemData(data);
         }
     }
-    public void RemoveConsumptionItem(ShopConsumptionItemData data)
+    public void RemoveConsumptionItem(Item data)
     {
         //consumptionitems.Remove(data);
-        inventoryDB.Gold -= data.price;
+        inventoryDB.Gold -= data.itemPrice;
         inventoryDB.AddConsumptionItemData(data);
     }
 }

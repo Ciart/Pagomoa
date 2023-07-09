@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
   m_Name: Iron
   m_EditorClassIdentifier: 
+  itemName: 
+  itemType: 0
+  itemImage: {fileID: 0}
+  itemInfo: 
+  itemPrice: 0
   mineralName: "\uCCA0"
   tier: 1
   sprite: {fileID: 284631574, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}

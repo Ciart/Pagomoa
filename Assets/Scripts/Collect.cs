@@ -6,9 +6,10 @@ using UnityEngine.Events;
 
 public class Collect : MonoBehaviour
 {
-    public Inventory inventory;
-    public ShopInventory shopInventory;
+    //public Inventory inventory;
+    //public ShopInventory shopInventory;
     public InventoryDB inventoryDB;
+    public EtcInventory etcInventory;
     public UnityEvent OnCollectEvent;
     private void Awake()
     {
@@ -24,8 +25,9 @@ public class Collect : MonoBehaviour
         Debug.Log($"{mineral.tier}티어 광물 \"{mineral.mineralName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
         inventoryDB.Add(mineral);
-        inventory.UpdateEtcSlot();
-        shopInventory.UpdateEtcSlot();
+        etcInventory.InputSlot(mineral);
+        //inventory.UpdateEtcSlot();
+        //shopInventory.UpdateEtcSlot();
         //inventory.Add(mineral);
         //shopInventory.Add(mineral);
         Destroy(collision.gameObject);

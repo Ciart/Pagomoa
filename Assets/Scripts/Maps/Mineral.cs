@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 namespace Maps
 {
     [CreateAssetMenu(fileName = "Mineral", menuName = "Map/Mineral", order = 1)]
-    public class Mineral: ScriptableObject
+    public class Mineral: Item
     {
         public string mineralName;
     

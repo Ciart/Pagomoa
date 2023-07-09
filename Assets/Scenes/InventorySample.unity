@@ -655,7 +655,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &240840495
@@ -2968,7 +2967,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &580254385
@@ -3121,7 +3119,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1155689198}
   EtcView: {fileID: 767692185}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   sellnpc: {fileID: 0}
 --- !u!1 &580453173
 GameObject:
@@ -3465,7 +3462,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &632490199
@@ -4151,7 +4147,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1155689198}
   EtcView: {fileID: 767692185}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   sellnpc: {fileID: 0}
 --- !u!1 &674565473
 GameObject:
@@ -4712,7 +4707,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 0}
   EtcView: {fileID: 0}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 1068532645}
   shopnpc: {fileID: 1066893465}
 --- !u!1 &767692185
@@ -6612,6 +6606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoverRenderer: {fileID: 445877661}
+  item: {fileID: 0}
 --- !u!1 &1091895524
 GameObject:
   m_ObjectHideFlags: 0
@@ -7957,7 +7952,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &1226036438
@@ -22532,7 +22526,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 0}
   EtcView: {fileID: 0}
   ButtonOnClick: 0
-  sellUI: {fileID: 1542661516}
   sellnpc: {fileID: 1821553134}
 --- !u!1 &1422530871
 GameObject:
@@ -23026,7 +23019,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 0}
   EtcView: {fileID: 0}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   sellnpc: {fileID: 0}
 --- !u!1 &1481297934
 GameObject:
@@ -25945,14 +25937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18698b8bf3c01f64b8b444d683c76160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryDB: {fileID: 359754961}
-  shopDB: {fileID: 1066893463}
-  slots: {fileID: 1308608459}
-  slot: {fileID: 1430976447}
-  Equipmentslots: {fileID: 211280383}
-  Equipmentslot: {fileID: 1074902351}
-  consumptionSlots: {fileID: 459250144}
-  consumptionSlot: {fileID: 956903904}
 --- !u!114 &2112417302
 MonoBehaviour:
   m_ObjectHideFlags: 0

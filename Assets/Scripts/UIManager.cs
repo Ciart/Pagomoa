@@ -27,9 +27,9 @@ public class UIManager : MonoBehaviour
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
-            ScrollView.transform.Find("EquipmentViewPoint").gameObject.SetActive(true);
-            ScrollView.transform.Find("ConsumptionViewPoint").gameObject.SetActive(false);
-            ScrollView.transform.Find("EtcViewPoint").gameObject.SetActive(false);                 
+            ScrollView.transform.Find("EquipInventory").gameObject.SetActive(false);
+            ScrollView.transform.Find("UseInventory").gameObject.SetActive(false);
+            ScrollView.transform.Find("EtcInventory").gameObject.SetActive(true);                 
         }
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)

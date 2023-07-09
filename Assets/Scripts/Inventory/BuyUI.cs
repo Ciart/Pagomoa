@@ -28,28 +28,28 @@ public class BuyUI : MonoBehaviour
                 Destroy(slot);
         }
     }
-    private void AddEquipmentSlotShop(ShopItemData data)
+    private void AddEquipmentSlotShop(Item data)
     {
         GameObject SpawnedSlot = Instantiate(slot, slots.transform);
         SpawnedSlot.SetActive(true);
-        SpawnedSlot.GetComponent<Slot>().SetEquipmentSlotShop(data);
+        //SpawnedSlot.GetComponent<Slot>().SetEquipmentSlotShop(data);
     }
-    private void AddConsumptionSlotShop(ShopConsumptionItemData data)
+    private void AddConsumptionSlotShop(Item data)
     {
         GameObject SpawnedSlot = Instantiate(consumptionSlot, consumptionSlots.transform);
         SpawnedSlot.SetActive(true);
-        SpawnedSlot.GetComponent<Slot>().SetConsumptionSlotShop(data);
+        //SpawnedSlot.GetComponent<Slot>().SetConsumptionSlotShop(data);
     }
     public void UpdateEquipmentSlotShop()
     {
         DeleteEquipmentSlotShop();
-        foreach (ShopItemData key in shopDB.items)
+        foreach (Item key in shopDB.items)
             AddEquipmentSlotShop(key);
     }
     public void UpdateConsumptionSlotShop()
     {
         DeleteConsumptionSlotShop();
-        foreach (ShopConsumptionItemData key in shopDB.consumptionitems)
+        foreach (Item key in shopDB.consumptionitems)
             AddConsumptionSlotShop(key);
     }
     private void Awake()
