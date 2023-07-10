@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Maps
+namespace Worlds
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class MineralEntity: MonoBehaviour
