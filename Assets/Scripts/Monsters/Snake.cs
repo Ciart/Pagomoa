@@ -21,6 +21,7 @@ public class Snake : MonoBehaviour
         if (Target == null)
             return;
         Vector2 direction = (Target.transform.position - transform.position).normalized;
+        direction.y = 0;
         m_rigidbody.velocity = direction * speed;
 
         float forward = direction.x > 0 ? 1 : -1;
@@ -32,7 +33,6 @@ public class Snake : MonoBehaviour
         {
             Target = collision.gameObject;
             animator.SetTrigger("Chase");
-            Debug.Log("트리거엔터");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -42,7 +42,6 @@ public class Snake : MonoBehaviour
             Target = null;
             m_rigidbody.velocity = Vector3.zero;
             animator.SetTrigger("Idle");
-            Debug.Log("트리거익시트");
         }
     }
 }
