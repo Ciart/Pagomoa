@@ -48,8 +48,8 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
     
-    private void OnDestroy()
+    /*private void OnDestroy()
     {
         Instantiate(_monsterPrefab, transform.position, Quaternion.identity);
-    }
+    }*/
 }

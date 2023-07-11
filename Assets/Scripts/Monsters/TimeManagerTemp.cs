@@ -8,18 +8,19 @@ public class TimeManagerTemp : MonoBehaviour
 {
     [SerializeField] private int time = 0;
     private int startTime = 360000;
-    private int endTime = 1320000;
+    private int endTime = 1320000; // 22시 ~ 06시 
     private int returnTime = 60000;
+    private int _wakeUpTime = 480000;
     private int date = 1;
     private float magnification = 1.0f;
-    private bool _tommorrow;
     public UnityEvent NextDaySpawn;
-    public UnityEvent NextDaySleep;
-    private int hour
+    public UnityEvent MonsterSleep;
+    public UnityEvent MonsterWakeUp;
+    private int _hour
     {
         get { return time / 60000; }
     }
-    private int minute
+    private int _minute
     {
         get { return time % 60000 / 1000; }
     }
@@ -36,7 +37,7 @@ public class TimeManagerTemp : MonoBehaviour
     }
     private void StartTime()
     {
-        Debug.Log(date +"일차 " + hour + "시 " + minute + "분");
+        Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
         time += 1000;
         EventTime();
     }
@@ -47,16 +48,20 @@ public class TimeManagerTemp : MonoBehaviour
             time = 0;
             date++;
             NextDaySpawn.Invoke();
-            NextDaySleep.Invoke();
         }
-        if (time == endTime) // 잠자는 시간
+        if (time == endTime) // 잠자는 시간 22 ~ 06
         {
             canSleep = true;
-            Debug.Log("잘 수 있다.");
+            MonsterSleep.Invoke();
         }
         if (time == returnTime)
         {
             ReturnToBase();
+        }
+
+        if (time == _wakeUpTime)
+        {
+            MonsterWakeUp.Invoke();
         }
     }
     private void Sleep()

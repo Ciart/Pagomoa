@@ -101,27 +101,13 @@ MonoBehaviour:
   hp: 100
   land: 2
   monsterType:
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
+  - {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
   - {fileID: 6995264944939636800, guid: 69d8e31e52dc02447ad848fb0f721ab9, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  CheckNextDay:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1052701802431607279, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
-        m_TargetAssemblyTypeName: TimeManagerTemp, Assembly-CSharp
-        m_MethodName: NextDay
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _timeManager: {fileID: 0}
 --- !u!61 &8240517865306797365
 BoxCollider2D:
   m_ObjectHideFlags: 0
