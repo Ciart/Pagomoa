@@ -1,4 +1,4 @@
-using Maps;
+using Worlds;
 using UnityEngine;
 
 namespace Player
@@ -36,7 +36,7 @@ namespace Player
 
         private Animator _animator;
 
-        private MapManager _map;
+        private WorldManager _world;
 
         private bool _isJump;
 
@@ -45,7 +45,7 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
 
-            _map = MapManager.Instance;
+            _world = WorldManager.instance;
         }
 
         public void Jump()
@@ -59,6 +59,7 @@ namespace Player
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
                 _animator.SetBool(AnimatorEndClimd, false);
             // var a = transform.position + new Vector3(0f, 1f, 0f);
+
 
             float fixYPos = -0.5f;
             if (velocity.y > 0 && !_map.CheckClimbable(transform.position + new Vector3(directionVector.x, directionVector.y + fixYPos, 0)))

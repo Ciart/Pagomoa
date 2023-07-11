@@ -1,6 +1,6 @@
 using System;
 using Constants;
-using Maps;
+using Worlds;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -31,22 +31,22 @@ namespace Player
 
         private PlayerDigger _digger;
 
-        private MapManager _map;
+        private WorldManager _world;
 
         private Direction _direction;
 
         private void Awake()
         {
-            _status = GetComponent<Status>(); // ½ºÅÈ ÃÊ±âÈ­
-            _initialStatus = _status.copy();  // ±âº» ½ºÅÈ ÀúÀå
-            GetComponent<Equip>().CalEquipvalue(); // Àåºñ ´É·ÂÄ¡ Àû¿ë
+            _status = GetComponent<Status>(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+            _initialStatus = _status.copy();  // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            GetComponent<Equip>().CalEquipvalue(); // ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
 
-            _map = MapManager.Instance;
+            _world = WorldManager.instance;
         }
 
         private void TryJump()
