@@ -21575,6 +21575,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1015079352211381871, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: _digSpeed
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 5033697736734850792, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: hungrybar
       value: 
@@ -21642,6 +21646,10 @@ PrefabInstance:
     - target: {fileID: 7701893231697460608, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880955015287657402, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: digSpeed
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

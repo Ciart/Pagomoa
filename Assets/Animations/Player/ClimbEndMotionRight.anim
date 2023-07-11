@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ClimbEndMotionLeft
+  m_Name: ClimbEndMotionRight
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 419650984, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+      value: {fileID: -1393754300, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
     - time: 0.083333336
-      value: {fileID: 157616515, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+      value: {fileID: -1471145464, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
     - time: 0.16666667
-      value: {fileID: -747166762, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+      value: {fileID: -1675821111, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
     - time: 0.25
-      value: {fileID: 984711751, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+      value: {fileID: 1474551106, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
     - time: 0.33333334
-      value: {fileID: 1658939991, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+      value: {fileID: -1755012359, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
     - time: 0.41666666
-      value: {fileID: 359703496, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+      value: {fileID: 598501312, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -54,12 +54,12 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 419650984, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
-    - {fileID: 157616515, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
-    - {fileID: -747166762, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
-    - {fileID: 984711751, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
-    - {fileID: 1658939991, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
-    - {fileID: 359703496, guid: c6ba579e336e4ed47891778ce2a196b7, type: 3}
+    - {fileID: -1393754300, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
+    - {fileID: -1471145464, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
+    - {fileID: -1675821111, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
+    - {fileID: 1474551106, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
+    - {fileID: -1755012359, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
+    - {fileID: 598501312, guid: 569e95d0a905754449fd5f66da7e61cb, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -86,7 +86,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.5
-    functionName: EndClimbLeft
+    functionName: EndClimbRight
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
