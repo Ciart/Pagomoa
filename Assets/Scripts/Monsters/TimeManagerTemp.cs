@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class TimeManager : MonoBehaviour
+public class TimeManagerTemp : MonoBehaviour
 {
     [SerializeField] private int time = 0;
     private int startTime = 360000;
@@ -11,7 +12,9 @@ public class TimeManager : MonoBehaviour
     private int returnTime = 60000;
     private int date = 1;
     private float magnification = 1.0f;
-    private int _tempdate = 0;
+    private bool _tommorrow;
+    public UnityEvent NextDaySpawn;
+    public UnityEvent NextDaySleep;
     private int hour
     {
         get { return time / 60000; }
@@ -43,6 +46,8 @@ public class TimeManager : MonoBehaviour
         {
             time = 0;
             date++;
+            NextDaySpawn.Invoke();
+            NextDaySleep.Invoke();
         }
         if (time == endTime) // 잠자는 시간
         {
@@ -66,15 +71,5 @@ public class TimeManager : MonoBehaviour
     {
         Vector3 returnPosition = new Vector3(31.7f, 4, 0);
         gameObject.transform.position = returnPosition;
-    }
-
-    public bool NextDay()
-    {
-        if (date != _tempdate)
-        {
-            _tempdate = date;
-            return true;
-        }
-        return false;
     }
 }

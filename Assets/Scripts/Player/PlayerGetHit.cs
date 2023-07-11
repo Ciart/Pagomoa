@@ -11,7 +11,7 @@ namespace Player
 
         [SerializeField] private float _invisibleCooltime = 2f;
 
-        [SerializeField] private float _knockBackForce = 5f;
+        [SerializeField] private float _knockBackForce = 3f;
 
         private Status _status;
 

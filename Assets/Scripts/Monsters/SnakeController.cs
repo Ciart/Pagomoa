@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class Snake : MonoBehaviour
+public class SnakeController : MonoBehaviour
 {
     GameObject Target;
     Rigidbody2D m_rigidbody;
     Animator animator;
-    [SerializeField] float speed = 2f;
+    private float _speed;
+    private Monster _monster;
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        _monster = GetComponent<Monster>();
+        
+        _speed = _monster.moveSpeed;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Target == null)
-            return;
+        if (!Target) { return; }
+        
         Vector2 direction = (Target.transform.position - transform.position).normalized;
-        m_rigidbody.velocity = direction * speed;
+        m_rigidbody.velocity = new Vector2(direction.x * _speed, 0);
 
         float forward = direction.x > 0 ? 1 : -1;
-        transform.localScale = new Vector3(forward * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(forward * Mathf.Abs(transform.localScale.x), 1f, 1f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,7 +34,6 @@ public class Snake : MonoBehaviour
         {
             Target = collision.gameObject;
             animator.SetTrigger("Chase");
-            Debug.Log("트리거엔터");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -42,7 +43,6 @@ public class Snake : MonoBehaviour
             Target = null;
             m_rigidbody.velocity = Vector3.zero;
             animator.SetTrigger("Idle");
-            Debug.Log("트리거익시트");
         }
     }
 }

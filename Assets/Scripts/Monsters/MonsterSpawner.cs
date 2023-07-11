@@ -1,50 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    [SerializeField] private float hp = 100f;
+    
     public int land;
 
     public GameObject[] monsterType;
+
+    private GameObject _oneByOneMonster;
     
     private int _landMonster;
     
-    private Monster _monster;
-
-    private TimeManager _timeManager;
-    
-    private bool _isNextDay = false;
-
     private GameObject _monsterPrefab;
 
-    private GameObject _oneByOneMonster;
+    public TimeManagerTemp _timeManager;
+    
     void Start()
     {
         _landMonster = land - 1;
         _monsterPrefab = monsterType[_landMonster];
 
-        _monster = _monsterPrefab.GetComponent<Monster>();
-        _timeManager = GameObject.FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
-    }
-    void Update()
-    {
-        SpawnMonster();
+        _timeManager = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
+        _timeManager.NextDaySpawn.AddListener(SpawnMonster);
     }
 
     public void SpawnMonster()
     {
-        _isNextDay = _timeManager.NextDay();
-        if (_isNextDay)
-        {
-            CheckIsMonster();
-        }
-    }
-    
-    public void SleepAtNight()
-    {
-        
+        CheckIsMonster();
     }
 
     private void CheckIsMonster()
@@ -52,8 +41,15 @@ public class MonsterSpawner : MonoBehaviour
         if (_oneByOneMonster)
         {
             return ;
-        } else {
+        }
+        else if (!_oneByOneMonster)
+        {
             _oneByOneMonster = Instantiate(_monsterPrefab, transform.position, Quaternion.identity);
         }
+    }
+    
+    private void OnDestroy()
+    {
+        Instantiate(_monsterPrefab, transform.position, Quaternion.identity);
     }
 }
