@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
     public GameObject InventoryUI;
-    public GameObject ScrollView;
     bool ActiveInventory = false;
     private void Awake()
     {
@@ -27,9 +26,6 @@ public class UIManager : MonoBehaviour
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
-            ScrollView.transform.Find("EquipInventory").gameObject.SetActive(false);
-            ScrollView.transform.Find("UseInventory").gameObject.SetActive(false);
-            ScrollView.transform.Find("EtcInventory").gameObject.SetActive(true);                 
         }
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)

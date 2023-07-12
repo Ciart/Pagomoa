@@ -6,19 +6,19 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    public Mineral mineral;
+    public Item mineralItem;
     [SerializeField] private Image image;
     [SerializeField] private Text text;
     public int id;
-    public void SetItem(Mineral data, int count)
+    public void SetItem(Item data, int count)
     {
-        mineral = data;
-        image.sprite = data.sprite;
+        mineralItem = data;
+        image.sprite = data.itemImage;
         text.text = count.ToString();
     }
     public void RemoveItem()
     {
-        mineral = null;
+        mineralItem = null;
         image.sprite = null;
         text.text = "";
     }

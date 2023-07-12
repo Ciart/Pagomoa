@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Maps;
@@ -8,8 +9,36 @@ public class InventoryDB : MonoBehaviour
 {
     public Dictionary<Mineral, int> MineralsData = new Dictionary<Mineral, int>();
     public Dictionary<Item, int> ConsumptionItemsData = new Dictionary<Item, int>();
+    public List<Item> MineralData = new List<Item>();
     public List<Item> ShopItemsData = new List<Item>();
     public int Gold;
+    public Count mineralCount;
+    [SerializeField] private EtcInventory inventory;
+
+    public void AddMineral(Mineral data)
+    {
+        if (data.item.itemName == "CopperItem" && MineralData.Contains(data.item))
+        {
+            mineralCount.copperCount.Count++;
+        }
+        else if (data.item.itemName == "IronItem" && MineralData.Contains(data.item))
+        {
+            mineralCount.ironCount.Count++;
+        }
+
+        if (data.item.itemName == "CopperItem" && !MineralData.Contains(data.item))
+        {
+            MineralData.Add(data.item);
+            mineralCount.copperCount.Count++;
+            inventory.InputSlot(data);
+        }
+        if (data.item.itemName == "IronItem" && !MineralData.Contains(data.item))
+        {
+            MineralData.Add(data.item);
+            mineralCount.ironCount.Count++;
+            inventory.InputSlot(data);
+        }
+    }
     public void Add(Mineral data)
     {
         if (MineralsData.ContainsKey(data))

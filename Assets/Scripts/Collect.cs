@@ -24,8 +24,9 @@ public class Collect : MonoBehaviour
 
         Debug.Log($"{mineral.tier}티어 광물 \"{mineral.mineralName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
-        inventoryDB.Add(mineral);
-        etcInventory.InputSlot(mineral);
+        inventoryDB.AddMineral(mineral);
+        //inventoryDB.Add(mineral);
+        //etcInventory.InputSlot(mineral);
         //inventory.UpdateEtcSlot();
         //shopInventory.UpdateEtcSlot();
         //inventory.Add(mineral);

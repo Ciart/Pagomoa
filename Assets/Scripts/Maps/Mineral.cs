@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 namespace Maps
 {
     [CreateAssetMenu(fileName = "Mineral", menuName = "Map/Mineral", order = 1)]
-    public class Mineral: Item
+    public class Mineral: ScriptableObject
     {
         public string mineralName;
     
@@ -13,6 +13,8 @@ namespace Maps
         public Sprite sprite;
         
         public TileBase tile;
+
+        public Item item;
 
         public int price;
     }

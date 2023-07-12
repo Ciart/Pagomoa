@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     {
         Equipment,
         Use,
+        Mineral,
         Other,
     }
     public string itemName;
