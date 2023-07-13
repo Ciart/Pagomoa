@@ -26,7 +26,7 @@ public class Monster : MonoBehaviour
 
     void Start()
     {
-        currentState = MonsterState.Active;
+        currentState = MonsterState.Sleep;
         _timeManager = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
         _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
         
@@ -49,7 +49,7 @@ public class Monster : MonoBehaviour
     {
         if (collision2D.transform.name == "Player")
         {
-            if (currentState != MonsterState.Active && currentState != MonsterState.WakeUpForaWhile)
+            if (currentState == MonsterState.Sleep)
             {
                 currentState = MonsterState.WakeUpForaWhile;
             }

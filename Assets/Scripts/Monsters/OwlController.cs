@@ -2,26 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Owl : MonoBehaviour
+public class OwlController : MonoBehaviour
 {
     GameObject Target;
     Rigidbody2D m_rigidbody;
     Animator animator;
 
-    private Monster _monster;
-
     private BoxCollider2D _boxCollider2D;
+    
+    private Monster _monster;
+    
+    private SpriteRenderer _sleepingAnimation;
 
     private float _speed;
-
-    private Vector2 _direction; 
+    
+    private Vector2 _direction;
+    
     private float _see;
+
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         _monster = GetComponent<Monster>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
 
         _speed = _monster.moveSpeed;
     }
@@ -32,23 +37,30 @@ public class Owl : MonoBehaviour
 
         if (m_rigidbody.velocity.y < -12) m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, -12);
 
-        if (!Physics2D.OverlapCircle(transform.position, 0.5f, LayerMask.GetMask("Platform")))
+        if (Physics2D.OverlapCircle(transform.position, 0.5f, LayerMask.GetMask("Platform")))
         {
             m_rigidbody.gravityScale = 0;
             m_rigidbody.velocity = Vector2.zero;
             _boxCollider2D.enabled = true;
+            
+            if (_monster.currentState == Monster.MonsterState.WakeUpForaWhile)
+            {
+                _monster.currentState = Monster.MonsterState.Sleep;
+                _sleepingAnimation.enabled = true;
+            }
         }
     }
     IEnumerator Chase()
     {
-        FindTarget();
         
+        FindTarget();
+    
         yield return new WaitForSeconds(1f);
 
-        if (!Target) { animator.SetBool("Move", false); yield break; } // 타겟 1초동안 없으면 원래대로
+        if (!Target) { animator.SetBool("Move", false); yield break; }
 
         SetUpFlying();
-        
+
         while (Target)
         {
             ChaseTarget();
@@ -58,14 +70,16 @@ public class Owl : MonoBehaviour
         animator.SetBool("Move", false);
         m_rigidbody.velocity = Vector3.zero;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.name == "Player")
+        if (_monster.currentState != Monster.MonsterState.Sleep)
         {
-            Target = collision.gameObject;
-            StartCoroutine("Chase");
+            _sleepingAnimation.enabled = false;
+            if (collision.transform.name == "Player") {
+                Target = collision.gameObject;
+                StartCoroutine("Chase");
+            }
         }
-
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -81,8 +95,10 @@ public class Owl : MonoBehaviour
     {
         animator.SetBool("Move", true);
         animator.SetTrigger("Find");
-        Vector2 direction = (Target.transform.position - transform.position).normalized;
-        _see = direction.x > 0 ? 1 : -1;
+        
+        _direction = (Target.transform.position - transform.position).normalized;
+        
+        _see = _direction.x > 0 ? 1 : -1;
         transform.localScale = new Vector3(_see * Mathf.Abs(transform.localScale.x), 1f, 1f);
     }
 
@@ -97,6 +113,7 @@ public class Owl : MonoBehaviour
     {
         _direction = (Target.transform.position - transform.position).normalized;
         m_rigidbody.velocity = _direction * _speed;
+        
         _see = _direction.x > 0 ? 1 : -1;
         transform.localScale = new Vector3(_see * Mathf.Abs(transform.localScale.x), 1f, 1f);
     }

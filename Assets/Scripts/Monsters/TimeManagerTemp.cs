@@ -10,7 +10,7 @@ public class TimeManagerTemp : MonoBehaviour
     private int startTime = 360000;
     private int endTime = 1320000; // 22시 ~ 06시 
     private int returnTime = 60000;
-    private int _wakeUpTime = 480000;
+    private int _wakeUpTime = 360000;
     private int date = 1;
     private float magnification = 1.0f;
     public UnityEvent NextDaySpawn;
@@ -37,7 +37,7 @@ public class TimeManagerTemp : MonoBehaviour
     }
     private void StartTime()
     {
-        Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
+        // Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
         time += 1000;
         EventTime();
     }
