@@ -1709,8 +1709,8 @@ MonoBehaviour:
   mineralTilemap: {fileID: 1107110433}
   groundHeight: 0
   mineralEntity: {fileID: 0}
-  backgroundTile: {fileID: 0}
-  debugTier: 0
+  backgroundTile: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}
+  debugTier: 10
 --- !u!4 &1135593059
 Transform:
   m_ObjectHideFlags: 0
@@ -1738,7 +1738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b789feb74b7047bca62eba3f585bf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  database: {fileID: 0}
+  database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
   width: 64
   height: 64
 --- !u!213 &1145999106
@@ -2027,6 +2027,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40db92493e9f4b47a9377b068d27df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NextDaySpawn:
+    m_PersistentCalls:
+      m_Calls: []
+  MonsterSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  MonsterWakeUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1273871393
 Transform:
   m_ObjectHideFlags: 0
@@ -12117,6 +12126,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2701602704096890834, guid: 455bea496bcbe7a4e81b7d360b26ef4c, type: 3}
+      propertyPath: _monsterType.Array.data[1]
+      value: 
+      objectReference: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
     - target: {fileID: 4938738036986272363, guid: 455bea496bcbe7a4e81b7d360b26ef4c, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -12692,6 +12705,7 @@ MonoBehaviour:
   land: 1
   _maxSpawn: 10
   _spawnTerm: 10
+  _spawnCoolTime: 10
   _monsterType:
   - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
   - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
@@ -21335,7 +21349,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1052701802431607279, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
       propertyPath: time
-      value: 1435000
+      value: 1315000
       objectReference: {fileID: 0}
     - target: {fileID: 1052701802431607279, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
       propertyPath: tempEvent.m_PersistentCalls.m_Calls.Array.size

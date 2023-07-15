@@ -2,10 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Maps;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class NightMonsterSpawner : MonoBehaviour
 {
@@ -18,44 +15,47 @@ public class NightMonsterSpawner : MonoBehaviour
     [SerializeField] private int _maxSpawn = 10;
     
     [SerializeField] private float _spawnTerm = 30f;
+    
+    [SerializeField] private float _spawnCoolTime = 30f;
 
     [SerializeField] private GameObject[] _monsterType;
-    
-    private CircleCollider2D _circleCollider2D;
-    
+
     private GameObject _monsterPrefab;
 
     private List<GameObject> _spawnedMonster;
 
     private Vector3Int _spawnPoint;
 
+
+
     private float _desertDepth = 50f;
     private float _forestDepth = -100f;
 
-    private int _boxSize = 15;
+    private int _boxSize = 10;
+    private int _checkVectorX = - 1;
+
     void Start()
     {
-        _circleCollider2D = GetComponent<CircleCollider2D>();
         _spawnedMonster = new List<GameObject>();
 
         SetSpawnMonster();
         CheckSpawnPosition();
     }
 
-    void FixedUpdate()
+    public void StartNightSpawner()
     {
         ChasePlayer();
-        if (_spawnTerm <= 0)
+        if (_spawnCoolTime <= 0)
         {
-            _spawnTerm = 10f;
+            _spawnCoolTime = _spawnTerm;
         }
-        if (_spawnTerm == 10f)
+        if (_spawnCoolTime == _spawnTerm)
         {
             StartCoroutine(nameof(SpawnMonsters));
         }
-        if (_spawnTerm <= 10f)
+        if (_spawnCoolTime <= _spawnTerm)
         {
-            _spawnTerm -= 0.1f;
+            _spawnCoolTime -= 0.05f;
         }
     }
 
@@ -69,63 +69,137 @@ public class NightMonsterSpawner : MonoBehaviour
             (z ? player.position.z : transform.position.z)); 
     }
 
+    private void SetSpawnMonster()
+    {
+        float playerPositionY = player.transform.position.y;
+
+        switch (playerPositionY)
+        {
+            case float yPos when yPos > _desertDepth:
+                land = 1;
+                _monsterPrefab = _monsterType[land - 1];
+                break;
+
+            case float yPos when yPos > _forestDepth:
+                land = 2;
+                _monsterPrefab = _monsterType[land - 1];
+                break;
+
+            case float yPos when yPos > _forestDepth:
+                land = 3;
+                _monsterPrefab = _monsterType[land - 1];
+                break;
+
+            case float yPos when yPos > _forestDepth:
+                land = 4;
+                _monsterPrefab = _monsterType[land - 1];
+                break;
+
+            case float yPos when yPos > _forestDepth:
+                land = 5;
+                _monsterPrefab = _monsterType[land - 1];
+                break;
+
+            case float yPos when yPos > _forestDepth:
+                land = 6;
+                _monsterPrefab = _monsterType[land - 1];
+                break;
+        }
+    }
+    
     private IEnumerator SpawnMonsters()
     {
         if (_spawnedMonster.Count < _maxSpawn)
         {
-            
+            CheckSpawnPosition();
             
             GameObject nightMonster = Instantiate(_monsterPrefab, _spawnPoint, Quaternion.identity);
             _spawnedMonster.Add(nightMonster);
+            
             yield return new WaitForSeconds(_spawnTerm);
         }
         yield return null;
         SetSpawnMonster();
     }
-    
-    private void SetSpawnMonster()
+
+    public void KillNightMonsters()
     {
-        if (player.transform.position.y > _desertDepth)
+        foreach (var nightMonster in _spawnedMonster)
         {
-            land = 1;
-            _monsterPrefab = _monsterType[land-1];
-        } else if (player.transform.position.y > _forestDepth)
+            Destroy(nightMonster);
+        }
+        _spawnedMonster.Clear();
+    }
+    
+    private void CheckSpawnPosition()
+    {
+        float bottomLeftY = transform.position.y - _boxSize / 2 - 1;
+        float topRightY = transform.position.y + _boxSize / 2 - 1;
+
+        if (_checkVectorX > 0)
         {
-            land = 2;
-            _monsterPrefab = _monsterType[land-1];
+            SearchLeftTiles(bottomLeftY, topRightY);
+        }
+        else if (_checkVectorX < 0)
+        {
+            SearchRightTiles(bottomLeftY, topRightY);
         }
     }
 
-    private void CheckSpawnPosition()
+    private void SearchLeftTiles(float bottomLeftY, float topRightY)
     {
         var mapManager = MapManager.Instance;
         
-        Vector3Int bottomLeft = new Vector3Int(
-            Mathf.FloorToInt(player.position.x) - _boxSize / 2,
-            Mathf.FloorToInt(player.position.y) - _boxSize / 2,
-            Mathf.FloorToInt(player.position.z)
-        );
-        Vector3Int topRight = new Vector3Int(
-            Mathf.CeilToInt(player.position.x) + _boxSize / 2 - 1,
-            Mathf.CeilToInt(player.position.y) + _boxSize / 2 - 1,
-            Mathf.FloorToInt(player.position.z)
-        );
+        float bottomLeftX = transform.position.x - 10f;
+        float topRightX = transform.position.x - 3f;
         
-        for (int x = bottomLeft.x; x <= topRight.x; x++)
+        for (float x = bottomLeftX; x <= topRightX; x++)
         {
-            for (int y = bottomLeft.y; y <= topRight.y; y++)
+            for (float y = bottomLeftY; y <= topRightY; y++)
             {
-                Vector3Int tilePosition = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3Int(x, y, bottomLeft.z));
+                Vector3Int tilePosition = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y));
                 var tile = mapManager.GetBrick(tilePosition).ground;
 
-                if (tile)
+                if (!tile)
                 {
-                    Vector3Int isNullTilePos = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3Int(x, y + 1, bottomLeft.z));
-                    var tileCheck= mapManager.GetBrick(isNullTilePos).ground;
+                    Vector3Int isNullTilePos = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y - 1f));
+                    var tileCheck = mapManager.GetBrick(isNullTilePos).ground;
 
-                    if (!tileCheck)
+                    if (tileCheck)
                     {
-                        _spawnPoint = isNullTilePos;
+                        _spawnPoint = tilePosition;
+                        _checkVectorX = -1;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void SearchRightTiles(float bottomLeftY, float topRightY)
+    {
+        var mapManager = MapManager.Instance;
+                    
+        float bottomLeftX = transform.position.x + 3f;
+        float topRightX = transform.position.x + 10f;
+            
+        for (float x = topRightX; x >= bottomLeftX; x--)
+        {
+            for (float y = bottomLeftY; y <= topRightY; y++)
+            {
+                Vector3Int tilePosition = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y));
+                var tile = mapManager.GetBrick(tilePosition).ground;
+                        
+                if (!tile)
+                {
+                    Vector3Int isNullTilePos = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y - 1f));
+                    var tileCheck = mapManager.GetBrick(isNullTilePos).ground;
+
+                    if (tileCheck)
+                    {
+                        _spawnPoint = tilePosition;
+                        _checkVectorX = 1;
+                        return ;
                     }
                 }
             }

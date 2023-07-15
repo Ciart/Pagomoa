@@ -14,7 +14,7 @@ public class Monster : MonoBehaviour
     
     public MonsterState currentState;
     
-    private TimeManagerTemp _timeManager;
+    private MonsterManager _monsterManager;
     
     private SpriteRenderer _sleepingAnimation;
     public enum MonsterState
@@ -27,11 +27,11 @@ public class Monster : MonoBehaviour
     void Start()
     {
         currentState = MonsterState.Sleep;
-        _timeManager = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
+        _monsterManager = FindObjectOfType<MonsterManager>().GetComponent<MonsterManager>();
         _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
         
-        _timeManager.MonsterSleep.AddListener(SleepAtNight);
-        _timeManager.MonsterWakeUp.AddListener(WakeUp);
+        _monsterManager.MonsterSleep.AddListener(SleepAtNight);
+        _monsterManager.MonsterWakeUp.AddListener(WakeUp);
     }
     private void SleepAtNight()
     {

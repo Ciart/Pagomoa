@@ -20,15 +20,15 @@ public class MonsterSpawner : MonoBehaviour
     
     private GameObject _monsterPrefab;
 
-    public TimeManagerTemp _timeManager;
+    public MonsterManager _monsterManager;
     
     void Start()
     {
         _landMonster = land - 1;
         _monsterPrefab = _monsterType[_landMonster];
 
-        _timeManager = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
-        _timeManager.NextDaySpawn.AddListener(SpawnMonster);
+        _monsterManager = FindObjectOfType<MonsterManager>().GetComponent<MonsterManager>();
+        _monsterManager.NextDaySpawn.AddListener(SpawnMonster);
     }
 
     public void SpawnMonster()

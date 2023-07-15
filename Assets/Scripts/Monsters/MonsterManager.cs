@@ -1,20 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MonsterManager : MonoBehaviour
 {
-    private MonsterSpawner _spawner;
+    private MonsterSpawner _dayTimeSpawner;
 
-    private TimeManagerTemp _timeManagerTemp;
+    private NightMonsterSpawner _nightSpawner;
+
+    private bool _isSleepTime;
     
+    public UnityEvent NextDaySpawn;
+    public UnityEvent MonsterSleep;
+    public UnityEvent MonsterWakeUp;
     
+
     void Start()
     {
-        _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
+        _nightSpawner = FindObjectOfType<NightMonsterSpawner>().GetComponent<NightMonsterSpawner>();
     }
-    void Update()
+    void FixedUpdate()
     {
+        if (_isSleepTime)
+        { ;
+            _nightSpawner.StartNightSpawner();    
+        }
+    }
+
+    public void NightNoon()
+    {
+        NextDaySpawn.Invoke();
+    }
+
+    public void SleepTime()
+    {
+        MonsterSleep.Invoke();
         
+        _isSleepTime = true;
+    }
+
+    public void AwakeTime()
+    {
+        MonsterWakeUp.Invoke();
+        
+        _nightSpawner.KillNightMonsters();
+        
+        _isSleepTime = false;
     }
 }

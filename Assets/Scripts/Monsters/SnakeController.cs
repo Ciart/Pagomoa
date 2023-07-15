@@ -25,7 +25,7 @@ public class SnakeController : MonoBehaviour
         _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
 
         _speed = _monster.moveSpeed;
-        _sleepingAnimation.enabled = false;
+        _sleepingAnimation.enabled = true;
     }
     void Update()
     {
@@ -74,8 +74,8 @@ public class SnakeController : MonoBehaviour
 
     private void Sleeping()
     {
+        _sleepingAnimation.enabled = true;
         _rigidbody.velocity = Vector3.zero;
         _animator.SetTrigger("Idle");
-        _sleepingAnimation.enabled = true;
     }
 }

@@ -11,8 +11,6 @@ public class OwlController : MonoBehaviour
     private BoxCollider2D _boxCollider2D;
     
     private Monster _monster;
-    
-    private SpriteRenderer _sleepingAnimation;
 
     private float _speed;
     
@@ -26,7 +24,6 @@ public class OwlController : MonoBehaviour
         animator = GetComponent<Animator>();
         _monster = GetComponent<Monster>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
-        _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
 
         _speed = _monster.moveSpeed;
     }
@@ -42,17 +39,10 @@ public class OwlController : MonoBehaviour
             m_rigidbody.gravityScale = 0;
             m_rigidbody.velocity = Vector2.zero;
             _boxCollider2D.enabled = true;
-            
-            if (_monster.currentState == Monster.MonsterState.WakeUpForaWhile)
-            {
-                _monster.currentState = Monster.MonsterState.Sleep;
-                _sleepingAnimation.enabled = true;
-            }
         }
     }
     IEnumerator Chase()
     {
-        
         FindTarget();
     
         yield return new WaitForSeconds(1f);
@@ -72,13 +62,9 @@ public class OwlController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_monster.currentState != Monster.MonsterState.Sleep)
-        {
-            _sleepingAnimation.enabled = false;
-            if (collision.transform.name == "Player") {
-                Target = collision.gameObject;
-                StartCoroutine("Chase");
-            }
+        if (collision.transform.name == "Player") {
+            Target = collision.gameObject;
+            StartCoroutine("Chase");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
