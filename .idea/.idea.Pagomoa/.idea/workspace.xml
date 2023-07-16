@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MonsterScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MonsterScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/NightMonsterSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/NightMonsterSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +141,7 @@
       <workItem from="1688552395835" duration="6795000" />
       <workItem from="1688805705856" duration="7709000" />
       <workItem from="1688819042029" duration="10140000" />
-      <workItem from="1689502923338" duration="1380000" />
+      <workItem from="1689502923338" duration="6964000" />
     </task>
     <servers />
   </component>

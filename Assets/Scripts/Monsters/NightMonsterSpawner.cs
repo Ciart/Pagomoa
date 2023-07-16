@@ -144,18 +144,18 @@ public class NightMonsterSpawner : MonoBehaviour
     {
         Vector3 spawnerPivot = transform.position;
 
-        Vector2Int bottomLeft = InitBottonLeftPosition(spawnerPivot);
+        Vector2Int bottomLeft = InitBottomLeftPosition(spawnerPivot);
         Vector2Int topRight = InitTopRightPosition(spawnerPivot);
         bottomLeft.x += minSearchWidth;
         topRight.x += maxSearchWidth;
-        
+
         SearchTiles(bottomLeft, topRight);
 
-        bottomLeft = InitBottonLeftPosition(spawnerPivot);
+        bottomLeft = InitBottomLeftPosition(spawnerPivot);
         topRight = InitTopRightPosition(spawnerPivot);
         bottomLeft.x -= maxSearchWidth;
         topRight.x -= minSearchWidth;
-        
+
         SearchTiles(bottomLeft, topRight);
     }
 
@@ -167,12 +167,12 @@ public class NightMonsterSpawner : MonoBehaviour
             {
                 var worldManager = WorldManager.instance;
                 Vector2Int tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
-                var tile = worldManager.world.GetBrick(tilePosition.x, tilePosition.y, out _).ground;
+                var tile = worldManager.world.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
 
                 if (!tile)
                 {
                     Vector2Int isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
-                    var tileCheck = worldManager.world.GetBrick(isNullTilePos.x, isNullTilePos.y, out _).ground;
+                    var tileCheck = worldManager.world.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
 
                     if (tileCheck)
                     {
@@ -183,11 +183,11 @@ public class NightMonsterSpawner : MonoBehaviour
         }
     }
 
-    private Vector2Int InitBottonLeftPosition(Vector3 spawnerPivot)
+    private Vector2Int InitBottomLeftPosition(Vector3 spawnerPivot)
     {
         return new Vector2Int(
             Mathf.FloorToInt(spawnerPivot.x),
-            Mathf.FloorToInt(spawnerPivot.y) - _searchSize / 2
+            Mathf.FloorToInt(spawnerPivot.y) - _searchSize / 2 - 1
         );
     }
 
