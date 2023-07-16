@@ -10,10 +10,10 @@ public class Slot : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private Text text;
     public int id;
-    public void SetItem(Item data, int count)
+    public void SetItem(Mineral data, int count)
     {
-        mineralItem = data;
-        image.sprite = data.itemImage;
+        mineralItem = data.item;
+        image.sprite = data.item.itemImage;
         text.text = count.ToString();
     }
     public void RemoveItem()

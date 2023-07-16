@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Maps;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
@@ -20,10 +21,14 @@ public class InventoryDB : MonoBehaviour
         if (data.item.itemName == "CopperItem" && MineralData.Contains(data.item))
         {
             mineralCount.copperCount.Count++;
+            inventory.NotNull(data);
+            return;
         }
         else if (data.item.itemName == "IronItem" && MineralData.Contains(data.item))
         {
             mineralCount.ironCount.Count++;
+            inventory.NotNull(data);
+            return;
         }
 
         if (data.item.itemName == "CopperItem" && !MineralData.Contains(data.item))

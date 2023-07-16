@@ -4233,7 +4233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryDB: {fileID: 712760610}
-  slots: {fileID: 1247752221}
+  slotParent: {fileID: 1247752221}
   slot: {fileID: 1308707778}
   slotCount: 12
 --- !u!1 &1246316555

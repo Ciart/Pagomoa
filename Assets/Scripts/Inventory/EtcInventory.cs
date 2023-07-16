@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class EtcInventory : MonoBehaviour
 {
     [SerializeField] private InventoryDB inventoryDB;
-    [SerializeField] private GameObject slots;
+    [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
     public int slotCount;
 
@@ -17,79 +17,86 @@ public class EtcInventory : MonoBehaviour
     {
         for (int i = 0; i < slotCount; i++)
         {
-            GameObject SpawnedSlot = Instantiate(slot, slots.transform);
+            GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
             SpawnedSlot.SetActive(true);
         }
     }
     public void InputSlot(Mineral data, int id)
     {
-        Slot[] slotDatas = slots.GetComponentsInChildren<Slot>();
+        Slot[] slotDatas = slotParent.GetComponentsInChildren<Slot>();
         foreach (Slot slot in slotDatas)
         {
             if (slot.id == id)
-                slot.SetItem(data.item, inventoryDB.MineralsData[data]);
+                slot.SetItem(data, inventoryDB.MineralsData[data]);
+        }
+    }
+    public void NotNull(Mineral data)
+    {
+        Slot[] slotDatas = slotParent.GetComponentsInChildren<Slot>();
+        foreach (Slot slot in slotDatas)
+        {
+            if (slot.mineralItem == data.item && slot.mineralItem.itemName == "CopperItem")
+            {
+                Debug.Log("널 아닌 쿠퍼");
+                slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
+                break;
+            }
+            else if (slot.mineralItem == data.item && slot.mineralItem.itemName == "IronItem")
+            {
+                Debug.Log("널 아닌 아이언");
+                slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
+                break;
+            }
         }
     }
     public void InputSlot(Mineral data)
     {
-        Slot[] slotDatas = slots.GetComponentsInChildren<Slot>();
-
-       
+        Slot[] slotDatas = slotParent.GetComponentsInChildren<Slot>();
         foreach (Slot slot in slotDatas)
         {
-            if (slot.mineralItem == null)
+            if (slot.mineralItem == null && data.item.itemName == "CopperItem")
             {
-                if (data.item.itemName == "CopperItem")
-                {
-                    Debug.Log("구리");
-                    slot.SetItem(data.item, inventoryDB.mineralCount.copperCount.Count);
-                    break;
-                }
-                else if (data.item.itemName == "IronItem")
-                {
-                    Debug.Log("은");
-                    slot.SetItem(data.item, inventoryDB.mineralCount.ironCount.Count);
-                    break;
-                }
+                Debug.Log("널인 쿠퍼");
+                slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
+                break;
             }
-            else
+            else if (slot.mineralItem == null && data.item.itemName == "IronItem")
             {
-                if (slot.mineralItem.itemName == "CopperItem")
-                    slot.RemoveItem();
-                else if (slot.mineralItem.itemName == "IronItem")
-                    slot.RemoveItem();
+                Debug.Log("널인 아이언");
+                slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
+                break;
             }
         }
         //bool isAssigned = false;
         //foreach (Slot slot in slotDatas)
         //{
-        //    if(slot.mineralItem == data)
+        //    if (slot.mineralItem == data)
         //    {
-        //        slot.SetItem(data.item, inventoryDB.mineralCount.copperCount.Count);
+        //        slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
         //        isAssigned = true;
         //        break;
         //    }
-        //    else if(slot.mineralItem == data)
+        //    else if (slot.mineralItem == data)
         //    {
-        //        slot.SetItem(data.item, inventoryDB.mineralCount.ironCount.Count);
+        //        slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
         //        isAssigned = true;
         //        break;
         //    }
         //}
-        //if (!isAssigned)
+
+        //foreach (Slot slot in slotDatas)
         //{
-        //    foreach (Slot slot in slotDatas)
+        //    if (slot.mineralItem != null && slot.mineralItem.itemName == "CopperItem")
         //    {
-        //        if (slot.mineralItem == null)
-        //        {
-        //            slot.SetItem(data.item, inventoryDB.mineralCount.copperCount.Count);
-        //            break;
-        //        }
-        //        else if (slot.mineralItem == null)
-        //        {
-        //            slot.SetItem(data.item, inventoryDB.mineralCount.ironCount.Count);
-        //            break;
-        //        }
+        //        Debug.Log("널 아닌 쿠퍼");
+        //        slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
+        //        break;
+        //    }
+        //    else if (slot.mineralItem != null && slot.mineralItem.itemName == "IronItem")
+        //    {
+        //        Debug.Log("널 아닌 아이언");
+        //        slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
+        //        break;
         //    }
         //}
     }

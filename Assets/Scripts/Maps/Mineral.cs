@@ -14,7 +14,7 @@ namespace Maps
         
         public TileBase tile;
 
-        public Item item;
+        public MineralItem item;
 
         public int price;
     }
