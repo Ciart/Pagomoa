@@ -12,6 +12,10 @@ public class NightMonsterSpawner : MonoBehaviour
     
     public int land;
 
+    public int minSearchWidth = 4;
+    
+    public int maxSearchWidth = 10;
+
     [SerializeField] private int _maxSpawn = 10;
     
     [SerializeField] private float _spawnTerm = 30f;
@@ -24,19 +28,20 @@ public class NightMonsterSpawner : MonoBehaviour
 
     private List<GameObject> _spawnedMonster;
 
-    private Vector3Int _spawnPoint;
-
-
+    private List<Vector3Int> _canSpawnPoints;
+    
+    private Vector3 _spawnPoint;
 
     private float _desertDepth = 50f;
     private float _forestDepth = -100f;
 
-    private int _boxSize = 10;
+    private int _searchSize = 10;
     private int _checkVectorX = - 1;
 
     void Start()
     {
         _spawnedMonster = new List<GameObject>();
+        _canSpawnPoints = new List<Vector3Int>();
 
         SetSpawnMonster();
         CheckSpawnPosition();
@@ -111,15 +116,19 @@ public class NightMonsterSpawner : MonoBehaviour
     {
         if (_spawnedMonster.Count < _maxSpawn)
         {
+            SetSpawnMonster();
             CheckSpawnPosition();
             
+            int randomPoint = UnityEngine.Random.Range(0, _canSpawnPoints.Count);
+            _spawnPoint = _canSpawnPoints[randomPoint];
+            _spawnPoint.y += 0.5f;
+
             GameObject nightMonster = Instantiate(_monsterPrefab, _spawnPoint, Quaternion.identity);
             _spawnedMonster.Add(nightMonster);
             
             yield return new WaitForSeconds(_spawnTerm);
         }
         yield return null;
-        SetSpawnMonster();
     }
 
     public void KillNightMonsters()
@@ -133,30 +142,31 @@ public class NightMonsterSpawner : MonoBehaviour
     
     private void CheckSpawnPosition()
     {
-        float bottomLeftY = transform.position.y - _boxSize / 2 - 1;
-        float topRightY = transform.position.y + _boxSize / 2 - 1;
+        Vector3 spawnerPivot = transform.position;
 
-        if (_checkVectorX > 0)
-        {
-            SearchLeftTiles(bottomLeftY, topRightY);
-        }
-        else if (_checkVectorX < 0)
-        {
-            SearchRightTiles(bottomLeftY, topRightY);
-        }
+        Vector2Int bottomLeft = InitBottonLeftPosition(spawnerPivot);
+        Vector2Int topRight = InitTopRightPosition(spawnerPivot);
+        bottomLeft.x += minSearchWidth;
+        topRight.x += maxSearchWidth;
+        
+        SearchTiles(bottomLeft, topRight);
+
+        bottomLeft = InitBottonLeftPosition(spawnerPivot);
+        topRight = InitTopRightPosition(spawnerPivot);
+        bottomLeft.x -= maxSearchWidth;
+        topRight.x -= minSearchWidth;
+        
+        SearchTiles(bottomLeft, topRight);
     }
 
-    private void SearchLeftTiles(float bottomLeftY, float topRightY)
+    private void SearchTiles(Vector2Int bottomLeft, Vector2Int topRight)
     {
-        var mapManager = MapManager.Instance;
-        
-        float bottomLeftX = transform.position.x - 10f;
-        float topRightX = transform.position.x - 3f;
-        
-        for (float x = bottomLeftX; x <= topRightX; x++)
+        for (int x = bottomLeft.x; x <= topRight.x; x++)
         {
-            for (float y = bottomLeftY; y <= topRightY; y++)
+            for (int y = bottomLeft.y; y <= topRight.y; y++)
             {
+                var mapManager = MapManager.Instance;
+                
                 Vector3Int tilePosition = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y));
                 var tile = mapManager.GetBrick(tilePosition).ground;
 
@@ -167,42 +177,26 @@ public class NightMonsterSpawner : MonoBehaviour
 
                     if (tileCheck)
                     {
-                        _spawnPoint = tilePosition;
-                        _checkVectorX = -1;
-                        return;
+                        _canSpawnPoints.Add(tilePosition);
                     }
                 }
             }
         }
     }
 
-    private void SearchRightTiles(float bottomLeftY, float topRightY)
+    private Vector2Int InitBottonLeftPosition(Vector3 spawnerPivot)
     {
-        var mapManager = MapManager.Instance;
-                    
-        float bottomLeftX = transform.position.x + 3f;
-        float topRightX = transform.position.x + 10f;
-            
-        for (float x = topRightX; x >= bottomLeftX; x--)
-        {
-            for (float y = bottomLeftY; y <= topRightY; y++)
-            {
-                Vector3Int tilePosition = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y));
-                var tile = mapManager.GetBrick(tilePosition).ground;
-                        
-                if (!tile)
-                {
-                    Vector3Int isNullTilePos = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y - 1f));
-                    var tileCheck = mapManager.GetBrick(isNullTilePos).ground;
+        return new Vector2Int(
+            Mathf.FloorToInt(spawnerPivot.x),
+            Mathf.FloorToInt(spawnerPivot.y) - _searchSize / 2
+        );
+    }
 
-                    if (tileCheck)
-                    {
-                        _spawnPoint = tilePosition;
-                        _checkVectorX = 1;
-                        return ;
-                    }
-                }
-            }
-        }
+    private Vector2Int InitTopRightPosition(Vector3 spawnerPivot)
+    {
+        return new Vector2Int(
+            Mathf.CeilToInt(spawnerPivot.x),
+            Mathf.CeilToInt(spawnerPivot.y) + _searchSize / 2 - 1
+        );
     }
 }

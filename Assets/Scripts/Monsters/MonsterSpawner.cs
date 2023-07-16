@@ -12,7 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     
     public int land;
 
-    public GameObject[] _monsterType;
+    [SerializeField] private GameObject[] _monsterType;
 
     private GameObject _oneByOneMonster;
     
@@ -20,15 +20,14 @@ public class MonsterSpawner : MonoBehaviour
     
     private GameObject _monsterPrefab;
 
-    public MonsterManager _monsterManager;
-    
+    private TimeManagerTemp _timeManagerTemp;
     void Start()
     {
         _landMonster = land - 1;
         _monsterPrefab = _monsterType[_landMonster];
 
-        _monsterManager = FindObjectOfType<MonsterManager>().GetComponent<MonsterManager>();
-        _monsterManager.NextDaySpawn.AddListener(SpawnMonster);
+        _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
+        _timeManagerTemp.NextDaySpawn.AddListener(SpawnMonster);
     }
 
     public void SpawnMonster()

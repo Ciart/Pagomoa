@@ -6,47 +6,36 @@ using UnityEngine.Events;
 
 public class MonsterManager : MonoBehaviour
 {
-    private MonsterSpawner _dayTimeSpawner;
-
     private NightMonsterSpawner _nightSpawner;
+    
+    private TimeManagerTemp _timeManagerTemp;
 
     private bool _isSleepTime;
-    
-    public UnityEvent NextDaySpawn;
-    public UnityEvent MonsterSleep;
-    public UnityEvent MonsterWakeUp;
-    
 
     void Start()
     {
         _nightSpawner = FindObjectOfType<NightMonsterSpawner>().GetComponent<NightMonsterSpawner>();
+        _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
+        
+        _timeManagerTemp.MonsterSleep.AddListener(SleepTime);
+        _timeManagerTemp.MonsterWakeUp.AddListener(AwakeTime);
     }
     void FixedUpdate()
     {
         if (_isSleepTime)
-        { ;
+        { 
             _nightSpawner.StartNightSpawner();    
         }
     }
 
-    public void NightNoon()
-    {
-        NextDaySpawn.Invoke();
-    }
-
     public void SleepTime()
     {
-        MonsterSleep.Invoke();
-        
         _isSleepTime = true;
     }
 
     public void AwakeTime()
     {
-        MonsterWakeUp.Invoke();
-        
         _nightSpawner.KillNightMonsters();
-        
         _isSleepTime = false;
     }
 }

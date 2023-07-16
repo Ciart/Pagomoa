@@ -2027,15 +2027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40db92493e9f4b47a9377b068d27df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextDaySpawn:
-    m_PersistentCalls:
-      m_Calls: []
-  MonsterSleep:
-    m_PersistentCalls:
-      m_Calls: []
-  MonsterWakeUp:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1273871393
 Transform:
   m_ObjectHideFlags: 0
@@ -12259,6 +12250,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702505135}
   m_CullTransparentMesh: 1
+--- !u!1 &1762008318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+  m_PrefabInstance: {fileID: 5377345053593914676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1762008331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762008318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8103e02f710a62947b4d019aa9faeb1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1848143610
 GameObject:
   m_ObjectHideFlags: 0
@@ -12703,6 +12711,8 @@ MonoBehaviour:
   y: 1
   z: 0
   land: 1
+  minSearchWidth: 4
+  maxSearchWidth: 10
   _maxSpawn: 10
   _spawnTerm: 10
   _spawnCoolTime: 10
@@ -21672,7 +21682,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1762008331}
   m_SourcePrefab: {fileID: 100100000, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
 --- !u!1001 &5886128022861646370
 PrefabInstance:

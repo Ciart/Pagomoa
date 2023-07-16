@@ -11,10 +11,12 @@ public class Monster : MonoBehaviour
     public float moveSpeed = 0;
     
     public float damage = 0;
+
+    public int dayTime = 1; // 1 = 낮, 0 = 밤
     
     public MonsterState currentState;
     
-    private MonsterManager _monsterManager;
+    private TimeManagerTemp _timeManagerTemp;
     
     private SpriteRenderer _sleepingAnimation;
     public enum MonsterState
@@ -26,12 +28,15 @@ public class Monster : MonoBehaviour
 
     void Start()
     {
-        currentState = MonsterState.Sleep;
-        _monsterManager = FindObjectOfType<MonsterManager>().GetComponent<MonsterManager>();
+        if (dayTime == 0) return;
+        
+        _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
         _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
         
-        _monsterManager.MonsterSleep.AddListener(SleepAtNight);
-        _monsterManager.MonsterWakeUp.AddListener(WakeUp);
+        currentState = MonsterState.Sleep;
+        
+        _timeManagerTemp.MonsterSleep.AddListener(SleepAtNight);
+        _timeManagerTemp.MonsterWakeUp.AddListener(WakeUp);
     }
     private void SleepAtNight()
     {
