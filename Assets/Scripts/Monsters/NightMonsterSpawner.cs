@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Maps;
+using Worlds;
 using UnityEngine;
 
 public class NightMonsterSpawner : MonoBehaviour
@@ -28,9 +28,9 @@ public class NightMonsterSpawner : MonoBehaviour
 
     private List<GameObject> _spawnedMonster;
 
-    private List<Vector3Int> _canSpawnPoints;
+    private List<Vector2Int> _canSpawnPoints;
     
-    private Vector3 _spawnPoint;
+    private Vector2 _spawnPoint;
 
     private float _desertDepth = 50f;
     private float _forestDepth = -100f;
@@ -41,7 +41,7 @@ public class NightMonsterSpawner : MonoBehaviour
     void Start()
     {
         _spawnedMonster = new List<GameObject>();
-        _canSpawnPoints = new List<Vector3Int>();
+        _canSpawnPoints = new List<Vector2Int>();
 
         SetSpawnMonster();
         CheckSpawnPosition();
@@ -165,15 +165,14 @@ public class NightMonsterSpawner : MonoBehaviour
         {
             for (int y = bottomLeft.y; y <= topRight.y; y++)
             {
-                var mapManager = MapManager.Instance;
-                
-                Vector3Int tilePosition = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y));
-                var tile = mapManager.GetBrick(tilePosition).ground;
+                var worldManager = WorldManager.instance;
+                Vector2Int tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
+                var tile = worldManager.world.GetBrick(tilePosition.x, tilePosition.y, out _).ground;
 
                 if (!tile)
                 {
-                    Vector3Int isNullTilePos = mapManager.groundTilemap.layoutGrid.WorldToCell(new Vector3(x, y - 1f));
-                    var tileCheck = mapManager.GetBrick(isNullTilePos).ground;
+                    Vector2Int isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
+                    var tileCheck = worldManager.world.GetBrick(isNullTilePos.x, isNullTilePos.y, out _).ground;
 
                     if (tileCheck)
                     {

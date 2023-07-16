@@ -1704,13 +1704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundTilemap: {fileID: 1344126190}
-  groundTilemap: {fileID: 2143556640}
-  mineralTilemap: {fileID: 1107110433}
-  groundHeight: 0
   mineralEntity: {fileID: 0}
-  backgroundTile: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}
-  debugTier: 10
 --- !u!4 &1135593059
 Transform:
   m_ObjectHideFlags: 0
@@ -1738,9 +1732,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b789feb74b7047bca62eba3f585bf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
-  width: 64
-  height: 64
+  database: {fileID: 0}
+  chunkSize: 16
+  top: 4
+  bottom: 16
+  left: 4
+  right: 4
+  wall: {fileID: 0}
+  ground: {fileID: 0}
 --- !u!213 &1145999106
 Sprite:
   m_ObjectHideFlags: 0
@@ -12250,23 +12249,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702505135}
   m_CullTransparentMesh: 1
---- !u!1 &1762008318 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
-  m_PrefabInstance: {fileID: 5377345053593914676}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1762008331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762008318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8103e02f710a62947b4d019aa9faeb1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1848143610
 GameObject:
   m_ObjectHideFlags: 0
@@ -12706,23 +12688,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a21d1f55df393946b6b50d3e26d30da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 354034902}
-  x: 1
-  y: 1
+  player: {fileID: 0}
+  x: 0
+  y: 0
   z: 0
-  land: 1
+  land: 0
   minSearchWidth: 4
   maxSearchWidth: 10
   _maxSpawn: 10
-  _spawnTerm: 10
-  _spawnCoolTime: 10
-  _monsterType:
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
-  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
+  _spawnTerm: 30
+  _spawnCoolTime: 30
+  _monsterType: []
 --- !u!1 &2112417299
 GameObject:
   m_ObjectHideFlags: 0
@@ -21591,14 +21567,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 545810255901230581, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 545810255901230581, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 547012723705590518, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -21606,10 +21574,6 @@ PrefabInstance:
     - target: {fileID: 547012723705590518, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2693658142123431325, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
-      propertyPath: _knockbackForce
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5033697736734850792, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: hungrybar
@@ -21623,10 +21587,6 @@ PrefabInstance:
       propertyPath: InventoryUI
       value: 
       objectReference: {fileID: 2112417299}
-    - target: {fileID: 6246817563821551012, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 2112417301}
     - target: {fileID: 6965570183136528755, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -21682,10 +21642,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1762008331}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
 --- !u!1001 &5886128022861646370
 PrefabInstance:

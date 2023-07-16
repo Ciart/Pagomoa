@@ -49,8 +49,6 @@ namespace Player
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
             _getHit = GetComponent<PlayerGetHit>();
-            
-            _map = MapManager.Instance;
 
             _world = WorldManager.instance;
         }
