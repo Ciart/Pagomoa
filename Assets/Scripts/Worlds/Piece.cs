@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Maps
+namespace Worlds
 {
     [Serializable]
     public class Piece
@@ -9,13 +9,13 @@ namespace Maps
         public int width = 2;
         
         public int height = 2;
+        
+        public Vector2Int pivot = Vector2Int.zero;
+        
+        public int rarity = 1;
 
         [SerializeField]
         private Brick[] _bricks;
-        
-        public Vector2Int Pivot = Vector2Int.zero;
-
-        public int Rarity = 1;
 
         public Piece()
         {
@@ -29,15 +29,10 @@ namespace Maps
 
         public ref Brick GetBrick(int x, int y)
         {
-            return ref _bricks[GetBricksIndex(x, y)];
+            return ref _bricks[GetBrickIndex(x, y)];
         }
-
-        public void SetBrick(Brick brick, int x, int y)
-        {
-            _bricks[GetBricksIndex(x, y)] = brick;
-        }
-
-        private int GetBricksIndex(int x, int y)
+        
+        private int GetBrickIndex(int x, int y)
         {
             return x + y * width;
         }

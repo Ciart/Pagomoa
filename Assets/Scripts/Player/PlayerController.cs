@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using Constants;
-using Maps;
+using Worlds;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -32,7 +32,7 @@ namespace Player
 
         private PlayerDigger _digger;
 
-        private MapManager _map;
+        private WorldManager _world;
 
         private Direction _direction;
 
@@ -51,6 +51,8 @@ namespace Player
             _getHit = GetComponent<PlayerGetHit>();
             
             _map = MapManager.Instance;
+
+            _world = WorldManager.instance;
         }
 
         private void TryJump()

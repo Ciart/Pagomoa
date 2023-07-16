@@ -420,7 +420,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -444,7 +444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.7, y: 4, z: -10}
+  m_LocalPosition: {x: 0, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1752,6 +1752,7 @@ GameObject:
   - component: {fileID: 1135593059}
   - component: {fileID: 1135593058}
   - component: {fileID: 1135593060}
+  - component: {fileID: 1135593061}
   m_Layer: 0
   m_Name: Map Manager
   m_TagString: Untagged
@@ -1771,13 +1772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundTilemap: {fileID: 1344126190}
-  groundTilemap: {fileID: 2143556640}
-  mineralTilemap: {fileID: 1107110433}
-  groundHeight: 0
   mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
-  backgroundTile: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}
-  debugTier: 10
 --- !u!4 &1135593059
 Transform:
   m_ObjectHideFlags: 0
@@ -1806,8 +1801,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
-  width: 64
-  height: 64
+  chunkSize: 16
+  top: 4
+  bottom: 8
+  left: 8
+  right: 8
+  wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+  ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+--- !u!114 &1135593061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135593057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8410b053c044319ac8bba6de8604749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallTilemap: {fileID: 1344126190}
+  groundTilemap: {fileID: 2143556640}
+  mineralTilemap: {fileID: 1107110433}
+  renderChunkRange: 2
 --- !u!213 &1145999106
 Sprite:
   m_ObjectHideFlags: 0
@@ -2196,7 +2212,7 @@ GameObject:
   - component: {fileID: 1344126190}
   - component: {fileID: 1344126189}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12132,6 +12148,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458661566}
   m_CullTransparentMesh: 1
+--- !u!1 &1554110553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+  m_PrefabInstance: {fileID: 5377345053593914676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1554110564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554110553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a00f2e887ea2e429488889792b6dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipments: []
 --- !u!1 &1702505135
 GameObject:
   m_ObjectHideFlags: 0
@@ -12229,7 +12263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1838795117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12822,7 +12856,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979542731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.7, y: 4, z: -10}
+  m_LocalPosition: {x: 0, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21463,6 +21497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Owl
       objectReference: {fileID: 0}
+    - target: {fileID: 6995264944939636800, guid: 69d8e31e52dc02447ad848fb0f721ab9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21522,11 +21560,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7701893231697460608, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701893231697460608, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7701893231697460608, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21563,7 +21601,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1554110564}
   m_SourcePrefab: {fileID: 100100000, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
 --- !u!1001 &5886128022861646370
 PrefabInstance:
@@ -21576,6 +21617,10 @@ PrefabInstance:
     - target: {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
       propertyPath: m_Name
       value: EvilParaoOwl
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3229346581304486645, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
       propertyPath: m_RootOrder
