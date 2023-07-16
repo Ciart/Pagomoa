@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - New tag
+  - Timer
   layers:
   - Default
   - TransparentFX
@@ -49,6 +51,7 @@ TagManager:
     locked: 0
   - name: Drill
     uniqueID: 2998811009
+    locked: 0
   - name: UI
     uniqueID: 3310709249
     locked: 0

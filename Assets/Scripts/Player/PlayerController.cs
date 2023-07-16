@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Constants;
 using Worlds;
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace Player
 
         private Direction _direction;
 
+        private PlayerGetHit _getHit;
+
         private void Awake()
         {
             _status = GetComponent<Status>(); // ���� �ʱ�ȭ
@@ -45,6 +48,7 @@ namespace Player
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
+            _getHit = GetComponent<PlayerGetHit>();
 
             _world = WorldManager.instance;
         }
@@ -123,6 +127,21 @@ namespace Player
             _movement.isSideWall = true;
         }
 
+        public void Hit(float monsterDamage, Vector3 monsterPosition)
+        {
+            if (_getHit.isInvisible == false)
+            {
+                _status.oxygen -= monsterDamage;
+                StartCoroutine(_getHit.InvincibleCool(monsterPosition));
+            }
+            else
+            {
+                // Debug.Log("무적시간");
+            }
+            // Debug.Log("공기량" + _status.oxygen);
+        }
+
+        
         private void FixedUpdate()
         {
             UpdateIsGrounded();
