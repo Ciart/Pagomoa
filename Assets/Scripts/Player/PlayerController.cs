@@ -129,6 +129,9 @@ namespace Player
             UpdateIsSideWall();
         }
 
-        
+        public Direction GetDirection()
+        {
+            return _direction;
+        }
     }
 }
