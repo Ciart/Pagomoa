@@ -4,113 +4,58 @@ using System.Collections.Generic;
 using Maps;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.UI;
-
+using static UnityEditor.Progress;
 public class InventoryDB : MonoBehaviour
 {
-    public Dictionary<Mineral, int> MineralsData = new Dictionary<Mineral, int>();
-    public Dictionary<Item, int> ConsumptionItemsData = new Dictionary<Item, int>();
-    public List<Item> MineralData = new List<Item>();
-    public List<Item> ShopItemsData = new List<Item>();
+    public List<InventoryItem> items = new List<InventoryItem>();
     public int Gold;
-    public Count mineralCount;
     [SerializeField] private EtcInventory inventory;
 
+    public UnityEvent makeSlots;
+    public UnityEvent changeInventory;
+
+    private static InventoryDB instance;
+    public static InventoryDB Instance
+    {
+        get
+        {
+            if (!instance)
+            {
+                instance = GameObject.FindObjectOfType(typeof(InventoryDB)) as InventoryDB;
+            }
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        makeSlots.Invoke();
+    }
     public void AddMineral(Mineral data)
     {
-        if (data.item.itemName == "CopperItem" && MineralData.Contains(data.item))
-        {
-            mineralCount.copperCount.Count++;
-            inventory.NotNull(data);
-            return;
-        }
-        else if (data.item.itemName == "IronItem" && MineralData.Contains(data.item))
-        {
-            mineralCount.ironCount.Count++;
-            inventory.NotNull(data);
-            return;
-        }
+        var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data.item);
 
-        if (data.item.itemName == "CopperItem" && !MineralData.Contains(data.item))
+        if (inventoryItem != null)
         {
-            MineralData.Add(data.item);
-            mineralCount.copperCount.Count++;
-            inventory.InputSlot(data);
-        }
-        if (data.item.itemName == "IronItem" && !MineralData.Contains(data.item))
-        {
-            MineralData.Add(data.item);
-            mineralCount.ironCount.Count++;
-            inventory.InputSlot(data);
-        }
-    }
-    public void Add(Mineral data)
-    {
-        if (MineralsData.ContainsKey(data))
-        {
-            MineralsData[data] += 1;
-            return;
-        }
-        MineralsData.Add(data, 1);
-    }
-    public void Remove(Mineral data)
-    {
-        if (MineralsData[data] > 1)
-        {
-            if (MineralsData.ContainsKey(data))
-            {
-                MineralsData[data] -= 1;
-                Gold += data.price;
-                Debug.Log(Gold);
-                return;
-            }
-        }
-        else if (MineralsData[data] == 1)
-        {
-            MineralsData.Remove(data);
-            Gold += data.price;
-        }
-    }
-    public void AddEquipmentItemData(Item data)
-    {
-        if (ShopItemsData.Contains(data))
-        {
-            return;
+            inventoryItem.count++;
         }
         else
         {
-            ShopItemsData.Add(data);
+            items.Add(new InventoryItem(data.item, 1));
         }
+        changeInventory.Invoke();
     }
-    public void AddConsumptionItemData(Item data)
+    public void Remove(Item data)
     {
-        if (ConsumptionItemsData.ContainsKey(data))
+        var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
+        if (inventoryItem != null)
         {
-            ConsumptionItemsData[data] += 1;
-            return;
+            if (inventoryItem.count > 1)
+                inventoryItem.count--;
+            else if (inventoryItem.count == 1)
+                items.Remove(inventoryItem);
         }
-        ConsumptionItemsData.Add(data, 1);
-    }
-    public void RemoveConsumptionItemData(Item data)
-    {
-        if (ConsumptionItemsData[data] > 1)
-        {
-            if (ConsumptionItemsData.ContainsKey(data))
-            {
-                ConsumptionItemsData[data] -= 1;
-                Gold += data.itemPrice;
-                Debug.Log(Gold);
-                return;
-            }
-        }
-        else if (ConsumptionItemsData[data] == 1)
-        {
-            ConsumptionItemsData.Remove(data);
-            Gold += data.itemPrice;
-        }
-    }
-    public void RemoveArtifactItemData(Item data)
-    {
-        ShopItemsData.Remove(data);
+        changeInventory.Invoke();
     }
 }

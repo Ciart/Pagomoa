@@ -3,101 +3,65 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class EtcInventory : MonoBehaviour
 {
     [SerializeField] private InventoryDB inventoryDB;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
-    public int slotCount;
+    [SerializeField] public  List<Slot> slotDatas = new List<Slot>();
+    [SerializeField] private int count;
 
-    private void Awake()
+    private static EtcInventory instance;
+    public static EtcInventory Instance
     {
-        for (int i = 0; i < slotCount; i++)
+        get
+        {
+            if (!instance)
+            {
+                instance = GameObject.FindObjectOfType(typeof(EtcInventory)) as EtcInventory;
+            }
+            return instance;
+        }
+    }
+    public void makeSlot() // slotDatas 갯수만큼 슬롯 만들기
+    {
+        for (int i = 0; i < count; i++)
         {
             GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
+            slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
             SpawnedSlot.SetActive(true);
         }
     }
-    public void InputSlot(Mineral data, int id)
+    public void resetSlot() // 각각 슬롯에 item 할당
     {
-        Slot[] slotDatas = slotParent.GetComponentsInChildren<Slot>();
-        foreach (Slot slot in slotDatas)
+        int i = 0;
+        for(; i < inventoryDB.items.Count && i < slotDatas.Count; i++)
         {
-            if (slot.id == id)
-                slot.SetItem(data, inventoryDB.MineralsData[data]);
+            slotDatas[i].item = inventoryDB.items[i].item;
+        }
+        for(; i< slotDatas.Count; i++)
+        {
+            slotDatas[i].item = null;
+        }
+        UpdateSlot();
+    }
+    public void UpdateSlot() // List안의 Item 전체 인벤토리에 출력
+    {
+        for(int i = 0; i < inventoryDB.items.Count; i++)
+        {
+            slotDatas[i].SetUI(inventoryDB.items[i].item.itemImage, inventoryDB.items[i].count.ToString());
         }
     }
-    public void NotNull(Mineral data)
-    {
-        Slot[] slotDatas = slotParent.GetComponentsInChildren<Slot>();
-        foreach (Slot slot in slotDatas)
+    public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
+    { 
+        for (int i = 0; i < inventoryDB.items.Count; i++)
         {
-            if (slot.mineralItem == data.item && slot.mineralItem.itemName == "CopperItem")
-            {
-                Debug.Log("널 아닌 쿠퍼");
-                slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
-                break;
-            }
-            else if (slot.mineralItem == data.item && slot.mineralItem.itemName == "IronItem")
-            {
-                Debug.Log("널 아닌 아이언");
-                slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
-                break;
-            }
+            slotDatas[i].SetUI(null, "");
         }
-    }
-    public void InputSlot(Mineral data)
-    {
-        Slot[] slotDatas = slotParent.GetComponentsInChildren<Slot>();
-        foreach (Slot slot in slotDatas)
-        {
-            if (slot.mineralItem == null && data.item.itemName == "CopperItem")
-            {
-                Debug.Log("널인 쿠퍼");
-                slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
-                break;
-            }
-            else if (slot.mineralItem == null && data.item.itemName == "IronItem")
-            {
-                Debug.Log("널인 아이언");
-                slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
-                break;
-            }
-        }
-        //bool isAssigned = false;
-        //foreach (Slot slot in slotDatas)
-        //{
-        //    if (slot.mineralItem == data)
-        //    {
-        //        slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
-        //        isAssigned = true;
-        //        break;
-        //    }
-        //    else if (slot.mineralItem == data)
-        //    {
-        //        slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
-        //        isAssigned = true;
-        //        break;
-        //    }
-        //}
-
-        //foreach (Slot slot in slotDatas)
-        //{
-        //    if (slot.mineralItem != null && slot.mineralItem.itemName == "CopperItem")
-        //    {
-        //        Debug.Log("널 아닌 쿠퍼");
-        //        slot.SetItem(data, inventoryDB.mineralCount.copperCount.Count);
-        //        break;
-        //    }
-        //    else if (slot.mineralItem != null && slot.mineralItem.itemName == "IronItem")
-        //    {
-        //        Debug.Log("널 아닌 아이언");
-        //        slot.SetItem(data, inventoryDB.mineralCount.ironCount.Count);
-        //        break;
-        //    }
-        //}
     }
 }

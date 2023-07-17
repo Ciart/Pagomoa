@@ -1267,11 +1267,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9fe78d2ab77704cad95cce2b2ac246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MineralData: []
-  ShopItemsData: []
+  items: []
   Gold: 1000
-  mineralCount: {fileID: 0}
   inventory: {fileID: 0}
+  makeSlots:
+    m_PersistentCalls:
+      m_Calls: []
+  changeInventory:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &360787675
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour
 {
-    public Item mineralItem;
-    [SerializeField] private Image image;
-    [SerializeField] private Text text;
-    public int id;
-    public void SetItem(Mineral data, int count)
+    public Item item;
+    [SerializeField] public Image image;
+    [SerializeField] public Text text;
+
+    public void ClickSlot()
     {
-        mineralItem = data.item;
-        image.sprite = data.item.itemImage;
-        text.text = count.ToString();
+        EtcInventory.Instance.DeleteSlot();
+        InventoryDB.Instance.Remove(item);
+        EtcInventory.Instance.UpdateSlot();
     }
-    public void RemoveItem()
+    public void SetUI(Sprite s, string m)
     {
-        mineralItem = null;
-        image.sprite = null;
-        text.text = "";
+        image.sprite = s;
+        text.text = m;
     }
 }
