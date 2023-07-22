@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-namespace Maps
+namespace Worlds
 {
-    [CreateAssetMenu(fileName = "Ground", menuName = "Map/Ground", order = 2)]
+    [CreateAssetMenu(fileName = "Ground", menuName = "World/Ground", order = 2)]
     public class Ground: ScriptableObject
     {
-        public string groundName;
+        public string displayName;
         
         public float strength;
         

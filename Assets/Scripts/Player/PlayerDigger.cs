@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Constants;
-using Maps;
+using Worlds;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,28 +45,28 @@ namespace Player
 
         private void FixedUpdate()
         {
-            var mapManager = MapManager.Instance;
+            var mapManager = WorldManager.instance;
 
             if (isDig && _canDig)
             {
-                Vector3Int po1;
-                Vector3Int po2;
+                Vector2Int po1;
+                Vector2Int po2;
                 if (direction == Direction.Left)
                 {
                     var position = transform.position;
-                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
-                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
+                    po1 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
+                    po2 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
                 }
                 else if (direction == Direction.Right)
                 {
                     var position = transform.position;
-                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
-                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
+                    po1 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
+                    po2 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
                 }
                 else
                 {
-                    po1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
-                    po2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                    po1 = WorldManager.ComputeCoords(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                    po2 = WorldManager.ComputeCoords(HitPointDown.position - new Vector3(0.3f, 0, 0));
                 }
                 StartCoroutine(PA(po1, po2));
 
@@ -78,13 +78,13 @@ namespace Player
             _charging = 0;
             OnDigEvent.Invoke();
         }
-        IEnumerator PA(Vector3Int point1, Vector3Int point2)
+        IEnumerator PA(Vector2Int point1, Vector2Int point2)
         {
             _canDig = false;
 
-            var mapManager = MapManager.Instance;
-            var tile1 = mapManager.GetBrick(point1).ground;
-            var tile2 = mapManager.GetBrick(point2).ground;
+            var worldManager = WorldManager.instance;
+            var tile1 = worldManager.world.GetBrick(point1.x, point1.y, out _)?.ground;
+            var tile2 = worldManager.world.GetBrick(point2.x, point2.y, out _)?.ground;
             if (tile1 || tile2)
             {
                 Debug.Log("굴착시작!");
@@ -93,27 +93,27 @@ namespace Player
                 if (tile1) time1 = tile1.strength / digSpeed;
                 if (tile2) time2 = tile2.strength / digSpeed;
 
-                Vector3Int currentPos1 = point1;
-                Vector3Int currentPos2 = point2;
+                var currentPos1 = point1;
+                var currentPos2 = point2;
                 while (isDig && (time1 > _charging || time2 > _charging))
                 {
                     //Debug.Log("굴착중!");
                     if (direction == Direction.Left)
                     {
                         var position = transform.position;
-                        currentPos1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
-                        currentPos2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
+                        currentPos1 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y + 0.3f, position.z));
+                        currentPos2 = WorldManager.ComputeCoords( new Vector3(position.x - 1.2f, position.y - 0.3f, position.z));
                     }
                     else if (direction == Direction.Right)
                     {
                         var position = transform.position;
-                        currentPos1 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
-                        currentPos2 = mapManager.groundTilemap.layoutGrid.WorldToCell( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
+                        currentPos1 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y + 0.3f, position.z));
+                        currentPos2 = WorldManager.ComputeCoords( new Vector3(position.x + 1.2f, position.y - 0.3f, position.z));
                     }
                     else
                     {
-                        currentPos1 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position + new Vector3(0.3f, 0, 0));
-                        currentPos2 = mapManager.groundTilemap.layoutGrid.WorldToCell(HitPointDown.position - new Vector3(0.3f, 0, 0));
+                        currentPos1 = WorldManager.ComputeCoords(HitPointDown.position + new Vector3(0.3f, 0, 0));
+                        currentPos2 = WorldManager.ComputeCoords(HitPointDown.position - new Vector3(0.3f, 0, 0));
                     }
 
                     _charging += Time.fixedDeltaTime;
@@ -131,13 +131,13 @@ namespace Player
                 }
                 if (time1 <= _charging)
                 {
-                    mapManager.BreakTile(point1);
+                    worldManager.BreakGround(point1.x, point1.y, 10);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
                 if (time2 <= _charging)
                 {
-                    mapManager.BreakTile(point2);
+                    worldManager.BreakGround(point2.x, point2.y, 10);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
