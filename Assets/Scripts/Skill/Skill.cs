@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Maps;
 using Player;
 using Tiles;
 using Constants;
+using Worlds;
 
 public class Skill : MonoBehaviour
 {
@@ -32,13 +32,13 @@ public class Skill : MonoBehaviour
         }
     }
     
-    // Skill : ÁöÇÏ¿¡ ÀÖÀ»¶§ Áö»ó±îÁö Çï¸®ÄßÅÍ¸¦ ¿îÇàÇÕ´Ï´Ù.    
-    // Motion: ¸Ó¸®À§ ÀÛÀº Çï¸®ÄßÅÍ È¤Àº µå¸±À» ¸Ó¸®À§·Î Àâ°í ³¯¾Æ°¡´Â ¸ð¼Ç
+    // Skill : ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¸®ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.    
+    // Motion: ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¸®ï¿½ï¿½ï¿½ï¿½ È¤ï¿½ï¿½ ï¿½å¸±ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     IEnumerator HelicopterStart()
     {
-        Debug.Log("ºù±Ûºù±Û ºñÆ²ºñÆ²");
+        Debug.Log("ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½ ï¿½ï¿½Æ²ï¿½ï¿½Æ²");
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        while (MapManager.Instance.CheckClimbable(transform.position) && Helicopter)
+        while (WorldManager.instance.CheckClimbable(transform.position) && Helicopter)
         {
             _player.state = Player.PlayerState.Jump;
             if(rb.velocity.y >= 0)
@@ -48,14 +48,14 @@ public class Skill : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         Helicopter = false;
-        Debug.Log("ÄßÅÍ Á¾·á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
-    // Skill : ±¤¹°À» ÇÏ³ª ¹ß°ßÇÒ ¶§±îÁö ¼öÁ÷ ¾Æ·¡ ¹æÇâÀ¸·Î ¶¥À» ÇÑ¹ø¿¡ ÆË´Ï´Ù. 
-    // Motion: ¿¢½ºÄ®¸®¹ö ²Èµí µå¸±À» ¶¥¿¡ ³»¸®²È´Â ¸ð¼Ç, È¤Àº µÎ´õÁö ¼öÁ÷ ³«ÇÏ ¸ð¼Ç(´ÙÀÌºùÇÏµí)
+    // Skill : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ë´Ï´ï¿½. 
+    // Motion: ï¿½ï¿½ï¿½ï¿½Ä®ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ ï¿½å¸±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ ï¿½ï¿½ï¿½, È¤ï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ïµï¿½)
     // 
     void MoleHill()
     {
-        Debug.Log("µÎ´õÁö±¸¸Û!");
+        Debug.Log("ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
         Vector3 digVec;
         switch (_player.GetDirection()) 
         {
@@ -69,31 +69,34 @@ public class Skill : MonoBehaviour
                 digVec = Vector3.down;
                 break;
         }
-        Vector3 point = transform.position + digVec * 1.2f;
-        Vector3Int pointInt = MapManager.Instance.groundTilemap.layoutGrid.WorldToCell(point);
-        while (MapManager.Instance.GetBrick(pointInt).ground)
+        
+        var point = transform.position + digVec * 1.2f;
+        var pointInt = WorldManager.ComputeCoords(point);
+        while (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).ground)
         {
-            if (MapManager.Instance.mineralTilemap.GetTile<MineralTile>(pointInt))
+            if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                 return;
-            MapManager.Instance.BreakTile(pointInt, 99999);
+            
+            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
             point = point + digVec;
-            pointInt = MapManager.Instance.groundTilemap.layoutGrid.WorldToCell(point);
+            pointInt = WorldManager.ComputeCoords(point);
         }
     }
-    // Skill : ±¤¹°À» ÇÏ³ª ¹ß°ßÇÒ ¶§±îÁö ¹«ÀÛÀ§ ¹æÇâÀÇ ¶¥À» Â÷±ÙÂ÷±Ù ÆË´Ï´Ù.  
-    // Motion: ¼ÕÀ¸·Î ¹Ù´ÚÀ» ´ë°¢¼±À¸·Î ÇâÇØ °¡¸®Å°¸ç µÎ´õÁö°¡ ¹Ù´Ú¿¡ ¶Ù¾îµå´Â ¸ð¼Ç
+    // Skill : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë´Ï´ï¿½.  
+    // Motion: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½ë°¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     IEnumerator GoMole()
     {
-        Debug.Log("°¡¶ó µÎ´õÁö!!");
-        Vector3 point = transform.position + new Vector3(0, -1.2f);
-        Vector3Int pointInt = MapManager.Instance.groundTilemap.layoutGrid.WorldToCell(point);
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Î´ï¿½ï¿½ï¿½!!");
+        var point = transform.position + new Vector3(0, -1.2f);
+        var pointInt = WorldManager.ComputeCoords(point);
         bool find = false;
 
-        while (MapManager.Instance.GetBrick(pointInt).ground && !find)
+        while (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).ground && !find)
         {
-            if (MapManager.Instance.mineralTilemap.GetTile<MineralTile>(pointInt))
+            if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                 find = true;
-            MapManager.Instance.BreakTile(pointInt, 99999);
+            
+            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
             switch(Random.Range(0, 3))
             {
                 case 0:
@@ -109,7 +112,7 @@ public class Skill : MonoBehaviour
                     point += Vector3.up;
                     break;
             }
-            pointInt = MapManager.Instance.groundTilemap.layoutGrid.WorldToCell(point);
+            pointInt = WorldManager.ComputeCoords(point);
             yield return new WaitForSeconds(0.15f);
         }
     }
