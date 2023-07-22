@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-namespace Maps
+namespace Worlds
 {
-    [CreateAssetMenu(fileName = "Mineral", menuName = "Map/Mineral", order = 1)]
+    [CreateAssetMenu(fileName = "Mineral", menuName = "World/Mineral", order = 1)]
     public class Mineral: ScriptableObject
     {
-        public string mineralName;
+        public string displayName;
     
         public int tier;
 

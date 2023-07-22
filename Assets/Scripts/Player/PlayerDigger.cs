@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Constants;
-using Maps;
+using Worlds;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -56,7 +56,7 @@ namespace Player
             if (isDig && _canDig)
                 StartCoroutine(PA(DirectionCheck("1"), DirectionCheck("2")));
         }
-        Vector3Int DirectionCheck(string oneortwo)
+        Vector2Int DirectionCheck(string oneortwo)
         {
             Vector3 digVec;
             switch (direction)
@@ -71,27 +71,27 @@ namespace Player
                     digVec = (oneortwo == "1") ? new Vector3(0.3f, -1.2f) : new Vector3(-0.3f, -1.2f);
                     break;
             }
-            return MapManager.Instance.groundTilemap.layoutGrid.WorldToCell(transform.position + digVec);
+            return WorldManager.ComputeCoords(transform.position + digVec);
         }
         void ICanDig()
         {
             _canDig = true;
             _charging = 0;
         }
-        IEnumerator PA(Vector3Int point1, Vector3Int point2)
+        IEnumerator PA(Vector2Int point1, Vector2Int point2)
         {
             _canDig = false;
 
-            var mapManager = MapManager.Instance;
-            var tile1 = mapManager.GetBrick(point1).ground;
-            var tile2 = mapManager.GetBrick(point2).ground;
+            var worldManager = WorldManager.instance;
+            var tile1 = worldManager.world.GetBrick(point1.x, point1.y, out _)?.ground;
+            var tile2 = worldManager.world.GetBrick(point2.x, point2.y, out _)?.ground;
             if (tile1 || tile2)
             {
                 float time1 = 0, time2 = 0;
                 if (tile1) time1 = tile1.strength / _status.digSpeed;
                 if (tile2) time2 = tile2.strength / _status.digSpeed;
 
-                Vector3Int currentPos1 = point1, currentPos2 = point2;
+                Vector2Int currentPos1 = point1, currentPos2 = point2;
                 while (isDig && (time1 > _charging || time2 > _charging))
                 {
                     currentPos1 = DirectionCheck("1");
@@ -111,13 +111,13 @@ namespace Player
                 }
                 if (time1 <= _charging)
                 {
-                    mapManager.BreakTile(point1, drillTier);
+                    worldManager.BreakGround(point1.x, point1.y, drillTier);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
                 if (time2 <= _charging)
                 {
-                    mapManager.BreakTile(point2, drillTier);
+                    worldManager.BreakGround(point2.x, point2.y,  drillTier);
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
