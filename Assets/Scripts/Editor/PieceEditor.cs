@@ -104,7 +104,7 @@ namespace Editor
             {
                 for (var y = 0; y < piece.height; y++)
                 {
-                    ref var brick = ref piece.GetBrick(x, y);
+                    var brick = piece.GetBrick(x, y);
                     var xMin = x * 36 + 8;
                     var yMin = y * 36 + 100;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
