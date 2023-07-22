@@ -28,6 +28,6 @@ public class InteractableObject : MonoBehaviour
     }
     public void InteractObject()
     {
-        Debug.Log("해당 오브젝트랑 상호작용 합니다.");
+        
     }
 }

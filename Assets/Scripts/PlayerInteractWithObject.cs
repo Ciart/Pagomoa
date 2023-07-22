@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInteractWithObject : MonoBehaviour
 {
     List<GameObject> InteractableObjectList;
     float closestDistance;
     GameObject ActivatedObject;
+
     void Start()
     {
         InteractableObjectList = new List<GameObject>();
@@ -15,7 +17,7 @@ public class PlayerInteractWithObject : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log(InteractableObjectList.Count);
+            // Debug.Log(InteractableObjectList.Count);
         }
 
         foreach (GameObject obj in InteractableObjectList)
@@ -47,15 +49,15 @@ public class PlayerInteractWithObject : MonoBehaviour
         if (closestDistance == 0.0f || InteractableObjectList.Count == 1)
         {
             closestDistance = distance;
-            obj.GetComponent<InteractableObject>().ActiveObject();
+            //obj.GetComponent<InteractableObject>().ActiveObject();
             ActivatedObject = obj;
         }
         else if (distance < closestDistance && InteractableObjectList.Count > 1)
         {
-            ActivatedObject.GetComponent<InteractableObject>().DisableObject();
+            //ActivatedObject.GetComponent<InteractableObject>().DisableObject();
             ActivatedObject = obj;
             closestDistance = distance;
-            obj.GetComponent<InteractableObject>().ActiveObject();
+            //obj.GetComponent<InteractableObject>().ActiveObject();
         }
     }
 }

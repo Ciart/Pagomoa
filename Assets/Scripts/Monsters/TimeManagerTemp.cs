@@ -39,7 +39,7 @@ public class TimeManagerTemp : MonoBehaviour
     }
     private void StartTime()
     {
-        Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
+        // Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
         time += 1000;
         EventTime();
     }
