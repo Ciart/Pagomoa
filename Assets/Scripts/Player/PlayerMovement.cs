@@ -60,9 +60,8 @@ namespace Player
                 _animator.SetBool(AnimatorEndClimd, false);
             // var a = transform.position + new Vector3(0f, 1f, 0f);
 
-
             float fixYPos = -0.5f;
-            if (velocity.y > 0 && !_map.CheckClimbable(transform.position + new Vector3(directionVector.x, directionVector.y + fixYPos, 0)))
+            if (velocity.y > 0 && !_world.CheckClimbable(transform.position + new Vector3(directionVector.x, directionVector.y + fixYPos, 0)))
             {
                 // Debug.Log("a: " + (Mathf.Floor(a.y) - transform.position.y));
                 // Debug.Log("b: " + velocity.y);
