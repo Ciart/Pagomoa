@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Player;
@@ -70,6 +71,15 @@ namespace Worlds
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                 }
+            }
+        }
+
+        private IEnumerator RunActionWithChunks(IEnumerable<Chunk> chunks, Action<Chunk> action)
+        {
+            foreach (var chunk in chunks)
+            {
+                action(chunk);
+                yield return null;
             }
         }
 
@@ -154,17 +164,13 @@ namespace Worlds
                     renderedChunks.Add(chuck);
                 }
             }
+            
+            var clearChunks = _renderedChunks.Except(renderedChunks);
+            var updateChunks = renderedChunks.Except(_renderedChunks);
 
-            foreach (var clearChunk in _renderedChunks.Except(renderedChunks))
-            {
-                ClearChunk(clearChunk);
-            }
-
-            foreach (var updateChunk in renderedChunks.Except(_renderedChunks))
-            {
-                RenderChunk(updateChunk);
-            }
-
+            StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
+            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
+            
             _renderedChunks = renderedChunks;
         }
     }
