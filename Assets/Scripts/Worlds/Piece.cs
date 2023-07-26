@@ -1,24 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Worlds
 {
-    [Serializable]
-    public struct PiecePrefabItem
-    {
-        public int x;
-        public int y;
-        public GameObject prefab;
-
-        public PiecePrefabItem(int x, int y, GameObject prefab)
-        {
-            this.x = x;
-            this.y = y;
-            this.prefab = prefab;
-        }
-    }
-
     [Serializable]
     public class Piece
     {
@@ -30,9 +16,9 @@ namespace Worlds
 
         public int rarity = 1;
 
-        [SerializeField] private Brick[] _bricks;
+        public List<WorldPrefab> prefabs = new();
 
-        [SerializeField] private List<PiecePrefabItem> _prefabs = new();
+        [SerializeField] private Brick[] _bricks;
 
         public Piece()
         {
@@ -43,7 +29,7 @@ namespace Worlds
         {
             Array.Resize(ref _bricks, width * height);
 
-            _prefabs = _prefabs.FindAll(item => CheckRange(item.x, item.y));
+            prefabs = prefabs.FindAll(item => CheckRange(item.x, item.y));
         }
 
         public Brick GetBrick(int x, int y)
@@ -56,7 +42,7 @@ namespace Worlds
             return x + y * width;
         }
 
-        public bool CheckRange(int x, int y)
+        private bool CheckRange(float x, float y)
         {
             return 0 <= x && x < width && 0 <= y && y < height;
         }
@@ -68,7 +54,7 @@ namespace Worlds
                 return;
             }
 
-            _prefabs.Add(new PiecePrefabItem(x, y, prefab));
+            prefabs.Add(new WorldPrefab(x, y, prefab));
         }
     }
 }

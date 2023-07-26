@@ -71,6 +71,13 @@ namespace Worlds
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                 }
             }
+
+            foreach (var prefab in chunk.prefabs)
+            {
+                Instantiate(prefab.prefab,
+                    new Vector3(chunk.key.x * world.chunkSize + prefab.x + 0.5f,
+                        chunk.key.y * world.chunkSize + prefab.y + 0.5f, 0f), Quaternion.identity);
+            }
         }
 
         private void OnCreatedWorld(World world)
@@ -125,7 +132,7 @@ namespace Worlds
         private void RenderWorld()
         {
             var world = _worldManager.world;
-            
+
             var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
             var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
 
@@ -142,7 +149,9 @@ namespace Worlds
 
             for (var keyX = playerChunk.key.x - renderChunkRange; keyX <= playerChunk.key.x + renderChunkRange; keyX++)
             {
-                for (var keyY = playerChunk.key.y - renderChunkRange; keyY <= playerChunk.key.y + renderChunkRange; keyY++)
+                for (var keyY = playerChunk.key.y - renderChunkRange;
+                     keyY <= playerChunk.key.y + renderChunkRange;
+                     keyY++)
                 {
                     var chuck = world.GetChunk(new Vector2Int(keyX, keyY));
 

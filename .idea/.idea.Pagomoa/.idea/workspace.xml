@@ -6,30 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Copper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Copper.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Iron.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Iron.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Sand.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Sand.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/SandWall.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/SandWall.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Map Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Map Database.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefebs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/EvilParaoOwl.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/EvilParaoOwl.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/InteractableObject.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/InteractableObject.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/Mineral.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/Mineral.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/MonsterSpawner.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/MonsterSpawner.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/NightMonsterSpawner.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/NightMonsterSpawner.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/Player.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefebs/Player.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/ShopWindowItem.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/ShopWindowItem.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/Snake.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/Snake.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/TimeManager.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/TimeManager.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/owl.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefebs/owl.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DialogueScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DialogueScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/PieceEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/PieceEditor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/Piece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/Piece.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/World.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldRenderer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "XThreadsFramesViewSplitterKey": "0.41221374",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "feature/world-monster",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,7 +68,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+  <component name="RunManager" selected="Attach to Unity Player.Unity.exe (Pagomoa)">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.2.9f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\a9018\Desktop\PagoMoa -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
@@ -126,10 +111,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="9928">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="9928" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -138,13 +123,18 @@
     </configuration>
     <configuration name="Unity.exe (Pagomoa)" type="UnityPlayer" factoryName="UnityAttachToPlayer" temporary="true">
       <option name="host" value="127.0.0.1" />
-      <option name="pid" value="16064" />
-      <option name="playerId" value="EditorHelper(Unity.exe-AssetImportWorker0-Pagomoa)" />
-      <option name="port" value="56064" />
+      <option name="pid" value="6748" />
+      <option name="playerId" value="EditorHelper(Unity.exe-AssetImportWorker2-Pagomoa)" />
+      <option name="port" value="56748" />
       <option name="projectName" value="Pagomoa" />
-      <option name="roleName" value="AssetImportWorker0" />
+      <option name="roleName" value="AssetImportWorker2" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Attach to Unity Player.Unity.exe (Pagomoa)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -165,6 +155,7 @@
       <workItem from="1688819042029" duration="10140000" />
       <workItem from="1689502923338" duration="6964000" />
       <workItem from="1690029701401" duration="3066000" />
+      <workItem from="1690364736190" duration="7397000" />
     </task>
     <servers />
   </component>
