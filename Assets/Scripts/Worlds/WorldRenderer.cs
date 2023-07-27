@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Player;
@@ -73,6 +74,15 @@ namespace Worlds
             }
         }
 
+        private IEnumerator RunActionWithChunks(IEnumerable<Chunk> chunks, Action<Chunk> action)
+        {
+            foreach (var chunk in chunks)
+            {
+                action(chunk);
+                yield return null;
+            }
+        }
+
         private void OnCreatedWorld(World world)
         {
             ClearWorld();
@@ -97,8 +107,8 @@ namespace Worlds
             _worldManager.createdWorld += OnCreatedWorld;
             _worldManager.changedChunk += OnChangedChunk;
 
-            ClearWorld();
-            RenderWorld();
+            // ClearWorld();
+            // RenderWorld();
         }
 
         private void LateUpdate()
@@ -125,6 +135,11 @@ namespace Worlds
         private void RenderWorld()
         {
             var world = _worldManager.world;
+
+            if (world is null)
+            {
+                return;
+            }
             
             var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
             var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
@@ -154,17 +169,13 @@ namespace Worlds
                     renderedChunks.Add(chuck);
                 }
             }
+            
+            var clearChunks = _renderedChunks.Except(renderedChunks);
+            var updateChunks = renderedChunks.Except(_renderedChunks);
 
-            foreach (var clearChunk in _renderedChunks.Except(renderedChunks))
-            {
-                ClearChunk(clearChunk);
-            }
-
-            foreach (var updateChunk in renderedChunks.Except(_renderedChunks))
-            {
-                RenderChunk(updateChunk);
-            }
-
+            StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
+            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
+            
             _renderedChunks = renderedChunks;
         }
     }
