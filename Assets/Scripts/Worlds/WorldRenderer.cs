@@ -107,8 +107,8 @@ namespace Worlds
             _worldManager.createdWorld += OnCreatedWorld;
             _worldManager.changedChunk += OnChangedChunk;
 
-            ClearWorld();
-            RenderWorld();
+            // ClearWorld();
+            // RenderWorld();
         }
 
         private void LateUpdate()
@@ -135,6 +135,11 @@ namespace Worlds
         private void RenderWorld()
         {
             var world = _worldManager.world;
+
+            if (world is null)
+            {
+                return;
+            }
             
             var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
             var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
