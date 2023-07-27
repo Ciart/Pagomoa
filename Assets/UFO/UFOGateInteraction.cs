@@ -3,21 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace UFO
 {
     public class UFOGateInteraction : MonoBehaviour
     {
-        public KeyCode eventKey = KeyCode.E;
-        
+        public TilemapCollider2D UFOFloor;
+
         public float floatSpeed = 10f;
         
         public int direction;
-        
-        public bool getKey;
-        
+
         private UFOGateIn _gateIn;
         private UFOGateOut _gateOut;
+
+        private CircleCollider2D _inCollider;
+        private CircleCollider2D _outCollider;
         
         [SerializeField] private LayerMask _playerMask;
         
@@ -26,61 +28,57 @@ namespace UFO
         private Vector2 _boxSize;
         
         private float _distance;
-        
-        
-        
+
         void Start()
         {
+            UFOFloor = transform.parent.Find("Grid").GetChild(0).GetComponent<TilemapCollider2D>();
+
             _gateIn = transform.GetChild(2).GetComponent<UFOGateIn>();
             _gateOut = GetComponent<UFOGateOut>();
 
-            _boxSize = new Vector2(3, 10);
-        }
+            _inCollider = _gateIn.GetComponent<CircleCollider2D>();
+            _outCollider = GetComponent<CircleCollider2D>();
 
-        private void Update()
-        {
-            InputEventKey();
+            _gateIn.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
+            _gateOut.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
             
-            _startPos = new Vector2(transform.position.x, transform.position.y - 7f);
-            RaycastHit2D hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
-
-            if (hit && getKey)
-            {
-                ActiveGravityBeam(hit.transform);
-            }
+            _boxSize = new Vector2(1, 8);
         }
 
-        private Vector2 ActiveGravityBeam(Transform hit)
+        public void ActiveGravityBeam()
         {
             SetDirectionY();
-
-            return hit.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
+            if ( direction < 0 ) UFOFloor.enabled = false;
+            
+            _startPos = new Vector2(transform.position.x, transform.position.y - 7.9f);
+            var hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
+            
+            if (hit.collider)
+            {
+                hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
+                
+                _inCollider.enabled = false;
+                _outCollider.enabled = false;
+                
+                StartCoroutine(nameof(DisableFloor));
+            }
         }
 
         private void SetDirectionY()
         {
-            if (_gateIn.isPlayer)
-            {
-                direction = 1;
-            }
-            
-            if (_gateOut.isPlayer)
-            {
-                direction = -1;
-            }
+            if (_gateIn.isPlayer) direction = 1;
+            if (_gateOut.isPlayer) direction = -1;
         }
 
-        private void InputEventKey()
+        private IEnumerator DisableFloor()
         {
-            if (Input.GetKey(eventKey))
-            {
-                getKey = true;
-            }
-            else
-            {
-                getKey = false;
-            }
+            yield return new WaitForSeconds(2f);
+            
+            _inCollider.enabled = true;
+            _outCollider.enabled = true;
+            UFOFloor.enabled = true;    
         }
+
         /*private void OnDrawGizmos()
         {
             // 시각적으로 박스 캐스트를 그리기 위해 Gizmos를 사용합니다.

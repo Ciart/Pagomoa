@@ -6,12 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Computer-Sheet_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Computer-Sheet_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InventorySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InventorySample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MapGeneratorScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MapGeneratorScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MonsterScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MonsterScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/InteractableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InteractableObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/NightMonsterSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/NightMonsterSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerInteractWithObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerInteractWithObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Bed.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Bed.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UFO/Ladder.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UFO/Ladder.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/BedInteraction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/BedInteraction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOFloor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOFloor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOGateIn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOGateIn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOGateInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOGateInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOGateOut.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOGateOut.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,14 +37,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/FadeSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Collect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.State.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Status.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/UFO/BedInteraction.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/UFO/UFOFloor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/UFO/UFOBedInteraction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/UFO/UFOInteraction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/UFO/UFOLadderInteraction.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -152,6 +169,14 @@
       <workItem from="1689786887233" duration="5114000" />
       <workItem from="1690013939584" duration="5752000" />
       <workItem from="1690031862811" duration="1299000" />
+      <workItem from="1690092995924" duration="1215000" />
+      <workItem from="1690095299728" duration="15976000" />
+      <workItem from="1690116598213" duration="2964000" />
+      <workItem from="1690173962611" duration="16904000" />
+      <workItem from="1690262318899" duration="18339000" />
+      <workItem from="1690348649644" duration="6314000" />
+      <workItem from="1690361467403" duration="8768000" />
+      <workItem from="1690427314747" duration="3675000" />
     </task>
     <servers />
   </component>
@@ -160,6 +185,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

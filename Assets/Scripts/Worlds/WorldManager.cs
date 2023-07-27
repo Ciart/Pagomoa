@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Worlds
 {
@@ -8,6 +10,8 @@ namespace Worlds
     {
         public MineralEntity mineralEntity;
 
+        public Tilemap ufoLadder;
+        
         private World _world;
 
         public World world
@@ -118,7 +122,10 @@ namespace Worlds
             var coords = ComputeCoords(position);
             var brick = _world.GetBrick(coords.x, coords.y, out _);
 
-            return brick?.wall is not null && brick.wall.isClimbable;
+            var ladderPos = ufoLadder.WorldToCell(new Vector3Int(coords.x, coords.y - 1));
+            var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
+
+            return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
         }
     }
 }
