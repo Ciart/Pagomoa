@@ -5,28 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Computer-Sheet_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Computer-Sheet_0.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InventorySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InventorySample.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MapGeneratorScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MapGeneratorScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MonsterScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MonsterScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InteractableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InteractableObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/NightMonsterSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/NightMonsterSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerInteractWithObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerInteractWithObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UFO/Ladder.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UFO/Ladder.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/BedInteraction.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/BedInteraction.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOFloor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOFloor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOGateIn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOGateIn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOGateInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOGateInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOGateOut.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOGateOut.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UFO/UFOInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UFO/UFOInteraction.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +157,7 @@
       <workItem from="1690348649644" duration="6314000" />
       <workItem from="1690361467403" duration="8768000" />
       <workItem from="1690427314747" duration="3675000" />
+      <workItem from="1690449848859" duration="81000" />
     </task>
     <servers />
   </component>

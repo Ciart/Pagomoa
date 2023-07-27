@@ -5,6 +5,5 @@ namespace UFO
 {
     public class UFOInteraction : MonoBehaviour
     {
-        
     }
 }
