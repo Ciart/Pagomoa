@@ -75,9 +75,16 @@ namespace Worlds
 
             foreach (var prefab in chunk.prefabs)
             {
-                Instantiate(prefab.prefab,
-                    new Vector3(chunk.key.x * world.chunkSize + prefab.x + 0.5f,
-                        chunk.key.y * world.chunkSize + prefab.y + 0.5f, 0f), Quaternion.identity);
+                var position = new Vector3(chunk.key.x * world.chunkSize + prefab.x + 0.5f,
+                    chunk.key.y * world.chunkSize + prefab.y + 0.5f, 0f);
+                var coords = WorldManager.ComputeCoords(position);
+
+                if (_worldManager.world.GetBrick(coords.x, coords.y, out _).wall is null)
+                {
+                    continue;
+                }
+                
+                Instantiate(prefab.prefab, position, Quaternion.identity);
             }
         }
 
