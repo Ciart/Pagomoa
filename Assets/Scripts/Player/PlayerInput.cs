@@ -9,6 +9,8 @@ namespace Player
 
         public Vector2 Move { get; private set; }
         
+        public Vector2 Look { get; private set; }
+        
         public bool IsDig { get; private set; }
         
         public bool IsJump { get; private set; }
@@ -25,6 +27,7 @@ namespace Player
         private void Update()
         {
             Move = Actions.Move.ReadValue<Vector2>();
+            Look = Actions.Look.ReadValue<Vector2>();
             IsDig = Actions.Dig.IsPressed();
             IsJump = Actions.Jump.IsPressed();
             IsClimb = Actions.Climb.IsPressed();

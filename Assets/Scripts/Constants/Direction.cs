@@ -19,7 +19,7 @@ namespace Constants
             var angle = signedAngle < 0 ? 360 + signedAngle : signedAngle;
 
             return angle switch
-            {
+            {  
                 >= 0 and < 90 => Direction.Up,
                 >= 90 and < 180 => Direction.Left,
                 >= 180 and < 270 => Direction.Down,
