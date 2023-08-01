@@ -14,6 +14,7 @@ namespace Worlds
         
         public int rarity = 1;
 
+        [SerializeField]
         private Brick[] _bricks;
 
         public Piece()
@@ -26,12 +27,12 @@ namespace Worlds
             Array.Resize(ref _bricks, width * height);
         }
 
-        public Brick GetBrick(int x, int y)
+        public ref Brick GetBrick(int x, int y)
         {
-            return _bricks[GetBricksIndex(x, y)];
+            return ref _bricks[GetBrickIndex(x, y)];
         }
         
-        private int GetBricksIndex(int x, int y)
+        private int GetBrickIndex(int x, int y)
         {
             return x + y * width;
         }

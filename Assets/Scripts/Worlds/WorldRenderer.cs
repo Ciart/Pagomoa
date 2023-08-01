@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Player;
@@ -15,13 +16,15 @@ namespace Worlds
 
         public Tilemap mineralTilemap;
 
+        [Range(1, 16)] public int renderChunkRange = 2;
+
         private WorldManager _worldManager;
 
         private PlayerController _player;
 
         private Chunk _currentChunk;
 
-        private HashSet<Chunk> _renderingChunk = new();
+        private HashSet<Chunk> _renderedChunks = new();
 
         private void ClearWorld()
         {
@@ -30,20 +33,20 @@ namespace Worlds
             mineralTilemap.ClearAllTiles();
 
             _currentChunk = null;
-            _renderingChunk = new HashSet<Chunk>();
+            _renderedChunks = new HashSet<Chunk>();
         }
 
         private void ClearChunk(Chunk chunk)
         {
             var world = _worldManager.world;
-            
+
             // TODO: 리팩토링 해야 함
             for (var i = 0; i < world.chunkSize; i++)
             {
                 for (var j = 0; j < world.chunkSize; j++)
                 {
                     var position = new Vector3Int(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j);
-                    
+
                     wallTilemap.SetTile(position, null);
                     groundTilemap.SetTile(position, null);
                     mineralTilemap.SetTile(position, null);
@@ -51,7 +54,7 @@ namespace Worlds
             }
         }
 
-        private void UpdateChunk(Chunk chunk)
+        private void RenderChunk(Chunk chunk)
         {
             var world = _worldManager.world;
 
@@ -61,34 +64,39 @@ namespace Worlds
                 {
                     var brick = chunk.bricks[i + j * world.chunkSize];
 
-                    if (brick == null)
-                    {
-                        continue;
-                    }
-                    
-                    var position = new Vector3Int(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j);
+                    var position = new Vector3Int(chunk.key.x * world.chunkSize + i,
+                        chunk.key.y * world.chunkSize + j);
 
                     wallTilemap.SetTile(position, brick.wall ? brick.wall.tile : null);
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
-                    mineralTilemap.SetTile(position,brick.mineral ? brick.mineral.tile : null);
+                    mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                 }
+            }
+        }
+
+        private IEnumerator RunActionWithChunks(IEnumerable<Chunk> chunks, Action<Chunk> action)
+        {
+            foreach (var chunk in chunks)
+            {
+                action(chunk);
+                yield return null;
             }
         }
 
         private void OnCreatedWorld(World world)
         {
             ClearWorld();
-            NewMethod();
+            RenderWorld();
         }
 
         private void OnChangedChunk(Chunk chunk)
         {
-            if (!_renderingChunk.Contains(chunk))
+            if (!_renderedChunks.Contains(chunk))
             {
                 return;
             }
 
-            UpdateChunk(chunk);
+            RenderChunk(chunk);
         }
 
         private void Awake()
@@ -98,56 +106,77 @@ namespace Worlds
 
             _worldManager.createdWorld += OnCreatedWorld;
             _worldManager.changedChunk += OnChangedChunk;
-            
-            ClearWorld();
-            NewMethod();
+
+            // ClearWorld();
+            // RenderWorld();
         }
 
         private void LateUpdate()
         {
-            NewMethod();
+            RenderWorld();
         }
 
-        private void NewMethod()
+        public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)
         {
-            var chunk = _worldManager.GetChunkToPosition(_player.transform.position);
-
-            if (chunk == null || _currentChunk == chunk)
+            if (chunk == null)
             {
                 return;
             }
 
-            _currentChunk = chunk;
+            var position = new Vector3(chunk.key.x * chunkSize, chunk.key.y * chunkSize, 0);
 
-            var a = 2;
-            var hash = new HashSet<Chunk>();
+            Debug.DrawLine(position, position + Vector3.right * chunkSize, color);
+            Debug.DrawLine(position + Vector3.right * chunkSize, position + new Vector3(chunkSize, chunkSize, 0),
+                color);
+            Debug.DrawLine(position + new Vector3(chunkSize, chunkSize, 0), position + Vector3.up * chunkSize, color);
+            Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
+        }
 
-            for (var i = chunk.key.x - a; i <= chunk.key.x + a; i++)
+        private void RenderWorld()
+        {
+            var world = _worldManager.world;
+
+            if (world is null)
             {
-                for (var j = chunk.key.y - a; j <= chunk.key.y + a; j++)
-                {
-                    var c = _worldManager.world.GetChunk(new Vector2Int(i, j));
+                return;
+            }
+            
+            var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
+            var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
 
-                    if (c == null)
+            DrawChunkRectangle(playerChunk, world.chunkSize, Color.cyan);
+
+            if (playerChunk is null || _currentChunk == playerChunk)
+            {
+                return;
+            }
+
+            _currentChunk = playerChunk;
+
+            var renderedChunks = new HashSet<Chunk>();
+
+            for (var keyX = playerChunk.key.x - renderChunkRange; keyX <= playerChunk.key.x + renderChunkRange; keyX++)
+            {
+                for (var keyY = playerChunk.key.y - renderChunkRange; keyY <= playerChunk.key.y + renderChunkRange; keyY++)
+                {
+                    var chuck = world.GetChunk(new Vector2Int(keyX, keyY));
+
+                    if (chuck == null)
                     {
                         continue;
                     }
-                    
-                    hash.Add(c);
+
+                    renderedChunks.Add(chuck);
                 }
             }
+            
+            var clearChunks = _renderedChunks.Except(renderedChunks);
+            var updateChunks = renderedChunks.Except(_renderedChunks);
 
-            foreach (var clearChunk in _renderingChunk.Except(hash))
-            {
-                ClearChunk(clearChunk);
-            }
-
-            foreach (var updateChunk in hash.Except(_renderingChunk))
-            {
-                UpdateChunk(updateChunk);
-            }
-
-            _renderingChunk = hash;
+            StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
+            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
+            
+            _renderedChunks = renderedChunks;
         }
     }
 }

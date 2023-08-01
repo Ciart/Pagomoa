@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Tiles;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Worlds
 {
@@ -31,7 +29,7 @@ namespace Worlds
 
         public event Action<Chunk> changedChunk;
 
-        private static WorldManager _instance = null;
+        private static WorldManager _instance;
 
         private HashSet<Chunk> _expiredChunks = new();
 
@@ -64,18 +62,24 @@ namespace Worlds
             foreach (var chunk in _expiredChunks)
             {
                 changedChunk?.Invoke(chunk);
-                _expiredChunks.Remove(chunk);
             }
+
+            _expiredChunks.Clear();
+        }
+
+        public static Vector3 ComputePosition(int x, int y)
+        {
+            return new Vector3(x + 0.5f, y + 0.5f, 0);
         }
 
         /// <summary>
         /// World 좌표를 Scene의 Global 위치로 변환
         /// </summary>
-        /// <param name="coordinates">World 좌표</param>
+        /// <param name="coords">World 좌표</param>
         /// <returns>Scene의 Global 위치</returns>
-        public static Vector3 ComputePosition(Vector2Int coordinates)
+        public static Vector3 ComputePosition(Vector2Int coords)
         {
-            return new Vector3(coordinates.x + 0.5f, coordinates.y + 0.5f, 0);
+            return ComputePosition(coords.x, coords.y);
         }
 
         /// <summary>
@@ -83,24 +87,23 @@ namespace Worlds
         /// </summary>
         /// <param name="position">Scene의 Global 위치</param>
         /// <returns>World 좌표</returns>
-        public static Vector2Int ComputeCoordinates(Vector3 position)
+        public static Vector2Int ComputeCoords(Vector3 position)
         {
-            return new Vector2Int((int)position.x, (int)position.y);
+            return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
 
-        public Chunk GetChunkToPosition(Vector3 position)
+        public void BreakGround(int x, int y, int tier)
         {
-            return _world.GetChunk(new Vector2Int((int)position.x / _world.chunkSize, (int)position.y / _world.chunkSize));
-        }
+            var brick = _world.GetBrick(x, y, out var chunk);
 
-        public void BreakGround(Vector2Int coordinates, int tier = 10)
-        {
-            var brick = _world.GetBrick(coordinates, out var chunk);
-
-            if (brick.mineral.tier <= tier)
+            if (chunk is null)
             {
-                var entity = Instantiate(mineralEntity, ComputePosition(coordinates),
-                    Quaternion.identity);
+                return;
+            }
+
+            if (brick.mineral is not null && brick.mineral.tier <= tier)
+            {
+                var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
                 entity.Data = brick.mineral;
             }
 
@@ -112,9 +115,10 @@ namespace Worlds
 
         public bool CheckClimbable(Vector3 position)
         {
-            var brick = _world.GetBrick(ComputeCoordinates(position));
+            var coords = ComputeCoords(position);
+            var brick = _world.GetBrick(coords.x, coords.y, out _);
 
-            return brick.wall.isClimbable;
+            return brick?.wall is not null && brick.wall.isClimbable;
         }
     }
 }

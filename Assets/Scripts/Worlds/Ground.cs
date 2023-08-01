@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Worlds
@@ -6,7 +7,7 @@ namespace Worlds
     [CreateAssetMenu(fileName = "Ground", menuName = "World/Ground", order = 2)]
     public class Ground: ScriptableObject
     {
-        public string groundName;
+        public string displayName;
         
         public float strength;
         
