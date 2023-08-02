@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Worlds
 {
+    [Serializable]
     public class Chunk
     {
-        public readonly Vector2Int key;
+        public Vector2Int key;
 
-        public readonly Brick[] bricks;
+        public Brick[] bricks;
 
         public Chunk(Vector2Int key, int size)
         {
@@ -24,7 +25,6 @@ namespace Worlds
             }
         }
     }
-
     public class World
     {
         public readonly int chunkSize;
@@ -60,7 +60,16 @@ namespace Worlds
                 }
             }
         }
+        public World(WorldData worldData)
+        {
+            this.chunkSize = worldData.chunkSize;
+            this.top = worldData.top;
+            this.bottom = worldData.bottom;
+            this.left = worldData.left;
+            this.right = worldData.right;
 
+            _chunks = ListDictionaryConverter.ToDictionary(worldData._chunks);
+        }
         public Chunk GetChunk(Vector2Int key)
         {
             return _chunks.TryGetValue(key, out var chunk) ? chunk : null;
@@ -72,7 +81,10 @@ namespace Worlds
 
             return GetChunk(key);
         }
-
+        public Dictionary<Vector2Int, Chunk> GetAllChunks()
+        {
+            return _chunks;
+        }
         public Brick GetBrick(int x, int y, out Chunk chunk)
         {
             chunk = GetChunk(x, y);
@@ -84,7 +96,7 @@ namespace Worlds
 
             var brinkX = x < 0 ? chunkSize - 1 + (x + 1) % chunkSize  : x % chunkSize;
             var brinkY = y < 0 ? chunkSize - 1 + (y + 1) % chunkSize : y % chunkSize;
-
+            
             return chunk.bricks[brinkX + brinkY * chunkSize];
         }
     }
