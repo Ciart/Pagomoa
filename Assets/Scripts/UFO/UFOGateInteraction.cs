@@ -20,6 +20,9 @@ namespace UFO
 
         private CircleCollider2D _inCollider;
         private CircleCollider2D _outCollider;
+
+        private SpriteRenderer _beamBack;
+        private SpriteRenderer _beamFront;
         
         [SerializeField] private LayerMask _playerMask;
         
@@ -41,26 +44,33 @@ namespace UFO
 
             _gateIn.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
             _gateOut.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
+
+            _beamBack = transform.GetChild(3).GetComponent<SpriteRenderer>();
+            _beamFront = transform.GetChild(4).GetComponent<SpriteRenderer>();
+            _beamFront.enabled = false;
+            _beamBack.enabled = false;
             
-            _boxSize = new Vector2(1, 8);
+            _boxSize = new Vector2(1.5f, 20);
         }
 
         public void ActiveGravityBeam()
         {
             SetDirectionY();
-            if ( direction < 0 ) UFOFloor.enabled = false;
-            
-            _startPos = new Vector2(transform.position.x, transform.position.y - 7.9f);
+
+            _startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
             var hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
             
             if (hit.collider)
             {
                 hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
+
+                if (direction < 0)
+                {
+                    UFOFloor.enabled = false;
+                    Debug.Log("끔");
+                }
                 
-                _inCollider.enabled = false;
-                _outCollider.enabled = false;
-                
-                StartCoroutine(nameof(DisableFloor));
+                if (!_beamFront.enabled) StartCoroutine(nameof(DisableFloor));
             }
         }
 
@@ -72,19 +82,33 @@ namespace UFO
 
         private IEnumerator DisableFloor()
         {
+            ControlDirectionTrigger(false);
+            ActiveBeamSprites(true);
+
             yield return new WaitForSeconds(2f);
             
-            _inCollider.enabled = true;
-            _outCollider.enabled = true;
-            UFOFloor.enabled = true;    
+            UFOFloor.enabled = true;
+            ControlDirectionTrigger(true);
+            ActiveBeamSprites(false);
         }
 
-        /*private void OnDrawGizmos()
+        private void ActiveBeamSprites(bool enable)
+        {
+            _beamFront.enabled = enable;
+            _beamBack.enabled = enable; 
+        }
+
+        private void ControlDirectionTrigger(bool enable)
+        {
+            _inCollider.enabled = enable;
+            _outCollider.enabled = enable;
+        }
+        private void OnDrawGizmos()
         {
             // 시각적으로 박스 캐스트를 그리기 위해 Gizmos를 사용합니다.
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(_startPos, _boxSize);
             Gizmos.DrawLine(_startPos, _startPos + Vector3.right * _distance);
-        }*/
+        }
     }
 }

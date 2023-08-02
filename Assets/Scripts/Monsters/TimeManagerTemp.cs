@@ -36,7 +36,7 @@ public class TimeManagerTemp : MonoBehaviour
     
     private void StartTime()
     {
-        Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
+        // Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
         time += 1000;
         EventTime();
     }
@@ -68,7 +68,7 @@ public class TimeManagerTemp : MonoBehaviour
         FadeEvent.Invoke(FadeState.FadeInOut);
         CancelInvoke(nameof(StartTime));
         time = startTime;
-        date++;
+        if (time < 1440000 && time > 1320000) date++;
         
         InvokeRepeating(nameof(StartTime), magnification, magnification);
         

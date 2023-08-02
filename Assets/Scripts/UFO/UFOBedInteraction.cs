@@ -21,14 +21,6 @@ namespace UFO
             _timeManager = FindObjectOfType<TimeManagerTemp>();
         }
 
-        // 플레이어 움직임 제어
-        // 씬 슬립
-        // 플레이어 슬립 애니메이션
-        // 잘때 3초정도 잠자는 분위기 애니메이션 있으면 좋을듯
-        // 컨트롤러 기능 제어
-        // interactive에 할당, 구독
-        // 기능은 여기서만 & 콜리션 제거
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.name == "Player") _player = collision.transform;
@@ -39,7 +31,8 @@ namespace UFO
             if (_timeManager.canSleep)
             {
                 _timeManager.Sleep();
-                
+
+                _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 _player.GetComponent<PlayerMovement>().canMove = false;
                 _player.GetComponent<SpriteRenderer>().enabled = false;
             
@@ -51,7 +44,7 @@ namespace UFO
 
         private IEnumerator Sleeping()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(7f);
             
             _player.GetComponent<SpriteRenderer>().enabled = true;
             _player.GetComponent<PlayerMovement>().canMove = true;

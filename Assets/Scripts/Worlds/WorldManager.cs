@@ -122,7 +122,7 @@ namespace Worlds
             var coords = ComputeCoords(position);
             var brick = _world.GetBrick(coords.x, coords.y, out _);
 
-            var ladderPos = ufoLadder.WorldToCell(new Vector3Int(coords.x, coords.y - 1));
+            var ladderPos = ufoLadder.WorldToCell(new Vector3(position.x, position.y - 1f));
             var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
 
             return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;

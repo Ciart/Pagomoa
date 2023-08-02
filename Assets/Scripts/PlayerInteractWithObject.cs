@@ -14,12 +14,10 @@ public class PlayerInteractWithObject : MonoBehaviour
 
     public bool getKey;
     public KeyCode eventKey = KeyCode.E;
-
-    public UFOInteraction _ufoInteraction;
+    
     void Start()
     {
         _InteractableObjectList = new List<InteractableObject>();
-        _ufoInteraction = FindObjectOfType<UFOInteraction>();
     }
     void FixedUpdate()
     {
@@ -68,10 +66,8 @@ public class PlayerInteractWithObject : MonoBehaviour
             _ActivatedObject = obj;
             _closestDistance = distance;
             obj.ActiveObject();
-        } else if (_InteractableObjectList.Count == 0)
-        {
-            _ActivatedObject = null;
-        }
+        } 
+        if (_InteractableObjectList.Count == 0) _ActivatedObject = null;
     }
     
     private void InputEventKey()

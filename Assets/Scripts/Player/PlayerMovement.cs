@@ -114,7 +114,7 @@ namespace Player
             else
             {
                 UpdateWalk();
-                Debug.Log("walk");
+                // Debug.Log("walk");
             }
 
             UpdateAnimation();
