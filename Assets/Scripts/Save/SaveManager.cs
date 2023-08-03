@@ -39,7 +39,8 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("Monster");
         AddManagingTargetWithTag("NPC");
 
-        Invoke("LoadPosition", 0.5f); 
+        FreezePosition();
+        Invoke("LoadPosition", 1.5f);
     }
     void AddManagingTargetWithTag(string tagName)
     {
@@ -48,16 +49,38 @@ public class SaveManager : MonoBehaviour
         foreach (GameObject target in targets)
             ManagingTargets.Add(target);
     }
-
+    private void FreezePosition()
+    {
+        foreach(GameObject target in ManagingTargets)
+        {
+            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+            target.GetComponent<Rigidbody2D>().Sleep();
+        }
+    }
+    private void TagPosition()
+    {
+        foreach (GameObject target in ManagingTargets)
+        {
+            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            target.GetComponent<Rigidbody2D>().WakeUp();
+        }
+    }
     private void LoadPosition()
     {
-        Dictionary<string, Vector3> posDataDictionary = ListDictionaryConverter.ToDictionary(DataManager.Instance.data.posData.positionData);
+        TagPosition();
 
-        foreach(string key in posDataDictionary.Keys)
+        if (DataManager.Instance.data.posData == null)
+            return;
+
+        Dictionary<string, Vector3> posDataDictionary = ListDictionaryConverter.ToDictionary(DataManager.Instance.data.posData.positionData);
+        if (posDataDictionary.Count != 0)
         {
-            GameObject target = GameObject.Find(key);
-            if (target)
-                target.transform.position = posDataDictionary[key];
+            foreach (string key in posDataDictionary.Keys)
+            {
+                GameObject target = GameObject.Find(key);
+                if (target)
+                    target.transform.position = posDataDictionary[key];
+            }
         }
     }
 
@@ -72,10 +95,27 @@ public class SaveManager : MonoBehaviour
         foreach (GameObject target in ManagingTargets)
             posDataDictionary.Add(target.name, target.transform.position);
 
+        //Debug.Log(DataManager.Instance);
+        //Debug.Log(DataManager.Instance.data);
+        if(DataManager.Instance.data.posData == null)
+        {
+            Debug.Log("이전에 생성된 위치 데이터가 없습니다.");
+            Debug.Log("위치 데이터를 새로 생성합니다.");
+            //return;
+            DataManager.Instance.data.posData = new PositionData();
+        }
+
+
         DataManager.Instance.data.posData.SetPositionDataFromDictionary(posDataDictionary);
     }
     void WriteMapData()
     {
+        if(DataManager.Instance.data.worldData == null)
+        {
+            Debug.Log("이전에 생성된 맵 데이터가 없습니다.");
+            Debug.Log("맵 데이터를 새로 생성합니다.");
+            DataManager.Instance.data.worldData = new WorldData();
+        }
         DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
     }
     private void OnApplicationQuit()

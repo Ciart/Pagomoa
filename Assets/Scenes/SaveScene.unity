@@ -21688,6 +21688,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 545810255901230581, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 545810255901230581, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 547012723705590518, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Sprite
       value: 
