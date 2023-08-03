@@ -43,7 +43,7 @@ public class DataManager : MonoBehaviour
                 Debug.Log("불러오기 실패: " + e);
             }
         }
-
+        //Debug.Log(data);
     }
     public void SaveGameData()
     {

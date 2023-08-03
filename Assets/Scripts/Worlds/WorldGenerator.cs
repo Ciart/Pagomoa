@@ -35,9 +35,10 @@ namespace Worlds
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
-
-            //Generate();
-            LoadWorld(DataManager.Instance.data.worldData);
+            if (DataManager.Instance.data.worldData == null)
+                Generate();
+            else
+                LoadWorld(DataManager.Instance.data.worldData);
         }
         private void Preload()
         {
