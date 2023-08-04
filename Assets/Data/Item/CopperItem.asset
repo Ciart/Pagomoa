@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CopperItem
   m_EditorClassIdentifier: 
   itemName: CopperItem
-  itemType: 0
+  itemType: 2
   itemImage: {fileID: -1648650736, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
   itemInfo: 
-  itemPrice: 0
+  itemPrice: 5

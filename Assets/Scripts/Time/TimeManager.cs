@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    [SerializeField] private AchieveContents achieveContents;
     [SerializeField] private int time = 0;
     private int startTime = 360000;
     private int endTime = 1320000;
@@ -27,7 +28,7 @@ public class TimeManager : MonoBehaviour
     }
     private void Update()
     {
-        if (canSleep && Input.GetKeyDown(KeyCode.P))
+        if (canSleep == true && Input.GetKeyDown(KeyCode.P))
             Sleep();
     }
     private void StartTime()
@@ -43,12 +44,12 @@ public class TimeManager : MonoBehaviour
             time = 0;
             date++;
         }
-        if (time == endTime) // 잠자는 시간
+        else if (time == endTime) // 잠자는 시간
         {
             canSleep = true;
             Debug.Log("잘 수 있다.");
         }
-        if (time == returnTime)
+        else if (time == returnTime)
         {
             ReturnToBase();
         }
@@ -59,6 +60,7 @@ public class TimeManager : MonoBehaviour
         Debug.Log("드르렁");
         time = startTime;
         date++;
+        achieveContents.ChangePrice();
         InvokeRepeating("StartTime", magnification, magnification);
     }
     private void ReturnToBase()
