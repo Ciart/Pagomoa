@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ApplySample.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MinimapScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MinimapScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Olds/Sample.aseprite.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Olds/Sample.aseprite.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +64,7 @@
 }</component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.2.9f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\a9018\Desktop\PagoMoa -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\a9018\Desktop\PagoMoa" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -85,7 +88,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unity 시작" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.2.9f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\a9018\Desktop\PagoMoa -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\a9018\Desktop\PagoMoa" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -138,6 +141,7 @@
       <workItem from="1688217467121" duration="1387000" />
       <workItem from="1688461321748" duration="1609000" />
       <workItem from="1689081103041" duration="114000" />
+      <workItem from="1691147128657" duration="379000" />
     </task>
     <servers />
   </component>
@@ -146,6 +150,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
@@ -154,7 +169,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs</url>
-          <line>19</line>
+          <line>21</line>
           <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Worlds\WorldManager.cs" initialLine="19" containingFunctionPresentation="Property 'world'" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
