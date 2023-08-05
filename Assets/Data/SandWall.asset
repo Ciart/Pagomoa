@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uC0AC\uB9C9 \uBCBD"
   isClimbable: 1
-  sprite: {fileID: 0}
-  tile: {fileID: 0}
+  sprite: {fileID: 2098817377, guid: 15a0d1a7896160749b4635ffd6d349de, type: 3}
+  tile: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}

@@ -15,5 +15,10 @@ namespace Worlds
             brick.ground = ground;
             brick.mineral = mineral;
         }
+
+        public static bool operator ==(Brick lhs, Brick rhs) =>
+            lhs.wall == rhs.wall && lhs.ground == rhs.ground && lhs.mineral == rhs.mineral;
+
+        public static bool operator !=(Brick lhs, Brick rhs) => !(lhs == rhs);
     }
 }
