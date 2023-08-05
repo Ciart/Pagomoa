@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Olds/Sample.aseprite.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Olds/Sample.aseprite.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Texture/MinimapTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Texture/MinimapTexture.renderTexture" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,6 +137,7 @@
       <workItem from="1688461321748" duration="1609000" />
       <workItem from="1689081103041" duration="114000" />
       <workItem from="1691147128657" duration="379000" />
+      <workItem from="1691219771746" duration="1029000" />
     </task>
     <servers />
   </component>
@@ -169,7 +165,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs</url>
-          <line>21</line>
+          <line>23</line>
           <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Worlds\WorldManager.cs" initialLine="19" containingFunctionPresentation="Property 'world'" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
