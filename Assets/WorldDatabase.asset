@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b92c27587934fbc8b44e89a3c528570, type: 3}
-  m_Name: Map Database
+  m_Name: WorldDatabase
   m_EditorClassIdentifier: 
   walls:
   - {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}

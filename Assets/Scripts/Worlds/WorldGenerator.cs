@@ -41,13 +41,13 @@ namespace Worlds
         {
             var pieces = database.pieces;
 
-            float rarityCount = pieces.Sum(piece => piece.rarity);
+            float weightCount = pieces.Sum(piece => piece.weight);
 
             _weightedPieces = new List<(float, Piece)>();
 
             foreach (var piece in pieces)
             {
-                _weightedPieces.Add((piece.rarity / rarityCount, piece));
+                _weightedPieces.Add((piece.weight / weightCount, piece));
             }
 
             _weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));

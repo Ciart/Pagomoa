@@ -14,7 +14,7 @@ namespace Worlds
 
         public Vector2Int pivot = Vector2Int.zero;
 
-        public int rarity = 1;
+        public float weight = 1;
 
         public List<WorldPrefab> prefabs = new();
 
