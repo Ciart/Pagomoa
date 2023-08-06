@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Air Burble
   m_EditorClassIdentifier: 
   itemName: "\uACF5\uAE30\uBC29\uC6B8"
-  itemType: 0
+  itemType: 1
   itemImage: {fileID: 1527017041, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
   itemInfo: "\uC2E0\uC120\uD55C \uC0B0\uC18C\uB97C \uBA38\uAE08\uC740 \uACF5\uAE30\uBC29\uC6B8,
     \uBCF4\uB294 \uAC83 \uB9CC\uC73C\uB85C\uB3C4 \uC228\uC26C\uAE30 \uD3B8\uD55C
     \uB290\uB08C\uC774 \uB4E0\uB2E4."
+  itemPrice: 10
   armorIncrease: 0
   armorIncreasePercentage: 0
   attackpowerIncrease: 0

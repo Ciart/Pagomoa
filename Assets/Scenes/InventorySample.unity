@@ -655,7 +655,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &240840495
@@ -1268,8 +1267,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9fe78d2ab77704cad95cce2b2ac246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShopItemsData: []
+  items: []
   Gold: 1000
+  inventory: {fileID: 0}
+  makeSlots:
+    m_PersistentCalls:
+      m_Calls: []
+  changeInventory:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &360787675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,7 +2974,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &580254385
@@ -3121,7 +3126,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1155689198}
   EtcView: {fileID: 767692185}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   sellnpc: {fileID: 0}
 --- !u!1 &580453173
 GameObject:
@@ -3465,7 +3469,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &632490199
@@ -4151,7 +4154,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1155689198}
   EtcView: {fileID: 767692185}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   sellnpc: {fileID: 0}
 --- !u!1 &674565473
 GameObject:
@@ -4712,7 +4714,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 0}
   EtcView: {fileID: 0}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 1068532645}
   shopnpc: {fileID: 1066893465}
 --- !u!1 &767692185
@@ -6612,6 +6613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoverRenderer: {fileID: 445877661}
+  item: {fileID: 0}
 --- !u!1 &1091895524
 GameObject:
   m_ObjectHideFlags: 0
@@ -7533,7 +7535,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundTilemap: {fileID: 1344126190}
+  groundTilemap: {fileID: 2143556640}
+  mineralTilemap: {fileID: 1107110433}
+  groundHeight: 0
   mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
+  backgroundTile: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}
+  debugTier: 10
 --- !u!4 &1135593059
 Transform:
   m_ObjectHideFlags: 0
@@ -7951,7 +7959,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 1860319514}
   EtcView: {fileID: 274125033}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   buyUI: {fileID: 0}
   shopnpc: {fileID: 0}
 --- !u!1 &1226036438
@@ -22526,7 +22533,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 0}
   EtcView: {fileID: 0}
   ButtonOnClick: 0
-  sellUI: {fileID: 1542661516}
   sellnpc: {fileID: 1821553134}
 --- !u!1 &1422530871
 GameObject:
@@ -23020,7 +23026,6 @@ MonoBehaviour:
   ConsumptionView: {fileID: 0}
   EtcView: {fileID: 0}
   ButtonOnClick: 0
-  sellUI: {fileID: 0}
   sellnpc: {fileID: 0}
 --- !u!1 &1481297934
 GameObject:
@@ -25939,14 +25944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18698b8bf3c01f64b8b444d683c76160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryDB: {fileID: 359754961}
-  shopDB: {fileID: 1066893463}
-  slots: {fileID: 1308608459}
-  slot: {fileID: 1430976447}
-  Equipmentslots: {fileID: 211280383}
-  Equipmentslot: {fileID: 1074902351}
-  consumptionSlots: {fileID: 459250144}
-  consumptionSlot: {fileID: 956903904}
 --- !u!114 &2112417302
 MonoBehaviour:
   m_ObjectHideFlags: 0
