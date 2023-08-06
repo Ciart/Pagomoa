@@ -9,12 +9,10 @@ public class Item : ScriptableObject
     {
         Equipment,
         Use,
-        Mineral,
         Other,
     }
     public string itemName;
     public ItemType itemType;
     public Sprite itemImage;
     public string itemInfo;
-    public int itemPrice;
 }
