@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8211643334111628579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2218784398128997856}
+  - component: {fileID: 7806896580054461363}
+  m_Layer: 3
+  m_Name: NightMonsterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2218784398128997856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211643334111628579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.748022, y: 7.5303607, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7806896580054461363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211643334111628579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a21d1f55df393946b6b50d3e26d30da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  x: 1
+  y: 1
+  z: 0
+  land: 0
+  minSearchWidth: 4
+  maxSearchWidth: 10
+  _maxSpawn: 10
+  _spawnTerm: 30
+  _spawnCoolTime: 30
+  _monsterType:
+  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
+  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
+  - {fileID: 1205427784990292028, guid: 78680c4ecfa2166479b1447c94510465, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
