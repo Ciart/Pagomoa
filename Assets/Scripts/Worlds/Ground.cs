@@ -14,5 +14,7 @@ namespace Worlds
         public Sprite sprite;
 
         public TileBase tile;
+        
+        public Color color;
     }
 }

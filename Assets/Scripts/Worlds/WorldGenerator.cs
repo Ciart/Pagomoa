@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Worlds
@@ -33,10 +35,11 @@ namespace Worlds
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
-
-            Generate();
+            if (DataManager.Instance.data.worldData == null)
+                Generate();
+            else
+                LoadWorld(DataManager.Instance.data.worldData);
         }
-
         private void Preload()
         {
             var pieces = database.pieces;
@@ -120,7 +123,39 @@ namespace Worlds
 
             _worldManager.world = world;
         }
+        public void LoadWorld(WorldData worldData)
+        {
+            Preload();
 
+            var world = new World(worldData);
+
+            var worldLeft = -worldData.left * chunkSize;
+            var worldRight = worldData.right * chunkSize;
+            var worldBottom = -worldData.bottom * chunkSize;
+            var worldTop = worldData.top * chunkSize;
+
+            for (var x = worldLeft; x < worldRight; x++)
+            {
+                for (var y = worldBottom; y < worldTop; y++)
+                {
+                    if (y >= world.groundHeight)
+                    {
+                        continue;
+                    }
+                    {
+                        var worldBrick = world.GetBrick(x, y, out _);
+                        if (worldBrick is not null)
+                        {
+                            worldBrick.wall = wall;
+                            if (worldBrick.ground != null)
+                                worldBrick.ground = ground;
+                            //Debug.Log((x - 16) + "/" + (y - 16) + "/" + world.chunkSize);
+                        }
+                    }
+                }
+            }
+            _worldManager.world = world;
+        }
         private void GeneratePiece(Piece piece, World world, int worldX, int worldY)
         {
             for (var x = 0; x < piece.width; x++)

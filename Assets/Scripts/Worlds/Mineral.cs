@@ -15,6 +15,8 @@ namespace Worlds
         
         public TileBase tile;
 
+        public MineralItem item;
+
         public int price;
     }
 }

@@ -17,6 +17,7 @@ MonoBehaviour:
   itemImage: {fileID: -1454713470, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
   itemInfo: "\uB204\uAD70\uAC00\uAC00 \uAC00\uC9C0\uB358 \uBAA8\uB798\uC2DC\uACC4.
     \uBB34\uC5B8\uAC00\uC758 \uD750\uB984\uC774 \uB290\uAEF4\uC9C4\uB2E4."
+  itemPrice: 10
   armorIncrease: 0
   armorIncreasePercentage: 0
   attackpowerIncrease: 0
