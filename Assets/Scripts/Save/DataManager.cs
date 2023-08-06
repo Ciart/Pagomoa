@@ -21,7 +21,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    // °ÔÀÓ µ¥ÀÌÅÍ ÆÄÀÏ ÀÌ¸§ ¼³Á¤ (ÀÌ¸§.json)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ì¸ï¿½.json)
     string GameDataFileName = "GameData.json";
 
     public GameData data = new GameData();
@@ -29,7 +29,7 @@ public class DataManager : MonoBehaviour
     public void LoadGameData()
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        Debug.Log($"{Application.persistentDataPath} °æ·ÎÀÇ µ¥ÀÌÅÍ¸¦ ·ÎµåÇÕ´Ï´Ù");
+        Debug.Log("load ${Application.persistentDataPath} filedata");
 
         if (File.Exists(filePath))
         {
@@ -40,7 +40,7 @@ public class DataManager : MonoBehaviour
             }
             catch (System.Exception e)
             {
-                Debug.Log("ºÒ·¯¿À±â ½ÇÆÐ: " + e);
+                Debug.Log("bug : " + e);
             }
         }
         //Debug.Log(data);
@@ -50,6 +50,6 @@ public class DataManager : MonoBehaviour
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
         string ToJasonData = JsonUtility.ToJson(data, true);
         File.WriteAllText(filePath, ToJasonData);
-        Debug.Log("ÀúÀå ¿Ï·á");
+        Debug.Log("saved");
     }
 }
