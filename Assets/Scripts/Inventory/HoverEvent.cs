@@ -6,11 +6,18 @@ using UnityEngine.UI;
 
 public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] Slot slot;
-    [SerializeField] GameObject hoverRenderer;
-    [SerializeField] GameObject image;
-    [SerializeField] GameObject itemName;
-    [SerializeField] GameObject itemInfo;
+    static public HoverEvent Instance;
+
+    [SerializeField] private Slot slot;
+    [SerializeField] public GameObject hoverRenderer;
+    [SerializeField] private GameObject image;
+    [SerializeField] private GameObject itemName;
+    [SerializeField] private GameObject itemInfo;
+
+    void Start()
+    {
+        Instance = this;
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (slot.inventoryItem != null)

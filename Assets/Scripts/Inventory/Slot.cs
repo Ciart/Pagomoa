@@ -1,10 +1,18 @@
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    Canvas canvas;
+    
+    
+
+
     public InventoryItem inventoryItem;
+    [SerializeField] private DragItem dragItem;
     [SerializeField] private EquipUI equipUI;
     [SerializeField] private SellCountUI sellCountUI;
     [SerializeField] private BuyCountUI buyCountUI;
@@ -145,5 +153,38 @@ public class Slot : MonoBehaviour
     {
         equipUI.OffUI();
         return;
+    }
+    public void OnBeginDrag(PointerEventData eventData) // 마우스 드래그 시작했을 때 호출
+    {
+        canvas = transform.root.GetComponentInChildren<Canvas>();
+        RectTransform rt = canvas.transform as RectTransform;
+
+        Vector2 mousePosition = Input.mousePosition;
+        Vector2 localPosition;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, mousePosition, canvas.worldCamera, out localPosition);
+       
+
+
+        EtcInventory.Instance.choiceSlot = this;
+        dragItem.gameObject.SetActive(true);
+        dragItem.DragSetImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.itemImage);
+
+        RectTransform rtImage = dragItem.transform as RectTransform;
+        rt.anchoredPosition = localPosition;
+
+        dragItem.transform.position = rt.anchoredPosition;
+        Debug.Log(eventData.position);
+    }
+
+    public void OnDrag(PointerEventData eventData) // 마우스 드래그 중인 동안 호출
+    {
+        Debug.Log("드래그중");
+    }
+
+    public void OnEndDrag(PointerEventData eventData) // 마우스 드래그 끝났을 때 호출
+    {
+        Debug.Log("끝났음");
+        DragItem.Instance.gameObject.SetActive(false);
     }
 }
