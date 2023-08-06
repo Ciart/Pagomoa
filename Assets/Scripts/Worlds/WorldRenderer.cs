@@ -54,7 +54,7 @@ namespace Worlds
             }
         }
 
-        private void RenderChunk(Chunk chunk)
+        private void RenderChunk(Chunk chunk, bool isIncludeEntity = false)
         {
             var world = _worldManager.world;
 
@@ -73,6 +73,11 @@ namespace Worlds
                 }
             }
 
+            if (!isIncludeEntity)
+            {
+                return;
+            }
+
             foreach (var prefab in chunk.prefabs)
             {
                 var position = new Vector3(chunk.key.x * world.chunkSize + prefab.x + 0.5f,
@@ -86,6 +91,11 @@ namespace Worlds
                 
                 Instantiate(prefab.prefab, position, Quaternion.identity);
             }
+        }
+
+        private void RenderChunkWithEntity(Chunk chunk)
+        {
+            RenderChunk(chunk, true);
         }
 
         private IEnumerator RunActionWithChunks(IEnumerable<Chunk> chunks, Action<Chunk> action)
@@ -185,7 +195,7 @@ namespace Worlds
             var updateChunks = renderedChunks.Except(_renderedChunks);
 
             StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
-            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
+            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunkWithEntity));
             
             _renderedChunks = renderedChunks;
         }
