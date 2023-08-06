@@ -14,9 +14,9 @@ public class OutputPlayerVector : MonoBehaviour
 
     public void SetPlayerVectorOutput()
     {
-        if (_player == null) { return ; }
+        if (!_player) { return ; }
         _playerPos = _player.position; 
 
-        _tmpGuiText.text = string.Format("X : {0:0000.00}\nY : {1:0000.00}", _playerPos.x, _playerPos.y);
+        _tmpGuiText.text = string.Format("X : {0:0000.00}   Y : {1:0000.00}", _playerPos.x, _playerPos.y);
     }
 }
