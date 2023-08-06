@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Maps;
+using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,7 +22,7 @@ public class Collect : MonoBehaviour
         if (!collision.gameObject.GetComponent<MineralEntity>()) return;
         Mineral mineral = collision.gameObject.GetComponent<MineralEntity>().data;
 
-        Debug.Log($"{mineral.tier}티어 광물 \"{mineral.mineralName}\" 를 수집했습니다!");
+        Debug.Log($"{mineral.tier}티어 광물 \"{mineral.displayName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
         inventoryDB.Add(mineral.item);
         Destroy(collision.gameObject);
