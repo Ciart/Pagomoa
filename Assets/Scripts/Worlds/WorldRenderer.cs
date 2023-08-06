@@ -16,7 +16,7 @@ namespace Worlds
         public Tilemap groundTilemap;
 
         public Tilemap mineralTilemap;
-        
+
         public SpriteRenderer minimapRenderer;
 
         [Range(1, 16)] public int renderChunkRange = 2;
@@ -67,7 +67,7 @@ namespace Worlds
             _minimapRenderers.Remove(chunk.key);
         }
 
-        private void RenderChunk(Chunk chunk)
+        private void RenderChunk(Chunk chunk, bool isIncludeEntity = false)
         {
             var world = _worldManager.world;
             var texture = new Texture2D(world.chunkSize, world.chunkSize);
@@ -84,7 +84,7 @@ namespace Worlds
                     wallTilemap.SetTile(position, brick.wall ? brick.wall.tile : null);
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
-                    
+
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
             }
@@ -100,8 +100,32 @@ namespace Worlds
                 spriteRenderer = Instantiate(minimapRenderer, new Vector3(chunk.key.x * world.chunkSize, chunk.key.y * world.chunkSize), quaternion.identity);
                 _minimapRenderers.Add(chunk.key, spriteRenderer);
             }
-            
+
             spriteRenderer.sprite = sprite;
+
+            if (!isIncludeEntity)
+            {
+                return;
+            }
+
+            foreach (var prefab in chunk.prefabs)
+            {
+                var position = new Vector3(chunk.key.x * world.chunkSize + prefab.x + 0.5f,
+                    chunk.key.y * world.chunkSize + prefab.y + 0.5f, 0f);
+                var coords = WorldManager.ComputeCoords(position);
+
+                if (_worldManager.world.GetBrick(coords.x, coords.y, out _).wall is null)
+                {
+                    continue;
+                }
+
+                Instantiate(prefab.prefab, position, Quaternion.identity);
+            }
+        }
+
+        private void RenderChunkWithEntity(Chunk chunk)
+        {
+            RenderChunk(chunk, true);
         }
 
         private IEnumerator RunActionWithChunks(IEnumerable<Chunk> chunks, Action<Chunk> action)
@@ -187,7 +211,9 @@ namespace Worlds
 
             for (var keyX = playerChunk.key.x - renderChunkRange; keyX <= playerChunk.key.x + renderChunkRange; keyX++)
             {
-                for (var keyY = playerChunk.key.y - renderChunkRange; keyY <= playerChunk.key.y + renderChunkRange; keyY++)
+                for (var keyY = playerChunk.key.y - renderChunkRange;
+                     keyY <= playerChunk.key.y + renderChunkRange;
+                     keyY++)
                 {
                     var chuck = world.GetChunk(new Vector2Int(keyX, keyY));
 
@@ -199,13 +225,13 @@ namespace Worlds
                     renderedChunks.Add(chuck);
                 }
             }
-            
+
             var clearChunks = _renderedChunks.Except(renderedChunks);
             var updateChunks = renderedChunks.Except(_renderedChunks);
 
             StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
-            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
-            
+            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunkWithEntity));
+
             _renderedChunks = renderedChunks;
         }
     }

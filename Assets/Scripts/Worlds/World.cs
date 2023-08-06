@@ -11,10 +11,16 @@ namespace Worlds
 
         public Brick[] bricks;
 
+        public readonly List<WorldPrefab> prefabs;
+
+        private readonly int _size;
+
         public Chunk(Vector2Int key, int size)
         {
             this.key = key;
             bricks = new Brick[size * size];
+            prefabs = new List<WorldPrefab>();
+            _size = size;
 
             for (var i = 0; i < size; i++)
             {
@@ -23,6 +29,11 @@ namespace Worlds
                     bricks[i + j * size] = new Brick();
                 }
             }
+        }
+
+        private bool CheckRange(float x, float y)
+        {
+            return 0 <= x && x < _size && 0 <= y && y < _size;
         }
     }
     public class World
@@ -98,6 +109,18 @@ namespace Worlds
             var brinkY = y < 0 ? chunkSize - 1 + (y + 1) % chunkSize : y % chunkSize;
             
             return chunk.bricks[brinkX + brinkY * chunkSize];
+        }
+
+        public void AddPrefab(float x, float y, GameObject prefab)
+        {
+            var chunk = GetChunk(Mathf.FloorToInt(x), Mathf.FloorToInt(y));
+
+            if (chunk is null)
+            {
+                return;
+            }
+            
+            chunk.prefabs.Add(new WorldPrefab(x - chunk.key.x * chunkSize, y - chunk.key.y * chunkSize, prefab));
         }
     }
 }

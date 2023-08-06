@@ -44,13 +44,13 @@ namespace Worlds
         {
             var pieces = database.pieces;
 
-            float rarityCount = pieces.Sum(piece => piece.rarity);
+            float weightCount = pieces.Sum(piece => piece.weight);
 
             _weightedPieces = new List<(float, Piece)>();
 
             foreach (var piece in pieces)
             {
-                _weightedPieces.Add((piece.rarity / rarityCount, piece));
+                _weightedPieces.Add((piece.weight / weightCount, piece));
             }
 
             _weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
@@ -97,14 +97,20 @@ namespace Worlds
 
                     {
                         var worldBrick = world.GetBrick(x, y, out _);
-                        
+
                         if (worldBrick is not null)
                         {
                             worldBrick.wall = wall;
                             worldBrick.ground = ground;
                         }
                     }
+                }
+            }
 
+            for (var x = worldLeft; x < worldRight; x++)
+            {
+                for (var y = worldBottom; y < worldTop; y++)
+                {
                     if (Random.Range(0, 30) != 0)
                     {
                         continue;
@@ -160,7 +166,7 @@ namespace Worlds
 
                     var worldBrick = world.GetBrick(coords.x, coords.y, out _);
 
-                    if (worldBrick is null)
+                    if (worldBrick is null || worldBrick.ground is null)
                     {
                         continue;
                     }
@@ -168,6 +174,11 @@ namespace Worlds
                     piece.GetBrick(x, y).CopyTo(worldBrick);
                     worldBrick.wall = wall;
                 }
+            }
+
+            foreach (var prefab in piece.prefabs)
+            {
+                world.AddPrefab(worldX + prefab.x, worldY + prefab.y, prefab.prefab);
             }
         }
     }
