@@ -5,33 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Click.anim" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Click.anim.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Computer-Sheet_0.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Computer-Sheet_0.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Computer.anim" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Computer.anim.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/KeyboardClick-Sheet_0.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/KeyboardClick-Sheet_0.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Sleeping.anim" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Sleeping.anim.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/SleepingAnimation.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/SleepingAnimation.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Snake/Snake.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Snake/Snake.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/FadeSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/FadeSystem.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Monsters/TimeManagerTemp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerInteractWithObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerInteractWithObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOBedInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOBedInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOGateInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOGateInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Olds/Sample.aseprite.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Olds/Sample.aseprite.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UFO/Bed.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UFO/Bed.png.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,6 +166,7 @@
       <workItem from="1690871508053" duration="2537000" />
       <workItem from="1690875880699" duration="3440000" />
       <workItem from="1690978890349" duration="662000" />
+      <workItem from="1691294331989" duration="3240000" />
     </task>
     <servers />
   </component>
@@ -223,7 +200,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Worlds/WorldRenderer.cs</url>
-          <line>64</line>
+          <line>54</line>
           <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Worlds\WorldRenderer.cs" initialLine="63" containingFunctionPresentation="Method 'RenderChunk'" />
           <option name="timeStamp" value="22" />
         </line-breakpoint>

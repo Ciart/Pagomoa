@@ -32,10 +32,6 @@ namespace UFO
             {
                 _timeManager.Sleep();
 
-                _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                _player.GetComponent<PlayerMovement>().canMove = false;
-                _player.GetComponent<SpriteRenderer>().enabled = false;
-            
                 StartCoroutine(nameof(Sleeping));
             } else {
                 Debug.Log("잘 시간이 아닙니다.");
@@ -44,6 +40,10 @@ namespace UFO
 
         private IEnumerator Sleeping()
         {
+            _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _player.GetComponent<PlayerMovement>().canMove = false;
+            _player.GetComponent<SpriteRenderer>().enabled = false;
+            
             yield return new WaitForSeconds(7f);
             
             _player.GetComponent<SpriteRenderer>().enabled = true;
