@@ -1,4 +1,4 @@
-using Worlds;
+using Maps;
 using UnityEngine;
 
 namespace Player
@@ -30,13 +30,12 @@ namespace Player
         private static readonly int AnimatorSpeed = Animator.StringToHash("speed");
         private static readonly int AnimatorIsClimb = Animator.StringToHash("isClimb");
         private static readonly int AnimatorIsSideWall = Animator.StringToHash("isSideWall");
-        private static readonly int AnimatorEndClimd = Animator.StringToHash("endClimb");
 
         private Rigidbody2D _rigidbody;
 
         private Animator _animator;
 
-        private WorldManager _world;
+        private MapManager _map;
 
         private bool _isJump;
 
@@ -45,47 +44,32 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
 
-            _world = WorldManager.instance;
+            _map = MapManager.Instance;
         }
 
         public void Jump()
         {
             _isJump = true;
         }
-        
+
         private void UpdateClimb()
         {
             var velocity = directionVector * (climbSpeed * Time.deltaTime);
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
-                _animator.SetBool(AnimatorEndClimd, false);
+
             // var a = transform.position + new Vector3(0f, 1f, 0f);
 
-            float fixYPos = -0.5f;
-            if (velocity.y > 0 && !_world.CheckClimbable(transform.position + new Vector3(directionVector.x, directionVector.y + fixYPos, 0)))
+            if (velocity.y > 0 && !_map.CheckClimbable(transform.position))
             {
                 // Debug.Log("a: " + (Mathf.Floor(a.y) - transform.position.y));
                 // Debug.Log("b: " + velocity.y);
                 // velocity = new Vector2(velocity.x, Mathf.Min(Mathf.Floor(a.y) - transform.position.y, velocity.y));
                 velocity.y = 0;
-                if (isSideWall && !_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
-                    _animator.SetBool(AnimatorEndClimd, true);
             }
-            
+
             _rigidbody.velocity = velocity;
             _rigidbody.gravityScale = 0;
         }
-        void EndClimbLeft()
-        {
-            Vector3 movePos = new Vector3(-0.4f, 1.04f);
-            transform.position += movePos;
-            _animator.SetBool(AnimatorEndClimd, false);
-        }
-        void EndClimbRight()
-        {
-            Vector3 movePos = new Vector3(0.4f, 1.04f);
-            transform.position += movePos;
-            _animator.SetBool(AnimatorEndClimd, false);
-        }
+
         private void UpdateWalk()
         {
             var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.velocity.y);
@@ -104,6 +88,7 @@ namespace Player
             if (_isJump)
             {
                 _rigidbody.AddForce(new Vector2(0, jumpForce));
+
                 _isJump = false;
             }
 

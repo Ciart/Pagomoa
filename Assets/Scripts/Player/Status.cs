@@ -1,5 +1,5 @@
 using System;
-using Worlds;
+using Maps;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -149,16 +149,16 @@ namespace Player
         public UnityEvent<float, float> oxygenAlter;
         public UnityEvent<float, float> hungryAlter;
 
-        private WorldManager _worldManager;
+        private MapManager _map;
 
         private void Awake()
         {
-            _worldManager = WorldManager.instance;
+            _map = MapManager.Instance;
         }
 
         private void UpdateOxygen()
         {
-            if (transform.position.y < _worldManager.world.groundHeight && oxygen >= minOxygen)
+            if (transform.position.y < _map.groundHeight && oxygen >= minOxygen)
             {
                 oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
 

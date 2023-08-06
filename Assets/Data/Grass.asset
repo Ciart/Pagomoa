@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4705fce947de45c98128181954eb043e, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  displayName: 
+  groundName: "\uC794\uB514 \uD759"
   strength: 11
   sprite: {fileID: -180167204, guid: 6e56002d60d9842818c5acbd51e7e7b0, type: 3}
   tile: {fileID: 11400000, guid: 9461e9d6588ea49b2815ed2d7920cf49, type: 2}

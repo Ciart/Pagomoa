@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Worlds;
+using Maps;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Collect : MonoBehaviour
 {
-    public Inventory inventory;
-    public ShopInventory shopInventory;
+    //public Inventory inventory;
+    //public ShopInventory shopInventory;
     public InventoryDB inventoryDB;
+    public EtcInventory etcInventory;
     public UnityEvent OnCollectEvent;
     private void Awake()
     {
@@ -21,17 +22,9 @@ public class Collect : MonoBehaviour
         if (!collision.gameObject.GetComponent<MineralEntity>()) return;
         Mineral mineral = collision.gameObject.GetComponent<MineralEntity>().data;
 
-        Debug.Log($"{mineral.tier}티어 광물 \"{mineral.displayName}\" 를 수집했습니다!");
+        Debug.Log($"{mineral.tier}티어 광물 \"{mineral.mineralName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
-        if (inventoryDB)
-        {
-            inventoryDB.Add(mineral);
-            inventory.UpdateEtcSlot();
-        }
-        if(shopInventory)
-            shopInventory.UpdateEtcSlot();
-        //inventory.Add(mineral);
-        //shopInventory.Add(mineral);
+        inventoryDB.Add(mineral.item);
         Destroy(collision.gameObject);
     }
 }

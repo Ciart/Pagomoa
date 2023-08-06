@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Worlds;
+using Maps;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -9,24 +9,22 @@ namespace Editor
 {
     public class PieceEditor : EditorWindow
     {
-        private readonly string[] _tabStrings =
-        {
-            "Wall", "Ground", "Mineral", "Pivot"
-        };
-
         private int _tabIndex;
 
-        private WorldDatabase _database;
+        private string[] _tabStrings =
+        {
+            "Mineral", "Ground", "Pivot"
+        };
+
+        private MapDatabase _database;
 
         private int _width = 2;
 
         private int _height = 2;
 
-        private int _selectWall;
-        
-        private int _selectGround;
-
         private int _selectMineral;
+
+        private int _selectGround;
 
         [MenuItem("Window/Piece Editor")]
         private static void Init()
@@ -46,14 +44,14 @@ namespace Editor
 
         private void OnSelectionChange()
         {
-            if (Selection.activeObject is not WorldDatabase)
+            if (Selection.activeObject is not MapDatabase)
             {
                 _database = null;
                 return;
             }
 
-            _database = (WorldDatabase)Selection.activeObject;
-
+            _database = (MapDatabase) Selection.activeObject;
+            
             Repaint();
         }
 
@@ -63,7 +61,7 @@ namespace Editor
             {
                 return;
             }
-
+            
             var piece = _database.pieces[_database.selectIndex];
 
             EditorGUILayout.BeginHorizontal();
@@ -76,7 +74,7 @@ namespace Editor
                 piece.height = _height;
                 piece.ResizeBricks();
             }
-
+            
             EditorGUILayout.EndHorizontal();
 
             _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings);
@@ -84,17 +82,13 @@ namespace Editor
             switch (_tabIndex)
             {
                 case 0:
-                    _selectWall = EditorGUILayout.Popup(_selectWall,
-                        _database.walls.Select(ground => ground.displayName).ToArray());
+                    _selectMineral = EditorGUILayout.Popup(_selectMineral,
+                        _database.minerals.Select(mineral => mineral.mineralName).ToArray());                    Repaint();
+                   
                     break;
                 case 1:
                     _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.displayName).ToArray());
-                    break;
-                case 2:
-                    _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.displayName).ToArray());
-                    Repaint();
+                        _database.grounds.Select(ground => ground.groundName).ToArray());
                     break;
             }
 
@@ -118,53 +112,40 @@ namespace Editor
                             switch (_tabIndex)
                             {
                                 case 0:
-                                    brick.wall = _database.walls[_selectWall];
+                                    brick.mineral = _database.minerals[_selectMineral];
                                     break;
                                 case 1:
                                     brick.ground = _database.grounds[_selectGround];
                                     break;
                                 case 2:
-                                    brick.mineral = _database.minerals[_selectMineral];
-                                    break;
-                                case 3:
-                                    piece.pivot = new Vector2Int(x, y);
+                                    piece.Pivot = new Vector2Int(x, y);
                                     break;
                             }
-
+                            
                             EditorUtility.SetDirty(_database);
                             Repaint();
                         }
                     }
 
-                    if (_tabIndex == 0)
+                    var ground = brick.ground;
+                    if (ground)
                     {
-                        var wall = brick.wall;
-                        if (wall)
-                        {
-                            GUI.DrawTextureWithTexCoords(rect, wall.sprite.texture, ComputeTexCoords(wall.sprite));
-                        }
+                        GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
                     }
-                    else
+                    
+                    var mineral = brick.mineral;
+                    if (mineral)
                     {
-                        var ground = brick.ground;
-                        if (ground)
-                        {
-                            GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
-                        }
-
-                        var mineral = brick.mineral;
-                        if (mineral)
-                        {
-                            GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
-                        }
+                        GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
                     }
+                    
                 }
             }
-
-            var pivotX = piece.pivot.x * 36 + 8;
-            var pivotY = piece.pivot.y * 36 + 100;
+            
+            var pivotX = piece.Pivot.x * 36 + 8;
+            var pivotY = piece.Pivot.y * 36 + 100;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
-
+            
             EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
         }
     }

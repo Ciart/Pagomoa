@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using Worlds;
+using Maps;
 using UnityEngine.Tilemaps;
 
 namespace Tiles
