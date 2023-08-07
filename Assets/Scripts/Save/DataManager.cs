@@ -21,7 +21,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    // ���� ������ ���� �̸� ���� (�̸�.json)
     string GameDataFileName = "GameData.json";
 
     public GameData data = new GameData();
