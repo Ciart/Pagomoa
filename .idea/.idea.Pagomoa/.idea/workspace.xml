@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/UFO/UFOFoothold-Sheet_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/UFO/UFOFoothold-Sheet_0.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOBedInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOBedInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UFO/Bed.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UFO/Bed.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOGateInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOGateInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOLadderInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOLadderInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tiles/Tile Palette.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +56,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -167,6 +171,8 @@
       <workItem from="1690875880699" duration="3440000" />
       <workItem from="1690978890349" duration="662000" />
       <workItem from="1691294331989" duration="3240000" />
+      <workItem from="1691321040618" duration="7271000" />
+      <workItem from="1691390219008" duration="6327000" />
     </task>
     <servers />
   </component>
@@ -200,7 +206,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Worlds/WorldRenderer.cs</url>
-          <line>54</line>
+          <line>48</line>
           <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Worlds\WorldRenderer.cs" initialLine="63" containingFunctionPresentation="Method 'RenderChunk'" />
           <option name="timeStamp" value="22" />
         </line-breakpoint>

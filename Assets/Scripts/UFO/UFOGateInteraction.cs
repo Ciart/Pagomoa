@@ -63,14 +63,13 @@ namespace UFO
             if (hit.collider)
             {
                 hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
-
-                if (direction < 0)
+                
+                if (direction == -1)
                 {
-                    UFOFloor.enabled = false;
-                    Debug.Log("끔");
+                    Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), true);
                 }
                 
-                if (!_beamFront.enabled) StartCoroutine(nameof(DisableFloor));
+                if (!_beamFront.enabled) StartCoroutine(nameof(DisableFloor), hit);
             }
         }
 
@@ -80,14 +79,15 @@ namespace UFO
             if (_gateOut.isPlayer) direction = -1;
         }
 
-        private IEnumerator DisableFloor()
+        private IEnumerator DisableFloor(RaycastHit2D hit)
         {
             ControlDirectionTrigger(false);
             ActiveBeamSprites(true);
 
             yield return new WaitForSeconds(2f);
             
-            UFOFloor.enabled = true;
+            Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), false);
+
             ControlDirectionTrigger(true);
             ActiveBeamSprites(false);
         }
