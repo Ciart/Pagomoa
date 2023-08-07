@@ -8,27 +8,27 @@ using UnityEngine.Events;
 
 public class PlayerInteractWithObject : MonoBehaviour
 {
-    private List<InteractableObject> _InteractableObjectList;
+    private List<InteractableObject> _interactableObjectList;
     private float _closestDistance;
-    private InteractableObject _ActivatedObject;
+    private InteractableObject _activatedObject;
 
     public bool getKey;
     public KeyCode eventKey = KeyCode.E;
     
     void Start()
     {
-        _InteractableObjectList = new List<InteractableObject>();
+        _interactableObjectList = new List<InteractableObject>();
     }
     void FixedUpdate()
     {
         InputEventKey();
 
-        if ( getKey && _ActivatedObject )
+        if ( getKey && _activatedObject )
         {
-            _ActivatedObject.InteractionEvent.Invoke();
+            _activatedObject.InteractionEvent.Invoke();
         }
 
-        foreach ( InteractableObject obj in _InteractableObjectList )
+        foreach ( InteractableObject obj in _interactableObjectList )
         {
             CheckInteractable(obj);
         }
@@ -37,9 +37,9 @@ public class PlayerInteractWithObject : MonoBehaviour
     {
         if (collision.GetComponent<InteractableObject>())
         {
-            if (!_InteractableObjectList.Contains(collision.GetComponent<InteractableObject>()))
+            if (!_interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
             {
-                _InteractableObjectList.Add(collision.GetComponent<InteractableObject>());
+                _interactableObjectList.Add(collision.GetComponent<InteractableObject>());
             }
         }
     }
@@ -48,26 +48,26 @@ public class PlayerInteractWithObject : MonoBehaviour
         if (collision.GetComponent<InteractableObject>())
         {
             collision.GetComponent<InteractableObject>().DisableObject();
-            _InteractableObjectList.Remove(collision.GetComponent<InteractableObject>());
+            _interactableObjectList.Remove(collision.GetComponent<InteractableObject>());
         }
     }
     private void CheckInteractable(InteractableObject obj)
     {
         float distance = Vector2.Distance(transform.position, obj.transform.position);
-        if (_closestDistance == 0.0f || _InteractableObjectList.Count == 1)
+        if (_closestDistance == 0.0f || _interactableObjectList.Count == 1)
         {
             _closestDistance = distance;
             obj.ActiveObject();
-            _ActivatedObject = obj;
+            _activatedObject = obj;
         }
-        else if (distance < _closestDistance && _InteractableObjectList.Count > 1)
+        else if (distance < _closestDistance && _interactableObjectList.Count > 1)
         {
-            _ActivatedObject.DisableObject();
-            _ActivatedObject = obj;
+            _activatedObject.DisableObject();
+            _activatedObject = obj;
             _closestDistance = distance;
             obj.ActiveObject();
         } 
-        if (_InteractableObjectList.Count == 0) _ActivatedObject = null;
+        if (_interactableObjectList.Count == 0) _activatedObject = null;
     }
     
     private void InputEventKey()
