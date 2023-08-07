@@ -35,29 +35,8 @@ namespace Worlds
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
-
-            DataManager.Instance.LoadGameData();
-
-            if (DataManager.Instance.data.worldData == null)
-            {
-                Debug.Log("worldData Not find, Generate New World");
-                Generate();
-
-            }
-            else
-            {
-                if (DataManager.Instance.data.worldData._chunks.data.Count != 0)
-                {
-                    Debug.Log("worldData Exist, Load Old World");
-                    LoadWorld(DataManager.Instance.data.worldData);
-                }
-                else
-                {
-                    Debug.Log("worldData Get Damaged, Generate New World");
-                    Generate();
-                }
-            }
         }
+
         private void Preload()
         {
             var pieces = database.pieces;
