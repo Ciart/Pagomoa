@@ -10,7 +10,7 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     [SerializeField] private Slot slot;
     [SerializeField] public GameObject hoverRenderer;
-    [SerializeField] private GameObject image;
+    [SerializeField] public GameObject image;
     [SerializeField] private GameObject itemName;
     [SerializeField] private GameObject itemInfo;
 
@@ -23,7 +23,7 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (slot.inventoryItem != null)
         {
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);
-            hoverRenderer.SetActive(true);
+            image.SetActive(true);
             //image.transform.position = slot.transform.position;
             image.transform.position = newPosition;
             itemName.GetComponent<Text>().text = slot.inventoryItem.item.itemName;
@@ -33,6 +33,6 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        hoverRenderer.SetActive(false);
+        image.SetActive(false);
     }
 }
