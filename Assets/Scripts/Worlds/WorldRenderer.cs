@@ -103,7 +103,7 @@ namespace Worlds
 
             spriteRenderer.sprite = sprite;
 
-            if (!isIncludeEntity)
+            if (!isIncludeEntity || chunk.prefabs is null)
             {
                 return;
             }
@@ -163,11 +163,6 @@ namespace Worlds
 
             // ClearWorld();
             // RenderWorld();
-        }
-
-        private void LateUpdate()
-        {
-            RenderWorld();
         }
 
         public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)
