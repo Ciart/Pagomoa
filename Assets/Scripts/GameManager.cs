@@ -4,6 +4,8 @@ using Worlds;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isLoadSave = false;
+    
     private static GameManager _instance;
     
     private WorldManager _worldManager;
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         DataManager.Instance.LoadGameData();
 
-        if (DataManager.Instance.data.worldData == null)
+        if (!isLoadSave || DataManager.Instance.data.worldData == null)
         {
             Debug.Log("worldData Not find, Generate New World");
             _worldGenerator.Generate();
