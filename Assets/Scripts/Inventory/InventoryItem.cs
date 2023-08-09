@@ -3,9 +3,9 @@ using UnityEngine;
 [Serializable]
 public class InventoryItem
 {
-    public Item item;
+    public Itembefore item;
     public int count;
-    public InventoryItem(Item item, int count)
+    public InventoryItem(Itembefore item, int count)
     {
         this.item = item;
         this.count = count;

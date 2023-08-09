@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/Equipitem")]
-public class EquipItem : Item
+public class EquipItem : Itembefore
 {
     [Header("각각 고정수치 증가량 / 비율%증가량 입니다.")]
     // Armor Option

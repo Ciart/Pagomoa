@@ -34695,6 +34695,22 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2859202016703500627, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: equipments.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859202016703500627, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: equipments.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2008170fab1bb7e448438d90682a43fc, type: 2}
+    - target: {fileID: 2859202016703500627, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: equipments.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2008170fab1bb7e448438d90682a43fc, type: 2}
+    - target: {fileID: 2859202016703500627, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: equipments.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2008170fab1bb7e448438d90682a43fc, type: 2}
     - target: {fileID: 5033697736734850792, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: hungrybar
       value: 

@@ -20,7 +20,7 @@ public class ArtifactSlotDB : MonoBehaviour
         }
     }
 
-    public void Remove(Item data)
+    public void Remove(Itembefore data)
     {
         var inventoryItem = Artifact.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null)

@@ -23,7 +23,7 @@ public class AchieveContents : MonoBehaviour
     }
     public void ChangePrice()
     {
-        findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.itemType == Item.ItemType.Mineral);
+        findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.itemType == Itembefore.ItemType.Mineral);
         for(int i = 0; i < findallMineral.Count; i++)
         {
             int save = findallMineral[i].item.itemPrice;

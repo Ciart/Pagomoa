@@ -15,8 +15,8 @@ public class Slot : MonoBehaviour
         public void SellCheck()
         {
             EtcInventory.Instance.choiceSlot = this;
-            if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use ||
-                EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Mineral)
+            if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Use ||
+                EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Mineral)
             {
                 sellCountUI.OnUI();
                 sellCountUI.ItemImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.itemImage);
@@ -39,12 +39,12 @@ public class Slot : MonoBehaviour
         public void BuyCheck()
         {
             Buy.Instance.choiceSlot = this;
-            if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+            if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Use)
             {
                 buyCountUI.OnUI();
                 buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
             }
-            else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+            else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Equipment)
             {
                 buyNoCountUI.OnUI();
                 buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
@@ -52,7 +52,7 @@ public class Slot : MonoBehaviour
         }
         public void BuySlot()
         {
-            if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+            if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Use)
             {
                 if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice)
                 {
@@ -75,7 +75,7 @@ public class Slot : MonoBehaviour
                 }
             }
 
-            else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+            else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Equipment)
             {
                 if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice)
                 {
@@ -93,10 +93,10 @@ public class Slot : MonoBehaviour
         public void EquipCheck()
         {
             EtcInventory.Instance.choiceSlot = this;
-            if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+            if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Equipment)
                 equipUI.OnUI();
 
-            else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+            else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Itembefore.ItemType.Use)
             {
                 EtcInventory.Instance.choiceSlot.inventoryItem.count -= 1;
                 if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 0)
