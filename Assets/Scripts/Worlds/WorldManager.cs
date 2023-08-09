@@ -24,7 +24,6 @@ namespace Worlds
                 createdWorld?.Invoke(_world);
             }
         }
-
         public event Action<World> createdWorld;
 
         public event Action<Chunk> changedChunk;
