@@ -5,13 +5,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
     public static QuickSlot Instance;
-
-    [SerializeField] private InventoryItem inventoryItem;
+    
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemCount;
+
+    [SerializeField] public EtcInventory inventory;
+    [SerializeField] public InventoryItem inventoryItem;
+    [SerializeField] public Image selectedSlotImage;
 
     void Start()
     {
@@ -25,18 +28,22 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     }
     private void ChangeSlot()
     {
-        QuickSlotItemDB.instance.QuickSlotItems.Add(inventoryItem);
+        QuickSlotItemDB.instance.quickSlotItems.Add(inventoryItem);
         itemImage.sprite = inventoryItem.item.itemImage;
         if (inventoryItem.count != 0)
             itemCount.text = inventoryItem.count.ToString();
         else
             return;
     }
-    private void SetSlotNull()
+    public void SetSlotNull()
     {
         inventoryItem = null;
         itemImage.sprite = null;
         itemCount.text = null;
+    }
+    public void SetItemCount()
+    {
+        itemCount.text = inventoryItem.count.ToString();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -52,5 +59,16 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     {
         DragItem.Instance.SetColor(0);
         SetSlotNull();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        for(int i = 0; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
+        {
+            QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
+        }
+
+        QuickSlotItemDB.instance.selectedSlot = eventData.pointerPress.GetComponent<QuickSlot>();
+        QuickSlotItemDB.instance.selectedSlot.selectedSlotImage.gameObject.SetActive(true);
     }
 }

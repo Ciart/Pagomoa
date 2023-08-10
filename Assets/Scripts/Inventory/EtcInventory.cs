@@ -25,6 +25,10 @@ public class EtcInventory : MonoBehaviour
             return instance;
         }
     }
+    private void Awake()
+    {
+        UpdateSlot();
+    }
     public void MakeSlot() // slotDatas °¹¼ö¸¸Å­ ½½·Ô ¸¸µé±â
     {
         for (int i = 0; i < count; i++)
