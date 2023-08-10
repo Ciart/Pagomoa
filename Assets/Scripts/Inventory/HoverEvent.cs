@@ -20,7 +20,12 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (slot.inventoryItem != null)
+        if (slot.inventoryItem.item == null)
+        {
+            Debug.Log("≥Œ¿Ã¥Ÿ");
+            image.SetActive(false);
+        }
+        else if (slot.inventoryItem != null)
         {
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);
             image.SetActive(true);
