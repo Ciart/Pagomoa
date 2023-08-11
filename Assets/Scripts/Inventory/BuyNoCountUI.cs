@@ -7,7 +7,7 @@ public class BuyNoCountUI : BuyCountUI
     public new void OnUI()
     {
         transform.gameObject.SetActive(true);
-        price = Buy.Instance.choiceSlot.inventoryItem.item.itemPrice;
+        price = Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice;
         totalPrice.text = price.ToString();
     }
 }

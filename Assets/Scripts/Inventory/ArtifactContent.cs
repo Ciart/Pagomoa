@@ -25,29 +25,21 @@ public class ArtifactContent : MonoBehaviour
     {
         int i = 0;
         for (; i < artifactSlotDB.Artifact.Count && i < slotDatas.Count; i++)
-        {
             slotDatas[i].inventoryItem = artifactSlotDB.Artifact[i];
-        }
         for (; i < slotDatas.Count; i++)
-        {
             slotDatas[i].inventoryItem = null;
-        }
         UpdateSlot();
     }
     public void UpdateSlot()
     {
         DeleteSlot();
         for (int i = 0; i < artifactSlotDB.Artifact.Count; i++)
-        {
-            slotDatas[i].SetUI(artifactSlotDB.Artifact[i].item.itemImage);
-        }
+            slotDatas[i].SetUI(artifactSlotDB.Artifact[i].item.info.itemImage);
     }
     public void DeleteSlot()
     {
         if (artifactSlotDB.Artifact.Count >= 0)
-        {
             for (int i = 0; i < slotDatas.Count; i++)
                 slotDatas[i].SetUI(image);
-        }
     }
 }

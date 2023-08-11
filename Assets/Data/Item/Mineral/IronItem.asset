@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5eeedc2bee26c4494251b3545ba5a4, type: 3}
+  m_Name: IronItem
+  m_EditorClassIdentifier: 
+  info: {fileID: 11400000, guid: a0d5cf148e74fba4b8d623a0f1658260, type: 2}
+  Usable: 0
+  Equipable: 0
+  Etc: 0
+  AbilityList:
+    data: []

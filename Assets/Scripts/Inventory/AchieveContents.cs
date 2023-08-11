@@ -23,23 +23,25 @@ public class AchieveContents : MonoBehaviour
     }
     public void ChangePrice()
     {
-        findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.itemType == Itembefore.ItemType.Mineral);
+        findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.info.itemType == ItemInfo.ItemType.Mineral);
         for(int i = 0; i < findallMineral.Count; i++)
         {
-            int save = findallMineral[i].item.itemPrice;
-            random = Random.Range(-findallMineral[i].item.itemPrice, findallMineral[i].item.itemPrice);
-            findallMineral[i].item.itemPrice += random;
+            int save = findallMineral[i].item.info.itemPrice;
+            random = Random.Range(-findallMineral[i].item.info.itemPrice, findallMineral[i].item.info.itemPrice);
+            findallMineral[i].item.info.itemPrice += random;
 
-            marketCondition.contentDatas[i].price.text = findallMineral[i].item.itemPrice.ToString();
+            marketCondition.contentDatas[i].price.text = findallMineral[i].item.info.itemPrice.ToString();
 
-            if (findallMineral[i].item.itemPrice > save)
-            {
-                marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = up;
-            }
-            else if(findallMineral[i].item.itemPrice < save)
-            {
-                marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = down;
-            }
+
+            Sprite upordown;
+            if (findallMineral[i].item.info.itemPrice > save)
+                upordown = up;
+            else if (findallMineral[i].item.info.itemPrice < save)
+                upordown = down;
+            else
+                return;
+
+            marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = upordown;
         }
     }
 }
