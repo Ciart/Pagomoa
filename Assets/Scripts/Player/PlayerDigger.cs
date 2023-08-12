@@ -18,6 +18,12 @@ namespace Player
 
         public int drillLevel = 0;
         public int drillTier = 10;
+
+        public int width = 2;
+        public int length = 1;
+
+        public TargetBrickRenderer target;
+
         private int[] drillSpeed = { 10, 20, 40, 80, 200, 5000, 1000000 };
         private int[] drillTierSetting = { 1, 2, 3, 4, 5 };
 
@@ -57,26 +63,30 @@ namespace Player
         private void FixedUpdate()
         {
             if (isDig && _canDig)
-                StartCoroutine(PA(DirectionCheck("1"), DirectionCheck("2")));
+            {
+                StartCoroutine(PA(DirectionCheck(), DirectionCheck()));
+            }
+
+            target.ChangeTarget(DirectionCheck(width % 2 == 0), width, length, direction is Direction.Left or Direction.Right);
         }
 
-        Vector2Int DirectionCheck(string oneortwo)
+        Vector2Int DirectionCheck(bool a = false)
         {
             Vector3 digVec;
             switch (direction)
             {
                 case Direction.Up:
-                    digVec = (oneortwo == "1") ? new Vector3(0.3f, 1.2f) : new Vector3(-0.3f, 1.2f);
+                    digVec = new Vector3(a ? -0.5f : 0f, 1.2f);
                     break;
                 case Direction.Left:
-                    digVec = (oneortwo == "1") ? new Vector3(-1.2f, 0.3f) : new Vector3(-1.2f, -0.3f);
+                    digVec = new Vector3(-1.2f, a ? -0.5f : 0f);
                     break;
                 case Direction.Right:
-                    digVec = (oneortwo == "1") ? new Vector3(1.2f, 0.3f) : new Vector3(1.2f, -0.3f);
+                    digVec = new Vector3(1.2f, a ? -0.5f : 0f);
                     break;
                 case Direction.Down:
                 default:
-                    digVec = (oneortwo == "1") ? new Vector3(0.3f, -1.2f) : new Vector3(-0.3f, -1.2f);
+                    digVec = new Vector3(a ? -0.5f : 0f, -1.2f);
                     break;
             }
 
@@ -105,8 +115,8 @@ namespace Player
                 Vector2Int currentPos1 = point1, currentPos2 = point2;
                 while (isDig && (time1 > _charging || time2 > _charging))
                 {
-                    currentPos1 = DirectionCheck("1");
-                    currentPos2 = DirectionCheck("2");
+                    currentPos1 = DirectionCheck();
+                    currentPos2 = DirectionCheck();
 
                     _charging += Time.fixedDeltaTime;
                     float time = time1 >= time2 ? time1 : time2;
