@@ -17,6 +17,10 @@ namespace Worlds
 
         public Tilemap mineralTilemap;
 
+        public Tilemap fogTilemap;
+
+        public TileBase fogTile;
+
         public SpriteRenderer minimapRenderer;
 
         [Range(1, 16)] public int renderChunkRange = 2;
@@ -36,6 +40,7 @@ namespace Worlds
             wallTilemap.ClearAllTiles();
             groundTilemap.ClearAllTiles();
             mineralTilemap.ClearAllTiles();
+            fogTilemap.ClearAllTiles();
 
             _currentChunk = null;
             _renderedChunks = new HashSet<Chunk>();
@@ -56,6 +61,7 @@ namespace Worlds
                     wallTilemap.SetTile(position, null);
                     groundTilemap.SetTile(position, null);
                     mineralTilemap.SetTile(position, null);
+                    fogTilemap.SetTile(position, null);
                 }
             }
 
@@ -72,6 +78,35 @@ namespace Worlds
             var world = _worldManager.world;
             var texture = new Texture2D(world.chunkSize, world.chunkSize);
 
+            var num = 2;
+            var bools = new bool[world.chunkSize, world.chunkSize];
+            
+            for (var i = -num; i < world.chunkSize + num; i++)
+            {
+                for (var j = -num; j < world.chunkSize + num; j++)
+                {
+                    var brick = world.GetBrick(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j, out _);
+
+                    if (brick.ground is not null)
+                    {
+                        continue;
+                    }
+
+                    for (var x = i - 2; x <= i + 2; x++)
+                    {
+                        for (var y = j - 2; y <= j + 2; y++)
+                        {
+                            if (x < 0 || x >= world.chunkSize || y < 0 || y >= world.chunkSize)
+                            {
+                                continue;
+                            }
+                            
+                            bools[x, y] = true;
+                        }
+                    }
+                }
+            }
+
             for (var i = 0; i < world.chunkSize; i++)
             {
                 for (var j = 0; j < world.chunkSize; j++)
@@ -84,6 +119,7 @@ namespace Worlds
                     wallTilemap.SetTile(position, brick.wall ? brick.wall.tile : null);
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
+                    fogTilemap.SetTile(position, bools[i, j] ? null : fogTile);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
