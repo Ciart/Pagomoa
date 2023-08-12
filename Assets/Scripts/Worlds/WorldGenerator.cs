@@ -35,11 +35,8 @@ namespace Worlds
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
-            if (DataManager.Instance.data.worldData == null)
-                Generate();
-            else
-                LoadWorld(DataManager.Instance.data.worldData);
         }
+
         private void Preload()
         {
             var pieces = database.pieces;
