@@ -21,6 +21,8 @@ namespace Worlds
 
         public TileBase fogTile;
 
+        public int sight = 2;
+
         public SpriteRenderer minimapRenderer;
 
         [Range(1, 16)] public int renderChunkRange = 2;
@@ -72,40 +74,47 @@ namespace Worlds
 
             _minimapRenderers.Remove(chunk.key);
         }
+        
+        private bool[,] CreateFogMap(Chunk chunk, World world)
+        {
+            var fogMap = new bool[world.chunkSize, world.chunkSize];
+
+            for (var i = -sight; i < world.chunkSize + sight; i++)
+            {
+                for (var j = -sight; j < world.chunkSize + sight; j++)
+                {
+                    var brick = world.GetBrick(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j,
+                        out _);
+
+                    if (brick is null || brick.ground is not null)
+                    {
+                        continue;
+                    }
+
+                    for (var x = i - sight; x <= i + sight; x++)
+                    {
+                        for (var y = j - sight; y <= j + sight; y++)
+                        {
+                            if (x < 0 || x >= world.chunkSize || y < 0 || y >= world.chunkSize)
+                            {
+                                continue;
+                            }
+
+                            fogMap[x, y] = true;
+                        }
+                    }
+                }
+            }
+
+            return fogMap;
+        }
 
         private void RenderChunk(Chunk chunk, bool isIncludeEntity = false)
         {
             var world = _worldManager.world;
             var texture = new Texture2D(world.chunkSize, world.chunkSize);
 
-            var num = 2;
-            var bools = new bool[world.chunkSize, world.chunkSize];
-            
-            for (var i = -num; i < world.chunkSize + num; i++)
-            {
-                for (var j = -num; j < world.chunkSize + num; j++)
-                {
-                    var brick = world.GetBrick(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j, out _);
-
-                    if (brick.ground is not null)
-                    {
-                        continue;
-                    }
-
-                    for (var x = i - 2; x <= i + 2; x++)
-                    {
-                        for (var y = j - 2; y <= j + 2; y++)
-                        {
-                            if (x < 0 || x >= world.chunkSize || y < 0 || y >= world.chunkSize)
-                            {
-                                continue;
-                            }
-                            
-                            bools[x, y] = true;
-                        }
-                    }
-                }
-            }
+            var fogMap = CreateFogMap(chunk, world);
 
             for (var i = 0; i < world.chunkSize; i++)
             {
@@ -119,7 +128,7 @@ namespace Worlds
                     wallTilemap.SetTile(position, brick.wall ? brick.wall.tile : null);
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
-                    fogTilemap.SetTile(position, bools[i, j] ? null : fogTile);
+                    fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
@@ -133,7 +142,8 @@ namespace Worlds
 
             if (!_minimapRenderers.TryGetValue(chunk.key, out var spriteRenderer))
             {
-                spriteRenderer = Instantiate(minimapRenderer, new Vector3(chunk.key.x * world.chunkSize, chunk.key.y * world.chunkSize), quaternion.identity);
+                spriteRenderer = Instantiate(minimapRenderer,
+                    new Vector3(chunk.key.x * world.chunkSize, chunk.key.y * world.chunkSize), quaternion.identity);
                 _minimapRenderers.Add(chunk.key, spriteRenderer);
             }
 
@@ -225,7 +235,7 @@ namespace Worlds
             {
                 return;
             }
-            
+
             var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
             var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
 
