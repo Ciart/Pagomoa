@@ -61,7 +61,7 @@ public class EtcInventory : MonoBehaviour
             {
                 convert = "";
             }
-            slotDatas[i].SetUI(inventoryDB.items[i].item.itemImage, convert);
+            slotDatas[i].SetUI(inventoryDB.items[i].item.info.itemImage, convert);
         }
         gold.GetComponent<Text>().text = inventoryDB.Gold.ToString();
     }

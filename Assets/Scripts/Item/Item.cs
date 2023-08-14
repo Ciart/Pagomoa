@@ -8,11 +8,20 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
 public class Item : ScriptableObject
 {
+    public ItemInfo info;
+
     public bool Usable = false, Equipable = false, Etc = false;
     public DicList<string, float> AbilityList;
-    void Active()
+    public virtual void Active(Status status = null)
     {
-        Debug.Log(this.name + "Active()");
+        try
+        {
+            Debug.Log(this.name + " Used()");
+        }
+        catch
+        {
+            Debug.Log("None");
+        }
     }
 
     public void StatusUpdate(Status status)

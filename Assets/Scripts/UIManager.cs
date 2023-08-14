@@ -59,96 +59,44 @@ public class UIManager : MonoBehaviour
     }
     private void ControlQuickSlot()
     {
-        int i = 0;
+        int i = -1;
         if (Input.GetKeyDown(KeyCode.Alpha1))
+            i = 0;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            i = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            i = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            i = 3;
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            i = 4;
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            i = 5;
+        if (i == -1) return;
+
+        for (int j = 0; j < QuickSlotItemDB.instance.quickSlots.Count; j++)
         {
-            for (; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
+            if (i == j)
             {
-                if (i == 0)
-                {
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[i];
-                }
+                QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(true);
+                if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[j])
+                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[j];
                 else
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
+                    QuickSlotItemDB.instance.selectedSlot.UseItem();
             }
+            else
+                QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(false);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            for (; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
-            {
-                if (i == 1)
-                {
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[i];
-                }
-                else
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            for (; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
-            {
-                if (i == 2)
-                {
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[i];
-                }
-                else
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            for (; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
-            {
-                if (i == 3)
-                {
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[i];
-                }
-                else
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            for (; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
-            {
-                if (i == 4)
-                {
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[i];
-                }
-                else
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            for (; i < QuickSlotItemDB.instance.quickSlots.Count; i++)
-            {
-                if (i == 5)
-                {
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[i];
-                }
-                else
-                    QuickSlotItemDB.instance.quickSlots[i].selectedSlotImage.gameObject.SetActive(false);
-            }
-        }
-        else
-            return;
     }
     private void UseQuickSlot()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Itembefore.ItemType.Use)
+            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
             {
                 QuickSlotItemDB.instance.selectedSlot.inventoryItem.count -= 1;
                 QuickSlotItemDB.instance.selectedSlot.SetItemCount();
+                QuickSlotItemDB.instance.selectedSlot.UseItem();
 
                 if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.count == 0)
                 {

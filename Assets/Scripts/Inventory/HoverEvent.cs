@@ -31,8 +31,8 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             image.SetActive(true);
             //image.transform.position = slot.transform.position;
             image.transform.position = newPosition;
-            itemName.GetComponent<Text>().text = slot.inventoryItem.item.itemName;
-            itemInfo.GetComponent<Text>().text = slot.inventoryItem.item.itemInfo;
+            itemName.GetComponent<Text>().text = slot.inventoryItem.item.info.itemName;
+            itemInfo.GetComponent<Text>().text = slot.inventoryItem.item.info.itemInfo;
         }
     }
 

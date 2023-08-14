@@ -3112,7 +3112,7 @@ GameObject:
   - component: {fileID: 474236997}
   - component: {fileID: 474236996}
   - component: {fileID: 474236995}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3961,7 +3961,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 191
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -15719,7 +15719,7 @@ GameObject:
   - component: {fileID: 965779121}
   - component: {fileID: 965779120}
   - component: {fileID: 965779119}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17129,7 +17129,7 @@ GameObject:
   - component: {fileID: 1185404749}
   - component: {fileID: 1185404748}
   - component: {fileID: 1185404747}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21232,7 +21232,7 @@ GameObject:
   - component: {fileID: 1736136080}
   - component: {fileID: 1736136079}
   - component: {fileID: 1736136083}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: CloverMouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21392,15 +21392,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auctionItem:
-  - item: {fileID: 11400000, guid: 90b9432bce97cd948a1fd0378ffcda14, type: 2}
+  - item: {fileID: 11400000, guid: 2008170fab1bb7e448438d90682a43fc, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: fa1940a5f78005545b703283aad22a87, type: 2}
+  - item: {fileID: 11400000, guid: 34899a116ad49244bb5c550fcf7a9487, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: caf170fbb9a65784e9b8e1ea70afe8b9, type: 2}
+  - item: {fileID: 11400000, guid: a143ba4b767973a4b9dedfdcb85ac2d6, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: 27c333279196d4d479e9a5734b1a580a, type: 2}
+  - item: {fileID: 11400000, guid: 4036d718b92960f4da80f5b952adc0bc, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: eb99a76e40bdba74e97b6e16e55e76d1, type: 2}
+  - item: {fileID: 11400000, guid: 7ffec47214510bd4c922034fc0737abd, type: 2}
+    count: 10
+  - item: {fileID: 11400000, guid: a9e7ecb03f4b1a84d857c1686672e804, type: 2}
+    count: 10
+  - item: {fileID: 11400000, guid: dd76295ef11916845a81bb1434b80ece, type: 2}
+    count: 10
+  - item: {fileID: 11400000, guid: a394f3030507b12468bae4dfc7ea7823, type: 2}
     count: 10
   inventory: {fileID: 1218644581}
   sell: {fileID: 2115510883}
@@ -34321,7 +34327,7 @@ GameObject:
   - component: {fileID: 2060717481}
   - component: {fileID: 2060717480}
   - component: {fileID: 2060717479}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34662,7 +34668,7 @@ GameObject:
   - component: {fileID: 2100945824}
   - component: {fileID: 2100945823}
   - component: {fileID: 2100945822}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: AuctionNpc
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -30,7 +30,7 @@ public class InventoryDB : MonoBehaviour
         {
             makeSlots.Invoke();
         }
-        public void Add(Itembefore data, int count = 1) // Item data
+        public void Add(Item data, int count = 1) // Item data
         {
             var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
             var achieveItem = Achievements.Instance.AchieveMinerals.Find(achieveItem => achieveItem.item == data);
@@ -41,7 +41,7 @@ public class InventoryDB : MonoBehaviour
             else
             {
                 items.Add(new InventoryItem(data, count));
-                if (data.itemType == Itembefore.ItemType.Mineral)
+                if (data.info.itemType == ItemInfo.ItemType.Mineral)
                 {
                     if (!Achievements.Instance.AchieveMinerals.Contains(achieveItem))
                         Achievements.Instance.AchieveMinerals.Add(new InventoryItem(data, count));
@@ -52,7 +52,7 @@ public class InventoryDB : MonoBehaviour
             }
             changeInventory.Invoke();
         }
-        public void Remove(Itembefore data)
+        public void Remove(Item data)
         {
             var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
             if (inventoryItem != null)
@@ -62,13 +62,13 @@ public class InventoryDB : MonoBehaviour
                 else if (inventoryItem.count == 1 || inventoryItem.count == 0)
                     items.Remove(inventoryItem);
             }
-            Gold += data.itemPrice;
+            Gold += data.info.itemPrice;
             EtcInventory.Instance.gold.GetComponent<Text>().text = Gold.ToString();
             buy.gold.GetComponent<Text>().text = Gold.ToString();
             //Buy.Instance.gold.GetComponent<Text>().text = Gold.ToString();
             changeInventory.Invoke();
         }
-        public void Equip(Itembefore data)
+        public void Equip(Item data)
         {
             var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
             if (inventoryItem != null && inventoryItem.count == 0)

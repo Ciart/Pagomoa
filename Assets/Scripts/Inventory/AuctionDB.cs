@@ -23,20 +23,18 @@ public class AuctionDB : MonoBehaviour
             return instance;
         }
     }
-    public void Remove(Itembefore data)
+    public void Remove(Item data)
     {
         var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null)
         {
-            if (inventoryItem.item.itemType == Itembefore.ItemType.Use)
-            {
+            if (inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
                 for (int i = 0; i < BuyCountUI.Instance.count; i++)
-                    InventoryDB.Instance.Gold -= data.itemPrice;
-            }
+                    InventoryDB.Instance.Gold -= data.info.itemPrice;
             else
-                InventoryDB.Instance.Gold -= data.itemPrice;
+                InventoryDB.Instance.Gold -= data.info.itemPrice;
 
-            if (inventoryItem.count == 1 || inventoryItem.count == 0)
+            if (inventoryItem.count == 0)
                 auctionItem.Remove(inventoryItem);
         }
         Buy.Instance.gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();

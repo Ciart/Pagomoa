@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -29,7 +30,7 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     private void ChangeSlot()
     {
         QuickSlotItemDB.instance.quickSlotItems.Add(inventoryItem);
-        itemImage.sprite = inventoryItem.item.itemImage;
+        itemImage.sprite = inventoryItem.item.info.itemImage;
         if (inventoryItem.count != 0)
             itemCount.text = inventoryItem.count.ToString();
         else
@@ -48,7 +49,7 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     public void OnBeginDrag(PointerEventData eventData)
     {
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
-        DragItem.Instance.DragSetImage(inventoryItem.item.itemImage);
+        DragItem.Instance.DragSetImage(inventoryItem.item.info.itemImage);
         DragItem.Instance.transform.position = newPosition;
     }
     public void OnDrag(PointerEventData eventData)
@@ -70,5 +71,15 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
 
         QuickSlotItemDB.instance.selectedSlot = eventData.pointerPress.GetComponent<QuickSlot>();
         QuickSlotItemDB.instance.selectedSlot.selectedSlotImage.gameObject.SetActive(true);
+    }
+
+    ////
+    ///
+
+
+    public void UseItem()
+    {
+        Status playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<Status>();
+        QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.Active(playerStatus);
     }
 }

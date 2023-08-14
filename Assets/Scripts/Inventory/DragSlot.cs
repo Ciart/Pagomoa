@@ -20,7 +20,7 @@ public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         item = slot.inventoryItem;
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
-        DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
+        DragItem.Instance.DragSetImage(slot.inventoryItem.item.info.itemImage);
         DragItem.Instance.transform.position = newPosition;
     }
 
