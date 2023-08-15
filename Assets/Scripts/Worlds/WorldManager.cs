@@ -91,20 +91,41 @@ namespace Worlds
             return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
 
-        public void BreakGround(int x, int y, int tier)
+        public void BreakGround(int x, int y, int tier, string item)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
-
-            if (chunk is null)
+            if (item == "item") 
             {
-                return;
-            }
+                if(chunk is null)
+                    return;
 
-            if (brick.mineral is not null && brick.mineral.tier <= tier)
-            {
-                var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-                entity.Data = brick.mineral;
+                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
+                {
+                    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
+                    entity.Data = brick.mineral;
+                }
             }
+            else
+            {
+                if (chunk is null || brick.mineral?.displayName == "돌")
+                    return;
+
+                if (brick.mineral is not null && brick.mineral.tier <= tier)
+                {
+                    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
+                    entity.Data = brick.mineral;
+                }
+            }
+            //if (chunk is null || brick.mineral?.displayName == "돌")
+            //{
+            //    return;
+            //}
+
+            //if (brick.mineral is not null && brick.mineral.tier <= tier)
+            //{
+            //    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
+            //    entity.Data = brick.mineral;
+            //}
 
             brick.ground = null;
             brick.mineral = null;

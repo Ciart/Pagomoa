@@ -646,6 +646,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1685314122}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &71009718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3502,6 +3503,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1241472726}
   text: {fileID: 750753926}
+  id: 0
 --- !u!114 &495524945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3687,6 +3689,7 @@ GameObject:
   - component: {fileID: 507629150}
   - component: {fileID: 507629149}
   - component: {fileID: 507629151}
+  - component: {fileID: 507629152}
   m_Layer: 5
   m_Name: QuickSlot(1)
   m_TagString: Untagged
@@ -3773,6 +3776,24 @@ MonoBehaviour:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 911800705}
+--- !u!114 &507629152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507629147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1e7236f6769294ea97c6cbb7cb497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: {fileID: 0}
+  quickSlot: {fileID: 507629151}
+  image: {fileID: 0}
+  item:
+    item: {fileID: 0}
+    count: 0
 --- !u!1 &513855792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4336,6 +4357,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 982601181}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &538451428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4607,6 +4629,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 934356145}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &548881559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17454,6 +17477,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1976969926}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &1198848905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18659,6 +18683,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1941009641}
   text: {fileID: 248612333}
+  id: 0
 --- !u!114 &1308707784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18689,6 +18714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot: {fileID: 1308707783}
+  quickSlot: {fileID: 0}
   image: {fileID: 1232772534}
   item:
     item: {fileID: 0}
@@ -21601,6 +21627,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 2142252716}
   image: {fileID: 1642910134}
   text: {fileID: 690705989}
+  id: 0
 --- !u!114 &1820286257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35082,6 +35109,7 @@ GameObject:
   - component: {fileID: 2143663492}
   - component: {fileID: 2143663491}
   - component: {fileID: 2143663493}
+  - component: {fileID: 2143663494}
   m_Layer: 5
   m_Name: QuickSlot(2)
   m_TagString: Untagged
@@ -35168,6 +35196,24 @@ MonoBehaviour:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1141194005}
+--- !u!114 &2143663494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143663489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1e7236f6769294ea97c6cbb7cb497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: {fileID: 0}
+  quickSlot: {fileID: 2143663493}
+  image: {fileID: 0}
+  item:
+    item: {fileID: 0}
+    count: 0
 --- !u!1001 &2722638630639657123
 PrefabInstance:
   m_ObjectHideFlags: 0

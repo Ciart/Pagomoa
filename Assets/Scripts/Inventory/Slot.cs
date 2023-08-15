@@ -1,149 +1,168 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
-{ 
-        public InventoryItem inventoryItem;
-        [SerializeField] private EquipUI equipUI;
-        [SerializeField] private SellCountUI sellCountUI;
-        [SerializeField] private BuyCountUI buyCountUI;
-        [SerializeField] private BuyNoCountUI buyNoCountUI;
-        [SerializeField] public Image image;
-        [SerializeField] public Text text;
+public class Slot : MonoBehaviour, IDropHandler
+{
+    public InventoryItem inventoryItem;
+    [SerializeField] private EquipUI equipUI;
+    [SerializeField] private SellCountUI sellCountUI;
+    [SerializeField] private BuyCountUI buyCountUI;
+    [SerializeField] private BuyNoCountUI buyNoCountUI;
+    [SerializeField] public Image image;
+    [SerializeField] public Text text;
+    [SerializeField] public int id;
 
-        public void SellCheck()
+    public void SellCheck()
+    {
+        EtcInventory.Instance.choiceSlot = this;
+        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use ||
+            EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Mineral)
         {
-            EtcInventory.Instance.choiceSlot = this;
-            if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use ||
-                EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Mineral)
-            {
-                sellCountUI.OnUI();
-                sellCountUI.ItemImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemImage);
-            }
+            sellCountUI.OnUI();
+            sellCountUI.ItemImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemImage);
         }
-        public void ClickSlot()
+    }
+    public void ClickSlot()
+    {
+        for (int i = 0; i < sellCountUI.count; i++)
         {
-            for (int i = 0; i < sellCountUI.count; i++)
-            {
-                EtcInventory.Instance.DeleteSlot();
-                InventoryDB.Instance.Remove(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-                EtcInventory.Instance.UpdateSlot();
-            }
-            sellCountUI.count = 0;
-            sellCountUI.price = 0;
-            sellCountUI.itemCount.text = sellCountUI.count.ToString();
-            sellCountUI.totalPrice.text = sellCountUI.price.ToString();
-            sellCountUI.OffUI();
+            EtcInventory.Instance.DeleteSlot();
+            InventoryDB.Instance.Remove(EtcInventory.Instance.choiceSlot.inventoryItem.item);
+            EtcInventory.Instance.UpdateSlot();
         }
-        public void BuyCheck()
+        sellCountUI.count = 0;
+        sellCountUI.price = 0;
+        sellCountUI.itemCount.text = sellCountUI.count.ToString();
+        sellCountUI.totalPrice.text = sellCountUI.price.ToString();
+        sellCountUI.OffUI();
+    }
+    public void BuyCheck()
+    {
+        Buy.Instance.choiceSlot = this;
+        if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
         {
-            Buy.Instance.choiceSlot = this;
-            if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
-            {
-                buyCountUI.OnUI();
-                buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.info.itemImage);
-            }
-            else if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
-            {
-                buyNoCountUI.OnUI();
-                buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.info.itemImage);
-            }
+            buyCountUI.OnUI();
+            buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.info.itemImage);
         }
-        public void BuySlot()
+        else if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
         {
-            if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
-            {
-                if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice * buyCountUI.count)
-                {
-                    Buy.Instance.choiceSlot.inventoryItem.count -= buyCountUI.count;
-                    InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, buyCountUI.count);
-                    AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
-                    Buy.Instance.UpdateSlot();
-                    buyCountUI.OffUI();
-                }
-                else
-                    return;
-
-                if (Buy.Instance.choiceSlot.inventoryItem.count == 0)
-                {
-                    AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
-                    Buy.Instance.DestroySlot();
-                    Buy.Instance.AuctionSlot();
-                    Buy.Instance.UpdateSlot();
-                    buyCountUI.OffUI();
-                }
-            }
-
-            else if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
-            {
-                if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice)
-                {
-                    InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, Buy.Instance.choiceSlot.inventoryItem.count);
-                    AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
-                    Buy.Instance.DestroySlot();
-                    Buy.Instance.AuctionSlot();
-                    Buy.Instance.UpdateSlot();
-                    buyNoCountUI.OffUI();
-                }
-                else
-                    return;
-            }
+            buyNoCountUI.OnUI();
+            buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.info.itemImage);
         }
-        public void EquipCheck()
+    }
+    public void BuySlot()
+    {
+        if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
         {
-            EtcInventory.Instance.choiceSlot = this;
-            if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
-                equipUI.OnUI();
-
-            else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice * buyCountUI.count)
             {
-                EtcInventory.Instance.choiceSlot.inventoryItem.count -= 1;
-                if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 0)
-                {
-                    InventoryDB.Instance.items.Remove(EtcInventory.Instance.choiceSlot.inventoryItem);
-                    EtcInventory.Instance.DeleteSlot();
-                }
-                EtcInventory.Instance.UpdateSlot();
-            }
-        }
-        public void EquipItem()
-        {
-            if (ArtifactSlotDB.Instance.Artifact.Count < 4 && inventoryItem != null)
-            {
-                EtcInventory.Instance.DeleteSlot();
-                ArtifactSlotDB.Instance.Artifact.Add(EtcInventory.Instance.choiceSlot.inventoryItem);
-                InventoryDB.Instance.Equip(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-                EtcInventory.Instance.UpdateSlot();
-                ArtifactContent.Instance.ResetSlot();
+                Buy.Instance.choiceSlot.inventoryItem.count -= buyCountUI.count;
+                InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, buyCountUI.count);
+                AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
+                Buy.Instance.UpdateSlot();
+                buyCountUI.OffUI();
             }
             else
                 return;
-            equipUI.OffUI();
+
+            if (Buy.Instance.choiceSlot.inventoryItem.count == 0)
+            {
+                AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
+                Buy.Instance.DestroySlot();
+                Buy.Instance.AuctionSlot();
+                Buy.Instance.UpdateSlot();
+                buyCountUI.OffUI();
+            }
         }
-        public void ReleaseItem()
+
+        else if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
         {
-            InventoryDB.Instance.items.Add(inventoryItem);
-            EtcInventory.Instance.ResetSlot();
-            ArtifactSlotDB.Instance.Remove(inventoryItem.item);
-            ArtifactContent.Instance.ResetSlot();
-            EtcInventory.Instance.DeleteSlot();
+            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice)
+            {
+                InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, Buy.Instance.choiceSlot.inventoryItem.count);
+                AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
+                Buy.Instance.DestroySlot();
+                Buy.Instance.AuctionSlot();
+                Buy.Instance.UpdateSlot();
+                buyNoCountUI.OffUI();
+            }
+            else
+                return;
+        }
+    }
+    public void EquipCheck()
+    {
+        EtcInventory.Instance.choiceSlot = this;
+        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
+            equipUI.OnUI();
+
+        else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+        {
+            EtcInventory.Instance.choiceSlot.inventoryItem.count -= 1;
+            if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 0)
+            {
+                InventoryDB.Instance.items.Remove(EtcInventory.Instance.choiceSlot.inventoryItem);
+                EtcInventory.Instance.DeleteSlot();
+            }
             EtcInventory.Instance.UpdateSlot();
-            ArtifactContent.Instance.DeleteSlot();
-            ArtifactContent.Instance.UpdateSlot();
         }
-        public void SetUI(Sprite s, string m)
+    }
+    public void EquipItem()
+    {
+        if (ArtifactSlotDB.Instance.Artifact.Count < 4 && inventoryItem != null)
         {
-            image.sprite = s;
-            text.text = m;
+            EtcInventory.Instance.DeleteSlot();
+            ArtifactSlotDB.Instance.Artifact.Add(EtcInventory.Instance.choiceSlot.inventoryItem);
+            InventoryDB.Instance.Equip(EtcInventory.Instance.choiceSlot.inventoryItem.item);
+            EtcInventory.Instance.UpdateSlot();
+            ArtifactContent.Instance.ResetSlot();
         }
-        public void SetUI(Sprite s)
-        {
-            image.sprite = s;
-        }
-        public void Return()
-        {
-            equipUI.OffUI();
+        else
             return;
-        }
+        equipUI.OffUI();
+    }
+    public void ReleaseItem()
+    {
+        InventoryDB.Instance.items.Add(inventoryItem);
+        EtcInventory.Instance.ResetSlot();
+        ArtifactSlotDB.Instance.Remove(inventoryItem.item);
+        ArtifactContent.Instance.ResetSlot();
+        EtcInventory.Instance.DeleteSlot();
+        EtcInventory.Instance.UpdateSlot();
+        ArtifactContent.Instance.DeleteSlot();
+        ArtifactContent.Instance.UpdateSlot();
+    }
+    public void SetUI(Sprite s, string m)
+    {
+        image.sprite = s;
+        text.text = m;
+    }
+    public void SetUI(Sprite s)
+    {
+        image.sprite = s;
+    }
+    public void Return()
+    {
+        equipUI.OffUI();
+        return;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
+        Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
+        EtcInventory.Instance.DeleteSlot();
+        EtcInventory.Instance.UpdateSlot();
+    }
+    public void Swap(List<InventoryItem> list, int i, int j)
+    {
+        (list[i], list[j]) = (list[j], list[i]);
+    }
+    public void Swap(InventoryItem item1, InventoryItem item2)
+    {
+        (item1, item2) = (item2, item1);
+    }
 }

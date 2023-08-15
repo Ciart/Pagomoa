@@ -8,6 +8,7 @@ public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public static DragSlot Instance;
 
     [SerializeField] public Slot slot;
+    [SerializeField] private QuickSlot quickSlot;
     [SerializeField] public GameObject image;
     [SerializeField] public InventoryItem item;
 
@@ -18,9 +19,19 @@ public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     }
     public void OnBeginDrag(PointerEventData eventData) // 마우스 드래그 시작했을 때 호출
     {
-        item = slot.inventoryItem;
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
-        DragItem.Instance.DragSetImage(slot.inventoryItem.item.info.itemImage);
+
+        if (slot != null)
+        {
+            item = slot.inventoryItem;
+            DragItem.Instance.DragSetImage(slot.inventoryItem.item.info.itemImage);
+        }
+        else
+        {
+            item = quickSlot.inventoryItem;
+            DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.info.itemImage);
+        }
+
         DragItem.Instance.transform.position = newPosition;
     }
 

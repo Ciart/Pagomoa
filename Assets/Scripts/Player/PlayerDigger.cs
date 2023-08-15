@@ -111,13 +111,13 @@ namespace Player
                 }
                 if (time1 <= _charging)
                 {
-                    worldManager.BreakGround(point1.x, point1.y, drillTier);
+                    worldManager.BreakGround(point1.x, point1.y, drillTier, "drill");
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }
                 if (time2 <= _charging)
                 {
-                    worldManager.BreakGround(point2.x, point2.y,  drillTier);
+                    worldManager.BreakGround(point2.x, point2.y,  drillTier, "drill");
                     _status.hungry -= 5;
                     _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
                 }

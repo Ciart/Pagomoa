@@ -35,6 +35,7 @@ public class EtcInventory : MonoBehaviour
         {
             GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
             slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+            slotDatas[i].id = i;
             SpawnedSlot.SetActive(true);
         }
     }

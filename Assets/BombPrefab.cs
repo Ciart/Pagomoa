@@ -25,7 +25,7 @@ public class BombPrefab : MonoBehaviour
     private void SetBombImage(GameObject Bomb)
     {
         Bomb.GetComponent<SpriteRenderer>().sprite = BombImage;
-
+        Bomb.transform.localScale = new Vector3((float)0.5, (float)0.5, 1);
         var point = transform.position + new Vector3(-2, -2.2f);
         
         for (int j = 0; j < 3; j++)
@@ -35,7 +35,7 @@ public class BombPrefab : MonoBehaviour
             {
                 point.x += 1;
                 var pointInt = WorldManager.ComputeCoords(point);
-                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
+                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, "item");
             }
             point.x = transform.position.x - 2;
         }
