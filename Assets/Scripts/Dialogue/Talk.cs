@@ -18,7 +18,7 @@ namespace Player
                 GameObject TalkableNPC = null;
 
                 float distance = talkableDistance;
-                // distance °Å¸® ÀÌ³»ÀÇ °¡Àå °¡±î¿î NPC»öÃâ
+                // distance ï¿½Å¸ï¿½ ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ NPCï¿½ï¿½ï¿½ï¿½
                 foreach (Collider2D collider in colliders)
                 {
                     if (collider.GetComponent<NPC>())
@@ -38,8 +38,7 @@ namespace Player
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
-
-                DialogueManager.Instance.ConversationProgress(1);
+                DialogueManager.Instance.ConversationProgress(2);
             }
         }
     }

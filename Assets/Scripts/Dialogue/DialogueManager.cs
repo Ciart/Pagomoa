@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Playables;
+
 public class DialogueManager : MonoBehaviour
 {
     public List<Dialogue> dialogues;
@@ -15,6 +17,8 @@ public class DialogueManager : MonoBehaviour
     [Space]
     public Dialogue NowScenario;
     int talkIndex;
+    [Space] 
+    public PlayableDirector director;
 
 
     private static DialogueManager _instance = null;
@@ -47,6 +51,7 @@ public class DialogueManager : MonoBehaviour
             talkIndex = 0;
             NowScenario = null;
             talkPannel.SetActive(false);
+            if (director) director.Play();
             return false;
         }
         talkText.text = NowScenario.talk[talkIndex];
