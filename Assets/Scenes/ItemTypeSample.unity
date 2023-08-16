@@ -1341,6 +1341,7 @@ GameObject:
   - component: {fileID: 183879839}
   - component: {fileID: 183879838}
   - component: {fileID: 183879840}
+  - component: {fileID: 183879841}
   m_Layer: 5
   m_Name: QuickSlot(3)
   m_TagString: Untagged
@@ -1421,12 +1422,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2098469270}
+  transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 2047577447}
+  id: 2
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 322086649}
+  quickSlotItemDB: {fileID: 422758137}
+--- !u!114 &183879841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183879836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1e7236f6769294ea97c6cbb7cb497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: {fileID: 0}
+  quickSlot: {fileID: 183879840}
+  image: {fileID: 0}
+  item:
+    item: {fileID: 0}
+    count: 0
 --- !u!1 &237806722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,7 +2980,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce459347c28bb74ab62e23b77e4eedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickSlotItems: []
+  quickSlotItems:
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
   quickSlots:
   - {fileID: 507629151}
   - {fileID: 2143663493}
@@ -3770,12 +3804,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 276733109}
+  transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 2039760457}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 911800705}
+  quickSlotItemDB: {fileID: 422758137}
 --- !u!114 &507629152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4387,6 +4424,7 @@ GameObject:
   - component: {fileID: 539740935}
   - component: {fileID: 539740934}
   - component: {fileID: 539740936}
+  - component: {fileID: 539740937}
   m_Layer: 5
   m_Name: QuickSlot(5)
   m_TagString: Untagged
@@ -4467,12 +4505,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 1280216242}
+  transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 1489957088}
+  id: 4
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1785928593}
+  quickSlotItemDB: {fileID: 422758137}
+--- !u!114 &539740937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539740932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1e7236f6769294ea97c6cbb7cb497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: {fileID: 0}
+  quickSlot: {fileID: 539740936}
+  image: {fileID: 0}
+  item:
+    item: {fileID: 0}
+    count: 0
 --- !u!1 &548881552
 GameObject:
   m_ObjectHideFlags: 0
@@ -4826,6 +4885,7 @@ GameObject:
   - component: {fileID: 608231593}
   - component: {fileID: 608231592}
   - component: {fileID: 608231594}
+  - component: {fileID: 608231595}
   m_Layer: 5
   m_Name: QuickSlot(4)
   m_TagString: Untagged
@@ -4906,12 +4966,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 422606510}
+  transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 1353729898}
+  id: 3
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1838056990}
+  quickSlotItemDB: {fileID: 422758137}
+--- !u!114 &608231595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608231590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1e7236f6769294ea97c6cbb7cb497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: {fileID: 0}
+  quickSlot: {fileID: 608231594}
+  image: {fileID: 0}
+  item:
+    item: {fileID: 0}
+    count: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -15232,6 +15313,7 @@ GameObject:
   - component: {fileID: 902494355}
   - component: {fileID: 902494354}
   - component: {fileID: 902494353}
+  - component: {fileID: 902494356}
   m_Layer: 8
   m_Name: Inventory
   m_TagString: Untagged
@@ -15301,6 +15383,18 @@ RectTransform:
   m_AnchoredPosition: {x: 130, y: 17.3}
   m_SizeDelta: {x: 130, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &902494356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902494351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af261642dfd0290498e8d46c3c386ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &904820289
 GameObject:
   m_ObjectHideFlags: 0
@@ -15313,6 +15407,7 @@ GameObject:
   - component: {fileID: 904820292}
   - component: {fileID: 904820291}
   - component: {fileID: 904820293}
+  - component: {fileID: 904820294}
   m_Layer: 5
   m_Name: QuickSlot(6)
   m_TagString: Untagged
@@ -15393,12 +15488,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 495522994}
+  transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 33937971}
+  id: 5
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 241901949}
+  quickSlotItemDB: {fileID: 422758137}
+--- !u!114 &904820294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904820289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1e7236f6769294ea97c6cbb7cb497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: {fileID: 0}
+  quickSlot: {fileID: 904820293}
+  image: {fileID: 0}
+  item:
+    item: {fileID: 0}
+    count: 0
 --- !u!1 &911800703
 GameObject:
   m_ObjectHideFlags: 0
@@ -35190,12 +35306,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 686665236}
+  transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 1458771017}
+  id: 1
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1141194005}
+  quickSlotItemDB: {fileID: 422758137}
 --- !u!114 &2143663494
 MonoBehaviour:
   m_ObjectHideFlags: 0

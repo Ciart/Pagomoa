@@ -105,7 +105,7 @@ public class Slot : MonoBehaviour, IDropHandler
             if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 0)
             {
                 InventoryDB.Instance.items.Remove(EtcInventory.Instance.choiceSlot.inventoryItem);
-                EtcInventory.Instance.DeleteSlot();
+                EtcInventory.Instance.ResetSlot();
             }
             EtcInventory.Instance.UpdateSlot();
         }
@@ -154,8 +154,7 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
         Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
-        EtcInventory.Instance.DeleteSlot();
-        EtcInventory.Instance.UpdateSlot();
+        EtcInventory.Instance.ResetSlot();
     }
     public void Swap(List<InventoryItem> list, int i, int j)
     {
