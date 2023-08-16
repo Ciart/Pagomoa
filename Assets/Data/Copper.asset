@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
   m_Name: Copper
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: "\uAD6C\uB9AC"
   tier: 0
   sprite: {fileID: -1648650736, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
   tile: {fileID: 11400000, guid: ddbdaecc7be7b40b0903c19d5876a1ed, type: 2}
+  item: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
   price: 500

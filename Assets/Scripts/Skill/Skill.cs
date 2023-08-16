@@ -32,11 +32,8 @@ public class Skill : MonoBehaviour
         }
     }
     
-    // Skill : ���Ͽ� ������ ������� �︮���͸� �����մϴ�.    
-    // Motion: �Ӹ��� ���� �︮���� Ȥ�� �帱�� �Ӹ����� ��� ���ư��� ���
     IEnumerator HelicopterStart()
     {
-        Debug.Log("���ۺ��� ��Ʋ��Ʋ");
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         while (WorldManager.instance.CheckClimbable(transform.position) && Helicopter)
         {
@@ -48,14 +45,9 @@ public class Skill : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         Helicopter = false;
-        Debug.Log("���� ����");
     }
-    // Skill : ������ �ϳ� �߰��� ������ ���� �Ʒ� �������� ���� �ѹ��� �˴ϴ�. 
-    // Motion: ����Į���� �ȵ� �帱�� ���� �����ȴ� ���, Ȥ�� �δ��� ���� ���� ���(���̺��ϵ�)
-    // 
     void MoleHill()
     {
-        Debug.Log("�δ�������!");
         Vector3 digVec;
         switch (_player.GetDirection()) 
         {
@@ -82,11 +74,8 @@ public class Skill : MonoBehaviour
             pointInt = WorldManager.ComputeCoords(point);
         }
     }
-    // Skill : ������ �ϳ� �߰��� ������ ������ ������ ���� �������� �˴ϴ�.  
-    // Motion: ������ �ٴ��� �밢������ ���� ����Ű�� �δ����� �ٴڿ� �پ��� ���
     IEnumerator GoMole()
     {
-        Debug.Log("���� �δ���!!");
         var point = transform.position + new Vector3(0, -1.2f);
         var pointInt = WorldManager.ComputeCoords(point);
         bool find = false;

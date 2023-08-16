@@ -28,7 +28,6 @@ namespace Worlds
                 createdWorld?.Invoke(_world);
             }
         }
-
         public event Action<World> createdWorld;
 
         public event Action<Chunk> changedChunk;
@@ -114,7 +113,22 @@ namespace Worlds
             brick.ground = null;
             brick.mineral = null;
 
-            _expiredChunks.Add(chunk);
+            // _expiredChunks.Add(chunk);
+
+            for (var i = -1; i < 2; i++)
+            {
+                for (var j = -1; j < 2; j++)
+                {
+                    var c = _world.GetChunk(chunk.key + new Vector2Int(i, j));
+
+                    if (c is null)
+                    {
+                        continue;
+                    }
+                    
+                    _expiredChunks.Add(c);
+                }
+            }
         }
 
         public bool CheckClimbable(Vector3 position)

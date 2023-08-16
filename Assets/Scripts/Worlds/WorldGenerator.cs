@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Worlds
@@ -33,21 +35,19 @@ namespace Worlds
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
-
-            Generate();
         }
 
         private void Preload()
         {
             var pieces = database.pieces;
 
-            float rarityCount = pieces.Sum(piece => piece.rarity);
+            float weightCount = pieces.Sum(piece => piece.weight);
 
             _weightedPieces = new List<(float, Piece)>();
 
             foreach (var piece in pieces)
             {
-                _weightedPieces.Add((piece.rarity / rarityCount, piece));
+                _weightedPieces.Add((piece.weight / weightCount, piece));
             }
 
             _weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
@@ -94,14 +94,20 @@ namespace Worlds
 
                     {
                         var worldBrick = world.GetBrick(x, y, out _);
-                        
+
                         if (worldBrick is not null)
                         {
                             worldBrick.wall = wall;
                             worldBrick.ground = ground;
                         }
                     }
+                }
+            }
 
+            for (var x = worldLeft; x < worldRight; x++)
+            {
+                for (var y = worldBottom; y < worldTop; y++)
+                {
                     if (Random.Range(0, 30) != 0)
                     {
                         continue;
@@ -114,7 +120,39 @@ namespace Worlds
 
             _worldManager.world = world;
         }
+        public void LoadWorld(WorldData worldData)
+        {
+            Preload();
 
+            var world = new World(worldData);
+
+            var worldLeft = -worldData.left * chunkSize;
+            var worldRight = worldData.right * chunkSize;
+            var worldBottom = -worldData.bottom * chunkSize;
+            var worldTop = worldData.top * chunkSize;
+
+            for (var x = worldLeft; x < worldRight; x++)
+            {
+                for (var y = worldBottom; y < worldTop; y++)
+                {
+                    if (y >= world.groundHeight)
+                    {
+                        continue;
+                    }
+                    {
+                        var worldBrick = world.GetBrick(x, y, out _);
+                        if (worldBrick is not null)
+                        {
+                            worldBrick.wall = wall;
+                            if (worldBrick.ground != null)
+                                worldBrick.ground = ground;
+                            //Debug.Log((x - 16) + "/" + (y - 16) + "/" + world.chunkSize);
+                        }
+                    }
+                }
+            }
+            _worldManager.world = world;
+        }
         private void GeneratePiece(Piece piece, World world, int worldX, int worldY)
         {
             for (var x = 0; x < piece.width; x++)
@@ -125,7 +163,7 @@ namespace Worlds
 
                     var worldBrick = world.GetBrick(coords.x, coords.y, out _);
 
-                    if (worldBrick is null)
+                    if (worldBrick is null || worldBrick.ground is null)
                     {
                         continue;
                     }
@@ -133,6 +171,11 @@ namespace Worlds
                     piece.GetBrick(x, y).CopyTo(worldBrick);
                     worldBrick.wall = wall;
                 }
+            }
+
+            foreach (var prefab in piece.prefabs)
+            {
+                world.AddPrefab(worldX + prefab.x, worldY + prefab.y, prefab.prefab);
             }
         }
     }

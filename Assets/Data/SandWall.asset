@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f55c085fb84e12b9224e58016b7b88, type: 3}
   m_Name: SandWall
   m_EditorClassIdentifier: 
-  displayName: "\uC0AC\uB9C9 \uBCBD"
+  displayName: "\uBAA8\uB798 \uBCBD"
   isClimbable: 1
   sprite: {fileID: 2098817377, guid: 15a0d1a7896160749b4635ffd6d349de, type: 3}
   tile: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}

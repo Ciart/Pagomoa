@@ -6,6 +6,8 @@ TagManager:
   tags:
   - New tag
   - Timer
+  - Monster
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - Platform
   - Water
   - UI
-  - Player
-  - 
+  - Minimap
+  - Light
   - 
   - 
   - 

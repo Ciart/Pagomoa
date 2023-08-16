@@ -4,16 +4,23 @@ using UnityEngine;
 
 namespace Worlds
 {
+    [Serializable]
     public class Chunk
     {
-        public readonly Vector2Int key;
+        public Vector2Int key;
 
-        public readonly Brick[] bricks;
+        public Brick[] bricks;
+
+        public readonly List<WorldPrefab> prefabs;
+
+        private readonly int _size;
 
         public Chunk(Vector2Int key, int size)
         {
             this.key = key;
             bricks = new Brick[size * size];
+            prefabs = new List<WorldPrefab>();
+            _size = size;
 
             for (var i = 0; i < size; i++)
             {
@@ -23,8 +30,12 @@ namespace Worlds
                 }
             }
         }
-    }
 
+        private bool CheckRange(float x, float y)
+        {
+            return 0 <= x && x < _size && 0 <= y && y < _size;
+        }
+    }
     public class World
     {
         public readonly int chunkSize;
@@ -60,7 +71,16 @@ namespace Worlds
                 }
             }
         }
+        public World(WorldData worldData)
+        {
+            this.chunkSize = worldData.chunkSize;
+            this.top = worldData.top;
+            this.bottom = worldData.bottom;
+            this.left = worldData.left;
+            this.right = worldData.right;
 
+            _chunks = ListDictionaryConverter.ToDictionary(worldData._chunks);
+        }
         public Chunk GetChunk(Vector2Int key)
         {
             return _chunks.TryGetValue(key, out var chunk) ? chunk : null;
@@ -72,7 +92,10 @@ namespace Worlds
 
             return GetChunk(key);
         }
-
+        public Dictionary<Vector2Int, Chunk> GetAllChunks()
+        {
+            return _chunks;
+        }
         public Brick GetBrick(int x, int y, out Chunk chunk)
         {
             chunk = GetChunk(x, y);
@@ -84,8 +107,20 @@ namespace Worlds
 
             var brinkX = x < 0 ? chunkSize - 1 + (x + 1) % chunkSize  : x % chunkSize;
             var brinkY = y < 0 ? chunkSize - 1 + (y + 1) % chunkSize : y % chunkSize;
-
+            
             return chunk.bricks[brinkX + brinkY * chunkSize];
+        }
+
+        public void AddPrefab(float x, float y, GameObject prefab)
+        {
+            var chunk = GetChunk(Mathf.FloorToInt(x), Mathf.FloorToInt(y));
+
+            if (chunk is null)
+            {
+                return;
+            }
+            
+            chunk.prefabs.Add(new WorldPrefab(x - chunk.key.x * chunkSize, y - chunk.key.y * chunkSize, prefab));
         }
     }
 }
