@@ -211,6 +211,11 @@ namespace Worlds
             // RenderWorld();
         }
 
+        private void LateUpdate()
+        {
+            RenderWorld();
+        }
+
         public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)
         {
             if (chunk == null)
