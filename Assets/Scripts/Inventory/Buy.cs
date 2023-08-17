@@ -53,7 +53,7 @@ public class Buy : MonoBehaviour
             string convert = auctionDB.auctionItem[i].count.ToString();
             if (auctionDB.auctionItem[i].count == 0)
                 convert = "";
-            slots[i].SetUI(auctionDB.auctionItem[i].item.info.itemImage, convert);
+            slots[i].SetUI(auctionDB.auctionItem[i].item.itemImage, convert);
         }
     }
     public void DestroySlot()

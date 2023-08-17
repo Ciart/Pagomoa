@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5eeedc2bee26c4494251b3545ba5a4, type: 3}
   m_Name: IronItem
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: a0d5cf148e74fba4b8d623a0f1658260, type: 2}
-  Usable: 0
-  Equipable: 0
-  Etc: 0
-  AbilityList:
-    data: []
+  itemName: "\uCCA0"
+  itemType: 2
+  itemImage: {fileID: 284631574, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
+  itemInfo: "\uCCA0\uCCA0 \uD750\uB974\uB294 \uCCA0"
+  itemPrice: 0

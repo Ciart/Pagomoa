@@ -41,7 +41,7 @@ public class InventoryDB : MonoBehaviour
             else
             {
                 items.Add(new InventoryItem(data, count));
-                if (data.info.itemType == ItemInfo.ItemType.Mineral)
+                if (data.itemType == Item.ItemType.Mineral)
                 {
                     if (!Achievements.Instance.AchieveMinerals.Contains(achieveItem))
                         Achievements.Instance.AchieveMinerals.Add(new InventoryItem(data, count));
@@ -62,7 +62,7 @@ public class InventoryDB : MonoBehaviour
                 else if (inventoryItem.count == 1 || inventoryItem.count == 0)
                     items.Remove(inventoryItem);
             }
-            Gold += data.info.itemPrice;
+            Gold += data.itemPrice;
             EtcInventory.Instance.gold.GetComponent<Text>().text = Gold.ToString();
             buy.gold.GetComponent<Text>().text = Gold.ToString();
             changeInventory.Invoke();

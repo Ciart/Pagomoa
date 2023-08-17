@@ -82,7 +82,7 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     }
     public void SetImage()
     {
-        itemImage.sprite = inventoryItem.item.info.itemImage;
+        itemImage.sprite = inventoryItem.item.itemImage;
         if (inventoryItem.count != 0)
             SetItemCount();
         else
@@ -99,7 +99,7 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     public void OnBeginDrag(PointerEventData eventData)
     {
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
-        DragItem.Instance.DragSetImage(inventoryItem.item.info.itemImage);
+        DragItem.Instance.DragSetImage(inventoryItem.item.itemImage);
         DragItem.Instance.transform.position = newPosition;
     }
     public void OnDrag(PointerEventData eventData)

@@ -28,11 +28,11 @@ public class AuctionDB : MonoBehaviour
         var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null)
         {
-            if (inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+            if (inventoryItem.item.itemType == Item.ItemType.Use)
                 for (int i = 0; i < BuyCountUI.Instance.count; i++)
-                    InventoryDB.Instance.Gold -= data.info.itemPrice;
+                    InventoryDB.Instance.Gold -= data.itemPrice;
             else
-                InventoryDB.Instance.Gold -= data.info.itemPrice;
+                InventoryDB.Instance.Gold -= data.itemPrice;
 
             if (inventoryItem.count == 0)
                 auctionItem.Remove(inventoryItem);

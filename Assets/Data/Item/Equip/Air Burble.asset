@@ -9,18 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30a1cc5756e011648a5f0c122918db78, type: 3}
+  m_Script: {fileID: 11500000, guid: 245123279c6f26d41bfd1ffd5a6f8ee2, type: 3}
   m_Name: Air Burble
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: eb99a76e40bdba74e97b6e16e55e76d1, type: 2}
-  Usable: 0
-  Equipable: 1
-  Etc: 0
+  itemName: "\uACF5\uAE30\uBC29\uC6B8"
+  itemType: 0
+  itemImage: {fileID: 1527017041, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uB204\uAD70\uAC00\uAC00 \uBB3C \uC18D\uC5D0\uC11C \uB0B4 \uC270 \uACF5\uAE30\uBC29\uC6B8"
+  itemPrice: 0
+  Equipable: 0
   AbilityList:
-    data:
-    - Key: digSpeed+
-      Value: 150
-    - Key: digSpeed%
-      Value: 0.2
-    - Key: oxygen+
-      Value: 15
+    data: []

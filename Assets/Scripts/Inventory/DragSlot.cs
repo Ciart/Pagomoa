@@ -24,12 +24,12 @@ public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         if (slot != null)
         {
             item = slot.inventoryItem;
-            DragItem.Instance.DragSetImage(slot.inventoryItem.item.info.itemImage);
+            DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
         }
         else
         {
             item = quickSlot.inventoryItem;
-            DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.info.itemImage);
+            DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.itemImage);
         }
 
         DragItem.Instance.transform.position = newPosition;

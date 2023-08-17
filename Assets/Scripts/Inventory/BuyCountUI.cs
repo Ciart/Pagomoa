@@ -46,7 +46,7 @@ public class BuyCountUI : MonoBehaviour
         if (count < item.count)
         {
             count++;
-            price += item.item.info.itemPrice;
+            price += item.item.itemPrice;
         }
         else
             return;
@@ -59,7 +59,7 @@ public class BuyCountUI : MonoBehaviour
             if (count > 0)
             {
                 count--;
-                price -= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice;
+                price -= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice;
             }
             else
                 return;

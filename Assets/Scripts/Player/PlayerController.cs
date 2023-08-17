@@ -42,7 +42,6 @@ namespace Player
         {
             _status = GetComponent<Status>(); // ���� �ʱ�ȭ
             _initialStatus = _status.copy();  // �⺻ ���� ����
-            GetComponent<Equip>().CalEquipvalue(); // ��� �ɷ�ġ ����
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
@@ -140,7 +139,13 @@ namespace Player
             }
             // Debug.Log("공기량" + _status.oxygen);
         }
-
+        public bool Hungry(float value)
+        {
+            if (_status.hungry - value < 0) return true;
+            _status.hungry -= value;
+            _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
+            return false;
+        }
         
         private void FixedUpdate()
         {

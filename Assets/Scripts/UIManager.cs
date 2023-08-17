@@ -92,7 +92,7 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
             {
                 QuickSlotItemDB.instance.selectedSlot.inventoryItem.count -= 1;
                 QuickSlotItemDB.instance.selectedSlot.SetItemCount();

@@ -646,6 +646,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1685314122}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &71009718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1420,12 +1421,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2098469270}
+  transparentImage: {fileID: 0}
   itemCount: {fileID: 2047577447}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 322086649}
+  quickSlotItemDB: {fileID: 0}
 --- !u!1 &237806722
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,6 +3506,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1241472726}
   text: {fileID: 750753926}
+  id: 0
 --- !u!114 &495524945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3767,12 +3772,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 276733109}
+  transparentImage: {fileID: 0}
   itemCount: {fileID: 2039760457}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 911800705}
+  quickSlotItemDB: {fileID: 0}
 --- !u!1 &513855792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4336,6 +4344,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 982601181}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &538451428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4445,12 +4454,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 1280216242}
+  transparentImage: {fileID: 0}
   itemCount: {fileID: 1489957088}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1785928593}
+  quickSlotItemDB: {fileID: 0}
 --- !u!1 &548881552
 GameObject:
   m_ObjectHideFlags: 0
@@ -4607,6 +4619,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 934356145}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &548881559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4883,12 +4896,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 422606510}
+  transparentImage: {fileID: 0}
   itemCount: {fileID: 1353729898}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1838056990}
+  quickSlotItemDB: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -15370,12 +15386,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 495522994}
+  transparentImage: {fileID: 0}
   itemCount: {fileID: 33937971}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 241901949}
+  quickSlotItemDB: {fileID: 0}
 --- !u!1 &911800703
 GameObject:
   m_ObjectHideFlags: 0
@@ -17454,6 +17473,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1976969926}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &1198848905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18659,6 +18679,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1941009641}
   text: {fileID: 248612333}
+  id: 0
 --- !u!114 &1308707784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18689,6 +18710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot: {fileID: 1308707783}
+  quickSlot: {fileID: 0}
   image: {fileID: 1232772534}
   item:
     item: {fileID: 0}
@@ -21392,15 +21414,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auctionItem:
-  - item: {fileID: 11400000, guid: 2008170fab1bb7e448438d90682a43fc, type: 2}
+  - item: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: 34899a116ad49244bb5c550fcf7a9487, type: 2}
+  - item: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: a143ba4b767973a4b9dedfdcb85ac2d6, type: 2}
+  - item: {fileID: 11400000, guid: 895a181196c1084488e38cd5abdd6977, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: 4036d718b92960f4da80f5b952adc0bc, type: 2}
+  - item: {fileID: 11400000, guid: d96efe887f7216f4ead0d7819537fd6f, type: 2}
     count: 0
-  - item: {fileID: 11400000, guid: 7ffec47214510bd4c922034fc0737abd, type: 2}
+  - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
     count: 10
   - item: {fileID: 11400000, guid: a9e7ecb03f4b1a84d857c1686672e804, type: 2}
     count: 10
@@ -21599,6 +21621,7 @@ MonoBehaviour:
   buyNoCountUI: {fileID: 2142252716}
   image: {fileID: 1642910134}
   text: {fileID: 690705989}
+  id: 0
 --- !u!114 &1820286257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35160,12 +35183,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 686665236}
+  transparentImage: {fileID: 0}
   itemCount: {fileID: 1458771017}
+  id: 0
   inventory: {fileID: 1218644581}
   inventoryItem:
     item: {fileID: 0}
     count: 0
   selectedSlotImage: {fileID: 1141194005}
+  quickSlotItemDB: {fileID: 0}
 --- !u!1001 &2722638630639657123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35257,7 +35283,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 6e86a15c717d5dd4bb05144f97641300, type: 3}
     - target: {fileID: 2859202016703500627, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: equipments.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2859202016703500627, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: equipments.Array.data[0]

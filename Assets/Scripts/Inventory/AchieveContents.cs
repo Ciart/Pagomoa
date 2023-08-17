@@ -23,20 +23,20 @@ public class AchieveContents : MonoBehaviour
     }
     public void ChangePrice()
     {
-        findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.info.itemType == ItemInfo.ItemType.Mineral);
+        findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.itemType == Item.ItemType.Mineral);
         for(int i = 0; i < findallMineral.Count; i++)
         {
-            int save = findallMineral[i].item.info.itemPrice;
-            random = Random.Range(-findallMineral[i].item.info.itemPrice, findallMineral[i].item.info.itemPrice);
-            findallMineral[i].item.info.itemPrice += random;
+            int save = findallMineral[i].item.itemPrice;
+            random = Random.Range(-findallMineral[i].item.itemPrice, findallMineral[i].item.itemPrice);
+            findallMineral[i].item.itemPrice += random;
 
-            marketCondition.contentDatas[i].price.text = findallMineral[i].item.info.itemPrice.ToString();
+            marketCondition.contentDatas[i].price.text = findallMineral[i].item.itemPrice.ToString();
 
 
             Sprite upordown;
-            if (findallMineral[i].item.info.itemPrice > save)
+            if (findallMineral[i].item.itemPrice > save)
                 upordown = up;
-            else if (findallMineral[i].item.info.itemPrice < save)
+            else if (findallMineral[i].item.itemPrice < save)
                 upordown = down;
             else
                 return;

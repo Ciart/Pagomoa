@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c2a8aa7c096a344b6bd31d4003a651, type: 3}
-  m_Name: Bomb
+  m_Script: {fileID: 11500000, guid: a2e0cfa3942ac1d4b92a7fbb726b1cfe, type: 3}
+  m_Name: Bomb - PlantBombEffect
   m_EditorClassIdentifier: 
-  itemName: "\uD3ED\uACFC\uD0C4"
+  itemName: "\uD3ED\uD0C4"
   itemType: 1
   itemImage: {fileID: 21300000, guid: 7710a49fb46def54eaf8200847714ea1, type: 3}
-  itemInfo: "\uBE75\uBE75 \uD130\uC838\uB77C \uC0BC\uC131 \uD558\uC6B0\uC820"
-  itemPrice: 1
+  itemInfo: "\uBED1\uB534"
+  itemPrice: 0
+  x: 40.208324
+  y: 1.5252166
+  prefab: {fileID: 5173840418030510242, guid: 5af8c2e65cbbda04c8f4bec701a5eddc, type: 3}

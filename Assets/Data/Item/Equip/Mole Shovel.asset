@@ -9,18 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30a1cc5756e011648a5f0c122918db78, type: 3}
+  m_Script: {fileID: 11500000, guid: 245123279c6f26d41bfd1ffd5a6f8ee2, type: 3}
   m_Name: Mole Shovel
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: 3f7e26f6c70d76d4d8693fc1b1b7a5a7, type: 2}
-  Usable: 0
-  Equipable: 1
-  Etc: 0
+  itemName: "\uB450\uB354\uC9C0\uC0BD"
+  itemType: 0
+  itemImage: {fileID: -663300248, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uB450\uB354\uC9A4 \uC0BD"
+  itemPrice: 0
+  Equipable: 0
   AbilityList:
-    data:
-    - Key: digSpeed+
-      Value: 150
-    - Key: digSpeed%
-      Value: 0.2
-    - Key: oxygen+
-      Value: 15
+    data: []

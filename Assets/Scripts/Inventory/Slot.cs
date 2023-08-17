@@ -18,11 +18,11 @@ public class Slot : MonoBehaviour, IDropHandler
     public void SellCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
-        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use ||
-            EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Mineral)
+        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use ||
+            EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Mineral)
         {
             sellCountUI.OnUI();
-            sellCountUI.ItemImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemImage);
+            sellCountUI.ItemImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.itemImage);
         }
     }
     public void ClickSlot()
@@ -42,22 +42,22 @@ public class Slot : MonoBehaviour, IDropHandler
     public void BuyCheck()
     {
         Buy.Instance.choiceSlot = this;
-        if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+        if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
             buyCountUI.OnUI();
-            buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.info.itemImage);
+            buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
         }
-        else if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
+        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
         {
             buyNoCountUI.OnUI();
-            buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.info.itemImage);
+            buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
         }
     }
     public void BuySlot()
     {
-        if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+        if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
-            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice * buyCountUI.count)
+            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice * buyCountUI.count)
             {
                 Buy.Instance.choiceSlot.inventoryItem.count -= buyCountUI.count;
                 InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, buyCountUI.count);
@@ -78,9 +78,9 @@ public class Slot : MonoBehaviour, IDropHandler
             }
         }
 
-        else if (Buy.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
+        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
         {
-            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.info.itemPrice)
+            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice)
             {
                 InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, Buy.Instance.choiceSlot.inventoryItem.count);
                 AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
@@ -96,10 +96,10 @@ public class Slot : MonoBehaviour, IDropHandler
     public void EquipCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
-        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Equipment)
+        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
             equipUI.OnUI();
 
-        else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.info.itemType == ItemInfo.ItemType.Use)
+        else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
             EtcInventory.Instance.choiceSlot.inventoryItem.count -= 1;
             if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 0)

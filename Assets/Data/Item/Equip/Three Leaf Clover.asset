@@ -9,18 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30a1cc5756e011648a5f0c122918db78, type: 3}
+  m_Script: {fileID: 11500000, guid: 245123279c6f26d41bfd1ffd5a6f8ee2, type: 3}
   m_Name: Three Leaf Clover
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: c027fa77c35ac2647bb190dc03484866, type: 2}
-  Usable: 0
-  Equipable: 1
-  Etc: 0
+  itemName: "\uC138\uC78E \uD074\uB85C\uBC84"
+  itemType: 0
+  itemImage: {fileID: -558227242, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uC5B4\uCA4C\uBA74 \uD589\uC6B4\uC774 \uAE43\uB4E4\uC5B4 \uC788\uC5C8\uB294\uC9C0
+    \uBAA8\uB97C \uD074\uB85C\uBC84"
+  itemPrice: 0
+  Equipable: 0
   AbilityList:
-    data:
-    - Key: digSpeed+
-      Value: 150
-    - Key: digSpeed%
-      Value: 0.2
-    - Key: oxygen+
-      Value: 15
+    data: []

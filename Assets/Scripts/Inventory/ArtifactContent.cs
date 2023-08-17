@@ -34,7 +34,7 @@ public class ArtifactContent : MonoBehaviour
     {
         DeleteSlot();
         for (int i = 0; i < artifactSlotDB.Artifact.Count; i++)
-            slotDatas[i].SetUI(artifactSlotDB.Artifact[i].item.info.itemImage);
+            slotDatas[i].SetUI(artifactSlotDB.Artifact[i].item.itemImage);
     }
     public void DeleteSlot()
     {
