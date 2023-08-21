@@ -51,7 +51,6 @@ public class DialogueManager : MonoBehaviour
             talkIndex = 0;
             NowScenario = null;
             talkPannel.SetActive(false);
-            if (director) director.Play();
             return false;
         }
         talkText.text = NowScenario.talk[talkIndex];
