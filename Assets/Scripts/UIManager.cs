@@ -10,7 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
-    public GameObject InventoryUI;
+    [SerializeField] public GameObject InventoryUI;
+    [SerializeField] public GameObject EscUI;
+
     bool ActiveInventory = false;
     private void Awake()
     {
@@ -26,6 +28,10 @@ public class UIManager : MonoBehaviour
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetEscUI();
         }
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
@@ -49,5 +55,12 @@ public class UIManager : MonoBehaviour
     {
         digbar.fillAmount = holdtime / digtime;
         digbar.enabled = true;
+    }
+    public void SetEscUI()
+    {
+        bool activeEscUI = false;
+        if (EscUI.activeSelf == false)
+            activeEscUI = !activeEscUI;
+        EscUI.SetActive(activeEscUI);
     }
 }
