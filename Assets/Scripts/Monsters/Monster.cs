@@ -26,10 +26,10 @@ public class Monster : MonoBehaviour
         WakeUpForaWhile
     }
 
-    void Start()
+    void Awake()
     {
         if (dayTime == 0) return;
-        
+        if (!FindObjectOfType<TimeManagerTemp>()) return;
         _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
         _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
         
