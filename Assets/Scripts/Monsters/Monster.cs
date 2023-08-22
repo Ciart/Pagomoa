@@ -2,63 +2,89 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    public float hp = 0;
-    
-    public float moveSpeed = 0;
-    
-    public float damage = 0;
+    protected Animator _animator;
+    protected MonsterController _controller;
 
-    public int dayTime = 1; // 1 = ë‚®, 0 = ë°¤
-    
-    public MonsterState currentState;
-    
-    private TimeManagerTemp _timeManagerTemp;
-    
-    private SpriteRenderer _sleepingAnimation;
+    public MonsterStatus status;
+    public MonsterState state;
+
+    public bool isGround = true;
+    public Transform groundCheck;
+
+    public GameObject target;
+
+    public Attack _attack;
+    public int direction;
     public enum MonsterState
     {
-        Active,
-        Sleep,
-        WakeUpForaWhile
+        Active,           // Æò¹ü È°µ¿
+        Sleep,            // Àá
+        Chase,            // Ãß°Ý
+        Hit,              // ÇÇ°Ý
+        Die               // Á×À½
     }
+    void GroundCheck()
+    {
+        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, LayerMask.GetMask("Platform")) ? true : false;
+    }
+    private void FixedUpdate()
+    {
+        if(groundCheck)
+            GroundCheck();
+    }
+    public void GetDamage(GameObject attacker, float damage)
+    {
+        if (state == MonsterState.Die) return;
 
-    void Awake()
-    {
-        if (dayTime == 0) return;
-        if (!FindObjectOfType<TimeManagerTemp>()) return;
-        _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
-        _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        
-        currentState = MonsterState.Sleep;
-        
-        _timeManagerTemp.MonsterSleep.AddListener(SleepAtNight);
-        _timeManagerTemp.MonsterWakeUp.AddListener(WakeUp);
-    }
-    private void SleepAtNight()
-    {
-        currentState = MonsterState.Sleep;
-        _sleepingAnimation.enabled = true;
-    }
-
-    private void WakeUp()
-    {
-        currentState = MonsterState.Active;
-        _sleepingAnimation.enabled = false;
-    }
-    
-    public void OnCollisionStay2D(Collision2D collision2D)
-    {
-        if (collision2D.transform.name == "Player")
+        status.hp -= damage;
+        if (status.hp <= 0)
+            _controller.StateChanged(MonsterState.Die);
+        else
         {
-            if (currentState == MonsterState.Sleep)
-            {
-                currentState = MonsterState.WakeUpForaWhile;
-            }
-            collision2D.transform.GetComponent<PlayerController>().Hit(damage, transform.position);
+            Hit(attacker);
+            _controller.StateChanged(MonsterState.Hit);
         }
+    }
+    void Hit(GameObject attacker)
+    {
+        target = attacker;
+
+        ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        float _knockBackForce2 = 3f;
+        Vector2 knockBackDirection2 = transform.position - attacker.transform.position;
+        knockBackDirection2.Normalize();
+        Vector2 knockBackPosition2 = new Vector2(_knockBackForce2 * Mathf.Sign(knockBackDirection2.x), 2.5f);
+
+        GetComponent<Rigidbody2D>().AddForce(knockBackPosition2, ForceMode2D.Impulse);
+    }
+    public void Die()
+    {
+        StartCoroutine(FadeOut());
+    }
+    IEnumerator FadeOut()
+    {
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        float fade = 0;
+        Color color = sprite.color;
+        color = sprite.color;
+        color.a = 1;
+        sprite.color = color;
+        while (fade < 1.0f)
+        {
+            fade += 0.01f;
+            color.a -= 0.01f;
+            sprite.color = color;
+            yield return new WaitForSeconds(0.01f);
+        }
+        gameObject.SetActive(false);
+        color = sprite.color;
+        color.a = 0;
+        sprite.color = color;
     }
 }
