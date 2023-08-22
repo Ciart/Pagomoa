@@ -17,7 +17,25 @@ public class TimeManagerTemp : MonoBehaviour
     public UnityEvent NextDaySpawn;
     public UnityEvent MonsterSleep;
     public UnityEvent MonsterWakeUp;
-    
+
+    private static TimeManagerTemp _instance = null;
+    public static TimeManagerTemp Instance
+    {
+        get
+        {
+            if (_instance is null)
+            {
+                _instance = (TimeManagerTemp)FindObjectOfType(typeof(TimeManagerTemp));
+            }
+            return _instance;
+        }
+    }
+    private void Awake()
+    {
+        MonsterSleep.AddListener(DayMonster.GetSleep);
+        MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
+        MonsterWakeUp.AddListener(NightMonster.TimeToBye);
+    }
     private int _hour
     {
         get { return time / 60000; }
@@ -36,10 +54,17 @@ public class TimeManagerTemp : MonoBehaviour
     {
         if (canSleep && Input.GetKeyDown(KeyCode.P))
             Sleep();
+
+        if (Input.GetKeyDown(KeyCode.C))
+            time = endTime - 5000;
+
+        if (Input.GetKeyDown(KeyCode.V))
+            time = _wakeUpTime - 5000;
     }
     private void StartTime()
     {
-        Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
+        // too noise
+        //Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
         time += 1000;
         EventTime();
     }
@@ -50,11 +75,14 @@ public class TimeManagerTemp : MonoBehaviour
             time = 0;
             date++;
             NextDaySpawn.Invoke();
+            Debug.Log("다음 날이야!");
         }
         if (time == endTime) // 잠자는 시간 22 ~ 06
         {
             canSleep = true;
             MonsterSleep.Invoke();
+            Debug.Log(_hour + "시 " + _minute + "분" + " 잘자렴!");
+
         }
         if (time == returnTime)
         {
@@ -63,6 +91,8 @@ public class TimeManagerTemp : MonoBehaviour
         if (time == _wakeUpTime)
         {
             MonsterWakeUp.Invoke();
+            Debug.Log(_hour + "시 " + _minute + "분" + " 일어나!");
+
         }
     }
     private void Sleep()
@@ -77,5 +107,14 @@ public class TimeManagerTemp : MonoBehaviour
     {
         Vector3 returnPosition = new Vector3(31.7f, 4, 0);
         gameObject.transform.position = returnPosition;
+    }
+    public string GetTime()
+    {
+        if (time >= 0 && time < _wakeUpTime) // 밤    // 360000
+            return "Night";
+        else if (time < endTime) // 낮        // 1320000
+            return "Day";
+        else
+            return "Night";
     }
 }
