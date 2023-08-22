@@ -33,7 +33,7 @@ public class SaveManager : MonoBehaviour
             DontDestroyOnLoad(container);
         }
 
-        DataManager.Instance.LoadGameData();
+        //DataManager.Instance.LoadGameData();
 
         AddManagingTargetWithTag("Player");
         AddManagingTargetWithTag("Monster");
@@ -99,8 +99,7 @@ public class SaveManager : MonoBehaviour
         //Debug.Log(DataManager.Instance.data);
         if(DataManager.Instance.data.posData == null)
         {
-            Debug.Log("이전에 생성된 위치 데이터가 없습니다.");
-            Debug.Log("위치 데이터를 새로 생성합니다.");
+            Debug.Log("No Position Data before, Instantiate new Position Data");
             //return;
             DataManager.Instance.data.posData = new PositionData();
         }
@@ -112,8 +111,7 @@ public class SaveManager : MonoBehaviour
     {
         if(DataManager.Instance.data.worldData == null)
         {
-            Debug.Log("이전에 생성된 맵 데이터가 없습니다.");
-            Debug.Log("맵 데이터를 새로 생성합니다.");
+            Debug.Log("No World Data before, Instantiate new World Data");
             DataManager.Instance.data.worldData = new WorldData();
         }
         DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
