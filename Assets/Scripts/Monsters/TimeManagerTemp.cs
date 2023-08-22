@@ -17,6 +17,7 @@ public class TimeManagerTemp : MonoBehaviour
     public UnityEvent NextDaySpawn;
     public UnityEvent MonsterSleep;
     public UnityEvent MonsterWakeUp;
+    public UnityEvent<FadeState> FadeEvent;
 
     private static TimeManagerTemp _instance = null;
     public static TimeManagerTemp Instance
@@ -48,7 +49,7 @@ public class TimeManagerTemp : MonoBehaviour
     
     private void Start()
     {
-        InvokeRepeating("StartTime", magnification, magnification);
+        InvokeRepeating(nameof(StartTime), magnification, magnification);
     }
     private void Update()
     {
@@ -61,10 +62,12 @@ public class TimeManagerTemp : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
             time = _wakeUpTime - 5000;
     }
+    
     private void StartTime()
     {
         // too noise
         //Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
+        
         time += 1000;
         EventTime();
     }
@@ -90,18 +93,24 @@ public class TimeManagerTemp : MonoBehaviour
         }
         if (time == _wakeUpTime)
         {
+            canSleep = false;
             MonsterWakeUp.Invoke();
             Debug.Log(_hour + "시 " + _minute + "분" + " 일어나!");
 
         }
     }
-    private void Sleep()
+    public void Sleep()
     {
-        CancelInvoke("StartTime");
-        // Debug.Log("드르렁");
+        FadeEvent.Invoke(FadeState.FadeInOut);
+        CancelInvoke(nameof(StartTime));
         time = startTime;
-        date++;
-        InvokeRepeating("StartTime", magnification, magnification);
+        if (time < 1440000 && time > 1320000) date++;
+        
+        InvokeRepeating(nameof(StartTime), magnification, magnification);
+        
+        canSleep = false;
+        NextDaySpawn.Invoke();
+        MonsterWakeUp.Invoke();
     }
     private void ReturnToBase()
     {
