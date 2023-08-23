@@ -32,16 +32,14 @@ public class AchieveContents : MonoBehaviour
 
             marketCondition.contentDatas[i].price.text = findallMineral[i].item.itemPrice.ToString();
 
-
-            Sprite upordown;
             if (findallMineral[i].item.itemPrice > save)
-                upordown = up;
-            else if (findallMineral[i].item.itemPrice < save)
-                upordown = down;
-            else
-                return;
-
-            marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = upordown;
+            {
+                marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = up;
+            }
+            else if(findallMineral[i].item.itemPrice < save)
+            {
+                marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = down;
+            }
         }
     }
 }

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4705fce947de45c98128181954eb043e, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  displayName: "\uCD08\uC6D0"
-  strength: 20
-  sprite: {fileID: 2025073141, guid: b9141397492ba45949f8a920dff4d583, type: 3}
-  tile: {fileID: 11400000, guid: 362dd554f92734877bb386c19b1d6c4b, type: 2}
-  color: {r: 0.49803922, g: 0.4392157, b: 0.5411765, a: 1}
+  displayName: 
+  strength: 11
+  sprite: {fileID: -180167204, guid: 6e56002d60d9842818c5acbd51e7e7b0, type: 3}
+  tile: {fileID: 11400000, guid: 9461e9d6588ea49b2815ed2d7920cf49, type: 2}

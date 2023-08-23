@@ -69,7 +69,7 @@ public class Skill : MonoBehaviour
             if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                 return;
             
-            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, "drill");
+            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
             point = point + digVec;
             pointInt = WorldManager.ComputeCoords(point);
         }
@@ -85,7 +85,7 @@ public class Skill : MonoBehaviour
             if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                 find = true;
             
-            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, "drill");
+            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
             switch(Random.Range(0, 3))
             {
                 case 0:

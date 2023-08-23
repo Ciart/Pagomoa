@@ -4,7 +4,6 @@ using Constants;
 using Worlds;
 using UnityEngine;
 using UnityEngine.Serialization;
-using static Monster;
 
 namespace Player
 {
@@ -37,15 +36,19 @@ namespace Player
 
         private Direction _direction;
 
+        private PlayerGetHit _getHit;
+
         private void Awake()
         {
             _status = GetComponent<Status>(); // ���� �ʱ�ȭ
             _initialStatus = _status.copy();  // �⺻ ���� ����
+            GetComponent<Equip>().CalEquipvalue(); // ��� �ɷ�ġ ����
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
+            _getHit = GetComponent<PlayerGetHit>();
 
             _world = WorldManager.instance;
         }
@@ -123,42 +126,21 @@ namespace Player
 
             _movement.isSideWall = true;
         }
-        public void GetDamage(GameObject attacker, float damage)
-        {
-            _status.oxygen -= damage;
-            HitAction(attacker);
-            if (_status.oxygen <= 0)
-                Die();
-        }
-        public void HitAction(GameObject attacker)
-        {
-            StartCoroutine("CantMoveOn", GetComponent<Hit>().unbeatTime);
-            ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
 
-            float _knockBackForce = 5f;
-            Vector2 knockBackDirection = transform.position - attacker.transform.position;
-            knockBackDirection.Normalize();
-            Vector2 knockBackPosition = new Vector2(_knockBackForce * Mathf.Sign(knockBackDirection.x), 8f);
+        public void Hit(float monsterDamage, Vector3 monsterPosition)
+        {
+            if (_getHit.isInvisible == false)
+            {
+                _status.oxygen -= monsterDamage;
+                StartCoroutine(_getHit.InvincibleCool(monsterPosition));
+            }
+            else
+            {
+                // Debug.Log("무적시간");
+            }
+            // Debug.Log("공기량" + _status.oxygen);
+        }
 
-            _rigidbody.AddForce(knockBackPosition, ForceMode2D.Impulse);
-        }
-        IEnumerator CantMoveOn(float time)
-        {
-            _movement.canMove = false;
-            yield return new WaitForSeconds(time);
-            _movement.canMove = true;
-        }
-        void Die()
-        {
-            Debug.Log("플레이어가 몬스터에게 질식해 죽었습니다. 꺠꼬닥!");
-        }
-        public bool Hungry(float value)
-        {
-            if (_status.hungry - value < 0) return true;
-            _status.hungry -= value;
-            _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
-            return false;
-        }
         
         private void FixedUpdate()
         {

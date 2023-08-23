@@ -12,20 +12,6 @@ public class TimeManager : MonoBehaviour
     private int returnTime = 60000;
     private int date = 1;
     private float magnification = 1.0f;
-
-    private static TimeManager _instance = null;
-    public static TimeManager Instance
-    {
-        get
-        {
-            if (_instance is null)
-            {
-                _instance = (TimeManager)FindObjectOfType(typeof(TimeManager));
-            }
-            return _instance;
-        }
-    }
-
     private int hour
     {
         get { return time / 60000; }

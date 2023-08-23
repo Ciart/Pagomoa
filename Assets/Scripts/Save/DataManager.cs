@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    // 게임 데이터 파일 이름 설정 (이름.json)
     string GameDataFileName = "GameData.json";
 
     public GameData data = new GameData();
@@ -28,7 +29,7 @@ public class DataManager : MonoBehaviour
     public void LoadGameData()
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        Debug.Log("load ${Application.persistentDataPath} filedata");
+        Debug.Log($"{Application.persistentDataPath} 경로의 데이터를 로드합니다");
 
         if (File.Exists(filePath))
         {
@@ -39,7 +40,7 @@ public class DataManager : MonoBehaviour
             }
             catch (System.Exception e)
             {
-                Debug.Log("bug : " + e);
+                Debug.Log("불러오기 실패: " + e);
             }
         }
         //Debug.Log(data);
@@ -49,6 +50,6 @@ public class DataManager : MonoBehaviour
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
         string ToJasonData = JsonUtility.ToJson(data, true);
         File.WriteAllText(filePath, ToJasonData);
-        Debug.Log("saved");
+        Debug.Log("저장 완료");
     }
 }

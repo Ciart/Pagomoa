@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Worlds
 {
@@ -10,8 +8,6 @@ namespace Worlds
     {
         public MineralEntity mineralEntity;
 
-        public Tilemap ufoLadder;
-        
         private World _world;
 
         public World world
@@ -95,61 +91,25 @@ namespace Worlds
             return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
 
-        public void BreakGround(int x, int y, int tier, string item)
+        public void BreakGround(int x, int y, int tier)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
-            if (item == "item") 
+
+            if (chunk is null)
             {
-                if(chunk is null)
-                    return;
-
-                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
-                {
-                    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-                    entity.Data = brick.mineral;
-                }
+                return;
             }
-            else
+
+            if (brick.mineral is not null && brick.mineral.tier <= tier)
             {
-                if (chunk is null || brick.mineral?.displayName == "돌")
-                    return;
-
-                if (brick.mineral is not null && brick.mineral.tier <= tier)
-                {
-                    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-                    entity.Data = brick.mineral;
-                }
+                var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
+                entity.Data = brick.mineral;
             }
-            //if (chunk is null || brick.mineral?.displayName == "돌")
-            //{
-            //    return;
-            //}
-
-            //if (brick.mineral is not null && brick.mineral.tier <= tier)
-            //{
-            //    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-            //    entity.Data = brick.mineral;
-            //}
 
             brick.ground = null;
             brick.mineral = null;
 
-            // _expiredChunks.Add(chunk);
-
-            for (var i = -1; i < 2; i++)
-            {
-                for (var j = -1; j < 2; j++)
-                {
-                    var c = _world.GetChunk(chunk.key + new Vector2Int(i, j));
-
-                    if (c is null)
-                    {
-                        continue;
-                    }
-                    
-                    _expiredChunks.Add(c);
-                }
-            }
+            _expiredChunks.Add(chunk);
         }
 
         public bool CheckClimbable(Vector3 position)
@@ -157,10 +117,7 @@ namespace Worlds
             var coords = ComputeCoords(position);
             var brick = _world.GetBrick(coords.x, coords.y, out _);
 
-            var ladderPos = ufoLadder.WorldToCell(new Vector3(position.x, position.y - 1f));
-            var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
-
-            return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
+            return brick?.wall is not null && brick.wall.isClimbable;
         }
     }
 }

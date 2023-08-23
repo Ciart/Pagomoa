@@ -8,18 +8,16 @@ using Random = UnityEngine.Random;
 
 namespace Worlds
 {
-    using WeightedPieces = List<(float, Piece)>;
-
     [RequireComponent(typeof(WorldManager))]
     public class WorldGenerator : MonoBehaviour
     {
         public WorldDatabase database;
 
-        public int chunkSize = 32;
+        public int chunkSize = 16;
 
         public int top = 4;
 
-        public int bottom = 32;
+        public int bottom = 16;
 
         public int left = 4;
 
@@ -29,36 +27,42 @@ namespace Worlds
 
         public Ground ground;
 
+
         private WorldManager _worldManager;
+
+        private List<(float, Piece)> _weightedPieces;
 
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
+            if (DataManager.Instance.data.worldData == null)
+                Generate();
+            else
+                LoadWorld(DataManager.Instance.data.worldData);
         }
-
-        private WeightedPieces Preload(IEnumerable<Piece> pieces)
+        private void Preload()
         {
-            var weightCount = pieces.Sum(piece => piece.weight);
+            var pieces = database.pieces;
 
-            var weightedPieces = new WeightedPieces();
+            float weightCount = pieces.Sum(piece => piece.weight);
+
+            _weightedPieces = new List<(float, Piece)>();
 
             foreach (var piece in pieces)
             {
-                weightedPieces.Add((piece.weight / weightCount, piece));
+                _weightedPieces.Add((piece.weight / weightCount, piece));
             }
 
-            weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
-
-            return weightedPieces;
+            _weightedPieces.Sort((a, b) => a.Item1.CompareTo(b.Item1));
         }
 
-        private Piece GetRandomPiece(WeightedPieces weightedPieces)
+        private Piece GetRandomPiece()
         {
             var pivot = Random.value;
 
             var count = 0f;
 
-            foreach (var (weight, piece) in weightedPieces)
+            foreach (var (weight, piece) in _weightedPieces)
             {
                 count += weight;
 
@@ -68,15 +72,12 @@ namespace Worlds
                 }
             }
 
-            return weightedPieces.Last().Item2;
+            return _weightedPieces.Last().Item2;
         }
 
         public void Generate()
         {
-            var desertPieces =
-                Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Desert)));
-            var forestPieces =
-                Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Forest)));
+            Preload();
 
             var world = new World(chunkSize, top, bottom, left, right);
 
@@ -84,9 +85,6 @@ namespace Worlds
             var worldRight = right * chunkSize;
             var worldBottom = -bottom * chunkSize;
             var worldTop = top * chunkSize;
-
-            var sand = database.GetGround("Sand");
-            var grass = database.GetGround("Grass");
 
             for (var x = worldLeft; x < worldRight; x++)
             {
@@ -97,20 +95,13 @@ namespace Worlds
                         continue;
                     }
 
-
-                    var worldBrick = world.GetBrick(x, y, out _);
-
-                    if (worldBrick is not null)
                     {
-                        worldBrick.wall = wall;
+                        var worldBrick = world.GetBrick(x, y, out _);
 
-                        if (y > -50)
+                        if (worldBrick is not null)
                         {
-                            worldBrick.ground = sand;
-                        }
-                        else
-                        {
-                            worldBrick.ground = grass;
+                            worldBrick.wall = wall;
+                            worldBrick.ground = ground;
                         }
                     }
                 }
@@ -125,26 +116,17 @@ namespace Worlds
                         continue;
                     }
 
-                    Piece piece;
-
-                    if (y > -50)
-                    {
-                        piece = GetRandomPiece(desertPieces);
-                    }
-                    else
-                    {
-                        piece = GetRandomPiece(forestPieces);
-                    }
-
+                    var piece = GetRandomPiece();
                     GeneratePiece(piece, world, x, y);
                 }
             }
 
             _worldManager.world = world;
         }
-
         public void LoadWorld(WorldData worldData)
         {
+            Preload();
+
             var world = new World(worldData);
 
             var worldLeft = -worldData.left * chunkSize;
@@ -160,7 +142,6 @@ namespace Worlds
                     {
                         continue;
                     }
-
                     {
                         var worldBrick = world.GetBrick(x, y, out _);
                         if (worldBrick is not null)
@@ -173,10 +154,8 @@ namespace Worlds
                     }
                 }
             }
-
             _worldManager.world = world;
         }
-
         private void GeneratePiece(Piece piece, World world, int worldX, int worldY)
         {
             for (var x = 0; x < piece.width; x++)

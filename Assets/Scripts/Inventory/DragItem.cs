@@ -15,7 +15,9 @@ public class DragItem : MonoBehaviour
     public void DragSetImage(Sprite image)
     {
         gameObject.GetComponent<Image>().sprite = image;
-        SetColor(230);
+        Debug.Log("호출되니");
+        HoverEvent.Instance.hoverRenderer.SetActive(false);
+        //SetColor(1);
     }    
     public void SetColor(float a)
     {

@@ -10,9 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
-    public GameObject InventoryUI;
-    bool ActiveInventory = false;
+    [SerializeField] public GameObject InventoryUI;
+    [SerializeField] public GameObject EscUI;
 
+    bool ActiveInventory = false;
     private void Awake()
     {
         GameObject player = GameObject.Find("Player");
@@ -23,9 +24,15 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        SetInventoryUI();
-        ControlQuickSlot();
-        UseQuickSlot();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ActiveInventory = !ActiveInventory;
+            InventoryUI.SetActive(ActiveInventory);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetEscUI();
+        }
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
     {
@@ -49,65 +56,11 @@ public class UIManager : MonoBehaviour
         digbar.fillAmount = holdtime / digtime;
         digbar.enabled = true;
     }
-    private void SetInventoryUI()
+    public void SetEscUI()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ActiveInventory = !ActiveInventory;
-            InventoryUI.SetActive(ActiveInventory);
-        }
-    }
-    private void ControlQuickSlot()
-    {
-        int i = -1;
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            i = 0;
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            i = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            i = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            i = 3;
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-            i = 4;
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-            i = 5;
-        if (i == -1) return;
-
-        for (int j = 0; j < QuickSlotItemDB.instance.quickSlots.Count; j++)
-        {
-            if (i == j)
-            {
-                QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(true);
-                if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[j])
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[j];
-                else
-                    QuickSlotItemDB.instance.selectedSlot.UseItem();
-            }
-            else
-                QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(false);
-        }
-    }
-    private void UseQuickSlot()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
-            {
-                QuickSlotItemDB.instance.selectedSlot.inventoryItem.count -= 1;
-                QuickSlotItemDB.instance.selectedSlot.SetItemCount();
-                QuickSlotItemDB.instance.selectedSlot.UseItem();
-
-                if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.count == 0)
-                {
-                    InventoryDB.Instance.items.Remove(QuickSlotItemDB.instance.selectedSlot.inventoryItem);
-                    QuickSlotItemDB.instance.selectedSlot.SetSlotNull();
-                }
-                QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
-            }
-            else
-                return;
-        }
+        bool activeEscUI = false;
+        if (EscUI.activeSelf == false)
+            activeEscUI = !activeEscUI;
+        EscUI.SetActive(activeEscUI);
     }
 }
-

@@ -5,24 +5,9 @@ using UnityEngine.Serialization;
 
 namespace Worlds
 {
-    [Flags]
-    public enum WorldAreaFlag
-    {
-        None = 0,
-        Desert = 1 << 0,
-        Forest = 1 << 1,
-        All = ~0
-    }
-
     [Serializable]
     public class Piece
     {
-        public string name = "New Piece";
-        
-        public WorldAreaFlag appearanceArea = WorldAreaFlag.Desert;
-
-        public string[] tags;
-
         public int width = 2;
 
         public int height = 2;
