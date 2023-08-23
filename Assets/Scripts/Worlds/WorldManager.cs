@@ -8,6 +8,8 @@ namespace Worlds
 {
     public class WorldManager : MonoBehaviour
     {
+        public WorldDatabase database;
+        
         public MineralEntity mineralEntity;
 
         public Tilemap ufoLadder;
@@ -98,12 +100,14 @@ namespace Worlds
         public void BreakGround(int x, int y, int tier, string item)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
+            var rock = database.GetMineral("Rock");
+            
             if (item == "item") 
             {
                 if(chunk is null)
                     return;
 
-                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
+                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral == rock)
                 {
                     var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
                     entity.Data = brick.mineral;
@@ -111,7 +115,7 @@ namespace Worlds
             }
             else
             {
-                if (chunk is null || brick.mineral?.displayName == "돌")
+                if (chunk is null || brick.mineral == rock)
                     return;
 
                 if (brick.mineral is not null && brick.mineral.tier <= tier)

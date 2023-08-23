@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5eeedc2bee26c4494251b3545ba5a4, type: 3}
-  m_Name: IronItem
+  m_Name: QuartzItem
   m_EditorClassIdentifier: 
-  itemName: "\uCCA0"
+  itemName: "\uC11D\uC601"
   itemType: 2
-  itemImage: {fileID: 784374654, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
-  itemInfo: "\uCCA0\uCCA0 \uD750\uB974\uB294 \uCCA0"
+  itemImage: {fileID: 957851146, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
+  itemInfo: "\uC870\uAE08 \uADC0\uD558\uB2E4."
   itemPrice: 0

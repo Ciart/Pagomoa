@@ -18,9 +18,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
   - {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
   minerals:
-  - {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-  - {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
   - {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+  - {fileID: 11400000, guid: 54a8507bb099048be8fc4d7053512234, type: 2}
+  - {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+  - {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+  - {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
   pieces:
   - name: "\uC2ED\uC790"
     appearanceArea: 1
@@ -91,6 +93,108 @@ MonoBehaviour:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+  - name: "\uAD6C\uB9AC2"
+    appearanceArea: 1
+    tags: []
+    width: 6
+    height: 2
+    pivot: {x: 2, y: 0}
+    weight: 1
+    prefabs: []
+    _bricks:
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+  - name: "\uC11D\uC601"
+    appearanceArea: 1
+    tags: []
+    width: 4
+    height: 4
+    pivot: {x: 1, y: 1}
+    weight: 0.1
+    prefabs: []
+    _bricks:
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
   - name: "\uCCA0"
     appearanceArea: 2
     tags: []
@@ -136,51 +240,6 @@ MonoBehaviour:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-  - name: "\uD63C\uD569"
-    appearanceArea: 1
-    tags: []
-    width: 6
-    height: 2
-    pivot: {x: 2, y: 0}
-    weight: 1
-    prefabs: []
-    _bricks:
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
   - name: "\uBAAC\uC2A4\uD130 \uD14C\uC2A4\uD2B8"
     appearanceArea: 1
     tags: []
@@ -189,67 +248,52 @@ MonoBehaviour:
     pivot: {x: 3, y: 4}
     weight: 0.1
     prefabs:
-    - x: 0
-      y: 0
+    - x: 1.5
+      y: 4
+      prefab: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
+    - x: 3.5
+      y: 4
       prefab: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 0}
-      mineral: {fileID: 0}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 0}
-      mineral: {fileID: 0}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 0}
-      mineral: {fileID: 0}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 0}
       mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 0}
       mineral: {fileID: 0}
@@ -264,12 +308,9 @@ MonoBehaviour:
       mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 0}
       mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 0}
@@ -281,30 +322,54 @@ MonoBehaviour:
       ground: {fileID: 0}
       mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 0}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-  - width: 4
-    height: 4
-    pivot: {x: 1, y: 1}
-    weight: 3
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+  - name: "\uBC14\uC704"
+    appearanceArea: 1
+    tags: []
+    width: 6
+    height: 2
+    pivot: {x: 3, y: 0}
+    weight: 1
     prefabs: []
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
@@ -343,6 +408,19 @@ MonoBehaviour:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+  - name: "\uD30C\uC6CC\uC82C - \uB300\uC9C0"
+    appearanceArea: 0
+    tags:
+    - PowerGemEarth
+    width: 7
+    height: 5
+    pivot: {x: 3, y: 2}
+    weight: 1
+    prefabs: []
+    _bricks:
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
@@ -355,4 +433,94 @@ MonoBehaviour:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: 54a8507bb099048be8fc4d7053512234, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
+    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+      mineral: {fileID: 0}
   selectIndex: 6

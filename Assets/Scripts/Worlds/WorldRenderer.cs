@@ -25,7 +25,7 @@ namespace Worlds
 
         public SpriteRenderer minimapRenderer;
 
-        [Range(1, 16)] public int renderChunkRange = 2;
+        [Range(1, 256)] public int renderChunkRange = 2;
 
         private WorldManager _worldManager;
 
