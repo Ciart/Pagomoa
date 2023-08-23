@@ -25,12 +25,17 @@ public class EtcInventory : MonoBehaviour
             return instance;
         }
     }
+    private void Awake()
+    {
+        UpdateSlot();
+    }
     public void MakeSlot() // slotDatas °¹¼ö¸¸Å­ ½½·Ô ¸¸µé±â
     {
         for (int i = 0; i < count; i++)
         {
             GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
             slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+            slotDatas[i].id = i;
             SpawnedSlot.SetActive(true);
         }
     }

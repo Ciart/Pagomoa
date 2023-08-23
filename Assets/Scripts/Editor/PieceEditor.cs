@@ -14,7 +14,7 @@ namespace Editor
             "Wall", "Ground", "Mineral", "Pivot"
         };
 
-        private int _tabIndex;
+        private int _tabIndex = 1;
 
         private WorldDatabase _database;
 
@@ -23,7 +23,7 @@ namespace Editor
         private int _height = 2;
 
         private int _selectWall;
-        
+
         private int _selectGround;
 
         private int _selectMineral;
@@ -66,9 +66,14 @@ namespace Editor
 
             var piece = _database.pieces[_database.selectIndex];
 
+            _database.selectIndex =
+                EditorGUILayout.Popup(_database.selectIndex, _database.pieces.Select(piece => piece.name).ToArray());
+
+            piece.appearanceArea = (WorldAreaFlag)EditorGUILayout.EnumFlagsField(piece.appearanceArea);
+
             EditorGUILayout.BeginHorizontal();
-            _width = Math.Clamp(EditorGUILayout.IntField("Width", _width), 1, 10);
-            _height = Math.Clamp(EditorGUILayout.IntField("Height", _height), 1, 10);
+            _width = Math.Clamp(EditorGUILayout.IntField("Width", _width), 1, 16);
+            _height = Math.Clamp(EditorGUILayout.IntField("Height", _height), 1, 16);
 
             if (GUILayout.Button("Resize"))
             {
@@ -155,7 +160,8 @@ namespace Editor
                         var mineral = brick.mineral;
                         if (mineral)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture, ComputeTexCoords(mineral.sprite));
+                            GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture,
+                                ComputeTexCoords(mineral.sprite));
                         }
                     }
                 }

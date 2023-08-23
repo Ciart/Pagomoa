@@ -38,7 +38,6 @@ namespace Player
             if (drillLevel < drillSpeed.Length)
             {
                 GetComponent<PlayerController>()._initialStatus.digSpeed = drillSpeed[drillLevel];
-                GetComponent<Equip>().CalEquipvalue();
             }
             if(drillLevel < drillTierSetting.Length)
                 drillTier = drillTierSetting[drillLevel];
@@ -111,15 +110,17 @@ namespace Player
                 }
                 if (time1 <= _charging)
                 {
-                    worldManager.BreakGround(point1.x, point1.y, drillTier);
-                    _status.hungry -= 5;
-                    _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
+                    if (!GetComponent<PlayerController>().Hungry(0.5f))
+                    {
+                        worldManager.BreakGround(point1.x, point1.y, drillTier, "drill");
+                    }
                 }
                 if (time2 <= _charging)
                 {
-                    worldManager.BreakGround(point2.x, point2.y,  drillTier);
-                    _status.hungry -= 5;
-                    _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
+                    if (!GetComponent<PlayerController>().Hungry(0.5f))
+                    {
+                        worldManager.BreakGround(point2.x, point2.y,  drillTier, "drill");
+                    }
                 }
             }
             ICanDig();
