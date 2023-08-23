@@ -177,7 +177,7 @@ namespace Player
         
         private void Update()
         {
-            UpdateOxygen();
+            // UpdateOxygen();
         }
 
         public Status copy()
