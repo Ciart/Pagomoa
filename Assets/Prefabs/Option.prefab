@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 1818413767910757281}
   - component: {fileID: 1217800382489898329}
   - component: {fileID: 1786519081263000970}
-  - component: {fileID: 831595210979648141}
+  - component: {fileID: 8129113428768058016}
   m_Layer: 5
   m_Name: Option
   m_TagString: Untagged
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &831595210979648141
+--- !u!114 &8129113428768058016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3954168294696135225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c55379ec07b5f48b9c1f05f4e30370, type: 3}
+  m_Script: {fileID: 11500000, guid: fa67eefe779226641bd202caf92e6680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4049489996365061186
@@ -1493,7 +1493,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 831595210979648141}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Option, Assembly-CSharp
         m_MethodName: SetOption
         m_Mode: 1
