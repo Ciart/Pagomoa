@@ -5,12 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/InherentItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/InherentItem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/ItemInherentEffect.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/ItemInherentEffect.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/UFORemoteInherentEffect.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/UFORemoteInherentEffect.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Item/UFORemote.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Item/UFORemote.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Item/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Item/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Item/Inherent/UFORemote.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Item/Inherent/UFORemote.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UFOBaseScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/AutoChat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/AutoChat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/ChatBalloon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/ChatBalloon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/DialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Item/InherentItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Item/InherentItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UFO/UFOInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Worlds/WorldManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Maplestory Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Maplestory Bold SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +30,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Collect.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/TutorialChat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.State.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInput.cs" root0="FORCE_HIGHLIGHTING" />
@@ -175,6 +184,7 @@
       <workItem from="1692615539808" duration="3122000" />
       <workItem from="1692765554196" duration="2791000" />
       <workItem from="1692796320886" duration="3517000" />
+      <workItem from="1692865691504" duration="15198000" />
     </task>
     <servers />
   </component>

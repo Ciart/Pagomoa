@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "UFO\uB9AC\uBAA8\uCEE8"
   itemType: 3
-  itemImage: {fileID: 21300000, guid: 17be191f54120494396074f3449cae9b, type: 3}
+  itemImage: {fileID: 21300000, guid: 5c0d689eb05199344aabd73432a89b6a, type: 3}
   itemInfo: "\uC804\uC9C4\uAE30\uC9C0\uC778 UFO\uB97C \uBD80\uB97C \uC218 \uC788\uB2E4."
   itemPrice: 0
+  inherentEffects: []
