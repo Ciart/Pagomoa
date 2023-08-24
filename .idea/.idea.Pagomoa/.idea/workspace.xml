@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="" />
+    <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/InherentItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Item/InherentItem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Item/UFORemote.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Item/UFORemote.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Item/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Item/Item.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -167,6 +174,7 @@
       <workItem from="1691390219008" duration="8032000" />
       <workItem from="1692615539808" duration="3122000" />
       <workItem from="1692765554196" duration="2791000" />
+      <workItem from="1692796320886" duration="3517000" />
     </task>
     <servers />
   </component>

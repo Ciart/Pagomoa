@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ca6b5383347784e8213eb5fb1a80e0, type: 3}
+  m_Script: {fileID: 11500000, guid: f6062136e2e145a3b5fddbb4d0e12802, type: 3}
   m_Name: UFORemote
   m_EditorClassIdentifier: 
   itemName: "UFO\uB9AC\uBAA8\uCEE8"
-  itemType: 0
-  itemImage: {fileID: 21300000, guid: 18c621e3e809c5c4d95a3e3f365e0b16, type: 3}
-  itemInfo: "\uAC70\uB300\uD55C \uB4DC\uB9B4\uC744 \uBD88\uB7EC\uC635\uB2C8\uB2E4."
+  itemType: 3
+  itemImage: {fileID: 21300000, guid: 17be191f54120494396074f3449cae9b, type: 3}
+  itemInfo: "\uC804\uC9C4\uAE30\uC9C0\uC778 UFO\uB97C \uBD80\uB97C \uC218 \uC788\uB2E4."
   itemPrice: 0
