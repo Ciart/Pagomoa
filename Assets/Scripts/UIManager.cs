@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviour
     }
     private void UseQuickSlot()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        /*if(Input.GetKeyDown(KeyCode.E))
         {
             if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
             {
@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour
             }
             else
                 return;
-        }
+        }*/
     }
 }
 
