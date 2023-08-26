@@ -29,7 +29,7 @@ public class TutorialChat : Chat
     {
         if (startingChat.Count == 0 || annoyingChat.Count == 0)
             yield break;
-
+        
         if (_loopCount < 3)
             _loopCount = StartingChat();
         else if (_loopCount < 5)
@@ -69,10 +69,13 @@ public class TutorialChat : Chat
         Chatting(startingChat[_chatIndex]);
         
         _chatIndex++;
+        if (_chatIndex == 3)
+            _loopCount += 1;
+        
         if (_chatIndex >= startingChat.Count)
             _chatIndex = 0;
         
-        return _loopCount + 1;    
+        return _loopCount;
     }
     
     private int AnnoyingChat()
@@ -80,10 +83,13 @@ public class TutorialChat : Chat
         Chatting(annoyingChat[_chatIndex]);
         
         _chatIndex++;
+        if (_chatIndex == 3)
+            _loopCount += 1;
+        
         if (_chatIndex >= annoyingChat.Count)
             _chatIndex = 0;
         
-        return _loopCount + 1;    
+        return _loopCount;  
     }
 
     private void LastRepeatingChat()

@@ -19,6 +19,7 @@ public class Collect : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        CollectInherentItem(collision);
         if (!collision.gameObject.GetComponent<MineralEntity>()) return;
         Mineral mineral = collision.gameObject.GetComponent<MineralEntity>().data;
 
@@ -26,5 +27,16 @@ public class Collect : MonoBehaviour
         OnCollectEvent.Invoke();
         inventoryDB.Add(mineral.item);
         Destroy(collision.gameObject);
+    }
+
+    private void CollectInherentItem(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<UFORemoteControl>())
+        {
+            InherentItem inherentItem = collision.gameObject.GetComponent<UFORemoteControl>().inherentItem;
+            OnCollectEvent.Invoke();
+            inventoryDB.Add(inherentItem);
+            Destroy(collision.gameObject);
+        }
     }
 }

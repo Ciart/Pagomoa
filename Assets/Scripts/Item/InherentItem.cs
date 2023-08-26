@@ -10,7 +10,7 @@ using UnityEngine;
 public class InherentItem : Item
 {
     public List<ItemInherentEffect> inherentEffects;
-    
+
     public override void Active(Status stat)
     {
         Use(stat);
