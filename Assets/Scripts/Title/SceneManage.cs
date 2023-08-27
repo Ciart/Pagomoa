@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneManage : MonoBehaviour
 {
+   
+   
     public void StartScene()
     {
-        SceneManager.LoadScene("Scenes/ItemTypeSample");
+        SceneManager.LoadScene("Scenes/Item");
     }
     public void EndGame()
     {
         Application.Quit();
     }
+    
 }

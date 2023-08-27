@@ -12,7 +12,11 @@ public class EscUI : MonoBehaviour
         if(optionUI.activeSelf == false)
             activeOption = !activeOption;
         optionUI.SetActive(activeOption);
-        transform.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+       
+        OptionDB.instance.audioValue = Option.instance.audio.audioSlider.value;
+        OptionDB.instance.scale = (int)Option.instance.canvas.scaleFactor;
+        Debug.Log((int)Option.instance.canvas.scaleFactor);
     }
     public void EndGame()
     {
