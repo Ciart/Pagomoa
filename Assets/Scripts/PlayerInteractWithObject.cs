@@ -19,6 +19,7 @@ public class PlayerInteractWithObject : MonoBehaviour
     {
         _interactableObjectList = new List<InteractableObject>();
     }
+
     void FixedUpdate()
     {
         InputEventKey();
@@ -72,7 +73,7 @@ public class PlayerInteractWithObject : MonoBehaviour
     
     private void InputEventKey()
     {
-        if (Input.GetKey(eventKey))
+        if (Input.GetKeyDown(eventKey))
         {
             getKey = true;
         }

@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Player;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
-    public GameObject InventoryUI;
-    bool ActiveInventory = false;
+    [SerializeField] public GameObject InventoryUI;
+    [SerializeField] public GameObject EscUI;
 
+    bool ActiveInventory = false;
     private void Awake()
     {
         GameObject player = GameObject.Find("Player");
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SetInventoryUI();
+        SetEscUI();
         ControlQuickSlot();
         UseQuickSlot();
     }
@@ -55,6 +58,16 @@ public class UIManager : MonoBehaviour
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
+        }
+    }
+    public void SetEscUI()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            bool activeEscUI = false;
+            if (EscUI.activeSelf == false)
+                activeEscUI = !activeEscUI;
+            EscUI.SetActive(activeEscUI);
         }
     }
     private void ControlQuickSlot()
@@ -90,7 +103,7 @@ public class UIManager : MonoBehaviour
     }
     private void UseQuickSlot()
     {
-        /*if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
             {
