@@ -15,31 +15,35 @@ public class SetAudio : MonoBehaviour
     private void Start()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
             Destroy(this.gameObject);
         LoadAudioOption();
     }
     public void AudioControl()
     {
+        Debug.Log("호출되니?");
         float sound = audioSlider.value;
 
         if (sound == -40f)
-            audioMixer.SetFloat("MyExposedParam", -80);
+            audioMixer.SetFloat("BGM", -80);
         else
-            audioMixer.SetFloat("MyExposedParam", sound);
+            audioMixer.SetFloat("BGM", sound);
     }
     public void LoadAudioOption()
     {
         float sound = OptionDB.instance.audioValue;
         if (sound == -40f)
         {
-            audioMixer.SetFloat("MyExposedParam", -80);
+            audioMixer.SetFloat("BGM", -80);
             audioSlider.value = sound;
         }
         else
         {
-            audioMixer.SetFloat("MyExposedParam", sound);
+            audioMixer.SetFloat("BGM", sound);
             audioSlider.value = sound;
         }
     }

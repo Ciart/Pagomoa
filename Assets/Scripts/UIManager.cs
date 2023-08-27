@@ -58,6 +58,8 @@ public class UIManager : MonoBehaviour
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
+            if(InventoryUI.activeSelf == false)
+                HoverEvent.Instance.image.SetActive(ActiveInventory);
         }
     }
     public void SetEscUI()
@@ -120,7 +122,7 @@ public class UIManager : MonoBehaviour
             }
             else
                 return;
-        }*/
+        }
     }
 }
 

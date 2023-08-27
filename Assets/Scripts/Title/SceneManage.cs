@@ -9,7 +9,7 @@ public class SceneManage : MonoBehaviour
    
     public void StartScene()
     {
-        SceneManager.LoadScene("Scenes/Item");
+        SceneManager.LoadScene("Scenes/WorldScene");
     }
     public void EndGame()
     {
