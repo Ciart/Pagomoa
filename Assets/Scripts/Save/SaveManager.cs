@@ -40,14 +40,20 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("NPC");
 
         FreezePosition();
-        Invoke("LoadPosition", 1.5f);
+        if (GameManager.instance.isLoadSave)
+            Invoke("LoadPosition", 1.5f);
+        else
+            Invoke("TagPosition", 1.5f);
     }
     void AddManagingTargetWithTag(string tagName)
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(tagName);
         if (targets.Length == 0) return;
         foreach (GameObject target in targets)
-            ManagingTargets.Add(target);
+        {
+            if(target.activeSelf)
+                ManagingTargets.Add(target);
+        }
     }
     private void FreezePosition()
     {

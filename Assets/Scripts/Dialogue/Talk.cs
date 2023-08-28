@@ -12,13 +12,12 @@ namespace Player
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, talkableDistance);
                 GameObject TalkableNPC = null;
 
                 float distance = talkableDistance;
-                // distance �Ÿ� �̳��� ���� ����� NPC����
                 foreach (Collider2D collider in colliders)
                 {
                     if (collider.GetComponent<NPC>())
@@ -32,13 +31,8 @@ namespace Player
                         }
                     }
                 }
-
                 if (TalkableNPC)
                     TalkableNPC.GetComponent<NPC>().Talking();
-            }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                DialogueManager.Instance.ConversationProgress(2);
             }
         }
     }
