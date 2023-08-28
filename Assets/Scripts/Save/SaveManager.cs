@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Worlds;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -26,6 +27,8 @@ public class SaveManager : MonoBehaviour
     List<GameObject> ManagingTargets = new List<GameObject>();
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "Title") return ;
+
         if (!container)
         {
             container = gameObject;
@@ -122,6 +125,12 @@ public class SaveManager : MonoBehaviour
         }
         DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
     }
+
+    public void WriteIntroData(bool arg)
+    {
+        DataManager.Instance.data.introData.isFirstStart = arg;
+    }
+
     private void OnApplicationQuit()
     {
         WritePosData();

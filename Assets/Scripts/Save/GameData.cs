@@ -9,7 +9,15 @@ public class GameData
 {
     public WorldData worldData;
     public PositionData posData;
+    public IntroData introData;
 }
+
+[System.Serializable]
+public class IntroData
+{
+    public bool isFirstStart;
+} 
+
 [System.Serializable]
 public class PositionData
 {
@@ -50,7 +58,7 @@ public class WorldData
 
 
 
-// ÀÚ·á±¸Á¶
+// ï¿½Ú·á±¸ï¿½ï¿½
 
 [System.Serializable]
 public class DataDictionary<TKey, TValue>
