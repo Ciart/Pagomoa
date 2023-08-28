@@ -14,14 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   talkerName:
-  - "\uB18D"
+  - 
   - "\uB18D"
   - "\uD50C\uB808\uC774\uC5B4"
+  - "\uB18D"
+  - "\uD50C\uB808\uC774\uC5B4"
+  - "\uB18D"
+  - "\uB18D"
   talk:
-  - "\uC0C8\uB86D\uAC8C \uBC14\uAFBC \uAC83 \uC5B4\uB54C?"
-  - "\uB9C8\uC74C\uC5D0 \uC880 \uB4E4\uAE4C?"
-  - "\uC751!"
+  - "(\uD22D)"
+  - "\uC774\uBD10, \uBD80\uB52A\uD614\uC796\uC544"
+  - "\uC751 \uADF8\uB7F0\uB370?"
+  - "\uC0AC\uACFC \uC548 \uD574?"
+  - "\uB0B4\uAC00 .. \uC65C?"
+  - "\uD6C4... \uC694\uC998 \uC560\uB4E4\uC774\uB780"
+  - ...
   sprite:
-  - {fileID: 2106509457, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
   - {fileID: 824159298, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: 21300000, guid: 94e19fad18ab34771a850cd0da68ed7e, type: 3}
+  - {fileID: 602315920, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
+  - {fileID: -1322854971, guid: c365d9d58b21b3141b492a32c0c4b427, type: 3}
+  - {fileID: 1904228112, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
+  - {fileID: -2059471926, guid: c365d9d58b21b3141b492a32c0c4b427, type: 3}
+  - {fileID: 1893801655, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
+  - {fileID: -520062999, guid: bf913eb41ab14f34e98193b512282a92, type: 3}

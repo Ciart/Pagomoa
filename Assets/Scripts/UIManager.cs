@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     {
         GameObject player = GameObject.Find("Player");
         player.GetComponent<PlayerDigger>().DiggingEvent.AddListener(SetDigGage);
+        player.GetComponent<PlayerDigger>().digEndEvent.AddListener(SetDigGagefalse);
         player.GetComponent<Status>().oxygenAlter.AddListener(UpdateOxygenBar);
         player.GetComponent<Status>().hungryAlter.AddListener(UpdateHungryBar);
         InventoryUI.SetActive(ActiveInventory);
@@ -45,12 +46,12 @@ public class UIManager : MonoBehaviour
     // }
     public void SetDigGagefalse()
     {
-        digbar.enabled = false;
+        digbar.transform.parent.gameObject.SetActive(false);
     }
     public void SetDigGage(float holdtime, float digtime)
     {
         digbar.fillAmount = holdtime / digtime;
-        digbar.enabled = true;
+        digbar.transform.parent.gameObject.SetActive(true);
     }
     private void SetInventoryUI()
     {
