@@ -3430,7 +3430,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.375
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5424,6 +5424,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708058873}
   m_CullTransparentMesh: 1
+--- !u!1 &717611844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717611846}
+  - component: {fileID: 717611845}
+  m_Layer: 0
+  m_Name: CloverMouse_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &717611845
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717611844}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -876546973899608171, guid: 5e53e59a8194340f89619cd8641c4efa, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1487408135, guid: 033516d40302b7943b29d2e1148f4f5b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &717611846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717611844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.391445, y: 3.5025632, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &731648115
 GameObject:
   m_ObjectHideFlags: 0
@@ -6465,6 +6549,7 @@ MonoBehaviour:
   talkText: {fileID: 1187393284}
   nameText: {fileID: 389128761}
   NowScenario: {fileID: 0}
+  director: {fileID: 0}
 --- !u!4 &891737557
 Transform:
   m_ObjectHideFlags: 0
@@ -7383,7 +7468,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: 5e53e59a8194340f89619cd8641c4efa, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8341,13 +8426,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 0}
   equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
   image: {fileID: 533927705}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &1133811849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8572,6 +8657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
+  ufoLadder: {fileID: 0}
 --- !u!4 &1135593059
 Transform:
   m_ObjectHideFlags: 0
@@ -8911,13 +8997,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 0}
   equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1670804093}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &1148319609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10546,7 +10632,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -472292411
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -21071,13 +21157,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 0}
   equipUI: {fileID: 0}
   sellCountUI: {fileID: 1838589107}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1344439685}
   text: {fileID: 768960879}
+  id: 0
 --- !u!114 &1433615048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21709,13 +21795,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 0}
   equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
   image: {fileID: 834161211}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &1541468035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23540,13 +23626,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 0}
   equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 453495704}
   buyNoCountUI: {fileID: 1361174681}
   image: {fileID: 2075196491}
   text: {fileID: 193958849}
+  id: 0
 --- !u!114 &1770965019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23839,13 +23925,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 0}
   equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
   image: {fileID: 564146270}
   text: {fileID: 0}
+  id: 0
 --- !u!114 &1816752425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24137,7 +24223,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.875, y: 1.6875}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 0.9375, y: 0.84375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -24182,7 +24268,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.875, y: 1.6875}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 0.9375, y: 0.84375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -24637,6 +24723,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913174682}
   m_CullTransparentMesh: 1
+--- !u!1 &1914918180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1914918182}
+  - component: {fileID: 1914918181}
+  m_Layer: 0
+  m_Name: CloverMouse_0 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1914918181
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914918180}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a93c988d97cf444e852fb7be906e019, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1487408135, guid: 033516d40302b7943b29d2e1148f4f5b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1914918182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914918180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.98, y: 3.5025632, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930538163
 GameObject:
   m_ObjectHideFlags: 0
@@ -25995,7 +26165,7 @@ Transform:
   m_GameObject: {fileID: 2143556634}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34468,13 +34638,13 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  dragItem: {fileID: 1715222737}
   equipUI: {fileID: 37552626}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
   image: {fileID: 1036851806}
   text: {fileID: 1364684914}
+  id: 0
 --- !u!224 &2145289201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35157,3 +35327,5 @@ SceneRoots:
   - {fileID: 7869840356993167239}
   - {fileID: 2380287356156771475}
   - {fileID: 677367476}
+  - {fileID: 717611846}
+  - {fileID: 1914918182}
