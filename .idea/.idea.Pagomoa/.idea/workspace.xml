@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/IntroEnd.signal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/IntroEnd.signal.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EscUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EscUI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/IntroScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/IntroScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Title.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Title.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/DialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Save/GameData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Save/GameData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Save/SaveManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Save/SaveManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Title/SceneManage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Title/SceneManage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Maplestory Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Maplestory Bold SDF.asset" afterDir="false" />
-    </list>
+    <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -181,7 +168,7 @@
       <workItem from="1692855043456" duration="4893000" />
       <workItem from="1693201048141" duration="2007000" />
       <workItem from="1693219347500" duration="2608000" />
-      <workItem from="1693222485732" duration="3758000" />
+      <workItem from="1693222485732" duration="4346000" />
     </task>
     <servers />
   </component>
