@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EtcInventory : MonoBehaviour
 {
-    [SerializeField] private InventoryDB inventoryDB;
+    //[SerializeField] private InventoryDB inventoryDB;
     [SerializeField] public Slot choiceSlot;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
@@ -42,9 +42,10 @@ public class EtcInventory : MonoBehaviour
     public void ResetSlot() // 각각 슬롯에 item 할당
     {
         int i = 0;
-        for(; i < inventoryDB.items.Count && i < slotDatas.Count; i++)
+
+        for (; i < InventoryDB.Instance.items.Count && i < slotDatas.Count; i++)
         {
-            slotDatas[i].inventoryItem = inventoryDB.items[i];
+            slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
         }
         for(; i< slotDatas.Count; i++)
         {
@@ -55,20 +56,20 @@ public class EtcInventory : MonoBehaviour
     public void UpdateSlot() // List안의 Item 전체 인벤토리에 출력
     {
         DeleteSlot();
-        for (int i = 0; i < inventoryDB.items.Count; i++)
+        for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
         {
-            string convert = inventoryDB.items[i].count.ToString();
-            if (inventoryDB.items[i].count == 0)
+            string convert = InventoryDB.Instance.items[i].count.ToString();
+            if (InventoryDB.Instance.items[i].count == 0)
             {
                 convert = "";
             }
-            slotDatas[i].SetUI(inventoryDB.items[i].item.itemImage, convert);
+            slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
         }
-        gold.GetComponent<Text>().text = inventoryDB.Gold.ToString();
+        gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
     }
     public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
     {
-        if (inventoryDB.items.Count >= 0 )
+        if (InventoryDB.Instance.items.Count >= 0 )
         {
             for (int i = 0; i < slotDatas.Count; i++)
                 slotDatas[i].SetUI(image, "");

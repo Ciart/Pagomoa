@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
         if (!isLoadSave || DataManager.Instance.data.worldData == null)
         {
-            Debug.Log("worldData Not find, Generate New World");
+            Debug.Log("worldData Not find or No Save Mode, Generate New World");
             _worldGenerator.Generate();
 
         }

@@ -4,19 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Player;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] Image oxygenbar;
     [SerializeField] Image hungrybar;
     [SerializeField] Image digbar;
-    public GameObject InventoryUI;
-    bool ActiveInventory = false;
+    [SerializeField] public GameObject InventoryUI;
+    [SerializeField] public GameObject EscUI;
 
+    bool ActiveInventory = false;
     private void Awake()
     {
         GameObject player = GameObject.Find("Player");
         player.GetComponent<PlayerDigger>().DiggingEvent.AddListener(SetDigGage);
+        player.GetComponent<PlayerDigger>().digEndEvent.AddListener(SetDigGagefalse);
         player.GetComponent<Status>().oxygenAlter.AddListener(UpdateOxygenBar);
         player.GetComponent<Status>().hungryAlter.AddListener(UpdateHungryBar);
         InventoryUI.SetActive(ActiveInventory);
@@ -24,6 +27,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SetInventoryUI();
+        SetEscUI();
         ControlQuickSlot();
         UseQuickSlot();
     }
@@ -42,12 +46,12 @@ public class UIManager : MonoBehaviour
     // }
     public void SetDigGagefalse()
     {
-        digbar.enabled = false;
+        digbar.transform.parent.gameObject.SetActive(false);
     }
     public void SetDigGage(float holdtime, float digtime)
     {
         digbar.fillAmount = holdtime / digtime;
-        digbar.enabled = true;
+        digbar.transform.parent.gameObject.SetActive(true);
     }
     private void SetInventoryUI()
     {
@@ -55,6 +59,18 @@ public class UIManager : MonoBehaviour
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
+            if(InventoryUI.activeSelf == false)
+                HoverEvent.Instance.image.SetActive(ActiveInventory);
+        }
+    }
+    public void SetEscUI()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            bool activeEscUI = false;
+            if (EscUI.activeSelf == false)
+                activeEscUI = !activeEscUI;
+            EscUI.SetActive(activeEscUI);
         }
     }
     private void ControlQuickSlot()
@@ -90,7 +106,7 @@ public class UIManager : MonoBehaviour
     }
     private void UseQuickSlot()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
             {

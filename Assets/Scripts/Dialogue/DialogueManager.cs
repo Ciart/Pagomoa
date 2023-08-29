@@ -17,7 +17,6 @@ public class DialogueManager : MonoBehaviour
     [Space]
     public Dialogue NowScenario;
     int talkIndex;
-    [Space]
 
 
     private static DialogueManager _instance = null;
