@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndQuestion : MonoBehaviour
+public class SetQuestionUI : MonoBehaviour
 {
     public void SetUI()
     {

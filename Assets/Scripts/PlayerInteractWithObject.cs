@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class PlayerInteractWithObject : MonoBehaviour
 {
-    private List<InteractableObject> _interactableObjectList;
+    [SerializeField] private List<InteractableObject> _interactableObjectList;
     private float _closestDistance;
     private InteractableObject _activatedObject;
 
@@ -26,7 +26,9 @@ public class PlayerInteractWithObject : MonoBehaviour
 
         if ( getKey && _activatedObject )
         {
+            Debug.Log("??" + _activatedObject);
             _activatedObject.InteractionEvent.Invoke();
+            Debug.Log("???" + _activatedObject);
         }
 
         foreach ( InteractableObject obj in _interactableObjectList )
