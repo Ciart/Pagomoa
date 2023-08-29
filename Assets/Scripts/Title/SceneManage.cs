@@ -14,8 +14,8 @@ public class SceneManage : MonoBehaviour
         
         if (!isFirstStart)
         {
-            SceneManager.LoadScene("Scenes/WorldScene");
-            //SceneManager.LoadScene("Scenes/IntroScene");
+            //SceneManager.LoadScene("Scenes/WorldScene");
+            SceneManager.LoadScene("Scenes/IntroScene");
             SaveManager.Instance.WriteIntroData(true);
             DataManager.Instance.SaveGameData();
         }
