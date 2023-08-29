@@ -53,6 +53,8 @@ public class Monster : MonoBehaviour
     void Hit(GameObject attacker)
     {
         target = attacker;
+        direction = target.transform.position.x > transform.position.x ? 1 : -1;
+        transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
         ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);

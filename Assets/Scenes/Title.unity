@@ -958,6 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9240768761ec3f74ba49b1b7b0a9d0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFirstStart: 0
 --- !u!1 &744346746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,7 +2771,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 546559664}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
-        m_MethodName: StartScene
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

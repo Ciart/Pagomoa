@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1162845036}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
-        m_MethodName: StartScene
+        m_MethodName: StartIntroScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1030,6 +1030,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa67eefe779226641bd202caf92e6680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
+  dropdown: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!1 &1513678363
 GameObject:
   m_ObjectHideFlags: 0

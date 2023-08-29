@@ -76,14 +76,13 @@ public class Option : MonoBehaviour
     }
     public void SetDropDown(int index)
     {
-        Debug.Log("잘 들어오나");
         canvas.GetComponent<CanvasScaler>().scaleFactor = index + 1;
     }
     public void SoundOptionCancle()
     {
         if (audio != null)
         {
-            audio.audioMixer.SetFloat("MyExposedParam", OptionDB.instance.audioValue);
+            audio.audioMixer.SetFloat("BGM", OptionDB.instance.audioValue);
             audio.audioSlider.value = OptionDB.instance.audioValue;
         }
         OptionDB.instance.scale -= 1;

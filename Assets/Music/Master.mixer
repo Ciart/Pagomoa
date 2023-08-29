@@ -20,7 +20,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Group
+  m_Name: BGM
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 4f3cf6aff709d4f4a95ae8e45fd08f7c
   m_Children: []
@@ -52,7 +52,7 @@ AudioMixerController:
   - guid: f7070f9ba14dcf1478c1bad542a13015
     name: MyExposedParam 1
   - guid: 4cf40fc59f4f4ae43a17df1b36678bd1
-    name: MyExposedParam
+    name: BGM
   m_AudioMixerGroupViews:
   - guids:
     - 0aa7ff2c3612cef41a31f834084ea30c

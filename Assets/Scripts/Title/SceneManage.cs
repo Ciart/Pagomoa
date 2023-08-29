@@ -5,15 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class SceneManage : MonoBehaviour
 {
-   
-   
-    public void StartScene()
+    public bool isFirstStart = false;
+    
+    public void StartGame()
     {
-        SceneManager.LoadScene("Scenes/Item");
+        DataManager.Instance.LoadGameData();
+        isFirstStart = DataManager.Instance.data.introData.isFirstStart;
+        
+        if (!isFirstStart)
+        {
+            SceneManager.LoadScene("Scenes/IntroScene");
+            SaveManager.Instance.WriteIntroData(true);
+            DataManager.Instance.SaveGameData();
+        }
+        else
+        {
+            SceneManager.LoadScene("Scenes/WorldScene");
+        }
     }
     public void EndGame()
     {
         Application.Quit();
     }
-    
+
 }

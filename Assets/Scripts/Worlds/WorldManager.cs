@@ -151,7 +151,27 @@ namespace Worlds
                 }
             }
         }
-
+        public bool CheckBreakable(int x, int y, int tier, string item)
+        {
+            var brick = _world.GetBrick(x, y, out var chunk);
+            if (item == "item")
+            {
+                if (chunk is null) return false;
+                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
+                    return true;
+            }
+            else
+            {
+                if (chunk is null || brick.mineral?.displayName == "돌")
+                {
+                    if(chunk is null) return false;
+                    if(brick.mineral?.displayName == "돌") return false;
+                }
+                if (brick.mineral is not null && brick.mineral.tier <= tier)
+                    return true;
+            }
+            return true;
+        }
         public bool CheckClimbable(Vector3 position)
         {
             var coords = ComputeCoords(position);
