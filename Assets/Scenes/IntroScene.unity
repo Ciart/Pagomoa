@@ -21169,7 +21169,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1734f270d1ca79548ab6ad114660ca1b, type: 2}
     - {fileID: 11400000, guid: b2993eb194d4e0a43aeeefc44e9f80b4, type: 2}
     - {fileID: 11400000, guid: de24c6e7cb3ff774ab9ce6c6f028511d, type: 2}
-    - {fileID: 11400000, guid: 16a2b10ec425f1d4faed95c880fe44e2, type: 2}
     - {fileID: 11400000, guid: b3e6cd5b1d618ab40ac94ec8211fd5a4, type: 2}
     m_Events:
     - m_PersistentCalls:
@@ -21232,20 +21231,6 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1983329825}
           m_TargetAssemblyTypeName: Intro.IntroManager, Assembly-CSharp
-          m_MethodName: Rollback
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1983329825}
-          m_TargetAssemblyTypeName: Intro.IntroManager, Assembly-CSharp
           m_MethodName: IntroEnd
           m_Mode: 1
           m_Arguments:
@@ -21259,7 +21244,7 @@ MonoBehaviour:
         - m_Target: {fileID: 1146647141}
           m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
           m_MethodName: StartGame
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

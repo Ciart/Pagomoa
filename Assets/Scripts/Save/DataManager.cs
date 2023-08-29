@@ -29,7 +29,7 @@ public class DataManager : MonoBehaviour
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
         Debug.Log("load ${Application.persistentDataPath} filedata");
-
+        Debug.Log(filePath);
         if (File.Exists(filePath))
         {
             string FromJsonData = File.ReadAllText(filePath);
@@ -42,7 +42,15 @@ public class DataManager : MonoBehaviour
                 Debug.Log("bug : " + e);
             }
         }
+        
         //Debug.Log(data);
+    }
+    public void DeleteGameData()
+    {
+        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+        if(File.Exists(filePath))
+            File.Delete(filePath);
+        data.worldData = null;
     }
     public void SaveGameData()
     {
