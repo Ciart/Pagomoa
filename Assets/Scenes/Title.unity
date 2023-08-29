@@ -3073,7 +3073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dedf6e3bfe894d4481d251278f55a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 0
+  scale: 1
   audioValue: 0
 --- !u!4 &2064873105
 Transform:

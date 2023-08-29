@@ -96,6 +96,9 @@ public class Slot : MonoBehaviour, IDropHandler
     public void EquipCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
+        if (EtcInventory.Instance.choiceSlot.inventoryItem.item == null)
+            return;
+
         if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
             equipUI.OnUI();
 
