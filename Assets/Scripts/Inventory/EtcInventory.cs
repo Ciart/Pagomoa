@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EtcInventory : MonoBehaviour
 {
-    //[SerializeField] private InventoryDB inventoryDB;
+    [SerializeField] private InventoryDB inventoryDB;
     [SerializeField] public Slot choiceSlot;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;

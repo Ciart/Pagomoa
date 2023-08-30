@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ public class GameData
     public WorldData worldData;
     public PositionData posData;
     public IntroData introData;
+    public ItemData itemData;
+    public OptionData optionData;
 }
 
 [System.Serializable]
@@ -55,7 +58,28 @@ public class WorldData
         _chunks = ListDictionaryConverter.ToList(world.GetAllChunks(), true);
     }
 }
-
+[System.Serializable]
+public class ItemData
+{
+    public List<InventoryItem> items;
+    public int gold;
+    public void SetItemDataFromInventoryDB(InventoryDB inventoryDB)
+    {
+        items = inventoryDB.items;
+        gold = inventoryDB.Gold;
+    }
+}
+[System.Serializable]
+public class OptionData
+{
+    public int scale;
+    public float audioValue;
+    public void SetOptionDataFromOptionDB(OptionDB optionDB)
+    {
+        scale = optionDB.scale;
+        audioValue = optionDB.audioValue;
+    }
+}
 
 
 // �ڷᱸ��

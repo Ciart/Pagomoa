@@ -51,6 +51,8 @@ public class DataManager : MonoBehaviour
         if(File.Exists(filePath))
             File.Delete(filePath);
         data.worldData = null;
+        data.itemData = null;
+        data.posData = null;
     }
     public void SaveGameData()
     {
