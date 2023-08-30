@@ -32,9 +32,9 @@ public class Option : MonoBehaviour
         }
 
         MakeDropDown();
-        FirstOption();
-       
         dropdown.onValueChanged.AddListener(delegate { SetDropDown(dropdown.value); });
+
+        FirstOption();
     }
     public void MakeDropDown()
     {
@@ -46,11 +46,13 @@ public class Option : MonoBehaviour
     }
     public void FirstOption()
     {
-        if (OptionDB.instance.scale - 1 == currentOption)
+        if (OptionDB.instance.scale == 1)
         {
             dropdown.value = currentOption;
             SetDropDown(currentOption);
         }
+        else
+            dropdown.value = OptionDB.instance.scale - 1;
     }
     public void OnOptionUI()
     {
@@ -64,7 +66,6 @@ public class Option : MonoBehaviour
         if(audio != null) 
             OptionDB.instance.audioValue = audio.audioSlider.value;
 
-        OptionDB.instance.scale = (int)canvas.scaleFactor;
     }
     public void OffOptionUI()
     {
