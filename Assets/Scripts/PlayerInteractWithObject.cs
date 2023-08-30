@@ -5,6 +5,7 @@ using UFO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractWithObject : MonoBehaviour
 {
@@ -13,11 +14,15 @@ public class PlayerInteractWithObject : MonoBehaviour
     private InteractableObject _activatedObject;
 
     public bool getKey;
-    public KeyCode eventKey = KeyCode.F;
+    public Key eventKey = Key.F;
+
+    private Player.PlayerInput playerInput;
+        //Key.E;
     
     void Start()
     {
         _interactableObjectList = new List<InteractableObject>();
+        playerInput = GetComponentInParent<Player.PlayerInput>();
     }
 
     void FixedUpdate()
@@ -72,13 +77,9 @@ public class PlayerInteractWithObject : MonoBehaviour
     
     private void InputEventKey()
     {
-        if (Input.GetKey(eventKey))
-        {
+        if (playerInput.IsInteraction)
             getKey = true;
-        }
         else
-        {
             getKey = false;
-        }
     }
 }
