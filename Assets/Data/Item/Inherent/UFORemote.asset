@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6062136e2e145a3b5fddbb4d0e12802, type: 3}
+  m_Name: UFORemote
+  m_EditorClassIdentifier: 
+  itemName: "UFO\uB9AC\uBAA8\uCEE8"
+  itemType: 3
+  itemImage: {fileID: 21300000, guid: 5c0d689eb05199344aabd73432a89b6a, type: 3}
+  itemInfo: "\uC804\uC9C4\uAE30\uC9C0\uC778 UFO\uB97C \uBD80\uB97C \uC218 \uC788\uB2E4."
+  itemPrice: 0
+  inherentEffects:
+  - {fileID: 11400000, guid: 03f427a7c1b0e5844873765c29e79ae2, type: 2}
+  item: {fileID: 11400000}

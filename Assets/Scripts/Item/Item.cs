@@ -13,7 +13,7 @@ public class Item : ScriptableObject
         Equipment,
         Use,
         Mineral,
-        Other,
+        Inherent
     }
     public string itemName;
     public ItemType itemType;
