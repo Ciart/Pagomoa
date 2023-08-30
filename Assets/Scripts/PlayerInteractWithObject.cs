@@ -43,13 +43,10 @@ public class PlayerInteractWithObject : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<InteractableObject>())
-        {
-            if (!_interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
-            {
-                _interactableObjectList.Add(collision.GetComponent<InteractableObject>());
-            }
-        }
+        if (!collision.GetComponent<InteractableObject>()) return;
+        
+        if (!_interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
+            _interactableObjectList.Add(collision.GetComponent<InteractableObject>());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -65,8 +62,8 @@ public class PlayerInteractWithObject : MonoBehaviour
         if (_closestDistance == 0.0f || _interactableObjectList.Count == 1)
         {
             _closestDistance = distance;
-            obj.ActiveObject();
             _activatedObject = obj;
+            obj.ActiveObject();
         }
         else if (distance < _closestDistance && _interactableObjectList.Count > 1)
         {
@@ -85,5 +82,4 @@ public class PlayerInteractWithObject : MonoBehaviour
         else
             getKey = false;
     }
-    
 }

@@ -69,7 +69,12 @@ public class UIManager : MonoBehaviour
                 }
                 QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
             }
-            else
+            else if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
+            {
+                QuickSlotItemDB.instance.selectedSlot.UseItem();
+                
+                QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
+            } else
                 return;
         };
     }

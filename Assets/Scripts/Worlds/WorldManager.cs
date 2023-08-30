@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UFO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,7 +11,11 @@ namespace Worlds
     {
         public MineralEntity mineralEntity;
 
+        public Transform ufo;
+        
         public Tilemap ufoLadder;
+
+        private UFOInteraction _ufoInteraction;
         
         private World _world;
 
@@ -53,6 +58,8 @@ namespace Worlds
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            _ufoInteraction = ufo.GetComponent<UFOInteraction>();
         }
 
         private void LateUpdate()
@@ -181,6 +188,15 @@ namespace Worlds
             var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
 
             return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
+        }
+
+        public void MoveUfoBase()
+        {
+            if (_ufoInteraction.canMove)
+            {
+                _ufoInteraction.canMove = false;
+                StartCoroutine(_ufoInteraction.MoveToPlayer());
+            }
         }
     }
 }
