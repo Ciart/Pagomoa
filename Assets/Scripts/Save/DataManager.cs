@@ -42,8 +42,8 @@ public class DataManager : MonoBehaviour
                 Debug.Log("bug : " + e);
             }
         }
-        
-        //Debug.Log(data);
+        else
+            SaveManager.Instance.InitData();
     }
     public void DeleteGameData()
     {
