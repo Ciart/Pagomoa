@@ -29,7 +29,7 @@ public class EtcInventory : MonoBehaviour
     {
         UpdateSlot();
     }
-    public void MakeSlot() // slotDatas °¹¼ö¸¸Å­ ½½·Ô ¸¸µé±â
+    public void MakeSlot() // slotDatas ê°¯ìˆ˜ë§Œí¼ ìŠ¬ë¡¯ ë§Œë“¤ê¸°
     {
         for (int i = 0; i < count; i++)
         {
@@ -39,7 +39,7 @@ public class EtcInventory : MonoBehaviour
             SpawnedSlot.SetActive(true);
         }
     }
-    public void ResetSlot() // °¢°¢ ½½·Ô¿¡ item ÇÒ´ç
+    public void ResetSlot() // ê°ê° ìŠ¬ë¡¯ì— item í• ë‹¹
     {
         int i = 0;
 
@@ -53,7 +53,7 @@ public class EtcInventory : MonoBehaviour
         }
         UpdateSlot();
     }
-    public void UpdateSlot() // List¾ÈÀÇ Item ÀüÃ¼ ÀÎº¥Åä¸®¿¡ Ãâ·Â
+    public void UpdateSlot() // Listì•ˆì˜ Item ì „ì²´ ì¸ë²¤í† ë¦¬ì— ì¶œë ¥
     {
         DeleteSlot();
         for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
@@ -67,7 +67,7 @@ public class EtcInventory : MonoBehaviour
         }
         gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
     }
-    public void DeleteSlot() // ÀÎº¥Åä¸®¿¡ Ãâ·ÂµÈ ¾ÆÀÌÅÛµé ÀüºÎ NULL
+    public void DeleteSlot() // ì¸ë²¤í† ë¦¬ì— ì¶œë ¥ëœ ì•„ì´í…œë“¤ ì „ë¶€ NULL
     {
         if (InventoryDB.Instance.items.Count >= 0 )
         {

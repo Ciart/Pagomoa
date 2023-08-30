@@ -192,7 +192,7 @@ namespace Worlds
 
         public void MoveUfoBase()
         {
-            if (Input.GetKey(KeyCode.B) && _ufoInteraction.canMove)
+            if (_ufoInteraction.canMove)
             {
                 _ufoInteraction.canMove = false;
                 StartCoroutine(_ufoInteraction.MoveToPlayer());

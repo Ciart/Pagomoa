@@ -13,7 +13,7 @@ public class PlayerInteractWithObject : MonoBehaviour
     private InteractableObject _activatedObject;
 
     public bool getKey;
-    public KeyCode eventKey = KeyCode.E;
+    public KeyCode eventKey = KeyCode.F;
     
     void Start()
     {
@@ -36,13 +36,10 @@ public class PlayerInteractWithObject : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<InteractableObject>())
-        {
-            if (!_interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
-            {
-                _interactableObjectList.Add(collision.GetComponent<InteractableObject>());
-            }
-        }
+        if (!collision.GetComponent<InteractableObject>()) return;
+        
+        if (!_interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
+            _interactableObjectList.Add(collision.GetComponent<InteractableObject>());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -58,8 +55,8 @@ public class PlayerInteractWithObject : MonoBehaviour
         if (_closestDistance == 0.0f || _interactableObjectList.Count == 1)
         {
             _closestDistance = distance;
-            obj.ActiveObject();
             _activatedObject = obj;
+            obj.ActiveObject();
         }
         else if (distance < _closestDistance && _interactableObjectList.Count > 1)
         {
@@ -73,7 +70,7 @@ public class PlayerInteractWithObject : MonoBehaviour
     
     private void InputEventKey()
     {
-        if (Input.GetKeyDown(eventKey))
+        if (Input.GetKey(eventKey))
         {
             getKey = true;
         }
@@ -82,5 +79,4 @@ public class PlayerInteractWithObject : MonoBehaviour
             getKey = false;
         }
     }
-    
 }

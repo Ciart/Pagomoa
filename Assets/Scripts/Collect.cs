@@ -21,6 +21,7 @@ public class Collect : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         CollectInherentItem(collision);
+        
         if (!collision.gameObject.GetComponent<MineralEntity>()) return;
         Mineral mineral = collision.gameObject.GetComponent<MineralEntity>().data;
 
