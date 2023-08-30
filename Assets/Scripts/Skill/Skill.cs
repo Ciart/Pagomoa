@@ -16,20 +16,20 @@ public class Skill : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Helicopter = !Helicopter;
-            if (Helicopter)
-                StartCoroutine(HelicopterStart());
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            MoleHill();
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(GoMole());
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    Helicopter = !Helicopter;
+        //    if (Helicopter)
+        //        StartCoroutine(HelicopterStart());
+        //}
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    MoleHill();
+        //}
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    StartCoroutine(GoMole());
+        //}
     }
     
     IEnumerator HelicopterStart()
