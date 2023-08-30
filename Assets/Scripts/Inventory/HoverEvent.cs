@@ -22,7 +22,7 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (slot.inventoryItem.item == null)
         {
-            image.SetActive(false);
+            OffHover();
         }
         else if (slot.inventoryItem != null)
         {
@@ -36,6 +36,12 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        image.SetActive(false);
+    }
+    public void OffHover()
+    {
+        if (image.activeSelf == false)
+            return;
         image.SetActive(false);
     }
 }

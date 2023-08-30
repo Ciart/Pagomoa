@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     }
     private void SetInventoryUI()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             ActiveInventory = !ActiveInventory;
             InventoryUI.SetActive(ActiveInventory);
@@ -96,9 +96,14 @@ public class UIManager : MonoBehaviour
             {
                 QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(true);
                 if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[j])
+                {
                     QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[j];
+                }
                 else
-                    QuickSlotItemDB.instance.selectedSlot.UseItem();
+                {
+                    QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(false);
+                    QuickSlotItemDB.instance.selectedSlot = null;
+                }
             }
             else
                 QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(false);
@@ -108,6 +113,9 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if (QuickSlotItemDB.instance.selectedSlot == null || QuickSlotItemDB.instance.selectedSlot.inventoryItem.item == null)
+                return;
+
             if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
             {
                 QuickSlotItemDB.instance.selectedSlot.inventoryItem.count -= 1;
@@ -121,7 +129,12 @@ public class UIManager : MonoBehaviour
                 }
                 QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
             }
-            else
+            else if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
+            {
+                QuickSlotItemDB.instance.selectedSlot.UseItem();
+                
+                QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
+            } else
                 return;
         }
     }
