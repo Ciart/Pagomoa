@@ -3,19 +3,19 @@ using UnityEngine;
 namespace Worlds
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class MineralEntity: MonoBehaviour
+    public class ItemEntity: MonoBehaviour
     {
-        public Mineral data;
+        public Item item;
     
         private SpriteRenderer _spriteRenderer;
 
-        public Mineral Data
+        public Item Item
         {
-            get => data;
+            get => item;
             set
             {
-                data = value;
-                _spriteRenderer.sprite = data.sprite;
+                item = value;
+                _spriteRenderer.sprite = item.itemImage;
             }
         }
     
@@ -23,7 +23,7 @@ namespace Worlds
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
 
-            _spriteRenderer.sprite = data.sprite;
+            _spriteRenderer.sprite = item.itemImage;
         }
     }
 }
