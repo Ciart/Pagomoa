@@ -9,18 +9,19 @@ using UnityEngine;
 
 public class InherentItem : Item
 {
-    public List<ItemInherentEffect> inherentEffects;
+    public bool Usable;
+    public List<InherentEffect> Effects;
 
     public override void Active(Status stat)
     {
         Use(stat);
     }
 
-    protected virtual void Use(Status stat)
+    public virtual void Use(Status stat)
     {
-        foreach(ItemInherentEffect effect in inherentEffects)
+        foreach (InherentEffect effect in Effects)
         {
-            effect.InherentEffect(this, stat);
+            effect.Effect(this, stat);
         }
     }
 }

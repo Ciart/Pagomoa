@@ -34,6 +34,7 @@ public class SetAudio : MonoBehaviour
     }
     public void LoadAudioOption()
     {
+        if (!OptionDB.instance) return;
         float sound = OptionDB.instance.audioValue;
         if (sound == -40f)
         {

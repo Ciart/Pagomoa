@@ -7,9 +7,9 @@ using Worlds;
 
 [CreateAssetMenu(fileName = "New ItemUFORemoteInherentEffect", menuName = "New ItemInherentEffect/itemUFORemoteInherentEffect")]
 [Serializable]
-public class UFORemoteInherentEffect : ItemInherentEffect
+public class UFORemoteInherentEffect : InherentEffect
 {
-    public override void InherentEffect(InherentItem item, Status stat)
+    public override void Effect(InherentItem item, Status stat)
     {
         WorldManager.instance.MoveUfoBase();
     }

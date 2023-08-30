@@ -76,6 +76,7 @@ public class OptionData
     public float audioValue;
     public void SetOptionDataFromOptionDB(OptionDB optionDB)
     {
+        if (!optionDB) return;
         scale = optionDB.scale;
         audioValue = optionDB.audioValue;
     }
