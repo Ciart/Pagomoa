@@ -142,7 +142,7 @@ public class TutorialChat : Chat
 
     private void GetUfoRemoteChat()
     {
-        if (_repeatCount == 4)
+        if (_repeatCount == 5)
         {
             Destroy(_tutorialChat);
         }
