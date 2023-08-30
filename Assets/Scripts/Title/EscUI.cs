@@ -16,7 +16,6 @@ public class EscUI : MonoBehaviour
        
         OptionDB.instance.audioValue = Option.instance.audio.audioSlider.value;
         OptionDB.instance.scale = (int)Option.instance.canvas.scaleFactor;
-        Debug.Log((int)Option.instance.canvas.scaleFactor);
     }
     public void EndGame()
     {

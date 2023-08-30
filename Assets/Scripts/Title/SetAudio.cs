@@ -25,7 +25,6 @@ public class SetAudio : MonoBehaviour
     }
     public void AudioControl()
     {
-        Debug.Log("호출되니?");
         float sound = audioSlider.value;
 
         if (sound == -40f)
