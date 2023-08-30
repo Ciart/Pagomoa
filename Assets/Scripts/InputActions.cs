@@ -80,7 +80,97 @@ namespace UnityEngine.InputSystem
                     ""id"": ""fb1434be-7373-4dc7-8485-ecc1c450b652"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot1"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""191ea1e5-b211-4bd3-b30b-1fe8c41f1b7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot2"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""9c9dc5a2-fdfd-4417-a379-d1731f2b5551"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot3"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e23392c4-3da2-4eea-a360-d84feaf5294f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot4"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ef5e5e89-3f6f-4d59-b003-e22d71f75dfb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot5"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d89c78c9-8793-452f-b002-5048f2e9e3e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot6"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e6cc07c0-59a1-4195-9cf4-ff571b662195"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseQuickSlot"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e826e3c4-7ae4-456a-a840-a59fa12e2a67"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SetEscUI"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e264f316-fda0-40e0-ba68-eb9299738437"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SetInventoryUI"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""0d9775d2-6383-4094-97aa-b49141f1cd91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""66f18483-38d6-4fe0-99ac-0cd0c5bbd4ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -373,8 +463,8 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6d003d87-be70-4e9b-9f12-0610365140bf"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""bbc514dd-9465-4c4c-9d6c-5082b1e08e59"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -384,23 +474,111 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bbc514dd-9465-4c4c-9d6c-5082b1e08e59"",
+                    ""id"": ""ad818946-f969-4466-b2b9-bbb315f8cafb"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Slot1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d3549ea-d7ea-493c-967a-b88eff891ac6"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Slot2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c299a7d5-361e-41ec-bbf6-32bdca17c303"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Slot3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4b51d4a-b806-4e9d-8beb-9c5a3944c187"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Slot4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""555c2fcc-f6d6-4a20-ac14-b879bfe3ac44"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Slot5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29ae86cc-52e7-442e-bf57-b3112ff3b56c"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Slot6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6cb60d7-ef08-47d7-8052-4d38317f825e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""UseQuickSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12740dc7-09ee-48b5-9e04-2dff636aef87"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SetEscUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c896acc-4026-4d04-aa34-74acd9e20bd1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SetInventoryUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9a23b0e-6ee3-4bc3-85b7-5ed3a90538a5"",
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Interaction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cf73d7f5-47b8-477b-b416-f84db16addd8"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interaction"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -412,12 +590,12 @@ namespace UnityEngine.InputSystem
             ""actions"": [
                 {
                     ""name"": ""Navigate"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""c95b2375-e6d9-4b88-9c4c-c5e76515df4b"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Key"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Submit"",
@@ -921,6 +1099,34 @@ namespace UnityEngine.InputSystem
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerUI"",
+            ""id"": ""05e12ffe-f260-4d5b-9948-c3b88b68622e"",
+            ""actions"": [
+                {
+                    ""name"": ""Slot1"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""7bc1508b-944e-4f7c-80ce-f066d399a401"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""90eb0734-f40a-44fc-a4a6-23d90ac70fff"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse;Gamepad;Joystick;XR;Touch"",
+                    ""action"": ""Slot1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -994,6 +1200,16 @@ namespace UnityEngine.InputSystem
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Climb = m_Player.FindAction("Climb", throwIfNotFound: true);
             m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
+            m_Player_Slot1 = m_Player.FindAction("Slot1", throwIfNotFound: true);
+            m_Player_Slot2 = m_Player.FindAction("Slot2", throwIfNotFound: true);
+            m_Player_Slot3 = m_Player.FindAction("Slot3", throwIfNotFound: true);
+            m_Player_Slot4 = m_Player.FindAction("Slot4", throwIfNotFound: true);
+            m_Player_Slot5 = m_Player.FindAction("Slot5", throwIfNotFound: true);
+            m_Player_Slot6 = m_Player.FindAction("Slot6", throwIfNotFound: true);
+            m_Player_UseQuickSlot = m_Player.FindAction("UseQuickSlot", throwIfNotFound: true);
+            m_Player_SetEscUI = m_Player.FindAction("SetEscUI", throwIfNotFound: true);
+            m_Player_SetInventoryUI = m_Player.FindAction("SetInventoryUI", throwIfNotFound: true);
+            m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1006,6 +1222,9 @@ namespace UnityEngine.InputSystem
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // PlayerUI
+            m_PlayerUI = asset.FindActionMap("PlayerUI", throwIfNotFound: true);
+            m_PlayerUI_Slot1 = m_PlayerUI.FindAction("Slot1", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1073,6 +1292,16 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Climb;
         private readonly InputAction m_Player_Interaction;
+        private readonly InputAction m_Player_Slot1;
+        private readonly InputAction m_Player_Slot2;
+        private readonly InputAction m_Player_Slot3;
+        private readonly InputAction m_Player_Slot4;
+        private readonly InputAction m_Player_Slot5;
+        private readonly InputAction m_Player_Slot6;
+        private readonly InputAction m_Player_UseQuickSlot;
+        private readonly InputAction m_Player_SetEscUI;
+        private readonly InputAction m_Player_SetInventoryUI;
+        private readonly InputAction m_Player_Attack;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -1083,6 +1312,16 @@ namespace UnityEngine.InputSystem
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Climb => m_Wrapper.m_Player_Climb;
             public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
+            public InputAction @Slot1 => m_Wrapper.m_Player_Slot1;
+            public InputAction @Slot2 => m_Wrapper.m_Player_Slot2;
+            public InputAction @Slot3 => m_Wrapper.m_Player_Slot3;
+            public InputAction @Slot4 => m_Wrapper.m_Player_Slot4;
+            public InputAction @Slot5 => m_Wrapper.m_Player_Slot5;
+            public InputAction @Slot6 => m_Wrapper.m_Player_Slot6;
+            public InputAction @UseQuickSlot => m_Wrapper.m_Player_UseQuickSlot;
+            public InputAction @SetEscUI => m_Wrapper.m_Player_SetEscUI;
+            public InputAction @SetInventoryUI => m_Wrapper.m_Player_SetInventoryUI;
+            public InputAction @Attack => m_Wrapper.m_Player_Attack;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1110,6 +1349,36 @@ namespace UnityEngine.InputSystem
                 @Interaction.started += instance.OnInteraction;
                 @Interaction.performed += instance.OnInteraction;
                 @Interaction.canceled += instance.OnInteraction;
+                @Slot1.started += instance.OnSlot1;
+                @Slot1.performed += instance.OnSlot1;
+                @Slot1.canceled += instance.OnSlot1;
+                @Slot2.started += instance.OnSlot2;
+                @Slot2.performed += instance.OnSlot2;
+                @Slot2.canceled += instance.OnSlot2;
+                @Slot3.started += instance.OnSlot3;
+                @Slot3.performed += instance.OnSlot3;
+                @Slot3.canceled += instance.OnSlot3;
+                @Slot4.started += instance.OnSlot4;
+                @Slot4.performed += instance.OnSlot4;
+                @Slot4.canceled += instance.OnSlot4;
+                @Slot5.started += instance.OnSlot5;
+                @Slot5.performed += instance.OnSlot5;
+                @Slot5.canceled += instance.OnSlot5;
+                @Slot6.started += instance.OnSlot6;
+                @Slot6.performed += instance.OnSlot6;
+                @Slot6.canceled += instance.OnSlot6;
+                @UseQuickSlot.started += instance.OnUseQuickSlot;
+                @UseQuickSlot.performed += instance.OnUseQuickSlot;
+                @UseQuickSlot.canceled += instance.OnUseQuickSlot;
+                @SetEscUI.started += instance.OnSetEscUI;
+                @SetEscUI.performed += instance.OnSetEscUI;
+                @SetEscUI.canceled += instance.OnSetEscUI;
+                @SetInventoryUI.started += instance.OnSetInventoryUI;
+                @SetInventoryUI.performed += instance.OnSetInventoryUI;
+                @SetInventoryUI.canceled += instance.OnSetInventoryUI;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1132,6 +1401,36 @@ namespace UnityEngine.InputSystem
                 @Interaction.started -= instance.OnInteraction;
                 @Interaction.performed -= instance.OnInteraction;
                 @Interaction.canceled -= instance.OnInteraction;
+                @Slot1.started -= instance.OnSlot1;
+                @Slot1.performed -= instance.OnSlot1;
+                @Slot1.canceled -= instance.OnSlot1;
+                @Slot2.started -= instance.OnSlot2;
+                @Slot2.performed -= instance.OnSlot2;
+                @Slot2.canceled -= instance.OnSlot2;
+                @Slot3.started -= instance.OnSlot3;
+                @Slot3.performed -= instance.OnSlot3;
+                @Slot3.canceled -= instance.OnSlot3;
+                @Slot4.started -= instance.OnSlot4;
+                @Slot4.performed -= instance.OnSlot4;
+                @Slot4.canceled -= instance.OnSlot4;
+                @Slot5.started -= instance.OnSlot5;
+                @Slot5.performed -= instance.OnSlot5;
+                @Slot5.canceled -= instance.OnSlot5;
+                @Slot6.started -= instance.OnSlot6;
+                @Slot6.performed -= instance.OnSlot6;
+                @Slot6.canceled -= instance.OnSlot6;
+                @UseQuickSlot.started -= instance.OnUseQuickSlot;
+                @UseQuickSlot.performed -= instance.OnUseQuickSlot;
+                @UseQuickSlot.canceled -= instance.OnUseQuickSlot;
+                @SetEscUI.started -= instance.OnSetEscUI;
+                @SetEscUI.performed -= instance.OnSetEscUI;
+                @SetEscUI.canceled -= instance.OnSetEscUI;
+                @SetInventoryUI.started -= instance.OnSetInventoryUI;
+                @SetInventoryUI.performed -= instance.OnSetInventoryUI;
+                @SetInventoryUI.canceled -= instance.OnSetInventoryUI;
+                @Attack.started -= instance.OnAttack;
+                @Attack.performed -= instance.OnAttack;
+                @Attack.canceled -= instance.OnAttack;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1267,6 +1566,52 @@ namespace UnityEngine.InputSystem
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // PlayerUI
+        private readonly InputActionMap m_PlayerUI;
+        private List<IPlayerUIActions> m_PlayerUIActionsCallbackInterfaces = new List<IPlayerUIActions>();
+        private readonly InputAction m_PlayerUI_Slot1;
+        public struct PlayerUIActions
+        {
+            private @InputActions m_Wrapper;
+            public PlayerUIActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Slot1 => m_Wrapper.m_PlayerUI_Slot1;
+            public InputActionMap Get() { return m_Wrapper.m_PlayerUI; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerUIActions set) { return set.Get(); }
+            public void AddCallbacks(IPlayerUIActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Add(instance);
+                @Slot1.started += instance.OnSlot1;
+                @Slot1.performed += instance.OnSlot1;
+                @Slot1.canceled += instance.OnSlot1;
+            }
+
+            private void UnregisterCallbacks(IPlayerUIActions instance)
+            {
+                @Slot1.started -= instance.OnSlot1;
+                @Slot1.performed -= instance.OnSlot1;
+                @Slot1.canceled -= instance.OnSlot1;
+            }
+
+            public void RemoveCallbacks(IPlayerUIActions instance)
+            {
+                if (m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPlayerUIActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PlayerUIActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PlayerUIActions @PlayerUI => new PlayerUIActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -1320,6 +1665,16 @@ namespace UnityEngine.InputSystem
             void OnJump(InputAction.CallbackContext context);
             void OnClimb(InputAction.CallbackContext context);
             void OnInteraction(InputAction.CallbackContext context);
+            void OnSlot1(InputAction.CallbackContext context);
+            void OnSlot2(InputAction.CallbackContext context);
+            void OnSlot3(InputAction.CallbackContext context);
+            void OnSlot4(InputAction.CallbackContext context);
+            void OnSlot5(InputAction.CallbackContext context);
+            void OnSlot6(InputAction.CallbackContext context);
+            void OnUseQuickSlot(InputAction.CallbackContext context);
+            void OnSetEscUI(InputAction.CallbackContext context);
+            void OnSetInventoryUI(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
@@ -1333,6 +1688,10 @@ namespace UnityEngine.InputSystem
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        public interface IPlayerUIActions
+        {
+            void OnSlot1(InputAction.CallbackContext context);
         }
     }
 }

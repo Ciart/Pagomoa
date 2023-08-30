@@ -22,14 +22,12 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (slot.inventoryItem.item == null)
         {
-            Debug.Log("≥Œ¿Ã¥Ÿ");
-            image.SetActive(false);
+            OffHover();
         }
         else if (slot.inventoryItem != null)
         {
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);
             image.SetActive(true);
-            //image.transform.position = slot.transform.position;
             image.transform.position = newPosition;
             itemName.GetComponent<Text>().text = slot.inventoryItem.item.itemName;
             itemInfo.GetComponent<Text>().text = slot.inventoryItem.item.itemInfo;
@@ -38,6 +36,12 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        image.SetActive(false);
+    }
+    public void OffHover()
+    {
+        if (image.activeSelf == false)
+            return;
         image.SetActive(false);
     }
 }

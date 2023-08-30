@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Worlds;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -9,6 +11,9 @@ public class SaveManager : MonoBehaviour
 {
     static GameObject container;
     static SaveManager instance;
+
+    public float loadPositionDelayTime = 1.5f;
+    public bool LoadComplete = false;
     public static SaveManager Instance
     {
         get
@@ -26,6 +31,8 @@ public class SaveManager : MonoBehaviour
     List<GameObject> ManagingTargets = new List<GameObject>();
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "Title") return ;
+
         if (!container)
         {
             container = gameObject;
@@ -40,14 +47,20 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("NPC");
 
         FreezePosition();
-        Invoke("LoadPosition", 1.5f);
+        if (GameManager.instance.isLoadSave)
+            Invoke("LoadPosition", loadPositionDelayTime);
+        else
+            Invoke("TagPosition", loadPositionDelayTime);
     }
     void AddManagingTargetWithTag(string tagName)
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(tagName);
         if (targets.Length == 0) return;
         foreach (GameObject target in targets)
-            ManagingTargets.Add(target);
+        {
+            if(target.activeSelf)
+                ManagingTargets.Add(target);
+        }
     }
     private void FreezePosition()
     {
@@ -59,6 +72,7 @@ public class SaveManager : MonoBehaviour
     }
     private void TagPosition()
     {
+        LoadComplete = true;
         foreach (GameObject target in ManagingTargets)
         {
             target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -88,6 +102,22 @@ public class SaveManager : MonoBehaviour
     {
 
     }
+
+    public void LoadItem()
+    {
+        if (DataManager.Instance.data.itemData == null) return;
+
+        if (DataManager.Instance.data.itemData.items != null)
+            InventoryDB.Instance.items = DataManager.Instance.data.itemData.items.ToList();
+        else
+            Debug.Log("Item Data is Nothing");
+        InventoryDB.Instance.Gold = DataManager.Instance.data.itemData.gold;
+    }
+    public void LoadOption()
+    {
+        OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
+        OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
+    }
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -95,32 +125,68 @@ public class SaveManager : MonoBehaviour
         foreach (GameObject target in ManagingTargets)
             posDataDictionary.Add(target.name, target.transform.position);
 
-        //Debug.Log(DataManager.Instance);
-        //Debug.Log(DataManager.Instance.data);
-        if(DataManager.Instance.data.posData == null)
-        {
-            Debug.Log("No Position Data before, Instantiate new Position Data");
-            //return;
-            DataManager.Instance.data.posData = new PositionData();
-        }
-
+        InitData();
 
         DataManager.Instance.data.posData.SetPositionDataFromDictionary(posDataDictionary);
     }
     void WriteMapData()
     {
-        if(DataManager.Instance.data.worldData == null)
+        InitData();
+        DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
+    }
+
+    public void WriteIntroData(bool arg)
+    {
+        InitData();
+        DataManager.Instance.data.introData.isFirstStart = arg;
+    }
+    void WriteItemData()
+    {
+        InitData();
+        DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
+    }
+    public void WriteOptionData()
+    {
+        InitData();
+        DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
+    }
+
+    public void InitData()
+    {
+        if (DataManager.Instance.data.posData == null)
+        {
+            Debug.Log("No Position Data before, Instantiate new Position Data");
+            DataManager.Instance.data.posData = new PositionData();
+        }
+        if (DataManager.Instance.data.worldData == null)
         {
             Debug.Log("No World Data before, Instantiate new World Data");
             DataManager.Instance.data.worldData = new WorldData();
         }
-        DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
+        if (DataManager.Instance.data.introData == null)
+        {
+            Debug.Log("No World Data before, Instantiate new World Data");
+            DataManager.Instance.data.introData = new IntroData();
+        }
+        if (DataManager.Instance.data.itemData == null)
+        {
+            Debug.Log("No World Data before, Instantiate new World Data");
+            DataManager.Instance.data.itemData = new ItemData();
+        }
+        if (DataManager.Instance.data.optionData == null)
+        {
+            Debug.Log("No World Data before, Instantiate new World Data");
+            DataManager.Instance.data.optionData = new OptionData();
+        }
     }
+
     private void OnApplicationQuit()
     {
+        if (!LoadComplete) return;
         WritePosData();
         WriteMapData();
-
+        WriteItemData();
+        WriteOptionData();
         DataManager.Instance.SaveGameData();
     }
 

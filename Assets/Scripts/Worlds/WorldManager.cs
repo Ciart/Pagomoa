@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UFO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,7 +13,11 @@ namespace Worlds
         
         public MineralEntity mineralEntity;
 
+        public Transform ufo;
+        
         public Tilemap ufoLadder;
+
+        private UFOInteraction _ufoInteraction;
         
         private World _world;
 
@@ -55,6 +60,8 @@ namespace Worlds
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            _ufoInteraction = ufo.GetComponent<UFOInteraction>();
         }
 
         private void LateUpdate()
@@ -155,7 +162,27 @@ namespace Worlds
                 }
             }
         }
-
+        public bool CheckBreakable(int x, int y, int tier, string item)
+        {
+            var brick = _world.GetBrick(x, y, out var chunk);
+            if (item == "item")
+            {
+                if (chunk is null) return false;
+                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
+                    return true;
+            }
+            else
+            {
+                if (chunk is null || brick.mineral?.displayName == "돌")
+                {
+                    if(chunk is null) return false;
+                    if(brick.mineral?.displayName == "돌") return false;
+                }
+                if (brick.mineral is not null && brick.mineral.tier <= tier)
+                    return true;
+            }
+            return true;
+        }
         public bool CheckClimbable(Vector3 position)
         {
             var coords = ComputeCoords(position);
@@ -165,6 +192,15 @@ namespace Worlds
             var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
 
             return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
+        }
+
+        public void MoveUfoBase()
+        {
+            if (_ufoInteraction.canMove)
+            {
+                _ufoInteraction.canMove = false;
+                StartCoroutine(_ufoInteraction.MoveToPlayer());
+            }
         }
     }
 }

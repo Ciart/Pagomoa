@@ -5,6 +5,7 @@ using Worlds;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using static Unity.Collections.AllocatorManager;
 
 namespace Player
 {
@@ -13,9 +14,11 @@ namespace Player
     {
         [HideInInspector]
         public UnityEvent<float, float> DiggingEvent;
-        
+        public UnityEvent digEndEvent;
+
         public Direction direction;
         public  bool isDig;
+        public float tiredDigSpeedScoop = 5f;
 
         public int drillLevel = 0;
         public int drillTier = 10;
@@ -42,14 +45,6 @@ namespace Player
             if(drillLevel < drillTierSetting.Length)
                 drillTier = drillTierSetting[drillLevel];
         }
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                DrillUprade();
-                Debug.Log("드릴 업그레이드 완료! 레벨: " + drillLevel + "드릴스피드: " + _status.digSpeed);
-            }
-        }
         private void FixedUpdate()
         {
             if (isDig && _canDig)
@@ -74,6 +69,7 @@ namespace Player
         }
         void ICanDig()
         {
+            digEndEvent.Invoke();
             _canDig = true;
             _charging = 0;
         }
@@ -84,11 +80,33 @@ namespace Player
             var worldManager = WorldManager.instance;
             var tile1 = worldManager.world.GetBrick(point1.x, point1.y, out _)?.ground;
             var tile2 = worldManager.world.GetBrick(point2.x, point2.y, out _)?.ground;
-            if (tile1 || tile2)
+
+            bool breakable1 = false, breakable2 = false;
+
+            breakable1 = tile1 ? worldManager.CheckBreakable(point1.x, point1.y, drillTier, "drill") : false;
+            breakable2 = tile2 ? worldManager.CheckBreakable(point1.x, point1.y, drillTier, "drill") : false;
+
+            if (breakable1 || breakable2)
             {
-                float time1 = 0, time2 = 0;
-                if (tile1) time1 = tile1.strength / _status.digSpeed;
-                if (tile2) time2 = tile2.strength / _status.digSpeed;
+                float time1 = 0, time2 = 0, totalHungry = 0;
+
+                if (breakable1)
+                {
+                    time1 = tile1.strength / _status.digSpeed;
+                    totalHungry += 0.5f;
+                }
+                if (breakable2)
+                {
+                    time2 = tile2.strength / _status.digSpeed;
+                    totalHungry += 0.5f;
+                }
+
+                if (GetComponent<PlayerController>().Hungry(totalHungry))
+                {
+                    time1 *= tiredDigSpeedScoop;
+                    time2 *= tiredDigSpeedScoop;
+                }
+
 
                 Vector2Int currentPos1 = point1, currentPos2 = point2;
                 while (isDig && (time1 > _charging || time2 > _charging))
@@ -108,20 +126,8 @@ namespace Player
                         yield break;
                     }
                 }
-                if (time1 <= _charging)
-                {
-                    if (!GetComponent<PlayerController>().Hungry(0.5f))
-                    {
-                        worldManager.BreakGround(point1.x, point1.y, drillTier, "drill");
-                    }
-                }
-                if (time2 <= _charging)
-                {
-                    if (!GetComponent<PlayerController>().Hungry(0.5f))
-                    {
-                        worldManager.BreakGround(point2.x, point2.y,  drillTier, "drill");
-                    }
-                }
+                if (time1 <= _charging) worldManager.BreakGround(point1.x, point1.y, drillTier, "drill");
+                if (time2 <= _charging) worldManager.BreakGround(point2.x, point2.y,  drillTier, "drill");
             }
             ICanDig();
         }

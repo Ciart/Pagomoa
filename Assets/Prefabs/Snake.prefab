@@ -150,11 +150,11 @@ GameObject:
   - component: {fileID: 5050884696825830938}
   - component: {fileID: 8121166119662435968}
   - component: {fileID: 9212918678109758895}
-  - component: {fileID: 7920561617849617800}
   - component: {fileID: 160773113551529763}
   - component: {fileID: 6778265371863778166}
   - component: {fileID: 735875786116628391}
   - component: {fileID: 3656465409274287459}
+  - component: {fileID: 7920561617849617800}
   m_Layer: 7
   m_Name: Snake
   m_TagString: Monster
@@ -324,19 +324,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7920561617849617800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8094247419071719335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1978738a27638e5499c3e5d435827b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unbeatTime: 0.6
 --- !u!114 &160773113551529763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,3 +386,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTargetTag:
   - Player
+--- !u!114 &7920561617849617800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094247419071719335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1978738a27638e5499c3e5d435827b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unbeatTime: 0.6
