@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using Constants;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Attack))]
 public class PlayerAttack : MonoBehaviour
@@ -14,11 +15,8 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-            attack = true;
+
+        GetComponent<Player.PlayerInput>().Actions.Attack.started += context => { attack = true; };
     }
     private void FixedUpdate()
     {

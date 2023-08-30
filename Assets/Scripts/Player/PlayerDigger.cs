@@ -45,14 +45,6 @@ namespace Player
             if(drillLevel < drillTierSetting.Length)
                 drillTier = drillTierSetting[drillLevel];
         }
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                DrillUprade();
-                Debug.Log("드릴 업그레이드 완료! 레벨: " + drillLevel + "드릴스피드: " + _status.digSpeed);
-            }
-        }
         private void FixedUpdate()
         {
             if (isDig && _canDig)
