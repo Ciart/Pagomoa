@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UFO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Worlds
@@ -12,6 +13,8 @@ namespace Worlds
         public WorldDatabase database;
         
         public MineralEntity mineralEntity;
+        
+        [FormerlySerializedAs("mineralEntity")] public ItemEntity itemEntity;
 
         public Transform ufo;
         
@@ -116,8 +119,8 @@ namespace Worlds
 
                 if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral == rock)
                 {
-                    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-                    entity.Data = brick.mineral;
+                    var entity = Instantiate(itemEntity, ComputePosition(x, y), Quaternion.identity);
+                    entity.Item = brick.mineral!.item;
                 }
             }
             else
@@ -127,8 +130,8 @@ namespace Worlds
 
                 if (brick.mineral is not null && brick.mineral.tier <= tier)
                 {
-                    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-                    entity.Data = brick.mineral;
+                    var entity = Instantiate(itemEntity, ComputePosition(x, y), Quaternion.identity);
+                    entity.Item = brick.mineral!.item;
                 }
             }
             //if (chunk is null || brick.mineral?.displayName == "돌")
