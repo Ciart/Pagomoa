@@ -28,7 +28,6 @@ public class DataManager : MonoBehaviour
     public void LoadGameData()
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        Debug.Log("load ${Application.persistentDataPath} filedata");
         Debug.Log(filePath);
         if (File.Exists(filePath))
         {

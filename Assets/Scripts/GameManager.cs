@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         DataManager.Instance.LoadGameData();
 
-        if (!isLoadSave || DataManager.Instance.data.worldData == null)
+        if (!isLoadSave || DataManager.Instance.data.worldData == null || DataManager.Instance.data == null)
         {
             Debug.Log("worldData Not find or No Save Mode, Generate New World");
             _worldGenerator.Generate();
