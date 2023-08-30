@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class SceneManage : MonoBehaviour
 {
     public bool isFirstStart = false;
-    
-    public void StartGame(bool restart)
+
+    private void Start()
     {
         DataManager.Instance.LoadGameData();
+    }
+    public void StartGame(bool restart)
+    {
         isFirstStart = DataManager.Instance.data.introData.isFirstStart;
         
         if (!isFirstStart || restart == true)
@@ -31,9 +34,7 @@ public class SceneManage : MonoBehaviour
     }
     public void PressStartButton()
     {
-        DataManager.Instance.LoadGameData();
         isFirstStart = DataManager.Instance.data.introData.isFirstStart;
-
         if (!isFirstStart)
         {
             transform.Find("StartQuestion").gameObject.SetActive(true);

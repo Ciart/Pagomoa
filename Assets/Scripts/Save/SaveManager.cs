@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -97,6 +98,20 @@ public class SaveManager : MonoBehaviour
     {
 
     }
+
+    public void LoadItem()
+    {
+        if (DataManager.Instance.data.itemData.items != null)
+            InventoryDB.Instance.items = DataManager.Instance.data.itemData.items.ToList();
+        else
+            Debug.Log("Item Data is Nothing");
+        InventoryDB.Instance.Gold = DataManager.Instance.data.itemData.gold;
+    }
+    public void LoadOption()
+    {
+        OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
+        OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
+    }
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -118,6 +133,18 @@ public class SaveManager : MonoBehaviour
     {
         InitData();
         DataManager.Instance.data.introData.isFirstStart = arg;
+    }
+    void WriteItemData()
+    {
+        if(DataManager.Instance.data.itemData == null)
+        {
+            Debug.Log("Item Data is Nothing");
+        }
+        DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
+    }
+    public void WriteOptionData()
+    {
+        DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
     }
 
     public void InitData()
@@ -143,7 +170,8 @@ public class SaveManager : MonoBehaviour
     {
         WritePosData();
         WriteMapData();
-
+        WriteItemData();
+        WriteOptionData();
         DataManager.Instance.SaveGameData();
     }
 

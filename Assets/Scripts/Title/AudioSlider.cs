@@ -15,6 +15,7 @@ public class AudioSlider : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
+        gameObject.GetComponent<Slider>().value = OptionDB.instance.audioValue;
     }
     public void SaveAudioValue()
     {
