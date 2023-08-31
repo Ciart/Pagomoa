@@ -22,7 +22,7 @@ public class OptionManage : MonoBehaviour
     }
     public void LoadOption()
     {
-        gameObject.GetComponent<CanvasScaler>().scaleFactor = OptionDB.instance.scale;
-        
+        if(OptionDB.instance)
+            gameObject.GetComponent<CanvasScaler>().scaleFactor = OptionDB.instance.scale;
     }
 }

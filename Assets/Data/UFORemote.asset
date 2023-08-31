@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
-  m_Name: Iron
+  m_Name: UFORemote
   m_EditorClassIdentifier: 
-  displayName: "\uCCA0"
-  tier: 1
-  sprite: {fileID: 284631574, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
-  tile: {fileID: 11400000, guid: 4be81157078f248bdb0ef63def77ffe2, type: 2}
-  item: {fileID: 11400000, guid: 81c81c5f62a43da42aba7c6b84a1595a, type: 2}
-  price: 1000
+  displayName: "UFO \uB9AC\uBAA8\uCF58"
+  tier: 0
+  sprite: {fileID: 21300000, guid: 5c0d689eb05199344aabd73432a89b6a, type: 3}
+  tile: {fileID: 11400000, guid: 21c9bf8f9ad7940969bc562de4e5afc8, type: 2}
+  item: {fileID: 11400000, guid: ecb91d71e59e4ec4ca2d3e69f7a46de2, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
   m_Name: Rock
   m_EditorClassIdentifier: 
-  displayName: "\uB3CC"
+  displayName: "\uBC14\uC704"
   tier: 0
   sprite: {fileID: 1577651770, guid: c14264ab16655a3418f2298411e23b52, type: 3}
   tile: {fileID: 11400000, guid: 2e197281d78d8014baee65244dff4b6e, type: 2}

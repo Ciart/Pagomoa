@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e91178e9ea546cfa8429ecac174de0d, type: 3}
+  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Iron
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 284631574, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
+  m_Sprite: {fileID: 784374654, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -33,5 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 0
-  data: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
+  m_ColliderType: 1

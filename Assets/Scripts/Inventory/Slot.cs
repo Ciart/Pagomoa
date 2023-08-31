@@ -47,7 +47,7 @@ public class Slot : MonoBehaviour, IDropHandler
             buyCountUI.OnUI();
             buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
         }
-        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment || Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
         {
             buyNoCountUI.OnUI();
             buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
@@ -78,7 +78,7 @@ public class Slot : MonoBehaviour, IDropHandler
             }
         }
 
-        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment || Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
         {
             if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice)
             {

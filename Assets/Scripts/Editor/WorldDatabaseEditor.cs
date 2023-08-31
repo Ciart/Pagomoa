@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Editor
 {
-    public class PieceEditor : EditorWindow
+    public class WorldDatabaseEditor : EditorWindow
     {
         private readonly string[] _tabStrings =
         {
@@ -28,10 +28,10 @@ namespace Editor
 
         private int _selectMineral;
 
-        [MenuItem("Window/Piece Editor")]
+        [MenuItem("Window/World Database Editor")]
         private static void Init()
         {
-            var window = (PieceEditor)GetWindow(typeof(PieceEditor), false, "Piece Editor");
+            var window = (WorldDatabaseEditor)GetWindow(typeof(WorldDatabaseEditor), false, "World Database Editor");
             window.Show();
         }
 
@@ -46,6 +46,11 @@ namespace Editor
 
         private void OnSelectionChange()
         {
+            if (_database is not null)
+            {
+                return;
+            }
+
             if (Selection.activeObject is not WorldDatabase)
             {
                 _database = null;
@@ -61,6 +66,7 @@ namespace Editor
         {
             if (_database is null)
             {
+                _database = (WorldDatabase)EditorGUILayout.ObjectField(_database, typeof(WorldDatabase), false);
                 return;
             }
 
@@ -139,6 +145,27 @@ namespace Editor
                             EditorUtility.SetDirty(_database);
                             Repaint();
                         }
+                        else if (e.button == 1 && e.isMouse)
+                        {
+                            switch (_tabIndex)
+                            {
+                                case 0:
+                                    brick.wall = null;
+                                    break;
+                                case 1:
+                                    brick.ground = null;
+                                    break;
+                                case 2:
+                                    brick.mineral = null;
+                                    break;
+                                case 3:
+                                    piece.pivot = new Vector2Int(x, y);
+                                    break;
+                            }
+
+                            EditorUtility.SetDirty(_database);
+                            Repaint();
+                        }
                     }
 
                     if (_tabIndex == 0)
@@ -170,6 +197,14 @@ namespace Editor
             var pivotX = piece.pivot.x * 36 + 8;
             var pivotY = piece.pivot.y * 36 + 100;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
+
+            foreach (var prefab in piece.prefabs)
+            {
+                var prefabX = prefab.x * 36 + 8;
+                var prefabY = prefab.y * 36 + 100;
+                EditorGUI.DrawRect(Rect.MinMaxRect(prefabX + 12, prefabY + 12, prefabX + 20, prefabY + 20),
+                    Color.red);
+            }
 
             EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
         }
