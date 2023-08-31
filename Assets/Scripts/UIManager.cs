@@ -95,6 +95,7 @@ public class UIManager : MonoBehaviour
             if (i == j)
             {
                 QuickSlotItemDB.instance.quickSlots[j].selectedSlotImage.gameObject.SetActive(true);
+                //QuickSlotItemDB.instance.quickSlots[j].transform.SetAsLastSibling();
                 if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[j])
                 {
                     QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[j];
@@ -126,6 +127,7 @@ public class UIManager : MonoBehaviour
                 {
                     InventoryDB.Instance.items.Remove(QuickSlotItemDB.instance.selectedSlot.inventoryItem);
                     QuickSlotItemDB.instance.selectedSlot.SetSlotNull();
+                    QuickSlotItemDB.instance.selectedSlot.itemImage.sprite = QuickSlot.Instance.transparentImage;
                 }
                 QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
             }
