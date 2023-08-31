@@ -23,10 +23,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerDigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Status.cs" root0="FORCE_HIGHLIGHTING" />
-<<<<<<< HEAD
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UFO/UFORemoteControl.cs" root0="FORCE_HIGHLIGHTING" />
-=======
->>>>>>> 482f96fda1e9659f508442df9caecce2e4c19802
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.6.1/InputSystem/Actions/InputAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_FontAsset.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TextMeshProUGUI.cs" root0="SKIP_HIGHLIGHTING" />
@@ -45,23 +42,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.41221374&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;release/0.1.1-alpha&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -77,7 +57,6 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
->>>>>>> 482f96fda1e9659f508442df9caecce2e4c19802
   },
   "keyToStringList": {
     "rider.external.source.directories": [
@@ -194,11 +173,6 @@
       <workItem from="1691390219008" duration="8032000" />
       <workItem from="1693229555549" duration="8268000" />
       <workItem from="1693396824176" duration="3190000" />
-<<<<<<< HEAD
-      <workItem from="1693461943813" duration="8000" />
-      <workItem from="1693461971467" duration="938000" />
-=======
->>>>>>> 482f96fda1e9659f508442df9caecce2e4c19802
     </task>
     <servers />
   </component>
