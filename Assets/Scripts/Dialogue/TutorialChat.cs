@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class TutorialChat : Chat
 {
-    [SerializeField] private Image ChatIcon;
     [SerializeField] private Transform player;
     
     [Space]
@@ -34,7 +33,6 @@ public class TutorialChat : Chat
     private void Start()
     {
         _tutorialChat = transform.parent.gameObject;
-        Debug.Log(_tutorialChat);
 
         StopChat();
         StartChatReservation(initialStartTime);
@@ -154,7 +152,6 @@ public class TutorialChat : Chat
         {
             _chatIndex = 0;
             _repeatCount++;
-            Debug.Log(_repeatCount);
         }
     }
     

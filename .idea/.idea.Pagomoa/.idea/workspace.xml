@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83b65f7-29e0-42f4-bcbf-30a24f12075b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOItem.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFOItem.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFORemote.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UFORemote.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Chat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Chat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/ChatBalloon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/ChatBalloon.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/TutorialChat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/TutorialChat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Maplestory Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Maplestory Bold SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,6 +184,9 @@
       <workItem from="1693304183352" duration="4228000" />
       <workItem from="1693319587801" duration="12761000" />
       <workItem from="1693376965219" duration="6195000" />
+      <workItem from="1693414912084" duration="2654000" />
+      <workItem from="1693421927135" duration="387000" />
+      <workItem from="1693423478458" duration="3041000" />
     </task>
     <servers />
   </component>

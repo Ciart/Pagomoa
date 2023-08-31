@@ -12,22 +12,31 @@ public class ChatBalloon : MonoBehaviour
     public GameObject balloon;
     [HideInInspector]
     public TextMeshProUGUI chatContent;
+    [HideInInspector]
+    public Image icon;
 
     public Vector3 floatingPosition = new Vector3(1,0.3f, 0);
 
     private RectTransform _chatBalloonTransform;
+    private RectTransform _chatIconTransform;
 
     private void Awake()
     {
         balloon = Instantiate(chatBalloonPrefab, transform.position + floatingPosition, Quaternion.identity, transform).transform.GetChild(0).gameObject;
         balloon.SetActive(true);
         chatContent = GetComponentInChildren<TextMeshProUGUI>();
-        balloon.SetActive(false);
+        if (balloon.transform.GetChild(1))
+        {
+            icon = balloon.transform.GetChild(1).GetComponent<Image>();
+            balloon.SetActive(false);
+        } else { balloon.SetActive(false); }
         
-        _chatBalloonTransform = balloon.transform.GetComponent<RectTransform>(); 
+        _chatBalloonTransform = balloon.transform.GetComponent<RectTransform>();
+        _chatIconTransform = icon.transform.GetComponent<RectTransform>();
     }
     public void ReSizeBalloon()
     {
         _chatBalloonTransform.sizeDelta = new Vector2(100 + 45 * chatContent.text.Length, _chatBalloonTransform.sizeDelta.y);
+        _chatIconTransform.position = new Vector3(transform.position.x, transform.position.y);
     }
 }
