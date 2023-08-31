@@ -11,6 +11,9 @@ public class SaveManager : MonoBehaviour
 {
     static GameObject container;
     static SaveManager instance;
+
+    public float loadPositionDelayTime = 1.5f;
+    public bool LoadComplete = false;
     public static SaveManager Instance
     {
         get
@@ -45,9 +48,9 @@ public class SaveManager : MonoBehaviour
 
         FreezePosition();
         if (GameManager.instance.isLoadSave)
-            Invoke("LoadPosition", 1.5f);
+            Invoke("LoadPosition", loadPositionDelayTime);
         else
-            Invoke("TagPosition", 1.5f);
+            Invoke("TagPosition", loadPositionDelayTime);
     }
     void AddManagingTargetWithTag(string tagName)
     {
@@ -69,6 +72,7 @@ public class SaveManager : MonoBehaviour
     }
     private void TagPosition()
     {
+        LoadComplete = true;
         foreach (GameObject target in ManagingTargets)
         {
             target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -101,6 +105,8 @@ public class SaveManager : MonoBehaviour
 
     public void LoadItem()
     {
+        if (DataManager.Instance.data.itemData == null) return;
+
         if (DataManager.Instance.data.itemData.items != null)
             InventoryDB.Instance.items = DataManager.Instance.data.itemData.items.ToList();
         else
@@ -136,14 +142,12 @@ public class SaveManager : MonoBehaviour
     }
     void WriteItemData()
     {
-        if(DataManager.Instance.data.itemData == null)
-        {
-            Debug.Log("Item Data is Nothing");
-        }
+        InitData();
         DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
     }
     public void WriteOptionData()
     {
+        InitData();
         DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
     }
 
@@ -164,10 +168,21 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No World Data before, Instantiate new World Data");
             DataManager.Instance.data.introData = new IntroData();
         }
+        if (DataManager.Instance.data.itemData == null)
+        {
+            Debug.Log("No World Data before, Instantiate new World Data");
+            DataManager.Instance.data.itemData = new ItemData();
+        }
+        if (DataManager.Instance.data.optionData == null)
+        {
+            Debug.Log("No World Data before, Instantiate new World Data");
+            DataManager.Instance.data.optionData = new OptionData();
+        }
     }
 
     private void OnApplicationQuit()
     {
+        if (!LoadComplete) return;
         WritePosData();
         WriteMapData();
         WriteItemData();

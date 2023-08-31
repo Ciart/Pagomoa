@@ -25,14 +25,18 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     }
     public void OnDrop(PointerEventData eventData)
     {
-        inventoryItem = eventData.pointerPress.GetComponent<DragSlot>().item;
-        if (eventData.pointerPress.GetComponent<QuickSlot>())
+        DragSlot dragSlot = eventData.pointerDrag.GetComponent<DragSlot>();
+        dragSlot.item = eventData.pointerDrag.GetComponent<DragSlot>().item;
+
+        this.inventoryItem = dragSlot.item;
+        if (eventData.pointerDrag.GetComponent<QuickSlot>())
         {
+            Debug.Log("change");
             ChangeSlot(eventData);
         }
-        else if (eventData.pointerPress.GetComponent<Slot>())
+        else if (eventData.pointerDrag.GetComponent<Slot>())
         {
-            AddSlot(eventData.pointerPress.GetComponent<Slot>().inventoryItem);
+            AddSlot(dragSlot.item);
         }
     }
     private void AddSlot(InventoryItem data)
@@ -51,7 +55,8 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     }
     private void ChangeSlot(PointerEventData eventData)
     {
-        Swap(QuickSlotItemDB.instance.quickSlotItems, this.id, eventData.pointerPress.GetComponent<QuickSlot>().id);
+        Debug.Log(eventData + "»£√‚?");
+        Swap(QuickSlotItemDB.instance.quickSlotItems, this.id, eventData.pointerDrag.GetComponent<QuickSlot>().id);
         SetQuickSlot();
     }
     public void SetSlotNull()

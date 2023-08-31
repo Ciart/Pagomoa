@@ -10,6 +10,11 @@ namespace Worlds
 {
     public class WorldManager : MonoBehaviour
     {
+<<<<<<< HEAD
+=======
+        public WorldDatabase database;
+        
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
         [FormerlySerializedAs("mineralEntity")] public ItemEntity itemEntity;
 
         public Transform ufo;
@@ -106,12 +111,14 @@ namespace Worlds
         public void BreakGround(int x, int y, int tier, string item)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
+            var rock = database.GetMineral("Rock");
+            
             if (item == "item") 
             {
                 if(chunk is null)
                     return;
 
-                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
+                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral == rock)
                 {
                     var entity = Instantiate(itemEntity, ComputePosition(x, y), Quaternion.identity);
                     entity.Item = brick.mineral!.item;
@@ -119,7 +126,7 @@ namespace Worlds
             }
             else
             {
-                if (chunk is null || brick.mineral?.displayName == "돌")
+                if (chunk is null || brick.mineral == rock)
                     return;
 
                 if (brick.mineral is not null && brick.mineral.tier <= tier)
