@@ -22,12 +22,12 @@ public class Collect : MonoBehaviour
     {
         CollectInherentItem(collision);
         
-        if (!collision.gameObject.GetComponent<MineralEntity>()) return;
-        Mineral mineral = collision.gameObject.GetComponent<MineralEntity>().data;
+        if (!collision.gameObject.GetComponent<ItemEntity>()) return;
+        var mineral = collision.gameObject.GetComponent<ItemEntity>().item;
 
-        Debug.Log($"{mineral.tier}티어 광물 \"{mineral.displayName}\" 를 수집했습니다!");
+        Debug.Log($"\"{mineral.itemName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
-        inventoryDB.Add(mineral.item);
+        inventoryDB.Add(mineral);
         Destroy(collision.gameObject);
     }
 
