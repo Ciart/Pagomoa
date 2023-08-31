@@ -209,7 +209,7 @@ MonoBehaviour:
       ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
   - name: "\uAE34 \uCCA0"
-    appearanceArea: 2
+    appearanceArea: -1
     tags: []
     width: 2
     height: 4
@@ -218,28 +218,28 @@ MonoBehaviour:
     prefabs: []
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
   - name: "\uBAAC\uC2A4\uD130 \uD14C\uC2A4\uD2B8"
     appearanceArea: 1
@@ -248,13 +248,7 @@ MonoBehaviour:
     height: 6
     pivot: {x: 3, y: 4}
     weight: 0.1
-    prefabs:
-    - x: 1.5
-      y: 4
-      prefab: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
-    - x: 3.5
-      y: 4
-      prefab: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
+    prefabs: []
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
@@ -570,4 +564,4 @@ MonoBehaviour:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 0}
-  selectIndex: 9
+  selectIndex: 5
