@@ -9984,7 +9984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
+  itemEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
   ufo: {fileID: 207791471}
   ufoLadder: {fileID: 537197575}
 --- !u!4 &960694651
@@ -40565,7 +40565,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1442295008}
   m_SourcePrefab: {fileID: 100100000, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
 --- !u!1001 &5886128022861646370
 PrefabInstance:

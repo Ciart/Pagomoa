@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
-  m_Name: Rock
+  m_Name: Iron
   m_EditorClassIdentifier: 
-  displayName: "\uBC14\uC704"
-  tier: 0
-  sprite: {fileID: 1577651770, guid: c14264ab16655a3418f2298411e23b52, type: 3}
-  tile: {fileID: 11400000, guid: 2e197281d78d8014baee65244dff4b6e, type: 2}
-  item: {fileID: 0}
-  price: 0
+  displayName: "\uCCA0"
+  tier: 1
+  sprite: {fileID: 784374654, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
+  tile: {fileID: 11400000, guid: 4be81157078f248bdb0ef63def77ffe2, type: 2}
+  item: {fileID: 11400000, guid: 81c81c5f62a43da42aba7c6b84a1595a, type: 2}
+  price: 1000

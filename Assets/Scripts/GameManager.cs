@@ -4,7 +4,9 @@ using Worlds;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isLoadSave = false;
+    public bool isLoadSave;
+
+    public bool hasPowerGemEarth;
     
     private static GameManager _instance;
     
@@ -56,6 +58,14 @@ public class GameManager : MonoBehaviour
                 Debug.Log("worldData Get Damaged, Generate New World");
                 _worldGenerator.Generate();
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (hasPowerGemEarth)
+        {
+            Debug.Log("데모 종료");
         }
     }
 }
