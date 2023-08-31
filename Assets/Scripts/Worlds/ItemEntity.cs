@@ -5,25 +5,23 @@ namespace Worlds
     [RequireComponent(typeof(SpriteRenderer))]
     public class ItemEntity: MonoBehaviour
     {
-        public Item item;
+        private Item _item;
     
         private SpriteRenderer _spriteRenderer;
 
         public Item Item
         {
-            get => item;
+            get => _item;
             set
             {
-                item = value;
-                _spriteRenderer.sprite = item.itemImage;
+                _item = value;
+                _spriteRenderer.sprite = _item.itemImage;
             }
         }
     
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-
-            _spriteRenderer.sprite = item.itemImage;
         }
     }
 }

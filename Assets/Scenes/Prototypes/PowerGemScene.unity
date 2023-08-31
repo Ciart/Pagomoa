@@ -3498,7 +3498,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.40625
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6220,6 +6220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad996fc831bbd494ca4d9f3c55d08923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadPositionDelayTime: 1.5
+  LoadComplete: 0
 --- !u!4 &844038260
 Transform:
   m_ObjectHideFlags: 0
@@ -8855,8 +8857,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineralEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
-  ufoLadder: {fileID: 0}
+  database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
+  itemEntity: {fileID: 5001122563055400738, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
+  ufo: {fileID: 1135593059}
+  ufoLadder: {fileID: 1344126190}
 --- !u!4 &1135593059
 Transform:
   m_ObjectHideFlags: 0
@@ -8885,7 +8889,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b789feb74b7047bca62eba3f585bf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
   seed: 1234
   chunkSize: 16
   top: 4
@@ -9328,6 +9331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoadSave: 0
+  hasPowerGemEarth: 0
 --- !u!4 &1150885221
 Transform:
   m_ObjectHideFlags: 0
@@ -20919,7 +20923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f98bd7854ddbdf46bf30fa9fe92791d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellUI: {fileID: 1083668417}
+  UI: {fileID: 0}
 --- !u!114 &1368893923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23679,7 +23683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f98bd7854ddbdf46bf30fa9fe92791d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellUI: {fileID: 1846683247}
+  UI: {fileID: 0}
 --- !u!114 &1759611646
 MonoBehaviour:
   m_ObjectHideFlags: 0

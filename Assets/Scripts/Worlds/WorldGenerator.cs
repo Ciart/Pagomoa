@@ -21,7 +21,7 @@ namespace Worlds
 
         public int top = 4;
 
-        public int bottom = 32;
+        public int bottom = 8;
 
         public int left = 4;
 
@@ -109,14 +109,14 @@ namespace Worlds
                     {
                         worldBrick.wall = wall;
 
-                        if (y > FOREST_HEIGHT)
+                        // if (y > FOREST_HEIGHT)
                         {
                             worldBrick.ground = sand;
                         }
-                        else
-                        {
-                            worldBrick.ground = grass;
-                        }
+                        // else
+                        // {
+                        //     worldBrick.ground = grass;
+                        // }
                     }
                 }
             }
@@ -132,14 +132,14 @@ namespace Worlds
 
                     Piece piece;
 
-                    if (y > FOREST_HEIGHT)
+                    // if (y > FOREST_HEIGHT)
                     {
                         piece = GetRandomPiece(desertPieces);
                     }
-                    else
-                    {
-                        piece = GetRandomPiece(forestPieces);
-                    }
+                    // else
+                    // {
+                    //     piece = GetRandomPiece(forestPieces);
+                    // }
 
                     GeneratePiece(piece, world, x, y);
                 }
@@ -148,6 +148,8 @@ namespace Worlds
             var powerX = random.NextInt(worldLeft, worldRight);
             var powerY= random.NextInt(FOREST_HEIGHT, 100);
             GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), world, powerX, powerY, true);
+            
+            GeneratePiece(database.GetPieceWithTag("Remote"), world, 0, -4, true);
 
             _worldManager.world = world;
         }

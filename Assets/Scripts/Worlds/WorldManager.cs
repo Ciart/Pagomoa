@@ -12,8 +12,6 @@ namespace Worlds
     {
         public WorldDatabase database;
         
-        public MineralEntity mineralEntity;
-        
         [FormerlySerializedAs("mineralEntity")] public ItemEntity itemEntity;
 
         public Transform ufo;

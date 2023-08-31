@@ -20,25 +20,18 @@ public class Collect : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        CollectInherentItem(collision);
-        
         if (!collision.gameObject.GetComponent<ItemEntity>()) return;
-        var mineral = collision.gameObject.GetComponent<ItemEntity>().item;
+        
+        var mineral = collision.gameObject.GetComponent<ItemEntity>().Item;
 
         Debug.Log($"\"{mineral.itemName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
         inventoryDB.Add(mineral);
         Destroy(collision.gameObject);
-    }
 
-    private void CollectInherentItem(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<UFORemoteControl>())
+        if (mineral.name == "PowerGemEarth")
         {
-            InherentItem inherentItem = collision.gameObject.GetComponent<UFORemoteControl>().inherentItem;
-            OnCollectEvent.Invoke();
-            inventoryDB.Add(inherentItem);
-            Destroy(collision.gameObject);
+            GameManager.instance.hasPowerGemEarth = true;
         }
     }
 }

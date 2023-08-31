@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 222368656891359650}
   - component: {fileID: 5001122563055400738}
   m_Layer: 8
-  m_Name: Mineral
+  m_Name: ItemEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
