@@ -6,7 +6,11 @@ namespace Worlds
     public class ItemEntity: MonoBehaviour
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         public Item item;
+=======
+        private Item _item;
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
 =======
         private Item _item;
 >>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
@@ -16,17 +20,23 @@ namespace Worlds
         public Item Item
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             get => item;
             set
             {
                 item = value;
                 _spriteRenderer.sprite = item.itemImage;
 =======
+=======
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
             get => _item;
             set
             {
                 _item = value;
                 _spriteRenderer.sprite = _item.itemImage;
+<<<<<<< HEAD
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
+=======
 >>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
             }
         }
@@ -35,8 +45,11 @@ namespace Worlds
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             _spriteRenderer.sprite = item.itemImage;
+=======
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
 =======
 >>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
         }

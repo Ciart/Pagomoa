@@ -23,8 +23,12 @@ public class Collect : MonoBehaviour
         if (!collision.gameObject.GetComponent<ItemEntity>()) return;
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (!collision.gameObject.GetComponent<ItemEntity>()) return;
         var mineral = collision.gameObject.GetComponent<ItemEntity>().item;
+=======
+        var mineral = collision.gameObject.GetComponent<ItemEntity>().Item;
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
 =======
         var mineral = collision.gameObject.GetComponent<ItemEntity>().Item;
 >>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
@@ -34,6 +38,7 @@ public class Collect : MonoBehaviour
         inventoryDB.Add(mineral);
         Destroy(collision.gameObject);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     private void CollectInherentItem(Collision2D collision)
     {
@@ -47,6 +52,10 @@ public class Collect : MonoBehaviour
 =======
         if (mineral.name == "PowerGemEarth")
         {
+=======
+        if (mineral.name == "PowerGemEarth")
+        {
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
             GameManager.instance.hasPowerGemEarth = true;
         }
 >>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85

@@ -15,10 +15,16 @@ MonoBehaviour:
   displayName: "UFO \uB9AC\uBAA8\uCF58"
   tier: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   sprite: {fileID: -1648650736, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
   tile: {fileID: 11400000, guid: 21c9bf8f9ad7940969bc562de4e5afc8, type: 2}
   item: {fileID: 11400000, guid: ecb91d71e59e4ec4ca2d3e69f7a46de2, type: 2}
   price: 0
+=======
+  sprite: {fileID: 21300000, guid: 5c0d689eb05199344aabd73432a89b6a, type: 3}
+  tile: {fileID: 11400000, guid: 21c9bf8f9ad7940969bc562de4e5afc8, type: 2}
+  item: {fileID: 11400000, guid: ecb91d71e59e4ec4ca2d3e69f7a46de2, type: 2}
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
 =======
   sprite: {fileID: 21300000, guid: 5c0d689eb05199344aabd73432a89b6a, type: 3}
   tile: {fileID: 11400000, guid: 21c9bf8f9ad7940969bc562de4e5afc8, type: 2}

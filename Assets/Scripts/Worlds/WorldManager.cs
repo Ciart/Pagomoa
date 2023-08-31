@@ -11,6 +11,11 @@ namespace Worlds
     public class WorldManager : MonoBehaviour
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        public WorldDatabase database;
+        
+>>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
 =======
         public WorldDatabase database;
         
