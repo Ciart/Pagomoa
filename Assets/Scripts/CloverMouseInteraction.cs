@@ -14,7 +14,6 @@ public class CloverMouseInteraction : MonoBehaviour
     }
     private void SetUI()
     {
-        Debug.Log("호출되니");
         if(_buyUI.activeSelf == false)
             _buyUI.SetActive(true);
     }

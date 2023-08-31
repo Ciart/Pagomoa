@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 245123279c6f26d41bfd1ffd5a6f8ee2, type: 3}
+  m_Script: {fileID: 11500000, guid: f6062136e2e145a3b5fddbb4d0e12802, type: 3}
   m_Name: Mole Shovel
   m_EditorClassIdentifier: 
   itemName: "\uB450\uB354\uC9C0\uC0BD"
-  itemType: 0
+  itemType: 3
   itemImage: {fileID: -663300248, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
-  itemInfo: "\uB450\uB354\uC9A4 \uC0BD"
+  itemInfo: "\uB450\uB354\uC9C0\uB97C \uC18C\uD658\uD558\uC5EC \uB545\uC744 \uD30C\uAC8C\uD55C\uB2E4."
   itemPrice: 0
-  Equipable: 0
-  AbilityList:
-    data: []
+  Usable: 1
+  Effects:
+  - {fileID: 11400000, guid: 9dd7d9c2dd235984189e6b8bd641836a, type: 2}

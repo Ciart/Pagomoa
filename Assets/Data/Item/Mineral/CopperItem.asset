@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uAD6C\uB9AC"
   itemType: 2
-  itemImage: {fileID: -1648650736, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
+  itemImage: {fileID: 437540491, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
   itemInfo: "\uAD6C\uB974\uACE0 \uAD6C\uB978 \uAD6C\uB9B0 \uAD6C\uB9AC"
   itemPrice: 0

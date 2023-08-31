@@ -21,11 +21,12 @@ public class InventoryDB : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(this.gameObject);
-
+        SaveManager.Instance.LoadItem();
+        inventory.ResetSlot();
     }
     private void Awake()
     {

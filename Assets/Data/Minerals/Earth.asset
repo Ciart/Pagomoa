@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 729caf21bc2f4637aa77952ef6afdce1, type: 3}
-  m_Name: Copper
+  m_Name: Earth
   m_EditorClassIdentifier: 
-  displayName: "\uAD6C\uB9AC"
+  displayName: "\uD30C\uC6CC\uC82C - \uB300\uC9C0"
   tier: 0
-  sprite: {fileID: -1648650736, guid: ee14ee6051581451a93c75b8cda0397c, type: 3}
-  tile: {fileID: 11400000, guid: ddbdaecc7be7b40b0903c19d5876a1ed, type: 2}
-  item: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+  sprite: {fileID: -1357763061, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
+  tile: {fileID: 11400000, guid: 24853f0f513cc420abe747a6f1dd8dd0, type: 2}
+  item: {fileID: 11400000, guid: 4d431cb939c424a0483bc39d91137bfe, type: 2}
   price: 500
