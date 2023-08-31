@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,18 +26,29 @@ public class ChatBalloon : MonoBehaviour
         balloon = Instantiate(chatBalloonPrefab, transform.position + floatingPosition, Quaternion.identity, transform).transform.GetChild(0).gameObject;
         balloon.SetActive(true);
         chatContent = GetComponentInChildren<TextMeshProUGUI>();
-        if (balloon.transform.GetChild(1))
+        try
         {
-            icon = balloon.transform.GetChild(1).GetComponent<Image>();
-            balloon.SetActive(false);
-        } else { balloon.SetActive(false); }
-        
+            if (balloon.transform.GetChild(1).name == "Icon")
+            {
+                icon = balloon.transform.GetChild(1).GetComponent<Image>();
+                balloon.SetActive(false);
+            }
+            else
+            {
+                balloon.SetActive(false);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e + " 아이콘이 존재하지 않음");
+        }
+
         _chatBalloonTransform = balloon.transform.GetComponent<RectTransform>();
         _chatIconTransform = icon.transform.GetComponent<RectTransform>();
     }
     public void ReSizeBalloon()
     {
         _chatBalloonTransform.sizeDelta = new Vector2(100 + 45 * chatContent.text.Length, _chatBalloonTransform.sizeDelta.y);
-        _chatIconTransform.position = new Vector3(transform.position.x, transform.position.y);
+        _chatIconTransform.anchoredPosition = new Vector3(_chatIconTransform.anchoredPosition.x + chatContent.text.Length, _chatIconTransform.anchoredPosition.y);
     }
 }

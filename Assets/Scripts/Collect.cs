@@ -33,12 +33,12 @@ public class Collect : MonoBehaviour
 
     private void CollectInherentItem(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<UFORemoteControl>())
+        /*if (collision.gameObject.GetComponent<UFORemoteControl>())
         {
             InherentItem inherentItem = collision.gameObject.GetComponent<UFORemoteControl>().inherentItem;
             OnCollectEvent.Invoke();
             inventoryDB.Add(inherentItem);
             Destroy(collision.gameObject);
-        }
+        }*/
     }
 }
