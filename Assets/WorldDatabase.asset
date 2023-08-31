@@ -363,19 +363,6 @@ MonoBehaviour:
       mineral: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-<<<<<<< HEAD
-<<<<<<< HEAD
-      mineral: {fileID: 11400000, guid: 54af5ea99837f4582a0edd70b6866cf2, type: 2}
-  - name: New Piece
-    appearanceArea: 1
-    tags: []
-    width: 4
-    height: 4
-    pivot: {x: 1, y: 1}
-    weight: 3
-=======
-=======
->>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
       mineral: {fileID: 0}
   - name: "\uBC14\uC704"
     appearanceArea: 1
@@ -384,10 +371,6 @@ MonoBehaviour:
     height: 2
     pivot: {x: 3, y: 0}
     weight: 1
-<<<<<<< HEAD
->>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
-=======
->>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
     prefabs: []
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
