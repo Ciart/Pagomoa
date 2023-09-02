@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
                     InventoryDB.Instance.items.Remove(QuickSlotItemDB.instance.selectedSlot.inventoryItem);
                     QuickSlotItemDB.instance.selectedSlot.SetSlotNull();
                 }
-                QuickSlotItemDB.instance.selectedSlot.inventory.UpdateSlot();
+                EtcInventory.Instance.UpdateSlot();
             }
             else if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
             {
@@ -102,10 +102,10 @@ public class UIManager : MonoBehaviour
         {
             if (n == index)
             {
-                QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
                 if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[index])
                 {
                     QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[index];
+                    QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
                 }
                 else
                 {

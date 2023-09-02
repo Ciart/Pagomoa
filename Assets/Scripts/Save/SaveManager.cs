@@ -115,8 +115,11 @@ public class SaveManager : MonoBehaviour
     }
     public void LoadOption()
     {
-        OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
-        OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
+        if (DataManager.Instance.data.optionData != null)
+        {
+            OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
+            OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
+        }
     }
     void WritePosData()
     {
@@ -165,17 +168,17 @@ public class SaveManager : MonoBehaviour
         }
         if (DataManager.Instance.data.introData == null)
         {
-            Debug.Log("No World Data before, Instantiate new World Data");
+            Debug.Log("No Intro Data before, Instantiate new World Data");
             DataManager.Instance.data.introData = new IntroData();
         }
         if (DataManager.Instance.data.itemData == null)
         {
-            Debug.Log("No World Data before, Instantiate new World Data");
+            Debug.Log("No Item Data before, Instantiate new World Data");
             DataManager.Instance.data.itemData = new ItemData();
         }
         if (DataManager.Instance.data.optionData == null)
         {
-            Debug.Log("No World Data before, Instantiate new World Data");
+            Debug.Log("No Option Data before, Instantiate new World Data");
             DataManager.Instance.data.optionData = new OptionData();
         }
     }

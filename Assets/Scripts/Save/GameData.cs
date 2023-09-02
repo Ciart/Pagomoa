@@ -72,8 +72,8 @@ public class ItemData
 [System.Serializable]
 public class OptionData
 {
-    public int scale;
-    public float audioValue;
+    public int scale = 1;
+    public float audioValue = 0;
     public void SetOptionDataFromOptionDB(OptionDB optionDB)
     {
         if (!optionDB) return;

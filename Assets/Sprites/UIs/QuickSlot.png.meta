@@ -114,9 +114,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 6
-        y: 1
+        y: 0
         width: 20
-        height: 26
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,33 +131,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QuickSlot_2
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 0
-        width: 17
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9029b5ae75c0145829d7e60e9fae3437
-      internalID: 1968272753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: QuickSlot_3
       rect:
         serializedVersion: 2
-        x: 103
+        x: 120
         y: 0
-        width: 19
+        width: 2
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -178,8 +157,8 @@ TextureImporter:
         serializedVersion: 2
         x: 38
         y: 0
-        width: 18
-        height: 27
+        width: 2
+        height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,6 +176,27 @@ TextureImporter:
       name: QuickSlot_1
       rect:
         serializedVersion: 2
+        x: 72
+        y: 0
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55cd98ccd72c3e1409e1a1a8ad4064d5
+      internalID: 605854001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuickSlot_2
+      rect:
+        serializedVersion: 2
         x: 103
         y: 0
         width: 1
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 917d7bdb265a22340ab7c9b475259eab
-      internalID: 605854001
+      spriteID: bc1b416ee751298419895bfbf279f0bd
+      internalID: 1968272753
       vertices: []
       indices: 
       edges: []

@@ -463,8 +463,6 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-<<<<<<< HEAD
-<<<<<<< HEAD
                     ""id"": ""6d003d87-be70-4e9b-9f12-0610365140bf"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
@@ -476,10 +474,6 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-=======
->>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
-=======
->>>>>>> 7e9333594d5bd1dc77a4bd024bf3d59a0e732d85
                     ""id"": ""bbc514dd-9465-4c4c-9d6c-5082b1e08e59"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",

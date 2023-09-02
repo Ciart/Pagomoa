@@ -16,5 +16,4 @@ MonoBehaviour:
   tier: 0
   sprite: {fileID: 1577651770, guid: c14264ab16655a3418f2298411e23b52, type: 3}
   tile: {fileID: 11400000, guid: 2e197281d78d8014baee65244dff4b6e, type: 2}
-  item: {fileID: 0}
-  price: 0
+  item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
