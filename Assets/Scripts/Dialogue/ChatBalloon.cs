@@ -44,11 +44,13 @@ public class ChatBalloon : MonoBehaviour
         }
 
         _chatBalloonTransform = balloon.transform.GetComponent<RectTransform>();
-        _chatIconTransform = icon.transform.GetComponent<RectTransform>();
+        if(icon)
+            _chatIconTransform = icon.transform.GetComponent<RectTransform>();
     }
     public void ReSizeBalloon()
     {
         _chatBalloonTransform.sizeDelta = new Vector2(100 + 45 * chatContent.text.Length, _chatBalloonTransform.sizeDelta.y);
-        _chatIconTransform.anchoredPosition = new Vector3(_chatIconTransform.anchoredPosition.x + chatContent.text.Length, _chatIconTransform.anchoredPosition.y);
+        if(icon)
+            _chatIconTransform.anchoredPosition = new Vector3(_chatIconTransform.anchoredPosition.x + chatContent.text.Length, _chatIconTransform.anchoredPosition.y);
     }
 }
