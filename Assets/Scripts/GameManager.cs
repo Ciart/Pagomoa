@@ -38,24 +38,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Instance.LoadGameData();
+        bool LoadSuccess = DataManager.Instance.LoadGameData();
 
-        if (!isLoadSave || DataManager.Instance.data.worldData == null || DataManager.Instance.data == null)
-        {
-            Debug.Log("worldData Not find or No Save Mode, Generate New World");
+        if (!isLoadSave || DataManager.Instance.data.worldData == null || DataManager.Instance.data == null) LoadSuccess = false;
+
+        if (!LoadSuccess)
             _worldGenerator.Generate();
-
-        }
         else
         {
-            if (DataManager.Instance.data.worldData._chunks.data.Count != 0)
+            try
             {
-                Debug.Log("worldData Exist, Load Old World");
                 _worldGenerator.LoadWorld(DataManager.Instance.data.worldData);
             }
-            else
+            catch
             {
-                Debug.Log("worldData Get Damaged, Generate New World");
                 _worldGenerator.Generate();
             }
         }

@@ -82,6 +82,8 @@ public class SaveManager : MonoBehaviour
 
         if (DataManager.Instance.data.posData == null)
             return;
+        if (DataManager.Instance.data.posData.positionData == null)
+            return;
 
         Dictionary<string, Vector3> posDataDictionary = ListDictionaryConverter.ToDictionary(DataManager.Instance.data.posData.positionData);
         if (posDataDictionary.Count != 0)
