@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Worlds;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SaveManager : MonoBehaviour
 {
@@ -31,7 +28,7 @@ public class SaveManager : MonoBehaviour
     List<GameObject> ManagingTargets = new List<GameObject>();
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "Title") return ;
+        if (SceneManager.GetActiveScene().name == "Title") return;
 
         if (!container)
         {
@@ -58,13 +55,13 @@ public class SaveManager : MonoBehaviour
         if (targets.Length == 0) return;
         foreach (GameObject target in targets)
         {
-            if(target.activeSelf)
+            if (target.activeSelf)
                 ManagingTargets.Add(target);
         }
     }
     private void FreezePosition()
     {
-        foreach(GameObject target in ManagingTargets)
+        foreach (GameObject target in ManagingTargets)
         {
             target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
             target.GetComponent<Rigidbody2D>().Sleep();
@@ -121,6 +118,12 @@ public class SaveManager : MonoBehaviour
             OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
         }
     }
+    public void LoadArtifactItem()
+    {
+        if(DataManager.Instance.data.artifactData.artifacts != null)
+            ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
+        
+    }   
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -153,6 +156,11 @@ public class SaveManager : MonoBehaviour
         InitData();
         DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
     }
+    void WriteArtifactData()
+    {
+        InitData();
+        DataManager.Instance.data.artifactData.SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB.Instance);
+    }
 
     public void InitData()
     {
@@ -168,18 +176,23 @@ public class SaveManager : MonoBehaviour
         }
         if (DataManager.Instance.data.introData == null)
         {
-            Debug.Log("No Intro Data before, Instantiate new World Data");
+            Debug.Log("No Intro Data before, Instantiate new Intro Data");
             DataManager.Instance.data.introData = new IntroData();
         }
         if (DataManager.Instance.data.itemData == null)
         {
-            Debug.Log("No Item Data before, Instantiate new World Data");
+            Debug.Log("No Item Data before, Instantiate new Item Data");
             DataManager.Instance.data.itemData = new ItemData();
         }
         if (DataManager.Instance.data.optionData == null)
         {
-            Debug.Log("No Option Data before, Instantiate new World Data");
+            Debug.Log("No Option Data before, Instantiate new Option Data");
             DataManager.Instance.data.optionData = new OptionData();
+        }
+        if (DataManager.Instance.data.artifactData == null)
+        {
+            Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
+            DataManager.Instance.data.artifactData = new ArtifactData();
         }
     }
 
@@ -190,6 +203,7 @@ public class SaveManager : MonoBehaviour
         WriteMapData();
         WriteItemData();
         WriteOptionData();
+        WriteArtifactData();
         DataManager.Instance.SaveGameData();
     }
 

@@ -13,6 +13,7 @@ public class GameData
     public IntroData introData;
     public ItemData itemData;
     public OptionData optionData;
+    public ArtifactData artifactData;
 }
 
 [System.Serializable]
@@ -79,6 +80,16 @@ public class OptionData
         if (!optionDB) return;
         scale = optionDB.scale;
         audioValue = optionDB.audioValue;
+    }
+}
+[System.Serializable]
+public class ArtifactData
+{
+    public List<InventoryItem> artifacts;
+
+    public void SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB artifactSlotDB)
+    {
+        artifacts = artifactSlotDB.Artifact;
     }
 }
 

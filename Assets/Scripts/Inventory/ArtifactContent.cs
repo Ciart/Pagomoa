@@ -21,6 +21,10 @@ public class ArtifactContent : MonoBehaviour
             return instance;
         }
     }
+    private void Start()
+    {
+        ResetSlot();
+    }
     public void ResetSlot() 
     {
         int i = 0;

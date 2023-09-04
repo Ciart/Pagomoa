@@ -5942,7 +5942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot: {fileID: 538451427}
-  hoverRenderer: {fileID: 0}
+  hoverRenderer: {fileID: 337672799}
   image: {fileID: 337672799}
   itemName: {fileID: 1306746572}
   itemInfo: {fileID: 1056485724}
@@ -23624,7 +23624,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1522737677}
   - component: {fileID: 1522737679}
-  - component: {fileID: 1522737680}
   - component: {fileID: 1522737681}
   m_Layer: 8
   m_Name: ArtifactContent
@@ -23680,19 +23679,6 @@ MonoBehaviour:
   m_Spacing: {x: 3, y: 3}
   m_Constraint: 1
   m_ConstraintCount: 2
---- !u!114 &1522737680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522737676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982fd65b37420914685ed466543cd5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Artifact: []
 --- !u!114 &1522737681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23705,7 +23691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336e216d273bbe54bacbed6207730b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artifactSlotDB: {fileID: 0}
+  artifactSlotDB: {fileID: 1650482112}
   image: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotDatas:
   - {fileID: 538451427}
