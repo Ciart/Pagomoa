@@ -65,7 +65,6 @@ public class PlayerInteractWithObject : MonoBehaviour
 
     private void InputEventKey()
     {
-
         if (_playerInput.IsInteraction)
             getKey = true;
         else

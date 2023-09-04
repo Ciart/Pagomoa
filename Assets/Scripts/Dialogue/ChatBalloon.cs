@@ -33,10 +33,7 @@ public class ChatBalloon : MonoBehaviour
                 icon = balloon.transform.GetChild(1).GetComponent<Image>();
                 balloon.SetActive(false);
             }
-            else
-            {
-                balloon.SetActive(false);
-            }
+            else { balloon.SetActive(false); }
         }
         catch (Exception e)
         {
