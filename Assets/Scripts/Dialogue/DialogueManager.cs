@@ -51,9 +51,9 @@ public class DialogueManager : MonoBehaviour
             talkPannel.SetActive(false);
             return false;
         }
-        talkText.text = NowScenario.talk[talkIndex];
-        talkImage.sprite = NowScenario.sprite[talkIndex];
-        nameText.text = NowScenario.talkerName[talkIndex];
+        talkText.text = talkIndex < NowScenario.talk.Count ? NowScenario.talk[talkIndex] : "";
+        talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null;
+        nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
         talkPannel.SetActive(true);
         talkIndex++;
         return true;

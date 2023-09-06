@@ -59,13 +59,13 @@ public class SaveManager : MonoBehaviour
     {
         foreach (GameObject target in ManagingTargets)
         {
-            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             target.GetComponent<Rigidbody2D>().Sleep();
         }
     }
-    public void TagPosition()
+    public void TagPosition(float time = 0)
     {
-        Invoke("_TagPosition", loadPositionDelayTime);
+        Invoke("_TagPosition", time);
     }
     private void _TagPosition()
     {
