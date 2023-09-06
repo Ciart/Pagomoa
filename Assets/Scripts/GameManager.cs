@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         else
         {
             _worldGenerator.Generate();
-            SaveManager.Instance.TagPosition();
+            SaveManager.Instance.TagPosition(SaveManager.Instance.loadPositionDelayTime);
         }
     }
     bool AllBlockNullCheck()
