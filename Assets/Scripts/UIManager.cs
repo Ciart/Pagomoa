@@ -106,6 +106,7 @@ public class UIManager : MonoBehaviour
                 {
                     QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[index];
                     QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
+                    QuickSlotItemDB.instance.selectedSlot.transform.SetAsLastSibling();
                 }
                 else
                 {

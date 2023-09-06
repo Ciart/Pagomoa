@@ -125,6 +125,7 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
 
         QuickSlotItemDB.instance.selectedSlot = eventData.pointerPress.GetComponent<QuickSlot>();
         QuickSlotItemDB.instance.selectedSlot.selectedSlotImage.gameObject.SetActive(true);
+        QuickSlotItemDB.instance.selectedSlot.transform.SetAsLastSibling();
     }
 
 
