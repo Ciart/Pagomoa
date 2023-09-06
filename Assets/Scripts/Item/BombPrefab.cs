@@ -35,7 +35,7 @@ public class BombPrefab : MonoBehaviour
             {
                 point.x += 1;
                 var pointInt = WorldManager.ComputeCoords(point);
-                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, "item");
+                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, true);
             }
             point.x = transform.position.x - 2;
         }

@@ -11,15 +11,16 @@ namespace Worlds
     public class WorldManager : MonoBehaviour
     {
         public WorldDatabase database;
-        
-        [FormerlySerializedAs("mineralEntity")] public ItemEntity itemEntity;
+
+        [FormerlySerializedAs("mineralEntity")]
+        public ItemEntity itemEntity;
 
         public Transform ufo;
-        
+
         public Tilemap ufoLadder;
 
         private UFOInteraction _ufoInteraction;
-        
+
         private World _world;
 
         public World world
@@ -36,6 +37,7 @@ namespace Worlds
                 createdWorld?.Invoke(_world);
             }
         }
+
         public event Action<World> createdWorld;
 
         public event Action<Chunk> changedChunk;
@@ -105,43 +107,27 @@ namespace Worlds
             return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
 
-        public void BreakGround(int x, int y, int tier, string item)
+        public void BreakGround(int x, int y, int tier, bool isForceBreak = false)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
             var rock = database.GetMineral("Rock");
-            
-            if (item == "item") 
-            {
-                if(chunk is null)
-                    return;
 
-                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral == rock)
+            if (chunk is null)
+                return;
+
+            if (brick.mineral is not null && brick.mineral.tier <= tier)
+            {
+                if (!isForceBreak && brick.mineral == rock)
+                {
+                    return;
+                }
+
+                if (brick.mineral != rock)
                 {
                     var entity = Instantiate(itemEntity, ComputePosition(x, y), Quaternion.identity);
                     entity.Item = brick.mineral!.item;
                 }
             }
-            else
-            {
-                if (chunk is null || brick.mineral == rock)
-                    return;
-
-                if (brick.mineral is not null && brick.mineral.tier <= tier)
-                {
-                    var entity = Instantiate(itemEntity, ComputePosition(x, y), Quaternion.identity);
-                    entity.Item = brick.mineral!.item;
-                }
-            }
-            //if (chunk is null || brick.mineral?.displayName == "돌")
-            //{
-            //    return;
-            //}
-
-            //if (brick.mineral is not null && brick.mineral.tier <= tier)
-            //{
-            //    var entity = Instantiate(mineralEntity, ComputePosition(x, y), Quaternion.identity);
-            //    entity.Data = brick.mineral;
-            //}
 
             brick.ground = null;
             brick.mineral = null;
@@ -158,11 +144,12 @@ namespace Worlds
                     {
                         continue;
                     }
-                    
+
                     _expiredChunks.Add(c);
                 }
             }
         }
+
         public bool CheckBreakable(int x, int y, int tier, string item)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
@@ -176,14 +163,17 @@ namespace Worlds
             {
                 if (chunk is null || brick.mineral?.displayName == "돌")
                 {
-                    if(chunk is null) return false;
-                    if(brick.mineral?.displayName == "돌") return false;
+                    if (chunk is null) return false;
+                    if (brick.mineral?.displayName == "돌") return false;
                 }
+
                 if (brick.mineral is not null && brick.mineral.tier <= tier)
                     return true;
             }
+
             return true;
         }
+
         public bool CheckClimbable(Vector3 position)
         {
             var coords = ComputeCoords(position);
