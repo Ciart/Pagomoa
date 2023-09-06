@@ -6,23 +6,29 @@ public class PlayerInteractWithObject : MonoBehaviour
     private float _closestDistance;
     private InteractableObject _activatedObject;
 
-    public bool getKey;
+    //public bool getKey;
 
-    private Player.PlayerInput _playerInput;
+    //private Player.PlayerInput _playerInput;
     void Start()
     {
         interactableObjectList = new List<InteractableObject>();
-        _playerInput = GetComponentInParent<Player.PlayerInput>();
+        //_playerInput = GetComponentInParent<Player.PlayerInput>();
     }
-
-    void FixedUpdate()
+    private void Awake()
     {
-        InputEventKey();
-
-        if (getKey && _activatedObject)
+        GetComponentInParent<Player.PlayerInput>().Actions.Interaction.started += context =>
         {
             _activatedObject.InteractionEvent.Invoke();
-        }
+        };
+    }
+    void FixedUpdate()
+    {
+        //InputEventKey();
+
+        //if (getKey && _activatedObject)
+        //{
+        //    _activatedObject.InteractionEvent.Invoke();
+        //}
 
         foreach (InteractableObject obj in interactableObjectList)
         {
@@ -63,11 +69,12 @@ public class PlayerInteractWithObject : MonoBehaviour
         if (interactableObjectList.Count == 0) _activatedObject = null;
     }
 
-    private void InputEventKey()
-    {
-        if (_playerInput.IsInteraction)
-            getKey = true;
-        else
-            getKey = false;
-    }
+    //private void InputEventKey()
+    //{
+
+    //    if (_playerInput.IsInteraction)
+    //        getKey = true;
+    //    else
+    //        getKey = false;
+    //}
 }

@@ -2896,6 +2896,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buyUI: {fileID: 23707350}
+--- !u!114 &306791846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306791835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a472f730800484780d07c2ea8f517c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chat:
+  - "\uC309\uB2C8\uB2E4 \uC2F8\uC694!"
+  - "\uB124 \uC0AC\uC2E4 \uBE44\uC2F8\uC694"
+  - "\uD765\uC815\uC740 \uBB34\uC2A8\u314B"
+  - "\uC190\uB2D8~ \uB4E4\uB7EC\uBD10\uC694"
+  - "\uCE6B, \uB4F1\uCCD0\uBA39\uAE30 \uC2E4\uD328\uB2E4"
+  - "\uC544\u314B\u314B \uC77C\uB2E8 \uB4E4\uB7EC\uBCF4\uB77C\uACE0"
+  - "\uC5B4\uC5B4? \uADF8\uAC70 \uB9C9 \uAC00\uC838\uAC00\uC2DC\uBA74 \uC548\uB429\uB2C8\uB2E4"
+  - "\uC544\uB2C8, \uD3ED\uD0C4 \uB098\uD55C\uD14C \uC124\uCE58\uD558\uC9C0\uB9C8\uC694"
+  initialStartTime: 0
+  floatingTime: 2
+  updateTime: 8
+--- !u!114 &306791847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306791835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab11f467084a4ab4590555ef7315530d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatBalloonPrefab: {fileID: 4809351473810362442, guid: ec4a96fe3554a7f4cb6ad5212f349981, type: 3}
+  balloon: {fileID: 0}
+  chatContent: {fileID: 0}
+  icon: {fileID: 0}
+  floatingPosition: {x: 0.1, y: -0.3, z: 0}
 --- !u!114 &314717552 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6154591919430923525, guid: d9af4b3597f7b204ab7eff5266c72eab, type: 3}
@@ -6465,6 +6506,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6843392044339612283, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 306791841}
+    - targetCorrespondingSourceObject: {fileID: 6843392044339612283, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 306791847}
+    - targetCorrespondingSourceObject: {fileID: 6843392044339612283, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 306791846}
   m_SourcePrefab: {fileID: 100100000, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
 --- !u!1 &619394800
 GameObject:
@@ -8333,7 +8380,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - {fileID: 11400000, guid: 133b4dea7dc1b954cb92279fc16b74d3, type: 2}
-  - {fileID: 11400000, guid: 45e3b7d7d16934148a5b50d1ade26982, type: 2}
+  - {fileID: 11400000, guid: 86af7a9739fdc9c419284ff8060075fb, type: 2}
+  - {fileID: 11400000, guid: 182a54989b40637428a87ef60588b47d, type: 2}
+  - {fileID: 11400000, guid: 8c68b9e1668812649b2f01fbaad34dbf, type: 2}
+  - {fileID: 11400000, guid: 4e835e6a7d4d15d4c8ce8d087e15c277, type: 2}
   talkPannel: {fileID: 1097494079}
   talkImage: {fileID: 1174656865}
   talkText: {fileID: 1187393284}

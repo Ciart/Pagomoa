@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Specialized;
+using System.Drawing;
 using UnityEngine;
 using Worlds;
 
@@ -40,21 +42,51 @@ public class GameManager : MonoBehaviour
     {
         bool LoadSuccess = DataManager.Instance.LoadGameData();
 
-        if (!isLoadSave || DataManager.Instance.data.worldData == null || DataManager.Instance.data == null) LoadSuccess = false;
+        if (!isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
+        if(DataManager.Instance.data != null)
+            if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
+        if(AllBlockNullCheck()) LoadSuccess = false;
 
-        if (!LoadSuccess)
-            _worldGenerator.Generate();
-        else
+        //Debug.Log("블럭모두없음?: " + AllBlockNullCheck());
+
+        SaveManager.Instance.FreezePosition();
+
+        if (isLoadSave && LoadSuccess)
         {
             try
             {
                 _worldGenerator.LoadWorld(DataManager.Instance.data.worldData);
+                SaveManager.Instance.LoadPosition();
             }
             catch
             {
                 _worldGenerator.Generate();
+                SaveManager.Instance.TagPosition();
             }
         }
+        else
+        {
+            _worldGenerator.Generate();
+            SaveManager.Instance.TagPosition(SaveManager.Instance.loadPositionDelayTime);
+        }
+    }
+    bool AllBlockNullCheck()
+    {
+        if (DataManager.Instance.data == null) return true;
+        bool allNullCheck = true;
+        DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
+        int dataSize = chunks.data.Count;
+        //Debug.Log("수량: " + dataSize);
+        for (int i = 0; i < dataSize; i++)
+        {
+            int brickSize = chunks.data[i].Value.bricks.Length;
+            for (int j = 0; j < brickSize; j++)
+            {
+                if (chunks.data[i].Value.bricks[j].ground != null)
+                    allNullCheck = false;
+            }
+        }
+        return allNullCheck;
     }
 
     private void Update()

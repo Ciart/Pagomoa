@@ -43,11 +43,7 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("Monster");
         AddManagingTargetWithTag("NPC");
 
-        FreezePosition();
-        if (GameManager.instance.isLoadSave)
-            Invoke("LoadPosition", loadPositionDelayTime);
-        else
-            Invoke("TagPosition", loadPositionDelayTime);
+        
     }
     void AddManagingTargetWithTag(string tagName)
     {
@@ -59,15 +55,19 @@ public class SaveManager : MonoBehaviour
                 ManagingTargets.Add(target);
         }
     }
-    private void FreezePosition()
+    public void FreezePosition()
     {
         foreach (GameObject target in ManagingTargets)
         {
-            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             target.GetComponent<Rigidbody2D>().Sleep();
         }
     }
-    private void TagPosition()
+    public void TagPosition(float time = 0)
+    {
+        Invoke("_TagPosition", time);
+    }
+    private void _TagPosition()
     {
         LoadComplete = true;
         foreach (GameObject target in ManagingTargets)
@@ -76,7 +76,11 @@ public class SaveManager : MonoBehaviour
             target.GetComponent<Rigidbody2D>().WakeUp();
         }
     }
-    private void LoadPosition()
+    public void LoadPosition()
+    {
+        Invoke("_LoadPosition", loadPositionDelayTime);
+    }
+    private void _LoadPosition()
     {
         TagPosition();
 
@@ -166,6 +170,9 @@ public class SaveManager : MonoBehaviour
 
     public void InitData()
     {
+        if (DataManager.Instance.data == null)
+            DataManager.Instance.data = new GameData();
+
         if (DataManager.Instance.data.posData == null)
         {
             Debug.Log("No Position Data before, Instantiate new Position Data");
