@@ -23,7 +23,9 @@ namespace UFO
 
         private SpriteRenderer _beamBack;
         private SpriteRenderer _beamFront;
-        
+
+        private UFOInteraction _ufoInteraction;
+
         [SerializeField] private LayerMask _playerMask;
         
         private Vector3 _startPos;
@@ -32,8 +34,12 @@ namespace UFO
         
         private float _distance;
 
+        private bool _beamActivate = false;
+
         void Start()
         {
+            _ufoInteraction = GetComponentInParent<UFOInteraction>();
+            
             UFOFloor = transform.parent.Find("Grid").GetChild(0).GetComponent<TilemapCollider2D>();
 
             _gateIn = transform.GetChild(2).GetComponent<UFOGateIn>();
@@ -53,24 +59,13 @@ namespace UFO
             _boxSize = new Vector2(1.5f, 20);
         }
 
-        public void ActiveGravityBeam()
+        private void ActiveGravityBeam()
         {
-            SetDirectionY();
-
-            _startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
-            var hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
+            if (_beamActivate) return ;
             
-            if (hit.collider)
-            {
-                hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
-                
-                if (direction == -1)
-                {
-                    Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), true);
-                }
-                
-                if (!_beamFront.enabled) StartCoroutine(nameof(DisableFloor), hit);
-            }
+            SetDirectionY();
+            
+            StartCoroutine(nameof(MakeBeamZone));
         }
 
         private void SetDirectionY()
@@ -79,17 +74,45 @@ namespace UFO
             if (_gateOut.isPlayer) direction = -1;
         }
 
-        private IEnumerator DisableFloor(RaycastHit2D hit)
+        private IEnumerator MakeBeamZone()
         {
+            _beamActivate = true;
+            _ufoInteraction.canMove = false;
+
+            float timer = 0f;
+            
             ControlDirectionTrigger(false);
             ActiveBeamSprites(true);
-
-            yield return new WaitForSeconds(2f);
             
-            Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), false);
+            _startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
+            var hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
+            
+            if (direction == -1)
+            {
+                Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), true);
+
+                yield return new WaitForSeconds(0.5f);
+                        
+                Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), false);
+            }
+
+            while (timer < 2f)
+            {
+                if (hit.collider)
+                {
+                    hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
+                }
+                
+                timer += Time.deltaTime;
+                
+                yield return null;
+            }
 
             ControlDirectionTrigger(true);
             ActiveBeamSprites(false);
+            
+            _beamActivate = false;
+            _ufoInteraction.canMove = true;
         }
 
         private void ActiveBeamSprites(bool enable)
