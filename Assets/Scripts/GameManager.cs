@@ -44,8 +44,10 @@ public class GameManager : MonoBehaviour
 
         if (!isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
         if(DataManager.Instance.data != null)
+        {
             if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
-        if(AllBlockNullCheck()) LoadSuccess = false;
+            if(AllBlockNullCheck()) LoadSuccess = false;
+        }
 
         //Debug.Log("블럭모두없음?: " + AllBlockNullCheck());
 
@@ -75,6 +77,7 @@ public class GameManager : MonoBehaviour
         if (DataManager.Instance.data == null) return true;
         bool allNullCheck = true;
         DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
+        if (chunks == null) return true;
         int dataSize = chunks.data.Count;
         //Debug.Log("수량: " + dataSize);
         for (int i = 0; i < dataSize; i++)

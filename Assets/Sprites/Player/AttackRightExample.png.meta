@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b71806ce9973e43da9add2252179ec44
+guid: e6d241c3470334d4eb51a22b7c156905
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,106 +110,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: QuickSlot_0
+      name: AttackRightExample_0
       rect:
         serializedVersion: 2
-        x: 6
+        x: 0
         y: 0
-        width: 20
-        height: 27
+        width: 34
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31c0f36d688d4407881bce50f13b5e2f
-      internalID: -1798522322
+      spriteID: 2275ba60684857e478bd538731b0d4ae
+      internalID: 1591187868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QuickSlot_3
+      name: AttackRightExample_1
       rect:
         serializedVersion: 2
-        x: 120
+        x: 34
         y: 0
-        width: 2
-        height: 27
+        width: 34
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 166659bebfbde443f88d5d740415abb1
-      internalID: 501493789
+      spriteID: 38f32641376afb7458b65afb5a3ff4ee
+      internalID: 1170045928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QuickSlot_4
+      name: AttackRightExample_2
       rect:
         serializedVersion: 2
-        x: 38
+        x: 68
         y: 0
-        width: 2
-        height: 27
+        width: 34
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a88f2324c874da42923218e5fae19f7
-      internalID: -980110302
+      spriteID: ad5994beb7606f24488c284d928022d0
+      internalID: 808191156
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QuickSlot_1
+      name: AttackRightExample_3
       rect:
         serializedVersion: 2
-        x: 72
+        x: 102
         y: 0
-        width: 16
-        height: 27
+        width: 34
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55cd98ccd72c3e1409e1a1a8ad4064d5
-      internalID: 605854001
+      spriteID: f9f09b269ff50284aba5152b89f382ff
+      internalID: -1542846112
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: QuickSlot_2
+      name: AttackRightExample_4
       rect:
         serializedVersion: 2
-        x: 103
+        x: 136
         y: 0
-        width: 1
-        height: 27
+        width: 34
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc1b416ee751298419895bfbf279f0bd
-      internalID: 1968272753
+      spriteID: 130fdaed170e6404ab57cc9633eaf656
+      internalID: 1848362077
       vertices: []
       indices: 
       edges: []
@@ -225,12 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      QuickSlot_0: -1798522322
-      QuickSlot_1: 605854001
-      QuickSlot_2: 1968272753
-      QuickSlot_3: 501493789
-      QuickSlot_4: -980110302
-      QuickSlot_5: -1443087216
+      AttackRightExample_0: 1591187868
+      AttackRightExample_1: 1170045928
+      AttackRightExample_2: 808191156
+      AttackRightExample_3: -1542846112
+      AttackRightExample_4: 1848362077
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

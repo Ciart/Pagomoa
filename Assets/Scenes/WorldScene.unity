@@ -6815,11 +6815,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6778265371863778166, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
       propertyPath: hp
-      value: 300
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 6778265371863778166, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
       propertyPath: maxHp
-      value: 300
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
       propertyPath: m_Name
@@ -36685,6 +36685,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6773550432309914970, guid: 4de1a28e00160f64ca6b9421d840132a, type: 3}
+      propertyPath: particles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773550432309914970, guid: 4de1a28e00160f64ca6b9421d840132a, type: 3}
+      propertyPath: particles.Array.data[1]
+      value: 
+      objectReference: {fileID: 5849672310036749508, guid: eab503777304a3447a1d23f946068d6c, type: 3}
     - target: {fileID: 7097923035303020086, guid: 4de1a28e00160f64ca6b9421d840132a, type: 3}
       propertyPath: m_Name
       value: ParticleManager
@@ -38129,11 +38137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3947430312069855385, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3947430312069855385, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3947430312069855385, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: m_AnchorMax.x
@@ -38189,11 +38197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3947430312069855385, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 95
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3947430312069855385, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 3947430312069855385, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -38211,10 +38219,18 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1218644581}
+    - target: {fileID: 4905256760880150714, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 5398786904220555106, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1218644581}
+    - target: {fileID: 5569217886928747621, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5894868549157444056, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
       propertyPath: inventory
       value: 
@@ -38231,6 +38247,10 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1218644581}
+    - target: {fileID: 8081181030304980618, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

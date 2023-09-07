@@ -117,7 +117,7 @@ namespace Editor
                 {
                     var brick = piece.GetBrick(x, y);
                     var xMin = x * 36 + 8;
-                    var yMin = y * 36 + 100;
+                    var yMin = piece.height * 36 - y * 36 + 100;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
 
                     EditorGUI.DrawRect(rect, Color.gray);
@@ -195,13 +195,13 @@ namespace Editor
             }
 
             var pivotX = piece.pivot.x * 36 + 8;
-            var pivotY = piece.pivot.y * 36 + 100;
+            var pivotY = piece.height * 36 - piece.pivot.y * 36 + 100;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
 
             foreach (var prefab in piece.prefabs)
             {
                 var prefabX = prefab.x * 36 + 8;
-                var prefabY = prefab.y * 36 + 100;
+                var prefabY = piece.height * 36 - prefab.y * 36 + 100;
                 EditorGUI.DrawRect(Rect.MinMaxRect(prefabX + 12, prefabY + 12, prefabX + 20, prefabY + 20),
                     Color.red);
             }

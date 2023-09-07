@@ -30,7 +30,7 @@ public class GoMoleEffect : InherentEffect
             if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                 find = true;
 
-            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, "drill");
+            WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
             switch (Random.Range(0, 3))
             {
                 case 0:
