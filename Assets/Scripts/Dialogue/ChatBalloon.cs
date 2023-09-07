@@ -48,6 +48,7 @@ public class ChatBalloon : MonoBehaviour
     {
         _chatBalloonTransform.sizeDelta = new Vector2(100 + 45 * chatContent.text.Length, _chatBalloonTransform.sizeDelta.y);
         if(icon)
-            _chatIconTransform.anchoredPosition = new Vector3(_chatIconTransform.anchoredPosition.x + chatContent.text.Length, _chatIconTransform.anchoredPosition.y);
+            _chatIconTransform.anchoredPosition = new Vector3((_chatBalloonTransform.sizeDelta.x * -1) / 32, _chatIconTransform.anchoredPosition.y);
+        //_chatIconTransform.anchoredPosition.x - chatContent.text.Length
     }
 }
