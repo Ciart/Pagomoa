@@ -6872,11 +6872,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6778265371863778166, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
       propertyPath: hp
-      value: 300
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 6778265371863778166, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
       propertyPath: maxHp
-      value: 300
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
       propertyPath: m_Name
@@ -36940,6 +36940,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6773550432309914970, guid: 4de1a28e00160f64ca6b9421d840132a, type: 3}
+      propertyPath: particles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773550432309914970, guid: 4de1a28e00160f64ca6b9421d840132a, type: 3}
+      propertyPath: particles.Array.data[1]
+      value: 
+      objectReference: {fileID: 5849672310036749508, guid: eab503777304a3447a1d23f946068d6c, type: 3}
     - target: {fileID: 7097923035303020086, guid: 4de1a28e00160f64ca6b9421d840132a, type: 3}
       propertyPath: m_Name
       value: ParticleManager

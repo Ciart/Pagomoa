@@ -40,6 +40,8 @@ public class PlayerAttack : MonoBehaviour
     }
     void NormatAttack()
     {
+        _playerController.GetComponent<Animator>().SetFloat("attackDirection", attackDirection);
+        _playerController.GetComponent<Animator>().SetTrigger("attack");
         Debug.Log("기본공격!" + gameObject.name);
 
         Vector3 pointA, pointB, playerPosition = _playerController.transform.position;
