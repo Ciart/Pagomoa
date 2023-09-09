@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class TutorialChat : Chat
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform target;
     
     [Space]
     public List<string> startingChat = new List<string>();
@@ -40,7 +40,7 @@ public class TutorialChat : Chat
 
     private void Update()
     {
-        transform.position = player.position;
+        transform.position = target.position;
 
         if (CheckInventoryUfoRemote())
         {

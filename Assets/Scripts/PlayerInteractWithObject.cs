@@ -5,30 +5,26 @@ public class PlayerInteractWithObject : MonoBehaviour
     [SerializeField] private List<InteractableObject> interactableObjectList;
     private float _closestDistance;
     private InteractableObject _activatedObject;
-
-    //public bool getKey;
-
-    //private Player.PlayerInput _playerInput;
+    
     void Start()
     {
         interactableObjectList = new List<InteractableObject>();
-        //_playerInput = GetComponentInParent<Player.PlayerInput>();
     }
     private void Awake()
     {
         GetComponentInParent<Player.PlayerInput>().Actions.Interaction.started += context =>
         {
+            if (!_activatedObject) return;
             _activatedObject.InteractionEvent.Invoke();
         };
     }
     void FixedUpdate()
     {
-        //InputEventKey();
-
-        //if (getKey && _activatedObject)
-        //{
-        //    _activatedObject.InteractionEvent.Invoke();
-        //}
+        if (interactableObjectList.Count == 0)
+        {
+            _activatedObject = null;
+            return;
+        }
 
         foreach (InteractableObject obj in interactableObjectList)
         {
@@ -66,15 +62,5 @@ public class PlayerInteractWithObject : MonoBehaviour
             _closestDistance = distance;
             obj.ActiveObject();
         }
-        if (interactableObjectList.Count == 0) _activatedObject = null;
     }
-
-    //private void InputEventKey()
-    //{
-
-    //    if (_playerInput.IsInteraction)
-    //        getKey = true;
-    //    else
-    //        getKey = false;
-    //}
 }
