@@ -9,7 +9,7 @@ namespace UFO
 {
     public class UFOGateInteraction : MonoBehaviour
     {
-        public TilemapCollider2D UFOFloor;
+        public TilemapCollider2D gateFloor;
 
         public float floatSpeed = 10f;
         
@@ -27,9 +27,7 @@ namespace UFO
         private UFOInteraction _ufoInteraction;
 
         [SerializeField] private LayerMask _playerMask;
-        
-        private Vector3 _startPos;
-        
+
         private Vector2 _boxSize;
         
         private float _distance;
@@ -40,9 +38,9 @@ namespace UFO
         {
             _ufoInteraction = GetComponentInParent<UFOInteraction>();
             
-            UFOFloor = transform.parent.Find("Grid").GetChild(0).GetComponent<TilemapCollider2D>();
+            gateFloor = transform.parent.Find("Grid").GetChild(2).GetComponent<TilemapCollider2D>();
 
-            _gateIn = transform.GetChild(2).GetComponent<UFOGateIn>();
+            _gateIn = GetComponentInChildren<UFOGateIn>();
             _gateOut = GetComponent<UFOGateOut>();
 
             _inCollider = _gateIn.GetComponent<CircleCollider2D>();
@@ -62,9 +60,7 @@ namespace UFO
         private void ActiveGravityBeam()
         {
             if (_beamActivate) return ;
-            
-            SetDirectionY();
-            
+
             StartCoroutine(nameof(MakeBeamZone));
         }
 
@@ -77,25 +73,19 @@ namespace UFO
         private IEnumerator MakeBeamZone()
         {
             _beamActivate = true;
-            _ufoInteraction.canMove = false;
-
-            float timer = 0f;
             
+            _ufoInteraction.canMove = false;
+            
+            SetDirectionY();
             ControlDirectionTrigger(false);
             ActiveBeamSprites(true);
             
-            _startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
-            var hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
+            float timer = 0f;
+            Vector3 startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
+            RaycastHit2D hit = Physics2D.BoxCast(startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
+
+            StartCoroutine(nameof(SetPhysics), hit);
             
-            if (direction == -1)
-            {
-                Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), true);
-
-                yield return new WaitForSeconds(0.5f);
-                        
-                Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), false);
-            }
-
             while (timer < 2f)
             {
                 if (hit.collider)
@@ -112,6 +102,7 @@ namespace UFO
             ActiveBeamSprites(false);
             
             _beamActivate = false;
+            
             _ufoInteraction.canMove = true;
         }
 
@@ -126,12 +117,14 @@ namespace UFO
             _inCollider.enabled = enable;
             _outCollider.enabled = enable;
         }
-        private void OnDrawGizmos()
+
+        private IEnumerator SetPhysics()
         {
-            // 시각적으로 박스 캐스트를 그리기 위해 Gizmos를 사용합니다.
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(_startPos, _boxSize);
-            Gizmos.DrawLine(_startPos, _startPos + Vector3.right * _distance);
+            gateFloor.GetComponent<TilemapCollider2D>().enabled = false;
+            
+            yield return new WaitForSeconds(0.3f);
+
+            gateFloor.GetComponent<TilemapCollider2D>().enabled = true;
         }
     }
 }
