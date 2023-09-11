@@ -845,13 +845,13 @@ Transform:
   m_GameObject: {fileID: 66621862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.186974, y: -0.1676544, z: -0.075842895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4665259403366483558}
   - {fileID: 842091083}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 738140037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &71009711
 GameObject:
@@ -7204,6 +7204,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 0.00025
+--- !u!1 &738140036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 738140037}
+  - component: {fileID: 738140038}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &738140037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738140036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.186974, y: 0.1676544, z: 0.075842895}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1970975710}
+  - {fileID: 66621863}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &738140038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738140036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f02e3edca7193484e9570aa4fd313d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5377345053593914678}
 --- !u!1 &750753924
 GameObject:
   m_ObjectHideFlags: 0
@@ -8280,6 +8327,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 182a54989b40637428a87ef60588b47d, type: 2}
   - {fileID: 11400000, guid: 8c68b9e1668812649b2f01fbaad34dbf, type: 2}
   - {fileID: 11400000, guid: 4e835e6a7d4d15d4c8ce8d087e15c277, type: 2}
+  - {fileID: 11400000, guid: 2813ed627413d7749a18c0dcf252e6eb, type: 2}
   talkPannel: {fileID: 1097494079}
   talkImage: {fileID: 1174656865}
   talkText: {fileID: 1187393284}
@@ -23786,7 +23834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2f7d332bd8aa645a514dee242bb31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UFOFloor: {fileID: 0}
+  gateFloor: {fileID: 0}
   floatSpeed: 10
   direction: 0
   _playerMask:
@@ -36594,6 +36642,119 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941009639}
   m_CullTransparentMesh: 1
+--- !u!1 &1970975709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1970975710}
+  - component: {fileID: 1970975711}
+  - component: {fileID: 1970975712}
+  m_Layer: 0
+  m_Name: TutorialClip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1970975710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970975709}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.71532, y: 20.741907, z: 0.06384582}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 738140037}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1970975711
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970975709}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: c91554af0d1d40e4aaf0ef6c89b38df5, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 0}
+    value: {fileID: 5377345053593914677}
+  - key: {fileID: -5108465255560677409, guid: c91554af0d1d40e4aaf0ef6c89b38df5, type: 2}
+    value: {fileID: 1970975712}
+  - key: {fileID: 6883092546736419401, guid: c91554af0d1d40e4aaf0ef6c89b38df5, type: 2}
+    value: {fileID: 5377345053593914677}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &1970975712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970975709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 0d6251e33733b2d42a7f1459a396972a, type: 2}
+    - {fileID: 11400000, guid: 863e82af838534642960df58c2ca76f1, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 738140038}
+          m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+          m_MethodName: ControlPlayerState
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 738140038}
+          m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+          m_MethodName: StartDialogUfoRemoteGuide
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 738140038}
+          m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+          m_MethodName: ControlPlayerState
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1976014096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38574,6 +38735,22 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1442295008}
   m_SourcePrefab: {fileID: 100100000, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+--- !u!95 &5377345053593914677 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3585343481981625419, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+  m_PrefabInstance: {fileID: 5377345053593914676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5377345053593914678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6532384969457569552, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+  m_PrefabInstance: {fileID: 5377345053593914676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442294990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8b3a37fea221d419fd0e03ffccfaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5886128022861646370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38986,7 +39163,6 @@ SceneRoots:
   - {fileID: 844038260}
   - {fileID: 1270842126}
   - {fileID: 1976014096}
-  - {fileID: 66621863}
   - {fileID: 1793737718}
   - {fileID: 619394802}
   - {fileID: 5377345053593914676}
@@ -39009,3 +39185,4 @@ SceneRoots:
   - {fileID: 888006530}
   - {fileID: 612048129}
   - {fileID: 1794409634}
+  - {fileID: 738140037}

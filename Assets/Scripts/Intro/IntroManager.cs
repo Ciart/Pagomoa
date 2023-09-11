@@ -90,7 +90,6 @@ namespace Intro
         public void IntroEnd()
         {
             _director.Stop();
-            // 씬 엔딩, 마무리 코드가 필요
         }
         
         private void NoDialogSignal()
