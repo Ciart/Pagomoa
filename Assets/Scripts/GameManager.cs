@@ -12,9 +12,7 @@ public class GameManager : MonoBehaviour
     
     private static GameManager _instance;
     
-    private WorldManager _worldManager;
-    
-    private WorldGenerator _worldGenerator;
+
     
     public static GameManager instance
     {
@@ -33,64 +31,22 @@ public class GameManager : MonoBehaviour
     {
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        
-        _worldManager = WorldManager.instance;
-        _worldGenerator = _worldManager.GetComponent<WorldGenerator>();
     }
 
-    private void Start()
+    void Start()
     {
-        bool LoadSuccess = DataManager.Instance.LoadGameData();
-
-        if (!isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
-        if(DataManager.Instance.data != null)
+        SaveManager saveManager = SaveManager.Instance;
+        bool mapLoad = saveManager.LoadMap();
+        if (mapLoad)
         {
-            if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
-            if(AllBlockNullCheck()) LoadSuccess = false;
-        }
-
-        //Debug.Log("블럭모두없음?: " + AllBlockNullCheck());
-
-        SaveManager.Instance.FreezePosition();
-
-        if (isLoadSave && LoadSuccess)
-        {
-            try
-            {
-                _worldGenerator.LoadWorld(DataManager.Instance.data.worldData);
-                SaveManager.Instance.LoadPosition();
-            }
-            catch
-            {
-                _worldGenerator.Generate();
-                SaveManager.Instance.TagPosition();
-            }
+            saveManager.LoadPosition();
+            saveManager.LoadItem();
+            saveManager.LoadArtifactItem();
         }
         else
-        {
-            _worldGenerator.Generate();
-            SaveManager.Instance.TagPosition(SaveManager.Instance.loadPositionDelayTime);
-        }
+            saveManager.TagPosition(saveManager.loadPositionDelayTime);
     }
-    bool AllBlockNullCheck()
-    {
-        if (DataManager.Instance.data == null) return true;
-        bool allNullCheck = true;
-        DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
-        if (chunks == null) return true;
-        int dataSize = chunks.data.Count;
-        //Debug.Log("수량: " + dataSize);
-        for (int i = 0; i < dataSize; i++)
-        {
-            int brickSize = chunks.data[i].Value.bricks.Length;
-            for (int j = 0; j < brickSize; j++)
-            {
-                if (chunks.data[i].Value.bricks[j].ground != null)
-                    allNullCheck = false;
-            }
-        }
-        return allNullCheck;
-    }
+
 
     private void Update()
     {

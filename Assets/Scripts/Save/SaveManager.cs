@@ -11,6 +11,11 @@ public class SaveManager : MonoBehaviour
 
     public float loadPositionDelayTime = 1.5f;
     public bool LoadComplete = false;
+
+    private WorldManager _worldManager;
+
+    private WorldGenerator _worldGenerator;
+
     public static SaveManager Instance
     {
         get
@@ -43,7 +48,26 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("Monster");
         AddManagingTargetWithTag("NPC");
 
-        
+    }
+    
+    bool AllBlockNullCheck()
+    {
+        if (DataManager.Instance.data == null) return true;
+        bool allNullCheck = true;
+        DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
+        if (chunks == null) return true;
+        int dataSize = chunks.data.Count;
+        //Debug.Log("수량: " + dataSize);
+        for (int i = 0; i < dataSize; i++)
+        {
+            int brickSize = chunks.data[i].Value.bricks.Length;
+            for (int j = 0; j < brickSize; j++)
+            {
+                if (chunks.data[i].Value.bricks[j].ground != null)
+                    allNullCheck = false;
+            }
+        }
+        return allNullCheck;
     }
     void AddManagingTargetWithTag(string tagName)
     {
@@ -101,20 +125,53 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    void LoadMap()
+    public bool LoadMap()
     {
+        bool LoadSuccess = DataManager.Instance.LoadGameData();
 
+        if (!GameManager.instance.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
+        if (DataManager.Instance.data != null)
+        {
+            if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
+            if (AllBlockNullCheck()) LoadSuccess = false;
+        }
+
+        //Debug.Log("블럭모두없음?: " + AllBlockNullCheck());
+
+        FreezePosition();
+
+        if (GameManager.instance.isLoadSave && LoadSuccess)
+        {
+            try
+            {
+                WorldManager.instance.GetComponent<WorldGenerator>().LoadWorld(DataManager.Instance.data.worldData);
+                return true;
+            }
+            catch
+            {
+                WorldManager.instance.GetComponent<WorldGenerator>().Generate();
+                return false;
+            }
+        }
+        else
+        {
+            WorldManager.instance.GetComponent<WorldGenerator>().Generate();
+            return false;
+        }
     }
 
     public void LoadItem()
     {
-        if (DataManager.Instance.data.itemData == null) return;
+        DataManager dataManager = DataManager.Instance;
+        if (dataManager.data.itemData == null) return;
 
-        if (DataManager.Instance.data.itemData.items != null)
-            InventoryDB.Instance.items = DataManager.Instance.data.itemData.items.ToList();
+        if (dataManager.data.itemData.items != null)
+        {
+            InventoryDB.Instance.items = dataManager.data.itemData.items.ToList();
+            InventoryDB.Instance.Gold = dataManager.data.itemData.gold;
+        }
         else
             Debug.Log("Item Data is Nothing");
-        InventoryDB.Instance.Gold = DataManager.Instance.data.itemData.gold;
     }
     public void LoadOption()
     {
@@ -126,9 +183,9 @@ public class SaveManager : MonoBehaviour
     }
     public void LoadArtifactItem()
     {
-        if(DataManager.Instance.data.artifactData.artifacts != null)
-            ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
-        
+        if(DataManager.Instance.data.artifactData != null && ArtifactSlotDB.Instance != null)
+            if(DataManager.Instance.data.artifactData.artifacts != null)
+                ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
     }   
     void WritePosData()
     {
