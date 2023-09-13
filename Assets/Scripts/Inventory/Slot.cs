@@ -96,6 +96,8 @@ public class Slot : MonoBehaviour, IDropHandler
     public void EquipCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
+        if (EtcInventory.Instance.choiceSlot.inventoryItem == null) { Debug.LogWarning("no Choiced inventoryItem ±×·¯´Ï °íÃÄ¶ó ½Â¿¬Å´"); return; }
+
         if (EtcInventory.Instance.choiceSlot.inventoryItem.item == null)
             return;
 

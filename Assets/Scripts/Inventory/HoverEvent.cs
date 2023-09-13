@@ -20,6 +20,8 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if(slot.inventoryItem == null) { Debug.LogWarning("no inventoryItem There Slot 그러니 고치거라 고치승연"); return; }
+
         if (slot.inventoryItem.item == null)
         {
             OffHover();

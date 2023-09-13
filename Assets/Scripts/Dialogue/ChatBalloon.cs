@@ -37,7 +37,7 @@ public class ChatBalloon : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e + " 아이콘이 존재하지 않음");
+            //Debug.Log(e + " 아이콘이 존재하지 않음");
         }
 
         _chatBalloonTransform = balloon.transform.GetComponent<RectTransform>();

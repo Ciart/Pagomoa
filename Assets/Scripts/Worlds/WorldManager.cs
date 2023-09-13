@@ -106,7 +106,15 @@ namespace Worlds
         {
             return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
-
+        public bool CheckNull(Vector3 pos)
+        {
+            var p = ComputeCoords(pos);
+            var brick = _world.GetBrick(p.x, p.y, out var chunk);
+            if (brick.ground == null)
+                return true;
+            else
+                return false;
+        }
         public void BreakGround(int x, int y, int tier, bool isForceBreak = false)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
