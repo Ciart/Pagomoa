@@ -14,6 +14,7 @@ public class GameData
     public ItemData itemData;
     public OptionData optionData;
     public ArtifactData artifactData;
+    public QuickSlotData quickSlotData;
 }
 
 [System.Serializable]
@@ -90,6 +91,17 @@ public class ArtifactData
     public void SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB artifactSlotDB)
     {
         artifacts = artifactSlotDB.Artifact;
+    }
+}
+[System.Serializable]
+public class QuickSlotData
+{
+    public List<InventoryItem> items;
+    public int selectedSlotID;
+    public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
+    {
+        items = quickSlotItemDB.quickSlotItems;
+        selectedSlotID = quickSlotItemDB.selectedSlot.id;
     }
 }
 

@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
             saveManager.LoadPosition();
             saveManager.LoadItem();
             saveManager.LoadArtifactItem();
+            saveManager.LoadQuickSlot();
         }
         else
             saveManager.TagPosition(saveManager.loadPositionDelayTime);
