@@ -518,7 +518,7 @@
                     "name": "",
                     "id": "c6cb60d7-ef08-47d7-8052-4d38317f825e",
                     "path": "<Keyboard>/e",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "UseQuickSlot",
