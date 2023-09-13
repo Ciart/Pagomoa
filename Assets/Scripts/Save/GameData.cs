@@ -101,7 +101,8 @@ public class QuickSlotData
     public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
     {
         items = quickSlotItemDB.quickSlotItems;
-        selectedSlotID = quickSlotItemDB.selectedSlot.id;
+        if(quickSlotItemDB.selectedSlot)
+            selectedSlotID = quickSlotItemDB.selectedSlot.id;
     }
 }
 
