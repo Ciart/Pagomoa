@@ -187,6 +187,20 @@ public class SaveManager : MonoBehaviour
             if(DataManager.Instance.data.artifactData.artifacts != null)
                 ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
     }   
+    public void LoadQuickSlot()
+    {
+        DataManager dataManager = DataManager.Instance;
+        if (dataManager.data.quickSlotData == null) return;
+
+        if (dataManager.data.quickSlotData.items != null)
+        {
+            QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items.ToList();
+            QuickSlot.Instance.SetQuickSlot();
+            QuickSlotItemDB.instance.ControlQuickSlot(dataManager.data.quickSlotData.selectedSlotID);
+        }
+        else
+            Debug.Log("QuickSlot Data is Nothing");
+    }
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -224,7 +238,11 @@ public class SaveManager : MonoBehaviour
         InitData();
         DataManager.Instance.data.artifactData.SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB.Instance);
     }
-
+    void WriteQuickSlotData()
+    {
+        InitData();
+        DataManager.Instance.data.quickSlotData.SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB.instance);
+    }
     public void InitData()
     {
         if (DataManager.Instance.data == null)
@@ -260,6 +278,11 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
             DataManager.Instance.data.artifactData = new ArtifactData();
         }
+        if (DataManager.Instance.data.quickSlotData == null)
+        {
+            Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
+            DataManager.Instance.data.quickSlotData = new QuickSlotData();
+        }
     }
 
     private void OnApplicationQuit()
@@ -270,6 +293,7 @@ public class SaveManager : MonoBehaviour
         WriteItemData();
         WriteOptionData();
         WriteArtifactData();
+        WriteQuickSlotData();
         DataManager.Instance.SaveGameData();
     }
 

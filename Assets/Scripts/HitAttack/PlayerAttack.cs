@@ -12,6 +12,10 @@ public class PlayerAttack : MonoBehaviour
     int attackDirection = 0;
 
     PlayerController _playerController;
+
+    bool attackable = true;
+    float attackCooltime = 0.42f;
+
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
@@ -21,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
     private void FixedUpdate()
     {
         AttackDirectionDetect();
-        if (attack)
+        if (attack && attackable)
         {
             NormatAttack();
             attack = false;
@@ -40,6 +44,9 @@ public class PlayerAttack : MonoBehaviour
     }
     void NormatAttack()
     {
+        attackable = false;
+        Invoke("CanAttack", attackCooltime);
+
         _playerController.GetComponent<Animator>().SetFloat("attackDirection", attackDirection);
         _playerController.GetComponent<Animator>().SetTrigger("attack");
         //Debug.Log("기본공격!" + gameObject.name);
@@ -51,5 +58,9 @@ public class PlayerAttack : MonoBehaviour
 
         GetComponent<Attack>()._Attack(gameObject, GetComponent<Status>().attackpower, pointA, pointB, 1);
 
+    }
+    void CanAttack()
+    {
+        attackable = true;
     }
 }
