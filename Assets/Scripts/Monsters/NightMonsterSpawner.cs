@@ -122,6 +122,7 @@ public class NightMonsterSpawner : MonoBehaviour
             int randomPoint = UnityEngine.Random.Range(0, _canSpawnPoints.Count);
             _spawnPoint = _canSpawnPoints[randomPoint];
             _spawnPoint.y += 0.5f;
+            
 
             GameObject nightMonster = Instantiate(_monsterPrefab, _spawnPoint, Quaternion.identity);
             _spawnedMonster.Add(nightMonster);

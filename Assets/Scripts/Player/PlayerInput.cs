@@ -6,6 +6,7 @@ namespace Player
     public class PlayerInput : MonoBehaviour
     {
         public InputActions.PlayerActions Actions;
+        public InputActions.PlayerUIActions UIActions;
 
         public Vector2 Move { get; private set; }
         
@@ -22,6 +23,7 @@ namespace Player
         private void Awake()
         {
             Actions = new InputActions().Player;
+            UIActions = new InputActions().PlayerUI;
         }
         
         private void Update()
@@ -33,12 +35,10 @@ namespace Player
             IsClimb = Actions.Climb.IsPressed();
             IsInteraction = Actions.Interaction.IsPressed();
         }
-        
         private void OnEnable()
         {
             Actions.Enable();
         }
-
         private void OnDisable()
         {
             Actions.Disable();

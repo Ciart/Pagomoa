@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class InteractableObject : MonoBehaviour
@@ -9,6 +10,9 @@ public class InteractableObject : MonoBehaviour
     public SpriteRenderer SpriteRenderer;
     public Light2D Highlight;
 
+    // ìœ ë‹ˆí‹° ì´ë²¤íŠ¸ í˜¸ì¶œ
+    public UnityEvent InteractionEvent; 
+    
     void Start()
     {
         SpriteRenderer = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
@@ -25,9 +29,5 @@ public class InteractableObject : MonoBehaviour
     {
         SpriteRenderer.enabled = false;
         Highlight.enabled = false;
-    }
-    public void InteractObject()
-    {
-        Debug.Log("ÇØ´ç ¿ÀºêÁ§Æ®¶û »óÈ£ÀÛ¿ë ÇÕ´Ï´Ù.");
     }
 }

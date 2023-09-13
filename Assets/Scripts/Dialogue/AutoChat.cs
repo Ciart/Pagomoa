@@ -6,11 +6,11 @@ public class AutoChat : Chat
 {
     public List<string> chat = new List<string>();
 
-    int chatIndex = 0;
-
     public float initialStartTime = 4.62f;
     public float floatingTime = 3f;
     public float updateTime = 4f;
+    
+    private int _chatIndex = 0;
 
     private void Start()
     {
@@ -23,23 +23,24 @@ public class AutoChat : Chat
         if (chat.Count == 0)
             yield break;
 
-        Chatting(chat[chatIndex]);
+        Chatting(chat[_chatIndex]);
         
-        chatIndex++;
-        if (chatIndex >= chat.Count)
-            chatIndex = 0;
+        _chatIndex++;
+        if (_chatIndex >= chat.Count)
+            _chatIndex = 0;
 
         yield return new WaitForSeconds(floatingTime);
+        
         chatBalloon.balloon.SetActive(false);
         StartChatReservation();
     }
     public void StartChatReservation()
     {
-        Invoke("StartChat", updateTime);
+        Invoke(nameof(StartChat), updateTime);
     }
     public void StartChatReservation(float time)
     {
-        Invoke("StartChat", time);
+        Invoke(nameof(StartChat), time);
     }
     void StartChat()
     {
@@ -48,8 +49,8 @@ public class AutoChat : Chat
 
     public void StopChat()
     {
-        CancelInvoke("StartChat");
-        StopCoroutine("Chat");
+        CancelInvoke(nameof(StartChat));
+        StopCoroutine(nameof(Chat));
         chatBalloon.balloon.SetActive(false);
     }
 }

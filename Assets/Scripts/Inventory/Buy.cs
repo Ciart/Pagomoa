@@ -43,9 +43,7 @@ public class Buy : MonoBehaviour
     {
         int i = 0;
         for (; i < auctionDB.auctionItem.Count; i++)
-        {
             slots[i].inventoryItem = auctionDB.auctionItem[i];
-        }
         UpdateSlot();
     }
     public void UpdateSlot() 
@@ -54,18 +52,14 @@ public class Buy : MonoBehaviour
         {
             string convert = auctionDB.auctionItem[i].count.ToString();
             if (auctionDB.auctionItem[i].count == 0)
-            {
                 convert = "";
-            }
             slots[i].SetUI(auctionDB.auctionItem[i].item.itemImage, convert);
         }
     }
     public void DestroySlot()
     {
         for (int i = 0; i < slots.Count; i++)
-        {
             Destroy(slots[i].gameObject);
-        }
         slots.Clear();
     }
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class InventoryUIManager : MonoBehaviour
 {
-    [SerializeField] GameObject sellUI;
-    private bool click = true;
+    [SerializeField] GameObject UI;
+   
+
     public void SetUI()
     {
-        sellUI.SetActive(click);
-        click = !click;
+        bool click = false;
+        if(UI.activeSelf == false)
+            click = !click;
+        UI.SetActive(click);
     }
 }

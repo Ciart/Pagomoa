@@ -10,7 +10,7 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     [SerializeField] private Slot slot;
     [SerializeField] public GameObject hoverRenderer;
-    [SerializeField] private GameObject image;
+    [SerializeField] public GameObject image;
     [SerializeField] private GameObject itemName;
     [SerializeField] private GameObject itemInfo;
 
@@ -20,11 +20,16 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (slot.inventoryItem != null)
+        if(slot.inventoryItem == null) { Debug.LogWarning("no inventoryItem There Slot 그러니 고치거라 고치승연"); return; }
+
+        if (slot.inventoryItem.item == null)
+        {
+            OffHover();
+        }
+        else if (slot.inventoryItem != null)
         {
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);
-            hoverRenderer.SetActive(true);
-            //image.transform.position = slot.transform.position;
+            image.SetActive(true);
             image.transform.position = newPosition;
             itemName.GetComponent<Text>().text = slot.inventoryItem.item.itemName;
             itemInfo.GetComponent<Text>().text = slot.inventoryItem.item.itemInfo;
@@ -33,6 +38,12 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        hoverRenderer.SetActive(false);
+        image.SetActive(false);
+    }
+    public void OffHover()
+    {
+        if (image.activeSelf == false)
+            return;
+        image.SetActive(false);
     }
 }

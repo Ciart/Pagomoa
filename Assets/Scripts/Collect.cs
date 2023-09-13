@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.tvOS;
 
 public class Collect : MonoBehaviour
 {
@@ -19,12 +20,18 @@ public class Collect : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<MineralEntity>()) return;
-        Mineral mineral = collision.gameObject.GetComponent<MineralEntity>().data;
+        if (!collision.gameObject.GetComponent<ItemEntity>()) return;
+        
+        var mineral = collision.gameObject.GetComponent<ItemEntity>().Item;
 
-        Debug.Log($"{mineral.tier}티어 광물 \"{mineral.displayName}\" 를 수집했습니다!");
+        Debug.Log($"\"{mineral.itemName}\" 를 수집했습니다!");
         OnCollectEvent.Invoke();
-        inventoryDB.Add(mineral.item);
+        inventoryDB.Add(mineral);
         Destroy(collision.gameObject);
+
+        if (mineral.name == "PowerGemEarth")
+        {
+            GameManager.instance.hasPowerGemEarth = true;
+        }
     }
 }

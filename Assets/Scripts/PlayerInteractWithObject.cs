@@ -1,61 +1,66 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerInteractWithObject : MonoBehaviour
 {
-    List<GameObject> InteractableObjectList;
-    float closestDistance;
-    GameObject ActivatedObject;
+    [SerializeField] private List<InteractableObject> interactableObjectList;
+    private float _closestDistance;
+    private InteractableObject _activatedObject;
+    
     void Start()
     {
-        InteractableObjectList = new List<GameObject>();
+        interactableObjectList = new List<InteractableObject>();
     }
-    void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        GetComponentInParent<Player.PlayerInput>().Actions.Interaction.started += context =>
         {
-            Debug.Log(InteractableObjectList.Count);
+            if (!_activatedObject) return;
+            _activatedObject.InteractionEvent.Invoke();
+        };
+    }
+    void FixedUpdate()
+    {
+        if (interactableObjectList.Count == 0)
+        {
+            _activatedObject = null;
+            return;
         }
 
-        foreach (GameObject obj in InteractableObjectList)
+        foreach (InteractableObject obj in interactableObjectList)
         {
             CheckInteractable(obj);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<InteractableObject>())
-        {
-            if (!InteractableObjectList.Contains(collision.gameObject))
-            {
-                InteractableObjectList.Add(collision.gameObject);
-            }
-        }
+        if (!collision.GetComponent<InteractableObject>()) return;
+
+        if (!interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
+            interactableObjectList.Add(collision.GetComponent<InteractableObject>());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<InteractableObject>())
         {
             collision.GetComponent<InteractableObject>().DisableObject();
-            InteractableObjectList.Remove(collision.gameObject);
+            interactableObjectList.Remove(collision.GetComponent<InteractableObject>());
         }
     }
-    private void CheckInteractable(GameObject obj)
+    private void CheckInteractable(InteractableObject obj)
     {
         float distance = Vector2.Distance(transform.position, obj.transform.position);
-        if (closestDistance == 0.0f || InteractableObjectList.Count == 1)
+        if (_closestDistance == 0.0f || interactableObjectList.Count == 1)
         {
-            closestDistance = distance;
-            obj.GetComponent<InteractableObject>().ActiveObject();
-            ActivatedObject = obj;
+            _closestDistance = distance;
+            _activatedObject = obj;
+            obj.ActiveObject();
         }
-        else if (distance < closestDistance && InteractableObjectList.Count > 1)
+        else if (distance < _closestDistance && interactableObjectList.Count > 1)
         {
-            ActivatedObject.GetComponent<InteractableObject>().DisableObject();
-            ActivatedObject = obj;
-            closestDistance = distance;
-            obj.GetComponent<InteractableObject>().ActiveObject();
+            _activatedObject.DisableObject();
+            _activatedObject = obj;
+            _closestDistance = distance;
+            obj.ActiveObject();
         }
     }
 }

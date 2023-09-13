@@ -17,8 +17,8 @@ TagManager:
   - UI
   - Minimap
   - Light
-  - 
-  - 
+  - Entity
+  - Player
   - 
   - 
   - 
@@ -45,8 +45,14 @@ TagManager:
   - name: Background
     uniqueID: 3822674885
     locked: 0
+  - name: UFOFoothold
+    uniqueID: 479384813
+    locked: 0
   - name: Ground
     uniqueID: 1991738565
+    locked: 0
+  - name: Fog
+    uniqueID: 2622558495
     locked: 0
   - name: Default
     uniqueID: 0
@@ -56,4 +62,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3310709249
+    locked: 0
+  - name: Effect
+    uniqueID: 2004724983
     locked: 0

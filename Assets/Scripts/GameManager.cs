@@ -1,16 +1,18 @@
 using System;
+using System.Collections.Specialized;
+using System.Drawing;
 using UnityEngine;
 using Worlds;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isLoadSave = false;
+    public bool isLoadSave;
+
+    public bool hasPowerGemEarth;
     
     private static GameManager _instance;
     
-    private WorldManager _worldManager;
-    
-    private WorldGenerator _worldGenerator;
+
     
     public static GameManager instance
     {
@@ -29,33 +31,29 @@ public class GameManager : MonoBehaviour
     {
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        
-        _worldManager = WorldManager.instance;
-        _worldGenerator = _worldManager.GetComponent<WorldGenerator>();
     }
 
-    private void Start()
+    void Start()
     {
-        DataManager.Instance.LoadGameData();
-
-        if (!isLoadSave || DataManager.Instance.data.worldData == null)
+        SaveManager saveManager = SaveManager.Instance;
+        bool mapLoad = saveManager.LoadMap();
+        if (mapLoad)
         {
-            Debug.Log("worldData Not find, Generate New World");
-            _worldGenerator.Generate();
-
+            saveManager.LoadPosition();
+            saveManager.LoadItem();
+            saveManager.LoadArtifactItem();
+            saveManager.LoadQuickSlot();
         }
         else
+            saveManager.TagPosition(saveManager.loadPositionDelayTime);
+    }
+
+
+    private void Update()
+    {
+        if (hasPowerGemEarth)
         {
-            if (DataManager.Instance.data.worldData._chunks.data.Count != 0)
-            {
-                Debug.Log("worldData Exist, Load Old World");
-                _worldGenerator.LoadWorld(DataManager.Instance.data.worldData);
-            }
-            else
-            {
-                Debug.Log("worldData Get Damaged, Generate New World");
-                _worldGenerator.Generate();
-            }
+            Debug.Log("데모 종료");
         }
     }
 }

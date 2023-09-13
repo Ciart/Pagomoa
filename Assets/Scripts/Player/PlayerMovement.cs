@@ -55,22 +55,20 @@ namespace Player
         
         private void UpdateClimb()
         {
+            if (_animator.GetBool(AnimatorEndClimd)) return;
+
             var velocity = directionVector * (climbSpeed * Time.deltaTime);
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
                 _animator.SetBool(AnimatorEndClimd, false);
-            // var a = transform.position + new Vector3(0f, 1f, 0f);
 
-            float fixYPos = -0.5f;
-            if (velocity.y > 0 && !_world.CheckClimbable(transform.position + new Vector3(directionVector.x, directionVector.y + fixYPos, 0)))
+            
+            if(velocity.y > 0 && CheckClimbEndable())
             {
-                // Debug.Log("a: " + (Mathf.Floor(a.y) - transform.position.y));
-                // Debug.Log("b: " + velocity.y);
-                // velocity = new Vector2(velocity.x, Mathf.Min(Mathf.Floor(a.y) - transform.position.y, velocity.y));
                 velocity.y = 0;
+
                 if (isSideWall && !_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
                     _animator.SetBool(AnimatorEndClimd, true);
             }
-            
             _rigidbody.velocity = velocity;
             _rigidbody.gravityScale = 0;
         }
@@ -88,6 +86,8 @@ namespace Player
         }
         private void UpdateWalk()
         {
+            if (_animator.GetBool(AnimatorEndClimd)) return;
+
             var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.velocity.y);
 
             _rigidbody.velocity = velocity;
@@ -96,6 +96,7 @@ namespace Player
 
         private void FixedUpdate()
         {
+            CheckClimbEndable();
             if (!canMove)
             {
                 return;
@@ -128,6 +129,28 @@ namespace Player
             _animator.SetFloat(AnimatorSpeed, _rigidbody.velocity.magnitude / 5f);
             _animator.SetBool(AnimatorIsClimb, isClimb);
             _animator.SetBool(AnimatorIsSideWall, isSideWall);
+        }
+        bool CheckClimbEndable()
+        {
+            // only for ClimbUp At Up 
+            //float fixYPos = -0.5f;
+            //if (velocity.y > 0 && !_world.CheckClimbable(transform.position + new Vector3(directionVector.x, directionVector.y + fixYPos, 0)))
+
+            // for Wherable
+            bool canClimb = false;
+            float fixYPos = -0.8f;
+            if (_world.CheckNull(transform.position + new Vector3(directionVector.x, 1+ fixYPos, 0)))
+            if (!_world.CheckNull(transform.position + new Vector3(directionVector.x, directionVector.y+ fixYPos, 0)))
+            if (_world.CheckNull(transform.position + new Vector3(directionVector.x, directionVector.y + 1+ fixYPos, 0)))
+            if (_world.CheckNull(transform.position + new Vector3(directionVector.x, directionVector.y + 2+ fixYPos, 0)))
+                canClimb = true;
+
+            //if(canClimb)
+            //    Debug.Log("can Climb");
+            //else
+            //    Debug.Log("no, Can't");
+            return canClimb;
+
         }
     }
 }

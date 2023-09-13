@@ -77,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -121,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2069f557118063441ad9e37cacc38dbe
-      internalID: -1755828196
+      spriteID: 7abfcc02505b2cb4daf1eb854f7f5a49
+      internalID: -486716997
       vertices: []
       indices: 
       edges: []
@@ -142,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3bdfd9becfa6534ea3fad42b9758702
-      internalID: -1915507295
+      spriteID: 59e83d1b0852b714e9bf94f9a6a05f19
+      internalID: 1401570445
       vertices: []
       indices: 
       edges: []
@@ -159,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KeyboardClick-Sheet_0: -1755828196
-      KeyboardClick-Sheet_1: -1915507295
+      KeyboardClick-Sheet_0: -486716997
+      KeyboardClick-Sheet_1: 1401570445
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

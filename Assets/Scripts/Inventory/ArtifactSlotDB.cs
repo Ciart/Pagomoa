@@ -7,25 +7,26 @@ public class ArtifactSlotDB : MonoBehaviour
 {
     public List<InventoryItem> Artifact = new List<InventoryItem>();
 
-    private static ArtifactSlotDB instance;
-    public static ArtifactSlotDB Instance
-    {
-        get
-        {
-            if (!instance)
-            {
-                instance = GameObject.FindObjectOfType(typeof(ArtifactSlotDB)) as ArtifactSlotDB;
-            }
-            return instance;
-        }
-    }
+    public static ArtifactSlotDB Instance = null;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+            Destroy(this.gameObject);
+    }
+    private void Start()
+    {
+        SaveManager.Instance.LoadArtifactItem();
+    }
     public void Remove(Item data)
     {
         var inventoryItem = Artifact.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null)
-        {
             Artifact.Remove(inventoryItem);
-        }
     }
 }

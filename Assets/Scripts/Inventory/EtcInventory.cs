@@ -25,21 +25,27 @@ public class EtcInventory : MonoBehaviour
             return instance;
         }
     }
-    public void MakeSlot() // slotDatas °¹¼ö¸¸Å­ ½½·Ô ¸¸µé±â
+    private void Awake()
+    {
+        UpdateSlot();
+    }
+    public void MakeSlot() // slotDatas ê°¯ìˆ˜ë§Œí¼ ìŠ¬ë¡¯ ë§Œë“¤ê¸°
     {
         for (int i = 0; i < count; i++)
         {
             GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
             slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+            slotDatas[i].id = i;
             SpawnedSlot.SetActive(true);
         }
     }
-    public void ResetSlot() // °¢°¢ ½½·Ô¿¡ item ÇÒ´ç
+    public void ResetSlot() // ê°ê° ìŠ¬ë¡¯ì— item í• ë‹¹
     {
         int i = 0;
-        for(; i < inventoryDB.items.Count && i < slotDatas.Count; i++)
+
+        for (; i < InventoryDB.Instance.items.Count && i < slotDatas.Count; i++)
         {
-            slotDatas[i].inventoryItem = inventoryDB.items[i];
+            slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
         }
         for(; i< slotDatas.Count; i++)
         {
@@ -47,23 +53,23 @@ public class EtcInventory : MonoBehaviour
         }
         UpdateSlot();
     }
-    public void UpdateSlot() // List¾ÈÀÇ Item ÀüÃ¼ ÀÎº¥Åä¸®¿¡ Ãâ·Â
+    public void UpdateSlot() // Listì•ˆì˜ Item ì „ì²´ ì¸ë²¤í† ë¦¬ì— ì¶œë ¥
     {
         DeleteSlot();
-        for (int i = 0; i < inventoryDB.items.Count; i++)
+        for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
         {
-            string convert = inventoryDB.items[i].count.ToString();
-            if (inventoryDB.items[i].count == 0)
+            string convert = InventoryDB.Instance.items[i].count.ToString();
+            if (InventoryDB.Instance.items[i].count == 0)
             {
                 convert = "";
             }
-            slotDatas[i].SetUI(inventoryDB.items[i].item.itemImage, convert);
+            slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
         }
-        gold.GetComponent<Text>().text = inventoryDB.Gold.ToString();
+        gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
     }
-    public void DeleteSlot() // ÀÎº¥Åä¸®¿¡ Ãâ·ÂµÈ ¾ÆÀÌÅÛµé ÀüºÎ NULL
+    public void DeleteSlot() // ì¸ë²¤í† ë¦¬ì— ì¶œë ¥ëœ ì•„ì´í…œë“¤ ì „ë¶€ NULL
     {
-        if (inventoryDB.items.Count >= 0 )
+        if (InventoryDB.Instance.items.Count >= 0 )
         {
             for (int i = 0; i < slotDatas.Count; i++)
                 slotDatas[i].SetUI(image, "");
