@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
         player.GetComponent<Status>().oxygenAlter.AddListener(UpdateOxygenBar);
         player.GetComponent<Status>().hungryAlter.AddListener(UpdateHungryBar);
         InventoryUI.SetActive(ActiveInventory);
+        SetDigGagefalse();
 
         playerInput = player.GetComponent<PlayerInput>();
 

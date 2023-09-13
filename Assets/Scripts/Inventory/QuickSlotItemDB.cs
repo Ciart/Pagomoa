@@ -62,7 +62,7 @@ public class QuickSlotItemDB : MonoBehaviour
         else
             return;
     }
-    private void ControlQuickSlot(int n)
+    public void ControlQuickSlot(int n)
     {
         for (int index = 0; index < QuickSlotItemDB.instance.quickSlots.Count; index++)
         {
