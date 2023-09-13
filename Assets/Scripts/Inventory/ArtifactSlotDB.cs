@@ -9,7 +9,7 @@ public class ArtifactSlotDB : MonoBehaviour
 
     public static ArtifactSlotDB Instance = null;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -18,9 +18,12 @@ public class ArtifactSlotDB : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
+    }
+    private void Start()
+    {
         SaveManager.Instance.LoadArtifactItem();
     }
-        public void Remove(Item data)
+    public void Remove(Item data)
     {
         var inventoryItem = Artifact.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null)

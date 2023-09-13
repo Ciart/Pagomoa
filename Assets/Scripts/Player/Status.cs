@@ -96,9 +96,9 @@ namespace Player
             oxygenAlter.Invoke(oxygen, maxOxygen);
         }
         
-        private void Update()
+        private void FixedUpdate()
         {
-            // UpdateOxygen();
+            UpdateOxygen();
         }
 
         public Status copy()

@@ -11,7 +11,7 @@ public class Hit : MonoBehaviour
     }
     public void OnHit(GameObject attacker, float damage)
     {
-        Debug.Log($"{gameObject.name} : {attacker.name}로부터 {damage}의 피해를 입었음!");
+        //Debug.Log($"{gameObject.name} : {attacker.name}로부터 {damage}의 피해를 입었음!");
         switch (gameObject.tag)
         {
             case "Player":

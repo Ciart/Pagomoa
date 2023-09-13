@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Playables;
+using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class DialogueManager : MonoBehaviour
     [Space]
     public Dialogue NowScenario;
     int talkIndex;
-
+    [Space]
     private static DialogueManager _instance = null;
     public static DialogueManager Instance
     {
@@ -51,8 +52,11 @@ public class DialogueManager : MonoBehaviour
             return false;
         }
         talkText.text = talkIndex < NowScenario.talk.Count ? NowScenario.talk[talkIndex] : "";
-        talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null;
+        talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null ;
         nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
+        talkImage.enabled = talkImage.sprite == null ? false : true;
+        nameText.transform.parent.GetComponent<Image>().enabled = nameText.text == "" ? false : true;
+
         talkPannel.SetActive(true);
         talkIndex++;
         return true;
