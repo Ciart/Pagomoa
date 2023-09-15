@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -15,7 +14,7 @@ public class Attack : MonoBehaviour
         {
             Hit target = deffender.GetComponent<Hit>();
 
-            if (target == null) continue;
+            if (!target) continue;
             if (deffender.isTrigger) continue;
             if (!isAttackTarget(target.gameObject)) continue;
             if (!target.IsHitTarget()) continue;
@@ -28,7 +27,7 @@ public class Attack : MonoBehaviour
     {
         Hit target = deffender.GetComponent<Hit>();
 
-        if (target == null) return;
+        if (!target) return;
         if (deffender.GetComponent<Collider2D>().isTrigger) return;
         if (!isAttackTarget(target.gameObject)) return;
         if (!target.IsHitTarget()) return;
