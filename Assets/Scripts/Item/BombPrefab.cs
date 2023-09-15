@@ -1,14 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
 using Worlds;
 
 public class BombPrefab : MonoBehaviour
 {
-    [SerializeField] private float waitingTime;
-    [SerializeField] private Sprite BombImage;
+    [SerializeField] private float _waitingTime;
+    [SerializeField] private GameObject _bombImage;
+    [SerializeField] private GameObject _bombEffect;
+
 
     private IEnumerator corutine;
     void Start()
@@ -20,13 +19,14 @@ public class BombPrefab : MonoBehaviour
     {
         yield return new WaitForSeconds(WaitTime);
         SetBombImage(Bomb);
-        Destroy(Bomb, waitingTime);
+        Destroy(Bomb, _waitingTime);
     }
     private void SetBombImage(GameObject Bomb)
     {
-        Bomb.GetComponent<SpriteRenderer>().sprite = BombImage;
-        Bomb.transform.localScale = new Vector3((float)0.5, (float)0.5, 1);
-        var point = transform.position + new Vector3(-2, -2.2f);
+        _bombImage.SetActive(false);
+        _bombEffect.SetActive(true);
+        Bomb.transform.localScale = new Vector3(10, 10, 1);
+        var point = transform.position + new Vector3(-2, -1.2f);
         
         for (int j = 0; j < 3; j++)
         {
@@ -35,7 +35,7 @@ public class BombPrefab : MonoBehaviour
             {
                 point.x += 1;
                 var pointInt = WorldManager.ComputeCoords(point);
-                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, "item");
+                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, true);
             }
             point.x = transform.position.x - 2;
         }

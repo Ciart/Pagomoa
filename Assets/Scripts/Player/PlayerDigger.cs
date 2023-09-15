@@ -126,8 +126,8 @@ namespace Player
                         yield break;
                     }
                 }
-                if (time1 <= _charging) worldManager.BreakGround(point1.x, point1.y, drillTier, "drill");
-                if (time2 <= _charging) worldManager.BreakGround(point2.x, point2.y,  drillTier, "drill");
+                if (time1 <= _charging) worldManager.BreakGround(point1.x, point1.y, drillTier);
+                if (time2 <= _charging) worldManager.BreakGround(point2.x, point2.y, drillTier);
             }
             ICanDig();
         }

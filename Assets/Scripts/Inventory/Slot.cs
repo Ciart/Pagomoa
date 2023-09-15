@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Inventory;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -96,6 +97,8 @@ public class Slot : MonoBehaviour, IDropHandler
     public void EquipCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
+        if (EtcInventory.Instance.choiceSlot.inventoryItem == null) { Debug.LogWarning("no Choiced inventoryItem 그러니 고쳐라 승연킴"); return; }
+
         if (EtcInventory.Instance.choiceSlot.inventoryItem.item == null)
             return;
 
@@ -110,6 +113,7 @@ public class Slot : MonoBehaviour, IDropHandler
                 InventoryDB.Instance.items.Remove(EtcInventory.Instance.choiceSlot.inventoryItem);
                 EtcInventory.Instance.ResetSlot();
             }
+            EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
         }
     }

@@ -1,8 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Player;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -22,11 +18,11 @@ public class Monster : MonoBehaviour
     public int direction;
     public enum MonsterState
     {
-        Active,           // Æò¹ü È°µ¿
-        Sleep,            // Àá
-        Chase,            // Ãß°Ý
-        Hit,              // ÇÇ°Ý
-        Die               // Á×À½
+        Active,           // ï¿½ï¿½ï¿½ È°ï¿½ï¿½
+        Sleep,            // ï¿½ï¿½
+        Chase,            // ï¿½ß°ï¿½
+        Hit,              // ï¿½Ç°ï¿½
+        Die               // ï¿½ï¿½ï¿½ï¿½
     }
     void GroundCheck()
     {
@@ -55,8 +51,10 @@ public class Monster : MonoBehaviour
         target = attacker;
         direction = target.transform.position.x > transform.position.x ? 1 : -1;
         transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
-
-        ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
+        if(attacker.tag == "Player")
+            ParticleManager.Instance.Make(1, gameObject, Vector2.zero, 0.5f);
+        else
+            ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         float _knockBackForce2 = 3f;
         Vector2 knockBackDirection2 = transform.position - attacker.transform.position;

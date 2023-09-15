@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638284202432942700
+  platformSettingsDirtyTick: 638296947288643501
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,8 +121,8 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Scake_Frame_0
     originalName: 
-    pivot: {x: 0.6, y: -1.2727273}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -141,8 +141,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 112}
   - name: Scake_Frame_1
     originalName: 
-    pivot: {x: 0.6, y: -1.2727273}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -161,8 +161,8 @@ ScriptedImporter:
     uvTransform: {x: 41, y: 108}
   - name: Scake_Frame_2
     originalName: 
-    pivot: {x: 0.44827583, y: -0.94117653}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -181,8 +181,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 62}
   - name: Scake_Frame_3
     originalName: 
-    pivot: {x: 0.44827583, y: -0.94117653}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -201,8 +201,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 87}
   - name: Scake_Frame_4
     originalName: 
-    pivot: {x: 0.44827583, y: -0.94117653}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -221,8 +221,8 @@ ScriptedImporter:
     uvTransform: {x: 41, y: 4}
   - name: Scake_Frame_5
     originalName: 
-    pivot: {x: 0.44827583, y: -0.88888896}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -241,8 +241,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 36}
   - name: Scake_Frame_6
     originalName: 
-    pivot: {x: 0.44827583, y: -0.94117653}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -261,8 +261,8 @@ ScriptedImporter:
     uvTransform: {x: 41, y: 29}
   - name: Scake_Frame_7
     originalName: 
-    pivot: {x: 0.44444445, y: -0.94117653}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -281,8 +281,8 @@ ScriptedImporter:
     uvTransform: {x: 78, y: 4}
   - name: Scake_Frame_8
     originalName: 
-    pivot: {x: 0.48148146, y: -0.88888896}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -301,8 +301,8 @@ ScriptedImporter:
     uvTransform: {x: 41, y: 54}
   - name: Scake_Frame_9
     originalName: 
-    pivot: {x: 0.6666666, y: -0.8000001}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -321,8 +321,8 @@ ScriptedImporter:
     uvTransform: {x: 41, y: 80}
   - name: Scake_Frame_10
     originalName: 
-    pivot: {x: 0.72413796, y: -0.5833333}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -341,8 +341,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Scake_Frame_11
     originalName: 
-    pivot: {x: 0.4166667, y: -0.84210527}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2

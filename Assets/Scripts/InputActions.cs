@@ -143,7 +143,7 @@ namespace UnityEngine.InputSystem
                     ""id"": ""e826e3c4-7ae4-456a-a840-a59fa12e2a67"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -353,17 +353,6 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Dig"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
                     ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": """",
@@ -542,7 +531,7 @@ namespace UnityEngine.InputSystem
                     ""name"": """",
                     ""id"": ""c6cb60d7-ef08-47d7-8052-4d38317f825e"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""UseQuickSlot"",

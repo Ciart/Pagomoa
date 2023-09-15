@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using UnityEngine;
 using Worlds;
 
@@ -13,6 +14,8 @@ public class GameData
     public IntroData introData;
     public ItemData itemData;
     public OptionData optionData;
+    public ArtifactData artifactData;
+    public QuickSlotData quickSlotData;
 }
 
 [System.Serializable]
@@ -72,13 +75,35 @@ public class ItemData
 [System.Serializable]
 public class OptionData
 {
-    public int scale;
-    public float audioValue;
+    public int scale = 1;
+    public float audioValue = 0;
     public void SetOptionDataFromOptionDB(OptionDB optionDB)
     {
         if (!optionDB) return;
         scale = optionDB.scale;
         audioValue = optionDB.audioValue;
+    }
+}
+[System.Serializable]
+public class ArtifactData
+{
+    public List<InventoryItem> artifacts;
+
+    public void SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB artifactSlotDB)
+    {
+        artifacts = artifactSlotDB.Artifact;
+    }
+}
+[System.Serializable]
+public class QuickSlotData
+{
+    public List<InventoryItem> items;
+    public int selectedSlotID;
+    public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
+    {
+        items = quickSlotItemDB.quickSlotItems;
+        if(quickSlotItemDB.selectedSlot)
+            selectedSlotID = quickSlotItemDB.selectedSlot.id;
     }
 }
 

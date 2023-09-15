@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class TutorialChat : Chat
 {
-    [SerializeField] private Image ChatIcon;
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform target;
     
     [Space]
     public List<string> startingChat = new List<string>();
@@ -34,7 +33,6 @@ public class TutorialChat : Chat
     private void Start()
     {
         _tutorialChat = transform.parent.gameObject;
-        Debug.Log(_tutorialChat);
 
         StopChat();
         StartChatReservation(initialStartTime);
@@ -42,7 +40,7 @@ public class TutorialChat : Chat
 
     private void Update()
     {
-        transform.position = player.position;
+        transform.position = target.position;
 
         if (CheckInventoryUfoRemote())
         {
@@ -142,7 +140,7 @@ public class TutorialChat : Chat
 
     private void GetUfoRemoteChat()
     {
-        if (_repeatCount == 4)
+        if (_repeatCount == 5)
         {
             Destroy(_tutorialChat);
         }
@@ -154,7 +152,6 @@ public class TutorialChat : Chat
         {
             _chatIndex = 0;
             _repeatCount++;
-            Debug.Log(_repeatCount);
         }
     }
     

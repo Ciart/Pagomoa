@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using UnityEngine;
 
 public class ArtifactContent : MonoBehaviour
@@ -20,6 +21,10 @@ public class ArtifactContent : MonoBehaviour
             }
             return instance;
         }
+    }
+    private void Start()
+    {
+        ResetSlot();
     }
     public void ResetSlot() 
     {

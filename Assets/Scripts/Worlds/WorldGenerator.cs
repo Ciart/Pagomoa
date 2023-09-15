@@ -109,14 +109,14 @@ namespace Worlds
                     {
                         worldBrick.wall = wall;
 
-                        // if (y > FOREST_HEIGHT)
+                        if (y > FOREST_HEIGHT)
                         {
                             worldBrick.ground = sand;
                         }
-                        // else
-                        // {
-                        //     worldBrick.ground = grass;
-                        // }
+                        else
+                        {
+                            worldBrick.ground = grass;
+                        }
                     }
                 }
             }
@@ -132,14 +132,14 @@ namespace Worlds
 
                     Piece piece;
 
-                    // if (y > FOREST_HEIGHT)
+                    if (y > FOREST_HEIGHT)
                     {
                         piece = GetRandomPiece(desertPieces);
                     }
-                    // else
-                    // {
-                    //     piece = GetRandomPiece(forestPieces);
-                    // }
+                    else
+                    {
+                        piece = GetRandomPiece(forestPieces);
+                    }
 
                     GeneratePiece(piece, world, x, y);
                 }
@@ -210,7 +210,6 @@ namespace Worlds
 
             foreach (var prefab in piece.prefabs)
             {
-                // TODO: Y 좌표 처리 다시 해야 함.
                 world.AddPrefab(worldX - piece.pivot.x + prefab.x, worldY - piece.pivot.y + prefab.y, prefab.prefab);
             }
         }

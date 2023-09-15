@@ -1,29 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
-public class ArtifactSlotDB : MonoBehaviour
+namespace Inventory
 {
-    public List<InventoryItem> Artifact = new List<InventoryItem>();
-
-    private static ArtifactSlotDB instance;
-    public static ArtifactSlotDB Instance
+    public class ArtifactSlotDB : MonoBehaviour
     {
-        get
+        public List<InventoryItem> Artifact = new List<InventoryItem>();
+
+        public static ArtifactSlotDB Instance = null;
+
+        private void Awake()
         {
-            if (!instance)
+            if (Instance == null)
             {
-                instance = GameObject.FindObjectOfType(typeof(ArtifactSlotDB)) as ArtifactSlotDB;
+                Instance = this;
+                DontDestroyOnLoad(this.gameObject);
             }
-            return instance;
+            else
+                Destroy(this.gameObject);
         }
-    }
-
-    public void Remove(Item data)
-    {
-        var inventoryItem = Artifact.Find(inventoryItem => inventoryItem.item == data);
-        if (inventoryItem != null)
-            Artifact.Remove(inventoryItem);
+        private void Start()
+        {
+            SaveManager.Instance.LoadArtifactItem();
+        }
+        public void Remove(Item data)
+        {
+            var inventoryItem = Artifact.Find(inventoryItem => inventoryItem.item == data);
+            if (inventoryItem != null)
+                Artifact.Remove(inventoryItem);
+        }
     }
 }

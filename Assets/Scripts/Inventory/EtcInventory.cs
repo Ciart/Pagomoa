@@ -13,16 +13,19 @@ public class EtcInventory : MonoBehaviour
     public  List<Slot> slotDatas = new List<Slot>();
     [SerializeField] private int count;
 
-    private static EtcInventory instance;
-    public static EtcInventory Instance
+
+    public static EtcInventory Instance = null;
+    private void Start()
     {
-        get
+        if(Instance == null) 
         {
-            if (!instance)
-            {
-                instance = GameObject.FindObjectOfType(typeof(EtcInventory)) as EtcInventory;
-            }
-            return instance;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+                Destroy(this.gameObject);
         }
     }
     private void Awake()
@@ -55,7 +58,7 @@ public class EtcInventory : MonoBehaviour
     }
     public void UpdateSlot() // List안의 Item 전체 인벤토리에 출력
     {
-        DeleteSlot();
+        //DeleteSlot();
         for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
         {
             string convert = InventoryDB.Instance.items[i].count.ToString();

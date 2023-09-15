@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections.LowLevel.Unsafe;
+using Inventory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Worlds;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SaveManager : MonoBehaviour
 {
@@ -14,6 +12,11 @@ public class SaveManager : MonoBehaviour
 
     public float loadPositionDelayTime = 1.5f;
     public bool LoadComplete = false;
+
+    private WorldManager _worldManager;
+
+    private WorldGenerator _worldGenerator;
+
     public static SaveManager Instance
     {
         get
@@ -31,7 +34,7 @@ public class SaveManager : MonoBehaviour
     List<GameObject> ManagingTargets = new List<GameObject>();
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "Title") return ;
+        if (SceneManager.GetActiveScene().name == "Title") return;
 
         if (!container)
         {
@@ -46,11 +49,26 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("Monster");
         AddManagingTargetWithTag("NPC");
 
-        FreezePosition();
-        if (GameManager.instance.isLoadSave)
-            Invoke("LoadPosition", loadPositionDelayTime);
-        else
-            Invoke("TagPosition", loadPositionDelayTime);
+    }
+    
+    bool AllBlockNullCheck()
+    {
+        if (DataManager.Instance.data == null) return true;
+        bool allNullCheck = true;
+        DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
+        if (chunks == null) return true;
+        int dataSize = chunks.data.Count;
+        //Debug.Log("수량: " + dataSize);
+        for (int i = 0; i < dataSize; i++)
+        {
+            int brickSize = chunks.data[i].Value.bricks.Length;
+            for (int j = 0; j < brickSize; j++)
+            {
+                if (chunks.data[i].Value.bricks[j].ground != null)
+                    allNullCheck = false;
+            }
+        }
+        return allNullCheck;
     }
     void AddManagingTargetWithTag(string tagName)
     {
@@ -58,19 +76,23 @@ public class SaveManager : MonoBehaviour
         if (targets.Length == 0) return;
         foreach (GameObject target in targets)
         {
-            if(target.activeSelf)
+            if (target.activeSelf)
                 ManagingTargets.Add(target);
         }
     }
-    private void FreezePosition()
+    public void FreezePosition()
     {
-        foreach(GameObject target in ManagingTargets)
+        foreach (GameObject target in ManagingTargets)
         {
-            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+            target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             target.GetComponent<Rigidbody2D>().Sleep();
         }
     }
-    private void TagPosition()
+    public void TagPosition(float time = 0)
+    {
+        Invoke("_TagPosition", time);
+    }
+    private void _TagPosition()
     {
         LoadComplete = true;
         foreach (GameObject target in ManagingTargets)
@@ -79,11 +101,17 @@ public class SaveManager : MonoBehaviour
             target.GetComponent<Rigidbody2D>().WakeUp();
         }
     }
-    private void LoadPosition()
+    public void LoadPosition()
+    {
+        Invoke("_LoadPosition", loadPositionDelayTime);
+    }
+    private void _LoadPosition()
     {
         TagPosition();
 
         if (DataManager.Instance.data.posData == null)
+            return;
+        if (DataManager.Instance.data.posData.positionData == null)
             return;
 
         Dictionary<string, Vector3> posDataDictionary = ListDictionaryConverter.ToDictionary(DataManager.Instance.data.posData.positionData);
@@ -98,25 +126,81 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    void LoadMap()
+    public bool LoadMap()
     {
+        bool LoadSuccess = DataManager.Instance.LoadGameData();
 
+        if (!GameManager.instance.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
+        if (DataManager.Instance.data != null)
+        {
+            if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
+            if (AllBlockNullCheck()) LoadSuccess = false;
+        }
+
+        //Debug.Log("블럭모두없음?: " + AllBlockNullCheck());
+
+        FreezePosition();
+
+        if (GameManager.instance.isLoadSave && LoadSuccess)
+        {
+            try
+            {
+                WorldManager.instance.GetComponent<WorldGenerator>().LoadWorld(DataManager.Instance.data.worldData);
+                return true;
+            }
+            catch
+            {
+                WorldManager.instance.GetComponent<WorldGenerator>().Generate();
+                return false;
+            }
+        }
+        else
+        {
+            WorldManager.instance.GetComponent<WorldGenerator>().Generate();
+            return false;
+        }
     }
 
     public void LoadItem()
     {
-        if (DataManager.Instance.data.itemData == null) return;
+        DataManager dataManager = DataManager.Instance;
+        if (dataManager.data.itemData == null) return;
 
-        if (DataManager.Instance.data.itemData.items != null)
-            InventoryDB.Instance.items = DataManager.Instance.data.itemData.items.ToList();
+        if (dataManager.data.itemData.items != null)
+        {
+            InventoryDB.Instance.items = dataManager.data.itemData.items.ToList();
+            InventoryDB.Instance.Gold = dataManager.data.itemData.gold;
+        }
         else
             Debug.Log("Item Data is Nothing");
-        InventoryDB.Instance.Gold = DataManager.Instance.data.itemData.gold;
     }
     public void LoadOption()
     {
-        OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
-        OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
+        if (DataManager.Instance.data.optionData != null)
+        {
+            OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
+            OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
+        }
+    }
+    public void LoadArtifactItem()
+    {
+        if(DataManager.Instance.data.artifactData != null && ArtifactSlotDB.Instance != null)
+            if(DataManager.Instance.data.artifactData.artifacts != null)
+                ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
+    }   
+    public void LoadQuickSlot()
+    {
+        DataManager dataManager = DataManager.Instance;
+        if (dataManager.data.quickSlotData == null) return;
+
+        if (dataManager.data.quickSlotData.items != null)
+        {
+            QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items.ToList();
+            QuickSlot.Instance.SetQuickSlot();
+            QuickSlotItemDB.instance.ControlQuickSlot(dataManager.data.quickSlotData.selectedSlotID);
+        }
+        else
+            Debug.Log("QuickSlot Data is Nothing");
     }
     void WritePosData()
     {
@@ -150,9 +234,21 @@ public class SaveManager : MonoBehaviour
         InitData();
         DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
     }
-
+    void WriteArtifactData()
+    {
+        InitData();
+        DataManager.Instance.data.artifactData.SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB.Instance);
+    }
+    void WriteQuickSlotData()
+    {
+        InitData();
+        DataManager.Instance.data.quickSlotData.SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB.instance);
+    }
     public void InitData()
     {
+        if (DataManager.Instance.data == null)
+            DataManager.Instance.data = new GameData();
+
         if (DataManager.Instance.data.posData == null)
         {
             Debug.Log("No Position Data before, Instantiate new Position Data");
@@ -165,18 +261,28 @@ public class SaveManager : MonoBehaviour
         }
         if (DataManager.Instance.data.introData == null)
         {
-            Debug.Log("No World Data before, Instantiate new World Data");
+            Debug.Log("No Intro Data before, Instantiate new Intro Data");
             DataManager.Instance.data.introData = new IntroData();
         }
         if (DataManager.Instance.data.itemData == null)
         {
-            Debug.Log("No World Data before, Instantiate new World Data");
+            Debug.Log("No Item Data before, Instantiate new Item Data");
             DataManager.Instance.data.itemData = new ItemData();
         }
         if (DataManager.Instance.data.optionData == null)
         {
-            Debug.Log("No World Data before, Instantiate new World Data");
+            Debug.Log("No Option Data before, Instantiate new Option Data");
             DataManager.Instance.data.optionData = new OptionData();
+        }
+        if (DataManager.Instance.data.artifactData == null)
+        {
+            Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
+            DataManager.Instance.data.artifactData = new ArtifactData();
+        }
+        if (DataManager.Instance.data.quickSlotData == null)
+        {
+            Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
+            DataManager.Instance.data.quickSlotData = new QuickSlotData();
         }
     }
 
@@ -187,6 +293,8 @@ public class SaveManager : MonoBehaviour
         WriteMapData();
         WriteItemData();
         WriteOptionData();
+        WriteArtifactData();
+        WriteQuickSlotData();
         DataManager.Instance.SaveGameData();
     }
 

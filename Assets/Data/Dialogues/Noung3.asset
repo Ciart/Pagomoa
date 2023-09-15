@@ -10,30 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3d26255144d9ce40b5e85d41f473762, type: 3}
-  m_Name: Example
+  m_Name: Noung3
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1003
   talkerName:
+  - "\uB18D"
+  - "\uB18D"
+  - "\uD50C\uB808\uC774\uC5B4"
+  - "\uB18D"
+  - "\uD50C\uB808\uC774\uC5B4"
+  - "\uB18D"
   - 
-  - "\uB18D"
-  - "\uD50C\uB808\uC774\uC5B4"
-  - "\uB18D"
-  - "\uD50C\uB808\uC774\uC5B4"
-  - "\uB18D"
-  - "\uB18D"
   talk:
-  - "(\uD22D)"
-  - "\uC774\uBD10, \uBD80\uB52A\uD614\uC796\uC544"
-  - "\uC751 \uADF8\uB7F0\uB370?"
-  - "\uC0AC\uACFC \uC548 \uD574?"
-  - "\uB0B4\uAC00 .. \uC65C?"
-  - "\uD6C4... \uC694\uC998 \uC560\uB4E4\uC774\uB780"
+  - "\uC800\uB9AC\uAC00!!"
+  - "\uB108\uB791 \uC774\uC81C \uB300\uD654 \uC548 \uD574!"
+  - "\uD79D"
+  - "\uD79D\uC740 \uBB34\uC2A8 \uD79D\uC774\uC57C"
+  - "\uD751\uD751"
+  - "\uC65C .. \uC6B0\uB294\uAC74\uB370?"
   - ...
   sprite:
-  - {fileID: 824159298, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: 602315920, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: -1322854971, guid: c365d9d58b21b3141b492a32c0c4b427, type: 3}
+  - {fileID: -520062999, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
   - {fileID: 1904228112, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
   - {fileID: -2059471926, guid: c365d9d58b21b3141b492a32c0c4b427, type: 3}
   - {fileID: 1893801655, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
-  - {fileID: -520062999, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
+  - {fileID: 1987110223, guid: c365d9d58b21b3141b492a32c0c4b427, type: 3}
+  - {fileID: 824159298, guid: bf913eb41ab14f34e98193b512282a92, type: 3}

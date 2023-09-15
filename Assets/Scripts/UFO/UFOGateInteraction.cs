@@ -9,7 +9,7 @@ namespace UFO
 {
     public class UFOGateInteraction : MonoBehaviour
     {
-        public TilemapCollider2D UFOFloor;
+        public TilemapCollider2D gateFloor;
 
         public float floatSpeed = 10f;
         
@@ -23,20 +23,24 @@ namespace UFO
 
         private SpriteRenderer _beamBack;
         private SpriteRenderer _beamFront;
-        
+
+        private UFOInteraction _ufoInteraction;
+
         [SerializeField] private LayerMask _playerMask;
-        
-        private Vector3 _startPos;
-        
+
         private Vector2 _boxSize;
         
         private float _distance;
 
+        private bool _beamActivate = false;
+
         void Start()
         {
-            UFOFloor = transform.parent.Find("Grid").GetChild(0).GetComponent<TilemapCollider2D>();
+            _ufoInteraction = GetComponentInParent<UFOInteraction>();
+            
+            gateFloor = transform.parent.Find("Grid").GetChild(2).GetComponent<TilemapCollider2D>();
 
-            _gateIn = transform.GetChild(2).GetComponent<UFOGateIn>();
+            _gateIn = GetComponentInChildren<UFOGateIn>();
             _gateOut = GetComponent<UFOGateOut>();
 
             _inCollider = _gateIn.GetComponent<CircleCollider2D>();
@@ -53,24 +57,11 @@ namespace UFO
             _boxSize = new Vector2(1.5f, 20);
         }
 
-        public void ActiveGravityBeam()
+        private void ActiveGravityBeam()
         {
-            SetDirectionY();
+            if (_beamActivate) return ;
 
-            _startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
-            var hit = Physics2D.BoxCast(_startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
-            
-            if (hit.collider)
-            {
-                hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
-                
-                if (direction == -1)
-                {
-                    Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), true);
-                }
-                
-                if (!_beamFront.enabled) StartCoroutine(nameof(DisableFloor), hit);
-            }
+            StartCoroutine(nameof(MakeBeamZone));
         }
 
         private void SetDirectionY()
@@ -79,17 +70,40 @@ namespace UFO
             if (_gateOut.isPlayer) direction = -1;
         }
 
-        private IEnumerator DisableFloor(RaycastHit2D hit)
+        private IEnumerator MakeBeamZone()
         {
+            _beamActivate = true;
+            
+            _ufoInteraction.canMove = false;
+            
+            SetDirectionY();
             ControlDirectionTrigger(false);
             ActiveBeamSprites(true);
-
-            yield return new WaitForSeconds(2f);
             
-            Physics2D.IgnoreCollision( hit.transform.GetComponent<BoxCollider2D>(), UFOFloor.GetComponent<TilemapCollider2D>(), false);
+            float timer = 0f;
+            Vector3 startPos = new Vector2(transform.position.x, transform.position.y - 13.9f);
+            RaycastHit2D hit = Physics2D.BoxCast(startPos, _boxSize, 0f, Vector2.right, _distance, _playerMask);
+
+            StartCoroutine(nameof(SetPhysics), hit);
+            
+            while (timer < 2f)
+            {
+                if (hit.collider)
+                {
+                    hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
+                }
+                
+                timer += Time.deltaTime;
+                
+                yield return null;
+            }
 
             ControlDirectionTrigger(true);
             ActiveBeamSprites(false);
+            
+            _beamActivate = false;
+            
+            _ufoInteraction.canMove = true;
         }
 
         private void ActiveBeamSprites(bool enable)
@@ -103,12 +117,14 @@ namespace UFO
             _inCollider.enabled = enable;
             _outCollider.enabled = enable;
         }
-        private void OnDrawGizmos()
+
+        private IEnumerator SetPhysics()
         {
-            // 시각적으로 박스 캐스트를 그리기 위해 Gizmos를 사용합니다.
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(_startPos, _boxSize);
-            Gizmos.DrawLine(_startPos, _startPos + Vector3.right * _distance);
+            gateFloor.GetComponent<TilemapCollider2D>().enabled = false;
+            
+            yield return new WaitForSeconds(0.3f);
+
+            gateFloor.GetComponent<TilemapCollider2D>().enabled = true;
         }
     }
 }

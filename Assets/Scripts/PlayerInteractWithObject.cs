@@ -1,101 +1,66 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UFO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-
 public class PlayerInteractWithObject : MonoBehaviour
 {
-    [SerializeField] float interactableDistance = 1.5f;
-    [SerializeField] private List<InteractableObject> _interactableObjectList;
+    [SerializeField] private List<InteractableObject> interactableObjectList;
+    private float _closestDistance;
     private InteractableObject _activatedObject;
-
-    void Awake()
+    
+    void Start()
     {
-        _interactableObjectList = new List<InteractableObject>();
-        GetComponent<CircleCollider2D>().radius = interactableDistance;
-        GetComponentInParent<Player.PlayerInput>().Actions.Interaction.started += context => 
+        interactableObjectList = new List<InteractableObject>();
+    }
+    private void Awake()
+    {
+        GetComponentInParent<Player.PlayerInput>().Actions.Interaction.started += context =>
         {
-            if (_activatedObject) _activatedObject.InteractionEvent.Invoke();
+            if (!_activatedObject) return;
+            _activatedObject.InteractionEvent.Invoke();
         };
     }
-
     void FixedUpdate()
     {
-        if(_interactableObjectList.Count > 0)
-            CheckInteractable();
+        if (interactableObjectList.Count == 0)
+        {
+            _activatedObject = null;
+            return;
+        }
+
+        foreach (InteractableObject obj in interactableObjectList)
+        {
+            CheckInteractable(obj);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        InteractableObject interobject = collision.GetComponent<InteractableObject>();
-        
-        if (!interobject) return;
-        
-        if (!_interactableObjectList.Contains(interobject))
-            _interactableObjectList.Add(interobject);
+        if (!collision.GetComponent<InteractableObject>()) return;
+
+        if (!interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
+            interactableObjectList.Add(collision.GetComponent<InteractableObject>());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        InteractableObject interobject = collision.GetComponent<InteractableObject>();
-
-        if (!interobject) return;
-        
-        interobject.DisableObject();
-
-        if (_interactableObjectList.Contains(interobject))
+        if (collision.GetComponent<InteractableObject>())
         {
-            if(_activatedObject == interobject)
-                _activatedObject = null;
-
-            _interactableObjectList.Remove(interobject);
+            collision.GetComponent<InteractableObject>().DisableObject();
+            interactableObjectList.Remove(collision.GetComponent<InteractableObject>());
         }
     }
-        
-    private void CheckInteractable()
+    private void CheckInteractable(InteractableObject obj)
     {
-        float minDistance = 1000f;
-        InteractableObject closestObject = null;
-        foreach (InteractableObject obj in _interactableObjectList)
+        float distance = Vector2.Distance(transform.position, obj.transform.position);
+        if (_closestDistance == 0.0f || interactableObjectList.Count == 1)
         {
-            float objDistance = Vector2.Distance(transform.position, obj.transform.position);
-
-            if (objDistance < minDistance)
-            {
-                minDistance = objDistance;
-                closestObject = obj;
-            }
+            _closestDistance = distance;
+            _activatedObject = obj;
+            obj.ActiveObject();
         }
-        if (_activatedObject)
+        else if (distance < _closestDistance && interactableObjectList.Count > 1)
         {
             _activatedObject.DisableObject();
-            _activatedObject = null;
+            _activatedObject = obj;
+            _closestDistance = distance;
+            obj.ActiveObject();
         }
-        if (closestObject)
-        {
-            _activatedObject = closestObject;
-            closestObject.ActiveObject();
-        }
-        //float distance = Vector2.Distance(transform.position, obj.transform.position);
-
-
-        //if (_closestDistance == 0.0f || _interactableObjectList.Count == 1)
-        //{
-        //    _closestDistance = distance;
-        //    _activatedObject = obj;
-        //    obj.ActiveObject();
-        //}
-        //else if (distance < _closestDistance && _interactableObjectList.Count > 1)
-        //{
-        //    _activatedObject.DisableObject();
-        //    _activatedObject = obj;
-        //    _closestDistance = distance;
-        //    obj.ActiveObject();
-        //} 
-        //if (_interactableObjectList.Count == 0) _activatedObject = null;
     }
-        
 }
