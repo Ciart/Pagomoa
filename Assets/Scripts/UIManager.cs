@@ -30,31 +30,14 @@ public class UIManager : MonoBehaviour
 
         playerInput = player.GetComponent<PlayerInput>();
 
-        playerInput.Actions.Slot1.started += context => {QuickSlotItemDB.instance.ControlQuickSlot(0);};
-        playerInput.Actions.Slot2.started += context => {QuickSlotItemDB.instance.ControlQuickSlot(1);};
-        playerInput.Actions.Slot3.started += context => {QuickSlotItemDB.instance.ControlQuickSlot(2);};
-        playerInput.Actions.Slot4.started += context => {QuickSlotItemDB.instance.ControlQuickSlot(3);};
-        playerInput.Actions.Slot5.started += context => {QuickSlotItemDB.instance.ControlQuickSlot(4);};
-        playerInput.Actions.Slot6.started += context => {QuickSlotItemDB.instance.ControlQuickSlot(5);};
-
         playerInput.Actions.SetEscUI.started += context => 
         {
-            bool activeEscUI = false;
-            if (EscUI.activeSelf == false)
-                activeEscUI = !activeEscUI;
-            EscUI.SetActive(activeEscUI);
+            SetEscUI();
         };
 
         playerInput.Actions.SetInventoryUI.started += context =>
         {
-            ActiveInventory = !ActiveInventory;
-            InventoryUI.SetActive(ActiveInventory);
-            if (InventoryUI.activeSelf == false)
-                HoverEvent.Instance.image.SetActive(ActiveInventory);
-        };
-        playerInput.Actions.UseQuickSlot.started += context =>
-        {
-            QuickSlotItemDB.instance.UseQuickSlot();
+            SetInventoryUI();
         };
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
@@ -75,7 +58,22 @@ public class UIManager : MonoBehaviour
         digbar.fillAmount = holdtime / digtime;
         digbar.transform.parent.gameObject.SetActive(true);
     }
-    
+    private void SetEscUI()
+    {
+        bool activeEscUI = false;
+        if (EscUI.activeSelf == false)
+            activeEscUI = !activeEscUI;
+        EscUI.SetActive(activeEscUI);
+    }
+    private void SetInventoryUI()
+    {
+        ActiveInventory = !ActiveInventory;
+        InventoryUI.SetActive(ActiveInventory);
+        if (InventoryUI.activeSelf == false)
+            HoverEvent.Instance.image.SetActive(ActiveInventory);
+    }
+
+    //}
 
 }
 

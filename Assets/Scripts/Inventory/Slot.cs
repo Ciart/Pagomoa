@@ -112,6 +112,7 @@ public class Slot : MonoBehaviour, IDropHandler
                 InventoryDB.Instance.items.Remove(EtcInventory.Instance.choiceSlot.inventoryItem);
                 EtcInventory.Instance.ResetSlot();
             }
+            EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
         }
     }
