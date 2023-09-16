@@ -11,7 +11,7 @@ public class Hit : MonoBehaviour
     }
     public void OnHit(GameObject attacker, float damage)
     {
-        //Debug.Log($"{gameObject.name} : {attacker.name}·ÎºÎÅÍ {damage}ÀÇ ÇÇÇØ¸¦ ÀÔ¾úÀ½!");
+        //Debug.Log($"{gameObject.name} : {attacker.name}ë¡œë¶€í„° {damage}ì˜ í”¼í•´ë¥¼ ì…ì—ˆìŒ!");
         switch (gameObject.tag)
         {
             case "Player":

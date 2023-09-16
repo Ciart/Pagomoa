@@ -1,50 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SetAudio : MonoBehaviour
+namespace Title
 {
-    public static SetAudio instance = null; 
-
-    [SerializeField] public AudioMixer audioMixer;
-    [SerializeField] public Slider audioSlider;
-
-    private void Start()
+    public class SetAudio : MonoBehaviour
     {
-        if (instance == null)
+        public static SetAudio instance = null; 
+
+        [SerializeField] public AudioMixer audioMixer;
+        [SerializeField] public Slider audioSlider;
+
+        private void Start()
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+                Destroy(this.gameObject);
+            LoadAudioOption();
         }
-        else
-            Destroy(this.gameObject);
-        LoadAudioOption();
-    }
-    public void AudioControl()
-    {
-        float sound = audioSlider.value;
+        public void AudioControl()
+        {
+            float sound = audioSlider.value;
 
-        if (sound == -40f)
-            audioMixer.SetFloat("BGM", -80);
-        else
-            audioMixer.SetFloat("BGM", sound);
-    }
-    public void LoadAudioOption()
-    {
-        if (!OptionDB.instance) return;
-        float sound = OptionDB.instance.audioValue;
-        if (sound == -40f)
-        {
-            audioMixer.SetFloat("BGM", -80);
-            audioSlider.value = sound;
+            if (sound == -40f)
+                audioMixer.SetFloat("BGM", -80);
+            else
+                audioMixer.SetFloat("BGM", sound);
         }
-        else
+        public void LoadAudioOption()
         {
-            audioMixer.SetFloat("BGM", sound);
-            audioSlider.value = sound;
+            if (!OptionDB.instance) return;
+            float sound = OptionDB.instance.audioValue;
+            if (sound == -40f)
+            {
+                audioMixer.SetFloat("BGM", -80);
+                audioSlider.value = sound;
+            }
+            else
+            {
+                audioMixer.SetFloat("BGM", sound);
+                audioSlider.value = sound;
+            }
         }
     }
 }

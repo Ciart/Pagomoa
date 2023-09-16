@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.tvOS;
 
 public class Collect : MonoBehaviour
 {

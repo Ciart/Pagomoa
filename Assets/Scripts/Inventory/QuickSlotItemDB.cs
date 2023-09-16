@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 public class QuickSlotItemDB : MonoBehaviour
 {
    
@@ -11,57 +12,76 @@ public class QuickSlotItemDB : MonoBehaviour
     [SerializeField] public List<QuickSlot> quickSlots = new List<QuickSlot>();
     [SerializeField] public QuickSlot selectedSlot;
 
+    private PlayerInput playerInput;
+
     private void Start()
     {
         instance = this;
     }
-    public void UseQuickSlot()
+    private void Awake()
     {
-        if (selectedSlot == null || selectedSlot.inventoryItem.item == null)
+
+        GameObject player = GameObject.Find("Player");
+
+        playerInput = player.GetComponent<PlayerInput>();
+
+        playerInput.Actions.Slot1.started += context => { ControlQuickSlot(0); };
+        playerInput.Actions.Slot2.started += context => { ControlQuickSlot(1); };
+        playerInput.Actions.Slot3.started += context => { ControlQuickSlot(2); };
+        playerInput.Actions.Slot4.started += context => { ControlQuickSlot(3); };
+        playerInput.Actions.Slot5.started += context => { ControlQuickSlot(4); };
+        playerInput.Actions.Slot6.started += context => { ControlQuickSlot(5); };
+
+        playerInput.Actions.UseQuickSlot.started += context =>
+        {
+            UseQuickSlot();
+        };
+    }
+    private void UseQuickSlot()
+    {
+        if (QuickSlotItemDB.instance.selectedSlot == null || QuickSlotItemDB.instance.selectedSlot.inventoryItem.item == null)
             return;
 
-        if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+        if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
-            selectedSlot.inventoryItem.count -= 1;
-            selectedSlot.SetItemCount();
-            selectedSlot.UseItem();
-
-            if (selectedSlot.inventoryItem.count == 0)
+            QuickSlotItemDB.instance.selectedSlot.inventoryItem.count -= 1;
+            QuickSlotItemDB.instance.selectedSlot.SetItemCount();
+            QuickSlotItemDB.instance.selectedSlot.UseItem();
+            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.count == 0)
             {
-                InventoryDB.Instance.items.Remove(selectedSlot.inventoryItem);
-                selectedSlot.SetSlotNull();
+                InventoryDB.Instance.items.Remove(QuickSlotItemDB.instance.selectedSlot.inventoryItem);
+                QuickSlotItemDB.instance.selectedSlot.SetSlotNull();
             }
+            EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
         }
-        else if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
+        else if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
         {
-            selectedSlot.UseItem();
-
-            selectedSlot.inventory.UpdateSlot();
+            QuickSlotItemDB.instance.selectedSlot.UseItem();
         }
         else
             return;
     }
     public void ControlQuickSlot(int n)
     {
-        for (int index = 0; index < quickSlots.Count; index++)
+        for (int index = 0; index < QuickSlotItemDB.instance.quickSlots.Count; index++)
         {
             if (n == index)
             {
-                if (selectedSlot != quickSlots[index])
+                if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[index])
                 {
-                    selectedSlot = quickSlots[index];
-                    quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
-                    selectedSlot.transform.SetAsLastSibling();
+                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[index];
+                    QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
+                    QuickSlotItemDB.instance.selectedSlot.transform.SetAsLastSibling();
                 }
                 else
                 {
-                    quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
-                    selectedSlot = null;
+                    QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
+                    QuickSlotItemDB.instance.selectedSlot = null;
                 }
             }
             else
-                quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
+                QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
         }
 
     }

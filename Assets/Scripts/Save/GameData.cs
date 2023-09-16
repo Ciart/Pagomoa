@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using UnityEngine;
 using Worlds;
 
@@ -101,7 +102,8 @@ public class QuickSlotData
     public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
     {
         items = quickSlotItemDB.quickSlotItems;
-        selectedSlotID = quickSlotItemDB.selectedSlot.id;
+        if(quickSlotItemDB.selectedSlot)
+            selectedSlotID = quickSlotItemDB.selectedSlot.id;
     }
 }
 
