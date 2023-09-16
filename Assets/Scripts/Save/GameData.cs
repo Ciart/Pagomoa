@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ public class GameData
     public OptionData optionData;
     public ArtifactData artifactData;
     public QuickSlotData quickSlotData;
+    public PlayerCurrentStatusData playerStatusData;
 }
 
 [System.Serializable]
@@ -97,7 +99,7 @@ public class ArtifactData
 public class QuickSlotData
 {
     public List<InventoryItem> items;
-    public int selectedSlotID;
+    public int selectedSlotID = -1;
     public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
     {
         items = quickSlotItemDB.quickSlotItems;
@@ -105,7 +107,18 @@ public class QuickSlotData
             selectedSlotID = quickSlotItemDB.selectedSlot.id;
     }
 }
+[System.Serializable]
+public class PlayerCurrentStatusData
+{
+    public float currentOxygen;
+    public float currentHungry;
 
+    public void SetCurrentStatusData(Status status)
+    {
+        currentOxygen = status.oxygen;
+        currentHungry = status.hungry;
+    }
+}
 
 // �ڷᱸ��
 
