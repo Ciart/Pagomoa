@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Specialized;
-using System.Drawing;
+using Player;
 using UnityEngine;
-using Worlds;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +8,8 @@ public class GameManager : MonoBehaviour
     public bool hasPowerGemEarth;
     
     private static GameManager _instance;
-    
 
+    private PlayerController _player;
     
     public static GameManager instance
     {
@@ -24,6 +21,19 @@ public class GameManager : MonoBehaviour
             }
 
             return _instance;
+        }
+    }
+    
+    public PlayerController player
+    {
+        get
+        {
+            if (_player is null)
+            {
+                _player = (PlayerController)FindObjectOfType(typeof(PlayerController));
+            }
+
+            return _player;
         }
     }
     
