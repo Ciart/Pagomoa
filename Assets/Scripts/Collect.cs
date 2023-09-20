@@ -26,6 +26,10 @@ public class Collect : MonoBehaviour
         inventoryDB.Add(mineral);
         Destroy(collision.gameObject);
 
+        //
+        Logger.Instance.LoggingObject(this);
+        //
+        
         if (mineral.name == "PowerGemEarth")
         {
             GameManager.instance.hasPowerGemEarth = true;
