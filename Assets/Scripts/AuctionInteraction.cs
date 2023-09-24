@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloverMouseInteraction : MonoBehaviour
+public class AuctionInteraction : MonoBehaviour
 {
     private InteractableObject _interactable;
-    [SerializeField] private GameObject _buyUI;
+    [SerializeField] private GameObject _sellUI;
 
     private void Start()
     {
@@ -14,13 +14,15 @@ public class CloverMouseInteraction : MonoBehaviour
     }
     private void SetUI()
     {
-        if(_buyUI.activeSelf == false)
-            _buyUI.SetActive(true);
+        if (_sellUI.activeSelf == false)
+        {
+            _sellUI.SetActive(true);
+        }
         else
-            _buyUI.SetActive(false);
+            _sellUI.SetActive(false);
     }
     public void OffUI()
     {
-        _buyUI.SetActive(false);
+        _sellUI.SetActive(false);
     }
 }

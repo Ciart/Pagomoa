@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using Unity.VisualScripting;
+
 public class QuickSlotItemDB : MonoBehaviour
 {
    
@@ -37,51 +39,65 @@ public class QuickSlotItemDB : MonoBehaviour
             UseQuickSlot();
         };
     }
+    private void Remove(Item data)
+    {
+        var quickSlotItem = quickSlotItems.Find(quickSlotItem => quickSlotItem.item == data);
+
+        for(int i = 0; i < quickSlotItems.Count; i++)
+        {
+            if (quickSlotItems[i].item == quickSlotItem.item)
+            {
+                quickSlotItems.RemoveAt(i);
+                quickSlotItems.Insert(i, new InventoryItem(null, 0));
+            }
+        }
+    }
     private void UseQuickSlot()
     {
-        if (QuickSlotItemDB.instance.selectedSlot == null || QuickSlotItemDB.instance.selectedSlot.inventoryItem.item == null)
+        if (selectedSlot == null || selectedSlot.inventoryItem == null || selectedSlot.inventoryItem.item == null)
             return;
 
-        if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+        if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
-            QuickSlotItemDB.instance.selectedSlot.inventoryItem.count -= 1;
-            QuickSlotItemDB.instance.selectedSlot.SetItemCount();
-            QuickSlotItemDB.instance.selectedSlot.UseItem();
-            if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.count == 0)
+            selectedSlot.inventoryItem.count -= 1;
+            selectedSlot.SetItemCount();
+            selectedSlot.UseItem();
+            if (selectedSlot.inventoryItem.count == 0)
             {
-                InventoryDB.Instance.items.Remove(QuickSlotItemDB.instance.selectedSlot.inventoryItem);
-                QuickSlotItemDB.instance.selectedSlot.SetSlotNull();
+                InventoryDB.Instance.Remove(selectedSlot.inventoryItem.item);
+                Remove(selectedSlot.inventoryItem.item);
+                selectedSlot.SetSlotNull();
             }
             EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
         }
-        else if (QuickSlotItemDB.instance.selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
+        else if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
         {
-            QuickSlotItemDB.instance.selectedSlot.UseItem();
+            selectedSlot.UseItem();
         }
         else
             return;
     }
     public void ControlQuickSlot(int n)
     {
-        for (int index = 0; index < QuickSlotItemDB.instance.quickSlots.Count; index++)
+        for (int index = 0; index < quickSlots.Count; index++)
         {
             if (n == index)
             {
-                if (QuickSlotItemDB.instance.selectedSlot != QuickSlotItemDB.instance.quickSlots[index])
+                if (selectedSlot != quickSlots[index])
                 {
-                    QuickSlotItemDB.instance.selectedSlot = QuickSlotItemDB.instance.quickSlots[index];
-                    QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
-                    QuickSlotItemDB.instance.selectedSlot.transform.SetAsLastSibling();
+                    selectedSlot = quickSlots[index];
+                    quickSlots[index].selectedSlotImage.gameObject.SetActive(true);
+                    selectedSlot.transform.SetAsLastSibling();
                 }
                 else
                 {
-                    QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
-                    QuickSlotItemDB.instance.selectedSlot = null;
+                    quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
+                    selectedSlot = null;
                 }
             }
             else
-                QuickSlotItemDB.instance.quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
+                quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
         }
 
     }
