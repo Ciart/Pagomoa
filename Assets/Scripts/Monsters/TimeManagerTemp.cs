@@ -8,7 +8,10 @@ using UnityEngine.Rendering.Universal;
 
 public class TimeManagerTemp : MonoBehaviour
 {
-    [SerializeField] private int time = 0;
+    private int time = 0;
+    public int _time { get { return time; } }
+    private int maxTime = 1440000;
+    public int _maxTime { get { return maxTime; } }
     private int startTime = 360000;
     private int endTime = 1320000; // 22시 ~ 06시 
     private int returnTime = 60000;
@@ -20,12 +23,6 @@ public class TimeManagerTemp : MonoBehaviour
     public UnityEvent MonsterSleep;
     public UnityEvent MonsterWakeUp;
     public UnityEvent<FadeState> FadeEvent;
-
-
-    Camera camera;
-    Color cameraDefaultColor;
-    public Light2D light;
-    
 
     private static TimeManagerTemp _instance = null;
     public static TimeManagerTemp Instance
@@ -44,9 +41,6 @@ public class TimeManagerTemp : MonoBehaviour
         MonsterSleep.AddListener(DayMonster.GetSleep);
         MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
         MonsterWakeUp.AddListener(NightMonster.TimeToBye);
-
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        cameraDefaultColor = camera.backgroundColor;
     }
     private int _hour
     {
@@ -88,14 +82,15 @@ public class TimeManagerTemp : MonoBehaviour
     private void StartTime()
     {
         // too noise
-        Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
-        
+        //Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
+        Debug.Log(_hour + "시 ");
+
         time += 1000;
         EventTime();
     }
     private void EventTime()
     {
-        if (time >= 1440000) // 날짜 바뀌는 시간
+        if (time >= maxTime) // 날짜 바뀌는 시간
         {
             time = 0;
             date++;
@@ -139,7 +134,7 @@ public class TimeManagerTemp : MonoBehaviour
         Vector3 returnPosition = new Vector3(31.7f, 4, 0);
         gameObject.transform.position = returnPosition;
     }
-    public string GetTime()
+    public string GetSeasonForMonster()
     {
         if (time >= 0 && time < _wakeUpTime) // 밤    // 360000
             return "Night";
@@ -148,26 +143,9 @@ public class TimeManagerTemp : MonoBehaviour
         else
             return "Night";
     }
+    
     void DayLight()
     {
-        //float hour = (float)_hour;
-        float hour = time/60000f;
-        float timeX = hour / 24;
-
-        if (hour < 2 || hour >= 23)
-        {
-            timeX = 24 / 24;
-        }
-        else if (hour < 15)
-            timeX = (24 - hour * 1.71f) / 24;
-        else if (hour < 16)
-            timeX = 0 / 24;
-        else
-            timeX = ((hour - 15) * 3.42f) / 24;
-
-        Color newColor = cameraDefaultColor * (1 - timeX);
-        newColor.a = 0;
-        camera.backgroundColor = newColor;
-        light.intensity = 1 - (0.85f * timeX);
+        GetComponent<EnvironmentConverter>().Convert(time, maxTime);
     }
 }
