@@ -19909,6 +19909,29 @@ MonoBehaviour:
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 5
+--- !u!1 &1259165466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1658260992654263617, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
+  m_PrefabInstance: {fileID: 1270842126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1259165467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259165466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae182ab5c516a22479749ab4f851d932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  periods:
+  - {fileID: 11400000, guid: 43fbaf5b495473945b97d52834fcf5c5, type: 2}
+  - {fileID: 11400000, guid: 47ecef73e3b624a4d9ac375d059b8688, type: 2}
+  - {fileID: 11400000, guid: 9cde878dc69620449a2513e147aa5a7e, type: 2}
+  - {fileID: 11400000, guid: 730ac8f17446fa242aedcb2932d6d306, type: 2}
+  light: {fileID: 619394801}
 --- !u!1001 &1270842126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19928,7 +19951,7 @@ PrefabInstance:
     - target: {fileID: 1052701802431607279, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
       propertyPath: DayLight
       value: 
-      objectReference: {fileID: 1397479954}
+      objectReference: {fileID: 0}
     - target: {fileID: 1052701802431607279, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -20068,7 +20091,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1658260992654263617, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1259165467}
   m_SourcePrefab: {fileID: 100100000, guid: a226845ad5cf14948886904af78ca9b8, type: 3}
 --- !u!1 &1271589107
 GameObject:
@@ -21305,81 +21331,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396432393}
   m_CullTransparentMesh: 1
---- !u!1 &1397479952
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1397479953}
-  - component: {fileID: 1397479955}
-  - component: {fileID: 1397479954}
-  m_Layer: 5
-  m_Name: DayLight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1397479953
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397479952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1500683812}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1397479954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397479952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e86a15c717d5dd4bb05144f97641300, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1397479955
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397479952}
-  m_CullTransparentMesh: 1
 --- !u!1 &1416124325
 GameObject:
   m_ObjectHideFlags: 0
@@ -22009,7 +21960,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1397479953}
   - {fileID: 351634118}
   - {fileID: 1298135601}
   - {fileID: 1271589108}

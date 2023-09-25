@@ -24,7 +24,7 @@ public class SnakeController : MonsterController
     }
     private void Start()
     {
-        if (TimeManagerTemp.Instance.GetTime() == "Night")
+        if (TimeManagerTemp.Instance.GetSeasonForMonster() == "Night")
             StateChanged(Monster.MonsterState.Sleep);
         else
             StateChanged(Monster.MonsterState.Active);
@@ -79,7 +79,7 @@ public class SnakeController : MonsterController
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
         }
-        if(TimeManagerTemp.Instance.GetTime() == "Night")
+        if(TimeManagerTemp.Instance.GetSeasonForMonster() == "Night")
             StateChanged(Monster.MonsterState.Sleep);
         else
             StateChanged(Monster.MonsterState.Active);
