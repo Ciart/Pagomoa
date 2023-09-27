@@ -19,13 +19,10 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //if(_slot.inventoryItem == null) { Debug.LogWarning("no inventoryItem There Slot 그러니 고치거라 고치승연"); return; }
-        //if (eventData.pointerEnter != _slot.gameObject)
-        //    return;
-
-       
-        if (_slot.inventoryItem.item == null)
+        var slot = eventData.pointerEnter.GetComponent<Slot>();
+        if (slot.inventoryItem == null || slot.inventoryItem.item == null)
             OffHover();
+        
         else if (_slot.inventoryItem != null)
         {
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);

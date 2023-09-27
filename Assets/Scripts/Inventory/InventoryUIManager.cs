@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject _itemsTab;
+    [SerializeField] private Button _itemsTabButton;
     [SerializeField] private GameObject _infoTab;
+    [SerializeField] private Button _infoTabButton;
     [SerializeField] private Sprite[] _tabSprites;
 
     public void SetUI()
@@ -17,46 +19,16 @@ public class InventoryUIManager : MonoBehaviour
     }
     public void ClickItemsTab()
     {
-        Transform[] infoChildren = _infoTab.GetComponentsInChildren<Transform>();
-        foreach (Transform child in infoChildren)
-        {
-            if (_infoTab.transform == child)
-                child.gameObject.SetActive(true);
-            else
-            {
-                child.gameObject.SetActive(false);
-            }
-        }
-
-        Transform[] itemsChildren = _itemsTab.GetComponentsInChildren<Transform>(true);
-
-        foreach (Transform child in itemsChildren)
-        {
-            child.gameObject.SetActive(true);
-        }
-        _itemsTab.GetComponent<Image>().sprite = _tabSprites[0];
-        _infoTab.GetComponent<Image>().sprite = _tabSprites[2];
+        _itemsTab.SetActive(true);
+        _infoTab.SetActive(false);
+        _itemsTabButton.image.sprite = _tabSprites[0];
+        _infoTabButton.image.sprite = _tabSprites[2];
     }
     public void ClickInfoTab()
     {
-        Transform[] itemsChildren = _itemsTab.GetComponentsInChildren<Transform>();
-        foreach (Transform child in itemsChildren)
-        {
-            if (_itemsTab.transform == child)
-                child.gameObject.SetActive(true);
-            else
-            {
-                Debug.Log(child.name);
-                child.gameObject.SetActive(false);
-            }
-        }
-        Transform[] infoChildren = _infoTab.GetComponentsInChildren<Transform>(true);
-        foreach(Transform child in infoChildren)
-        {
-            child.gameObject.SetActive(true);
-        }
-
-        _itemsTab.GetComponent<Image>().sprite = _tabSprites[1];
-        _infoTab.GetComponent<Image>().sprite = _tabSprites[3];
+        _infoTab.SetActive(true);
+        _itemsTab.SetActive(false);
+        _infoTabButton.image.sprite = _tabSprites[3];
+        _itemsTabButton.image.sprite = _tabSprites[1];
     }
 }

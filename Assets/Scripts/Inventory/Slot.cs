@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using Inventory;
 using Player;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -103,26 +102,25 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         EtcInventory.Instance.choiceSlot = this;
 
-        var Inventory = EtcInventory.Instance;
-        if (Inventory.choiceSlot.inventoryItem == null) { Debug.LogWarning("no Choiced inventoryItem 그러니 고쳐라 승연킴"); return; }
+        var inventory = EtcInventory.Instance;
 
-        if (Inventory.choiceSlot.inventoryItem.item == null)
+        if (inventory.choiceSlot.inventoryItem.item == null || inventory.choiceSlot.inventoryItem == null)
             return;
 
-        if (Inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+        if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
             equipUI.OnUI();
 
-        else if (Inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+        else if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
-            Inventory.choiceSlot.inventoryItem.count -= 1;
+            inventory.choiceSlot.inventoryItem.count -= 1;
             UseItem();
-            if (Inventory.choiceSlot.inventoryItem.count == 0)
+            if (inventory.choiceSlot.inventoryItem.count == 0)
             {
-                InventoryDB.Instance.Remove(Inventory.choiceSlot.inventoryItem.item);
-                Inventory.ResetSlot();
+                InventoryDB.Instance.Remove(inventory.choiceSlot.inventoryItem.item);
+                inventory.ResetSlot();
             }
-            Inventory.DeleteSlot();
-            Inventory.UpdateSlot();
+            inventory.DeleteSlot();
+            inventory.UpdateSlot();
         }
         else
             return;
@@ -143,6 +141,12 @@ public class Slot : MonoBehaviour, IDropHandler
     }
     public void ReleaseItem()
     {
+        EtcInventory.Instance.choiceSlot = this;
+        var inventory = EtcInventory.Instance;
+
+        if (inventory.choiceSlot.inventoryItem == null || inventory.choiceSlot.inventoryItem.item == null)
+            return;
+
         InventoryDB.Instance.Add(inventoryItem.item, 0);
         EtcInventory.Instance.ResetSlot();
         ArtifactSlotDB.Instance.Remove(inventoryItem.item);

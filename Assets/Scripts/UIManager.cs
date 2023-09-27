@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Player;
 using Unity.VisualScripting;
 using System;
+using Cinemachine;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image digbar;
     [SerializeField] public GameObject InventoryUI;
     [SerializeField] public GameObject EscUI;
+    [SerializeField] private CinemachineVirtualCamera _inventoryCamera;
 
     private PlayerInput playerInput;
 
@@ -68,9 +70,15 @@ public class UIManager : MonoBehaviour
         bool ActiveInventory = false;
         bool OffHoverEvent = false;
         if (InventoryUI.activeSelf == false)
+        {
             ActiveInventory = !ActiveInventory;
-        else 
+            _inventoryCamera.Priority = 11;
+        }
+        else
+        {
             HoverEvent.Instance.HoverRenderer.SetActive(OffHoverEvent);
+            _inventoryCamera.Priority = 9;
+        }
         InventoryUI.SetActive(ActiveInventory);
     }
 
