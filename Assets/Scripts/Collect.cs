@@ -1,3 +1,4 @@
+using System;
 using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,19 +15,27 @@ public class Collect : MonoBehaviour
         if (OnCollectEvent == null)
             OnCollectEvent = new UnityEvent();
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!collision.gameObject.GetComponent<ItemEntity>()) return;
-        
-        var mineral = collision.gameObject.GetComponent<ItemEntity>().Item;
+        if (!other.CompareTag("ItemEntityTrigger"))
+        {
+            return;
+        }
 
-        Debug.Log($"\"{mineral.itemName}\" 를 수집했습니다!");
+        var itemEntity = other.transform.parent.GetComponent<ItemEntity>();
+        var item = itemEntity.Item;
+
+        if (item is null)
+        {
+            return;
+        }
+
         OnCollectEvent.Invoke();
-        inventoryDB.Add(mineral);
-        Destroy(collision.gameObject);
+        inventoryDB.Add(item);
+        Destroy(itemEntity.gameObject);
 
-        if (mineral.name == "PowerGemEarth")
+        if (item.name == "PowerGemEarth")
         {
             GameManager.instance.hasPowerGemEarth = true;
         }

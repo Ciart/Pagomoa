@@ -397,6 +397,17 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""be26fa48-75f8-40cc-84c8-0b7ebacd20ff"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1a230a17-3f8d-42f1-9769-2a138b5eb0a2"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
