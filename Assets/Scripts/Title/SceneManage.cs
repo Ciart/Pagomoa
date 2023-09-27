@@ -30,6 +30,7 @@ public class SceneManage : MonoBehaviour
     {
         bool restart = true;
         DataManager.Instance.DeleteGameData();
+        DataManager.Instance.LoadGameData();
         StartGame(restart);
     }
     public void PressStartButton()

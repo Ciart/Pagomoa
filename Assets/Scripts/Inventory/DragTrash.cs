@@ -7,19 +7,20 @@ public class DragTrash : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag.GetComponent<QuickSlot>())
+        var Data = eventData.pointerDrag.GetComponent<QuickSlot>();
+
+        if (Data)
         {
-            QuickSlotItemDB.instance.quickSlotItems.RemoveAt(eventData.pointerDrag.GetComponent<QuickSlot>().id);
-            QuickSlotItemDB.instance.quickSlotItems.Insert(eventData.pointerDrag.GetComponent<QuickSlot>().id, null);
-            eventData.pointerDrag.GetComponent<QuickSlot>().inventoryItem = null;
-            eventData.pointerDrag.GetComponent<QuickSlot>().itemImage.sprite = eventData.pointerDrag.GetComponent<QuickSlot>().transparentImage;
-            eventData.pointerDrag.GetComponent<QuickSlot>().itemCount.text = "";
+            QuickSlotItemDB.instance.quickSlotItems.RemoveAt(Data.id);
+            QuickSlotItemDB.instance.quickSlotItems.Insert(Data.id, null);
+            Data.inventoryItem = null;
+            Data.itemImage.sprite = Data.transparentImage;
+            Data.itemCount.text = "";
         }
         else if (eventData.pointerPress.GetComponent<Slot>())
         {
             InventoryDB.Instance.items.Remove(eventData.pointerDrag.GetComponent<Slot>().inventoryItem);
             EtcInventory.Instance.ResetSlot();
-
         }
     }
 }

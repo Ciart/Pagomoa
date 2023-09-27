@@ -194,7 +194,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Inventory_4
+      name: EmptyImage
       rect:
         serializedVersion: 2
         x: 28
@@ -246,11 +246,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      EmptyImage: -690812983
       Inventory_0: -1773102422
       Inventory_1: 198574480
       Inventory_2: 993185934
       Inventory_3: -1103232422
-      Inventory_4: -690812983
       Inventory_5: 1050012051
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

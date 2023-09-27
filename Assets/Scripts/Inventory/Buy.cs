@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Buy : MonoBehaviour
 {
-    [SerializeField] private AuctionDB auctionDB;
     [SerializeField] public Slot choiceSlot;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
@@ -32,7 +31,7 @@ public class Buy : MonoBehaviour
     }
     public void AuctionSlot()
     {
-        for(int i = 0; i < auctionDB.auctionItem.Count; i++) 
+        for(int i = 0; i < AuctionDB.Instance.auctionItem.Count; i++) 
         {
             GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
             slots.Add(SpawnedSlot.GetComponent<Slot>());
@@ -43,18 +42,18 @@ public class Buy : MonoBehaviour
     public void ResetSlot() 
     {
         int i = 0;
-        for (; i < auctionDB.auctionItem.Count; i++)
-            slots[i].inventoryItem = auctionDB.auctionItem[i];
+        for (; i < AuctionDB.Instance.auctionItem.Count; i++)
+            slots[i].inventoryItem = AuctionDB.Instance.auctionItem[i];
         UpdateSlot();
     }
     public void UpdateSlot() 
     {
-        for (int i = 0; i < auctionDB.auctionItem.Count; i++)
+        for (int i = 0; i < AuctionDB.Instance.auctionItem.Count; i++)
         {
-            string convert = auctionDB.auctionItem[i].count.ToString();
-            if (auctionDB.auctionItem[i].count == 0)
+            string convert = AuctionDB.Instance.auctionItem[i].count.ToString();
+            if (AuctionDB.Instance.auctionItem[i].count == 0)
                 convert = "";
-            slots[i].SetUI(auctionDB.auctionItem[i].item.itemImage, convert);
+            slots[i].SetUI(AuctionDB.Instance.auctionItem[i].item.itemImage, convert);
         }
     }
     public void DestroySlot()

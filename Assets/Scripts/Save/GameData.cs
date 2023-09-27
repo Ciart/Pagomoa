@@ -64,7 +64,7 @@ public class WorldData
 [System.Serializable]
 public class ItemData
 {
-    public List<InventoryItem> items;
+    public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
     public int gold;
     public void SetItemDataFromInventoryDB(InventoryDB inventoryDB)
     {
