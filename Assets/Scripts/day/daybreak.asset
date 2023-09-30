@@ -44,5 +44,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  floorIntensity: 0.15
-  floorIntensityChange: 0
+  floorIntensityStart: 0
+  floorIntensityEnd: 1
+  floorChangeStartTime: 0
+  floorChangeEndTime: 360000
