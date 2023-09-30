@@ -172,6 +172,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pointer"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f6c2ed2-28bb-4143-85af-44f07473bb2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DigDirection"",
+                    ""type"": ""Button"",
+                    ""id"": ""6bed1080-9a66-45bd-a28a-b52c96067e3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -209,31 +227,9 @@ namespace UnityEngine.InputSystem
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""8180e8bd-4097-4f4e-ab88-4523101a6ce9"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""down"",
                     ""id"": ""320bffee-a40b-4347-ac70-c210eb8bc73a"",
                     ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""1c5327b5-f71c-4f60-99c7-4e737386f1d1"",
-                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -253,31 +249,9 @@ namespace UnityEngine.InputSystem
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""2e46982e-44cc-431b-9f0b-c11910bf467a"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""right"",
                     ""id"": ""fcfe95b8-67b9-4526-84b5-5d0bc98d6400"",
                     ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""77bff152-3580-4b21-b6de-dcd0c7e41164"",
-                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -581,6 +555,72 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae16ca71-9c3a-4613-b867-cf4d8688aeeb"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse;Touch"",
+                    ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrow"",
+                    ""id"": ""0e0e1add-c65e-4622-87cc-41b5b33f269e"",
+                    ""path"": ""Dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DigDirection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ea7e2105-b302-4d1a-8676-8873f75c558f"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DigDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""2431199f-e277-4952-bd08-8dbea72ec053"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DigDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d8ffcbfa-bd7d-4b17-9790-0f7bade6b4ae"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DigDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""e93e9b4b-d3e9-4d27-ac34-1f092959e339"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DigDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -1210,6 +1250,8 @@ namespace UnityEngine.InputSystem
             m_Player_SetEscUI = m_Player.FindAction("SetEscUI", throwIfNotFound: true);
             m_Player_SetInventoryUI = m_Player.FindAction("SetInventoryUI", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+            m_Player_Pointer = m_Player.FindAction("Pointer", throwIfNotFound: true);
+            m_Player_DigDirection = m_Player.FindAction("DigDirection", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1302,6 +1344,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_SetEscUI;
         private readonly InputAction m_Player_SetInventoryUI;
         private readonly InputAction m_Player_Attack;
+        private readonly InputAction m_Player_Pointer;
+        private readonly InputAction m_Player_DigDirection;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -1322,6 +1366,8 @@ namespace UnityEngine.InputSystem
             public InputAction @SetEscUI => m_Wrapper.m_Player_SetEscUI;
             public InputAction @SetInventoryUI => m_Wrapper.m_Player_SetInventoryUI;
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
+            public InputAction @Pointer => m_Wrapper.m_Player_Pointer;
+            public InputAction @DigDirection => m_Wrapper.m_Player_DigDirection;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1379,6 +1425,12 @@ namespace UnityEngine.InputSystem
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @Pointer.started += instance.OnPointer;
+                @Pointer.performed += instance.OnPointer;
+                @Pointer.canceled += instance.OnPointer;
+                @DigDirection.started += instance.OnDigDirection;
+                @DigDirection.performed += instance.OnDigDirection;
+                @DigDirection.canceled += instance.OnDigDirection;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1431,6 +1483,12 @@ namespace UnityEngine.InputSystem
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
+                @Pointer.started -= instance.OnPointer;
+                @Pointer.performed -= instance.OnPointer;
+                @Pointer.canceled -= instance.OnPointer;
+                @DigDirection.started -= instance.OnDigDirection;
+                @DigDirection.performed -= instance.OnDigDirection;
+                @DigDirection.canceled -= instance.OnDigDirection;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1675,6 +1733,8 @@ namespace UnityEngine.InputSystem
             void OnSetEscUI(InputAction.CallbackContext context);
             void OnSetInventoryUI(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
+            void OnPointer(InputAction.CallbackContext context);
+            void OnDigDirection(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

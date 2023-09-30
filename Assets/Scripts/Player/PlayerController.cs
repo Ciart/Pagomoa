@@ -79,6 +79,12 @@ namespace Player
                 _digger.direction = _direction;
                 drill.SetActive(true);
             }
+            else if (_input.DigDirection.magnitude > 0.001f)
+            {
+                _digger.isDig = true;
+                _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
+                drill.SetActive(true);
+            }
             else
             {
                 _digger.isDig = false;

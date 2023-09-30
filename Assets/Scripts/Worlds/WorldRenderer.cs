@@ -18,6 +18,8 @@ namespace Worlds
         public Tilemap mineralTilemap;
 
         public Tilemap fogTilemap;
+        
+        public Tilemap overlayTilemap;
 
         public TileBase fogTile;
 
@@ -231,6 +233,15 @@ namespace Worlds
         private void LateUpdate()
         {
             RenderWorld();
+            
+            overlayTilemap.ClearAllTiles();
+
+            foreach (var (key, value) in _worldManager.brickDamage)
+            {
+                var position = new Vector3Int(key.x, key.y, 0);
+                
+                overlayTilemap.SetTile(position, fogTile);
+            }
         }
 
         public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)

@@ -49,7 +49,7 @@ namespace Player
             if (drillLevel < drillTierSetting.Length)
                 drillTier = drillTierSetting[drillLevel];
         }
-        private void FixedUpdate()
+        private void Update()
         {
             if (!isDig)
             {
@@ -61,7 +61,7 @@ namespace Player
             foreach (var (x, y) in target.targetCoordsList)
             {
                 var worldManager = WorldManager.instance;
-                worldManager.BreakGround(x, y, drillTier);
+                worldManager.DigGround(new BrickCoords(x, y), _status.digSpeed);
             }
         }
 

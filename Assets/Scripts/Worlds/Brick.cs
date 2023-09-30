@@ -3,6 +3,19 @@ using System;
 namespace Worlds
 {
     [Serializable]
+    public struct BrickCoords
+    {
+        public int x;
+        public int y;
+        
+        public BrickCoords(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    
+    [Serializable]
     public class Brick
     {
         public Wall wall;
