@@ -46,5 +46,5 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   floorIntensityStart: 1
   floorIntensityEnd: 0
-  floorChangeStartTime: 360000
-  floorChangeEndTime: 400000
+  floorChangeStartTime: 0.3
+  floorChangeEndTime: 0.7
