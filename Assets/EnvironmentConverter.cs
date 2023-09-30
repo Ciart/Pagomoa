@@ -71,12 +71,11 @@ public class EnvironmentConverter : MonoBehaviour
         foreach (Period period in periods)
             if (period.Equals(GetNowPeriod()))
             {
-                if(period.floorChangeStartTime <= TimeManagerTemp.Instance._time && TimeManagerTemp.Instance._time <= period.floorChangeEndTime)
-                {
-                    light.intensity = period.floorIntensityStart + (period.floorIntensityEnd - period.floorIntensityStart) * (TimeManagerTemp.Instance._time - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime);
-                    Debug.Log($"{TimeManagerTemp.Instance._time - period.floorChangeStartTime} / {period.floorChangeEndTime - period.floorChangeStartTime}");
-                }
+                float flood = GetFlood();
+                if (period.floorChangeStartTime <= flood && flood <= period.floorChangeEndTime)
+                    light.intensity = (flood - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime);
                 return;
+                //Debug.Log($"{flood - period.floorChangeStartTime} / {period.floorChangeEndTime - period.floorChangeStartTime}");
             }
     }
 
