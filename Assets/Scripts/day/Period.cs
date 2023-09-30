@@ -10,6 +10,8 @@ public class Period : ScriptableObject
     public string Name;
     public float length;
     public Gradient skyColorSpectrum;
-    public float floorIntensity;
-    public float floorIntensityChange;
+    public float floorIntensityStart;
+    public float floorIntensityEnd;
+    public float floorChangeStartTime;
+    public float floorChangeEndTime;
 }

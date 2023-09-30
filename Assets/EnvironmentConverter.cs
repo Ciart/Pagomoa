@@ -21,7 +21,7 @@ public class EnvironmentConverter : MonoBehaviour
     public void Convert(float nowTime, float maxTime)
     {
         SkyColorConvert();
-        FloorColorConvert();
+        FloorLightConvert();
     }
     private Period GetNowPeriod()
     {
@@ -66,12 +66,16 @@ public class EnvironmentConverter : MonoBehaviour
                 return;
             }
     }
-    private void FloorColorConvert()
+    private void FloorLightConvert()
     {
         foreach (Period period in periods)
             if (period.Equals(GetNowPeriod()))
             {
-                light.intensity = period.floorIntensity + (period.floorIntensityChange * GetFlood());
+                if(period.floorChangeStartTime <= TimeManagerTemp.Instance._time && TimeManagerTemp.Instance._time <= period.floorChangeEndTime)
+                {
+                    light.intensity = period.floorIntensityStart + (period.floorIntensityEnd - period.floorIntensityStart) * (TimeManagerTemp.Instance._time - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime);
+                    Debug.Log($"{TimeManagerTemp.Instance._time - period.floorChangeStartTime} / {period.floorChangeEndTime - period.floorChangeStartTime}");
+                }
                 return;
             }
     }
