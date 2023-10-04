@@ -119,18 +119,22 @@ namespace Worlds
                 return false;
         }
 
-        public Dictionary<BrickCoords, float> brickDamage = new();
+        public Dictionary<BrickCoords, BrickHealth> brickDamage = new();
         private Dictionary<BrickCoords, float> diggingBrickDamage = new();
 
         private void UpdateDiggingBrickDamage()
         {
-            var newBrickDamage = new Dictionary<BrickCoords, float>();
+            var newBrickDamage = new Dictionary<BrickCoords, BrickHealth>();
             
             foreach (var (coords, damage) in brickDamage)
             {
                 if (diggingBrickDamage.ContainsKey(coords))
                 {
-                    newBrickDamage.Add(coords, brickDamage[coords] - diggingBrickDamage[coords]);
+                    var brickHealth = brickDamage[coords];
+                    brickHealth.health -= diggingBrickDamage[coords];
+                    
+                    newBrickDamage.Add(coords, brickHealth);
+                    
                     diggingBrickDamage.Remove(coords);
                 }
                 else
@@ -138,7 +142,7 @@ namespace Worlds
                     continue;
                 }
 
-                if (newBrickDamage[coords] <= 0)
+                if (newBrickDamage[coords].health <= 0)
                 {
                     BreakGround(coords.x, coords.y, 10);
                     newBrickDamage.Remove(coords);
@@ -156,9 +160,12 @@ namespace Worlds
                     continue;
                 }
 
-                brickDamage.Add(coords, brick.ground.strength - damage);
+                var brickHealth = BrickHealth.FromBrick(brick);
+                brickHealth.health -= damage;
                 
-                if (brickDamage[coords] <= 0)
+                brickDamage.Add(coords, brickHealth);
+                
+                if (brickHealth.health <= 0)
                 {
                     BreakGround(coords.x, coords.y, 10);
                     brickDamage.Remove(coords);
