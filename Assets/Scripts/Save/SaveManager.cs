@@ -1,3 +1,5 @@
+using Player;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Inventory;
@@ -202,6 +204,16 @@ public class SaveManager : MonoBehaviour
         else
             Debug.Log("QuickSlot Data is Nothing");
     }
+    public void LoadPlayerCurrentStatusData()
+    {
+        if (DataManager.Instance.data.playerStatusData == null) return;
+
+        Status status = GameManager.instance.player.GetComponent<Status>();
+        status.oxygen = DataManager.Instance.data.playerStatusData.currentOxygen;
+        status.hungry = DataManager.Instance.data.playerStatusData.currentHungry;
+        status.oxygenAlter.Invoke(status.oxygen, status.maxOxygen);
+        status.hungryAlter.Invoke(status.hungry, status.maxHungry);
+    }
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -244,6 +256,12 @@ public class SaveManager : MonoBehaviour
         InitData();
         DataManager.Instance.data.quickSlotData.SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB.instance);
     }
+    private void WritePlayerCurrentStatusData()
+    {
+        InitData();
+        DataManager.Instance.data.playerStatusData.SetCurrentStatusData(GameManager.instance.player.GetComponent<Status>());
+        
+    }
     public void InitData()
     {
         if (DataManager.Instance.data == null)
@@ -281,8 +299,13 @@ public class SaveManager : MonoBehaviour
         }
         if (DataManager.Instance.data.quickSlotData == null)
         {
-            Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
+            Debug.Log("No QuickSlot Data before, Instantiate new QuickSLot Data");
             DataManager.Instance.data.quickSlotData = new QuickSlotData();
+        }
+        if (DataManager.Instance.data.playerStatusData == null)
+        {
+            Debug.Log("No Player Status Data before, Instantiate new Player Status Data");
+            DataManager.Instance.data.playerStatusData = new PlayerCurrentStatusData();
         }
     }
 
@@ -295,7 +318,9 @@ public class SaveManager : MonoBehaviour
         WriteOptionData();
         WriteArtifactData();
         WriteQuickSlotData();
+        WritePlayerCurrentStatusData();
         DataManager.Instance.SaveGameData();
     }
 
+    
 }
