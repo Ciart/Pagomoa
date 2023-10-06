@@ -1,8 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Player;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -22,11 +18,11 @@ public class Monster : MonoBehaviour
     public int direction;
     public enum MonsterState
     {
-        Active,           // Æò¹ü È°µ¿
-        Sleep,            // Àá
-        Chase,            // Ãß°Ý
-        Hit,              // ÇÇ°Ý
-        Die               // Á×À½
+        Active,           // ï¿½ï¿½ï¿½ È°ï¿½ï¿½
+        Sleep,            // ï¿½ï¿½
+        Chase,            // ï¿½ß°ï¿½
+        Hit,              // ï¿½Ç°ï¿½
+        Die               // ï¿½ï¿½ï¿½ï¿½
     }
     void GroundCheck()
     {

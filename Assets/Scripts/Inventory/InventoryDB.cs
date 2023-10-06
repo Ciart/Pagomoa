@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InventoryDB : MonoBehaviour
 {
-    public List<InventoryItem> items = new List<InventoryItem>();
+    public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
     public int Gold;
     [SerializeField] private EtcInventory inventory;
     [SerializeField] private Buy buy;
@@ -16,7 +17,7 @@ public class InventoryDB : MonoBehaviour
 
     public static InventoryDB Instance = null;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -25,12 +26,9 @@ public class InventoryDB : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
-        SaveManager.Instance.LoadItem();
-        inventory.ResetSlot();
-    }
-    private void Awake()
-    {
         makeSlots.Invoke();
+        SaveManager.Instance.LoadItem();
+        
     }
     public void Add(Item data, int count = 1) // Item data
     {
@@ -42,7 +40,15 @@ public class InventoryDB : MonoBehaviour
         }
         else
         {
-            items.Add(new InventoryItem(data, count));
+            for (int i = 0; i < inventory.count; i++)
+            {
+                if (items[i].item == null)
+                {
+                    items.Insert(i, new InventoryItem(data, count));
+                    items.RemoveAt(i + 1);
+                    break;
+                }
+            }
             if (data.itemType == Item.ItemType.Mineral)
             {
                 if (!Achievements.Instance.AchieveMinerals.Contains(achieveItem))
@@ -62,7 +68,16 @@ public class InventoryDB : MonoBehaviour
             if (inventoryItem.count > 1)
                 inventoryItem.count--;
             else if (inventoryItem.count == 1 || inventoryItem.count == 0)
-                items.Remove(inventoryItem);
+            {
+                for (int i = 0; i < inventory.count; i++)
+                {
+                    if (items[i] == inventoryItem)
+                    {
+                        items.RemoveAt(i);
+                        items.Insert(i,new InventoryItem(null, 0));
+                    }
+                }
+            }
         }
         Gold += data.itemPrice;
         EtcInventory.Instance.gold.GetComponent<Text>().text = Gold.ToString();
@@ -74,7 +89,7 @@ public class InventoryDB : MonoBehaviour
         var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null && inventoryItem.count == 0)
         {
-            items.Remove(inventoryItem);
+            Remove(data);
         }
         changeInventory.Invoke();
     }

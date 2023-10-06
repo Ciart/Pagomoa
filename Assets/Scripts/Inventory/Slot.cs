@@ -1,5 +1,6 @@
+using Inventory;
+using Player;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,11 +19,13 @@ public class Slot : MonoBehaviour, IDropHandler
     public void SellCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
-        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use ||
-            EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Mineral)
+
+        var Inventory = EtcInventory.Instance.choiceSlot.inventoryItem.item;
+        if (Inventory.itemType == Item.ItemType.Use ||
+            Inventory.itemType == Item.ItemType.Mineral)
         {
             sellCountUI.OnUI();
-            sellCountUI.ItemImage(EtcInventory.Instance.choiceSlot.inventoryItem.item.itemImage);
+            sellCountUI.ItemImage(Inventory.itemImage);
         }
     }
     public void ClickSlot()
@@ -31,7 +34,6 @@ public class Slot : MonoBehaviour, IDropHandler
         {
             EtcInventory.Instance.DeleteSlot();
             InventoryDB.Instance.Remove(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-            EtcInventory.Instance.UpdateSlot();
         }
         sellCountUI.count = 0;
         sellCountUI.price = 0;
@@ -42,35 +44,38 @@ public class Slot : MonoBehaviour, IDropHandler
     public void BuyCheck()
     {
         Buy.Instance.choiceSlot = this;
-        if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+
+        var Shop = Buy.Instance.choiceSlot.inventoryItem.item;
+        if (Shop.itemType == Item.ItemType.Use)
         {
             buyCountUI.OnUI();
-            buyCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
+            buyCountUI.ItemImage(Shop.itemImage);
         }
-        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment || Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
+        else if (Shop.itemType == Item.ItemType.Equipment || Shop.itemType == Item.ItemType.Inherent)
         {
             buyNoCountUI.OnUI();
-            buyNoCountUI.ItemImage(Buy.Instance.choiceSlot.inventoryItem.item.itemImage);
+            buyNoCountUI.ItemImage(Shop.itemImage);
         }
     }
     public void BuySlot()
     {
-        if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+        var Shop = Buy.Instance.choiceSlot.inventoryItem;
+        if (Shop.item.itemType == Item.ItemType.Use)
         {
-            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice * buyCountUI.count)
+            if (InventoryDB.Instance.Gold >= Shop.item.itemPrice * buyCountUI.count)
             {
-                Buy.Instance.choiceSlot.inventoryItem.count -= buyCountUI.count;
-                InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, buyCountUI.count);
-                AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
+                Shop.count -= buyCountUI.count;
+                InventoryDB.Instance.Add(Shop.item, buyCountUI.count);
+                AuctionDB.Instance.Remove(Shop.item);
                 Buy.Instance.UpdateSlot();
                 buyCountUI.OffUI();
             }
             else
                 return;
 
-            if (Buy.Instance.choiceSlot.inventoryItem.count == 0)
+            if (Shop.count == 0)
             {
-                AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
+                AuctionDB.Instance.Remove(Shop.item);
                 Buy.Instance.DestroySlot();
                 Buy.Instance.AuctionSlot();
                 Buy.Instance.UpdateSlot();
@@ -78,12 +83,12 @@ public class Slot : MonoBehaviour, IDropHandler
             }
         }
 
-        else if (Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment || Buy.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
+        else if (Shop.item.itemType == Item.ItemType.Equipment || Shop.item.itemType == Item.ItemType.Inherent)
         {
-            if (InventoryDB.Instance.Gold >= Buy.Instance.choiceSlot.inventoryItem.item.itemPrice)
+            if (InventoryDB.Instance.Gold >= Shop.item.itemPrice)
             {
-                InventoryDB.Instance.Add(Buy.Instance.choiceSlot.inventoryItem.item, Buy.Instance.choiceSlot.inventoryItem.count);
-                AuctionDB.Instance.Remove(Buy.Instance.choiceSlot.inventoryItem.item);
+                InventoryDB.Instance.Add(Shop.item, Shop.count);
+                AuctionDB.Instance.Remove(Shop.item);
                 Buy.Instance.DestroySlot();
                 Buy.Instance.AuctionSlot();
                 Buy.Instance.UpdateSlot();
@@ -96,24 +101,29 @@ public class Slot : MonoBehaviour, IDropHandler
     public void EquipCheck()
     {
         EtcInventory.Instance.choiceSlot = this;
-        if (EtcInventory.Instance.choiceSlot.inventoryItem == null) { Debug.LogWarning("no Choiced inventoryItem ±×·¯´Ï °íÃÄ¶ó ½Â¿¬Å´"); return; }
 
-        if (EtcInventory.Instance.choiceSlot.inventoryItem.item == null)
+        var inventory = EtcInventory.Instance;
+
+        if (inventory.choiceSlot.inventoryItem.item == null || inventory.choiceSlot.inventoryItem == null)
             return;
 
-        if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
+        if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
             equipUI.OnUI();
 
-        else if (EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+        else if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
         {
-            EtcInventory.Instance.choiceSlot.inventoryItem.count -= 1;
-            if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 0)
+            inventory.choiceSlot.inventoryItem.count -= 1;
+            UseItem();
+            if (inventory.choiceSlot.inventoryItem.count == 0)
             {
-                InventoryDB.Instance.items.Remove(EtcInventory.Instance.choiceSlot.inventoryItem);
-                EtcInventory.Instance.ResetSlot();
+                InventoryDB.Instance.Remove(inventory.choiceSlot.inventoryItem.item);
+                inventory.ResetSlot();
             }
-            EtcInventory.Instance.UpdateSlot();
+            inventory.DeleteSlot();
+            inventory.UpdateSlot();
         }
+        else
+            return;
     }
     public void EquipItem()
     {
@@ -131,14 +141,17 @@ public class Slot : MonoBehaviour, IDropHandler
     }
     public void ReleaseItem()
     {
-        InventoryDB.Instance.items.Add(inventoryItem);
+        EtcInventory.Instance.choiceSlot = this;
+        var inventory = EtcInventory.Instance;
+
+        if (inventory.choiceSlot.inventoryItem == null || inventory.choiceSlot.inventoryItem.item == null)
+            return;
+
+        InventoryDB.Instance.Add(inventoryItem.item, 0);
         EtcInventory.Instance.ResetSlot();
         ArtifactSlotDB.Instance.Remove(inventoryItem.item);
-        ArtifactContent.Instance.ResetSlot();
-        EtcInventory.Instance.DeleteSlot();
-        EtcInventory.Instance.UpdateSlot();
         ArtifactContent.Instance.DeleteSlot();
-        ArtifactContent.Instance.UpdateSlot();
+        ArtifactContent.Instance.ResetSlot();
     }
     public void SetUI(Sprite s, string m)
     {
@@ -159,7 +172,7 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
         Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
-        EtcInventory.Instance.ResetSlot();
+        InventoryDB.Instance.changeInventory.Invoke();
     }
     public void Swap(List<InventoryItem> list, int i, int j)
     {
@@ -168,5 +181,10 @@ public class Slot : MonoBehaviour, IDropHandler
     public void Swap(InventoryItem item1, InventoryItem item2)
     {
         (item1, item2) = (item2, item1);
+    }
+    public void UseItem()
+    {
+        Status playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<Status>();
+        this.inventoryItem.item.Active(playerStatus);
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d665907c8282701488f575cf31062c66
+guid: 206562f6d1f42be4ebffe8169c4295be
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,127 +110,211 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Inventory_0
+      name: Slot 19-20
       rect:
         serializedVersion: 2
-        x: 0
-        y: 36
-        width: 50
-        height: 92
+        x: 36
+        y: 203
+        width: 19
+        height: 20
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da89e794d841f1341b368c28bad09327
-      internalID: -1773102422
+      spriteID: b84d0857395334143993eb866cfeb105
+      internalID: 1110805685
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Inventory_1
+      name: Window 54-57
       rect:
         serializedVersion: 2
-        x: 112
-        y: 112
-        width: 16
-        height: 16
+        x: 10
+        y: 140
+        width: 54
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccb837f65f467464b80ed2a069b60954
-      internalID: 198574480
+      spriteID: f868007eed36e7e49850c3c2aea822eb
+      internalID: -1194540966
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Inventory_2
+      name: Window2 54-55
       rect:
         serializedVersion: 2
-        x: 64
-        y: 80
-        width: 48
-        height: 48
+        x: 10
+        y: 81
+        width: 54
+        height: 55
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 16, y: 16, z: 16, w: 16}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2988e368bf134344a82f5ee656fd041e
-      internalID: 993185934
+      spriteID: 9056af1480eb8d94f808fc85d213329d
+      internalID: 150500083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Inventory_3
+      name: Xbtn 13-13
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 178
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 472b4908fd1838b40a260a38b6bb8899
+      internalID: 947757496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tab1 17-29
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 136
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f4912b6bf8836343a5c48c286b3e9fe
+      internalID: 1192344901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tab2 17-29
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 102
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f27374c9e063719408b188c03b043d6f
+      internalID: -959767482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Label1 27-17
       rect:
         serializedVersion: 2
         x: 70
-        y: 6
-        width: 20
-        height: 20
+        y: 82
+        width: 27
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d42852eed29b2a4ca60b7a5dccf75a6
-      internalID: -1103232422
+      spriteID: 7ab2b7a51f26be44880af5e4813dc160
+      internalID: -422089062
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EmptyImage
+      name: Label2 24-17
       rect:
         serializedVersion: 2
-        x: 28
-        y: 7
-        width: 18
-        height: 18
+        x: 70
+        y: 62
+        width: 24
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d954421407cf7f846bcd7ed7e2b7ee41
-      internalID: -690812983
+      spriteID: ce80e955fcd7c7d4a9491a1630a9451d
+      internalID: -664642646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Inventory_5
+      name: Book 223-148
       rect:
         serializedVersion: 2
-        x: 7
-        y: 7
-        width: 18
-        height: 18
+        x: 102
+        y: 55
+        width: 223
+        height: 148
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c01109023dade054d91a2649519dcc3f
-      internalID: 1050012051
+      spriteID: 1f445c7d2c72cd941ab58aaa04a1bab8
+      internalID: -730401174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deco 15-14
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 57
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5031c9550857c6f469e426f5ccf38339
+      internalID: -287893037
       vertices: []
       indices: 
       edges: []
@@ -246,12 +330,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EmptyImage: -690812983
-      Inventory_0: -1773102422
-      Inventory_1: 198574480
-      Inventory_2: 993185934
-      Inventory_3: -1103232422
-      Inventory_5: 1050012051
+      Book 223-148: -730401174
+      Deco 15-14: -287893037
+      Label1 27-17: -422089062
+      Label2 24-17: -664642646
+      Slot 19-20: 1110805685
+      Tab1 17-29: 1192344901
+      Tab2 17-29: -959767482
+      Window 54-57: -1194540966
+      Window2 54-55: 150500083
+      Xbtn 13-13: 947757496
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

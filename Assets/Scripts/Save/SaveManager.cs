@@ -2,6 +2,7 @@ using Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inventory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Worlds;
@@ -59,7 +60,7 @@ public class SaveManager : MonoBehaviour
         DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
         if (chunks == null) return true;
         int dataSize = chunks.data.Count;
-        //Debug.Log("¼ö·®: " + dataSize);
+        //Debug.Log("ìˆ˜ëŸ‰: " + dataSize);
         for (int i = 0; i < dataSize; i++)
         {
             int brickSize = chunks.data[i].Value.bricks.Length;
@@ -138,7 +139,7 @@ public class SaveManager : MonoBehaviour
             if (AllBlockNullCheck()) LoadSuccess = false;
         }
 
-        //Debug.Log("ºí·°¸ðµÎ¾øÀ½?: " + AllBlockNullCheck());
+        //Debug.Log("ë¸”ëŸ­ëª¨ë‘ì—†ìŒ?: " + AllBlockNullCheck());
 
         FreezePosition();
 
