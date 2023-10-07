@@ -226,6 +226,9 @@ MonoBehaviour:
   tiredDigSpeedScoop: 5
   drillLevel: 0
   drillTier: 10
+  width: 2
+  length: 1
+  targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
 --- !u!114 &6246817563821551012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8103e02f710a62947b4d019aa9faeb1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableObjectList: []
+  interactableObjectList: []
 --- !u!1 &6264939851480668779
 GameObject:
   m_ObjectHideFlags: 0
