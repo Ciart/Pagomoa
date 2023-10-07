@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Worlds
 {
@@ -15,7 +16,11 @@ namespace Worlds
         public Piece[] pieces = { new Piece() };
 
         public int selectIndex;
-        
+
+        public TileBase[] brokenEffectTiles;
+
+        public TileBase glitterTile;
+
         public Wall GetWall(string name)
         {
             return Array.Find(walls, wall => wall.name == name);
@@ -25,10 +30,15 @@ namespace Worlds
         {
             return Array.Find(grounds, ground => ground.name == name);
         }
-        
+
         public Mineral GetMineral(string name)
         {
             return Array.Find(minerals, mineral => mineral.name == name);
+        }
+
+        public Piece GetPieceWithTag(string tag)
+        {
+            return Array.Find(pieces, piece => Array.Exists(piece.tags, t => t == tag));
         }
     }
 }

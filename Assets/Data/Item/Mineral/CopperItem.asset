@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5eeedc2bee26c4494251b3545ba5a4, type: 3}
+  m_Name: CopperItem
+  m_EditorClassIdentifier: 
+  itemName: "\uAD6C\uB9AC"
+  itemType: 2
+  itemImage: {fileID: 437540491, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
+  itemInfo: "\uAD6C\uB974\uACE0 \uAD6C\uB978 \uAD6C\uB9B0 \uAD6C\uB9AC"
+  itemPrice: 0

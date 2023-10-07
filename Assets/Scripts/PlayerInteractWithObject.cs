@@ -1,85 +1,66 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UFO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-
 public class PlayerInteractWithObject : MonoBehaviour
 {
-    private List<InteractableObject> _interactableObjectList;
+    [SerializeField] private List<InteractableObject> interactableObjectList;
     private float _closestDistance;
     private InteractableObject _activatedObject;
-
-    public bool getKey;
-    public KeyCode eventKey = KeyCode.E;
     
     void Start()
     {
-        _interactableObjectList = new List<InteractableObject>();
+        interactableObjectList = new List<InteractableObject>();
+    }
+    private void Awake()
+    {
+        GetComponentInParent<Player.PlayerInput>().Actions.Interaction.started += context =>
+        {
+            if (!_activatedObject) return;
+            _activatedObject.InteractionEvent.Invoke();
+        };
     }
     void FixedUpdate()
     {
-        InputEventKey();
-
-        if ( getKey && _activatedObject )
+        if (interactableObjectList.Count == 0)
         {
-            _activatedObject.InteractionEvent.Invoke();
+            _activatedObject = null;
+            return;
         }
 
-        foreach ( InteractableObject obj in _interactableObjectList )
+        foreach (InteractableObject obj in interactableObjectList)
         {
             CheckInteractable(obj);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<InteractableObject>())
-        {
-            if (!_interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
-            {
-                _interactableObjectList.Add(collision.GetComponent<InteractableObject>());
-            }
-        }
+        if (!collision.GetComponent<InteractableObject>()) return;
+
+        if (!interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
+            interactableObjectList.Add(collision.GetComponent<InteractableObject>());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<InteractableObject>())
         {
             collision.GetComponent<InteractableObject>().DisableObject();
-            _interactableObjectList.Remove(collision.GetComponent<InteractableObject>());
+            interactableObjectList.Remove(collision.GetComponent<InteractableObject>());
         }
     }
     private void CheckInteractable(InteractableObject obj)
     {
         float distance = Vector2.Distance(transform.position, obj.transform.position);
-        if (_closestDistance == 0.0f || _interactableObjectList.Count == 1)
+        if (_closestDistance == 0.0f || interactableObjectList.Count == 1)
         {
             _closestDistance = distance;
-            obj.ActiveObject();
             _activatedObject = obj;
+            obj.ActiveObject();
         }
-        else if (distance < _closestDistance && _interactableObjectList.Count > 1)
+        else if (distance < _closestDistance && interactableObjectList.Count > 1)
         {
             _activatedObject.DisableObject();
             _activatedObject = obj;
             _closestDistance = distance;
             obj.ActiveObject();
-        } 
-        if (_interactableObjectList.Count == 0) _activatedObject = null;
-    }
-    
-    private void InputEventKey()
-    {
-        if (Input.GetKey(eventKey))
-        {
-            getKey = true;
-        }
-        else
-        {
-            getKey = false;
         }
     }
-    
 }

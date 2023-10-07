@@ -4,66 +4,64 @@ using UnityEngine.UI;
 
 public class EtcInventory : MonoBehaviour
 {
-    [SerializeField] private InventoryDB inventoryDB;
     [SerializeField] public Slot choiceSlot;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
     [SerializeField] public GameObject gold;
     [SerializeField] private Sprite image;
-    public  List<Slot> slotDatas = new List<Slot>();
-    [SerializeField] private int count;
+    public List<Slot> slotDatas = new List<Slot>();
+    [SerializeField] public int count;
 
-    private static EtcInventory instance;
-    public static EtcInventory Instance
+    public static EtcInventory Instance = null;
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (!instance)
-            {
-                instance = GameObject.FindObjectOfType(typeof(EtcInventory)) as EtcInventory;
-            }
-            return instance;
+            Instance = this;
         }
     }
-    public void MakeSlot() // slotDatas ∞πºˆ∏∏≈≠ ΩΩ∑‘ ∏∏µÈ±‚
+    private void Start()
+    {
+        ResetSlot();
+    }
+    public void MakeSlot() // slotDatas Í∞ØÏàòÎßåÌÅº Ïä¨Î°Ø ÎßåÎì§Í∏∞
     {
         for (int i = 0; i < count; i++)
         {
             GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
             slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+            slotDatas[i].id = i;
             SpawnedSlot.SetActive(true);
         }
     }
-    public void ResetSlot() // ∞¢∞¢ ΩΩ∑‘ø° item «“¥Á
+    public void ResetSlot() // Í∞ÅÍ∞Å Ïä¨Î°ØÏóê item Ìï†Îãπ
     {
         int i = 0;
-        for(; i < inventoryDB.items.Count && i < slotDatas.Count; i++)
+        for (; i < InventoryDB.Instance.items.Count; i++)
         {
-            slotDatas[i].inventoryItem = inventoryDB.items[i];
-        }
-        for(; i< slotDatas.Count; i++)
-        {
-            slotDatas[i].inventoryItem = null;
+            slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
         }
         UpdateSlot();
     }
-    public void UpdateSlot() // Listæ»¿« Item ¿¸√º ¿Œ∫•≈‰∏Æø° √‚∑¬
+    public void UpdateSlot() // ListÏïàÏùò Item Ï†ÑÏ≤¥ Ïù∏Î≤§ÌÜ†Î¶¨Ïóê Ï∂úÎ†•
     {
-        DeleteSlot();
-        for (int i = 0; i < inventoryDB.items.Count; i++)
+        for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
         {
-            string convert = inventoryDB.items[i].count.ToString();
-            if (inventoryDB.items[i].count == 0)
+            string convert = InventoryDB.Instance.items[i].count.ToString();
+            if (InventoryDB.Instance.items[i].count == 0)
             {
                 convert = "";
             }
-            slotDatas[i].SetUI(inventoryDB.items[i].item.itemImage, convert);
+            if (InventoryDB.Instance.items[i].item == null)
+                slotDatas[i].SetUI(image, convert);
+            else
+                slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
         }
-        gold.GetComponent<Text>().text = inventoryDB.Gold.ToString();
+        gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
     }
-    public void DeleteSlot() // ¿Œ∫•≈‰∏Æø° √‚∑¬µ» æ∆¿Ã≈€µÈ ¿¸∫Œ NULL
+    public void DeleteSlot() // Ïù∏Î≤§ÌÜ†Î¶¨Ïóê Ï∂úÎ†•Îêú ÏïÑÏù¥ÌÖúÎì§ Ï†ÑÎ∂Ä NULL
     {
-        if (inventoryDB.items.Count >= 0 )
+        if (InventoryDB.Instance.items.Count >= 0)
         {
             for (int i = 0; i < slotDatas.Count; i++)
                 slotDatas[i].SetUI(image, "");

@@ -14,10 +14,14 @@ namespace Worlds
         public Tilemap wallTilemap;
 
         public Tilemap groundTilemap;
+        
+        public Tilemap groundOverlayTilemap;
 
         public Tilemap mineralTilemap;
 
         public Tilemap fogTilemap;
+
+        public Tilemap overlayTilemap;
 
         public TileBase fogTile;
 
@@ -25,7 +29,7 @@ namespace Worlds
 
         public SpriteRenderer minimapRenderer;
 
-        [Range(1, 16)] public int renderChunkRange = 2;
+        [Range(1, 256)] public int renderChunkRange = 2;
 
         private WorldManager _worldManager;
 
@@ -33,7 +37,7 @@ namespace Worlds
 
         private Chunk _currentChunk;
 
-        private HashSet<Chunk> _renderedChunks = new();
+        private HashSet<Vector2Int> _renderedChunks = new();
 
         private Dictionary<Vector2Int, SpriteRenderer> _minimapRenderers = new();
 
@@ -45,11 +49,11 @@ namespace Worlds
             fogTilemap.ClearAllTiles();
 
             _currentChunk = null;
-            _renderedChunks = new HashSet<Chunk>();
+            _renderedChunks = new HashSet<Vector2Int>();
             _minimapRenderers = new Dictionary<Vector2Int, SpriteRenderer>();
         }
 
-        private void ClearChunk(Chunk chunk)
+        private void ClearChunk(Vector2Int key)
         {
             var world = _worldManager.world;
 
@@ -58,7 +62,7 @@ namespace Worlds
             {
                 for (var j = 0; j < world.chunkSize; j++)
                 {
-                    var position = new Vector3Int(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j);
+                    var position = new Vector3Int(key.x * world.chunkSize + i, key.y * world.chunkSize + j);
 
                     wallTilemap.SetTile(position, null);
                     groundTilemap.SetTile(position, null);
@@ -67,14 +71,20 @@ namespace Worlds
                 }
             }
 
-            if (_minimapRenderers.TryGetValue(chunk.key, out var value))
+            if (_minimapRenderers.TryGetValue(key, out var value))
             {
                 Destroy(value.gameObject);
             }
 
-            _minimapRenderers.Remove(chunk.key);
+            _minimapRenderers.Remove(key);
         }
-        
+
+        private bool CheckSightBrick(Brick brick)
+        {
+            return brick.ground is null ||
+                   brick.mineral == _worldManager.database.GetMineral("UFORemote");
+        }
+
         private bool[,] CreateFogMap(Chunk chunk, World world)
         {
             var fogMap = new bool[world.chunkSize, world.chunkSize];
@@ -86,7 +96,7 @@ namespace Worlds
                     var brick = world.GetBrick(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j,
                         out _);
 
-                    if (brick is null || brick.ground is not null)
+                    if (brick is null || !CheckSightBrick(brick))
                     {
                         continue;
                     }
@@ -109,10 +119,21 @@ namespace Worlds
             return fogMap;
         }
 
-        private void RenderChunk(Chunk chunk, bool isIncludeEntity = false)
+        private void RenderChunk(Vector2Int key, bool isIncludeEntity = false)
         {
             var world = _worldManager.world;
             var texture = new Texture2D(world.chunkSize, world.chunkSize);
+            var chunk = world.GetChunk(key);
+
+            if (chunk is null)
+            {
+                chunk = new Chunk(key, world.chunkSize);
+
+                foreach (var brick in chunk.bricks)
+                {
+                    brick.ground = _worldManager.database.GetGround("Grass");
+                }
+            }
 
             var fogMap = CreateFogMap(chunk, world);
 
@@ -129,6 +150,7 @@ namespace Worlds
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
+                    overlayTilemap.SetTile(position, brick.mineral && !fogMap[i, j] ? _worldManager.database.glitterTile : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
@@ -169,16 +191,16 @@ namespace Worlds
             }
         }
 
-        private void RenderChunkWithEntity(Chunk chunk)
+        private void RenderChunkWithEntity(Vector2Int key)
         {
-            RenderChunk(chunk, true);
+            RenderChunk(key, true);
         }
 
-        private IEnumerator RunActionWithChunks(IEnumerable<Chunk> chunks, Action<Chunk> action)
+        private IEnumerator RunActionWithChunks(IEnumerable<Vector2Int> keys, Action<Vector2Int> action)
         {
-            foreach (var chunk in chunks)
+            foreach (var key in keys)
             {
-                action(chunk);
+                action(key);
                 yield return null;
             }
         }
@@ -191,12 +213,12 @@ namespace Worlds
 
         private void OnChangedChunk(Chunk chunk)
         {
-            if (!_renderedChunks.Contains(chunk))
+            if (!_renderedChunks.Contains(chunk.key))
             {
                 return;
             }
 
-            RenderChunk(chunk);
+            RenderChunk(chunk.key);
         }
 
         private void Awake()
@@ -214,6 +236,18 @@ namespace Worlds
         private void LateUpdate()
         {
             RenderWorld();
+
+            groundOverlayTilemap.ClearAllTiles();
+
+            var brokenTiles = _worldManager.database.brokenEffectTiles;
+
+            foreach (var (key, value) in _worldManager.brickDamage)
+            {
+                var position = new Vector3Int(key.x, key.y, 0);
+                var brokenStep = Mathf.FloorToInt((1 - value.health / value.maxHealth) * (brokenTiles.Length - 1));
+
+                groundOverlayTilemap.SetTile(position, brokenTiles[brokenStep]);
+            }
         }
 
         public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)
@@ -253,7 +287,7 @@ namespace Worlds
 
             _currentChunk = playerChunk;
 
-            var renderedChunks = new HashSet<Chunk>();
+            var renderedChunks = new HashSet<Vector2Int>();
 
             for (var keyX = playerChunk.key.x - renderChunkRange; keyX <= playerChunk.key.x + renderChunkRange; keyX++)
             {
@@ -261,14 +295,7 @@ namespace Worlds
                      keyY <= playerChunk.key.y + renderChunkRange;
                      keyY++)
                 {
-                    var chuck = world.GetChunk(new Vector2Int(keyX, keyY));
-
-                    if (chuck == null)
-                    {
-                        continue;
-                    }
-
-                    renderedChunks.Add(chuck);
+                    renderedChunks.Add(new Vector2Int(keyX, keyY));
                 }
             }
 

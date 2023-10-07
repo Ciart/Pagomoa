@@ -1,46 +1,41 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
-public class AuctionDB : MonoBehaviour
+namespace Inventory
 {
-    public List<InventoryItem> auctionItem = new List<InventoryItem>();
-    public EtcInventory inventory;
-    public Sell sell;
+    public class AuctionDB : MonoBehaviour
+    {
+        public List<InventoryItem> auctionItem = new List<InventoryItem>();
 
-    private static AuctionDB instance;
-    public static AuctionDB Instance
-    {
-        get
+        private static AuctionDB instance;
+        public static AuctionDB Instance
         {
-            if (!instance)
+            get
             {
-                instance = GameObject.FindObjectOfType(typeof(AuctionDB)) as AuctionDB;
+                if (!instance)
+                {
+                    instance = GameObject.FindObjectOfType(typeof(AuctionDB)) as AuctionDB;
+                }
+                return instance;
             }
-            return instance;
         }
-    }
-    public void Remove(Item data)
-    {
-        var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
-        if (inventoryItem != null)
+        public void Remove(Item data)
         {
-            if (inventoryItem.item.itemType == Item.ItemType.Use)
+            var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
+            if (inventoryItem != null)
             {
-                for (int i = 0; i < BuyCountUI.Instance.count; i++)
+                if (inventoryItem.item.itemType == Item.ItemType.Use)
+                    for (int i = 0; i < BuyCountUI.Instance.count; i++)
+                        InventoryDB.Instance.Gold -= data.itemPrice;
+                else
                     InventoryDB.Instance.Gold -= data.itemPrice;
-            }
-            else
-                InventoryDB.Instance.Gold -= data.itemPrice;
 
-            if (inventoryItem.count == 1 || inventoryItem.count == 0)
-                auctionItem.Remove(inventoryItem);
+                if (inventoryItem.count == 0)
+                    auctionItem.Remove(inventoryItem);
+            }
+            Buy.Instance.gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
+            InventoryDB.Instance.changeInventory.Invoke();
         }
-        Buy.Instance.gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
-        inventory.ResetSlot();
-        sell.ResetSlot();
     }
 }

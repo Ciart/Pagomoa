@@ -25,30 +25,41 @@ public class DataManager : MonoBehaviour
 
     public GameData data = new GameData();
 
-    public void LoadGameData()
+    public bool LoadGameData()
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        Debug.Log("load ${Application.persistentDataPath} filedata");
-
         if (File.Exists(filePath))
         {
             string FromJsonData = File.ReadAllText(filePath);
             try
             {
                 data = JsonUtility.FromJson<GameData>(FromJsonData);
+                Debug.Log("Data Loaded From : " + filePath);
             }
             catch (System.Exception e)
             {
                 Debug.Log("bug : " + e);
             }
+            return true;
         }
-        //Debug.Log(data);
+        else
+        {
+            SaveManager.Instance.InitData();
+            return false;
+        }
+    }
+    public void DeleteGameData()
+    {
+        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+        if(File.Exists(filePath))
+            File.Delete(filePath);
+        data = null;
     }
     public void SaveGameData()
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
         string ToJasonData = JsonUtility.ToJson(data, true);
         File.WriteAllText(filePath, ToJasonData);
-        Debug.Log("saved");
+        Debug.Log("Data Saved");
     }
 }

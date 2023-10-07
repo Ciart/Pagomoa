@@ -4,11 +4,20 @@ using UnityEngine.UI;
 
 public class SellCountUI : MonoBehaviour
 {
-    [SerializeField] private Image item;
+    [SerializeField] private Image _item;
     [SerializeField] public TextMeshProUGUI itemCount;
     [SerializeField] public TextMeshProUGUI totalPrice;
     [SerializeField] public int price = 0;
     [SerializeField] public int count = 0;
+
+    public static SellCountUI Instance = null;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this.gameObject);
+    }
     public void OnUI()
     {
         transform.gameObject.SetActive(true);
@@ -23,14 +32,15 @@ public class SellCountUI : MonoBehaviour
     }
     public void ItemImage(Sprite image)
     {
-        item.sprite = image;
+        _item.sprite = image;
     }
     public void Plus()
     {
-        if (count < EtcInventory.Instance.choiceSlot.inventoryItem.count)
+        InventoryItem item = EtcInventory.Instance.choiceSlot.inventoryItem;
+        if (count < item.count)
         {
             count++;
-            price += EtcInventory.Instance.choiceSlot.inventoryItem.item.itemPrice;
+            price += item.item.itemPrice;
         }
         else
             return;

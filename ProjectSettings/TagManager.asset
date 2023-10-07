@@ -8,6 +8,7 @@ TagManager:
   - Timer
   - Monster
   - NPC
+  - ItemEntityTrigger
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - Minimap
   - Light
-  - 
-  - 
+  - Entity
+  - Player
   - 
   - 
   - 
@@ -62,4 +63,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3310709249
+    locked: 0
+  - name: Effect
+    uniqueID: 2004724983
     locked: 0

@@ -13,13 +13,15 @@ namespace Worlds
     [RequireComponent(typeof(WorldManager))]
     public class WorldGenerator : MonoBehaviour
     {
-        public WorldDatabase database;
+        public const int FOREST_HEIGHT = -200;
+
+        public uint seed = 1234;
 
         public int chunkSize = 32;
 
         public int top = 4;
 
-        public int bottom = 32;
+        public int bottom = 8;
 
         public int left = 4;
 
@@ -73,6 +75,9 @@ namespace Worlds
 
         public void Generate()
         {
+            var database = _worldManager.database;
+            var random = new Unity.Mathematics.Random(seed);
+            
             var desertPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Desert)));
             var forestPieces =
@@ -104,7 +109,7 @@ namespace Worlds
                     {
                         worldBrick.wall = wall;
 
-                        if (y > -50)
+                        if (y > FOREST_HEIGHT)
                         {
                             worldBrick.ground = sand;
                         }
@@ -127,7 +132,7 @@ namespace Worlds
 
                     Piece piece;
 
-                    if (y > -50)
+                    if (y > FOREST_HEIGHT)
                     {
                         piece = GetRandomPiece(desertPieces);
                     }
@@ -139,6 +144,12 @@ namespace Worlds
                     GeneratePiece(piece, world, x, y);
                 }
             }
+            
+            var powerX = random.NextInt(worldLeft, worldRight);
+            var powerY= random.NextInt(FOREST_HEIGHT, 100);
+            GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), world, powerX, powerY, true);
+            
+            GeneratePiece(database.GetPieceWithTag("Remote"), world, 0, -4, true);
 
             _worldManager.world = world;
         }
@@ -177,7 +188,7 @@ namespace Worlds
             _worldManager.world = world;
         }
 
-        private void GeneratePiece(Piece piece, World world, int worldX, int worldY)
+        private void GeneratePiece(Piece piece, World world, int worldX, int worldY, bool isOverlap = false)
         {
             for (var x = 0; x < piece.width; x++)
             {
@@ -187,7 +198,7 @@ namespace Worlds
 
                     var worldBrick = world.GetBrick(coords.x, coords.y, out _);
 
-                    if (worldBrick is null || worldBrick.ground is null)
+                    if (worldBrick is null || (!isOverlap && worldBrick.ground is null))
                     {
                         continue;
                     }
@@ -199,7 +210,7 @@ namespace Worlds
 
             foreach (var prefab in piece.prefabs)
             {
-                world.AddPrefab(worldX + prefab.x, worldY + prefab.y, prefab.prefab);
+                world.AddPrefab(worldX - piece.pivot.x + prefab.x, worldY - piece.pivot.y + prefab.y, prefab.prefab);
             }
         }
     }
