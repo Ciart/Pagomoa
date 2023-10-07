@@ -4,33 +4,25 @@ using UnityEngine.UI;
 
 public class EtcInventory : MonoBehaviour
 {
-    [SerializeField] private InventoryDB inventoryDB;
     [SerializeField] public Slot choiceSlot;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
     [SerializeField] public GameObject gold;
     [SerializeField] private Sprite image;
-    public  List<Slot> slotDatas = new List<Slot>();
-    [SerializeField] private int count;
-
+    public List<Slot> slotDatas = new List<Slot>();
+    [SerializeField] public int count;
 
     public static EtcInventory Instance = null;
-    private void Start()
-    {
-        if(Instance == null) 
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            if (Instance != this)
-                Destroy(this.gameObject);
-        }
-    }
     private void Awake()
     {
-        UpdateSlot();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    private void Start()
+    {
+        ResetSlot();
     }
     public void MakeSlot() // slotDatas 갯수만큼 슬롯 만들기
     {
@@ -45,20 +37,14 @@ public class EtcInventory : MonoBehaviour
     public void ResetSlot() // 각각 슬롯에 item 할당
     {
         int i = 0;
-
-        for (; i < InventoryDB.Instance.items.Count && i < slotDatas.Count; i++)
+        for (; i < InventoryDB.Instance.items.Count; i++)
         {
             slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
-        }
-        for(; i< slotDatas.Count; i++)
-        {
-            slotDatas[i].inventoryItem = null;
         }
         UpdateSlot();
     }
     public void UpdateSlot() // List안의 Item 전체 인벤토리에 출력
     {
-        //DeleteSlot();
         for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
         {
             string convert = InventoryDB.Instance.items[i].count.ToString();
@@ -66,13 +52,16 @@ public class EtcInventory : MonoBehaviour
             {
                 convert = "";
             }
-            slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
+            if (InventoryDB.Instance.items[i].item == null)
+                slotDatas[i].SetUI(image, convert);
+            else
+                slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
         }
         gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
     }
     public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
     {
-        if (InventoryDB.Instance.items.Count >= 0 )
+        if (InventoryDB.Instance.items.Count >= 0)
         {
             for (int i = 0; i < slotDatas.Count; i++)
                 slotDatas[i].SetUI(image, "");

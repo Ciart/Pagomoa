@@ -24,10 +24,13 @@ public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         if (slot != null)
         {
             item = slot.inventoryItem;
-            DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
+            if(slot.inventoryItem.item != null )
+                DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
         }
         else
         {
+            if (quickSlot.inventoryItem.item == null || quickSlot.inventoryItem == null)
+                return;
             item = quickSlot.inventoryItem;
             DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.itemImage);
         }
@@ -38,8 +41,13 @@ public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public void OnDrag(PointerEventData eventData) // 마우스 드래그 중인 동안 호출
     {
-        HoverEvent.Instance.image.SetActive(false);
-        DragItem.Instance.transform.position = eventData.position;
+        if (eventData.pointerPress.GetComponent<QuickSlot>())
+            return;
+        else
+        {
+            HoverEvent.Instance.OffHover();
+            DragItem.Instance.transform.position = eventData.position;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData) // 마우스 드래그 끝났을 때 호출

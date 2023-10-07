@@ -12,11 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e0cfa3942ac1d4b92a7fbb726b1cfe, type: 3}
   m_Name: Bomb - PlantBombEffect
   m_EditorClassIdentifier: 
-  itemName: "\uD3ED\uD0C4"
-  itemType: 1
-  itemImage: {fileID: 21300000, guid: 7710a49fb46def54eaf8200847714ea1, type: 3}
-  itemInfo: "\uBED1\uB534"
-  itemPrice: 0
-  x: 40.208324
-  y: 1.5252166
-  prefab: {fileID: 5173840418030510242, guid: 5af8c2e65cbbda04c8f4bec701a5eddc, type: 3}
+  prefab: {fileID: 730557305970542762, guid: 7129ab65afec09c4aac35aaa8295c0b3, type: 3}
