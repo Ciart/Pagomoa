@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Worlds
 {
@@ -15,6 +16,10 @@ namespace Worlds
         public Piece[] pieces = { new Piece() };
 
         public int selectIndex;
+
+        public TileBase[] brokenEffectTiles;
+
+        public TileBase glitterTile;
 
         public Wall GetWall(string name)
         {

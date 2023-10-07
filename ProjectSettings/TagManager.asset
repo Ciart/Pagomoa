@@ -8,6 +8,7 @@ TagManager:
   - Timer
   - Monster
   - NPC
+  - ItemEntityTrigger
   layers:
   - Default
   - TransparentFX
