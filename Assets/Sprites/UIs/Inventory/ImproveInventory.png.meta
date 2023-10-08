@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tab1-1 17-29
+      name: 250-160
       rect:
         serializedVersion: 2
-        x: 344
-        y: 183
-        width: 17
-        height: 29
+        x: 107
+        y: 36
+        width: 250
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,41 +124,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c750e6a6586bae4ba1ec9ac8f66ed7c
-      internalID: -490576879
+      spriteID: 6dbe631dcbeff124fbebceeddd5c060d
+      internalID: -1561077284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tab2-1 17-29
+      name: 54-55
       rect:
         serializedVersion: 2
-        x: 344
-        y: 150
-        width: 17
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 139
+        y: 58
+        width: 54
+        height: 55
+      alignment: 9
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d48f0b07454c6714991f0dba3a2e369d
-      internalID: 889245347
+      spriteID: 91603a352072ef148bbd04a292f4e645
+      internalID: -1122244242
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tab1-2 17-29
+      name: 25-24
       rect:
         serializedVersion: 2
-        x: 366
-        y: 183
-        width: 17
-        height: 29
+        x: 141
+        y: 87
+        width: 25
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f772631d9ac0f1e4faf32f96fba171b7
-      internalID: 1246219558
+      spriteID: 9aac366aeda96e84a932b9f2827d3340
+      internalID: -1292580359
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tab2-2 17-29
+      name: 19-20
       rect:
         serializedVersion: 2
-        x: 366
-        y: 150
-        width: 17
-        height: 29
+        x: 235
+        y: 155
+        width: 19
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 223afd393453bfc469018241531a1f89
-      internalID: -1690993502
+      spriteID: 284cfb2104b927642ba29dfebbadb471
+      internalID: -2136047461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 17-62
+      name: 24-24
       rect:
         serializedVersion: 2
-        x: 344
-        y: 150
-        width: 17
-        height: 62
+        x: 167
+        y: 87
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65a4a538e52854c468ccba35192f52f1
-      internalID: 430951007
+      spriteID: 6d3b938125e419f448591f696f6115bc
+      internalID: 1832779086
       vertices: []
       indices: 
       edges: []
@@ -225,11 +225,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      17-62: 430951007
-      Tab1-1 17-29: -490576879
-      Tab1-2 17-29: 1246219558
-      Tab2-1 17-29: 889245347
-      Tab2-2 17-29: -1690993502
+      100-160: -1391111505
+      19-20: -2136047461
+      24-24: 96290597
+      25-24: -1292580359
+      250-160: -1561077284
+      54-55: -1122244242
+      ImproveInventory_4: 1393965678
+      ImproveInventory_5: -48290627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -8,10 +8,11 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     static public HoverEvent Instance;
 
-    [SerializeField] private Slot _slot;
-    [SerializeField] public GameObject HoverRenderer;
-    [SerializeField] private GameObject _itemName;
-    [SerializeField] private GameObject _itemInfo;
+    [SerializeField] private Slot slot;
+    [SerializeField] public GameObject hoverRenderer;
+    [SerializeField] public GameObject image;
+    [SerializeField] private GameObject itemName;
+    [SerializeField] private GameObject itemInfo;
 
     void Start()
     {
@@ -19,28 +20,30 @@ public class HoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var slot = eventData.pointerEnter.GetComponent<Slot>();
-        if (slot.inventoryItem == null || slot.inventoryItem.item == null)
+        if(slot.inventoryItem == null) { Debug.LogWarning("no inventoryItem There Slot 그러니 고치거라 고치승연"); return; }
+
+        if (slot.inventoryItem.item == null)
+        {
             OffHover();
-        
-        else if (_slot.inventoryItem != null)
+        }
+        else if (slot.inventoryItem != null)
         {
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);
-            HoverRenderer.SetActive(true);
-            HoverRenderer.transform.position = newPosition;
-            _itemName.GetComponent<Text>().text = _slot.inventoryItem.item.itemName;
-            _itemInfo.GetComponent<Text>().text = _slot.inventoryItem.item.itemInfo;
+            image.SetActive(true);
+            image.transform.position = newPosition;
+            itemName.GetComponent<Text>().text = slot.inventoryItem.item.itemName;
+            itemInfo.GetComponent<Text>().text = slot.inventoryItem.item.itemInfo;
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HoverRenderer.SetActive(false);
+        image.SetActive(false);
     }
     public void OffHover()
     {
-        if (HoverRenderer.activeSelf == false)
+        if (image.activeSelf == false)
             return;
-        HoverRenderer.SetActive(false);
+        image.SetActive(false);
     }
 }

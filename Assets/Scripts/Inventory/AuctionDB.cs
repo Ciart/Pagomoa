@@ -7,6 +7,8 @@ namespace Inventory
     public class AuctionDB : MonoBehaviour
     {
         public List<InventoryItem> auctionItem = new List<InventoryItem>();
+        public EtcInventory inventory;
+        public Sell sell;
 
         private static AuctionDB instance;
         public static AuctionDB Instance
@@ -35,7 +37,8 @@ namespace Inventory
                     auctionItem.Remove(inventoryItem);
             }
             Buy.Instance.gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
-            InventoryDB.Instance.changeInventory.Invoke();
+            inventory.ResetSlot();
+            sell.ResetSlot();
         }
     }
 }

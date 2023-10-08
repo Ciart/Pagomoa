@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -77,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,19 +103,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Climbing-Sheet_0
+      name: Climb_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 30
-        height: 34
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89179ca16b46b8946acd4a02c7ac8427
-      internalID: -1822413908
+      spriteID: 06035dd247a326b4986d9df2a19a2fcf
+      internalID: 1135502387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Climbing-Sheet_1
+      name: Climb_1
       rect:
         serializedVersion: 2
-        x: 36
+        x: 38
         y: 0
-        width: 30
-        height: 34
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1463e42a2e4420c438de8c50a5afec70
-      internalID: -1930950214
+      spriteID: 8da45b960bf0f5d43ae8ad2a0b60b6b7
+      internalID: 1879157695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Climbing-Sheet_2
+      name: Climb_2
       rect:
         serializedVersion: 2
-        x: 70
+        x: 76
         y: 0
-        width: 30
-        height: 34
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb44b385832a20b4dbcb041713c2a2a6
-      internalID: -901411361
+      spriteID: ab7814f5291b45740a70867cf7f9844c
+      internalID: 454321343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Climbing-Sheet_3
+      name: Climb_3
       rect:
         serializedVersion: 2
-        x: 104
+        x: 114
         y: 0
-        width: 30
-        height: 34
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d37ea45d2ad0a3748bf97776fac23923
-      internalID: 137320500
+      spriteID: 947aab1a10bef4549989f99b58b77b3c
+      internalID: 1565265436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Climbing-Sheet_4
+      name: Climb_4
       rect:
         serializedVersion: 2
-        x: 138
+        x: 152
         y: 0
-        width: 30
-        height: 34
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ef26a9af360def4cbfb2be722ac0363
-      internalID: -852689791
+      spriteID: f1432c9e4efc5b147a48f5d19dc911de
+      internalID: 1934721125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Climbing-Sheet_5
+      name: Climb_5
       rect:
         serializedVersion: 2
-        x: 172
+        x: 190
         y: 0
-        width: 31
-        height: 34
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: decfe24a9c20dd54eb52122c06cc92e9
-      internalID: 916381318
+      spriteID: 9295e1b2e30588e478eb34a8dce444ed
+      internalID: -1338911419
       vertices: []
       indices: 
       edges: []
@@ -243,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Climbing-Sheet_0: -1822413908
-      Player_Climbing-Sheet_1: -1930950214
-      Player_Climbing-Sheet_2: -901411361
-      Player_Climbing-Sheet_3: 137320500
-      Player_Climbing-Sheet_4: -852689791
-      Player_Climbing-Sheet_5: 916381318
+      Climb_0: 1135502387
+      Climb_1: 1879157695
+      Climb_2: 454321343
+      Climb_3: 1565265436
+      Climb_4: 1934721125
+      Climb_5: -1338911419
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

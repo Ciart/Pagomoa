@@ -9,8 +9,6 @@ namespace UFO
 {
     public class UFOGateInteraction : MonoBehaviour
     {
-        public TilemapCollider2D gateFloor;
-
         public float floatSpeed = 10f;
         
         public int direction;
@@ -25,6 +23,8 @@ namespace UFO
         private SpriteRenderer _beamFront;
 
         private UFOInteraction _ufoInteraction;
+        
+        private TilemapCollider2D _gateFloor;
 
         [SerializeField] private LayerMask _playerMask;
 
@@ -38,7 +38,8 @@ namespace UFO
         {
             _ufoInteraction = GetComponentInParent<UFOInteraction>();
             
-            gateFloor = transform.parent.Find("Grid").GetChild(2).GetComponent<TilemapCollider2D>();
+            Grid tilemap = _ufoInteraction.GetComponentInChildren<Grid>();
+            _gateFloor = tilemap.transform.GetComponentInChildren<GateFloor>().GetComponent<TilemapCollider2D>(); 
 
             _gateIn = GetComponentInChildren<UFOGateIn>();
             _gateOut = GetComponent<UFOGateOut>();
@@ -49,8 +50,8 @@ namespace UFO
             _gateIn.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
             _gateOut.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
 
-            _beamBack = transform.GetChild(3).GetComponent<SpriteRenderer>();
-            _beamFront = transform.GetChild(4).GetComponent<SpriteRenderer>();
+            _beamBack = GetComponentInChildren<BeamBack>().GetComponent<SpriteRenderer>();
+            _beamFront = GetComponentInChildren<BeamFront>().GetComponent<SpriteRenderer>();
             _beamFront.enabled = false;
             _beamBack.enabled = false;
             
@@ -120,11 +121,11 @@ namespace UFO
 
         private IEnumerator SetPhysics()
         {
-            gateFloor.GetComponent<TilemapCollider2D>().enabled = false;
+            _gateFloor.GetComponent<TilemapCollider2D>().enabled = false;
             
             yield return new WaitForSeconds(0.3f);
 
-            gateFloor.GetComponent<TilemapCollider2D>().enabled = true;
+            _gateFloor.GetComponent<TilemapCollider2D>().enabled = true;
         }
     }
 }

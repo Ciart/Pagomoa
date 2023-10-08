@@ -14,14 +14,10 @@ namespace Worlds
         public Tilemap wallTilemap;
 
         public Tilemap groundTilemap;
-        
-        public Tilemap groundOverlayTilemap;
 
         public Tilemap mineralTilemap;
 
         public Tilemap fogTilemap;
-
-        public Tilemap overlayTilemap;
 
         public TileBase fogTile;
 
@@ -84,7 +80,7 @@ namespace Worlds
             return brick.ground is null ||
                    brick.mineral == _worldManager.database.GetMineral("UFORemote");
         }
-
+        
         private bool[,] CreateFogMap(Chunk chunk, World world)
         {
             var fogMap = new bool[world.chunkSize, world.chunkSize];
@@ -100,7 +96,7 @@ namespace Worlds
                     {
                         continue;
                     }
-
+                    
                     for (var x = i - sight; x <= i + sight; x++)
                     {
                         for (var y = j - sight; y <= j + sight; y++)
@@ -150,7 +146,6 @@ namespace Worlds
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
-                    overlayTilemap.SetTile(position, brick.mineral && !fogMap[i, j] ? _worldManager.database.glitterTile : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
@@ -236,18 +231,6 @@ namespace Worlds
         private void LateUpdate()
         {
             RenderWorld();
-
-            groundOverlayTilemap.ClearAllTiles();
-
-            var brokenTiles = _worldManager.database.brokenEffectTiles;
-
-            foreach (var (key, value) in _worldManager.brickDamage)
-            {
-                var position = new Vector3Int(key.x, key.y, 0);
-                var brokenStep = Mathf.FloorToInt((1 - value.health / value.maxHealth) * (brokenTiles.Length - 1));
-
-                groundOverlayTilemap.SetTile(position, brokenTiles[brokenStep]);
-            }
         }
 
         public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)

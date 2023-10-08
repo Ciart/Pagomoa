@@ -30,7 +30,7 @@ namespace Player
         private static readonly int AnimatorSpeed = Animator.StringToHash("speed");
         private static readonly int AnimatorIsClimb = Animator.StringToHash("isClimb");
         private static readonly int AnimatorIsSideWall = Animator.StringToHash("isSideWall");
-        private static readonly int AnimatorEndClimd = Animator.StringToHash("endClimb");
+        private static readonly int AnimatorEndClimb = Animator.StringToHash("endClimb");
 
         private Rigidbody2D _rigidbody;
 
@@ -55,19 +55,18 @@ namespace Player
         
         private void UpdateClimb()
         {
-            if (_animator.GetBool(AnimatorEndClimd)) return;
+            if (_animator.GetBool(AnimatorEndClimb)) return;
 
             var velocity = directionVector * (climbSpeed * Time.deltaTime);
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
-                _animator.SetBool(AnimatorEndClimd, false);
+                _animator.SetBool(AnimatorEndClimb, false);
 
-            
             if(velocity.y > 0 && CheckClimbEndable())
             {
                 velocity.y = 0;
 
                 if (isSideWall && !_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
-                    _animator.SetBool(AnimatorEndClimd, true);
+                    _animator.SetBool(AnimatorEndClimb, true);
             }
             _rigidbody.velocity = velocity;
             _rigidbody.gravityScale = 0;
@@ -76,17 +75,17 @@ namespace Player
         {
             Vector3 movePos = new Vector3(-0.4f, 1.04f);
             transform.position += movePos;
-            _animator.SetBool(AnimatorEndClimd, false);
+            _animator.SetBool(AnimatorEndClimb, false);
         }
         void EndClimbRight()
         {
             Vector3 movePos = new Vector3(0.4f, 1.04f);
             transform.position += movePos;
-            _animator.SetBool(AnimatorEndClimd, false);
+            _animator.SetBool(AnimatorEndClimb, false);
         }
         private void UpdateWalk()
         {
-            if (_animator.GetBool(AnimatorEndClimd)) return;
+            if (_animator.GetBool(AnimatorEndClimb)) return;
 
             var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.velocity.y);
 

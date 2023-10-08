@@ -6,7 +6,6 @@ using UnityEngine.Events;
 using Player;
 using Unity.VisualScripting;
 using System;
-using Cinemachine;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,10 +14,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image digbar;
     [SerializeField] public GameObject InventoryUI;
     [SerializeField] public GameObject EscUI;
-    [SerializeField] private CinemachineVirtualCamera _inventoryCamera;
 
     private PlayerInput playerInput;
 
+    bool ActiveInventory = false;
     private void Awake()
     {
         GameObject player = GameObject.Find("Player");
@@ -26,6 +25,7 @@ public class UIManager : MonoBehaviour
         player.GetComponent<PlayerDigger>().digEndEvent.AddListener(SetDigGagefalse);
         player.GetComponent<Status>().oxygenAlter.AddListener(UpdateOxygenBar);
         player.GetComponent<Status>().hungryAlter.AddListener(UpdateHungryBar);
+        InventoryUI.SetActive(ActiveInventory);
         SetDigGagefalse();
 
         playerInput = player.GetComponent<PlayerInput>();
@@ -67,19 +67,10 @@ public class UIManager : MonoBehaviour
     }
     private void SetInventoryUI()
     {
-        bool ActiveInventory = false;
-        bool OffHoverEvent = false;
-        if (InventoryUI.activeSelf == false)
-        {
-            ActiveInventory = !ActiveInventory;
-            _inventoryCamera.Priority = 11;
-        }
-        else
-        {
-            HoverEvent.Instance.HoverRenderer.SetActive(OffHoverEvent);
-            _inventoryCamera.Priority = 9;
-        }
+        ActiveInventory = !ActiveInventory;
         InventoryUI.SetActive(ActiveInventory);
+        if (InventoryUI.activeSelf == false)
+            HoverEvent.Instance.image.SetActive(ActiveInventory);
     }
 
     //}

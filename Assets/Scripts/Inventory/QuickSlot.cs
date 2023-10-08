@@ -101,8 +101,6 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDra
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (inventoryItem == null || inventoryItem.item == null)
-            return;
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
         DragItem.Instance.DragSetImage(inventoryItem.item.itemImage);
         DragItem.Instance.transform.position = newPosition;

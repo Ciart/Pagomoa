@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public bool hasPowerGemEarth;
     
     private static GameManager _instance;
+    
 
-    public GameObject player;
     
     public static GameManager instance
     {
@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
         DontDestroyOnLoad(gameObject);
     }
 
@@ -44,7 +43,6 @@ public class GameManager : MonoBehaviour
             saveManager.LoadItem();
             saveManager.LoadArtifactItem();
             saveManager.LoadQuickSlot();
-            saveManager.LoadPlayerCurrentStatusData();
         }
         else
             saveManager.TagPosition(saveManager.loadPositionDelayTime);

@@ -16,8 +16,6 @@ public class CloverMouseInteraction : MonoBehaviour
     {
         if(_buyUI.activeSelf == false)
             _buyUI.SetActive(true);
-        else
-            _buyUI.SetActive(false);
     }
     public void OffUI()
     {
