@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a3a201e8cc824e4e942c907cdb6d457
+guid: 9e40474c7859b7e41b838cd65b5c95d5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkLeft_0
+      name: CloverMouse-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
-        height: 38
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dec8d8e03e6533c41ab3b72b02c3e8dd
-      internalID: -551198649
+      spriteID: a780e1008d7c3ec4398106734861037e
+      internalID: 1419406777
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkLeft_1
+      name: CloverMouse-Sheet_1
       rect:
         serializedVersion: 2
-        x: 38
+        x: 32
         y: 0
-        width: 38
-        height: 38
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be1b8e103ffcc564cada759ff0134ce8
-      internalID: -2043012017
+      spriteID: fafa195982b90024fbc255438a8f835c
+      internalID: -1922601576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkLeft_2
+      name: CloverMouse-Sheet_2
       rect:
         serializedVersion: 2
-        x: 76
+        x: 64
         y: 0
-        width: 38
-        height: 38
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,113 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3945509a6ba5db4fb8abf8ea54954af
-      internalID: 750295943
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_3
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d078256755dc38447bcb50773319a115
-      internalID: 1553367564
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_4
-      rect:
-        serializedVersion: 2
-        x: 152
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05863441130b5364e9f8de1bb0446914
-      internalID: -249919076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_5
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 298e3e94acc931c458742712d69d5d29
-      internalID: -1930074740
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_6
-      rect:
-        serializedVersion: 2
-        x: 228
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d013ea16444693747a9f9c3cb64f22ce
-      internalID: 1831854269
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_7
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ab781633872a657478941caa8c6f2ca9
-      internalID: -2094516727
+      spriteID: 0a2abd87e42e43a4198a41d4812832ed
+      internalID: 1976563395
       vertices: []
       indices: 
       edges: []
@@ -288,14 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkLeft_0: -551198649
-      WalkLeft_1: -2043012017
-      WalkLeft_2: 750295943
-      WalkLeft_3: 1553367564
-      WalkLeft_4: -249919076
-      WalkLeft_5: -1930074740
-      WalkLeft_6: 1831854269
-      WalkLeft_7: -2094516727
+      CloverMouse-Sheet_0: 1419406777
+      CloverMouse-Sheet_1: -1922601576
+      CloverMouse-Sheet_2: 1976563395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
