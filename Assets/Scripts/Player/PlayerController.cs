@@ -33,8 +33,6 @@ namespace Player
 
         private PlayerDigger _digger;
 
-        private Camera _camera;
-
         private WorldManager _world;
 
         private Direction _direction;
@@ -49,7 +47,6 @@ namespace Player
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
 
-            _camera = Camera.main;
             _world = WorldManager.instance;
         }
 
@@ -71,18 +68,12 @@ namespace Player
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
 
-            _direction = DirectionUtility.ToDirection(_camera.ScreenToWorldPoint(_input.Look) - transform.position);
+            _direction = DirectionUtility.ToDirection(_input.Move);
 
             if (_input.IsDig && state != PlayerState.Climb)
             {
                 _digger.isDig = true;
-                _digger.direction = _direction;
-                drill.SetActive(true);
-            }
-            else if (_input.DigDirection.magnitude > 0.001f)
-            {
-                _digger.isDig = true;
-                _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
+                _digger.direction = _direction == Direction.Up ? Direction.Down : _direction;
                 drill.SetActive(true);
             }
             else
@@ -124,7 +115,7 @@ namespace Player
                 LayerMask.GetMask("Platform"));
             Debug.DrawRay(position, directionVector * sideWallDistance, Color.green);
 
-            if (!hit.collider)
+            if (!hit.collider || hit.collider.transform.position.y > 0f)
             {
                 _movement.isSideWall = false;
                 return;

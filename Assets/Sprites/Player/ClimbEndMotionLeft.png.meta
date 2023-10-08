@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a3a201e8cc824e4e942c907cdb6d457
+guid: 0d2e8ef7a446f8646be9ba348dbe0d67
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkLeft_0
+      name: ClimbEndMotionLeft_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
-        height: 38
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,41 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dec8d8e03e6533c41ab3b72b02c3e8dd
-      internalID: -551198649
+      spriteID: 8a44b4e46ca31a349bf8ecbea8835e5c
+      internalID: -599422199
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkLeft_1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be1b8e103ffcc564cada759ff0134ce8
-      internalID: -2043012017
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_2
+      name: ClimbEndMotionLeft_1
       rect:
         serializedVersion: 2
         x: 76
         y: 0
-        width: 38
-        height: 38
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,41 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3945509a6ba5db4fb8abf8ea54954af
-      internalID: 750295943
+      spriteID: cc44f02f64a6eb54cbf82985dfc43de8
+      internalID: -1091932437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkLeft_3
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d078256755dc38447bcb50773319a115
-      internalID: 1553367564
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_4
+      name: ClimbEndMotionLeft_2
       rect:
         serializedVersion: 2
         x: 152
         y: 0
-        width: 38
-        height: 38
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,41 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05863441130b5364e9f8de1bb0446914
-      internalID: -249919076
+      spriteID: 102b93d89fc8bc041bf8fdde20521d3e
+      internalID: -809585197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkLeft_5
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 0
-        width: 38
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 298e3e94acc931c458742712d69d5d29
-      internalID: -1930074740
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkLeft_6
+      name: ClimbEndMotionLeft_3
       rect:
         serializedVersion: 2
         x: 228
         y: 0
-        width: 38
-        height: 38
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d013ea16444693747a9f9c3cb64f22ce
-      internalID: 1831854269
+      spriteID: 783ab8d12e305944d99178137f792be9
+      internalID: -550872593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkLeft_7
+      name: ClimbEndMotionLeft_4
       rect:
         serializedVersion: 2
-        x: 266
+        x: 304
         y: 0
-        width: 38
-        height: 38
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,8 +208,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab781633872a657478941caa8c6f2ca9
-      internalID: -2094516727
+      spriteID: 651ef45957c2303498193940aa81230f
+      internalID: 995977028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClimbEndMotionLeft_5
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 0
+        width: 76
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dd172b6eef23244e956dde6d17286d8
+      internalID: 1818835467
       vertices: []
       indices: 
       edges: []
@@ -288,14 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkLeft_0: -551198649
-      WalkLeft_1: -2043012017
-      WalkLeft_2: 750295943
-      WalkLeft_3: 1553367564
-      WalkLeft_4: -249919076
-      WalkLeft_5: -1930074740
-      WalkLeft_6: 1831854269
-      WalkLeft_7: -2094516727
+      ClimbEndMotionLeft_0: -599422199
+      ClimbEndMotionLeft_1: -1091932437
+      ClimbEndMotionLeft_2: -809585197
+      ClimbEndMotionLeft_3: -550872593
+      ClimbEndMotionLeft_4: 995977028
+      ClimbEndMotionLeft_5: 1818835467
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
