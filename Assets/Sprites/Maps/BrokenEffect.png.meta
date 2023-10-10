@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1913536c77af50d4bb64e4c48b7d6357
+guid: 6ef1f8e53d7db4394b1a8fc599c60922
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -77,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,13 +103,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SleepingAnimation_0
+      name: BrokenEffect_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e212d7e7862c5340b23cebec8230022
-      internalID: -1873563354
+      spriteID: 2914ecb3ac68e441c95084b26c47be2c
+      internalID: -1552777398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SleepingAnimation_1
+      name: BrokenEffect_1
       rect:
         serializedVersion: 2
         x: 16
@@ -142,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4e8626180fe8c24e99c16b6b3190068
-      internalID: 1539071767
+      spriteID: bd10c97c735964ea2b15048f95c2bcb4
+      internalID: -1789591125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SleepingAnimation_2
+      name: BrokenEffect_2
       rect:
         serializedVersion: 2
         x: 32
@@ -163,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 829e7a87c70c2c84d8ca30ce281955cb
-      internalID: 947528023
+      spriteID: 3d81e6bfe5e77476b889364e17ce0635
+      internalID: -608784201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SleepingAnimation_3
+      name: BrokenEffect_3
       rect:
         serializedVersion: 2
         x: 48
@@ -184,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d5da34de45bf544a817b8c96fd6f247
-      internalID: -1645308493
+      spriteID: 55c765279986b47d5b1321c9ef2f530c
+      internalID: -626083577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SleepingAnimation_4
+      name: BrokenEffect_4
       rect:
         serializedVersion: 2
         x: 64
@@ -205,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3665c24eaab0cd0458de237eece60648
-      internalID: 653340434
+      spriteID: e72e732aeabe0427caa3e8c998e99dd2
+      internalID: 103595069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SleepingAnimation_5
+      name: BrokenEffect_5
       rect:
         serializedVersion: 2
         x: 80
@@ -226,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cb63253f0af370469753d8f367052d1
-      internalID: 917299434
+      spriteID: d3da1c6f40d9f4e90a1be758a36c0517
+      internalID: -2122231105
       vertices: []
       indices: 
       edges: []
@@ -243,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SleepingAnimation_0: -1873563354
-      SleepingAnimation_1: 1539071767
-      SleepingAnimation_2: 947528023
-      SleepingAnimation_3: -1645308493
-      SleepingAnimation_4: 653340434
-      SleepingAnimation_5: 917299434
+      BrokenEffect_0: -1552777398
+      BrokenEffect_1: -1789591125
+      BrokenEffect_2: -608784201
+      BrokenEffect_3: -626083577
+      BrokenEffect_4: 103595069
+      BrokenEffect_5: -2122231105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

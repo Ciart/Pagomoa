@@ -1,140 +1,140 @@
 using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.Rendering;
 using UnityEngine;
 
-namespace Monsters
+public class SnakeController : MonsterController
 {
-    public class SnakeController : MonsterController
+    //private GameObject touchingTarget;
+
+    Coroutine Proceeding;
+
+    void FixedUpdate()
     {
-        //private GameObject touchingTarget;
-
-        Coroutine Proceeding;
-
-        void FixedUpdate()
+        if (touchingTarget)
         {
-            if (touchingTarget)
+            switch (touchingTarget.tag)
             {
-                switch (touchingTarget.tag)
-                {
-                    case "Player":
-                        _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
-                        break;
-                }
+                case "Player":
+                    _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
+                    break;
             }
         }
-        private void Start()
+    }
+    private void Start()
+    {
+        if (TimeManagerTemp.Instance.GetSeasonForMonster() == "Night")
+            StateChanged(Monster.MonsterState.Sleep);
+        else
+            StateChanged(Monster.MonsterState.Active);
+    }
+    public override void StateChanged(Monster.MonsterState state)
+    {
+        if(Proceeding != null)
+            StopCoroutine(Proceeding);
+
+        _monster.state = state;
+
+        switch (state)
         {
-            if (TimeManagerTemp.Instance.GetTime() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
+            case Monster.MonsterState.Active:
+                Proceeding = StartCoroutine("Patroll");
+                break;
+            case Monster.MonsterState.Chase:
+                Proceeding = StartCoroutine("Chase");
+                break;
+            case Monster.MonsterState.Sleep:
+                Proceeding = null;
+                Sleep();
+                break;
+            case Monster.MonsterState.Hit:
+                Proceeding = StartCoroutine("Hit");
+                break;
+            case Monster.MonsterState.Die:
+                Die();
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected override IEnumerator Patroll()
+    {
+        float time = 20f;
+        for (int changeDir = 6; changeDir > 0; changeDir--)
+        {
+            _monster.direction = Random.Range(-1, 2);
+            if(_monster.direction != 0)
+                _animator.SetTrigger("Patroll");
             else
-                StateChanged(Monster.MonsterState.Active);
-        }
-        public override void StateChanged(Monster.MonsterState state)
-        {
-            if(Proceeding != null)
-                StopCoroutine(Proceeding);
-
-            _monster.state = state;
-
-            switch (state)
+                _animator.SetTrigger("Idle");
+            while (time >= 3 * changeDir)
             {
-                case Monster.MonsterState.Active:
-                    Proceeding = StartCoroutine("Patroll");
-                    break;
-                case Monster.MonsterState.Chase:
-                    Proceeding = StartCoroutine("Chase");
-                    break;
-                case Monster.MonsterState.Sleep:
-                    Proceeding = null;
-                    Sleep();
-                    break;
-                case Monster.MonsterState.Hit:
-                    Proceeding = StartCoroutine("Hit");
-                    break;
-                case Monster.MonsterState.Die:
-                    Die();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        protected override IEnumerator Patroll()
-        {
-            float time = 20f;
-            for (int changeDir = 6; changeDir > 0; changeDir--)
-            {
-                _monster.direction = Random.Range(-1, 2);
-                if(_monster.direction != 0)
-                    _animator.SetTrigger("Patroll");
-                else
-                    _animator.SetTrigger("Idle");
-                while (time >= 3 * changeDir)
-                {
-                    _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
-                    if (_monster.direction != 0)
-                        transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
-
-                    time -= Time.fixedDeltaTime;
-                    yield return new WaitForSeconds(Time.fixedDeltaTime);
-                }
-            }
-            if(TimeManagerTemp.Instance.GetTime() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
-        }
-        protected override IEnumerator Chase()
-        {
-            float time = 6f;
-            _animator.SetTrigger("Chase");
-            while (time >= 0 && _monster.target)
-            {
-                _monster.direction = _monster.target.transform.position.x > transform.position.x ? 1 : -1;
-
                 _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
-                transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
+                if (_monster.direction != 0)
+                    transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
                 time -= Time.fixedDeltaTime;
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
+        }
+        if(TimeManagerTemp.Instance.GetSeasonForMonster() == "Night")
+            StateChanged(Monster.MonsterState.Sleep);
+        else
             StateChanged(Monster.MonsterState.Active);
-        }
-        protected override void Sleep()
-        {
-            _rigidbody.velocity = Vector3.zero;
-            _animator.SetTrigger("Sleep");
-        }
-        protected override IEnumerator Hit()
-        {
-            _animator.SetTrigger("Hit");
-        
-            yield return new WaitForSeconds(0.7f);
-            StateChanged(Monster.MonsterState.Chase);
-        }
-        //protected override void Die()
-        //{
-        //    _rigidbody.velocity = Vector3.zero;
-        //    _rigidbody.gravityScale = 0;
-        //    GetComponent<Collider2D>().enabled = false;
-        //    _animator.SetTrigger("Hit");
-        //    _monster.Die();
-        //}
-
-
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
-        //    {
-        //        _monster.target = touchingTarget = collision.gameObject;
-        //        StateChanged(Monster.MonsterState.Chase);
-        //    }
-        //}
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject == touchingTarget)
-        //        touchingTarget = null;
-        //}
-
     }
+    protected override IEnumerator Chase()
+    {
+        float time = 6f;
+        _animator.SetTrigger("Chase");
+        while (time >= 0 && _monster.target)
+        {
+            _monster.direction = _monster.target.transform.position.x > transform.position.x ? 1 : -1;
+
+            _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
+            transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
+
+            time -= Time.fixedDeltaTime;
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
+        }
+        StateChanged(Monster.MonsterState.Active);
+    }
+    protected override void Sleep()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _animator.SetTrigger("Sleep");
+    }
+    protected override IEnumerator Hit()
+    {
+        _animator.SetTrigger("Hit");
+        
+        yield return new WaitForSeconds(0.7f);
+        StateChanged(Monster.MonsterState.Chase);
+    }
+    //protected override void Die()
+    //{
+    //    _rigidbody.velocity = Vector3.zero;
+    //    _rigidbody.gravityScale = 0;
+    //    GetComponent<Collider2D>().enabled = false;
+    //    _animator.SetTrigger("Hit");
+    //    _monster.Die();
+    //}
+
+
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
+    //    {
+    //        _monster.target = touchingTarget = collision.gameObject;
+    //        StateChanged(Monster.MonsterState.Chase);
+    //    }
+    //}
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject == touchingTarget)
+    //        touchingTarget = null;
+    //}
+
 }

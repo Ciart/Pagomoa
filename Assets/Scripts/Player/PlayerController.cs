@@ -115,7 +115,7 @@ namespace Player
                 LayerMask.GetMask("Platform"));
             Debug.DrawRay(position, directionVector * sideWallDistance, Color.green);
 
-            if (!hit.collider)
+            if (!hit.collider || hit.collider.transform.position.y > 0f)
             {
                 _movement.isSideWall = false;
                 return;

@@ -1,33 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class InteractableObject : MonoBehaviour
 {
-    public SpriteRenderer SpriteRenderer;
-    public Light2D Highlight;
+    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _clickRenderer;
 
+    private readonly string _outline = "_OutlineColor";
+    
     // 유니티 이벤트 호출
     public UnityEvent InteractionEvent; 
     
+    
     void Start()
     {
-        SpriteRenderer = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
-        Highlight = transform.GetChild(1).GetComponentInChildren<Light2D>();
-        SpriteRenderer.enabled = false;
-        Highlight.enabled = false;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _clickRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _clickRenderer.enabled = false;
     }
     public void ActiveObject()
     {
-        SpriteRenderer.enabled = true;
-        Highlight.enabled = true;
+        Color a = new Color(0.38f,0.75f, 0.92f, 1f);
+        
+        _spriteRenderer.material.SetColor(_outline, a);
+        _clickRenderer.enabled = true;
     }
+
     public void DisableObject()
     {
-        SpriteRenderer.enabled = false;
-        Highlight.enabled = false;
+        _spriteRenderer.material.SetColor(_outline, Color.white);
+        _clickRenderer.enabled = false;
     }
 }

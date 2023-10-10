@@ -69,6 +69,8 @@ namespace Worlds
 
         private void LateUpdate()
         {
+            UpdateDiggingBrickDamage();
+            
             if (_expiredChunks.Count == 0)
             {
                 return;
@@ -106,15 +108,85 @@ namespace Worlds
         {
             return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
+
         public bool CheckNull(Vector3 pos)
         {
             var p = ComputeCoords(pos);
             var brick = _world.GetBrick(p.x, p.y, out var chunk);
-            if (brick.ground == null)
+            if (brick.ground is null)
                 return true;
             else
                 return false;
         }
+
+        public Dictionary<BrickCoords, BrickHealth> brickDamage = new();
+        private Dictionary<BrickCoords, float> diggingBrickDamage = new();
+
+        private void UpdateDiggingBrickDamage()
+        {
+            var newBrickDamage = new Dictionary<BrickCoords, BrickHealth>();
+            
+            foreach (var (coords, damage) in brickDamage)
+            {
+                if (diggingBrickDamage.ContainsKey(coords))
+                {
+                    var brickHealth = brickDamage[coords];
+                    brickHealth.health -= diggingBrickDamage[coords];
+                    
+                    newBrickDamage.Add(coords, brickHealth);
+                    
+                    diggingBrickDamage.Remove(coords);
+                }
+                else
+                {
+                    continue;
+                }
+
+                if (newBrickDamage[coords].health <= 0)
+                {
+                    BreakGround(coords.x, coords.y, 10);
+                    newBrickDamage.Remove(coords);
+                }
+            }
+            
+            brickDamage = newBrickDamage;
+            
+            foreach (var (coords, damage) in diggingBrickDamage)
+            {
+                var brick = _world.GetBrick(coords.x, coords.y, out _);
+
+                if (brick?.ground is null)
+                {
+                    continue;
+                }
+
+                var brickHealth = BrickHealth.FromBrick(brick);
+                brickHealth.health -= damage;
+                
+                brickDamage.Add(coords, brickHealth);
+                
+                if (brickHealth.health <= 0)
+                {
+                    BreakGround(coords.x, coords.y, 10);
+                    brickDamage.Remove(coords);
+                }
+            }
+            
+            diggingBrickDamage.Clear();
+        }
+
+        public void DigGround(BrickCoords coords, float digSpeed)
+        {
+            if (diggingBrickDamage.ContainsKey(coords))
+            {
+                diggingBrickDamage[coords] += digSpeed * Time.deltaTime;
+            }
+            else
+            {
+                diggingBrickDamage.Add(coords, digSpeed * Time.deltaTime);
+            }
+        }
+
         public void BreakGround(int x, int y, int tier, bool isForceBreak = false)
         {
             var brick = _world.GetBrick(x, y, out var chunk);
