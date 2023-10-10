@@ -51,8 +51,8 @@ public class EnvironmentConverter : MonoBehaviour
     {
         Period nowPeriod = GetNowPeriod();
         float flood = (TimeManagerTemp.Instance._time - GetMaxMinTimeofPeriod(nowPeriod, false)) / (GetMaxMinTimeofPeriod(nowPeriod) - GetMaxMinTimeofPeriod(nowPeriod, false));
-        return flood;
         //Debug.Log(nowPeriod + " : " + (TimeManagerTemp.Instance._time - GetMaxMinTimeofPeriod(nowPeriod, false)) + " / " + (GetMaxMinTimeofPeriod(nowPeriod) - GetMaxMinTimeofPeriod(nowPeriod, false)));
+        return flood;
     }
     private void SkyColorConvert()
     {
@@ -72,10 +72,12 @@ public class EnvironmentConverter : MonoBehaviour
             if (period.Equals(GetNowPeriod()))
             {
                 float flood = GetFlood();
-                if (period.floorChangeStartTime <= flood && flood <= period.floorChangeEndTime)
-                    light.intensity = (flood - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime);
-                return;
+                light.intensity = period.floorChangeStartTime <= flood && flood <= period.floorChangeEndTime ?
+                    period.floorIntensityStart + (period.floorIntensityEnd - period.floorIntensityStart) * (flood - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime)
+                    : period.floorIntensityStart;
+                Debug.Log(light.intensity);
                 //Debug.Log($"{flood - period.floorChangeStartTime} / {period.floorChangeEndTime - period.floorChangeStartTime}");
+                return;
             }
     }
 
