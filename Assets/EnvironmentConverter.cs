@@ -72,9 +72,14 @@ public class EnvironmentConverter : MonoBehaviour
             if (period.Equals(GetNowPeriod()))
             {
                 float flood = GetFlood();
-                light.intensity = period.floorChangeStartTime <= flood && flood <= period.floorChangeEndTime ?
-                    period.floorIntensityStart + (period.floorIntensityEnd - period.floorIntensityStart) * (flood - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime)
-                    : period.floorIntensityStart;
+
+                if (flood < period.floorChangeStartTime)
+                    light.intensity = period.floorIntensityStart;
+                else if (period.floorChangeEndTime < flood)
+                    light.intensity = period.floorIntensityEnd;
+                else
+                    light.intensity = period.floorIntensityStart + (period.floorIntensityEnd - period.floorIntensityStart) * (flood - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime);
+
                 Debug.Log(light.intensity);
                 //Debug.Log($"{flood - period.floorChangeStartTime} / {period.floorChangeEndTime - period.floorChangeStartTime}");
                 return;
