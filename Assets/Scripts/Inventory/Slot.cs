@@ -3,6 +3,7 @@ using Player;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IDropHandler
@@ -18,9 +19,12 @@ public class Slot : MonoBehaviour, IDropHandler
 
     public void SellCheck()
     {
-        EtcInventory.Instance.choiceSlot = this;
+        Sell.Instance.choiceSlot = this;
 
-        var Inventory = EtcInventory.Instance.choiceSlot.inventoryItem.item;
+        var Inventory = Sell.Instance.choiceSlot.inventoryItem.item;
+        if (Inventory == null)
+            return;
+
         if (Inventory.itemType == Item.ItemType.Use ||
             Inventory.itemType == Item.ItemType.Mineral)
         {
@@ -32,8 +36,19 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         for (int i = 0; i < sellCountUI.count; i++)
         {
-            EtcInventory.Instance.DeleteSlot();
-            InventoryDB.Instance.Remove(EtcInventory.Instance.choiceSlot.inventoryItem.item);
+            //EtcInventory.Instance.DeleteSlot();
+            if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
+            {
+                InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.SetCount(Sell.Instance.choiceSlot.inventoryItem.item);
+            }
+            else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
+            {
+                InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
+            }
+            Sell.Instance.DeleteSlot();
+            Sell.Instance.ResetSlot();
         }
         sellCountUI.count = 0;
         sellCountUI.price = 0;
@@ -172,7 +187,9 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
         Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
-        InventoryDB.Instance.changeInventory.Invoke();
+        //InventoryDB.Instance.changeInventory.Invoke();
+        EtcInventory.Instance.ResetSlot();
+        //Sell.Instance.ResetSlot();
     }
     public void Swap(List<InventoryItem> list, int i, int j)
     {

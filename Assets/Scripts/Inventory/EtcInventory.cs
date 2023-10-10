@@ -19,25 +19,29 @@ public class EtcInventory : MonoBehaviour
         {
             Instance = this;
         }
+        MakeSlot();
+        QuickSlotItemDB.instance.transform.SetAsLastSibling();
     }
-    private void Start()
+    private void OnEnable()
     {
+        DeleteSlot();
         ResetSlot();
     }
-    public void MakeSlot() // slotDatas 갯수만큼 슬롯 만들기
+    public void MakeSlot() // slotdatas 갯수만큼 슬롯 만들기
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
         {
-            GameObject SpawnedSlot = Instantiate(slot, slotParent.transform);
-            slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+            GameObject spawnedslot = Instantiate(slot, slotParent.transform);
+            slotDatas.Add(spawnedslot.GetComponent<Slot>());
             slotDatas[i].id = i;
-            SpawnedSlot.SetActive(true);
+            spawnedslot.SetActive(true);
         }
+        ResetSlot();
     }
     public void ResetSlot() // 각각 슬롯에 item 할당
     {
         int i = 0;
-        for (; i < InventoryDB.Instance.items.Count; i++)
+        for (; i < slotDatas.Count; i++)
         {
             slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
         }

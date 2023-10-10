@@ -11,6 +11,15 @@ public class MarketCondition : MonoBehaviour
     [SerializeField] private int count = 0;
     public List<AchieveContents> contentDatas = new List<AchieveContents>();
 
+    public static MarketCondition Instance = null;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this.gameObject);
+    }
 
     public void MakeSlot()
     {

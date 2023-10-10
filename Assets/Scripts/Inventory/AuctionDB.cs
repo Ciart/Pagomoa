@@ -35,7 +35,9 @@ namespace Inventory
                     auctionItem.Remove(inventoryItem);
             }
             Buy.Instance.gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
-            InventoryDB.Instance.changeInventory.Invoke();
+            //EtcInventory.Instance.ResetSlot();
+            //Sell.Instance.ResetSlot();
+            //InventoryDB.Instance.changeInventory.Invoke();
         }
     }
 }

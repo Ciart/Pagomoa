@@ -36,7 +36,7 @@ public class SellCountUI : MonoBehaviour
     }
     public void Plus()
     {
-        InventoryItem item = EtcInventory.Instance.choiceSlot.inventoryItem;
+        InventoryItem item = Sell.Instance.choiceSlot.inventoryItem;
         if (count < item.count)
         {
             count++;
@@ -53,7 +53,7 @@ public class SellCountUI : MonoBehaviour
             if (count > 0)
             {
                 count--;
-                price -= EtcInventory.Instance.choiceSlot.inventoryItem.item.itemPrice;
+                price -= Sell.Instance.choiceSlot.inventoryItem.item.itemPrice;
             }
             else
                 return;
