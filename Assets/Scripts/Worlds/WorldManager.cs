@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using Logger = Quest.Logger;
 
 namespace Worlds
 {
@@ -211,6 +212,8 @@ namespace Worlds
 
             brick.ground = null;
             brick.mineral = null;
+            
+            Logger.Instance.LogObject(Logger.LoggingGeneral.Brick);
 
             // _expiredChunks.Add(chunk);
 

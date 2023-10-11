@@ -24,7 +24,13 @@ public class GameData
 public class IntroData
 {
     public bool isFirstStart;
-} 
+}
+
+[System.Serializable]
+public class LogGeneralData<LoggingGeneral>
+{
+    public DicList<LoggingGeneral, int> generalObject; 
+}
 
 [System.Serializable]
 public class PositionData

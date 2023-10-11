@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering.Universal;
+using Logger = Quest.Logger;
 
 public class TimeManagerTemp : MonoBehaviour
 {
@@ -83,9 +79,9 @@ public class TimeManagerTemp : MonoBehaviour
     {
         // too noise
         //Debug.Log(date +"일차 " + _hour + "시 " + _minute + "분");
-        Debug.Log(_hour + "시 ");
+        //Debug.Log(_hour + "시 ");
 
-        time += 1000;
+        time += 100000;
         EventTime();
     }
     private void EventTime()
@@ -96,6 +92,10 @@ public class TimeManagerTemp : MonoBehaviour
             date++;
             NextDaySpawn.Invoke();
             Debug.Log("다음 날이야!");
+            
+            Logger.Instance.LogObject(Logger.LoggingGeneral.Date);
+            Debug.Log(Logger.Instance.GetObjectCount(Logger.LoggingGeneral.Date));
+            Debug.Log(Logger.Instance.GetObjectCount(Logger.LoggingGeneral.Brick));
         }
         if (time == endTime) // 잠자는 시간 22 ~ 06
         {

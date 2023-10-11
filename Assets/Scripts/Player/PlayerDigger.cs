@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using static Unity.Collections.AllocatorManager;
+using Logger = Quest.Logger;
 
 namespace Player
 {

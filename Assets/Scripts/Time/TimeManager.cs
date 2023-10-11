@@ -47,21 +47,21 @@ public class TimeManager : MonoBehaviour
     }
     private void StartTime()
     {
-        //Debug.Log(date +"ÀÏÂ÷ " + hour + "½Ã " + minute + "ºÐ");
+        //Debug.Log(date +"ï¿½ï¿½ï¿½ï¿½ " + hour + "ï¿½ï¿½ " + minute + "ï¿½ï¿½");
         time += 1000;
         EventTime();
     }
     private void EventTime()
     {
-        if (time == 1440000) // ³¯Â¥ ¹Ù²î´Â ½Ã°£
+        if (time == 1440000) // ï¿½ï¿½Â¥ ï¿½Ù²ï¿½ï¿½ ï¿½Ã°ï¿½
         {
             time = 0;
             date++;
         }
-        else if (time == endTime) // ÀáÀÚ´Â ½Ã°£
+        else if (time == endTime) // ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Ã°ï¿½
         {
             canSleep = true;
-            Debug.Log("Àß ¼ö ÀÖ´Ù.");
+            Debug.Log("ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.");
         }
         else if (time == returnTime)
         {
@@ -71,7 +71,7 @@ public class TimeManager : MonoBehaviour
     private void Sleep()
     {
         CancelInvoke("StartTime");
-        Debug.Log("µå¸£··");
+        Debug.Log("ï¿½å¸£ï¿½ï¿½");
         time = startTime;
         date++;
         achieveContents.ChangePrice();
