@@ -13,7 +13,7 @@ namespace UFO
 
         void Start()
         {
-            _drillRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
+            _drillRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
             if (!_drillRenderer) return ;
 
             _drillRenderer.enabled = false;

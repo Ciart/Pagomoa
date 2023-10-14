@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -77,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -112,8 +115,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 68
-        height: 68
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58c6cece6311e154e97f86d25df30bce
-      internalID: -1393754300
+      spriteID: 4442ac86ed6b49a4bab0542309ea3635
+      internalID: -2025772955
       vertices: []
       indices: 
       edges: []
@@ -131,10 +134,10 @@ TextureImporter:
       name: ClimbEndMotionRight_1
       rect:
         serializedVersion: 2
-        x: 68
+        x: 76
         y: 0
-        width: 68
-        height: 68
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f825091906da634408fd4e7d3112fd90
-      internalID: -1471145464
+      spriteID: 186112acd2bfb1a4e845cab4da91336e
+      internalID: 1531950331
       vertices: []
       indices: 
       edges: []
@@ -152,10 +155,10 @@ TextureImporter:
       name: ClimbEndMotionRight_2
       rect:
         serializedVersion: 2
-        x: 136
+        x: 152
         y: 0
-        width: 68
-        height: 68
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3736bcdc55a653b4699d922f5df9744d
-      internalID: -1675821111
+      spriteID: 1ee3bba7a5d21a845af1ae12b1613010
+      internalID: 6357389
       vertices: []
       indices: 
       edges: []
@@ -173,10 +176,10 @@ TextureImporter:
       name: ClimbEndMotionRight_3
       rect:
         serializedVersion: 2
-        x: 204
+        x: 228
         y: 0
-        width: 68
-        height: 68
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2952c410f321ec54d9b7882de99409a9
-      internalID: 1474551106
+      spriteID: 63237456e6d6ced4685f2d0d5b6a854c
+      internalID: -278914133
       vertices: []
       indices: 
       edges: []
@@ -194,10 +197,10 @@ TextureImporter:
       name: ClimbEndMotionRight_4
       rect:
         serializedVersion: 2
-        x: 272
+        x: 304
         y: 0
-        width: 68
-        height: 68
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa45649eb788f0a439b4c6de6de6bec5
-      internalID: -1755012359
+      spriteID: 0b738b6761e957a45bdc1ac35117406e
+      internalID: 1894400202
       vertices: []
       indices: 
       edges: []
@@ -215,10 +218,10 @@ TextureImporter:
       name: ClimbEndMotionRight_5
       rect:
         serializedVersion: 2
-        x: 340
+        x: 380
         y: 0
-        width: 68
-        height: 68
+        width: 76
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41e4b7eb70665c94f9fb40c181d880eb
-      internalID: 598501312
+      spriteID: 8e81e7dff51111443bba90cd7c51b41d
+      internalID: 1432383359
       vertices: []
       indices: 
       edges: []
@@ -243,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ClimbEndMotionRight_0: -1393754300
-      ClimbEndMotionRight_1: -1471145464
-      ClimbEndMotionRight_2: -1675821111
-      ClimbEndMotionRight_3: 1474551106
-      ClimbEndMotionRight_4: -1755012359
-      ClimbEndMotionRight_5: 598501312
+      ClimbEndMotionRight_0: -2025772955
+      ClimbEndMotionRight_1: 1531950331
+      ClimbEndMotionRight_2: 6357389
+      ClimbEndMotionRight_3: -278914133
+      ClimbEndMotionRight_4: 1894400202
+      ClimbEndMotionRight_5: 1432383359
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using Unity.VisualScripting;
+using static UnityEditor.Progress;
 
 public class QuickSlotItemDB : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class QuickSlotItemDB : MonoBehaviour
     [SerializeField] public QuickSlot selectedSlot;
 
     private PlayerInput playerInput;
+    [SerializeField] private QuickSlot _sellingQuickSlot;
 
     private void Start()
     {
@@ -39,7 +41,7 @@ public class QuickSlotItemDB : MonoBehaviour
             UseQuickSlot();
         };
     }
-    private void Remove(Item data)
+    private void RemoveAll(Item data)
     {
         var quickSlotItem = quickSlotItems.Find(quickSlotItem => quickSlotItem.item == data);
 
@@ -51,6 +53,46 @@ public class QuickSlotItemDB : MonoBehaviour
                 quickSlotItems.Insert(i, new InventoryItem(null, 0));
             }
         }
+    }
+    public void SetCount(Item data)
+    {
+        var inventoryItem = InventoryDB.Instance.items.Find(inventoryItem => inventoryItem.item == data);
+        var quickslotItem = quickSlotItems.Find(quickslotItem => quickslotItem.item == data);
+
+        if (quickslotItem != null)
+        {
+            if (quickslotItem != null && inventoryItem.count != 0)
+            {
+                quickslotItem.count = inventoryItem.count;
+                for (int i = 0; i < quickSlots.Count; i++)
+                {
+                    if (quickSlots[i].inventoryItem == quickslotItem && quickslotItem.count != 0)
+                    {
+                        _sellingQuickSlot = quickSlots[i];
+                        quickSlots[i].itemCount.text = quickslotItem.count.ToString();
+                    }
+                }
+            }
+        }
+        else
+            return;
+    }
+    public void CleanSlot(Item data)
+    {
+        var quickslotItem = quickSlotItems.Find(quickslotItem => quickslotItem.item == data);
+        if (quickslotItem != null)
+        {
+            for (int i = 0; i < quickSlotItems.Count; i++)
+            {
+                if (quickSlotItems[i].item == quickslotItem.item)
+                {
+                    quickSlotItems[i] = null;
+                    _sellingQuickSlot.SetSlotNull();
+                }
+            }
+        }
+        else
+            return;
     }
     private void UseQuickSlot()
     {
@@ -64,12 +106,17 @@ public class QuickSlotItemDB : MonoBehaviour
             selectedSlot.UseItem();
             if (selectedSlot.inventoryItem.count == 0)
             {
-                InventoryDB.Instance.Remove(selectedSlot.inventoryItem.item);
-                Remove(selectedSlot.inventoryItem.item);
+                InventoryDB.Instance.Use(selectedSlot.inventoryItem.item);
+                RemoveAll(selectedSlot.inventoryItem.item);
                 selectedSlot.SetSlotNull();
             }
-            EtcInventory.Instance.DeleteSlot();
-            EtcInventory.Instance.UpdateSlot();
+            if (EtcInventory.Instance)
+            {
+                EtcInventory.Instance.DeleteSlot();
+                EtcInventory.Instance.UpdateSlot();
+            }
+            else
+                return;
         }
         else if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
         {

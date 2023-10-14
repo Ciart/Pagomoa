@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -77,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,19 +103,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_0
+      name: ClimbRight_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b2a43bb763fc2b44b7a790e93d237cb
-      internalID: -238281321
+      spriteID: c8870423d68c08045bb8ee7ecec20e39
+      internalID: 427313412
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_1
+      name: ClimbRight_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 38
         y: 0
-        width: 48
-        height: 48
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8684e8015c9709e4d88ccb0874a0e11e
-      internalID: -295380077
+      spriteID: 943538ae123618149a1d132e34be79c8
+      internalID: 311874570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_2
+      name: ClimbRight_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 76
         y: 0
-        width: 48
-        height: 48
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 379b856a1e00f054ea3bad9dbef30449
-      internalID: 878928571
+      spriteID: d7b4be3603e9fde4ba84620a84cf80d5
+      internalID: 1384646830
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_3
+      name: ClimbRight_3
       rect:
         serializedVersion: 2
-        x: 144
+        x: 114
         y: 0
-        width: 48
-        height: 48
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 635229a7ecd116f4c965a3df1fcfdc74
-      internalID: -2009451315
+      spriteID: 793debe7f5fa954489bca4b2e73a3454
+      internalID: 1694357810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_4
+      name: ClimbRight_4
       rect:
         serializedVersion: 2
-        x: 192
+        x: 152
         y: 0
-        width: 48
-        height: 48
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58deb97301d81b84ca50a907f02ff32e
-      internalID: -810565646
+      spriteID: 0774847777b4fc241b504f2e32e4b937
+      internalID: -1209513727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_TileClimbing_Right-Sheet_5
+      name: ClimbRight_5
       rect:
         serializedVersion: 2
-        x: 240
+        x: 190
         y: 0
-        width: 48
-        height: 48
+        width: 38
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb36ff4be0e9b454aa3269934f0d7d38
-      internalID: 1247683423
+      spriteID: af61e8bf559289044a05ae6537e60ca0
+      internalID: 960369376
       vertices: []
       indices: 
       edges: []
@@ -243,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_TileClimbing_Right-Sheet_0: -238281321
-      Player_TileClimbing_Right-Sheet_1: -295380077
-      Player_TileClimbing_Right-Sheet_2: 878928571
-      Player_TileClimbing_Right-Sheet_3: -2009451315
-      Player_TileClimbing_Right-Sheet_4: -810565646
-      Player_TileClimbing_Right-Sheet_5: 1247683423
+      ClimbRight_0: 427313412
+      ClimbRight_1: 311874570
+      ClimbRight_2: 1384646830
+      ClimbRight_3: 1694357810
+      ClimbRight_4: -1209513727
+      ClimbRight_5: 960369376
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
