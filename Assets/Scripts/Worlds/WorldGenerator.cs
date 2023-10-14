@@ -122,7 +122,7 @@ namespace Worlds
             {
                 for (var y = worldBottom; y < worldTop; y++)
                 {
-                    if (random.NextFloat() < 1f / 30f)
+                    if (random.NextFloat() >= 1f / 30f)
                     {
                         continue;
                     }
