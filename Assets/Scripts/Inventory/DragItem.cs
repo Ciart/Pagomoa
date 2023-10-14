@@ -14,6 +14,7 @@ public class DragItem : MonoBehaviour
     }
     public void DragSetImage(Sprite image)
     {
+        this.transform.SetAsLastSibling();
         gameObject.GetComponent<Image>().sprite = image;
         SetColor(230);
     }    

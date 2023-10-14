@@ -17,10 +17,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject EscUI;
     [SerializeField] private CinemachineVirtualCamera _inventoryCamera;
 
+    private GameObject _UI;
+    private bool _activeInventory = false;
     private PlayerInput playerInput;
 
     private void Awake()
     {
+        _UI = GameObject.Find("UI");
         GameObject player = GameObject.Find("Player");
         player.GetComponent<PlayerDigger>().DiggingEvent.AddListener(SetDigGage);
         player.GetComponent<PlayerDigger>().digEndEvent.AddListener(SetDigGagefalse);
@@ -37,7 +40,7 @@ public class UIManager : MonoBehaviour
 
         playerInput.Actions.SetInventoryUI.started += context =>
         {
-            SetInventoryUI();
+            CreateInventoryUI();
         };
     }
     public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
@@ -67,21 +70,32 @@ public class UIManager : MonoBehaviour
     }
     private void SetInventoryUI()
     {
-        bool ActiveInventory = false;
         bool OffHoverEvent = false;
-        if (InventoryUI.activeSelf == false)
+        if (_activeInventory == false)
         {
-            ActiveInventory = !ActiveInventory;
+            _activeInventory = !_activeInventory;
+            _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
             _inventoryCamera.Priority = 11;
         }
         else
         {
+            _activeInventory = !_activeInventory;
             HoverEvent.Instance.HoverRenderer.SetActive(OffHoverEvent);
+            _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
             _inventoryCamera.Priority = 9;
         }
-        InventoryUI.SetActive(ActiveInventory);
     }
+    private void CreateInventoryUI()
+    {
 
+        if (_UI.transform.Find("Inventory(Clone)") == null)
+        {
+            Instantiate(InventoryUI, transform).SetActive(false);
+            SetInventoryUI();
+        }
+        else
+            SetInventoryUI();
+    }
     //}
 
 }

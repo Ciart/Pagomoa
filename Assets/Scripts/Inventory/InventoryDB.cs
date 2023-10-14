@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net.WebSockets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,7 +7,6 @@ public class InventoryDB : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
     public int Gold;
-    [SerializeField] private EtcInventory inventory;
     [SerializeField] private Buy buy;
 
     public UnityEvent makeSlots;
@@ -26,21 +24,30 @@ public class InventoryDB : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
-        makeSlots.Invoke();
+
+        //if (GameObject.Find("Inventory(Clone)") != null)
+        //    changeInventory.AddListener(EtcInventory.Instance.ResetSlot);
+
         SaveManager.Instance.LoadItem();
-        
     }
     public void Add(Item data, int count = 1) // Item data
     {
         var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
+        var quickSlot = QuickSlotItemDB.instance.quickSlots.Find(quickSlot => quickSlot.inventoryItem.item == data);
         var achieveItem = Achievements.Instance.AchieveMinerals.Find(achieveItem => achieveItem.item == data);
         if (inventoryItem != null)
         {
             inventoryItem.count += count;
+
+            if (quickSlot != null)
+                quickSlot.itemCount.text = inventoryItem.count.ToString();
+
+            else if (quickSlot == null)
+                return;
         }
         else
         {
-            for (int i = 0; i < inventory.count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 if (items[i].item == null)
                 {
@@ -58,9 +65,35 @@ public class InventoryDB : MonoBehaviour
                 marketCondition.Invoke();
             }
         }
-        changeInventory.Invoke();
+        if (EtcInventory.Instance)
+            EtcInventory.Instance.ResetSlot();
     }
     public void Remove(Item data)
+    {
+        Use(data);
+        Gold += data.itemPrice;
+        Sell.Instance.Gold.GetComponent<Text>().text = Gold.ToString();
+        buy.gold.GetComponent<Text>().text = Gold.ToString();
+        //EtcInventory.Instance.ResetSlot();
+        //Sell.Instance.ResetSlot();
+        //changeInventory.Invoke();
+    }
+    public void DeleteItem(Item data)
+    {
+        var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
+        if (inventoryItem != null)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i] == inventoryItem)
+                {
+                    items.RemoveAt(i);
+                    items.Insert(i, new InventoryItem(null, 0));
+                }
+            }
+        }
+    }
+    public void Use(Item data)
     {
         var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null)
@@ -69,28 +102,27 @@ public class InventoryDB : MonoBehaviour
                 inventoryItem.count--;
             else if (inventoryItem.count == 1 || inventoryItem.count == 0)
             {
-                for (int i = 0; i < inventory.count; i++)
+                for (int i = 0; i < items.Count; i++)
                 {
                     if (items[i] == inventoryItem)
                     {
                         items.RemoveAt(i);
-                        items.Insert(i,new InventoryItem(null, 0));
+                        items.Insert(i, new InventoryItem(null, 0));
                     }
                 }
             }
         }
-        Gold += data.itemPrice;
-        EtcInventory.Instance.gold.GetComponent<Text>().text = Gold.ToString();
-        buy.gold.GetComponent<Text>().text = Gold.ToString();
-        changeInventory.Invoke();
     }
     public void Equip(Item data)
     {
         var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
         if (inventoryItem != null && inventoryItem.count == 0)
         {
-            Remove(data);
+            Use(data);
         }
-        changeInventory.Invoke();
+        EtcInventory.Instance.ResetSlot();
+        //Sell.Instance.ResetSlot();
+        //changeInventory.Invoke();
     }
+    
 }
