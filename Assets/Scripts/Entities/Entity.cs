@@ -3,20 +3,15 @@ using UnityEngine;
 
 namespace Entities
 {
-    public enum EntityType
+    [CreateAssetMenu(fileName = "New Entity", menuName = "Pagomoa/Entity")]
+    public class Entity : ScriptableObject
     {
-        Object,
-        Player,
-        Enemy,
-        NPC,
-    }
-    
-    public class Entity : MonoBehaviour
-    {
-        public 
+        public string displayName;
 
-        public string name;
+        public float health = float.PositiveInfinity;
         
-        public float health = 10f;
+        public bool isEnemy;
+        
+        public string description;
     }
 }
