@@ -55,7 +55,8 @@ public class DialogueManager : MonoBehaviour
         talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null ;
         nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
         talkImage.enabled = talkImage.sprite == null ? false : true;
-        nameText.transform.parent.GetComponent<Image>().enabled = nameText.text == "" ? false : true;
+        bool visible = nameText.text == "" ? false : true;
+        nameText.transform.parent.gameObject.SetActive(visible);
 
         talkPannel.SetActive(true);
         talkIndex++;
