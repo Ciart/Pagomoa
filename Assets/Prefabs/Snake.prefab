@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 735875786116628391}
   - component: {fileID: 3656465409274287459}
   - component: {fileID: 7920561617849617800}
+  - component: {fileID: 5833853642368172660}
   m_Layer: 7
   m_Name: Snake
   m_TagString: Monster
@@ -399,3 +400,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unbeatTime: 0.6
+--- !u!114 &5833853642368172660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094247419071719335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  status:
+    health: 0
+    maxHealth: 0

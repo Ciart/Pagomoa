@@ -1,5 +1,7 @@
+using System;
 using JetBrains.Annotations;
 using UnityEngine;
+using Worlds;
 
 namespace Entities
 {
@@ -8,6 +10,8 @@ namespace Entities
         public Entity entity;
 
         public EntityStatus status;
+
+        private Rigidbody2D _rigidbody;
 
         public void Init(Entity entity, EntityStatus status = null)
         {
@@ -41,6 +45,26 @@ namespace Entities
         private void Die()
         {
             //
+        }
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _rigidbody.simulated = false;
+        }
+
+        private void Update()
+        {
+            var distance = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+
+            if (distance > 10f)
+            {
+                _rigidbody.simulated = false;
+            }
+            else
+            {
+                _rigidbody.simulated = true;
+            }
         }
     }
 }

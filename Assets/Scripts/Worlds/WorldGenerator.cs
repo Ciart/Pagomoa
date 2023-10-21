@@ -80,7 +80,7 @@ namespace Worlds
             var forestPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Forest)));
 
-            var world = new World(chunkSize, top, bottom, left, right);
+            var world = new World(top, bottom, left, right);
 
             var worldLeft = -left * chunkSize;
             var worldRight = right * chunkSize;
@@ -205,9 +205,9 @@ namespace Worlds
                 }
             }
 
-            foreach (var prefab in piece.prefabs)
+            foreach (var prefab in piece.entities)
             {
-                world.AddPrefab(worldX - piece.pivot.x + prefab.x, worldY - piece.pivot.y + prefab.y, prefab.prefab);
+                world.AddEntity(worldX - piece.pivot.x + prefab.x + 0.5f, worldY - piece.pivot.y + prefab.y + 0.5f, prefab.entity);
             }
         }
     }

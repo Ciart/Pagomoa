@@ -11,7 +11,7 @@ namespace Editor
     {
         private readonly string[] _tabStrings =
         {
-            "Wall", "Ground", "Mineral", "Pivot"
+            "Pivot", "Wall", "Ground", "Mineral", "Entity"
         };
 
         private int _tabIndex = 1;
@@ -27,6 +27,8 @@ namespace Editor
         private int _selectGround;
 
         private int _selectMineral;
+
+        private int _selectEntity;
 
         [MenuItem("Window/World Database Editor")]
         private static void Init()
@@ -94,18 +96,21 @@ namespace Editor
 
             switch (_tabIndex)
             {
-                case 0:
-                    _selectWall = EditorGUILayout.Popup(_selectWall,
-                        _database.walls.Select(ground => ground.displayName).ToArray());
-                    break;
                 case 1:
-                    _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.displayName).ToArray());
+                    _selectWall = EditorGUILayout.Popup(_selectWall,
+                        _database.walls.Select(wall => wall.displayName ?? wall.name).ToArray());
                     break;
                 case 2:
+                    _selectGround = EditorGUILayout.Popup(_selectGround,
+                        _database.grounds.Select(ground => ground.displayName ?? ground.name).ToArray());
+                    break;
+                case 3:
                     _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.displayName).ToArray());
-                    Repaint();
+                        _database.minerals.Select(mineral => mineral.displayName ?? mineral.name).ToArray());
+                    break;
+                case 4:
+                    _selectEntity = EditorGUILayout.Popup(_selectEntity,
+                        _database.entities.Select(entity => entity.displayName ?? entity.name).ToArray());
                     break;
             }
 
@@ -129,16 +134,20 @@ namespace Editor
                             switch (_tabIndex)
                             {
                                 case 0:
-                                    brick.wall = _database.walls[_selectWall];
+                                    piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.ground = _database.grounds[_selectGround];
+                                    brick.wall = _database.walls[_selectWall];
                                     break;
                                 case 2:
-                                    brick.mineral = _database.minerals[_selectMineral];
+                                    brick.ground = _database.grounds[_selectGround];
                                     break;
                                 case 3:
-                                    piece.pivot = new Vector2Int(x, y);
+                                    brick.mineral = _database.minerals[_selectMineral];
+                                    break;
+                                case 4:
+                                    // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
+                                    piece.AddEntity(x, y, _database.entities[_selectEntity]);
                                     break;
                             }
 
@@ -150,16 +159,16 @@ namespace Editor
                             switch (_tabIndex)
                             {
                                 case 0:
-                                    brick.wall = null;
+                                    piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.ground = null;
+                                    brick.wall = null;
                                     break;
                                 case 2:
-                                    brick.mineral = null;
+                                    brick.ground = null;
                                     break;
                                 case 3:
-                                    piece.pivot = new Vector2Int(x, y);
+                                    brick.mineral = null;
                                     break;
                             }
 
@@ -198,7 +207,7 @@ namespace Editor
             var pivotY = piece.height * 36 - piece.pivot.y * 36 + 100;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
 
-            foreach (var prefab in piece.prefabs)
+            foreach (var prefab in piece.entities)
             {
                 var prefabX = prefab.x * 36 + 8;
                 var prefabY = piece.height * 36 - prefab.y * 36 + 100;

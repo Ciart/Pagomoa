@@ -100,7 +100,7 @@ SpriteRenderer:
   m_Size: {x: 2.25, y: 2.3125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &545810255901230581
@@ -226,6 +226,9 @@ MonoBehaviour:
   tiredDigSpeedScoop: 5
   drillLevel: 0
   drillTier: 10
+  width: 2
+  length: 1
+  targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
 --- !u!114 &6246817563821551012
 MonoBehaviour:
   m_ObjectHideFlags: 0
