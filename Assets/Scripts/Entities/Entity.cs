@@ -17,8 +17,8 @@ namespace Entities
         Owl
     }
 
-    [CreateAssetMenu(fileName = "New EntitySignature", menuName = "Pagomoa/EntitySignature")]
-    public class EntitySignature : ScriptableObject
+    [CreateAssetMenu(fileName = "New Entity", menuName = "Pagomoa/Entity")]
+    public class Entity : ScriptableObject
     {
         public string displayName;
 
@@ -27,5 +27,9 @@ namespace Entities
         public EntityType type;
 
         public int subType;
+        
+        public EntityController prefab;
+        
+        public float baseHealth;
     }
 }

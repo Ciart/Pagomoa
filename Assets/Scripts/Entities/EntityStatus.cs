@@ -6,7 +6,7 @@ namespace Entities
     public class EntityStatus
     {
         public float health;
-
+        
         public float maxHealth;
     }
 }

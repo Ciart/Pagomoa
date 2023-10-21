@@ -274,5 +274,14 @@ namespace Worlds
                 StartCoroutine(_ufoInteraction.MoveToPlayer());
             }
         }
+        
+        public EntityController SpawnEntity(Entity entity, Vector3 position, EntityStatus status = null)
+        {
+            var controller = Instantiate(entity.prefab, position, Quaternion.identity);
+            
+            controller.Init(entity, status);
+
+            return controller;
+        }
     }
 }
