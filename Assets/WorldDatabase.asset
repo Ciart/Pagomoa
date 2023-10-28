@@ -313,6 +313,54 @@ MonoBehaviour:
         maxHealth: 0
     - x: 2
       y: 2
+      entity: {fileID: 11400000, guid: 6429a4be7f5be364590aa0cc74d9022f, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 3
+      y: 3
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 3
+      y: 3
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 4
+      y: 3
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 4
+      y: 3
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 4
+      y: 4
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 4
+      y: 4
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 3
+      y: 4
+      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 3
+      y: 4
       entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
       status:
         health: 0
