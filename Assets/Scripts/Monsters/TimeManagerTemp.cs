@@ -1,6 +1,6 @@
+using Quest;
 using UnityEngine;
 using UnityEngine.Events;
-using Logger = Quest.Logger;
 
 public class TimeManagerTemp : MonoBehaviour
 {
@@ -93,9 +93,9 @@ public class TimeManagerTemp : MonoBehaviour
             NextDaySpawn.Invoke();
             Debug.Log("다음 날이야!");
             
-            Logger.Instance.LogObject(Logger.LoggingGeneral.Date);
-            Debug.Log(Logger.Instance.GetObjectCount(Logger.LoggingGeneral.Date));
-            Debug.Log(Logger.Instance.GetObjectCount(Logger.LoggingGeneral.Brick));
+            GameLogger.Instance.LogObject(GameLogger.LoggingGeneral.Date);
+            Debug.Log(GameLogger.Instance.GetObjectCount(GameLogger.LoggingGeneral.Date));
+            Debug.Log(GameLogger.Instance.GetObjectCount(GameLogger.LoggingGeneral.Brick));
         }
         if (time == endTime) // 잠자는 시간 22 ~ 06
         {

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Quest
 {
-    public class Logger : MonoBehaviour
+    [Serializable]
+    public class GameLogger : MonoBehaviour
     {
         [Serializable]
         public enum LoggingQuest
@@ -17,35 +19,53 @@ namespace Quest
         [Serializable]
         public enum LoggingGeneral
         {
-            Brick,
+            Brick, 
+            
             Mineral,
-            Date
+            
+            Date,
+            
+            Time,
+            
+            RemoteControl,
+            
+            Copper,
+            
+            Guri,
         }
 
-        private static Logger _instance;
+        private static GameLogger _instance;
 
-        public static Logger Instance
+        public static GameLogger Instance
         {
             get
             {
                 if (_instance is null)
                 {
-                    _instance = (Logger)FindObjectOfType(typeof(Logger));
+                    _instance = (GameLogger)FindObjectOfType(typeof(GameLogger));
                 }
-                
                 return _instance;
             }
         }
-
+        
         private Dictionary<LoggingGeneral, int> _objectTypeCounts = new Dictionary<LoggingGeneral, int>();
+        
+        public List<LoggingGeneral> generalKeyList;
 
-        public void LogObject(LoggingGeneral objectType)
+        void Start()
         {
-            if (_objectTypeCounts.ContainsKey(objectType))
+            generalKeyList = Enum.GetValues(typeof(LoggingGeneral)).Cast<LoggingGeneral>().ToList();
+        }
+        
+        public void LogObject(LoggingGeneral objectType, int count = 0)
+        {
+            if (count != 0)
+            {
+                _objectTypeCounts.Add(objectType, count);
+            } else if (_objectTypeCounts.ContainsKey(objectType))
             {
                 _objectTypeCounts[objectType]++;
-            }
-            else
+            } else
             {
                 _objectTypeCounts.Add(objectType, 1);
             }
@@ -59,5 +79,6 @@ namespace Quest
             }
             return 0;
         }
+
     }   
 }

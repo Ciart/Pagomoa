@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory;
+using Quest;
+using Unity.VisualScripting;
 using UnityEngine;
 using Worlds;
 
@@ -18,6 +20,7 @@ public class GameData
     public ArtifactData artifactData;
     public QuickSlotData quickSlotData;
     public PlayerCurrentStatusData playerStatusData;
+    public LogGeneralData gameLogData;
 }
 
 [System.Serializable]
@@ -27,9 +30,21 @@ public class IntroData
 }
 
 [System.Serializable]
-public class LogGeneralData<LoggingGeneral>
+public class LogGeneralData
 {
-    public DicList<LoggingGeneral, int> generalObject; 
+    public List<int> values = new List<int>();
+    
+    
+    
+    public void SetGeneralObjectCount(List<GameLogger.LoggingGeneral> logs)
+    {
+        values.Clear();
+        
+        foreach (GameLogger.LoggingGeneral obj in logs)
+        {
+            values.Add(GameLogger.Instance.GetObjectCount(obj));
+        }
+    }
 }
 
 [System.Serializable]
@@ -145,8 +160,6 @@ public class DicList<TKey, TValue>
 
 public static class ListDictionaryConverter
 {
-
-
     public static DicList<TKey, TValue> ToList<TKey, TValue>(Dictionary<TKey, TValue> jsonDicData, bool pretty = false)
     {
         List<DataDictionary<TKey, TValue>> dataList = new List<DataDictionary<TKey, TValue>>();

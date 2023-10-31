@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Inventory;
+using Quest;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Worlds;
@@ -214,6 +215,19 @@ public class SaveManager : MonoBehaviour
         status.oxygenAlter.Invoke(status.oxygen, status.maxOxygen);
         status.hungryAlter.Invoke(status.hungry, status.maxHungry);
     }
+
+    public void LoadGameLogData()
+    {
+        var arr = 0;
+        
+        foreach (var obj in GameLogger.Instance.generalKeyList)
+        {
+            Debug.Log(DataManager.Instance.data.gameLogData.values[arr]);
+            GameLogger.Instance.LogObject(obj, DataManager.Instance.data.gameLogData.values[arr]);
+            arr++;
+        }
+    }
+    
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -241,7 +255,7 @@ public class SaveManager : MonoBehaviour
         InitData();
         DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
     }
-    public void WriteOptionData()
+    void WriteOptionData()
     {
         InitData();
         DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
@@ -260,7 +274,11 @@ public class SaveManager : MonoBehaviour
     {
         InitData();
         DataManager.Instance.data.playerStatusData.SetCurrentStatusData(GameManager.instance.player.GetComponent<Status>());
-        
+    }
+    void WriteGameLogData()
+    {
+        InitData();
+        DataManager.Instance.data.gameLogData.SetGeneralObjectCount(GameLogger.Instance.generalKeyList);
     }
     public void InitData()
     {
@@ -307,6 +325,11 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No Player Status Data before, Instantiate new Player Status Data");
             DataManager.Instance.data.playerStatusData = new PlayerCurrentStatusData();
         }
+        if (DataManager.Instance.data.gameLogData == null)
+        {
+            Debug.Log("No Log Data before, Instantiate new Log Data");
+            DataManager.Instance.data.gameLogData = new LogGeneralData();
+        }
     }
 
     private void OnApplicationQuit()
@@ -319,6 +342,7 @@ public class SaveManager : MonoBehaviour
         WriteArtifactData();
         WriteQuickSlotData();
         WritePlayerCurrentStatusData();
+        WriteGameLogData();
         DataManager.Instance.SaveGameData();
     }
 
