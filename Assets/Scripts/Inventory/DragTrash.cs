@@ -19,7 +19,7 @@ public class DragTrash : MonoBehaviour, IDropHandler
         }
         else if (eventData.pointerPress.GetComponent<Slot>())
         {
-            InventoryDB.Instance.items.Remove(eventData.pointerDrag.GetComponent<Slot>().inventoryItem);
+            InventoryDB.Instance.DeleteItem(eventData.pointerDrag.GetComponent<Slot>().inventoryItem.item);
             EtcInventory.Instance.ResetSlot();
         }
     }

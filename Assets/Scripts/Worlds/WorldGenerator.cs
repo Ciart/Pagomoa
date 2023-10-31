@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
+using Random = Unity.Mathematics.Random;
 
 namespace Worlds
 {
@@ -54,9 +51,9 @@ namespace Worlds
             return weightedPieces;
         }
 
-        private Piece GetRandomPiece(WeightedPieces weightedPieces)
+        private Piece GetRandomPiece(WeightedPieces weightedPieces, Random random)
         {
-            var pivot = Random.value;
+            var pivot = random.NextFloat();
 
             var count = 0f;
 
@@ -76,7 +73,7 @@ namespace Worlds
         public void Generate()
         {
             var database = _worldManager.database;
-            var random = new Unity.Mathematics.Random(seed);
+            var random = new Random(seed);
             
             var desertPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Desert)));
@@ -125,7 +122,7 @@ namespace Worlds
             {
                 for (var y = worldBottom; y < worldTop; y++)
                 {
-                    if (Random.Range(0, 30) != 0)
+                    if (random.NextFloat() >= 1f / 30f)
                     {
                         continue;
                     }
@@ -134,11 +131,11 @@ namespace Worlds
 
                     if (y > FOREST_HEIGHT)
                     {
-                        piece = GetRandomPiece(desertPieces);
+                        piece = GetRandomPiece(desertPieces, random);
                     }
                     else
                     {
-                        piece = GetRandomPiece(forestPieces);
+                        piece = GetRandomPiece(forestPieces, random);
                     }
 
                     GeneratePiece(piece, world, x, y);

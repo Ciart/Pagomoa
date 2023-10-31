@@ -16,4 +16,4 @@ MonoBehaviour:
   itemType: 2
   itemImage: {fileID: 784374654, guid: e64c3b2d9cb194bacb7171376a61632f, type: 3}
   itemInfo: "\uCCA0\uCCA0 \uD750\uB974\uB294 \uCCA0"
-  itemPrice: 0
+  itemPrice: 10

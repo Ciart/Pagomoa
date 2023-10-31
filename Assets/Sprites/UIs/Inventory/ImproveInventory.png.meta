@@ -214,6 +214,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Partition 48 - 2
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 209
+        width: 48
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d2ce1e139374064a908bdbddda326ba
+      internalID: -1908837622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TypeUI 49 - 15
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 189
+        width: 49
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 838effe3b30587c46a97cae355c126df
+      internalID: -709836552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Current Rating 50 - 16
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 170
+        width: 50
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c5f2202bbc6c15498d4abe0da5ada37
+      internalID: -384742609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Next Rating 48 - 15
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 152
+        width: 48
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d5654347f493404287615a678750bd1
+      internalID: 447873895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -226,10 +310,14 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       17-62: 430951007
+      Current Rating 50 - 16: -384742609
+      Next Rating 48 - 15: 447873895
+      Partition 48 - 2: -1908837622
       Tab1-1 17-29: -490576879
       Tab1-2 17-29: 1246219558
       Tab2-1 17-29: 889245347
       Tab2-2 17-29: -1690993502
+      TypeUI 49 - 15: -709836552
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

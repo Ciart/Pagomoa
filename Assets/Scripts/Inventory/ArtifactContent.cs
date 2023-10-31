@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class ArtifactContent : MonoBehaviour
 {
-    [SerializeField] private ArtifactSlotDB artifactSlotDB;
-    [SerializeField] private Sprite image;
-    [SerializeField] private List<Slot> slotDatas = new List<Slot>();
+    //[SerializeField] private ArtifactSlotDB artifactSlotDB;
+    [SerializeField] private Sprite _emptyImage;
+    [SerializeField] private List<Slot> _artifactSlotDatas = new List<Slot>();
 
     private static ArtifactContent instance;
     public static ArtifactContent Instance
@@ -29,22 +29,22 @@ public class ArtifactContent : MonoBehaviour
     public void ResetSlot() 
     {
         int i = 0;
-        for (; i < artifactSlotDB.Artifact.Count && i < slotDatas.Count; i++)
-            slotDatas[i].inventoryItem = artifactSlotDB.Artifact[i];
-        for (; i < slotDatas.Count; i++)
-            slotDatas[i].inventoryItem = null;
+        for (; i < ArtifactSlotDB.Instance.Artifact.Count && i < _artifactSlotDatas.Count; i++)
+            _artifactSlotDatas[i].inventoryItem = ArtifactSlotDB.Instance.Artifact[i];
+        for (; i < _artifactSlotDatas.Count; i++)
+            _artifactSlotDatas[i].inventoryItem = null;
         UpdateSlot();
     }
     public void UpdateSlot()
     {
         DeleteSlot();
-        for (int i = 0; i < artifactSlotDB.Artifact.Count; i++)
-            slotDatas[i].SetUI(artifactSlotDB.Artifact[i].item.itemImage);
+        for (int i = 0; i < ArtifactSlotDB.Instance.Artifact.Count; i++)
+            _artifactSlotDatas[i].SetUI(ArtifactSlotDB.Instance.Artifact[i].item.itemImage);
     }
     public void DeleteSlot()
     {
-        if (artifactSlotDB.Artifact.Count >= 0)
-            for (int i = 0; i < slotDatas.Count; i++)
-                slotDatas[i].SetUI(image);
+        if (ArtifactSlotDB.Instance.Artifact.Count >= 0)
+            for (int i = 0; i < _artifactSlotDatas.Count; i++)
+                _artifactSlotDatas[i].SetUI(_emptyImage);
     }
 }
