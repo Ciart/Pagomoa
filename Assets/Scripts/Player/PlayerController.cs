@@ -26,12 +26,14 @@ namespace Player
         public float sideWallDistance = 1.0625f;
 
         private Rigidbody2D _rigidbody;
-
+        
         private PlayerInput _input;
 
         private PlayerMovement _movement;
 
         private PlayerDigger _digger;
+        
+        private Camera _camera;
 
         private WorldManager _world;
 
@@ -47,6 +49,7 @@ namespace Player
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
 
+            _camera = Camera.main;
             _world = WorldManager.instance;
         }
 
@@ -68,12 +71,18 @@ namespace Player
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
 
-            _direction = DirectionUtility.ToDirection(_input.Move);
+            _direction = DirectionUtility.ToDirection(_camera.ScreenToWorldPoint(_input.Look) - transform.position);
 
             if (_input.IsDig && state != PlayerState.Climb)
             {
                 _digger.isDig = true;
-                _digger.direction = _direction == Direction.Up ? Direction.Down : _direction;
+                _digger.direction = _direction;
+                drill.SetActive(true);
+            }
+            else if (_input.DigDirection.magnitude > 0.001f)
+            {
+                _digger.isDig = true;
+                _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
                 drill.SetActive(true);
             }
             else
