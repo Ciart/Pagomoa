@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Inventory;
-using Quest;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Worlds;
@@ -218,14 +217,14 @@ public class SaveManager : MonoBehaviour
 
     public void LoadGameLogData()
     {
-        var arr = 0;
+        /*var arr = 0;
         
         foreach (var obj in GameLogger.Instance.generalKeyList)
         {
             Debug.Log(DataManager.Instance.data.gameLogData.values[arr]);
             GameLogger.Instance.LogObject(obj, DataManager.Instance.data.gameLogData.values[arr]);
             arr++;
-        }
+        }*/
     }
     
     void WritePosData()
@@ -278,7 +277,7 @@ public class SaveManager : MonoBehaviour
     void WriteGameLogData()
     {
         InitData();
-        DataManager.Instance.data.gameLogData.SetGeneralObjectCount(GameLogger.Instance.generalKeyList);
+        /*DataManager.Instance.data.gameLogData.SetGeneralObjectCount(GameLogger.Instance.generalKeyList);*/
     }
     public void InitData()
     {

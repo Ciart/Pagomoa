@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Quest;
 using UFO;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -212,8 +211,6 @@ namespace Worlds
 
             brick.ground = null;
             brick.mineral = null;
-            
-            GameLogger.Instance.LogObject(GameLogger.LoggingGeneral.Brick);
 
             // _expiredChunks.Add(chunk);
 

@@ -1,5 +1,4 @@
 using System;
-using Quest;
 using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,7 +33,6 @@ public class Collect : MonoBehaviour
         
         OnCollectEvent.Invoke();
         inventoryDB.Add(item);
-        GameLogger.Instance.LogObject(GameLogger.LoggingGeneral.Mineral);
         Destroy(itemEntity.gameObject);
         
         if (item.name == "PowerGemEarth")

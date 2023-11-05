@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory;
-using Quest;
 using Unity.VisualScripting;
 using UnityEngine;
 using Worlds;
@@ -32,7 +31,7 @@ public class IntroData
 [System.Serializable]
 public class LogGeneralData
 {
-    public List<int> values = new List<int>();
+    /*public List<int> values = new List<int>();
     
     
     
@@ -44,7 +43,7 @@ public class LogGeneralData
         {
             values.Add(GameLogger.Instance.GetObjectCount(obj));
         }
-    }
+    }*/
 }
 
 [System.Serializable]
