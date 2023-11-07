@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 namespace Logger
 {
     [CreateAssetMenu(menuName = "MakeQuest")]
-    public class Quest<T> : ScriptableObject
+    public class Quest : ScriptableObject
     {
         public bool clear = false;
         [Space]
@@ -14,9 +15,8 @@ namespace Logger
         [TextArea] public string description;
         // public bool active;
 
-        public Dictionary<string, string> questStringDic = new Dictionary<string, string>();
-        public Dictionary<string, bool> questBoolDic = new Dictionary<string, bool>();
-        public Dictionary<string, int> questIntDic = new Dictionary<string, int>();
-        public Dictionary<string, float> questFloatDic = new Dictionary<string, float>();
+        public List<QuestType<int>> questIntList = new List<QuestType<int>>();
+        public List<QuestType<float>> questFloatList = new List<QuestType<float>>();
+        public List<QuestType<bool>> questBoolList = new List<QuestType<bool>>();
     }
 }

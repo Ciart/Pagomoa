@@ -3,19 +3,18 @@ using UnityEngine;
 
 namespace Logger
 {
-    public class QuestDatabase<T> : MonoBehaviour
+    public class QuestDatabase : MonoBehaviour
     {
-        public List<Quest<Dictionary<string, T>>> playerQuests = new List<Quest<Dictionary<string, T>>>();
 
-        private static QuestDatabase<T> _instance;
+        private static QuestDatabase _instance;
 
-        public static QuestDatabase<T> Instance
+        public static QuestDatabase Instance
         {
             get
             {
                 if (_instance is null)
                 {
-                    _instance = (QuestDatabase<T>)FindObjectOfType(typeof(QuestDatabase<T>));
+                    _instance = (QuestDatabase)FindObjectOfType(typeof(QuestDatabase)); 
                 }
 
                 return _instance;
