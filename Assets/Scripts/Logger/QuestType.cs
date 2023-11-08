@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Logger
 {
-    public class QuestType : MonoBehaviour
+    public class QuestType
     {
-        protected string summary;
-        protected int intValue;
-        protected float floatValue;
-        protected bool boolValue;
+        public string summary;
+        public int intValue;
+        public float floatValue;
+        public bool boolValue;
 
         protected QuestType(string summary, int value)
         {

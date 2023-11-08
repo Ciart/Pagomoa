@@ -15,7 +15,7 @@ namespace Logger
         public int nextQuestId;
         [TextArea] public string description;
 
-        public MonoScript script;
+        public QuestType questType;
         
         public List<QuestType> questList = new List<QuestType>();
         

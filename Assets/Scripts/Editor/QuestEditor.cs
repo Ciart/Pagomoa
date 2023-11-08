@@ -1,14 +1,22 @@
 ﻿using Logger;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 
 namespace Editor
 {
     [CustomEditor(typeof(Quest))]
+    [CanEditMultipleObjects]
     public class QuestEditor : UnityEditor.Editor
     {
-        public int index;
-        public string[] options = new string[] { "수집, 삭제", "조우, 최초 획득", "float형" };
+        public int typeIndex;
+        public int functionIndex;
+        public string[] typeOptions = new string[] { "정수형", "boolean형", "상수형"};
+        
+        public string[] intFuncOptions = new string[] { "Entity 수집", "Entity 소모"};
+        public string[] boolFuncOptions = new string[] { "Entity 최초획득", "Entity 조우"};
+        public string[] floatFuncOptions = new string[] { "Entity ???", "왜 안나와?"};
+        
 
         public override void OnInspectorGUI()
         {
@@ -18,28 +26,59 @@ namespace Editor
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
 
             GUILayout.Space(20);
-            newQuest.questList.Capacity = EditorGUILayout.IntField("퀘스트 갯수", newQuest.questList.Capacity);
-            GUILayout.Space(20);
-
-            for (int i = 0; i < newQuest.questList.Capacity; i++)
-            {
-                newQuest.script = (MonoScript)EditorGUILayout.ObjectField("퀘스트 타입", newQuest.script, typeof(MonoScript), true);
+            EditorGUILayout.LabelField("퀘스트 형식 지정");
+            typeIndex = EditorGUILayout.Popup("수행할 타입", typeIndex, typeOptions);
             
-                index = EditorGUILayout.Popup(index, options);
-
-                switch (index)
-                {
-                    case 0 :
-                    
-                        break;
-                    case 1 :
-                        break;
-                }
-                GUILayout.Space(20);
+            switch (typeIndex)
+            {
+                case 0:
+                    functionIndex = EditorGUILayout.Popup("수행할 타입", functionIndex, intFuncOptions);
+                    break;
+                case 1:
+                    functionIndex = EditorGUILayout.Popup("수행할 타입", functionIndex, boolFuncOptions);
+                    break;
+                case 2:
+                    functionIndex = EditorGUILayout.Popup("수행할 타입", functionIndex, floatFuncOptions);
+                    break;
             }
             
+            if (GUILayout.Button("퀘스트 생성"))
+            {
+                if (typeIndex == 0 && functionIndex == 0)
+                {
+                    QuestCollect collect = new QuestCollect("수집 퀘스트 설명", 0);
+                    newQuest.questList.Add(collect);
+                } else if (typeIndex == 0 && functionIndex == 1)
+                {
+                    
+                }
+            }
+            if (GUILayout.Button("퀘스트 삭제"))
+            {
+                newQuest.questList.RemoveAt(newQuest.questList.Count - 1);
+            }
 
+            GUILayout.Space(20);
+            
+            for (int i = 0; i < newQuest.questList.Count; i++)
+            {
+                if (newQuest.questList[i].GetType() == typeof(QuestCollect))
+                {
+                    EditorGUILayout.LabelField($"{i+1}번째 수집 퀘스트 정의");
+                    newQuest.questList[i].ConvertTo<QuestCollect>().targetObject = 
+                        EditorGUILayout.ObjectField("퀘스트 객체", newQuest.questList[i].ConvertTo<QuestCollect>().targetObject, typeof(ScriptableObject), false) as ScriptableObject;
+                    newQuest.questList[i].ConvertTo<QuestCollect>().intValue =
+                        EditorGUILayout.IntField("수집할 값", newQuest.questList[i].ConvertTo<QuestCollect>().intValue);
+                    GUILayout.Space(20);
+                }
+            }
 
+            // 퀘스트 조건을 먼저 수집인지, 뭐 조우인지, 삭제인지 등등
+            // state 만들어서하거나
+            // 아니면 팝업, 버튼
+            
+            // 퀘스트 조건에 따라 퀘스트 타입을 생성하여 퀘스트 리스트에 삽입
+            // 필요한 타겟 엔티티 할당으로 목표 표시하게
 
 
             // Popup EditorGUILayOut

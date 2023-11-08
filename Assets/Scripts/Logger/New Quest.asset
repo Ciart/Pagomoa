@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: New Quest
   m_EditorClassIdentifier: 
   clear: 0
-  questId: 0
-  nextQuestId: 0
-  description: 
-  script: {fileID: 11500000, guid: 79c457e84d354cc3a206f8ee1cba2cfb, type: 3}
-  questList: []
+  questId: 1
+  nextQuestId: 1
+  description: 231221
