@@ -1,36 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Logger;
+﻿using Logger;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
 
 namespace Editor
 {
     [CustomEditor(typeof(Quest))]
     public class QuestEditor : UnityEditor.Editor
     {
-        
-        
+        public int index;
+        public string[] options = new string[] { "수집, 삭제", "조우, 최초 획득", "float형" };
+
         public override void OnInspectorGUI()
         {
             Quest newQuest = (Quest)target;
-
             newQuest.questId = EditorGUILayout.IntField("Quest ID", newQuest.questId);
-            newQuest.nextQuestId = EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
+            newQuest.nextQuestId =  EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
 
             GUILayout.Space(20);
+            newQuest.questList.Capacity = EditorGUILayout.IntField("퀘스트 갯수", newQuest.questList.Capacity);
+            GUILayout.Space(20);
+
+            for (int i = 0; i < newQuest.questList.Capacity; i++)
+            {
+                newQuest.script = (MonoScript)EditorGUILayout.ObjectField("퀘스트 타입", newQuest.script, typeof(MonoScript), true);
             
+                index = EditorGUILayout.Popup(index, options);
+
+                switch (index)
+                {
+                    case 0 :
+                    
+                        break;
+                    case 1 :
+                        break;
+                }
+                GUILayout.Space(20);
+            }
+            
+
+
+
+
             // Popup EditorGUILayOut
             // https://docs.unity3d.com/ScriptReference/EditorGUILayout.Popup.html
 
-            // popup으로 타입 정하고
-            // 들어갈 값 정하기
-
-            
-            for (int i = 0; i < newQuest.questIntList.Count; i++)
+            /*for (int i = 0; i < newQuest.questIntList.Count; i++)
             {
                 EditorGUILayout.LabelField($"퀘스트{i+1}");    
                 newQuest.questIntList[i].summary = EditorGUILayout.TextField("Summary", newQuest.questIntList[i].summary);
@@ -83,7 +98,7 @@ namespace Editor
             if (GUILayout.Button("하단부터 퀘스트 목록 제거") && newQuest.questBoolList.Count > 0)
             {
                 newQuest.questBoolList.RemoveAt(newQuest.questBoolList.Count - 1);
-            }
+            }*/
             
             EditorUtility.SetDirty(newQuest);
         }

@@ -5,6 +5,7 @@ namespace Logger
 {
     public class QuestDatabase : MonoBehaviour
     {
+        public List<ScriptableObject> quests = new List<ScriptableObject>();
 
         private static QuestDatabase _instance;
 
