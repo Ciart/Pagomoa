@@ -2,19 +2,14 @@
 
 namespace Logger
 {
-    public class QuestEncounter : QuestType
+    public class QuestEncounter : QuestBoolCondition
     {
         public Item targetObject;
 
         public QuestEncounter(string summary, bool value) : base(summary, value)
         {
-            this.summary = summary;
-            this.boolValue = value;
-        }
-
-        public bool CompleteQuest()
-        {
-            throw new System.NotImplementedException();
+            Summary = summary;
+            Value = value;
         }
 
         public void CalculateMethod()

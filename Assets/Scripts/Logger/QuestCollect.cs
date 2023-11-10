@@ -1,23 +1,18 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Logger
 {
-    public class QuestCollect : QuestType
+    public class QuestCollect : QuestFloatCondition
     {
-        public ScriptableObject targetObject;
         public int targetCount;
 
-        public QuestCollect(string summary, int value) : base(summary, value)
+        public QuestCollect(string summary, float value) : base(summary, value)
         {
-            this.summary = base.summary;
-            intValue = value;
-        }
-
-        public bool CompleteQuest()
-        {
-            return targetCount == intValue;
+            Summary = summary;
+            Value = value;
         }
 
         public void CalculateMethod()

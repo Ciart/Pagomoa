@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Logger
@@ -23,6 +24,16 @@ namespace Logger
                     _instance =  (QuestManager)FindObjectOfType(typeof(QuestManager));
                 }
                 return _instance;
+            }
+        }
+
+        private void Update()
+        {
+            if (QuestDatabase.Instance.quests[0].questId == 1)
+            {
+                QuestCondition<float> a = QuestDatabase.Instance.quests[0].questList[0];
+                Debug.Log(a.targetObject);
+                Debug.Log(a.Value);
             }
         }
     }   
