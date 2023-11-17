@@ -28,13 +28,10 @@ namespace Logger
         }
 
         private void Update()
-        {
-            if (QuestDatabase.Instance.quests[0].questId == 1)
-            {
-                QuestCondition<float> a = QuestDatabase.Instance.quests[0].questList[0];
-                Debug.Log(a.targetObject);
-                Debug.Log(a.Value);
-            }
+        {   
+            Debug.Log(QuestDatabase.Instance.quests[0].questList.Count);
+            Debug.Log(QuestDatabase.Instance.quests[0].questList[0].targetObject);
+            Debug.Log(QuestDatabase.Instance.quests[0].questList[0].GetType());
         }
     }   
 }

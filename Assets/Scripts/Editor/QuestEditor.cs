@@ -1,4 +1,5 @@
 ﻿using Logger;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 
@@ -63,8 +64,11 @@ namespace Editor
             {
                 newQuest.questList[i].targetObject = (ScriptableObject)EditorGUILayout.ObjectField("기록할 객체",
                     newQuest.questList[i].targetObject, typeof(ScriptableObject), true);
-                int inputValue = EditorGUILayout.IntField("기록할 갯수", (int)newQuest.questList[i].Value);
-                newQuest.questList[i].Value = inputValue;
+                if (newQuest.questList[i] is QuestCondition)
+                {
+                    var temp = (QuestCondition)newQuest.questList[i];
+                    temp.Value = EditorGUILayout.FloatField("기록할 갯수", temp.Value);
+                }
             }
 
             GUILayout.Space(20);

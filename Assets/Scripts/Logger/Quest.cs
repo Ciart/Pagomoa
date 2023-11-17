@@ -12,6 +12,6 @@ namespace Logger
         [SerializeField] public int nextQuestId;
         [TextArea, SerializeField] public string description;
         
-        public List<QuestCondition<float>> questList = new List<QuestCondition<float>>();
+        public List<QuestCondition> questList = new List<QuestCondition>();
     }       
 }

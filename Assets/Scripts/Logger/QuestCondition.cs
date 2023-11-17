@@ -1,46 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace Logger
 {
     [Serializable] 
-    public class QuestCondition<T>
+    public class QuestCondition
     {
         public string Summary { get; set; }
-        public T Value { get; set; }
+        public string value;
         public ScriptableObject targetObject;
-
-        protected QuestCondition(string summary, T value)
+        
+        protected QuestCondition(string summary, string value)
         {
             Summary = summary;
-            Value = value;
-        }
-    }
-    [Serializable]
-    public class QuestFloatCondition : QuestCondition<float>
-    {
-        protected QuestFloatCondition(string summary, float value) : base(summary, value)
-        {
-            Summary = summary;
-            Value = value;
-        }
-        public bool CompleteQuest()
-        {
-            return true;
-        }
-    }
-    [Serializable]
-    public class QuestBoolCondition : QuestCondition<bool>
-    {
-        protected QuestBoolCondition(string summary, bool value) : base(summary, value) 
-        {
-            Summary = summary;
-            Value = value;
-        }
-        public bool CompleteQuest()
-        {
-            return Value;
+            // 타입 설정
+            // 벨류 결정
+            // 타입에 따른 Conditiontype
         }
     }
 }

@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: New Quest
   m_EditorClassIdentifier: 
   clear: 0
-  questId: 1
-  nextQuestId: 2
+  questId: 0
+  nextQuestId: 0
   description: 
   questList:
   - targetObject: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
-  - targetObject: {fileID: 0}
   - targetObject: {fileID: 0}
   - targetObject: {fileID: 0}
