@@ -1,4 +1,7 @@
-﻿using Logger;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Logger;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
@@ -11,68 +14,44 @@ namespace Editor
     {
         public int typeIndex;
         public int functionIndex;
-        public string[] typeOptions = new string[] { "정수형", "boolean형", "상수형"};
-        
-        public string[] intFuncOptions = new string[] { "Entity 수집", "Entity 소모"};
-        public string[] boolFuncOptions = new string[] { "Entity 최초획득", "Entity 조우"};
-        public string[] floatFuncOptions = new string[] { "Entity ???", "왜 안나와?"};
+        public string[] questList;
 
         public override void OnInspectorGUI()
         {
+            questList = new string[Enum.GetValues(typeof(QuestType)).Length];
+            for (int i = 0; i < Enum.GetValues(typeof(QuestType)).Length; i++)
+            {
+                questList[i] = Enum.GetNames(typeof(QuestType))[i];
+            }
+            
             Quest newQuest = (Quest)target;
             newQuest.questId = EditorGUILayout.IntField("Quest ID", newQuest.questId);
-            newQuest.nextQuestId =  EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
+            newQuest.nextQuestId = EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
 
             GUILayout.Space(20);
 
-            EditorGUILayout.LabelField("퀘스트 형식 지정");
-            typeIndex = EditorGUILayout.Popup("수행할 타입", typeIndex, typeOptions);
-            
-            switch (typeIndex)
+            typeIndex = EditorGUILayout.Popup("퀘스트 타입 지정",typeIndex ,questList);
+            if (GUILayout.Button("퀘스트 추가하기"))
             {
-                case 0:
-                    functionIndex = EditorGUILayout.Popup("수행할 타입", functionIndex, intFuncOptions);
-                    break;
-                case 1:
-                    functionIndex = EditorGUILayout.Popup("수행할 타입", functionIndex, boolFuncOptions);
-                    break;
-                case 2:
-                    functionIndex = EditorGUILayout.Popup("수행할 타입", functionIndex, floatFuncOptions);
-                    break;
-            }
-            
-            if (GUILayout.Button("퀘스트 생성"))
-            {
-                if (typeIndex == 0 && functionIndex == 0)
+                newQuest.questList.Add(new QuestCondition());
+                switch (typeIndex)
                 {
-                    QuestCollect collect = new QuestCollect("수집 퀘스트 설명", 0.0f);
-                    newQuest.questList.Add(collect);
-                } else if (typeIndex == 0 && functionIndex == 1)
-                {
-                    
+                    case 0:
+                        var type = Enum.GetName(typeof(QuestType), typeIndex);
+                                        
+                        break;
                 }
             }
-            if (GUILayout.Button("퀘스트 삭제"))
-            {
-                newQuest.questList.RemoveAt(newQuest.questList.Count - 1);
-            }
-            
-            GUILayout.Space(20);
-            
+            // QuestCondition value는 int, float, bool 저장
+            // CondtionType value는 QuestCondition value에 따라 EditiorGui를 알맞게 제공해서 string으로 저장  
+
             for (int i = 0; i < newQuest.questList.Count; i++)
             {
-                newQuest.questList[i].targetObject = (ScriptableObject)EditorGUILayout.ObjectField("기록할 객체",
-                    newQuest.questList[i].targetObject, typeof(ScriptableObject), true);
-                if (newQuest.questList[i] is QuestCondition)
-                {
-                    var temp = (QuestCondition)newQuest.questList[i];
-                    temp.Value = EditorGUILayout.FloatField("기록할 갯수", temp.Value);
-                }
+                newQuest.questList[i].Summary = EditorGUILayout.TextField("퀘스트 설명", newQuest.questList[i].Summary);
+                //newQuest.questList[i].value = EditorGUILayout.La
             }
-
-            GUILayout.Space(20);
-
+            
             EditorUtility.SetDirty(newQuest);
         }
     }

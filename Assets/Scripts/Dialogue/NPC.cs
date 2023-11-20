@@ -25,7 +25,7 @@ public class NPC : MonoBehaviour
         if (!isTalking)
         {
             GetComponent<Animator>().SetTrigger("StartTalk");
-            //Debug.Log("´ëÈ­ ½ÃÀÛ½Ã ¾Ö´Ï¸ŞÀÌ¼Ç ÁøÇàÀÌ ÇÊ¿äÇÏ´Ù¸é Trigger StartTalkÃß°¡ ÈÄ ¹ßµ¿ ½ÃÄÑÁÖ¼¼¿ä.");
+            //Debug.Log("ëŒ€í™” ì‹œì‘ì‹œ ì• ë‹ˆë©”ì´ì…˜ ì§„í–‰ì´ í•„ìš”í•˜ë‹¤ë©´ Trigger StartTalkì¶”ê°€ í›„ ë°œë™ ì‹œì¼œì£¼ì„¸ìš”.");
             if (GetComponent<AutoChat>())
                 GetComponent<AutoChat>().StopChat();
             isTalking = true;

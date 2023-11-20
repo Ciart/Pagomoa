@@ -13,12 +13,6 @@ namespace Logger
         public string value;
         public ScriptableObject targetObject;
         
-        protected QuestCondition(string summary, string value)
-        {
-            Summary = summary;
-            // 타입 설정
-            // 벨류 결정
-            // 타입에 따른 Conditiontype
-        }
+        public ConditionType questCondition;
     }
 }
