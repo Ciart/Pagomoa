@@ -5,9 +5,10 @@ using Worlds;
 
 namespace Logger
 {
+    [Serializable]
     public class ConditionType
     {
-        public ScriptableObject TargetType { get; set; }
-        public string Value { get; set; }
+        public TargetType Target { get; set; }
+        public string TypeValue { get; set; }
     }
 }

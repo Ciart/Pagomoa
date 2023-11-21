@@ -1,43 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using Worlds;
 
 namespace Logger
 {
+    [Serializable]
     public enum QuestType {
         CollectMineral = 0,
         ConsumeMineral,
         BreakBlock,
         EncounterMineral,
         EncounterNpc,
+        Temp
+    }
+
+    public enum TargetType
+    {
+        Mineral,
+        Brick,
+        Npc,
     }
     
+    [Serializable]
     public class ConditionDictionary
     {
-        public readonly Dictionary<QuestType, ConditionType> typeDictionary = new Dictionary<QuestType, ConditionType>()
+        public Dictionary<QuestType, ConditionType> typeDictionary = new Dictionary<QuestType, ConditionType>()
         {
             { QuestType.CollectMineral, new ConditionType
             {
-               TargetType = ScriptableObject.CreateInstance(typeof(Mineral)),
-               Value = "int"
+                Target = TargetType.Mineral,
+                TypeValue = "int"
             }},
             { QuestType.ConsumeMineral, new ConditionType
             {
-                TargetType = ScriptableObject.CreateInstance(typeof(Mineral)),
-                Value = "int"
+                Target = TargetType.Mineral,
+                TypeValue = "int"
             }},{ QuestType.BreakBlock, new ConditionType
             {
-                TargetType = ScriptableObject.CreateInstance(typeof(Brick)),
-                Value = "int"
+                Target = TargetType.Brick,
+                TypeValue = "int"
             }},{ QuestType.EncounterMineral, new ConditionType
             {
-                TargetType = ScriptableObject.CreateInstance(typeof(Mineral)),
-                Value = "bool"
+                Target = TargetType.Mineral,
+                TypeValue = "bool"
             }},{ QuestType.EncounterNpc, new ConditionType
             {
-                TargetType = ScriptableObject.CreateInstance(typeof(NPC)),
-                Value = "bool"
+                Target = TargetType.Npc,
+                TypeValue = "bool"
+            }},{ QuestType.Temp, new ConditionType
+            {
+                Target = TargetType.Npc,
+                TypeValue = "float"
             }}
         };
     }

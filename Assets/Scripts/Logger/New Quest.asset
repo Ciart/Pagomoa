@@ -16,4 +16,7 @@ MonoBehaviour:
   questId: 0
   nextQuestId: 0
   description: 
-  questList: []
+  questList:
+  - questType: Temp
+    value: 
+    targetObject: {fileID: 0}
