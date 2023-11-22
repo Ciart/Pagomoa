@@ -17,6 +17,12 @@ MonoBehaviour:
   nextQuestId: 0
   description: 
   questList:
-  - questType: Temp
-    value: 
-    targetObject: {fileID: 0}
+  - questType: EncounterMineral
+    value: 1
+    boolIndex: 1
+  - questType: EncounterMineral
+    value: 0
+    boolIndex: 0
+  - questType: EncounterMineral
+    value: 0
+    boolIndex: 0

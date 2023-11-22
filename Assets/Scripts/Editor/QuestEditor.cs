@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using Logger;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 
@@ -18,7 +15,8 @@ namespace Editor
         public int typeIndex;
         public string[] questList = new string[Enum.GetValues(typeof(QuestType)).Length];
         public ConditionDictionary conditionDic = new ConditionDictionary();
-        public int[] boolIndexList = new int[]{};
+        private readonly string[] _boolList = new[] { "true", "false" };
+        
 
         private void SetQuestType(Quest newQuest)
         {
@@ -37,24 +35,24 @@ namespace Editor
         
         public override void OnInspectorGUI()
         {
-            for (int i = 0; i < Enum.GetValues(typeof(QuestType)).Length; i++)
-            {
-                questList[i] = Enum.GetNames(typeof(QuestType))[i];
-            }
-            
             Quest newQuest = (Quest)target;
             newQuest.questId = EditorGUILayout.IntField("Quest ID", newQuest.questId);
             newQuest.nextQuestId = EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
 
             GUILayout.Space(20);
-
+            
+            for (int i = 0; i < Enum.GetValues(typeof(QuestType)).Length; i++)
+            {
+                questList[i] = Enum.GetNames(typeof(QuestType))[i];
+            }
             typeIndex = EditorGUILayout.Popup("퀘스트 타입 지정",typeIndex ,questList);
             if (GUILayout.Button("퀘스트 추가하기"))
             {
                 if (newQuest.questList.Count != 0) listIndex++;    
                 
                 newQuest.questList.Add(new QuestCondition());
+                
                 SetQuestType(newQuest);
             }
             if (GUILayout.Button("퀘스트 제거하기"))
@@ -69,14 +67,16 @@ namespace Editor
             GUILayout.Space(20);
             
             // QuestCondition value는 int, float, bool 저장
-            // CondtionType value는 QuestCondition value에 따라 EditiorGui를 알맞게 제공해서 string으로 저장  
-
+            // ConditionType value는 QuestCondition value에 따라 EditorGui를 알맞게 제공해서 string으로 저장
+            
             for (int i = 0; i < newQuest.questList.Count; i++)
             {
                 EditorGUILayout.LabelField("퀘스트 타입", newQuest.questList[i].questType);
                 EditorGUILayout.LabelField("타겟 엔티티", newQuest.questList[i].questCondition.Target.ToString());
                 EditorGUILayout.LabelField("타입 값", newQuest.questList[i].questCondition.TypeValue);
+                
                 newQuest.questList[i].Summary = EditorGUILayout.TextField("퀘스트 설명", newQuest.questList[i].Summary);
+                
                 if (newQuest.questList[i].questCondition.TypeValue == "int")
                 {
                     newQuest.questList[i].value = EditorGUILayout.TextField("수행할 목표 값", newQuest.questList[i].value);
@@ -110,7 +110,8 @@ namespace Editor
                     newQuest.questList[i].value = extractedNumbers;
                 } else if (newQuest.questList[i].questCondition.TypeValue == "bool")
                 {
-                    // boolIndexList = EditorGUILayout.Toggle("목표 달성 조건 설정", );
+                    newQuest.questList[i].boolIndex = EditorGUILayout.Popup("목표 달성 조건 설정", newQuest.questList[i].boolIndex, _boolList);
+                    newQuest.questList[i].value = newQuest.questList[i].boolIndex.ToString();
                 }
                 GUILayout.Space(20);
             }
