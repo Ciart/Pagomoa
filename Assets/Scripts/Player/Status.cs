@@ -79,7 +79,7 @@ namespace Player
 
         private void UpdateOxygen()
         {
-            if (transform.position.y < _worldManager.world.groundHeight && oxygen >= minOxygen)
+            if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
             {
                 oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
 

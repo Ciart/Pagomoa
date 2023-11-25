@@ -45,8 +45,8 @@ public class WorldData
     public int left;
 
     public int right;
-
-    public int groundHeight = 0;
+    
+    public List<WorldEntityData> entityDataList;
 
     public DicList<Vector2Int, Chunk> _chunks;
 
@@ -56,7 +56,7 @@ public class WorldData
         bottom = world.bottom;
         left = world.left;
         right = world.right;
-        groundHeight = world.groundHeight;
+        entityDataList = world.entityDataList;
         _chunks = ListDictionaryConverter.ToList(world.GetAllChunks(), true);
     }
 }

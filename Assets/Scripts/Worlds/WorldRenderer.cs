@@ -185,28 +185,6 @@ namespace Worlds
             }
 
             spriteRenderer.sprite = sprite;
-
-            if (chunk.entityDataList is null)
-            {
-                return;
-            }
-
-            foreach (var entityData in chunk.entityDataList)
-            {
-                var position = new Vector3(chunk.key.x * World.ChunkSize + entityData.x,
-                    chunk.key.y * World.ChunkSize + entityData.y);
-                var coords = WorldManager.ComputeCoords(position);
-
-                if (_worldManager.world.GetBrick(coords.x, coords.y, out _).wall is null)
-                {
-                    continue;
-                }
-
-                _entityManager.SpawnEntity(entityData.entity, position);
-            }
-
-            // TODO: 여기서 비우면 안 됨. Chunk 내부로 변경하기.
-            chunk.entityDataList = new List<WorldEntityData>();
         }
 
         private IEnumerator RunActionWithChunks(IEnumerable<Vector2Int> keys, Action<Vector2Int> action)
@@ -226,10 +204,10 @@ namespace Worlds
 
         private void OnChangedChunk(Chunk chunk)
         {
-            if (!_renderedChunks.Contains(chunk.key))
-            {
-                return;
-            }
+            // if (!_renderedChunks.Contains(chunk.key))
+            // {
+            //     return;
+            // }
 
             RenderChunk(chunk.key);
         }
@@ -249,7 +227,7 @@ namespace Worlds
 
         private void LateUpdate()
         {
-            RenderWorld();
+            // RenderWorld();
 
             groundOverlayTilemap.ClearAllTiles();
 
@@ -290,36 +268,54 @@ namespace Worlds
             }
 
             var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
-            var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
+            // var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
+            //
+            // DrawChunkRectangle(playerChunk, World.ChunkSize, Color.cyan);
+            //
+            // if (playerChunk is null || _currentChunk == playerChunk)
+            // {
+            //     return;
+            // }
+            //
+            // _currentChunk = playerChunk;
+            //
+            // var renderedChunks = new HashSet<Vector2Int>();
+            //
+            // for (var keyX = playerChunk.key.x - renderChunkRange; keyX <= playerChunk.key.x + renderChunkRange; keyX++)
+            // {
+            //     for (var keyY = playerChunk.key.y - renderChunkRange;
+            //          keyY <= playerChunk.key.y + renderChunkRange;
+            //          keyY++)
+            //     {
+            //         renderedChunks.Add(new Vector2Int(keyX, keyY));
+            //     }
+            // }
+            //
+            // var clearChunks = _renderedChunks.Except(renderedChunks);
+            // var updateChunks = renderedChunks.Except(_renderedChunks);
+            //
+            // StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
+            // StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
+            //
+            // _renderedChunks = renderedChunks;
 
-            DrawChunkRectangle(playerChunk, World.ChunkSize, Color.cyan);
-
-            if (playerChunk is null || _currentChunk == playerChunk)
+            foreach (var key in world.GetAllChunks().Keys)
             {
-                return;
+                RenderChunk(key);
             }
 
-            _currentChunk = playerChunk;
-
-            var renderedChunks = new HashSet<Vector2Int>();
-
-            for (var keyX = playerChunk.key.x - renderChunkRange; keyX <= playerChunk.key.x + renderChunkRange; keyX++)
+            foreach (var entityData in world.entityDataList)
             {
-                for (var keyY = playerChunk.key.y - renderChunkRange;
-                     keyY <= playerChunk.key.y + renderChunkRange;
-                     keyY++)
+                var position = new Vector3(entityData.x, entityData.y);
+                var coords = WorldManager.ComputeCoords(position);
+
+                if (_worldManager.world.GetBrick(coords.x, coords.y, out _).wall is null)
                 {
-                    renderedChunks.Add(new Vector2Int(keyX, keyY));
+                    continue;
                 }
+
+                _entityManager.SpawnEntity(entityData.entity, position);
             }
-
-            var clearChunks = _renderedChunks.Except(renderedChunks);
-            var updateChunks = renderedChunks.Except(_renderedChunks);
-
-            StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
-            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
-
-            _renderedChunks = renderedChunks;
         }
     }
 }
