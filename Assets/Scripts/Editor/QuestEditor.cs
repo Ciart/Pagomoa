@@ -4,6 +4,8 @@ using System.Text;
 using Logger;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.Rendering;
+using Worlds;
 
 namespace Editor
 {
@@ -11,26 +13,52 @@ namespace Editor
     [CanEditMultipleObjects]
     public class QuestEditor : UnityEditor.Editor
     {
-        public int listIndex;
-        public int typeIndex;
-        public string[] questList = new string[Enum.GetValues(typeof(QuestType)).Length];
-        public ConditionDictionary conditionDic = new ConditionDictionary();
-        private readonly string[] _boolList = new[] { "true", "false" };
-        
+        private int _listIndex;
+        private int _typeIndex;
+        private readonly string[] _questList = new string[Enum.GetValues(typeof(QuestType)).Length];
+        private readonly ConditionDictionary _conditionDic = new();
+        private readonly string[] _boolList = { "false", "true" };
 
         private void SetQuestType(Quest newQuest)
         {
-            var type = Enum.GetName(typeof(QuestType), typeIndex);
+            var type = Enum.GetName(typeof(QuestType), _typeIndex);
 
-            foreach (var conditionType in conditionDic.typeDictionary)
+            foreach (var conditionType in _conditionDic.typeDictionary)
             {
-                if (conditionType.Key.ToString() == Enum.GetName(typeof(QuestType), typeIndex))
+                if (conditionType.Key.ToString() == Enum.GetName(typeof(QuestType), _typeIndex))
                 {
-                    newQuest.questList[listIndex].questCondition.Target = conditionType.Value.Target;
-                    newQuest.questList[listIndex].questCondition.TypeValue = conditionType.Value.TypeValue;
+                    newQuest.questList[_listIndex].questCondition.Target = conditionType.Value.Target;
+                    newQuest.questList[_listIndex].questCondition.TypeValue = conditionType.Value.TypeValue;
                 }
             }
-            newQuest.questList[listIndex].questType = type;
+            newQuest.questList[_listIndex].questType = type;
+        }
+        
+        private Type GetTypeFromAssemblies( string typeName )
+        {
+            // null 반환 없이 Type이 얻어진다면 얻어진 그대로 반환.
+            var type = Type.GetType( typeName );
+            if( type != null )
+                return type;
+
+            // 프로젝트에 분명히 포함된 클래스임에도 불구하고 Type이 찾아지지 않는다면,
+            // 실행중인 어셈블리를 모두 탐색 하면서 그 안에 찾고자 하는 Type이 있는지 검사.
+            var currentAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var referencedAssemblies = currentAssembly.GetReferencedAssemblies();
+            foreach( var assemblyName in referencedAssemblies )
+            {
+                var assembly = System.Reflection.Assembly.Load( assemblyName );
+                if( assembly != null )
+                {
+                    // 찾았다 요놈!!!
+                    type = assembly.GetType( typeName );
+                    if( type != null )
+                        return Type.GetType(type.ToString());
+                }
+            }
+
+            // 못 찾았음;;; 클래스 이름이 틀렸던가, 아니면 알 수 없는 문제 때문이겠지...
+            return null;
         }
         
         public override void OnInspectorGUI()
@@ -44,12 +72,12 @@ namespace Editor
             
             for (int i = 0; i < Enum.GetValues(typeof(QuestType)).Length; i++)
             {
-                questList[i] = Enum.GetNames(typeof(QuestType))[i];
+                _questList[i] = Enum.GetNames(typeof(QuestType))[i];
             }
-            typeIndex = EditorGUILayout.Popup("퀘스트 타입 지정",typeIndex ,questList);
+            _typeIndex = EditorGUILayout.Popup("퀘스트 타입 지정",_typeIndex ,_questList);
             if (GUILayout.Button("퀘스트 추가하기"))
             {
-                if (newQuest.questList.Count != 0) listIndex++;    
+                if (newQuest.questList.Count != 0) _listIndex++;    
                 
                 newQuest.questList.Add(new QuestCondition());
                 
@@ -59,22 +87,23 @@ namespace Editor
             {
                 if (newQuest.questList.Count == 0) return;
                 
-                if (newQuest.questList.Count != 1) listIndex--;
+                if (newQuest.questList.Count != 1) _listIndex--;
                 
                 newQuest.questList.RemoveAt(newQuest.questList.Count - 1);
             }
             
             GUILayout.Space(20);
-            
-            // QuestCondition value는 int, float, bool 저장
-            // ConditionType value는 QuestCondition value에 따라 EditorGui를 알맞게 제공해서 string으로 저장
-            
+
             for (int i = 0; i < newQuest.questList.Count; i++)
             {
-                EditorGUILayout.LabelField("퀘스트 타입", newQuest.questList[i].questType);
-                EditorGUILayout.LabelField("타겟 엔티티", newQuest.questList[i].questCondition.Target.ToString());
-                EditorGUILayout.LabelField("타입 값", newQuest.questList[i].questCondition.TypeValue);
+                GUILayout.BeginVertical($"{i+1}번째 퀘스트 목록", new GUIStyle(GUI.skin.window));
                 
+                EditorGUILayout.LabelField("퀘스트 타입", newQuest.questList[i].questType);
+
+                newQuest.questList[i].targetEntity = (ScriptableObject)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].questCondition.Target.ToString()}"
+                    ,newQuest.questList[i].targetEntity , typeof(ScriptableObject), true);
+
+                EditorGUILayout.LabelField("타입 값", newQuest.questList[i].questCondition.TypeValue);
                 newQuest.questList[i].Summary = EditorGUILayout.TextField("퀘스트 설명", newQuest.questList[i].Summary);
                 
                 if (newQuest.questList[i].questCondition.TypeValue == "int")
@@ -110,13 +139,14 @@ namespace Editor
                     newQuest.questList[i].value = extractedNumbers;
                 } else if (newQuest.questList[i].questCondition.TypeValue == "bool")
                 {
-                    newQuest.questList[i].boolIndex = EditorGUILayout.Popup("목표 달성 조건 설정", newQuest.questList[i].boolIndex, _boolList);
-                    newQuest.questList[i].value = newQuest.questList[i].boolIndex.ToString();
+                    var temp = 0;
+                    temp = EditorGUILayout.Popup("목표 달성 조건 설정", newQuest.questList[i].value == "true" ? 1 : 0, _boolList);
+                    newQuest.questList[i].value = temp == 1 ? _boolList[1] : _boolList[0];
                 }
-                GUILayout.Space(20);
+                GUILayout.EndVertical();
+                GUILayout.Space(10);
             }
-
-
+            
             EditorUtility.SetDirty(newQuest);
         }
     }

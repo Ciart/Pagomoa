@@ -17,12 +17,12 @@ MonoBehaviour:
   nextQuestId: 0
   description: 
   questList:
+  - questType: CollectMineral
+    value: 434232423454
+    targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+  - questType: Temp
+    value: 123.3132
+    targetEntity: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
   - questType: EncounterMineral
-    value: 1
-    boolIndex: 1
-  - questType: EncounterMineral
-    value: 0
-    boolIndex: 0
-  - questType: EncounterMineral
-    value: 0
-    boolIndex: 0
+    value: true
+    targetEntity: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}

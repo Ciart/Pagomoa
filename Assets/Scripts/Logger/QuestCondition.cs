@@ -11,9 +11,11 @@ namespace Logger
     {
         public string questType;
         public string Summary { get; set; }
-        public string value = "값 지정";
-        public int boolIndex;
         
+        public string value = "0";
+
+        public ScriptableObject targetEntity;
+
         public ConditionType questCondition = new ConditionType();
     }
 }

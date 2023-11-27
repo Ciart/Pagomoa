@@ -90,7 +90,7 @@ public class TimeManagerTemp : MonoBehaviour
             time = 0;
             date++;
             NextDaySpawn.Invoke();
-            Debug.Log("다음 날이야!");
+            //Debug.Log("다음 날이야!");
         }
         if (time == endTime) // 잠자는 시간 22 ~ 06
         {
