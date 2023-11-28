@@ -4,10 +4,7 @@ using UnityEngine.UI;
 
 public class SellCountUI : MonoBehaviour
 {
-    [SerializeField] private Image _item;
     [SerializeField] public TextMeshProUGUI itemCount;
-    [SerializeField] public TextMeshProUGUI totalPrice;
-    [SerializeField] public int price = 0;
     [SerializeField] public int count = 0;
 
     public static SellCountUI Instance = null;
@@ -21,30 +18,26 @@ public class SellCountUI : MonoBehaviour
     public void OnUI()
     {
         transform.gameObject.SetActive(true);
-        price = 0;
         count = 0;
-        totalPrice.text = price.ToString();
         itemCount.text = count.ToString();
     }
     public void OffUI()
     {
+        ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
+        ShopChat.Instance.CancleChat();
         transform.gameObject.SetActive(false);
     }
-    public void ItemImage(Sprite image)
-    {
-        _item.sprite = image;
-    }
+   
     public void Plus()
     {
         InventoryItem item = Sell.Instance.choiceSlot.inventoryItem;
         if (count < item.count)
         {
             count++;
-            price += item.item.itemPrice;
+            ShopChat.Instance.TotalPriceToChat(count * item.item.itemPrice);
         }
         else
             return;
-        totalPrice.text = price.ToString();
         itemCount.text = count.ToString();
     }
     public void Minus()
@@ -53,12 +46,33 @@ public class SellCountUI : MonoBehaviour
             if (count > 0)
             {
                 count--;
-                price -= Sell.Instance.choiceSlot.inventoryItem.item.itemPrice;
             }
             else
                 return;
-            totalPrice.text = price.ToString();
             itemCount.text = count.ToString();
         }
+    }
+    public void ClickSlot()
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
+            {
+                InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.SetCount(Sell.Instance.choiceSlot.inventoryItem.item);
+            }
+            else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
+            {
+                InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
+            }
+            Sell.Instance.DeleteSlot();
+            Sell.Instance.ResetSlot();
+        }
+        count = 0;
+        itemCount.text = count.ToString();
+        ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
+        OffUI();
+        ShopChat.Instance.ThakChat();
     }
 }

@@ -80,7 +80,7 @@ public class EnvironmentConverter : MonoBehaviour
                 else
                     light.intensity = period.floorIntensityStart + (period.floorIntensityEnd - period.floorIntensityStart) * (flood - period.floorChangeStartTime) / (period.floorChangeEndTime - period.floorChangeStartTime);
 
-                Debug.Log(light.intensity);
+                //Debug.Log(light.intensity);
                 //Debug.Log($"{flood - period.floorChangeStartTime} / {period.floorChangeEndTime - period.floorChangeStartTime}");
                 return;
             }

@@ -14,8 +14,11 @@ public class CloverMouseInteraction : MonoBehaviour
     }
     private void SetUI()
     {
-        if(_buyUI.activeSelf == false)
+        if (_buyUI.activeSelf == false)
+        {
             _buyUI.SetActive(true);
+            ShopChat.Instance.AwakeChat();
+        }
         else
             _buyUI.SetActive(false);
     }

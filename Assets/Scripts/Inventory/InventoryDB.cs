@@ -72,8 +72,8 @@ public class InventoryDB : MonoBehaviour
     {
         Use(data);
         Gold += data.itemPrice;
-        Sell.Instance.Gold.GetComponent<Text>().text = Gold.ToString();
-        buy.gold.GetComponent<Text>().text = Gold.ToString();
+        Sell.Instance.gold.text = Gold.ToString();
+        buy.gold.text = Gold.ToString();
         //EtcInventory.Instance.ResetSlot();
         //Sell.Instance.ResetSlot();
         //changeInventory.Invoke();
