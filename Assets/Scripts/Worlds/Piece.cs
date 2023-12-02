@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -31,7 +32,7 @@ namespace Worlds
 
         public float weight = 1;
 
-        public List<WorldPrefab> prefabs = new();
+        public List<WorldEntityData> entities = new();
 
         [SerializeField] private Brick[] _bricks;
 
@@ -44,7 +45,7 @@ namespace Worlds
         {
             Array.Resize(ref _bricks, width * height);
 
-            prefabs = prefabs.FindAll(item => CheckRange(item.x, item.y));
+            entities = entities.FindAll(item => CheckRange(item.x, item.y));
         }
 
         public Brick GetBrick(int x, int y)
@@ -62,14 +63,14 @@ namespace Worlds
             return 0 <= x && x < width && 0 <= y && y < height;
         }
 
-        public void AddPrefab(int x, int y, GameObject prefab)
+        public void AddEntity(int x, int y, Entity entity)
         {
             if (!CheckRange(x, y))
             {
                 return;
             }
 
-            prefabs.Add(new WorldPrefab(x, y, prefab));
+            entities.Add(new WorldEntityData(x, y, entity));
         }
     }
 }

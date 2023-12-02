@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Entities;
 using Player;
 using Unity.Mathematics;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Worlds
         public Tilemap wallTilemap;
 
         public Tilemap groundTilemap;
-        
+
         public Tilemap groundOverlayTilemap;
 
         public Tilemap mineralTilemap;
@@ -32,6 +33,8 @@ namespace Worlds
         [Range(1, 256)] public int renderChunkRange = 2;
 
         private WorldManager _worldManager;
+
+        private EntityManager _entityManager;
 
         private PlayerController _player;
 
@@ -55,20 +58,29 @@ namespace Worlds
 
         private void ClearChunk(Vector2Int key)
         {
-            var world = _worldManager.world;
-
             // TODO: 리팩토링 해야 함
-            for (var i = 0; i < world.chunkSize; i++)
+            for (var i = 0; i < World.ChunkSize; i++)
             {
-                for (var j = 0; j < world.chunkSize; j++)
+                for (var j = 0; j < World.ChunkSize; j++)
                 {
-                    var position = new Vector3Int(key.x * world.chunkSize + i, key.y * world.chunkSize + j);
+                    var position = new Vector3Int(key.x * World.ChunkSize + i, key.y * World.ChunkSize + j);
 
                     wallTilemap.SetTile(position, null);
                     groundTilemap.SetTile(position, null);
                     mineralTilemap.SetTile(position, null);
                     fogTilemap.SetTile(position, null);
                 }
+            }
+
+            var chunk = _worldManager.world.GetChunk(key) ?? new Chunk(key);
+
+            foreach (var entityController in _entityManager.FindAllEntityInChunk(chunk))
+            {
+                var position = entityController.transform.position;
+
+                _worldManager.world.AddEntity(position.x, position.y, entityController.entity);
+
+                _entityManager.DespawnEntity(entityController);
             }
 
             if (_minimapRenderers.TryGetValue(key, out var value))
@@ -87,13 +99,13 @@ namespace Worlds
 
         private bool[,] CreateFogMap(Chunk chunk, World world)
         {
-            var fogMap = new bool[world.chunkSize, world.chunkSize];
+            var fogMap = new bool[World.ChunkSize, World.ChunkSize];
 
-            for (var i = -sight; i < world.chunkSize + sight; i++)
+            for (var i = -sight; i < World.ChunkSize + sight; i++)
             {
-                for (var j = -sight; j < world.chunkSize + sight; j++)
+                for (var j = -sight; j < World.ChunkSize + sight; j++)
                 {
-                    var brick = world.GetBrick(chunk.key.x * world.chunkSize + i, chunk.key.y * world.chunkSize + j,
+                    var brick = world.GetBrick(chunk.key.x * World.ChunkSize + i, chunk.key.y * World.ChunkSize + j,
                         out _);
 
                     if (brick is null || !CheckSightBrick(brick))
@@ -105,7 +117,7 @@ namespace Worlds
                     {
                         for (var y = j - sight; y <= j + sight; y++)
                         {
-                            if (x < 0 || x >= world.chunkSize || y < 0 || y >= world.chunkSize)
+                            if (x < 0 || x >= World.ChunkSize || y < 0 || y >= World.ChunkSize)
                             {
                                 continue;
                             }
@@ -119,38 +131,41 @@ namespace Worlds
             return fogMap;
         }
 
-        private void RenderChunk(Vector2Int key, bool isIncludeEntity = false)
+        private void RenderChunk(Vector2Int key)
         {
             var world = _worldManager.world;
-            var texture = new Texture2D(world.chunkSize, world.chunkSize);
+            var texture = new Texture2D(World.ChunkSize, World.ChunkSize);
             var chunk = world.GetChunk(key);
 
             if (chunk is null)
             {
-                chunk = new Chunk(key, world.chunkSize);
+                // chunk = new Chunk(key, world.chunkSize);
+                //
+                // foreach (var brick in chunk.bricks)
+                // {
+                //     brick.ground = _worldManager.database.GetGround("Grass");
+                // }
 
-                foreach (var brick in chunk.bricks)
-                {
-                    brick.ground = _worldManager.database.GetGround("Grass");
-                }
+                return;
             }
 
             var fogMap = CreateFogMap(chunk, world);
 
-            for (var i = 0; i < world.chunkSize; i++)
+            for (var i = 0; i < World.ChunkSize; i++)
             {
-                for (var j = 0; j < world.chunkSize; j++)
+                for (var j = 0; j < World.ChunkSize; j++)
                 {
-                    var brick = chunk.bricks[i + j * world.chunkSize];
+                    var brick = chunk.bricks[i + j * World.ChunkSize];
 
-                    var position = new Vector3Int(chunk.key.x * world.chunkSize + i,
-                        chunk.key.y * world.chunkSize + j);
+                    var position = new Vector3Int(chunk.key.x * World.ChunkSize + i,
+                        chunk.key.y * World.ChunkSize + j);
 
                     wallTilemap.SetTile(position, brick.wall ? brick.wall.tile : null);
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
-                    overlayTilemap.SetTile(position, brick.mineral && !fogMap[i, j] ? _worldManager.database.glitterTile : null);
+                    overlayTilemap.SetTile(position,
+                        brick.mineral && !fogMap[i, j] ? _worldManager.database.glitterTile : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
@@ -159,27 +174,27 @@ namespace Worlds
             texture.Apply();
             texture.filterMode = FilterMode.Point;
 
-            var sprite = Sprite.Create(texture, Rect.MinMaxRect(0f, 0f, world.chunkSize, world.chunkSize),
+            var sprite = Sprite.Create(texture, Rect.MinMaxRect(0f, 0f, World.ChunkSize, World.ChunkSize),
                 Vector2.zero, 1f);
 
             if (!_minimapRenderers.TryGetValue(chunk.key, out var spriteRenderer))
             {
                 spriteRenderer = Instantiate(minimapRenderer,
-                    new Vector3(chunk.key.x * world.chunkSize, chunk.key.y * world.chunkSize), quaternion.identity);
+                    new Vector3(chunk.key.x * World.ChunkSize, chunk.key.y * World.ChunkSize), quaternion.identity);
                 _minimapRenderers.Add(chunk.key, spriteRenderer);
             }
 
             spriteRenderer.sprite = sprite;
 
-            if (!isIncludeEntity || chunk.prefabs is null)
+            if (chunk.entityDataList is null)
             {
                 return;
             }
 
-            foreach (var prefab in chunk.prefabs)
+            foreach (var entityData in chunk.entityDataList)
             {
-                var position = new Vector3(chunk.key.x * world.chunkSize + prefab.x + 0.5f,
-                    chunk.key.y * world.chunkSize + prefab.y + 0.5f, 0f);
+                var position = new Vector3(chunk.key.x * World.ChunkSize + entityData.x,
+                    chunk.key.y * World.ChunkSize + entityData.y);
                 var coords = WorldManager.ComputeCoords(position);
 
                 if (_worldManager.world.GetBrick(coords.x, coords.y, out _).wall is null)
@@ -187,13 +202,11 @@ namespace Worlds
                     continue;
                 }
 
-                Instantiate(prefab.prefab, position, Quaternion.identity);
+                _entityManager.SpawnEntity(entityData.entity, position);
             }
-        }
 
-        private void RenderChunkWithEntity(Vector2Int key)
-        {
-            RenderChunk(key, true);
+            // TODO: 여기서 비우면 안 됨. Chunk 내부로 변경하기.
+            chunk.entityDataList = new List<WorldEntityData>();
         }
 
         private IEnumerator RunActionWithChunks(IEnumerable<Vector2Int> keys, Action<Vector2Int> action)
@@ -224,6 +237,7 @@ namespace Worlds
         private void Awake()
         {
             _worldManager = WorldManager.instance;
+            _entityManager = EntityManager.instance;
             _player = (PlayerController)FindObjectOfType(typeof(PlayerController));
 
             _worldManager.createdWorld += OnCreatedWorld;
@@ -278,7 +292,7 @@ namespace Worlds
             var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
             var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
 
-            DrawChunkRectangle(playerChunk, world.chunkSize, Color.cyan);
+            DrawChunkRectangle(playerChunk, World.ChunkSize, Color.cyan);
 
             if (playerChunk is null || _currentChunk == playerChunk)
             {
@@ -303,7 +317,7 @@ namespace Worlds
             var updateChunks = renderedChunks.Except(_renderedChunks);
 
             StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
-            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunkWithEntity));
+            StartCoroutine(RunActionWithChunks(updateChunks, RenderChunk));
 
             _renderedChunks = renderedChunks;
         }

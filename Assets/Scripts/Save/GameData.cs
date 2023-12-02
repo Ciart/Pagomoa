@@ -58,8 +58,6 @@ public class PositionData
 [System.Serializable]
 public class WorldData
 {
-    public int chunkSize;
-
     public int top;
 
     public int bottom;
@@ -74,7 +72,6 @@ public class WorldData
 
     public void SetWorldDataFromWorld(World world)
     {
-        chunkSize = world.chunkSize;
         top = world.top;
         bottom = world.bottom;
         left = world.left;

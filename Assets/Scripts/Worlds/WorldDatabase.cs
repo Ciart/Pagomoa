@@ -1,4 +1,5 @@
 using System;
+using Entities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,6 +13,8 @@ namespace Worlds
         public Ground[] grounds;
 
         public Mineral[] minerals;
+
+        public Entity[] entities;
 
         public Piece[] pieces = { new Piece() };
 
@@ -35,6 +38,12 @@ namespace Worlds
         {
             return Array.Find(minerals, mineral => mineral.name == name);
         }
+        
+        public Entity GetEntity(string name)
+        {
+            return Array.Find(entities, entity => entity.name == name);
+        }
+
 
         public Piece GetPieceWithTag(string tag)
         {

@@ -5092,6 +5092,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6632102197688724806, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
   m_PrefabInstance: {fileID: 1517881707}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &995124680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 995124682}
+  - component: {fileID: 995124681}
+  m_Layer: 0
+  m_Name: EntityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &995124681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995124680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1f5fd7a5874a84ac6f0e8118ca72ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &995124682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995124680}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1040038971
 GameObject:
   m_ObjectHideFlags: 0
@@ -12413,18 +12457,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1217589383783385779, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Size.x
-      value: 2.375
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1217589383783385779, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Size.y
-      value: 2.375
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1217589383783385779, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 156296652, guid: 727a67a6c076a994584b4a4755b4d2f5, type: 3}
+      objectReference: {fileID: 1691140904, guid: 727a67a6c076a994584b4a4755b4d2f5, type: 3}
     - target: {fileID: 1217589383783385779, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3585343481981625419, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4048938956065414013, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
@@ -12434,6 +12482,26 @@ PrefabInstance:
     - target: {fileID: 4048938956065414013, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194115565561829200, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194115565561829200, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194115565561829200, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194115565561829200, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194115565561829200, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.375
       objectReference: {fileID: 0}
     - target: {fileID: 4212027854693315558, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
       propertyPath: m_Enabled
@@ -12926,6 +12994,7 @@ SceneRoots:
   - {fileID: 1150885221}
   - {fileID: 891737557}
   - {fileID: 844038260}
+  - {fileID: 995124682}
   - {fileID: 1517881707}
   - {fileID: 1270842126}
   - {fileID: 1976014096}
