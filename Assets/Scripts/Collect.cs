@@ -32,10 +32,14 @@ public class Collect : MonoBehaviour
         }
         
         OnCollectEvent.Invoke();
-        inventoryDB.Add(item);
-        Destroy(itemEntity.gameObject);
+        inventoryDB.Add(mineral);
+        Destroy(collision.gameObject);
+
+        //
+        Logger.Instance.LoggingObject(this);
+        //
         
-        if (item.name == "PowerGemEarth")
+        if (mineral.name == "PowerGemEarth")
         {
             GameManager.instance.hasPowerGemEarth = true;
         }

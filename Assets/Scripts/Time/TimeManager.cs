@@ -74,6 +74,9 @@ public class TimeManager : MonoBehaviour
         Debug.Log("�帣��");
         time = startTime;
         date++;
+        //
+        Logger.Instance.LoggingObject(this);
+        //
         achieveContents.ChangePrice();
         InvokeRepeating("StartTime", magnification, magnification);
     }

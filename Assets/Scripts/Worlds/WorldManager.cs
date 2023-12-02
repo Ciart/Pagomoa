@@ -209,10 +209,16 @@ namespace Worlds
                     entity.Item = brick.mineral!.item;
                 }
             }
-
+            
+            if (brick.ground || brick.mineral)
+            {
+                //
+                Logger.Instance.LoggingObject(this);
+                //
+            }
             brick.ground = null;
             brick.mineral = null;
-
+            
             // _expiredChunks.Add(chunk);
 
             for (var i = -1; i < 2; i++)
