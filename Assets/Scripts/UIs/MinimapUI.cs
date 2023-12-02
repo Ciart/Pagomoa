@@ -1,4 +1,5 @@
 using System;
+using Entities;
 using TMPro;
 using UnityEngine;
 
@@ -8,17 +9,10 @@ namespace UIs
     {
         public TextMeshProUGUI coordXText;
         public TextMeshProUGUI coordYText;
-
-        private Transform _player;
         
-        private void Start()
-        {
-            _player = GameManager.instance.player.transform;
-        }
-
         private void Update()
         {
-            var position = _player.position;
+            var position = EntityManager.instance.player.transform.position;
 
             if (Math.Round(position.x) >= 1)
                 coordXText.text = $"{position.x:+0}";

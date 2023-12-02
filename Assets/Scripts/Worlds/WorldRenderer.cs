@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Entities;
-using Player;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -35,8 +34,6 @@ namespace Worlds
         private WorldManager _worldManager;
 
         private EntityManager _entityManager;
-
-        private PlayerController _player;
 
         private Chunk _currentChunk;
 
@@ -80,7 +77,7 @@ namespace Worlds
 
                 _worldManager.world.AddEntity(position.x, position.y, entityController.entity);
 
-                _entityManager.DespawnEntity(entityController);
+                _entityManager.Despawn(entityController);
             }
 
             if (_minimapRenderers.TryGetValue(key, out var value))
@@ -216,7 +213,6 @@ namespace Worlds
         {
             _worldManager = WorldManager.instance;
             _entityManager = EntityManager.instance;
-            _player = (PlayerController)FindObjectOfType(typeof(PlayerController));
 
             _worldManager.createdWorld += OnCreatedWorld;
             _worldManager.changedChunk += OnChangedChunk;
@@ -267,7 +263,7 @@ namespace Worlds
                 return;
             }
 
-            var playerCoord = WorldManager.ComputeCoords(_player.transform.position);
+            var playerCoord = WorldManager.ComputeCoords(_entityManager.player.transform.position);
             // var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
             //
             // DrawChunkRectangle(playerChunk, World.ChunkSize, Color.cyan);
@@ -314,7 +310,7 @@ namespace Worlds
                     continue;
                 }
 
-                _entityManager.SpawnEntity(entityData.entity, position);
+                _entityManager.Spawn(entityData.entity, position);
             }
         }
     }
