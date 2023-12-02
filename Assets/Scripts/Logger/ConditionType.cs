@@ -8,7 +8,7 @@ namespace Logger
     [Serializable]
     public class ConditionType
     {
-        public TargetType Target { get; set; }
-        public string TypeValue { get; set; }
+        public TargetType target;
+        public string typeValue;
     }
 }

@@ -13,16 +13,28 @@ MonoBehaviour:
   m_Name: New Quest
   m_EditorClassIdentifier: 
   clear: 0
-  questId: 0
-  nextQuestId: 0
-  description: 
+  questId: 1
+  nextQuestId: 2
+  description: Test1
   questList:
-  - questType: CollectMineral
-    value: 434232423454
+  - questType: 0
+    summary: "\uC778\uD2B8 \uD018\uC2A4\uD2B8"
+    value: 10
     targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
-  - questType: Temp
-    value: 123.3132
-    targetEntity: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
-  - questType: EncounterMineral
+    conditionType:
+      target: 0
+      typeValue: int
+  - questType: 3
+    summary: "\uBD88 \uD018\uC2A4\uD2B8"
     value: true
-    targetEntity: {fileID: 11400000, guid: 5490d5b4e32d442e58e3a25b6df60572, type: 2}
+    targetEntity: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}
+    conditionType:
+      target: 0
+      typeValue: bool
+  - questType: 5
+    summary: "\uD50C\uB86F \uD018\uC2A4\uD2B8"
+    value: 123.342
+    targetEntity: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+    conditionType:
+      target: 2
+      typeValue: float

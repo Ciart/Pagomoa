@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 namespace Logger
 {
     [Serializable] 
     public class QuestCondition
     {
-        public string questType;
-        public string Summary { get; set; }
+        public QuestType questType;
         
-        public string value = "0";
+        public string summary;
+        
+        public string value;
 
         public ScriptableObject targetEntity;
 
-        public ConditionType questCondition = new ConditionType();
+        public ConditionType conditionType;
     }
 }

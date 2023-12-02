@@ -30,29 +30,29 @@ namespace Logger
         {
             { QuestType.CollectMineral, new ConditionType
             {
-                Target = TargetType.Mineral,
-                TypeValue = "int"
+                target = TargetType.Mineral,
+                typeValue = "int"
             }},
             { QuestType.ConsumeMineral, new ConditionType
             {
-                Target = TargetType.Mineral,
-                TypeValue = "int"
+                target = TargetType.Mineral,
+                typeValue = "int"
             }},{ QuestType.BreakBlock, new ConditionType
             {
-                Target = TargetType.Brick,
-                TypeValue = "int"
+                target = TargetType.Brick,
+                typeValue = "int"
             }},{ QuestType.EncounterMineral, new ConditionType
             {
-                Target = TargetType.Mineral,
-                TypeValue = "bool"
+                target = TargetType.Mineral,
+                typeValue = "bool"
             }},{ QuestType.EncounterNpc, new ConditionType
             {
-                Target = TargetType.Npc,
-                TypeValue = "bool"
+                target = TargetType.Npc,
+                typeValue = "bool"
             }},{ QuestType.Temp, new ConditionType
             {
-                Target = TargetType.Npc,
-                TypeValue = "float"
+                target = TargetType.Npc,
+                typeValue = "float"
             }}
         };
     }
