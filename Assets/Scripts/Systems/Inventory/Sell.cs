@@ -60,7 +60,7 @@ public class Sell : MonoBehaviour
         }
         Gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
     }
-    public void DeleteSlot() // ÀÎº¥Åä¸®¿¡ Ãâ·ÂµÈ ¾ÆÀÌÅÛµé ÀüºÎ NULL
+    public void DeleteSlot() // ì¸ë²¤í† ë¦¬ì— ì¶œë ¥ëœ ì•„ì´í…œë“¤ ì „ë¶€ NULL
     {
         if (InventoryDB.Instance.items.Count >= 0)
         {

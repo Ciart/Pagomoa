@@ -3,11 +3,8 @@ using Worlds;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Collect : MonoBehaviour
+public class Collector : MonoBehaviour
 {
-    //public Inventory inventory;
-    //public ShopInventory shopInventory;
-    public InventoryDB inventoryDB;
     public EtcInventory etcInventory;
     public UnityEvent OnCollectEvent;
     private void Awake()
@@ -23,7 +20,7 @@ public class Collect : MonoBehaviour
             return;
         }
 
-        var itemEntity = other.transform.parent.GetComponent<ItemEntity>();
+        var itemEntity = other.transform.GetComponent<ItemEntity>();
         var item = itemEntity.Item;
 
         if (item is null)
@@ -32,7 +29,7 @@ public class Collect : MonoBehaviour
         }
 
         OnCollectEvent.Invoke();
-        inventoryDB.Add(item);
+        InventoryDB.Instance.Add(item);
         Destroy(itemEntity.gameObject);
 
         if (item.name == "PowerGemEarth")

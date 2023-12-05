@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
     
     private static GameManager _instance;
 
-    private PlayerController _player;
-    
     public static GameManager instance
     {
         get
@@ -32,8 +30,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        _player = FindObjectOfType<PlayerSpawnPoint>().Spawn();
         DontDestroyOnLoad(gameObject);
+        
+        FindObjectOfType<PlayerSpawnPoint>().Spawn();
     }
 
     void Start()

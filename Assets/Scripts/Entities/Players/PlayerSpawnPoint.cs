@@ -13,13 +13,13 @@ namespace Entities.Players
 
         public void Awake()
         {
-            if (playerEntity.prefab.GetComponent<Entities.Players.PlayerController>() is null)
+            if (playerEntity.prefab.GetComponent<PlayerController>() is null)
             {
                 throw new Exception("PlayerController가 없는 Entity입니다.");
             }
         }
 
-        public Entities.Players.PlayerController Spawn()
+        public PlayerController Spawn()
         {
             var entityManager = EntityManager.instance;
 

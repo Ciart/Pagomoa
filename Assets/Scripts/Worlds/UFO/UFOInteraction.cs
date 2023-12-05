@@ -1,4 +1,5 @@
 using System.Collections;
+using Entities;
 using UnityEngine;
 using PlayerController = Entities.Players.PlayerController;
 
@@ -8,21 +9,15 @@ namespace UFO
     public class UFOInteraction : MonoBehaviour
     {
         public bool canMove = true;
-        
-        private Transform _player;
 
         private float _maxSpeed = 3f;
 
-        private void Start()
-        {
-            _player = FindObjectOfType<PlayerController>().GetComponent<Transform>();
-        }
-
         public IEnumerator MoveToPlayer()
         {
-            Vector3 startPos = transform.position;
-            Vector3 targetPos = new Vector3(_player.position.x, startPos.y);
-            float sqrDistance = (targetPos - startPos).sqrMagnitude;
+            var player = EntityManager.instance.player;
+            var startPos = transform.position;
+            var targetPos = new Vector3(player.transform.position.x, startPos.y);
+            var sqrDistance = (targetPos - startPos).sqrMagnitude;
             
             while (sqrDistance > 0.01f)
             {
