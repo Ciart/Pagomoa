@@ -1,0 +1,1153 @@
+fileFormatVersion: 2
+guid: 2d9f6256d77789a4d82fd66abd07ab9e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BG
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 480
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c95099c1220e8f43ab7e431e61793f0
+      internalID: 37699886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SD1
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 197
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 2, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6209cdc22c8148f4ebd2b8fbfd074284
+      internalID: 403013701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SD2
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 197
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 2, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 067687c493cc03340aaa609be48f2d12
+      internalID: -1347286481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SD3
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 197
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 2, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24b310a522aae4743bb3fe5c0c770938
+      internalID: -1966595857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_4
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 250
+        width: 32
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbb588fd6d07b4543b72bdf325fb1a2d
+      internalID: 990551484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_5
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 256
+        width: 11
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5998293e6326d0a4e9623053ff5f9d8b
+      internalID: 1499865822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_6
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 115
+        width: 145
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2f5b92fb495d9947b6f67bce020a2e5
+      internalID: 2060080898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_7
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 234
+        width: 32
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c78a2b6612c2fc74c8e1643078f85930
+      internalID: 1700993734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_8
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 237
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1bb7a3315c50ba488b6dc4ab5f9c4aa
+      internalID: -733496079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_9
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 237
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38d0ec44b8cb3da488552a6ccb2eae16
+      internalID: 1111189784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_10
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 39
+        width: 188
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a553032e5f92cb14c852f009fafb68c6
+      internalID: 348641764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_11
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 222
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6202273ce9b1646489b81f802f4c729e
+      internalID: 21479418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_12
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 222
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4b2cf4c8b3451740a043e0a97c76281
+      internalID: -1922670506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_13
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 196
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a733e1f19c6503843a7d598db79f4dfe
+      internalID: -754392937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_14
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 197
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72b8963a4a6d5464f9bfe4815e234714
+      internalID: 379303993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_15
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 195
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cff27c47908065d4da79967449427bc3
+      internalID: -1298260568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_16
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 201
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ff9546584e6ea429d8cc13b40a900a
+      internalID: 1303293088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paper1
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 122
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53aca714315ddce4891010d5e67c90c6
+      internalID: 1956901844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paper2
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 122
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 546f89599c77cbf4493e2146104e6904
+      internalID: 979964557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paper3
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 122
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08919cc9ace9dcc4ea5bfe2b8b98b99a
+      internalID: 225209540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_30
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 151
+        width: 39
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a7477e9440db884f96d2f792a40c7ff
+      internalID: 1408109050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_31
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 125
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ac50d7761b3e2f43bd7c1e85333fd86
+      internalID: -2043455206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_32
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 126
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3005685735c34e439abf69e22dcec77
+      internalID: 1272175560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paper4
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 44
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4f63210657ec8045a95e028c77f913c
+      internalID: 1739432092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paper5
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 44
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9d0c2b7cfceee94384fcaedfdc5ad40
+      internalID: 954854434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paper6
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 44
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e5834652b66c2459864114f888f154
+      internalID: -217509975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_36
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 98
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d46a462ad49adf48bef179c8a98e808
+      internalID: 1833370409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_37
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 97
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65c5fceb5ff2d8a449349b1667a6e02a
+      internalID: 477239177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_38
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 89
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3f392743f9b44c41861bde9f83ed0a5
+      internalID: 1410422469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_39
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 76
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6ba5bbc20a592a4fb654c8ab0c98b84
+      internalID: -1269130143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_40
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 75
+        width: 59
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12ef0e3a38d80744fa0f05014562f2ca
+      internalID: 1987055345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_45
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 51
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6b7ae23b019e9a4e8ea095aa99b874e
+      internalID: -42455980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_46
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 52
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a59b00cf4a635e747b7faf06316d64ae
+      internalID: -437191194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_47
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 23
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a04367dc32f33e5479230f7840917687
+      internalID: 605343222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_48
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 23
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e19a2440d836346b085488f894a28e
+      internalID: -1514857623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_49
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 23
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 375af6308e6a87e44942e362d8744f04
+      internalID: -613770122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_50
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 23
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 739bcbd5b103cb041a63443e3f1d5800
+      internalID: -23532658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_51
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 23
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7aa6980135c3a64196c6a691bb392de
+      internalID: 2088871555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_52
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 23
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5b0e9865d378bf4a9e7bf20f70834ea
+      internalID: -1711617711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_53
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 2
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14b999aec8f94b943a2413aa0b89d028
+      internalID: -2050667482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_54
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 2
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3908f843abb7a234490c25e6b5a83ce7
+      internalID: -1382342398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_55
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 2
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac3304ff01a34d9419fc09b5dc1987e0
+      internalID: 1330177586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_56
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 2
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c99dc864d574646a5bd4654b74ec5f
+      internalID: 1529355524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_57
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 2
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 590a4faf74b048e4aae711fe7f0cdb56
+      internalID: -927724141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_58
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 2
+        width: 66
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf5351e9d65dca44db74dd6e65ae5f8f
+      internalID: -395979130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ImproveShop1_0
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 21
+        width: 204
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19df678ff8235904db7f23b7849d3504
+      internalID: 646677187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BG: 37699886
+      ImproveShop1_0: 646677187
+      ImproveShop1_10: 348641764
+      ImproveShop1_11: 21479418
+      ImproveShop1_12: -1922670506
+      ImproveShop1_13: -754392937
+      ImproveShop1_14: 379303993
+      ImproveShop1_15: -1298260568
+      ImproveShop1_16: 1303293088
+      ImproveShop1_17: -1885690403
+      ImproveShop1_18: -1604002889
+      ImproveShop1_22: 1186764870
+      ImproveShop1_23: -934128506
+      ImproveShop1_24: 730786735
+      ImproveShop1_25: -1324802013
+      ImproveShop1_26: -1891834030
+      ImproveShop1_27: -1669607562
+      ImproveShop1_28: -1767668836
+      ImproveShop1_29: -250321074
+      ImproveShop1_30: 1408109050
+      ImproveShop1_31: -2043455206
+      ImproveShop1_32: 1272175560
+      ImproveShop1_36: 1833370409
+      ImproveShop1_37: 477239177
+      ImproveShop1_38: 1410422469
+      ImproveShop1_39: -1269130143
+      ImproveShop1_4: 990551484
+      ImproveShop1_40: 1987055345
+      ImproveShop1_41: -134423722
+      ImproveShop1_42: 1436098528
+      ImproveShop1_43: 759370679
+      ImproveShop1_44: 508970154
+      ImproveShop1_45: -42455980
+      ImproveShop1_46: -437191194
+      ImproveShop1_47: 605343222
+      ImproveShop1_48: -1514857623
+      ImproveShop1_49: -613770122
+      ImproveShop1_5: 1499865822
+      ImproveShop1_50: -23532658
+      ImproveShop1_51: 2088871555
+      ImproveShop1_52: -1711617711
+      ImproveShop1_53: -2050667482
+      ImproveShop1_54: -1382342398
+      ImproveShop1_55: 1330177586
+      ImproveShop1_56: 1529355524
+      ImproveShop1_57: -927724141
+      ImproveShop1_58: -395979130
+      ImproveShop1_6: 2060080898
+      ImproveShop1_7: 1700993734
+      ImproveShop1_8: -733496079
+      ImproveShop1_9: 1111189784
+      Paper1: 1956901844
+      Paper2: 979964557
+      Paper3: 225209540
+      Paper4: 1739432092
+      Paper5: 954854434
+      Paper6: -217509975
+      SD1: 403013701
+      SD2: -1347286481
+      SD3: -1966595857
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -17,7 +17,7 @@ MonoBehaviour:
   itemImage: {fileID: -1689485987, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
   itemInfo: "\uBC40\uC774\uB2E4~ \uBB18\uD55C \uB0C4\uC0C8\uAC00 \uD750\uB974\uB294
     \uBC40\uC220"
-  itemPrice: 0
+  itemPrice: 1000
   Equipable: 0
   AbilityList:
     data: []

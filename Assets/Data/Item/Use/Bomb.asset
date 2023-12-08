@@ -16,7 +16,7 @@ MonoBehaviour:
   itemType: 1
   itemImage: {fileID: 21300000, guid: 7710a49fb46def54eaf8200847714ea1, type: 3}
   itemInfo: "\uBEE5\uC774\uC694~~!"
-  itemPrice: 0
+  itemPrice: 5
   Usable: 0
   Effects:
   - {fileID: 11400000, guid: a394f3030507b12468bae4dfc7ea7823, type: 2}
