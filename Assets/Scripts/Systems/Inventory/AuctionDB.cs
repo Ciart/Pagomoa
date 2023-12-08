@@ -23,21 +23,30 @@ namespace Inventory
         public void Remove(Item data)
         {
             var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
+            var acutionItem = Buy.Instance.choiceSlot.inventoryItem;
             if (inventoryItem != null)
             {
                 if (inventoryItem.item.itemType == Item.ItemType.Use)
                     for (int i = 0; i < BuyCountUI.Instance.count; i++)
                         InventoryDB.Instance.Gold -= data.itemPrice;
-                else
+                else if (inventoryItem.item.itemType == Item.ItemType.Equipment)
+                {
                     InventoryDB.Instance.Gold -= data.itemPrice;
-
-                if (inventoryItem.count == 0)
-                    auctionItem.Remove(inventoryItem);
+                    acutionItem.count -= 1;
+                }
+                //if (inventoryItem.count == 0)
+                //    auctionItem.Remove(inventoryItem);
             }
-            Buy.Instance.gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
+            Buy.Instance.gold.text = InventoryDB.Instance.Gold.ToString();
             //EtcInventory.Instance.ResetSlot();
             //Sell.Instance.ResetSlot();
             //InventoryDB.Instance.changeInventory.Invoke();
         }
+        //public void CountDown()
+        //{
+        //    var Item = Buy.Instance.choiceSlot.inventoryItem;
+
+        //    Item.count -= 1;
+        //}
     }
 }

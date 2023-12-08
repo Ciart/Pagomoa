@@ -71,7 +71,7 @@ public class TimeManagerTemp : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             time += 60000;
-            Debug.Log(_hour + "시 ");
+            //Debug.Log(_hour + "시 ");
         }
 
 
@@ -92,13 +92,13 @@ public class TimeManagerTemp : MonoBehaviour
             time = 0;
             date++;
             NextDaySpawn.Invoke();
-            Debug.Log("다음 날이야!");
+            //Debug.Log("다음 날이야!");
         }
         if (time == endTime) // 잠자는 시간 22 ~ 06
         {
             canSleep = true;
             MonsterSleep.Invoke();
-            Debug.Log(_hour + "시 " + _minute + "분" + " 잘자렴!");
+            //Debug.Log(_hour + "시 " + _minute + "분" + " 잘자렴!");
 
         }
         if (time == returnTime)
@@ -109,7 +109,7 @@ public class TimeManagerTemp : MonoBehaviour
         {
             canSleep = false;
             MonsterWakeUp.Invoke();
-            Debug.Log(_hour + "시 " + _minute + "분" + " 일어나!");
+            //Debug.Log(_hour + "시 " + _minute + "분" + " 일어나!");
 
         }
     }

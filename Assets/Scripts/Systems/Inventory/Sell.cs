@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,11 @@ public class Sell : MonoBehaviour
     public static Sell Instance = null;
 
     [SerializeField] public Slot choiceSlot;
-
+    [SerializeField] public ShopHover hovering;
     [SerializeField] private GameObject _slot;
     [SerializeField] private GameObject _slotParent;
     [SerializeField] private Sprite _image;
-    [SerializeField] public GameObject Gold;
+    [SerializeField] public TextMeshProUGUI gold;
     private List<Slot> _slotDatas = new List<Slot>();
     private void Awake()
     {
@@ -58,7 +59,7 @@ public class Sell : MonoBehaviour
             else
                 _slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
         }
-        Gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
+        gold.text = InventoryDB.Instance.Gold.ToString();
     }
     public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
     {

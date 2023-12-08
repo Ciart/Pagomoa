@@ -53,9 +53,8 @@ public class EtcInventory : MonoBehaviour
         {
             string convert = InventoryDB.Instance.items[i].count.ToString();
             if (InventoryDB.Instance.items[i].count == 0)
-            {
                 convert = "";
-            }
+            
             if (InventoryDB.Instance.items[i].item == null)
                 slotDatas[i].SetUI(image, convert);
             else
