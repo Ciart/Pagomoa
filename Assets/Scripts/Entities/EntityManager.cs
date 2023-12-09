@@ -12,6 +12,10 @@ namespace Entities
         private PlayerController _player;
         public PlayerController player => _player;
 
+        /// <summary>
+        /// Player가 생성될 때 호출됩니다.
+        /// Awake에서 구독하기를 권장합니다.
+        /// </summary>
         public event Action<PlayerController> spawnedPlayer;
         
         private static EntityManager _instance;

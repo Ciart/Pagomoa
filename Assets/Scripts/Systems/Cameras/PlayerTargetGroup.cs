@@ -18,13 +18,6 @@ namespace Cameras
         private void Awake()
         {
             _targetGroup = GetComponent<CinemachineTargetGroup>();
-
-            var player = EntityManager.instance.player;
-            
-            if (player is not null)
-            {
-                OnSpawnedPlayer(player);
-            }
             
             EntityManager.instance.spawnedPlayer += OnSpawnedPlayer;
         }

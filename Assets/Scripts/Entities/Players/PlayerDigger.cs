@@ -8,9 +8,6 @@ namespace Entities.Players
     [RequireComponent(typeof(Entities.Players.PlayerController))]
     public class PlayerDigger : MonoBehaviour
     {
-        [HideInInspector] public UnityEvent<float, float> DiggingEvent;
-        public UnityEvent digEndEvent;
-
         public Direction direction;
         public bool isDig;
         public float tiredDigSpeedScoop = 5f;

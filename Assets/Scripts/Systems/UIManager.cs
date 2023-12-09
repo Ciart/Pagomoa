@@ -28,13 +28,8 @@ public class UIManager : MonoBehaviour
 
         EntityManager.instance.spawnedPlayer += player =>
         {
-            player.GetComponent<PlayerDigger>().DiggingEvent.AddListener(SetDigGage);
-            player.GetComponent<PlayerDigger>().digEndEvent.AddListener(SetDigGagefalse);
             player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(UpdateOxygenBar);
             player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
-            
-            // TODO: DigBar처리는 Player Prefab 내부로 옮겨야 합니다.
-            SetDigGagefalse();
 
             playerInput = player.GetComponent<PlayerInput>();
 
@@ -57,15 +52,6 @@ public class UIManager : MonoBehaviour
     public void UpdateHungryBar(float current_hungry, float max_hungry)
     {
         hungrybar.fillAmount = current_hungry / max_hungry;
-    }
-    public void SetDigGagefalse()
-    {
-        digbar.transform.parent.gameObject.SetActive(false);
-    }
-    public void SetDigGage(float holdtime, float digtime)
-    {
-        digbar.fillAmount = holdtime / digtime;
-        digbar.transform.parent.gameObject.SetActive(true);
     }
     private void SetEscUI()
     {

@@ -1,45 +1,11 @@
-using System;
 using System.Collections.Generic;
 using Entities;
 using UnityEngine;
 
 namespace Worlds
 {
-    [Serializable]
-    public class Chunk
-    {
-        // TODO: key 대신 다른 단어로 교체해야 함.
-        public Vector2Int key;
-
-        public Brick[] bricks;
-
-        public readonly Rect worldRect;
-
-        public Chunk(Vector2Int key)
-        {
-            this.key = key;
-            bricks = new Brick[World.ChunkSize * World.ChunkSize];
-            worldRect = new Rect(key.x * World.ChunkSize, key.y * World.ChunkSize, World.ChunkSize, World.ChunkSize);
-
-            for (var i = 0; i < World.ChunkSize; i++)
-            {
-                for (var j = 0; j < World.ChunkSize; j++)
-                {
-                    bricks[i + j * World.ChunkSize] = new Brick();
-                }
-            }
-        }
-        
-        private bool CheckRange(float x, float y)
-        {
-            return 0 <= x && x < World.ChunkSize && 0 <= y && y < World.ChunkSize;
-        }
-    }
-
     public class World
     {
-        public const int ChunkSize = 16;
-        
         public const int GroundHeight = 0;
 
         public readonly int top;
@@ -94,9 +60,27 @@ namespace Worlds
 
         public Chunk GetChunk(int x, int y)
         {
-            var key = new Vector2Int(Mathf.FloorToInt((float)x / ChunkSize), Mathf.FloorToInt((float)y / ChunkSize));
+            var key = new Vector2Int(Mathf.FloorToInt((float)x / Chunk.Size), Mathf.FloorToInt((float)y / Chunk.Size));
 
             return GetChunk(key);
+        }
+
+        public IEnumerable<Chunk> GetNeighborChunks(Vector2Int key)
+        {
+            for (var i = -1; i < 2; i++)
+            {
+                for (var j = -1; j < 2; j++)
+                {
+                    var chunk = GetChunk(key + new Vector2Int(i, j));
+
+                    if (chunk is null)
+                    {
+                        continue;
+                    }
+
+                    yield return chunk;
+                }
+            }
         }
 
         public Dictionary<Vector2Int, Chunk> GetAllChunks()
@@ -113,10 +97,10 @@ namespace Worlds
                 return null;
             }
 
-            var brinkX = x < 0 ? ChunkSize - 1 + (x + 1) % ChunkSize : x % ChunkSize;
-            var brinkY = y < 0 ? ChunkSize - 1 + (y + 1) % ChunkSize : y % ChunkSize;
+            var brinkX = x < 0 ? Chunk.Size - 1 + (x + 1) % Chunk.Size : x % Chunk.Size;
+            var brinkY = y < 0 ? Chunk.Size - 1 + (y + 1) % Chunk.Size : y % Chunk.Size;
 
-            return chunk.bricks[brinkX + brinkY * ChunkSize];
+            return chunk.bricks[brinkX + brinkY * Chunk.Size];
         }
 
         public void AddEntity(float x, float y, Entity entity, EntityStatus status = null)

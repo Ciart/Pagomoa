@@ -20,7 +20,7 @@ public class Collector : MonoBehaviour
             return;
         }
 
-        var itemEntity = other.transform.GetComponent<ItemEntity>();
+        var itemEntity = other.transform.parent.GetComponent<ItemEntity>();
         var item = itemEntity.Item;
 
         if (item is null)
