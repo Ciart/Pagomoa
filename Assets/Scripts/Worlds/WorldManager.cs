@@ -41,6 +41,10 @@ namespace Worlds
 
         public event Action<World> createdWorld;
 
+        /// <summary>
+        /// Chunk 내부 Brick이 변경될 경우 호출됩니다.
+        /// 같은 Chunk는 LateUpdate당 한 번만 호출됩니다.
+        /// </summary>
         public event Action<Chunk> changedChunk;
 
         private static WorldManager _instance;
@@ -71,7 +75,7 @@ namespace Worlds
         private void LateUpdate()
         {
             UpdateDiggingBrickDamage();
-            
+
             if (_expiredChunks.Count == 0)
             {
                 return;
@@ -114,7 +118,7 @@ namespace Worlds
         {
             var p = ComputeCoords(pos);
             var brick = _world.GetBrick(p.x, p.y, out var chunk);
-            if (brick.ground is null)
+            if (brick?.ground is null)
                 return true;
             else
                 return false;
@@ -126,16 +130,16 @@ namespace Worlds
         private void UpdateDiggingBrickDamage()
         {
             var newBrickDamage = new Dictionary<BrickCoords, BrickHealth>();
-            
+
             foreach (var (coords, damage) in brickDamage)
             {
                 if (diggingBrickDamage.ContainsKey(coords))
                 {
                     var brickHealth = brickDamage[coords];
                     brickHealth.health -= diggingBrickDamage[coords];
-                    
+
                     newBrickDamage.Add(coords, brickHealth);
-                    
+
                     diggingBrickDamage.Remove(coords);
                 }
                 else
@@ -149,9 +153,9 @@ namespace Worlds
                     newBrickDamage.Remove(coords);
                 }
             }
-            
+
             brickDamage = newBrickDamage;
-            
+
             foreach (var (coords, damage) in diggingBrickDamage)
             {
                 var brick = _world.GetBrick(coords.x, coords.y, out _);
@@ -163,16 +167,16 @@ namespace Worlds
 
                 var brickHealth = BrickHealth.FromBrick(brick);
                 brickHealth.health -= damage;
-                
+
                 brickDamage.Add(coords, brickHealth);
-                
+
                 if (brickHealth.health <= 0)
                 {
                     BreakGround(coords.x, coords.y, 10);
                     brickDamage.Remove(coords);
                 }
             }
-            
+
             diggingBrickDamage.Clear();
         }
 
@@ -213,21 +217,9 @@ namespace Worlds
             brick.ground = null;
             brick.mineral = null;
 
-            // _expiredChunks.Add(chunk);
-
-            for (var i = -1; i < 2; i++)
+            foreach (var c in _world.GetNeighborChunks(chunk.key))
             {
-                for (var j = -1; j < 2; j++)
-                {
-                    var c = _world.GetChunk(chunk.key + new Vector2Int(i, j));
-
-                    if (c is null)
-                    {
-                        continue;
-                    }
-
-                    _expiredChunks.Add(c);
-                }
+                _expiredChunks.Add(c);
             }
         }
 
