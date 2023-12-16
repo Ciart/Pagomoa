@@ -9,21 +9,26 @@ using UnityEngine.Rendering.Universal;
 
 public class TimeManagerTemp : MonoBehaviour
 {
+    float Minute = 1000;
+    float Hour = 60000;
+
+
     private int time = 0;
     public int _time { get { return time; } }
-    private int maxTime = 1440000;
+    private int maxTime = 1440000; // 24시
     public int _maxTime { get { return maxTime; } }
-    private int startTime = 360000;
-    private int endTime = 1320000; // 22시 ~ 06시 
-    private int returnTime = 60000;
-    private int _wakeUpTime = 360000;
-    private int date = 1;
-    private float magnification = 0.10f;
+    
 
-    public UnityEvent NextDaySpawn;
-    public UnityEvent MonsterSleep;
-    public UnityEvent MonsterWakeUp;
-    public UnityEvent<FadeState> FadeEvent;
+    private int date = 1;
+    private float magnification = 1f;
+
+    string season = "";
+    bool eventTakePlace = true;
+
+    [HideInInspector] public UnityEvent NextDaySpawn;
+    [HideInInspector] public UnityEvent MonsterSleep;
+    [HideInInspector] public UnityEvent MonsterWakeUp;
+    [HideInInspector] public UnityEvent<FadeState> FadeEvent;
 
     private static TimeManagerTemp _instance = null;
     public static TimeManagerTemp Instance
@@ -55,72 +60,60 @@ public class TimeManagerTemp : MonoBehaviour
     
     private void Start()
     {
-        InvokeRepeating(nameof(StartTime), magnification, magnification);
+        InvokeRepeating(nameof(Timer), magnification, magnification);
     }
     private void Update()
     {
         if (canSleep && Input.GetKeyDown(KeyCode.P))
             Sleep();
-
-        //if (Input.GetKeyDown(KeyCode.C))
-        //    time = endTime - 5000;
-
-        //if (Input.GetKeyDown(KeyCode.V))
-        //    time = _wakeUpTime - 5000;
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            time += 60000;
-            //Debug.Log(_hour + "시 ");
-        }
-
-
     }
     private void FixedUpdate()
     {
         DayLight();
     }
-    private void StartTime()
+    private void Timer()
     {
         time += 1000;
-        EventTime();
-    }
-    private void EventTime()
-    {
-        if (time >= maxTime) // 날짜 바뀌는 시간
+
+        if (time >= maxTime)
         {
             time = 0;
             date++;
             NextDaySpawn.Invoke();
-            //Debug.Log("다음 날이야!");
         }
-        if (time == endTime) // 잠자는 시간 22 ~ 06
+
+
+        if (season != GetSeasonForPlayer())
+        {
+            season = GetSeasonForPlayer();
+            EventTime();
+        }
+    }
+    private void EventTime()
+    {
+        if (eventTakePlace == true) return;
+        
+        if(season == "MiddleNight")
         {
             canSleep = true;
+            eventTakePlace = true;
             MonsterSleep.Invoke();
-            //Debug.Log(_hour + "시 " + _minute + "분" + " 잘자렴!");
-
         }
-        if (time == returnTime)
-        {
-            ReturnToBase();
-        }
-        if (time == _wakeUpTime)
+        if (season == "Morning")
         {
             canSleep = false;
+            eventTakePlace = true;
             MonsterWakeUp.Invoke();
-            //Debug.Log(_hour + "시 " + _minute + "분" + " 일어나!");
-
         }
     }
     public void Sleep()
     {
         FadeEvent.Invoke(FadeState.FadeInOut);
-        CancelInvoke(nameof(StartTime));
-        time = startTime;
-        if (time < 1440000 && time > 1320000) date++;
+        CancelInvoke(nameof(Timer));
+        time = 360000;
+        if (time < 24 * Hour && time > 22 * Hour) date++;
         
-        InvokeRepeating(nameof(StartTime), magnification, magnification);
+        InvokeRepeating(nameof(Timer), magnification, magnification);
         
         canSleep = false;
         NextDaySpawn.Invoke();
@@ -133,12 +126,23 @@ public class TimeManagerTemp : MonoBehaviour
     }
     public string GetSeasonForMonster()
     {
-        if (time >= 0 && time < _wakeUpTime) // 밤    // 360000
+        if (time >= 0 && time < 6 * Hour) // 밤    // 360000
             return "Night";
-        else if (time < endTime) // 낮        // 1320000
+        else if (time < 22 * Hour) // 낮        // 1320000
             return "Day";
         else
             return "Night";
+    }
+    public string GetSeasonForPlayer() 
+    {
+        if (6 * Hour < time && time < 12 * Hour)
+            return "Morning";
+        else if (time < 18 * Hour)
+            return "Afternoon";
+        else if (time < 22 * Hour)
+            return "Night";
+        else
+            return "MiddleNight";
     }
     
     void DayLight()
