@@ -10,7 +10,7 @@ namespace UFO
 
         private InteractableObject _interactable;
         
-        private TimeManagerTemp _timeManager;
+        private TimeManager _timeManager;
         
         void Start()
         {
@@ -18,7 +18,7 @@ namespace UFO
             
             _interactable.InteractionEvent.AddListener(GotoBed);
             
-            _timeManager = FindObjectOfType<TimeManagerTemp>();
+            _timeManager = FindObjectOfType<TimeManager>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

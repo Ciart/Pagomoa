@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4442673042798730019}
   - component: {fileID: 1052701802431607279}
+  - component: {fileID: 4877167365495806114}
   m_Layer: 0
   m_Name: TimeManager
   m_TagString: Timer
@@ -41,10 +42,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1658260992654263617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 762c4820d72fa7c41a48bda68af2b206, type: 3}
+  m_Script: {fileID: 11500000, guid: 125158e0ce7d7464b92fb5eb1e08fb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 1420000
   NextDaySpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -54,4 +54,26 @@ MonoBehaviour:
   MonsterWakeUp:
     m_PersistentCalls:
       m_Calls: []
+  FadeEvent:
+    m_PersistentCalls:
+      m_Calls: []
   canSleep: 0
+--- !u!114 &4877167365495806114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658260992654263617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae182ab5c516a22479749ab4f851d932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyLights:
+  - {fileID: 11400000, guid: 43fbaf5b495473945b97d52834fcf5c5, type: 2}
+  - {fileID: 11400000, guid: 47ecef73e3b624a4d9ac375d059b8688, type: 2}
+  - {fileID: 11400000, guid: 9cde878dc69620449a2513e147aa5a7e, type: 2}
+  - {fileID: 11400000, guid: 730ac8f17446fa242aedcb2932d6d306, type: 2}
+  light: {fileID: 0}
+  skyShadow: {fileID: 0}

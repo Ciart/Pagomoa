@@ -8,17 +8,17 @@ public class MonsterManager : MonoBehaviour
 {
     private NightMonsterSpawner _nightSpawner;
     
-    private TimeManagerTemp _timeManagerTemp;
+    private TimeManager _timeManager;
 
     private bool _isSleepTime;
 
     void Start()
     {
         _nightSpawner = FindObjectOfType<NightMonsterSpawner>().GetComponent<NightMonsterSpawner>();
-        _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
+        _timeManager = FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
         
-        _timeManagerTemp.MonsterSleep.AddListener(SleepTime);
-        _timeManagerTemp.MonsterWakeUp.AddListener(AwakeTime);
+        _timeManager.MonsterSleep.AddListener(SleepTime);
+        _timeManager.MonsterWakeUp.AddListener(AwakeTime);
     }
     void FixedUpdate()
     {

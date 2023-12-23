@@ -16,14 +16,14 @@ namespace Monsters
     
         private GameObject _monsterPrefab;
 
-        private TimeManagerTemp _timeManagerTemp;
+        private TimeManager _timeManager;
         void Start()
         {
             _landMonster = land - 1;
             _monsterPrefab = _monsterType[_landMonster];
 
-            _timeManagerTemp = FindObjectOfType<TimeManagerTemp>().GetComponent<TimeManagerTemp>();
-            _timeManagerTemp.NextDaySpawn.AddListener(SpawnMonster);
+            _timeManager = FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
+            _timeManager.NextDaySpawn.AddListener(SpawnMonster);
         }
 
         public void SpawnMonster()
