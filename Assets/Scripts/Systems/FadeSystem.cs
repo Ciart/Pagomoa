@@ -13,17 +13,15 @@ public class FadeSystem : MonoBehaviour
     private Image _image;
 
     private FadeState _fadeState;
-
-    private TimeManagerTemp _timeManager;
-    void Start()
+    
+    private void Start()
     {
         _image = GetComponent<Image>();
-        _timeManager = FindObjectOfType<TimeManagerTemp>();
-        
-        _timeManager.FadeEvent.AddListener(OnFade);
+
+        TimeManager.Instance.FadeEvent.AddListener(OnFade);
     }
 
-    public void OnFade(FadeState state)
+    private void OnFade(FadeState state)
     {
         _fadeState = state;
         
@@ -58,8 +56,8 @@ public class FadeSystem : MonoBehaviour
             } 
         }
     }
-    
-    public IEnumerator Fade(float start, float end)
+
+    private IEnumerator Fade(float start, float end)
     {
         float currentTime = 0.0f;
         float percent = 0.0f;

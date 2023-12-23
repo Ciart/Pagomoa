@@ -1,19 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using Environments;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class TimeManager : MonoBehaviour
 {
-    [SerializeField] private AchieveContents achieveContents;
-    [SerializeField] private int time = 0;
-    private int startTime = 360000;
-    private int endTime = 1320000;
-    private int returnTime = 60000;
+    public const int Minute = 1000;
+    
+    public const int Hour = 60000;
+    
+    public const int MaxTime = 1440000; // 24ì‹œ
+    
+    public const int Morning = 60000 * 6;
+
+    public int time = Morning;
+
     private int date = 1;
-    private float magnification = 1.0f;
+    private float magnification = 1f;
+
+    string season = "";
+    bool eventTakePlace = true;
+
+    [HideInInspector] public UnityEvent NextDaySpawn;
+    [HideInInspector] public UnityEvent MonsterSleep;
+    [HideInInspector] public UnityEvent MonsterWakeUp;
+    [HideInInspector] public UnityEvent<FadeState> FadeEvent;
 
     private static TimeManager _instance = null;
+
     public static TimeManager Instance
     {
         get
@@ -22,64 +41,118 @@ public class TimeManager : MonoBehaviour
             {
                 _instance = (TimeManager)FindObjectOfType(typeof(TimeManager));
             }
+
             return _instance;
         }
     }
 
-    private int hour
+    private void Awake()
+    {
+        MonsterSleep.AddListener(DayMonster.GetSleep);
+        MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
+        MonsterWakeUp.AddListener(NightMonster.TimeToBye);
+    }
+
+    private int _hour
     {
         get { return time / 60000; }
     }
-    private int minute
+
+    private int _minute
     {
         get { return time % 60000 / 1000; }
     }
-    private bool canSleep = false;
+
+    public bool canSleep = false;
 
     private void Start()
     {
-        InvokeRepeating("StartTime", magnification, magnification);
+        InvokeRepeating(nameof(Timer), magnification, magnification);
     }
+
     private void Update()
     {
-        if (canSleep == true && Input.GetKeyDown(KeyCode.P))
+        if (canSleep && Input.GetKeyDown(KeyCode.P))
             Sleep();
     }
-    private void StartTime()
+
+    private void Timer()
     {
-        //Debug.Log(date +"ÀÏÂ÷ " + hour + "½Ã " + minute + "ºÐ");
         time += 1000;
-        EventTime();
-    }
-    private void EventTime()
-    {
-        if (time == 1440000) // ³¯Â¥ ¹Ù²î´Â ½Ã°£
+
+        if (time >= MaxTime)
         {
             time = 0;
             date++;
+            NextDaySpawn.Invoke();
         }
-        else if (time == endTime) // ÀáÀÚ´Â ½Ã°£
+
+
+        if (season != GetSeasonForPlayer())
+        {
+            season = GetSeasonForPlayer();
+            EventTime();
+        }
+    }
+
+    private void EventTime()
+    {
+        if (eventTakePlace == true) return;
+
+        if (season == "MiddleNight")
         {
             canSleep = true;
-            Debug.Log("Àß ¼ö ÀÖ´Ù.");
+            eventTakePlace = true;
+            MonsterSleep.Invoke();
         }
-        else if (time == returnTime)
+
+        if (season == "Morning")
         {
-            ReturnToBase();
+            canSleep = false;
+            eventTakePlace = true;
+            MonsterWakeUp.Invoke();
         }
     }
-    private void Sleep()
+
+    public void Sleep()
     {
-        CancelInvoke("StartTime");
-        Debug.Log("µå¸£··");
-        time = startTime;
-        date++;
-        achieveContents.ChangePrice();
-        InvokeRepeating("StartTime", magnification, magnification);
+        FadeEvent.Invoke(FadeState.FadeInOut);
+        CancelInvoke(nameof(Timer));
+        time = 360000;
+        if (time < 24 * Hour && time > 22 * Hour) date++;
+
+        InvokeRepeating(nameof(Timer), magnification, magnification);
+
+        canSleep = false;
+        NextDaySpawn.Invoke();
+        MonsterWakeUp.Invoke();
     }
+
     private void ReturnToBase()
     {
         Vector3 returnPosition = new Vector3(31.7f, 4, 0);
         gameObject.transform.position = returnPosition;
+    }
+
+    public string GetSeasonForMonster()
+    {
+        if (time >= 0 && time < 6 * Hour) // ë°¤    // 360000
+            return "Night";
+        else if (time < 22 * Hour) // ë‚®        // 1320000
+            return "Day";
+        else
+            return "Night";
+    }
+
+    public string GetSeasonForPlayer()
+    {
+        if (6 * Hour < time && time < 12 * Hour)
+            return "Morning";
+        else if (time < 18 * Hour)
+            return "Afternoon";
+        else if (time < 22 * Hour)
+            return "Night";
+        else
+            return "MiddleNight";
     }
 }
