@@ -1,57 +1,12 @@
-using System;
 using System.Collections.Generic;
 using Entities;
 using UnityEngine;
 
 namespace Worlds
 {
-    [Serializable]
-    public class Chunk
-    {
-        // TODO: key 대신 다른 단어로 교체해야 함.
-        public Vector2Int key;
-
-        public Brick[] bricks;
-
-        public List<WorldEntityData> entityDataList;
-
-        public readonly Rect worldRect;
-
-        public Chunk(Vector2Int key)
-        {
-            this.key = key;
-            bricks = new Brick[World.ChunkSize * World.ChunkSize];
-            entityDataList = new List<WorldEntityData>();
-            worldRect = new Rect(key.x * World.ChunkSize, key.y * World.ChunkSize, World.ChunkSize, World.ChunkSize);
-
-            for (var i = 0; i < World.ChunkSize; i++)
-            {
-                for (var j = 0; j < World.ChunkSize; j++)
-                {
-                    bricks[i + j * World.ChunkSize] = new Brick();
-                }
-            }
-        }
-        
-        public void AddEntity(float x, float y, Entity entity, EntityStatus status = null)
-        {
-            entityDataList.Add(new WorldEntityData(x, y, entity, status));
-        }
-
-        public void AddEntity(WorldEntityData entityData)
-        {
-            entityDataList.Add(entityData);
-        }
-
-        private bool CheckRange(float x, float y)
-        {
-            return 0 <= x && x < World.ChunkSize && 0 <= y && y < World.ChunkSize;
-        }
-    }
-
     public class World
     {
-        public const int ChunkSize = 16;
+        public const int GroundHeight = 0;
 
         public readonly int top;
 
@@ -60,8 +15,9 @@ namespace Worlds
         public readonly int left;
 
         public readonly int right;
-
-        public readonly int groundHeight = 0;
+        
+        public readonly List<WorldEntityData> entityDataList;
+        
         private readonly Dictionary<Vector2Int, Chunk> _chunks;
 
         public World(int top, int bottom, int left, int right)
@@ -70,6 +26,8 @@ namespace Worlds
             this.bottom = bottom;
             this.left = left;
             this.right = right;
+
+            entityDataList = new List<WorldEntityData>();
             
             _chunks = new Dictionary<Vector2Int, Chunk>();
 
@@ -90,6 +48,8 @@ namespace Worlds
             this.left = worldData.left;
             this.right = worldData.right;
 
+            entityDataList = worldData.entityDataList;
+
             _chunks = ListDictionaryConverter.ToDictionary(worldData._chunks);
         }
 
@@ -100,9 +60,27 @@ namespace Worlds
 
         public Chunk GetChunk(int x, int y)
         {
-            var key = new Vector2Int(Mathf.FloorToInt((float)x / ChunkSize), Mathf.FloorToInt((float)y / ChunkSize));
+            var key = new Vector2Int(Mathf.FloorToInt((float)x / Chunk.Size), Mathf.FloorToInt((float)y / Chunk.Size));
 
             return GetChunk(key);
+        }
+
+        public IEnumerable<Chunk> GetNeighborChunks(Vector2Int key)
+        {
+            for (var i = -1; i < 2; i++)
+            {
+                for (var j = -1; j < 2; j++)
+                {
+                    var chunk = GetChunk(key + new Vector2Int(i, j));
+
+                    if (chunk is null)
+                    {
+                        continue;
+                    }
+
+                    yield return chunk;
+                }
+            }
         }
 
         public Dictionary<Vector2Int, Chunk> GetAllChunks()
@@ -119,22 +97,20 @@ namespace Worlds
                 return null;
             }
 
-            var brinkX = x < 0 ? ChunkSize - 1 + (x + 1) % ChunkSize : x % ChunkSize;
-            var brinkY = y < 0 ? ChunkSize - 1 + (y + 1) % ChunkSize : y % ChunkSize;
+            var brinkX = x < 0 ? Chunk.Size - 1 + (x + 1) % Chunk.Size : x % Chunk.Size;
+            var brinkY = y < 0 ? Chunk.Size - 1 + (y + 1) % Chunk.Size : y % Chunk.Size;
 
-            return chunk.bricks[brinkX + brinkY * ChunkSize];
+            return chunk.bricks[brinkX + brinkY * Chunk.Size];
         }
 
         public void AddEntity(float x, float y, Entity entity, EntityStatus status = null)
         {
-            var chunk = GetChunk(Mathf.FloorToInt(x), Mathf.FloorToInt(y));
-        
-            if (chunk is null)
-            {
-                return;
-            }
-            
-            chunk.AddEntity(x - chunk.key.x * ChunkSize, y - chunk.key.y * ChunkSize, entity, status);
+            entityDataList.Add(new WorldEntityData(x, y, entity, status));
+        }
+
+        public void AddEntity(WorldEntityData entityData)
+        {
+            entityDataList.Add(entityData);
         }
     }
 }

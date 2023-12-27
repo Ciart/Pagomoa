@@ -10,7 +10,7 @@ namespace Worlds
     [RequireComponent(typeof(WorldManager))]
     public class WorldGenerator : MonoBehaviour
     {
-        public const int FOREST_HEIGHT = -200;
+        public const int ForestHeight = -200;
 
         public uint seed = 1234;
 
@@ -94,7 +94,7 @@ namespace Worlds
             {
                 for (var y = worldBottom; y < worldTop; y++)
                 {
-                    if (y >= world.groundHeight)
+                    if (y >= World.GroundHeight)
                     {
                         continue;
                     }
@@ -106,7 +106,7 @@ namespace Worlds
                     {
                         worldBrick.wall = wall;
 
-                        if (y > FOREST_HEIGHT)
+                        if (y > ForestHeight)
                         {
                             worldBrick.ground = sand;
                         }
@@ -129,7 +129,7 @@ namespace Worlds
 
                     Piece piece;
 
-                    if (y > FOREST_HEIGHT)
+                    if (y > ForestHeight)
                     {
                         piece = GetRandomPiece(desertPieces, random);
                     }
@@ -143,7 +143,7 @@ namespace Worlds
             }
             
             var powerX = random.NextInt(worldLeft, worldRight);
-            var powerY= random.NextInt(FOREST_HEIGHT, 100);
+            var powerY= random.NextInt(ForestHeight, 100);
             GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), world, powerX, powerY, true);
             
             GeneratePiece(database.GetPieceWithTag("Remote"), world, 0, -4, true);
@@ -154,34 +154,7 @@ namespace Worlds
         public void LoadWorld(WorldData worldData)
         {
             var world = new World(worldData);
-
-            var worldLeft = -worldData.left * chunkSize;
-            var worldRight = worldData.right * chunkSize;
-            var worldBottom = -worldData.bottom * chunkSize;
-            var worldTop = worldData.top * chunkSize;
-
-            for (var x = worldLeft; x < worldRight; x++)
-            {
-                for (var y = worldBottom; y < worldTop; y++)
-                {
-                    if (y >= world.groundHeight)
-                    {
-                        continue;
-                    }
-
-                    {
-                        var worldBrick = world.GetBrick(x, y, out _);
-                        if (worldBrick is not null)
-                        {
-                            worldBrick.wall = wall;
-                            if (worldBrick.ground != null)
-                                worldBrick.ground = ground;
-                            //Debug.Log((x - 16) + "/" + (y - 16) + "/" + world.chunkSize);
-                        }
-                    }
-                }
-            }
-
+            
             _worldManager.world = world;
         }
 

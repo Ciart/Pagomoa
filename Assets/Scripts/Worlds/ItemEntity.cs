@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Worlds
@@ -5,10 +7,14 @@ namespace Worlds
     [RequireComponent(typeof(SpriteRenderer))]
     public class ItemEntity: MonoBehaviour
     {
-        private Item _item;
+        public float initDelay = 0.1f;
+        
+        private Rigidbody2D _rigidbody;
     
         private SpriteRenderer _spriteRenderer;
 
+        private Item _item;
+        
         public Item Item
         {
             get => _item;
@@ -18,10 +24,23 @@ namespace Worlds
                 _spriteRenderer.sprite = _item.itemImage;
             }
         }
+
+        private IEnumerator ChangeDynamicWithDelay()
+        {
+            yield return new WaitForSeconds(initDelay);
+
+            _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        }
     
         private void Awake()
         {
+            _rigidbody = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(ChangeDynamicWithDelay());
         }
     }
 }

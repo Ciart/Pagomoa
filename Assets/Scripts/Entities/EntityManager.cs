@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities.Players;
+using JetBrains.Annotations;
 using UnityEngine;
 using Worlds;
 
@@ -7,6 +9,15 @@ namespace Entities
 {
     public class EntityManager : MonoBehaviour
     {
+        private PlayerController _player;
+        public PlayerController player => _player;
+
+        /// <summary>
+        /// Player가 생성될 때 호출됩니다.
+        /// Awake에서 구독하기를 권장합니다.
+        /// </summary>
+        public event Action<PlayerController> spawnedPlayer;
+        
         private static EntityManager _instance;
 
         private List<EntityController> _entities = new();
@@ -30,7 +41,7 @@ namespace Entities
             DontDestroyOnLoad(gameObject);
         }
 
-        public EntityController SpawnEntity(Entity entity, Vector3 position, EntityStatus status = null)
+        public EntityController Spawn(Entity entity, Vector3 position, EntityStatus status = null)
         {
             var controller = Instantiate(entity.prefab, position, Quaternion.identity);
             _entities.Add(controller);
@@ -39,12 +50,29 @@ namespace Entities
 
             return controller;
         }
+        
+        public PlayerController SpawnPlayer(Entity entity, Vector3 position)
+        {
+            if (_player is null)
+            {
+                _player = Spawn(entity, position).GetComponent<PlayerController>();
+                spawnedPlayer?.Invoke(_player);
+            }
 
-        public void DespawnEntity(EntityController controller)
+            return _player;
+        }
+
+        public void Despawn(EntityController controller)
         {
             _entities.Remove(controller);
             
             Destroy(controller.gameObject);
+        }
+
+        [CanBeNull]
+        public EntityController Find(Entity entity)
+        {
+            return _entities.Find(controller => controller.entity == entity);
         }
 
         public List<EntityController> FindAllEntityInChunk(Chunk chunk)
