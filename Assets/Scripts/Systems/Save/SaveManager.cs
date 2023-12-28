@@ -338,9 +338,6 @@ public class SaveManager : MonoBehaviour
         WriteArtifactData();
         WriteQuickSlotData();
         WritePlayerCurrentStatusData();
-        WriteGameLogData();
         DataManager.Instance.SaveGameData();
     }
-
-    
 }
