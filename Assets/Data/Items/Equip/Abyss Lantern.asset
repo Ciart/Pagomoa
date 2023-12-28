@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245123279c6f26d41bfd1ffd5a6f8ee2, type: 3}
+  m_Name: Abyss Lantern
+  m_EditorClassIdentifier: 
+  itemName: "\uC2EC\uC5F0\uC758 \uB79C\uD134"
+  itemType: 0
+  itemImage: {fileID: 402394799, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+  itemInfo: "\uC2EC\uC5F0\uC744 \uBE44\uD2B8\uB294 \uBE44\uC790\uC5F0\uC2A4\uB7F0
+    \uB79C\uD134"
+  itemPrice: 100
+  Equipable: 0
+  AbilityList:
+    data: []

@@ -55,7 +55,7 @@ namespace Entities
 
         private void Update()
         {
-            var distance = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+            var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
 
             if (distance > 10f)
             {
