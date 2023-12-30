@@ -7197,6 +7197,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416124325}
   m_CullTransparentMesh: 1
+--- !u!1 &1440276266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5987202663573984094, guid: 5dec4e0f098b50941a8577b27850e5f5, type: 3}
+  m_PrefabInstance: {fileID: 1626704889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1440276273
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440276266}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06383133, y: 0.47110242}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.86925507, y: 0.94220483}
+  m_EdgeRadius: 0
 --- !u!1 &1446570918
 GameObject:
   m_ObjectHideFlags: 0
@@ -8465,6 +8515,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
     - target: {fileID: 1257000768853689320, guid: 5dec4e0f098b50941a8577b27850e5f5, type: 3}
+      propertyPath: isEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1257000768853689320, guid: 5dec4e0f098b50941a8577b27850e5f5, type: 3}
       propertyPath: status.health
       value: 100
       objectReference: {fileID: 0}
@@ -8523,7 +8577,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5987202663573984094, guid: 5dec4e0f098b50941a8577b27850e5f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1440276273}
   m_SourcePrefab: {fileID: 100100000, guid: 5dec4e0f098b50941a8577b27850e5f5, type: 3}
 --- !u!1 &1642910131
 GameObject:
