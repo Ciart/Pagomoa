@@ -1,5 +1,4 @@
 using Inventory;
-using Player;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +8,6 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IDropHandler
 {
     public InventoryItem inventoryItem;
-    [SerializeField] private EquipUI equipUI;
     [SerializeField] private SellCountUI sellCountUI;
     [SerializeField] private BuyCountUI buyCountUI;
     [SerializeField] private BuyNoCountUI buyNoCountUI;
@@ -113,47 +111,8 @@ public class Slot : MonoBehaviour, IDropHandler
                 return;
         }
     }
-    public void EquipCheck()
-    {
-        EtcInventory.Instance.choiceSlot = this;
-
-        var inventory = EtcInventory.Instance;
-
-        if (inventory.choiceSlot.inventoryItem.item == null || inventory.choiceSlot.inventoryItem == null)
-            return;
-
-        if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
-            equipUI.OnUI();
-
-        else if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
-        {
-            inventory.choiceSlot.inventoryItem.count -= 1;
-            UseItem();
-            if (inventory.choiceSlot.inventoryItem.count == 0)
-            {
-                InventoryDB.Instance.Remove(inventory.choiceSlot.inventoryItem.item);
-                inventory.ResetSlot();
-            }
-            inventory.DeleteSlot();
-            inventory.UpdateSlot();
-        }
-        else
-            return;
-    }
-    public void EquipItem()
-    {
-        if (ArtifactSlotDB.Instance.Artifact.Count < 4 && inventoryItem != null)
-        {
-            EtcInventory.Instance.DeleteSlot();
-            ArtifactSlotDB.Instance.Artifact.Add(EtcInventory.Instance.choiceSlot.inventoryItem);
-            InventoryDB.Instance.Equip(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-            EtcInventory.Instance.UpdateSlot();
-            ArtifactContent.Instance.ResetSlot();
-        }
-        else
-            return;
-        equipUI.OffUI();
-    }
+    
+    
     public void ReleaseItem()
     {
         EtcInventory.Instance.choiceSlot = this;
@@ -177,11 +136,11 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         image.sprite = s;
     }
-    public void Return()
-    {
-        equipUI.OffUI();
-        return;
-    }
+    //public void Return()
+    //{
+    //    equipUI.OffUI();
+    //    return;
+    //}
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -199,9 +158,5 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         (item1, item2) = (item2, item1);
     }
-    public void UseItem()
-    {
-        Status playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<Status>();
-        this.inventoryItem.item.Active(playerStatus);
-    }
+    
 }

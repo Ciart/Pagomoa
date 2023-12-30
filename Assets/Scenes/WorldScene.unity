@@ -2351,7 +2351,6 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  equipUI: {fileID: 0}
   sellCountUI: {fileID: 660020840}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
@@ -10068,7 +10067,6 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 348790648}
   buyNoCountUI: {fileID: 2142252716}
