@@ -5,13 +5,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ShopHover : Hover
 {
-    [SerializeField] public Sprite[] hoverImage;
-    [SerializeField] public Image boostImage;
     [SerializeField] private Image _edgeImage;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
         if (this.GetComponent<BuySlot>())
         {
@@ -27,8 +25,7 @@ public class ShopHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         else
             return;
     }
-
-    public void OnPointerExit(PointerEventData eventData)
+    public override void OnPointerExit(PointerEventData eventData)
     {
         ShopUIManager.Instance.hovering = null;
         boostImage.sprite = hoverImage[1];

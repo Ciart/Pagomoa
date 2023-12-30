@@ -1,5 +1,6 @@
 using Inventory;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering.UI;
@@ -8,11 +9,12 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IDropHandler
 {
     public InventoryItem inventoryItem;
+    [SerializeField] private EquipUI equipUI;
     [SerializeField] private SellCountUI sellCountUI;
-    [SerializeField] private BuyCountUI buyCountUI;
-    [SerializeField] private BuyNoCountUI buyNoCountUI;
+    [SerializeField] public BuyCountUI buyCountUI;
+    [SerializeField] public BuyNoCountUI buyNoCountUI;
     [SerializeField] public Image image;
-    [SerializeField] public Text text;
+    [SerializeField] public TextMeshProUGUI text;
     [SerializeField] public int id;
 
     public void SellCheck()
@@ -27,9 +29,10 @@ public class Slot : MonoBehaviour, IDropHandler
             Inventory.itemType == Item.ItemType.Mineral)
         {
             sellCountUI.OnUI();
-            sellCountUI.ItemImage(Inventory.itemImage);
+            ShopChat.Instance.SellPriceToChat(Inventory.itemPrice);
         }
     }
+
     public void ClickSlot()
     {
         for (int i = 0; i < sellCountUI.count; i++)
@@ -49,70 +52,9 @@ public class Slot : MonoBehaviour, IDropHandler
             Sell.Instance.ResetSlot();
         }
         sellCountUI.count = 0;
-        sellCountUI.price = 0;
         sellCountUI.itemCount.text = sellCountUI.count.ToString();
-        sellCountUI.totalPrice.text = sellCountUI.price.ToString();
         sellCountUI.OffUI();
     }
-    public void BuyCheck()
-    {
-        Buy.Instance.choiceSlot = this;
-
-        var Shop = Buy.Instance.choiceSlot.inventoryItem.item;
-        if (Shop.itemType == Item.ItemType.Use)
-        {
-            buyCountUI.OnUI();
-            buyCountUI.ItemImage(Shop.itemImage);
-        }
-        else if (Shop.itemType == Item.ItemType.Equipment || Shop.itemType == Item.ItemType.Inherent)
-        {
-            buyNoCountUI.OnUI();
-            buyNoCountUI.ItemImage(Shop.itemImage);
-        }
-    }
-    public void BuySlot()
-    {
-        var Shop = Buy.Instance.choiceSlot.inventoryItem;
-        if (Shop.item.itemType == Item.ItemType.Use)
-        {
-            if (InventoryDB.Instance.Gold >= Shop.item.itemPrice * buyCountUI.count)
-            {
-                Shop.count -= buyCountUI.count;
-                InventoryDB.Instance.Add(Shop.item, buyCountUI.count);
-                AuctionDB.Instance.Remove(Shop.item);
-                Buy.Instance.UpdateSlot();
-                buyCountUI.OffUI();
-            }
-            else
-                return;
-
-            if (Shop.count == 0)
-            {
-                AuctionDB.Instance.Remove(Shop.item);
-                Buy.Instance.DestroySlot();
-                Buy.Instance.AuctionSlot();
-                Buy.Instance.UpdateSlot();
-                buyCountUI.OffUI();
-            }
-        }
-
-        else if (Shop.item.itemType == Item.ItemType.Equipment || Shop.item.itemType == Item.ItemType.Inherent)
-        {
-            if (InventoryDB.Instance.Gold >= Shop.item.itemPrice)
-            {
-                InventoryDB.Instance.Add(Shop.item, Shop.count);
-                AuctionDB.Instance.Remove(Shop.item);
-                Buy.Instance.DestroySlot();
-                Buy.Instance.AuctionSlot();
-                Buy.Instance.UpdateSlot();
-                buyNoCountUI.OffUI();
-            }
-            else
-                return;
-        }
-    }
-    
-    
     public void ReleaseItem()
     {
         EtcInventory.Instance.choiceSlot = this;
@@ -136,19 +78,16 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         image.sprite = s;
     }
-    //public void Return()
-    //{
-    //    equipUI.OffUI();
-    //    return;
-    //}
-
+    public void Return()
+    {
+        equipUI.OffUI();
+        return;
+    }
     public void OnDrop(PointerEventData eventData)
     {
         Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
         Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
-        //InventoryDB.Instance.changeInventory.Invoke();
         EtcInventory.Instance.ResetSlot();
-        //Sell.Instance.ResetSlot();
     }
     public void Swap(List<InventoryItem> list, int i, int j)
     {
@@ -158,5 +97,4 @@ public class Slot : MonoBehaviour, IDropHandler
     {
         (item1, item2) = (item2, item1);
     }
-    
 }

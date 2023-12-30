@@ -1,5 +1,5 @@
 using Inventory;
-using Player;
+using Entities.Players;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -91,6 +91,7 @@ public class ClickSlot : MonoBehaviour, IPointerClickHandler
                 InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
             EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
+            StoneCount.Instance.UpCount(1);
         }
         _rightClickMenu.SetUI();
         _rightClickMenu.DeleteMenu();
@@ -108,13 +109,14 @@ public class ClickSlot : MonoBehaviour, IPointerClickHandler
                 Debug.Log("10개보다 적음");
             EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
+            StoneCount.Instance.UpCount(10);
         }
         _rightClickMenu.SetUI();
         _rightClickMenu.DeleteMenu();
     }
     public void UseItem()
     {
-        Status playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<Status>();
+        PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
         EtcInventory.Instance.choiceSlot.inventoryItem.item.Active(playerStatus);
         InventoryDB.Instance.Use(EtcInventory.Instance.choiceSlot.inventoryItem.item);
         EtcInventory.Instance.DeleteSlot();
