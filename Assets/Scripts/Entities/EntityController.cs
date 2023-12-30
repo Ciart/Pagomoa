@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using Worlds;
 
@@ -10,6 +11,8 @@ namespace Entities
         public Entity entity;
 
         public EntityStatus status;
+        
+        public bool isEnemy = false;
 
         private Rigidbody2D _rigidbody;
 
@@ -29,6 +32,11 @@ namespace Entities
             {
                 this.status = status;
             }
+        }
+
+        private void OnDrawGizmos() 
+        {
+            Handles.Label(transform.position, $"({status.health} / {status.maxHealth})");
         }
 
         public void TakeDamage(float damage, float InvincibleTime = 0.3f, GameObject attacker = null)
