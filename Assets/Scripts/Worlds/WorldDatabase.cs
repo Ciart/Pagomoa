@@ -44,7 +44,6 @@ namespace Worlds
             return Array.Find(entities, entity => entity.name == name);
         }
 
-
         public Piece GetPieceWithTag(string tag)
         {
             return Array.Find(pieces, piece => Array.Exists(piece.tags, t => t == tag));
