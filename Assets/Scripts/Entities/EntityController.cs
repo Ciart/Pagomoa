@@ -79,8 +79,13 @@ namespace Entities
                 return;
             }
 
-            status.health -= amount;
             _invincibleTime = invincibleTime;
+            
+            status.health -= amount;
+            if (status.health <= 0)
+            {
+                status.health = 0;
+            }
 
             if (attacker is not null)
             {
@@ -88,13 +93,6 @@ namespace Entities
             }
 
             damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, attacker = attacker, flag = flag });
-
-            if (status.health <= 0)
-            {
-                status.health = 0;
-                Die();
-                return;
-            }
 
             StartCoroutine(RunInvincibleTimeFlash());
         }
@@ -121,9 +119,19 @@ namespace Entities
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
         }
+        
+        private void CheckDeath()
+        {
+            if (status.health <= 0)
+            {
+                Die();
+            }
+        }
 
         private void Update()
         {
+            CheckDeath();
+            
             var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
 
             if (distance > 10f)
