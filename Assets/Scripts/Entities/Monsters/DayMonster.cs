@@ -11,7 +11,7 @@ public class DayMonster : Monster
 
         _animator = GetComponent<Animator>();
         status = GetComponent<MonsterStatus>();
-        _attack = GetComponent<Attack>();
+        // _attack = GetComponent<Attack>();
 
         _controller = GetComponent<MonsterController>();
 

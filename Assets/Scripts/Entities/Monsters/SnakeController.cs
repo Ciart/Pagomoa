@@ -17,7 +17,7 @@ public class SnakeController : MonsterController
             switch (touchingTarget.tag)
             {
                 case "Player":
-                    _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
+                    // _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
                     break;
             }
         }

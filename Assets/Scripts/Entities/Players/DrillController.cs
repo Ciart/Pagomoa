@@ -59,7 +59,7 @@ namespace Entities.Players
             
             foreach (var enemy in _enemies)
             {
-                enemy.TakeDamage(10);
+                enemy.TakeDamage(10, attacker: _digger.gameObject, flag: DamageFlag.Melee);
             }
         }
 
@@ -67,22 +67,19 @@ namespace Entities.Players
         {
             var entity = collision.GetComponent<EntityController>();
 
-            if (entity == null || !entity.isEnemy || entity.gameObject == _digger.gameObject)
+            if (entity is null || _enemies.Contains(entity) || !entity.isEnemy)
             {
                 return;
             }
 
-            if (!_enemies.Contains(entity))
-            {
-                _enemies.Add(entity);
-            }
+            _enemies.Add(entity);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             var entity = collision.GetComponent<EntityController>();
             
-            if (entity == null)
+            if (entity is null || !_enemies.Contains(entity))
             {
                 return;
             }

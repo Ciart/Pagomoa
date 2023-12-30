@@ -27,6 +27,8 @@ namespace Entities
         public EntityType type;
 
         public int subType;
+
+        public bool isEnemy;
         
         public EntityController prefab;
         

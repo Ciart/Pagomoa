@@ -8516,6 +8516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clovee
       objectReference: {fileID: 0}
+    - target: {fileID: 5987202663573984094, guid: 5dec4e0f098b50941a8577b27850e5f5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,4 +1,5 @@
 using System.Collections;
+using Systems;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -14,7 +15,7 @@ public class Monster : MonoBehaviour
 
     public GameObject target;
 
-    public Attack _attack;
+    // public Attack _attack;
     public int direction;
     public enum MonsterState
     {
