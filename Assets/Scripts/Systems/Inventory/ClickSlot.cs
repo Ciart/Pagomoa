@@ -7,6 +7,7 @@ public class ClickSlot : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private RightClickMenu _rightClickMenu;
     [SerializeField] private EquipUI _equipUI;
+    [SerializeField] private StoneCount _stoneCount;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -91,7 +92,7 @@ public class ClickSlot : MonoBehaviour, IPointerClickHandler
                 InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
             EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
-            StoneCount.Instance.UpCount(1);
+            _stoneCount.UpCount(1);
         }
         _rightClickMenu.SetUI();
         _rightClickMenu.DeleteMenu();
@@ -105,12 +106,24 @@ public class ClickSlot : MonoBehaviour, IPointerClickHandler
                 inventory.choiceSlot.inventoryItem.count -= 10;
             else if (inventory.choiceSlot.inventoryItem.count == 10)
                 InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
-            else if (inventory.choiceSlot.inventoryItem.count < 10)
-                Debug.Log("10개보다 적음");
+            //else if (inventory.choiceSlot.inventoryItem.count < 10)
+            //    Debug.Log("10개보다 적음");
             EtcInventory.Instance.DeleteSlot();
             EtcInventory.Instance.UpdateSlot();
-            StoneCount.Instance.UpCount(10);
+            _stoneCount.UpCount(10);
         }
+        _rightClickMenu.SetUI();
+        _rightClickMenu.DeleteMenu();
+    }
+    public void EatAllMineral()
+    {
+        var inventory = EtcInventory.Instance;
+        int count = inventory.choiceSlot.inventoryItem.count;
+        inventory.choiceSlot.inventoryItem.count -= count;
+        _stoneCount.UpCount(count);
+        InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
+        EtcInventory.Instance.DeleteSlot();
+        EtcInventory.Instance.UpdateSlot();
         _rightClickMenu.SetUI();
         _rightClickMenu.DeleteMenu();
     }

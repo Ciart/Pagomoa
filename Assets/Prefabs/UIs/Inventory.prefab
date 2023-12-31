@@ -634,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rightClickMenu: {fileID: 7598143615013172950}
   _equipUI: {fileID: 5902123299063841664}
+  _stoneCount: {fileID: 6118995006216476664}
 --- !u!114 &7515324959102415518
 MonoBehaviour:
   m_ObjectHideFlags: 0

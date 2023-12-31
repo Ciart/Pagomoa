@@ -2447,6 +2447,7 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
+  equipUI: {fileID: 0}
   sellCountUI: {fileID: 660020840}
   buyCountUI: {fileID: 0}
   buyNoCountUI: {fileID: 0}
@@ -9347,6 +9348,7 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
+  equipUI: {fileID: 0}
   sellCountUI: {fileID: 0}
   buyCountUI: {fileID: 348790648}
   buyNoCountUI: {fileID: 2142252716}
@@ -11723,6 +11725,10 @@ PrefabInstance:
     - target: {fileID: 3976120265660128691, guid: 0767d93238e8c1947827e861222c4476, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387541591612205115, guid: 0767d93238e8c1947827e861222c4476, type: 3}
+      propertyPath: m_Maskable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5579224742506032465, guid: 0767d93238e8c1947827e861222c4476, type: 3}
       propertyPath: m_Pivot.x

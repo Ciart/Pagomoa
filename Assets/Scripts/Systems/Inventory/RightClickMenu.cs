@@ -23,6 +23,10 @@ public class RightClickMenu : MonoBehaviour
     {
         EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EquipItem();
     }
+    public void PressedEatAllBtn()
+    {
+        EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EatAllMineral();
+    }
     public void PressedEatBtn()
     {
         EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EatMineral();
@@ -52,7 +56,10 @@ public class RightClickMenu : MonoBehaviour
     }
     public void MineralMenu()
     {
-        MakeMenu("10∞≥ ∏‘¿Ã±‚");
+        if (EtcInventory.Instance.choiceSlot.inventoryItem.count >= 10)
+            MakeMenu("10∞≥ ∏‘¿Ã±‚");
+        else if (EtcInventory.Instance.choiceSlot.inventoryItem.count < 10)
+            MakeMenu("∏µŒ ∏‘±‚");
         MakeMenu("1∞≥ ∏‘¿Ã±‚");
         MakeMenu("πˆ∏Æ±‚");
         MakeMenu("±◊∏∏µŒ±‚");
@@ -87,7 +94,8 @@ public class RightClickMenu : MonoBehaviour
 
         else if (text == "10∞≥ ∏‘¿Ã±‚")
             newMenu.GetComponent<Button>().onClick.AddListener(PressedTenEatBtn);
-
+        else if (text == "∏µŒ ∏‘±‚")
+            newMenu.GetComponent<Button>().onClick.AddListener(PressedEatAllBtn);
         else if (text == "1∞≥ ∏‘¿Ã±‚")
             newMenu.GetComponent<Button>().onClick.AddListener(PressedEatBtn);
     }
