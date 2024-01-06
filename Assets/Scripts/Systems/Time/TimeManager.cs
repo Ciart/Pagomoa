@@ -156,20 +156,32 @@ public class TimeManager : MonoBehaviour
             return "MiddleNight";
     }
 
-    public void SetTime_Absolutely(int hour, int minute)
-    {
-        time = (hour * Hour) + (minute * Minute);
-    }
-    public void SetTime_Relatively(int hour, int minute)
+    public void AddTime(int hour, int minute)
     {
         time += (hour * Hour) + (minute * Minute);
     }
-    public void SetDay_Absolutely(int day)
+    public void SetTime(int hour, int minute)
+    {
+        time = (hour * Hour) + (minute * Minute);
+    }
+    public void SetDay(int day)
     {
         date = day;
     }
-    public void SetDay_Relatively(int day)
+    public void AddDay(int day)
     {
         date += day;
+    }
+    public int GetDay()
+    {
+        return date;
+    }
+    public int GetHour()
+    {
+        return _hour;
+    }
+    public int GetMinute()
+    {
+        return _minute;
     }
 }
