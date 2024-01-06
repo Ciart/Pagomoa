@@ -78,7 +78,7 @@ namespace Entities.Players
 
         private void UpdateOxygen()
         {
-            float gage = 0;
+            float gage = 100;
 
             if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
             {
@@ -99,13 +99,14 @@ namespace Entities.Players
         }
         void Die()
         {
-            TimeManager.Instance.SetDay_Relatively(1);
-            TimeManager.Instance.SetTime_Absolutely(6,0);
+            InventoryDB.Instance.Gold = int.Parse((InventoryDB.Instance.Gold * 0.9f).ToString());
+            TimeManager.Instance.SetTime(6,0);
+            TimeManager.Instance.AddDay(1);
             ReSpawn();
         }
         void ReSpawn()
         {
-            GameManager.instance.Player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
+            EntityManager.instance.player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
             oxygen = maxOxygen;
             isDie = false;
         }
