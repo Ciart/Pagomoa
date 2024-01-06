@@ -105,7 +105,7 @@ namespace Entities.Players
         }
         void ReSpawn()
         {
-            GameManager.instance.Player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
+            EntityManager.instance.player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
             oxygen = maxOxygen;
             isDie = false;
         }

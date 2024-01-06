@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
     public bool isLoadSave;
 
     public bool hasPowerGemEarth;
-
-    public GameObject Player;
     
     private static GameManager _instance;
 

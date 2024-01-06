@@ -56,7 +56,6 @@ namespace Entities
             if (_player is null)
             {
                 _player = Spawn(entity, position).GetComponent<PlayerController>();
-                GameManager.instance.Player = _player.gameObject;
                 spawnedPlayer?.Invoke(_player);
             }
 
