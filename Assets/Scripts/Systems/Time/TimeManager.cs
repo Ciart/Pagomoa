@@ -114,6 +114,12 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+
+    private void ReturnToBase()
+    {
+        Vector3 returnPosition = new Vector3(31.7f, 4, 0);
+        gameObject.transform.position = returnPosition;
+    }
     public void Sleep()
     {
         FadeEvent.Invoke(FadeState.FadeInOut);
@@ -126,12 +132,6 @@ public class TimeManager : MonoBehaviour
         canSleep = false;
         NextDaySpawn.Invoke();
         MonsterWakeUp.Invoke();
-    }
-
-    private void ReturnToBase()
-    {
-        Vector3 returnPosition = new Vector3(31.7f, 4, 0);
-        gameObject.transform.position = returnPosition;
     }
 
     public string GetSeasonForMonster()
@@ -154,5 +154,22 @@ public class TimeManager : MonoBehaviour
             return "Night";
         else
             return "MiddleNight";
+    }
+
+    public void SetTime_Absolutely(int hour, int minute)
+    {
+        time = (hour * Hour) + (minute * Minute);
+    }
+    public void SetTime_Relatively(int hour, int minute)
+    {
+        time += (hour * Hour) + (minute * Minute);
+    }
+    public void SetDay_Absolutely(int day)
+    {
+        date = day;
+    }
+    public void SetDay_Relatively(int day)
+    {
+        date += day;
     }
 }
