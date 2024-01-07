@@ -75,6 +75,13 @@ public class UIManager : MonoBehaviour
             HoverEvent.Instance.HoverRenderer.SetActive(OffHoverEvent);
             _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
             _inventoryCamera.Priority = 9;
+            if (EtcInventory.Instance.hoverSlot != null)
+            {
+                EtcInventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
+                    EtcInventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
+            }
+            else
+                return;
         }
     }
     private void CreateInventoryUI()

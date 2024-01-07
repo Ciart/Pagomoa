@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
             saveManager.LoadArtifactItem();
             saveManager.LoadQuickSlot();
             saveManager.LoadPlayerCurrentStatusData();
+            saveManager.LoadEatenMineralCountData();
         }
         else
             saveManager.TagPosition(saveManager.loadPositionDelayTime);

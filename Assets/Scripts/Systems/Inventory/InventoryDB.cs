@@ -7,6 +7,8 @@ public class InventoryDB : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
     public int Gold;
+    [SerializeField] public int stoneCount;
+    [SerializeField] public int maxCount;
     [SerializeField] private Buy buy;
 
     public UnityEvent makeSlots;
@@ -28,7 +30,7 @@ public class InventoryDB : MonoBehaviour
         //if (GameObject.Find("Inventory(Clone)") != null)
         //    changeInventory.AddListener(EtcInventory.Instance.ResetSlot);
 
-        SaveManager.Instance.LoadItem();
+        //SaveManager.Instance.LoadItem();
     }
     public void Add(Item data, int count = 1) // Item data
     {
@@ -105,7 +107,7 @@ public class InventoryDB : MonoBehaviour
             if (inventoryItem.count > 1)
             {
                 inventoryItem.count--;
-                QuickSlotItemDB.instance.SetCount(EtcInventory.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.SetCount(inventoryItem.item);
             }
             else if (inventoryItem.count == 1 || inventoryItem.count == 0)
             {

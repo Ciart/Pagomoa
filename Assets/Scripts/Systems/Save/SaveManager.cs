@@ -215,6 +215,13 @@ public class SaveManager : MonoBehaviour
         playerStatus.oxygenAlter.Invoke(playerStatus.oxygen, playerStatus.maxOxygen);
         playerStatus.hungryAlter.Invoke(playerStatus.hungry, playerStatus.maxHungry);
     }
+    public void LoadEatenMineralCountData()
+    {
+        if (DataManager.Instance.data.mineralData != null)
+            InventoryDB.Instance.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
+        else
+            Debug.Log("Mineral Data is Nothing");
+    }
     void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
@@ -263,6 +270,11 @@ public class SaveManager : MonoBehaviour
         DataManager.Instance.data.playerStatusData.SetCurrentStatusData(EntityManager.instance.player.GetComponent<PlayerStatus>());
         
     }
+    private void WriteEatenMineralCountData()
+    {
+        InitData();
+        DataManager.Instance.data.mineralData.SetEatenMineralData(InventoryDB.Instance);
+    }
     public void InitData()
     {
         if (DataManager.Instance.data == null)
@@ -308,6 +320,11 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No Player Status Data before, Instantiate new Player Status Data");
             DataManager.Instance.data.playerStatusData = new PlayerCurrentStatusData();
         }
+        if (DataManager.Instance.data.mineralData == null)
+        {
+            Debug.Log("No Mineral Data before, Instantiate new Mineral Data");
+            DataManager.Instance.data.mineralData = new MineralData();
+        }
     }
 
     private void OnApplicationQuit()
@@ -320,6 +337,7 @@ public class SaveManager : MonoBehaviour
         WriteArtifactData();
         WriteQuickSlotData();
         WritePlayerCurrentStatusData();
+        WriteEatenMineralCountData();
         DataManager.Instance.SaveGameData();
     }
 

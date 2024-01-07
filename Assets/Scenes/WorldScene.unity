@@ -1195,6 +1195,8 @@ MonoBehaviour:
   - item: {fileID: 0}
     count: 0
   Gold: 10000
+  stoneCount: 0
+  maxCount: 30
   buy: {fileID: 1171842542}
   makeSlots:
     m_PersistentCalls:
