@@ -141,6 +141,6 @@ public class TimeManagerTemp : MonoBehaviour
     
     void DayLight()
     {
-        GetComponent<EnvironmentConverter>().Convert(time, maxTime);
+        //GetComponent<EnvironmentConverter>().Convert(time, maxTime);
     }
 }

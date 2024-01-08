@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Logger
@@ -13,13 +11,14 @@ namespace Logger
         public int nextQuestId;
         public string description;
         public ArrayList elements;
+        
 
         public ProcessQuest(int questId, int nextQuestId, string description, List<QuestCondition> questConditions)
         {
             this.questId = questId;
             this.nextQuestId = nextQuestId;
             this.description = description;
-            elements = new ArrayList();
+            this.elements = new ArrayList();
             
             foreach (var condition in questConditions)
             {
@@ -68,24 +67,37 @@ namespace Logger
 
     public class ProcessQuestElements<T>
     {
-        public QuestType questType;
+        public QuestType questType { get; set; }
         public string summary;
+        public string valueType;
         public T value;
         public ScriptableObject targetEntity;
 
+        private QuestDatabase _database;
+        
         public ProcessQuestElements(QuestType questType, string summary, T value, ScriptableObject targetEntity)
         {
             this.questType = questType;
             this.summary = summary;
             this.value = value;
             this.targetEntity = targetEntity;
+
+            this.valueType = value switch
+            {
+                int => "int",
+                float => "float",
+                bool => "bool",
+                _ => this.valueType
+            };
         }
     }
 
     [Serializable]
+    [RequireComponent(typeof(QuestDatabase))]
     public class QuestManager : MonoBehaviour
     {
-        public List<ProcessQuest> processQuests = new List<ProcessQuest>();
+        public List<ProcessQuest> progressQuests = new List<ProcessQuest>();
+        public QuestDatabase database;
         
         private static QuestManager _instance;
         public static QuestManager Instance
@@ -99,6 +111,12 @@ namespace Logger
                 return _instance;
             }
         }
+
+        private void Start()
+        {
+            database = GetComponent<QuestDatabase>();
+        }
+
         private void Update()
         {
             if (Input.anyKeyDown)
@@ -110,15 +128,14 @@ namespace Logger
         public void MakeQuest(int questId)
         {
             // todo : UI로 적용이 필요함
-            var questDataBase = QuestDatabase.Instance;
-            
-            foreach (var quest in questDataBase.quests)
+
+            foreach (var quest in database.quests)
             {
                 if (quest.questId == questId)
                 {
                     var q = new ProcessQuest(quest.questId, quest.nextQuestId, quest.description, quest.questList);
                     
-                    processQuests.Add(q);
+                    progressQuests.Add(q);
                 }
             }
         }
