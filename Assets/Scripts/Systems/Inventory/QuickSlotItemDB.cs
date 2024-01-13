@@ -109,8 +109,8 @@ public class QuickSlotItemDB : MonoBehaviour
             if (selectedSlot.inventoryItem.count == 0)
             {
                 InventoryDB.Instance.Use(selectedSlot.inventoryItem.item);
-                RemoveAll(selectedSlot.inventoryItem.item);
-                selectedSlot.SetSlotNull();
+                //RemoveAll(selectedSlot.inventoryItem.item);
+                //selectedSlot.SetSlotNull();
             }
             if (EtcInventory.Instance)
             {

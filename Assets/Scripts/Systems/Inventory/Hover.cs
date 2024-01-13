@@ -12,10 +12,11 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         boostImage.sprite = hoverImage[0];
+        EtcInventory.Instance.hoverSlot = this.gameObject.GetComponent<Slot>();
     }
-
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         boostImage.sprite = hoverImage[1];
+        EtcInventory.Instance.hoverSlot = null;
     }
 }
