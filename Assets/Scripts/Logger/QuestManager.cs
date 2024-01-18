@@ -1,24 +1,25 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Logger
 {
+    #region MakeQuestPart
     public class ProcessQuest
     {
         public int questId;
         public int nextQuestId;
         public string description;
-        public ArrayList elements;
-        
+        public Reward reward;
+        public List<ProcessQuestElements> elements;
 
-        public ProcessQuest(int questId, int nextQuestId, string description, List<QuestCondition> questConditions)
+        public ProcessQuest(int questId, int nextQuestId, string description, Reward reward, List<QuestCondition> questConditions)
         {
             this.questId = questId;
             this.nextQuestId = nextQuestId;
             this.description = description;
-            this.elements = new ArrayList();
+            this.reward = reward;
+            elements = new List<ProcessQuestElements>();
             
             foreach (var condition in questConditions)
             {
@@ -26,7 +27,7 @@ namespace Logger
                 {
                     var intValue = int.Parse(condition.value);
                     
-                    var element = new ProcessQuestElements<int>(
+                    var element = new ProcessIntQuestElements(
                         condition.questType,
                         condition.summary,
                         intValue,
@@ -39,7 +40,7 @@ namespace Logger
                 {
                     var floatValue = float.Parse(condition.value);
                     
-                    var element = new ProcessQuestElements<float>(
+                    var element = new ProcessFloatQuestElements(
                         condition.questType,
                         condition.summary,
                         floatValue,
@@ -52,7 +53,7 @@ namespace Logger
                 {
                     var boolValue = bool.Parse(condition.value);
                     
-                    var element = new ProcessQuestElements<bool>(
+                    var element = new ProcessBoolQuestElements(
                         condition.questType,
                         condition.summary,
                         boolValue,
@@ -65,32 +66,68 @@ namespace Logger
         }
     }
 
-    public class ProcessQuestElements<T>
+    public class ProcessIntQuestElements : ProcessQuestElements, IProcessQuestValue<int>
     {
-        public QuestType questType { get; set; }
-        public string summary;
-        public string valueType;
-        public T value;
-        public ScriptableObject targetEntity;
-
-        private QuestDatabase _database;
-        
-        public ProcessQuestElements(QuestType questType, string summary, T value, ScriptableObject targetEntity)
+        public int value { get; set; }
+        public ProcessIntQuestElements(QuestType questType, string summary, int value, ScriptableObject targetEntity) 
+            : base(questType, summary, targetEntity)
         {
             this.questType = questType;
             this.summary = summary;
             this.value = value;
             this.targetEntity = targetEntity;
-
-            this.valueType = value switch
-            {
-                int => "int",
-                float => "float",
-                bool => "bool",
-                _ => this.valueType
-            };
+            valueType = "int";
         }
     }
+
+    public class ProcessFloatQuestElements : ProcessQuestElements, IProcessQuestValue<float>
+    {
+        public float value { get; set; } 
+        public ProcessFloatQuestElements(QuestType questType, string summary, float value, ScriptableObject targetEntity) 
+            : base(questType, summary, targetEntity)
+        {
+            this.questType = questType;
+            this.summary = summary;
+            this.value = value;
+            this.targetEntity = targetEntity;
+            valueType = "float";
+        }
+    }
+    
+    public class ProcessBoolQuestElements : ProcessQuestElements, IProcessQuestValue<bool>
+    {
+        public bool value { get; set; }
+        public ProcessBoolQuestElements(QuestType questType, string summary, bool value, ScriptableObject targetEntity) 
+            : base(questType, summary, targetEntity)
+        {
+            this.questType = questType;
+            this.summary = summary;
+            this.value = value;
+            this.targetEntity = targetEntity;
+            valueType = "bool";
+        }
+    }
+
+    public abstract class ProcessQuestElements
+    {
+        protected ProcessQuestElements(QuestType questType, string summary , ScriptableObject targetEntity)
+        {
+            this.questType = questType;
+            this.summary = summary;
+            this.targetEntity = targetEntity;
+        }
+
+        public QuestType questType { get; set; }
+        public string summary { get; set; }
+        public ScriptableObject targetEntity { get; set; }
+        public string valueType { get; set; }
+    }
+
+    public interface IProcessQuestValue<T>
+    {
+        public T value { get; set; }
+    }
+    #endregion
 
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
@@ -133,9 +170,44 @@ namespace Logger
             {
                 if (quest.questId == questId)
                 {
-                    var q = new ProcessQuest(quest.questId, quest.nextQuestId, quest.description, quest.questList);
+                    var q = new ProcessQuest(quest.questId, quest.nextQuestId, quest.description, quest.reward, quest.questList);
                     
                     progressQuests.Add(q);
+                }
+            }
+
+            foreach (var progressQuest in progressQuests)
+            {
+                Debug.Log("ID");
+                Debug.Log("questId: " + progressQuest.questId);
+                Debug.Log("nextQuestId: " + progressQuest.nextQuestId);
+                
+                Debug.Log("Reward");
+                Debug.Log("gold: " + progressQuest.reward.gold);
+                Debug.Log("targetEntity: " + progressQuest.reward.targetEntity);
+                Debug.Log("EntityValue: " + progressQuest.reward.value);
+                
+                for (int i = 0; i < progressQuest.elements.Count; i++)
+                {
+                    Debug.Log("QuestType: " + progressQuest.elements[i].questType);
+                    Debug.Log("Summary: " + progressQuest.elements[i].summary);
+                    Debug.Log("ValueType: " + progressQuest.elements[i].valueType);
+                    Debug.Log("Target: " + progressQuest.elements[i].targetEntity);
+                    if (progressQuest.elements[i].GetType() == typeof(ProcessIntQuestElements))
+                    {
+                        var intVal = (ProcessIntQuestElements)progressQuest.elements[i];
+                        Debug.Log("intValue: " + intVal.value);
+                    }
+                    else if (progressQuest.elements[i].GetType() == typeof(ProcessFloatQuestElements))
+                    {
+                        var floatVal = (ProcessFloatQuestElements)progressQuest.elements[i];
+                        Debug.Log("floatValue: " + floatVal.value);
+                    }
+                    else if (progressQuest.elements[i].GetType() == typeof(ProcessBoolQuestElements))
+                    {
+                        var boolVal = (ProcessBoolQuestElements)progressQuest.elements[i];
+                        Debug.Log("boolValue: " + boolVal.value);
+                    }
                 }
             }
         }

@@ -13,12 +13,7 @@ namespace Logger
 
             foreach (var progressQuest in progressQuests)
             {
-                var elementLength = progressQuest.elements.Count;
-
-                for (int i = 0; i < elementLength; i++)
-                {
-                    
-                }
+                
             }
             
             /*var a = (progressQuestElements<int>)progressQuests[0].elements[0];

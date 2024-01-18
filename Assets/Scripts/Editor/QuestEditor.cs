@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using Logger;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.Rendering;
-using Worlds;
 
 namespace Editor
 {
@@ -27,6 +24,14 @@ namespace Editor
             newQuest.nextQuestId = EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
 
+            GUILayout.Space(20);
+            
+            GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
+            newQuest.reward.gold = EditorGUILayout.IntField("보상 골드", newQuest.reward.gold);
+            newQuest.reward.targetEntity = (ScriptableObject)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(ScriptableObject), true);
+            newQuest.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuest.reward.value);
+            GUILayout.EndVertical();
+            
             GUILayout.Space(20);
             
             for (int i = 0; i < Enum.GetValues(typeof(QuestType)).Length; i++)
