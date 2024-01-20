@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public bool isLoadSave;
 
     public bool hasPowerGemEarth;
-    
+
     private static GameManager _instance;
 
     public static GameManager instance
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
             saveManager.LoadArtifactItem();
             saveManager.LoadQuickSlot();
             saveManager.LoadPlayerCurrentStatusData();
+            saveManager.LoadEatenMineralCountData();
         }
         else
             saveManager.TagPosition(saveManager.loadPositionDelayTime);

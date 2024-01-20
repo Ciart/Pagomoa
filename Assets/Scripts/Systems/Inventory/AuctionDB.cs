@@ -30,8 +30,6 @@ namespace Inventory
                     for (int i = 0; i < BuyCountUI.Instance.count; i++)
                     {
                         InventoryDB.Instance.Gold -= data.itemPrice;
-                        Debug.Log(data.itemPrice);
-                        Debug.Log(InventoryDB.Instance.Gold);
                     }
                 else if (data.itemType == Item.ItemType.Equipment)
                 {

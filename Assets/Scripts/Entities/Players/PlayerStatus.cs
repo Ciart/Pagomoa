@@ -11,6 +11,7 @@ namespace Entities.Players
         public float maxOxygen = 100f;
         public float minOxygen = 0f;
 
+        public bool isDie = false;
 
         [SerializeField] protected float _oxygenRecovery = 1;
         public float oxygenRecovery { get { return _oxygenRecovery; } set { _oxygenRecovery = value; } }
@@ -77,26 +78,46 @@ namespace Entities.Players
 
         private void UpdateOxygen()
         {
+            float gage = 100;
+
             if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
             {
                 oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
-
+                gage = oxygen;
                 if (oxygen < minOxygen)
                 {
-                    oxygen = minOxygen;
+                    gage = minOxygen;
                 }
             }
             else if (oxygen < maxOxygen)
             {
                 oxygen += Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
+                gage = oxygen;
             }
 
-            oxygenAlter.Invoke(oxygen, maxOxygen);
+            oxygenAlter.Invoke(gage, maxOxygen);
         }
-        
+        void Die()
+        {
+            InventoryDB.Instance.Gold = int.Parse((InventoryDB.Instance.Gold * 0.9f).ToString());
+            TimeManager.Instance.SetTime(6,0);
+            TimeManager.Instance.AddDay(1);
+            ReSpawn();
+        }
+        void ReSpawn()
+        {
+            EntityManager.instance.player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
+            oxygen = maxOxygen;
+            isDie = false;
+        }
         private void FixedUpdate()
         {
             UpdateOxygen();
+            if(oxygen < minOxygen && !isDie) 
+            {
+                isDie = true;
+                Die();
+            }
         }
 
         public PlayerStatus copy()

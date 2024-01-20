@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class StoneCount : MonoBehaviour
 {
-    [SerializeField] public int stoneCount;
-    [SerializeField] private int _maxCount;
     [SerializeField] private Sprite[] _drillImages;
     [SerializeField] private Image _drillImage;
     [SerializeField] private TextMeshProUGUI _countText;
@@ -22,13 +20,22 @@ public class StoneCount : MonoBehaviour
     }
     private void Start()
     {
-        _countText.text = $"{stoneCount} / {_maxCount}";        
+        WriteStoneCount();
+        LoadDrillImage();
+    }
+    private void WriteStoneCount()
+    {
+        _countText.text = $"{InventoryDB.Instance.stoneCount} / {InventoryDB.Instance.maxCount}";
     }
     public void UpCount(int count)
     {
-        stoneCount += count;
-        _countText.text = $"{stoneCount} / {_maxCount}";
-        if (_maxCount / 2 == stoneCount)
+        InventoryDB.Instance.stoneCount += count;
+        _countText.text = $"{InventoryDB.Instance.stoneCount} / {InventoryDB.Instance.maxCount}";
+        LoadDrillImage();
+    }
+    private void LoadDrillImage()
+    {
+        if (InventoryDB.Instance.maxCount / 2 <= InventoryDB.Instance.stoneCount)
             _drillImage.sprite = _drillImages[0];
     }
 }
