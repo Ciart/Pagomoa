@@ -62,7 +62,7 @@ namespace Entities.Players
             }
         }
 
-        Vector2Int DirectionCheck(bool a = false)
+        private Vector2Int DirectionCheck(bool a = false)
         {
             Vector3 digVec;
             switch (direction)

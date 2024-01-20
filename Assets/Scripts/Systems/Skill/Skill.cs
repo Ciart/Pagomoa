@@ -8,13 +8,15 @@ using PlayerController = Entities.Players.PlayerController;
 
 public class Skill : MonoBehaviour
 {
-    PlayerController _player;
-    bool Helicopter = false;
+    private PlayerController _player;
+    private bool Helicopter = false;
+
     private void Awake()
     {
         _player = GetComponent<PlayerController>();
     }
-    void Update()
+
+    private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.H))
         //{
@@ -32,9 +34,9 @@ public class Skill : MonoBehaviour
         //}
     }
     
-    IEnumerator HelicopterStart()
+    private IEnumerator HelicopterStart()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        var rb = GetComponent<Rigidbody2D>();
         while (WorldManager.instance.CheckClimbable(transform.position) && Helicopter)
         {
             _player.state = PlayerState.Jump;
@@ -46,7 +48,8 @@ public class Skill : MonoBehaviour
         }
         Helicopter = false;
     }
-    void MoleHill()
+
+    private void MoleHill()
     {
         Vector3 digVec;
         switch (_player.GetDirection()) 
@@ -74,7 +77,8 @@ public class Skill : MonoBehaviour
             pointInt = WorldManager.ComputeCoords(point);
         }
     }
-    IEnumerator GoMole()
+
+    private IEnumerator GoMole()
     {
         var point = transform.position + new Vector3(0, -1.2f);
         var pointInt = WorldManager.ComputeCoords(point);

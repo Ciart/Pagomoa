@@ -18,7 +18,7 @@ public class AutoChat : Chat
         StartChatReservation(initialStartTime);
     }
 
-    IEnumerator Chat()
+    private IEnumerator Chat()
     {
         if (chat.Count == 0)
             yield break;
@@ -34,15 +34,17 @@ public class AutoChat : Chat
         chatBalloon.balloon.SetActive(false);
         StartChatReservation();
     }
+
     public void StartChatReservation()
     {
         Invoke(nameof(StartChat), updateTime);
     }
+
     public void StartChatReservation(float time)
     {
         Invoke(nameof(StartChat), time);
     }
-    void StartChat()
+    private void StartChat()
     {
         StartCoroutine("Chat");
     }

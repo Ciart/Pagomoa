@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         FindObjectOfType<PlayerSpawnPoint>().Spawn();
         
-        SaveManager saveManager = SaveManager.Instance;
+        var saveManager = SaveManager.Instance;
         bool mapLoad = saveManager.LoadMap();
         if (mapLoad)
         {
@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour
         else
             saveManager.TagPosition(saveManager.loadPositionDelayTime);
     }
-
 
     private void Update()
     {

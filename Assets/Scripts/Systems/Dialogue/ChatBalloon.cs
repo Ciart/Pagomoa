@@ -44,6 +44,7 @@ public class ChatBalloon : MonoBehaviour
         if(icon)
             _chatIconTransform = icon.transform.GetComponent<RectTransform>();
     }
+
     public void ReSizeBalloon()
     {
         _chatBalloonTransform.sizeDelta = new Vector2(100 + 45 * chatContent.text.Length, _chatBalloonTransform.sizeDelta.y);

@@ -10,8 +10,8 @@ using Worlds;
 
 public class SaveManager : MonoBehaviour
 {
-    static GameObject container;
-    static SaveManager instance;
+    static private GameObject container;
+    static private SaveManager instance;
 
     public float loadPositionDelayTime = 1.5f;
     public bool LoadComplete = false;
@@ -35,6 +35,7 @@ public class SaveManager : MonoBehaviour
         }
     }
     List<GameObject> ManagingTargets = new List<GameObject>();
+
     private void Awake()
     {
         if (SceneManager.GetActiveScene().name == "Title") return;
@@ -51,10 +52,9 @@ public class SaveManager : MonoBehaviour
         AddManagingTargetWithTag("Player");
         AddManagingTargetWithTag("Monster");
         AddManagingTargetWithTag("NPC");
-
     }
     
-    bool AllBlockNullCheck()
+    private bool AllBlockNullCheck()
     {
         if (DataManager.Instance.data == null) return true;
         bool allNullCheck = true;
@@ -73,41 +73,47 @@ public class SaveManager : MonoBehaviour
         }
         return allNullCheck;
     }
-    void AddManagingTargetWithTag(string tagName)
+
+    private void AddManagingTargetWithTag(string tagName)
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(tagName);
+        var targets = GameObject.FindGameObjectsWithTag(tagName);
         if (targets.Length == 0) return;
-        foreach (GameObject target in targets)
+        foreach (var target in targets)
         {
             if (target.activeSelf)
                 ManagingTargets.Add(target);
         }
     }
+
     public void FreezePosition()
     {
-        foreach (GameObject target in ManagingTargets)
+        foreach (var target in ManagingTargets)
         {
             target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             target.GetComponent<Rigidbody2D>().Sleep();
         }
     }
+
     public void TagPosition(float time = 0)
     {
         Invoke("_TagPosition", time);
     }
+
     private void _TagPosition()
     {
         LoadComplete = true;
-        foreach (GameObject target in ManagingTargets)
+        foreach (var target in ManagingTargets)
         {
             target.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             target.GetComponent<Rigidbody2D>().WakeUp();
         }
     }
+
     public void LoadPosition()
     {
         Invoke("_LoadPosition", loadPositionDelayTime);
     }
+
     private void _LoadPosition()
     {
         TagPosition();
@@ -131,7 +137,7 @@ public class SaveManager : MonoBehaviour
 
     public bool LoadMap()
     {
-        bool LoadSuccess = DataManager.Instance.LoadGameData();
+        var LoadSuccess = DataManager.Instance.LoadGameData();
 
         if (!GameManager.instance.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
         if (DataManager.Instance.data != null)
@@ -166,7 +172,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadItem()
     {
-        DataManager dataManager = DataManager.Instance;
+        var dataManager = DataManager.Instance;
         if (dataManager.data.itemData == null) return;
 
         if (dataManager.data.itemData.items != null)
@@ -177,6 +183,7 @@ public class SaveManager : MonoBehaviour
         else
             Debug.Log("Item Data is Nothing");
     }
+
     public void LoadOption()
     {
         if (DataManager.Instance.data.optionData != null)
@@ -185,15 +192,17 @@ public class SaveManager : MonoBehaviour
             OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
         }
     }
+
     public void LoadArtifactItem()
     {
         if(DataManager.Instance.data.artifactData != null && ArtifactSlotDB.Instance != null)
             if(DataManager.Instance.data.artifactData.artifacts != null)
                 ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
     }   
+
     public void LoadQuickSlot()
     {
-        DataManager dataManager = DataManager.Instance;
+        var dataManager = DataManager.Instance;
         if (dataManager.data.quickSlotData == null) return;
 
         if (dataManager.data.quickSlotData.items != null)
@@ -205,6 +214,7 @@ public class SaveManager : MonoBehaviour
         else
             Debug.Log("QuickSlot Data is Nothing");
     }
+
     public void LoadPlayerCurrentStatusData()
     {
         if (DataManager.Instance.data.playerStatusData == null) return;
@@ -215,6 +225,7 @@ public class SaveManager : MonoBehaviour
         playerStatus.oxygenAlter.Invoke(playerStatus.oxygen, playerStatus.maxOxygen);
         playerStatus.hungryAlter.Invoke(playerStatus.hungry, playerStatus.maxHungry);
     }
+
     public void LoadEatenMineralCountData()
     {
         if (DataManager.Instance.data.mineralData != null)
@@ -222,18 +233,20 @@ public class SaveManager : MonoBehaviour
         else
             Debug.Log("Mineral Data is Nothing");
     }
-    void WritePosData()
+
+    private void WritePosData()
     {
         Dictionary<string, Vector3> posDataDictionary = new Dictionary<string, Vector3>();
 
-        foreach (GameObject target in ManagingTargets)
+        foreach (var target in ManagingTargets)
             posDataDictionary.Add(target.name, target.transform.position);
 
         InitData();
 
         DataManager.Instance.data.posData.SetPositionDataFromDictionary(posDataDictionary);
     }
-    void WriteMapData()
+
+    private void WriteMapData()
     {
         InitData();
         DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
@@ -244,37 +257,44 @@ public class SaveManager : MonoBehaviour
         InitData();
         DataManager.Instance.data.introData.isFirstStart = arg;
     }
-    void WriteItemData()
+
+    private void WriteItemData()
     {
         InitData();
         DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
     }
+
     public void WriteOptionData()
     {
         InitData();
         DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
     }
-    void WriteArtifactData()
+
+    private void WriteArtifactData()
     {
         InitData();
         DataManager.Instance.data.artifactData.SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB.Instance);
     }
-    void WriteQuickSlotData()
+
+    private void WriteQuickSlotData()
     {
         InitData();
         DataManager.Instance.data.quickSlotData.SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB.instance);
     }
+
     private void WritePlayerCurrentStatusData()
     {
         InitData();
         DataManager.Instance.data.playerStatusData.SetCurrentStatusData(EntityManager.instance.player.GetComponent<PlayerStatus>());
         
     }
+
     private void WriteEatenMineralCountData()
     {
         InitData();
         DataManager.Instance.data.mineralData.SetEatenMineralData(InventoryDB.Instance);
     }
+
     public void InitData()
     {
         if (DataManager.Instance.data == null)

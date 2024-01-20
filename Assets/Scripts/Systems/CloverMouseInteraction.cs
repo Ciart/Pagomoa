@@ -12,6 +12,7 @@ public class CloverMouseInteraction : MonoBehaviour
         _interactable = GetComponent<InteractableObject>();
         _interactable.InteractionEvent.AddListener(SetUI);
     }
+
     private void SetUI()
     {
         if (_buyUI.activeSelf == false)
@@ -22,6 +23,7 @@ public class CloverMouseInteraction : MonoBehaviour
         else
             _buyUI.SetActive(false);
     }
+
     public void OffUI()
     {
         _buyUI.SetActive(false);

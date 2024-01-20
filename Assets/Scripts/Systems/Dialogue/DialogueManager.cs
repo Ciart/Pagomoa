@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     int talkIndex;
     [Space]
     private static DialogueManager _instance = null;
+
     public static DialogueManager Instance
     {
         get
@@ -31,7 +32,8 @@ public class DialogueManager : MonoBehaviour
             return _instance;
         }
     }
-    Dialogue GetDialogueByID(int id)
+
+    private Dialogue GetDialogueByID(int id)
     {
         foreach(Dialogue dialogue in dialogues)
         {
@@ -40,6 +42,7 @@ public class DialogueManager : MonoBehaviour
         }
         return null;
     }
+
     public bool ConversationProgress(int id)
     {
         NowScenario = GetDialogueByID(id);
