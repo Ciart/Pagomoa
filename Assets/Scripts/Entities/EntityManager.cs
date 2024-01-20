@@ -47,19 +47,14 @@ namespace Entities
             _entities.Add(controller);
 
             controller.Init(entity, status);
-
-            return controller;
-        }
-        
-        public PlayerController SpawnPlayer(Entity entity, Vector3 position)
-        {
-            if (_player is null)
+            
+            if (entity.type == EntityType.Player)
             {
-                _player = Spawn(entity, position).GetComponent<PlayerController>();
+                _player = controller.GetComponent<PlayerController>();
                 spawnedPlayer?.Invoke(_player);
             }
 
-            return _player;
+            return controller;
         }
 
         public void Despawn(EntityController controller)

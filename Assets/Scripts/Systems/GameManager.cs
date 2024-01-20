@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        FindObjectOfType<PlayerSpawnPoint>().Spawn();
-        
         SaveManager saveManager = SaveManager.Instance;
         bool mapLoad = saveManager.LoadMap();
         if (mapLoad)
