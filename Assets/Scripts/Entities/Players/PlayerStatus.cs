@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Worlds;
@@ -78,7 +79,7 @@ namespace Entities.Players
 
         private void UpdateOxygen()
         {
-            float gage = 100;
+            var gage = 100f;
 
             if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
             {
@@ -94,22 +95,69 @@ namespace Entities.Players
                 oxygen += Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
                 gage = oxygen;
             }
-
             oxygenAlter.Invoke(gage, maxOxygen);
         }
-        void Die()
+
+        private void Die()
         {
-            InventoryDB.Instance.Gold = int.Parse((InventoryDB.Instance.Gold * 0.9f).ToString());
-            TimeManager.Instance.SetTime(6,0);
-            TimeManager.Instance.AddDay(1);
+            LoseMoney(0.1f);
+            LoseItem(Item.ItemType.Mineral, 0.5f);
+            NextDay();
             ReSpawn();
         }
-        void ReSpawn()
+
+        private void ReSpawn()
         {
             EntityManager.instance.player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
             oxygen = maxOxygen;
             isDie = false;
         }
+
+        private void LoseMoney(float percentage)
+        {
+            var inventoryDatabase = InventoryDB.Instance;
+            inventoryDatabase.Gold = (int)(inventoryDatabase.Gold * (1 - percentage));
+        }
+
+        private void LoseItem(Item.ItemType itemType, float probabilty)
+        {
+            var inventoryDatabase = InventoryDB.Instance;
+
+            List<InventoryItem> deleteItems = new List<InventoryItem>();
+            foreach (InventoryItem item in inventoryDatabase.items)
+            {
+                if (item == null) continue;
+                if (item.item == null) continue;
+
+                var rand = Random.Range(0, 101) * 0.01f;
+                if (probabilty < rand)
+                {
+                    Debug.Log("item not Losted by" + probabilty + "<" + rand);
+                    continue;
+                }
+
+                if (item.item.itemType == itemType)
+                {
+                    for (int i = 0; i < item.count; i++)
+                    {
+                        var entity = Instantiate(WorldManager.instance.itemEntity, transform.position, Quaternion.identity);
+                        entity.Item = item.item;
+                        entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
+                    }
+                    deleteItems.Add(item);
+                }
+            }
+            var count = deleteItems.Count;
+            for (int i = 0; i < count; i++)
+                inventoryDatabase.DeleteItem(deleteItems[i].item);
+        }
+
+        private void NextDay()
+        {
+            TimeManager.Instance.SetTime(6, 0);
+            TimeManager.Instance.AddDay(1);
+        }
+
         private void FixedUpdate()
         {
             UpdateOxygen();
