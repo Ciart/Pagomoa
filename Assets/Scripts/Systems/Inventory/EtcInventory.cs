@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class EtcInventory : MonoBehaviour
 {
     [SerializeField] public Slot choiceSlot;
+    [SerializeField] public Slot hoverSlot;
     [SerializeField] private GameObject slotParent;
     [SerializeField] private GameObject slot;
     [SerializeField] public GameObject gold;

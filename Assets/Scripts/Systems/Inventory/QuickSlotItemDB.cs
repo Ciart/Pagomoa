@@ -79,6 +79,7 @@ public class QuickSlotItemDB : MonoBehaviour
     public void CleanSlot(Item data)
     {
         var quickslotItem = quickSlotItems.Find(quickslotItem => quickslotItem.item == data);
+        var quickslot = quickSlots.Find(quickSlots => quickSlots.inventoryItem.item == data);
         if (quickslotItem != null)
         {
             for (int i = 0; i < quickSlotItems.Count; i++)
@@ -86,7 +87,9 @@ public class QuickSlotItemDB : MonoBehaviour
                 if (quickSlotItems[i].item == quickslotItem.item)
                 {
                     quickSlotItems[i] = null;
-                    _sellingQuickSlot.SetSlotNull();
+                    quickslot.SetSlotNull();
+                    if(_sellingQuickSlot != null)
+                        _sellingQuickSlot.SetSlotNull();
                 }
             }
         }
@@ -106,8 +109,8 @@ public class QuickSlotItemDB : MonoBehaviour
             if (selectedSlot.inventoryItem.count == 0)
             {
                 InventoryDB.Instance.Use(selectedSlot.inventoryItem.item);
-                RemoveAll(selectedSlot.inventoryItem.item);
-                selectedSlot.SetSlotNull();
+                //RemoveAll(selectedSlot.inventoryItem.item);
+                //selectedSlot.SetSlotNull();
             }
             if (EtcInventory.Instance)
             {

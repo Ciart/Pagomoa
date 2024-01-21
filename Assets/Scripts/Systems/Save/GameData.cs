@@ -18,6 +18,7 @@ public class GameData
     public OptionData optionData;
     public ArtifactData artifactData;
     public QuickSlotData quickSlotData;
+    public MineralData mineralData;
     public PlayerCurrentStatusData playerStatusData;
     public LogGeneralData gameLogData;
 }
@@ -137,7 +138,16 @@ public class PlayerCurrentStatusData
         currentHungry = playerStatus.hungry;
     }
 }
+[System.Serializable]
+public class MineralData
+{
+    public int eatenMineralCount;
 
+    public void SetEatenMineralData(InventoryDB stoneCount)
+    {
+        eatenMineralCount = stoneCount.stoneCount;
+    }
+}
 // �ڷᱸ��
 
 [System.Serializable]

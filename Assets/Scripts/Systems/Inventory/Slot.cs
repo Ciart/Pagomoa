@@ -1,6 +1,5 @@
 using Inventory;
 using System.Collections.Generic;
-using Entities.Players;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -33,48 +32,28 @@ public class Slot : MonoBehaviour, IDropHandler
             ShopChat.Instance.SellPriceToChat(Inventory.itemPrice);
         }
     }
-    
-    
-    public void EquipCheck()
+
+    public void ClickSlot()
     {
-        EtcInventory.Instance.choiceSlot = this;
-
-        var inventory = EtcInventory.Instance;
-
-        if (inventory.choiceSlot.inventoryItem.item == null || inventory.choiceSlot.inventoryItem == null)
-            return;
-
-        if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
-            equipUI.OnUI();
-
-        else if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
+        for (int i = 0; i < sellCountUI.count; i++)
         {
-            inventory.choiceSlot.inventoryItem.count -= 1;
-            UseItem();
-            if (inventory.choiceSlot.inventoryItem.count == 0)
+            //EtcInventory.Instance.DeleteSlot();
+            if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
             {
-                InventoryDB.Instance.Remove(inventory.choiceSlot.inventoryItem.item);
-                inventory.ResetSlot();
+                InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.SetCount(Sell.Instance.choiceSlot.inventoryItem.item);
             }
-            inventory.DeleteSlot();
-            inventory.UpdateSlot();
+            else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
+            {
+                InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
+            }
+            Sell.Instance.DeleteSlot();
+            Sell.Instance.ResetSlot();
         }
-        else
-            return;
-    }
-    public void EquipItem()
-    {
-        if (ArtifactSlotDB.Instance.Artifact.Count < 4 && inventoryItem != null)
-        {
-            EtcInventory.Instance.DeleteSlot();
-            ArtifactSlotDB.Instance.Artifact.Add(EtcInventory.Instance.choiceSlot.inventoryItem);
-            InventoryDB.Instance.Equip(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-            EtcInventory.Instance.UpdateSlot();
-            ArtifactContent.Instance.ResetSlot();
-        }
-        else
-            return;
-        equipUI.OffUI();
+        sellCountUI.count = 0;
+        sellCountUI.itemCount.text = sellCountUI.count.ToString();
+        sellCountUI.OffUI();
     }
     public void ReleaseItem()
     {
@@ -104,7 +83,6 @@ public class Slot : MonoBehaviour, IDropHandler
         equipUI.OffUI();
         return;
     }
-
     public void OnDrop(PointerEventData eventData)
     {
         Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
@@ -118,10 +96,5 @@ public class Slot : MonoBehaviour, IDropHandler
     public void Swap(InventoryItem item1, InventoryItem item2)
     {
         (item1, item2) = (item2, item1);
-    }
-    public void UseItem()
-    {
-        PlayerStatus playerPlayerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
-        this.inventoryItem.item.Active(playerPlayerStatus);
     }
 }
