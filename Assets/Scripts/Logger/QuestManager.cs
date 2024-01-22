@@ -4,131 +4,6 @@ using UnityEngine;
 
 namespace Logger
 {
-    #region MakeQuestPart
-    public class ProcessQuest
-    {
-        public int questId;
-        public int nextQuestId;
-        public string description;
-        public Reward reward;
-        public List<ProcessQuestElements> elements;
-
-        public ProcessQuest(int questId, int nextQuestId, string description, Reward reward, List<QuestCondition> questConditions)
-        {
-            this.questId = questId;
-            this.nextQuestId = nextQuestId;
-            this.description = description;
-            this.reward = reward;
-            elements = new List<ProcessQuestElements>();
-            
-            foreach (var condition in questConditions)
-            {
-                if (condition.conditionType.typeValue == "int")
-                {
-                    var intValue = int.Parse(condition.value);
-                    
-                    var element = new ProcessIntQuestElements(
-                        condition.questType,
-                        condition.summary,
-                        intValue,
-                        condition.targetEntity
-                    );
-                    
-                    elements.Add(element);
-                }
-                else if (condition.conditionType.typeValue == "float")
-                {
-                    var floatValue = float.Parse(condition.value);
-                    
-                    var element = new ProcessFloatQuestElements(
-                        condition.questType,
-                        condition.summary,
-                        floatValue,
-                        condition.targetEntity
-                    );
-                    
-                    elements.Add(element);
-                }
-                else if (condition.conditionType.typeValue == "bool")
-                {
-                    var boolValue = bool.Parse(condition.value);
-                    
-                    var element = new ProcessBoolQuestElements(
-                        condition.questType,
-                        condition.summary,
-                        boolValue,
-                        condition.targetEntity
-                    );
-                    
-                    elements.Add(element);
-                }
-            }
-        }
-    }
-
-    public class ProcessIntQuestElements : ProcessQuestElements, IProcessQuestValue<int>
-    {
-        public int value { get; set; }
-        public ProcessIntQuestElements(QuestType questType, string summary, int value, ScriptableObject targetEntity) 
-            : base(questType, summary, targetEntity)
-        {
-            this.questType = questType;
-            this.summary = summary;
-            this.value = value;
-            this.targetEntity = targetEntity;
-            valueType = "int";
-        }
-    }
-
-    public class ProcessFloatQuestElements : ProcessQuestElements, IProcessQuestValue<float>
-    {
-        public float value { get; set; } 
-        public ProcessFloatQuestElements(QuestType questType, string summary, float value, ScriptableObject targetEntity) 
-            : base(questType, summary, targetEntity)
-        {
-            this.questType = questType;
-            this.summary = summary;
-            this.value = value;
-            this.targetEntity = targetEntity;
-            valueType = "float";
-        }
-    }
-    
-    public class ProcessBoolQuestElements : ProcessQuestElements, IProcessQuestValue<bool>
-    {
-        public bool value { get; set; }
-        public ProcessBoolQuestElements(QuestType questType, string summary, bool value, ScriptableObject targetEntity) 
-            : base(questType, summary, targetEntity)
-        {
-            this.questType = questType;
-            this.summary = summary;
-            this.value = value;
-            this.targetEntity = targetEntity;
-            valueType = "bool";
-        }
-    }
-
-    public abstract class ProcessQuestElements
-    {
-        protected ProcessQuestElements(QuestType questType, string summary , ScriptableObject targetEntity)
-        {
-            this.questType = questType;
-            this.summary = summary;
-            this.targetEntity = targetEntity;
-        }
-
-        public QuestType questType { get; set; }
-        public string summary { get; set; }
-        public ScriptableObject targetEntity { get; set; }
-        public string valueType { get; set; }
-    }
-
-    public interface IProcessQuestValue<T>
-    {
-        public T value { get; set; }
-    }
-    #endregion
-
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
     public class QuestManager : MonoBehaviour
@@ -193,23 +68,70 @@ namespace Logger
                     Debug.Log("Summary: " + progressQuest.elements[i].summary);
                     Debug.Log("ValueType: " + progressQuest.elements[i].valueType);
                     Debug.Log("Target: " + progressQuest.elements[i].targetEntity);
-                    if (progressQuest.elements[i].GetType() == typeof(ProcessIntQuestElements))
+                    if (progressQuest.elements[i] is ProcessIntQuestElements)
                     {
                         var intVal = (ProcessIntQuestElements)progressQuest.elements[i];
                         Debug.Log("intValue: " + intVal.value);
                     }
-                    else if (progressQuest.elements[i].GetType() == typeof(ProcessFloatQuestElements))
+                    else if (progressQuest.elements[i] is ProcessFloatQuestElements)
                     {
                         var floatVal = (ProcessFloatQuestElements)progressQuest.elements[i];
                         Debug.Log("floatValue: " + floatVal.value);
                     }
-                    else if (progressQuest.elements[i].GetType() == typeof(ProcessBoolQuestElements))
+                    else if (progressQuest.elements[i] is ProcessBoolQuestElements)
                     {
                         var boolVal = (ProcessBoolQuestElements)progressQuest.elements[i];
                         Debug.Log("boolValue: " + boolVal.value);
+                        
+                        CompleteBoolQuest(questId, boolVal.value);
                     }
                 }
             }
+        }
+
+        public bool CompleteBoolQuest(int id, bool completeVal)
+        {
+            // npc나 특정지역이면 collider를 트리거 
+            // => npc에게 퀘스트 이벤트를 쥐어주고 npc가 가진 콜라이더가 퀘스트 매니저에게 이벤트 선언
+            // 아이템이면 인벤토리에 존재 유무를 통하여 결정 
+
+            for (int i = 0; i < progressQuests.Count; i++)
+            {
+                if (progressQuests[i].questId.Equals(id))
+                {
+                    foreach (var quest in progressQuests[i].elements)
+                    {
+                        if (progressQuests[i].GetType() == typeof(ProcessBoolQuestElements))
+                        {
+                            var items = InventoryDB.Instance.items;
+                        
+                            foreach (var item in items)
+                            {
+                                if (progressQuests[i].elements[i].targetEntity == item.item)
+                                {
+                                    Debug.Log($"정상적으로 잘 돌아가네여 : {progressQuests[i].elements[i].targetEntity}, {item.item}");
+                                    return true;
+                                }
+                            }    
+                        }
+                    }
+
+                    return false;
+                }
+            }
+            
+            return false;
+        }
+
+        public bool CompleteIntQuest(bool completeVal)
+        {
+            // +- 연산 필요
+            // 골드 연산 따로
+            // 아이템이면 인벤토리를 통하여 결정 
+            // => 인벤토리의 엔티티 개수변경때 호출하여
+            // => 인벤토리의 엔티티 값과 퀘스트 목적값이 같으면 완료
+            
+            return true;
         }
     }   
 }
