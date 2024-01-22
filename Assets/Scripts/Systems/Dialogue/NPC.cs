@@ -9,23 +9,24 @@ public class NPC : MonoBehaviour
     public List<int> dialogueId = new List<int>();
     public UnityEvent AllDialogueReadEvent;
 
-    bool isTalking = false;
+    private bool isTalking = false;
 
-    bool nowTalkable = true;
-    int nowTalkDialogueId;
-    int iter = 0;
+    private bool nowTalkable = true;
+    private int nowTalkDialogueId;
+    private int iter = 0;
 
     private void Awake()
     {
         nowTalkDialogueId = dialogueId[iter];
     }
+
     public void Talking()
     {
         if (!nowTalkable) return;
+
         if (!isTalking)
         {
             GetComponent<Animator>().SetTrigger("StartTalk");
-            //Debug.Log("대화 시작시 애니메이션 진행이 필요하다면 Trigger StartTalk추가 후 발동 시켜주세요.");
             if (GetComponent<AutoChat>())
                 GetComponent<AutoChat>().StopChat();
             isTalking = true;
@@ -36,9 +37,9 @@ public class NPC : MonoBehaviour
             StopTalking();
             ChangeTalkDialogueId();
         }
-            
     }
-    void ChangeTalkDialogueId()
+
+    private void ChangeTalkDialogueId()
     {
         if (isRandomTalk)
         {
@@ -62,7 +63,9 @@ public class NPC : MonoBehaviour
             }
         }
     }
+
     public void SetNowTalkable(bool tf) { nowTalkable = tf; }
+
     public void StopTalking()
     {
         if (GetComponent<AutoChat>())

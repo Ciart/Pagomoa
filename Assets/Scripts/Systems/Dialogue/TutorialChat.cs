@@ -47,6 +47,7 @@ public class TutorialChat : Chat
             _getUfoRemote = true;
         }
     }
+
     private bool CheckInventoryUfoRemote()
     {
         var inherentItem = InventoryDB.Instance.items.Find(inventoryItem => inventoryItem.item.itemType == Item.ItemType.Inherent);
@@ -57,7 +58,8 @@ public class TutorialChat : Chat
         }
         return false;
     } 
-    IEnumerator Chat()
+
+    private IEnumerator Chat()
     {
         if (startingChat.Count == 0 || annoyingChat.Count == 0)
             yield break;
@@ -96,6 +98,7 @@ public class TutorialChat : Chat
     {
         Invoke(nameof(StartChat), updateTime);
     }
+
     public void StartChatReservation(float time)
     {
         Invoke(nameof(StartChat), time);
