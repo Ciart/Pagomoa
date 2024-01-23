@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
+  m_Name: New Quest
+  m_EditorClassIdentifier: 
+  clear: 0
+  questId: 1
+  nextQuestId: 2
+  description: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B8"
+  reward:
+    gold: 1000
+    targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+    value: 1
+  questList:
+  - questType: 0
+    summary: "\uD14C\uC2A4\uD2B8"
+    value: 10
+    targetEntity: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
+    conditionType:
+      target: 1
+      typeValue: int
+  - questType: 2
+    summary: "\uBCBD\uAE68\uB77C"
+    value: 10
+    targetEntity: {fileID: 11400000, guid: ed0bf6d32fb967949a6a1ac53da03472, type: 2}
+    conditionType:
+      target: 2
+      typeValue: int

@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Entities.Players;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
 public class Item : ScriptableObject

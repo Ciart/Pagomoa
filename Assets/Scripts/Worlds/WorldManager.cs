@@ -4,6 +4,7 @@ using Entities;
 using UFO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
@@ -20,6 +21,8 @@ namespace Worlds
 
         public Tilemap ufoLadder;
 
+        public UnityEvent WorldQuestEvent;
+        
         private UFOInteraction _ufoInteraction;
 
         private World _world;
@@ -151,6 +154,7 @@ namespace Worlds
                 {
                     BreakGround(coords.x, coords.y, 10);
                     newBrickDamage.Remove(coords);
+                    WorldQuestEvent.Invoke();
                 }
             }
 

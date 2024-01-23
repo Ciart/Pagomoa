@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Worlds;
 
-namespace Logger
+namespace Logger.ForEditorBaseScripts
 {
     [Serializable]
     public class ConditionType

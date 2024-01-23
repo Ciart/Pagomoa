@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
-namespace Logger
+namespace Logger.ForEditorBaseScripts
 {
     [Serializable] 
     public class QuestCondition

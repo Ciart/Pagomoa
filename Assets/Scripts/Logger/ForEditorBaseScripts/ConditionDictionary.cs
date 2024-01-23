@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.Collections;
-using UnityEngine;
-using Worlds;
 
-namespace Logger
+namespace Logger.ForEditorBaseScripts
 {
     [Serializable]
     public enum QuestType {

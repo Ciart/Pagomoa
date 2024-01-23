@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
 namespace Logger

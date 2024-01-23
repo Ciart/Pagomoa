@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Logger.ProcessScripts;
 using UnityEngine;
 
 namespace Logger
@@ -31,7 +32,7 @@ namespace Logger
 
         private void Update()
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Alpha0))
             {
                 MakeQuest(1);
             }
@@ -52,6 +53,10 @@ namespace Logger
             }
 
             foreach (var progressQuest in progressQuests)
+            {
+                
+            }
+            /*foreach (var progressQuest in progressQuests)
             {
                 Debug.Log("ID");
                 Debug.Log("questId: " + progressQuest.questId);
@@ -86,7 +91,7 @@ namespace Logger
                         CompleteBoolQuest(questId, boolVal.value);
                     }
                 }
-            }
+            }*/
         }
 
         public bool CompleteBoolQuest(int id, bool completeVal)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Logger;
+using Logger.ForEditorBaseScripts;
 using UnityEngine;
 using UnityEditor;
 
@@ -80,7 +81,9 @@ namespace Editor
             }
             
             GUILayout.Space(20);
-
+            
+            if (newQuest.questList == null || newQuest.questList.Count == 0) return;
+            
             for (int i = 0; i < newQuest.questList.Count; i++)
             {
                 GUILayout.BeginVertical($"{i+1}번째 퀘스트 목록", new GUIStyle(GUI.skin.window));
