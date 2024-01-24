@@ -1,6 +1,6 @@
 using System;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
     [Serializable]
     public class EntityStatus

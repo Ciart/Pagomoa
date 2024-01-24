@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     /// <summary>
     /// Player를 Scene에서 제거하기 위한 임시 조치입니다.
@@ -13,13 +13,13 @@ namespace Entities.Players
 
         public void Awake()
         {
-            if (playerEntity.prefab.GetComponent<PlayerController>() is null)
+            if (playerEntity.prefab.GetComponent<Ciart.Pagomoa.Entities.Players.PlayerController>() is null)
             {
                 throw new Exception("PlayerController가 없는 Entity입니다.");
             }
         }
 
-        public PlayerController Spawn()
+        public Ciart.Pagomoa.Entities.Players.PlayerController Spawn()
         {
             var entityManager = EntityManager.instance;
 

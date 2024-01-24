@@ -1,13 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Dialogue", menuName = "New Dialogue/Dialogue")]
-[Tooltip("´ëÈ­ ½Ã ¶ç¿ï ÅØ½ºÆ®, emotionId ¿Í ¼ö·®À» 1´ë1 ´ëÀÀ ½ÃÄÑÁÖ¼¼¿ä!")]
-public class Dialogue : ScriptableObject
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public int id;
-    public List<string> talkerName = new List<string>();
-    public List<string> talk = new List<string>();
-    public List<Sprite> sprite = new List<Sprite>();
+    [CreateAssetMenu(fileName = "New Dialogue", menuName = "New Dialogue/Dialogue")]
+    [Tooltip("ëŒ€í™” ì‹œ ë„ìš¸ í…ìŠ¤íŠ¸, emotionId ì™€ ìˆ˜ëŸ‰ì„ 1ëŒ€1 ëŒ€ì‘ ì‹œì¼œì£¼ì„¸ìš”!")]
+    public class Dialogue : ScriptableObject
+    {
+        public int id;
+        public List<string> talkerName = new List<string>();
+        public List<string> talk = new List<string>();
+        public List<Sprite> sprite = new List<Sprite>();
+    }
 }

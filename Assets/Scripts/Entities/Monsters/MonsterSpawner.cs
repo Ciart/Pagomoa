@@ -1,6 +1,7 @@
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
-namespace Monsters
+namespace Ciart.Pagomoa.Entities.Monsters
 {
     public class MonsterSpawner : MonoBehaviour
     {

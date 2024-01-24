@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Intro
+namespace Ciart.Pagomoa.CutScenes
 {
     public class IntroManager : MonoBehaviour
     {

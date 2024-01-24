@@ -1,21 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Achievements : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public List<InventoryItem> AchieveMinerals = new List<InventoryItem>();
-
-    private static Achievements instance;
-    public static Achievements Instance
+    public class Achievements : MonoBehaviour
     {
-        get
+        public List<InventoryItem> AchieveMinerals = new List<InventoryItem>();
+
+        private static Achievements instance;
+        public static Achievements Instance
         {
-            if (!instance)
+            get
             {
-                instance = GameObject.FindObjectOfType(typeof(Achievements)) as Achievements;
+                if (!instance)
+                {
+                    instance = GameObject.FindObjectOfType(typeof(Achievements)) as Achievements;
+                }
+                return instance;
             }
-            return instance;
         }
     }
 }

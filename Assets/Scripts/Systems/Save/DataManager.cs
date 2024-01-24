@@ -1,65 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-public class DataManager : MonoBehaviour
+using UnityEngine;
+
+namespace Ciart.Pagomoa.Systems.Save
 {
-    static GameObject container;
-    static DataManager instance;
-    public static DataManager Instance
+    public class DataManager : MonoBehaviour
     {
-        get
+        static GameObject container;
+        static DataManager instance;
+        public static DataManager Instance
         {
-            if (!instance)
+            get
             {
-                container = new GameObject();
-                container.name = "Data Manager";
-                instance = container.AddComponent(typeof(DataManager)) as DataManager;
-                DontDestroyOnLoad(container);
+                if (!instance)
+                {
+                    container = new GameObject();
+                    container.name = "Data Manager";
+                    instance = container.AddComponent(typeof(DataManager)) as DataManager;
+                    DontDestroyOnLoad(container);
+                }
+                return instance;
             }
-            return instance;
         }
-    }
 
-    string GameDataFileName = "GameData.json";
+        string GameDataFileName = "GameData.json";
 
-    public GameData data = new GameData();
+        public GameData data = new GameData();
 
-    public bool LoadGameData()
-    {
-        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        if (File.Exists(filePath))
+        public bool LoadGameData()
         {
-            string FromJsonData = File.ReadAllText(filePath);
-            try
+            string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            if (File.Exists(filePath))
             {
-                data = JsonUtility.FromJson<GameData>(FromJsonData);
-                Debug.Log("Data Loaded From : " + filePath);
+                string FromJsonData = File.ReadAllText(filePath);
+                try
+                {
+                    data = JsonUtility.FromJson<GameData>(FromJsonData);
+                    Debug.Log("Data Loaded From : " + filePath);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log("bug : " + e);
+                }
+                return true;
             }
-            catch (System.Exception e)
+            else
             {
-                Debug.Log("bug : " + e);
+                SaveManager.Instance.InitData();
+                return false;
             }
-            return true;
         }
-        else
+        public void DeleteGameData()
         {
-            SaveManager.Instance.InitData();
-            return false;
+            string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            if(File.Exists(filePath))
+                File.Delete(filePath);
+            data = null;
         }
-    }
-    public void DeleteGameData()
-    {
-        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        if(File.Exists(filePath))
-            File.Delete(filePath);
-        data = null;
-    }
-    public void SaveGameData()
-    {
-        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-        string ToJasonData = JsonUtility.ToJson(data, true);
-        File.WriteAllText(filePath, ToJasonData);
-        Debug.Log("Data Saved");
+        public void SaveGameData()
+        {
+            string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            string ToJasonData = JsonUtility.ToJson(data, true);
+            File.WriteAllText(filePath, ToJasonData);
+            Debug.Log("Data Saved");
+        }
     }
 }

@@ -1,16 +1,17 @@
 using System;
-using System.Collections;
-using Entities.Players;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using Worlds;
 
-[CreateAssetMenu(fileName = "New ItemUFORemoteInherentEffect", menuName = "New ItemInherentEffect/itemUFORemoteInherentEffect")]
-[Serializable]
-public class UFORemoteInherentEffect : InherentEffect
+namespace Ciart.Pagomoa.Items
 {
-    public override void Effect(InherentItem item, PlayerStatus stat)
+    [CreateAssetMenu(fileName = "New ItemUFORemoteInherentEffect", menuName = "New ItemInherentEffect/itemUFORemoteInherentEffect")]
+    [Serializable]
+    public class UFORemoteInherentEffect : InherentEffect
     {
-        WorldManager.instance.MoveUfoBase();
+        public override void Effect(InherentItem item, PlayerStatus stat)
+        {
+            WorldManager.instance.MoveUfoBase();
+        }
     }
 }

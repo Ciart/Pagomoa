@@ -2,55 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoChat : Chat
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public List<string> chat = new List<string>();
+    public class AutoChat : Chat
+    {
+        public List<string> chat = new List<string>();
 
-    public float initialStartTime = 4.62f;
-    public float floatingTime = 3f;
-    public float updateTime = 4f;
+        public float initialStartTime = 4.62f;
+        public float floatingTime = 3f;
+        public float updateTime = 4f;
     
-    private int _chatIndex = 0;
+        private int _chatIndex = 0;
 
-    private void Start()
-    {
-        StopChat();
-        StartChatReservation(initialStartTime);
-    }
+        private void Start()
+        {
+            StopChat();
+            StartChatReservation(initialStartTime);
+        }
 
-    IEnumerator Chat()
-    {
-        if (chat.Count == 0)
-            yield break;
+        IEnumerator Chat()
+        {
+            if (chat.Count == 0)
+                yield break;
 
-        Chatting(chat[_chatIndex]);
+            Chatting(chat[_chatIndex]);
         
-        _chatIndex++;
-        if (_chatIndex >= chat.Count)
-            _chatIndex = 0;
+            _chatIndex++;
+            if (_chatIndex >= chat.Count)
+                _chatIndex = 0;
 
-        yield return new WaitForSeconds(floatingTime);
+            yield return new WaitForSeconds(floatingTime);
         
-        chatBalloon.balloon.SetActive(false);
-        StartChatReservation();
-    }
-    public void StartChatReservation()
-    {
-        Invoke(nameof(StartChat), updateTime);
-    }
-    public void StartChatReservation(float time)
-    {
-        Invoke(nameof(StartChat), time);
-    }
-    void StartChat()
-    {
-        StartCoroutine("Chat");
-    }
+            chatBalloon.balloon.SetActive(false);
+            StartChatReservation();
+        }
+        public void StartChatReservation()
+        {
+            Invoke(nameof(StartChat), updateTime);
+        }
+        public void StartChatReservation(float time)
+        {
+            Invoke(nameof(StartChat), time);
+        }
+        void StartChat()
+        {
+            StartCoroutine("Chat");
+        }
 
-    public void StopChat()
-    {
-        CancelInvoke(nameof(StartChat));
-        StopCoroutine(nameof(Chat));
-        chatBalloon.balloon.SetActive(false);
+        public void StopChat()
+        {
+            CancelInvoke(nameof(StartChat));
+            StopCoroutine(nameof(Chat));
+            chatBalloon.balloon.SetActive(false);
+        }
     }
 }

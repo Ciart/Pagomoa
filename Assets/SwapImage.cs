@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Inventory;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;

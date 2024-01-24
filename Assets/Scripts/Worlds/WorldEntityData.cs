@@ -1,8 +1,7 @@
 using System;
-using Entities;
-using UnityEngine;
+using Ciart.Pagomoa.Entities;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
     public class WorldEntityData

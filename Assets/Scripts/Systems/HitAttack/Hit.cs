@@ -1,33 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Monsters;
 using UnityEngine;
-public class Hit : MonoBehaviour
+using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
+
+namespace Ciart.Pagomoa.Systems.HitAttack
 {
-    bool unbeatable = false;
-    public float unbeatTime = 0.3f;
-    public bool IsHitTarget()
+    public class Hit : MonoBehaviour
     {
-        return !unbeatable;
-    }
-    public void OnHit(GameObject attacker, float damage)
-    {
-        //Debug.Log($"{gameObject.name} : {attacker.name}로부터 {damage}의 피해를 입었음!");
-        switch (gameObject.tag)
+        bool unbeatable = false;
+        public float unbeatTime = 0.3f;
+        public bool IsHitTarget()
         {
-            case "Player":
-                GetComponent<PlayerController>().GetDamage(attacker, damage);
-                break;
-            case "Monster":
-                GetComponent<Monster>().GetDamage(attacker, damage);
-                break;
+            return !unbeatable;
         }
-        StartCoroutine("UnBeatable", unbeatTime);
-    }
-    IEnumerator UnBeatable(float time)
-    {
-        unbeatable = true;
-        yield return new WaitForSeconds(unbeatTime);
-        unbeatable = false;
+        public void OnHit(GameObject attacker, float damage)
+        {
+            //Debug.Log($"{gameObject.name} : {attacker.name}로부터 {damage}의 피해를 입었음!");
+            switch (gameObject.tag)
+            {
+                case "Player":
+                    GetComponent<PlayerController>().GetDamage(attacker, damage);
+                    break;
+                case "Monster":
+                    GetComponent<Monster>().GetDamage(attacker, damage);
+                    break;
+            }
+            StartCoroutine("UnBeatable", unbeatTime);
+        }
+        IEnumerator UnBeatable(float time)
+        {
+            unbeatable = true;
+            yield return new WaitForSeconds(unbeatTime);
+            unbeatable = false;
+        }
     }
 }

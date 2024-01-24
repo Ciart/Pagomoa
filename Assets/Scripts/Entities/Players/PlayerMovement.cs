@@ -1,7 +1,7 @@
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour

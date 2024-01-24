@@ -1,9 +1,9 @@
 using System;
-using Entities;
+using Ciart.Pagomoa.Entities;
 using TMPro;
 using UnityEngine;
 
-namespace UIs
+namespace Ciart.Pagomoa.UI
 {
     public class MinimapUI : MonoBehaviour
     {

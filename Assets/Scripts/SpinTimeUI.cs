@@ -1,26 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SpinTimeUI : MonoBehaviour
+namespace Ciart.Pagomoa
 {
-    public float rotationSpeed = 100f;
-
-    private Transform _image;
-
-    private void Start()
+    public class SpinTimeUI : MonoBehaviour
     {
-        _image = GetComponent<Transform>();
-        StartCoroutine(RotateUI());
-    }
+        public float rotationSpeed = 100f;
 
-    private IEnumerator RotateUI()
-    {
-        while (true)
+        private Transform _image;
+
+        private void Start()
         {
-            _image.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime * 360f);
-            yield return null;
+            _image = GetComponent<Transform>();
+            StartCoroutine(RotateUI());
+        }
+
+        private IEnumerator RotateUI()
+        {
+            while (true)
+            {
+                _image.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime * 360f);
+                yield return null;
+            }
         }
     }
 }
