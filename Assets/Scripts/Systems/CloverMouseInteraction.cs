@@ -1,31 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 
-public class CloverMouseInteraction : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    private InteractableObject _interactable;
-    [SerializeField] private GameObject _buyUI;
-
-    private void Start()
+    public class CloverMouseInteraction : MonoBehaviour
     {
-        _interactable = GetComponent<InteractableObject>();
-        _interactable.InteractionEvent.AddListener(SetUI);
-    }
+        private InteractableObject _interactable;
+        [SerializeField] private GameObject _buyUI;
 
-    private void SetUI()
-    {
-        if (_buyUI.activeSelf == false)
+        private void Start()
         {
-            _buyUI.SetActive(true);
-            ShopChat.Instance.AwakeChat();
+            _interactable = GetComponent<InteractableObject>();
+            _interactable.InteractionEvent.AddListener(SetUI);
         }
-        else
+        private void SetUI()
+        {
+            if (_buyUI.activeSelf == false)
+            {
+                _buyUI.SetActive(true);
+                ShopChat.Instance.AwakeChat();
+            }
+            else
+                _buyUI.SetActive(false);
+        }
+        public void OffUI()
+        {
             _buyUI.SetActive(false);
-    }
-
-    public void OffUI()
-    {
-        _buyUI.SetActive(false);
+        }
     }
 }

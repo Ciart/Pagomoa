@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Environments
+namespace Ciart.Pagomoa.Environments
 {
     /// <summary>
     /// https://blog.yarsalabs.com/parallax-effect-in-unity-2d/

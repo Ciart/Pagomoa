@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class GateFloor : MonoBehaviour
     {

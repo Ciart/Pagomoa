@@ -1,8 +1,8 @@
-using Worlds;
+using Ciart.Pagomoa.Worlds;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Ciart.Pagomoa.Editor
 {
     [CustomEditor(typeof(WorldGenerator))] 
     public class WorldGeneratorEditor : UnityEditor.Editor

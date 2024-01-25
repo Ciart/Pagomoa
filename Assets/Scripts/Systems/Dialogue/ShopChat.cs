@@ -1,58 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ShopChat : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    [SerializeField] public TextMeshProUGUI chatting;
-    [SerializeField] private string[] _awakeChats;
-    [SerializeField] private string[] _endChats;
-    [SerializeField] private string[] _cancleChats;
-
-    public static ShopChat Instance = null;
-
-    private void Awake()
+    public class ShopChat : MonoBehaviour
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(this);
-    }
+        [SerializeField] public TextMeshProUGUI chatting;
+        [SerializeField] private string[] _awakeChats;
+        [SerializeField] private string[] _endChats;
+        [SerializeField] private string[] _cancleChats;
 
-    public void AwakeChat()
-    {
-        int random = Random.Range(0, _awakeChats.Length);
-        chatting.text = _awakeChats[random];
-    }
+        public static ShopChat Instance = null;
 
-    public void ThakChat()
-    {
-        int random = Random.Range(0, _endChats.Length);
-        chatting.text = _endChats[random];
-    }
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(this);
+        }
 
-    public void CancleChat()
-    {
-        int random = Random.Range(0, _cancleChats.Length);
-        chatting.text = _cancleChats[random];
-    }
+        public void AwakeChat()
+        {
+            int random = Random.Range(0, _awakeChats.Length);
+            chatting.text = _awakeChats[random];
+        }
 
-    public void BuyPriceToChat(int price)
-    {
-        string itemprice = string.Format("ÀÌ°Ô ÇÊ¿äÇØ? 1°³´ç {0}°ñµå¾ß.", price);
-        chatting.text = itemprice;
-    }
+        public void ThakChat()
+        {
+            int random = Random.Range(0, _endChats.Length);
+            chatting.text = _endChats[random];
+        }
 
-    public void SellPriceToChat(int price)
-    {
-        string itemprice = string.Format("ÀÌ°Å¸é 1°³´ç {0}°ñµå¿¡ »çÁÙ ¼ö ÀÖ¾î.", price);
-        chatting.text = itemprice;
-    }
+        public void CancleChat()
+        {
+            int random = Random.Range(0, _cancleChats.Length);
+            chatting.text = _cancleChats[random];
+        }
 
-    public void TotalPriceToChat(int price)
-    {
-        string itemprice = string.Format("ÃÑ {0}°ñµå¾ß.~", price);
-        chatting.text = itemprice;
+        public void BuyPriceToChat(int price)
+        {
+            string itemprice = string.Format("ï¿½Ì°ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½? 1ï¿½ï¿½ï¿½ï¿½ {0}ï¿½ï¿½ï¿½ï¿½.", price);
+            chatting.text = itemprice;
+        }
+
+        public void SellPriceToChat(int price)
+        {
+            string itemprice = string.Format("ï¿½Ì°Å¸ï¿½ 1ï¿½ï¿½ï¿½ï¿½ {0}ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾ï¿½.", price);
+            chatting.text = itemprice;
+        }
+
+        public void TotalPriceToChat(int price)
+        {
+            string itemprice = string.Format("ï¿½ï¿½ {0}ï¿½ï¿½ï¿½ï¿½.~", price);
+            chatting.text = itemprice;
+        }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-namespace Title
+namespace Ciart.Pagomoa.UI.Title
 {
     public class SetAudio : MonoBehaviour
     {

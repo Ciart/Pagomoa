@@ -1,9 +1,9 @@
-﻿using Cinemachine;
-using Entities;
+﻿using Ciart.Pagomoa.Entities;
+using Cinemachine;
 using UnityEngine;
-using PlayerController = Entities.Players.PlayerController;
+using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
-namespace Cameras
+namespace Ciart.Pagomoa.Systems.Cameras
 {
     [RequireComponent(typeof(CinemachineTargetGroup))]
     public class PlayerTargetGroup: MonoBehaviour

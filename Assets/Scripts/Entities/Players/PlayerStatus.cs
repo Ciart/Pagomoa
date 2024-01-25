@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Events;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerStatus : MonoBehaviour
     {

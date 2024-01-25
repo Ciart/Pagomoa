@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
-using Worlds;
+using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : MonoBehaviour
     {

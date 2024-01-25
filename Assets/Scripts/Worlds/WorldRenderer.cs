@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Entities;
+using Ciart.Pagomoa.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     public class WorldRenderer : MonoBehaviour
     {

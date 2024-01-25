@@ -1,9 +1,6 @@
-using System;
-using JetBrains.Annotations;
 using UnityEngine;
-using Worlds;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
     public class EntityController : MonoBehaviour
     {

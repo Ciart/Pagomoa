@@ -1,9 +1,10 @@
 using System.Collections;
-using Constants;
+using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Systems.HitAttack;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     [RequireComponent(typeof(PlayerStatus))]
     public partial class PlayerController : MonoBehaviour

@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Entities;
-using UFO;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Worlds.UFO;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     public class WorldManager : MonoBehaviour
     {

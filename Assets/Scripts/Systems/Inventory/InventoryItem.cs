@@ -1,13 +1,17 @@
 using System;
-using UnityEngine;
-[Serializable]
-public class InventoryItem
+using Ciart.Pagomoa.Items;
+
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public Item item;
-    public int count;
-    public InventoryItem(Item item, int count)
+    [Serializable]
+    public class InventoryItem
     {
-        this.item = item;
-        this.count = count;
+        public Item item;
+        public int count;
+        public InventoryItem(Item item, int count)
+        {
+            this.item = item;
+            this.count = count;
+        }
     }
 }

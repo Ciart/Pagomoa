@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
-using Worlds;
+using Ciart.Pagomoa.Worlds;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Ciart.Pagomoa.Editor
 {
     public class WorldDatabaseEditor : EditorWindow
     {

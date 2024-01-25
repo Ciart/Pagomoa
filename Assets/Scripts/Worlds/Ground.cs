@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [CreateAssetMenu(fileName = "Ground", menuName = "World/Ground", order = 2)]
     public class Ground: ScriptableObject

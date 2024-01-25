@@ -1,24 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "New Item/Consumerable item")]
-public class ConsumerableItem : Item
+namespace Ciart.Pagomoa.Items
 {
-    public bool Usable;
-    public List<ItemEffect> Effects;
-
-    public override void Active(PlayerStatus stat)
+    [CreateAssetMenu(fileName = "New Item", menuName = "New Item/Consumerable item")]
+    public class ConsumerableItem : Item
     {
-        Use(stat);
-    }
+        public bool Usable;
+        public List<ItemEffect> Effects;
 
-    public virtual void Use(PlayerStatus stat)
-    {
-        foreach(ItemEffect effect in Effects)
+        public override void Active(PlayerStatus stat)
         {
-            effect.Effect(this, stat);
+            Use(stat);
+        }
+
+        public virtual void Use(PlayerStatus stat)
+        {
+            foreach(ItemEffect effect in Effects)
+            {
+                effect.Effect(this, stat);
+            }
         }
     }
 }

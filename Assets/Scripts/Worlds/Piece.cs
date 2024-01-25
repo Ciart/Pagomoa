@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Entities;
+using Ciart.Pagomoa.Entities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [Flags]
     public enum WorldAreaFlag

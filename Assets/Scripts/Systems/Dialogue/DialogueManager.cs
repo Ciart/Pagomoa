@@ -1,68 +1,65 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Playables;
-using Unity.VisualScripting;
 
-public class DialogueManager : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public List<Dialogue> dialogues;
-
-    [Space]
-    public GameObject talkPannel;
-    public Image talkImage;
-    public TextMeshProUGUI talkText;
-    public TextMeshProUGUI nameText;
-    [Space]
-    public Dialogue NowScenario;
-    int talkIndex;
-    [Space]
-    private static DialogueManager _instance = null;
-
-    public static DialogueManager Instance
+    public class DialogueManager : MonoBehaviour
     {
-        get
+        public List<Dialogue> dialogues;
+
+        [Space]
+        public GameObject talkPannel;
+        public Image talkImage;
+        public TextMeshProUGUI talkText;
+        public TextMeshProUGUI nameText;
+        [Space]
+        public Dialogue NowScenario;
+        int talkIndex;
+        [Space]
+        private static DialogueManager _instance = null;
+        public static DialogueManager Instance
         {
-            if (_instance is null)
+            get
             {
-                _instance = (DialogueManager)FindObjectOfType(typeof(DialogueManager));
+                if (_instance is null)
+                {
+                    _instance = (DialogueManager)FindObjectOfType(typeof(DialogueManager));
+                }
+                return _instance;
             }
-            return _instance;
         }
-    }
-
-    private Dialogue GetDialogueByID(int id)
-    {
-        foreach(Dialogue dialogue in dialogues)
+        private Dialogue GetDialogueByID(int id)
         {
-            if (dialogue.id == id)
-                return dialogue;
+            foreach(Dialogue dialogue in dialogues)
+            {
+                if (dialogue.id == id)
+                    return dialogue;
+            }
+            return null;
         }
-        return null;
-    }
-
-    public bool ConversationProgress(int id)
-    {
-        NowScenario = GetDialogueByID(id);
-
-        if(NowScenario.talk.Count <= talkIndex)
+        public bool ConversationProgress(int id)
         {
-            talkIndex = 0;
-            NowScenario = null;
-            talkPannel.SetActive(false);
-            return false;
-        }
-        talkText.text = talkIndex < NowScenario.talk.Count ? NowScenario.talk[talkIndex] : "";
-        talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null ;
-        nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
-        talkImage.enabled = talkImage.sprite == null ? false : true;
-        bool visible = nameText.text == "" ? false : true;
-        nameText.transform.parent.gameObject.SetActive(visible);
+            NowScenario = GetDialogueByID(id);
 
-        talkPannel.SetActive(true);
-        talkIndex++;
-        return true;
+            if(NowScenario.talk.Count <= talkIndex)
+            {
+                talkIndex = 0;
+                NowScenario = null;
+                talkPannel.SetActive(false);
+                return false;
+            }
+            talkText.text = talkIndex < NowScenario.talk.Count ? NowScenario.talk[talkIndex] : "";
+            talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null ;
+            nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
+            talkImage.enabled = talkImage.sprite == null ? false : true;
+            bool visible = nameText.text == "" ? false : true;
+            nameText.transform.parent.gameObject.SetActive(visible);
+
+            talkPannel.SetActive(true);
+            talkIndex++;
+            return true;
+        }
     }
 }
