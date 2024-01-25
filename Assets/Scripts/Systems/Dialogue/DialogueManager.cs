@@ -30,7 +30,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 return _instance;
             }
         }
-        Dialogue GetDialogueByID(int id)
+        private Dialogue GetDialogueByID(int id)
         {
             foreach(Dialogue dialogue in dialogues)
             {

@@ -36,6 +36,7 @@ namespace Ciart.Pagomoa.Systems.Save
             positionData = ListDictionaryConverter.ToList(posData);
         }
     }
+
     [System.Serializable]
     public class WorldData
     {
@@ -61,6 +62,7 @@ namespace Ciart.Pagomoa.Systems.Save
             _chunks = ListDictionaryConverter.ToList(world.GetAllChunks(), true);
         }
     }
+
     [System.Serializable]
     public class ItemData
     {
@@ -72,6 +74,7 @@ namespace Ciart.Pagomoa.Systems.Save
             gold = inventoryDB.Gold;
         }
     }
+
     [System.Serializable]
     public class OptionData
     {
@@ -84,6 +87,7 @@ namespace Ciart.Pagomoa.Systems.Save
             audioValue = optionDB.audioValue;
         }
     }
+
     [System.Serializable]
     public class ArtifactData
     {
@@ -94,6 +98,7 @@ namespace Ciart.Pagomoa.Systems.Save
             artifacts = artifactSlotDB.Artifact;
         }
     }
+
     [System.Serializable]
     public class QuickSlotData
     {
@@ -106,6 +111,7 @@ namespace Ciart.Pagomoa.Systems.Save
                 selectedSlotID = quickSlotItemDB.selectedSlot.id;
         }
     }
+
     [System.Serializable]
     public class PlayerCurrentStatusData
     {
@@ -118,6 +124,7 @@ namespace Ciart.Pagomoa.Systems.Save
             currentHungry = playerStatus.hungry;
         }
     }
+
     [System.Serializable]
     public class MineralData
     {
@@ -128,7 +135,6 @@ namespace Ciart.Pagomoa.Systems.Save
             eatenMineralCount = stoneCount.stoneCount;
         }
     }
-// �ڷᱸ��
 
     [System.Serializable]
     public class DataDictionary<TKey, TValue>
@@ -143,11 +149,8 @@ namespace Ciart.Pagomoa.Systems.Save
         public List<DataDictionary<TKey, TValue>> data;
     }
 
-
     public static class ListDictionaryConverter
     {
-
-
         public static DicList<TKey, TValue> ToList<TKey, TValue>(Dictionary<TKey, TValue> jsonDicData, bool pretty = false)
         {
             List<DataDictionary<TKey, TValue>> dataList = new List<DataDictionary<TKey, TValue>>();
@@ -164,7 +167,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
             return arrayJson;
         }
-        //JsonUtility.FromJson<JsonDataArray<TKey, TValue>>(jsonData);
+
         public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(DicList<TKey, TValue> dataList)
         {
             Dictionary<TKey, TValue> returnDictionary = new Dictionary<TKey, TValue>();

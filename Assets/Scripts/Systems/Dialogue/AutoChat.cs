@@ -20,7 +20,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             StartChatReservation(initialStartTime);
         }
 
-        IEnumerator Chat()
+        private IEnumerator Chat()
         {
             if (chat.Count == 0)
                 yield break;

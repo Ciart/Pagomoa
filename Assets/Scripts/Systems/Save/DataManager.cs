@@ -5,8 +5,8 @@ namespace Ciart.Pagomoa.Systems.Save
 {
     public class DataManager : MonoBehaviour
     {
-        static GameObject container;
-        static DataManager instance;
+        static private GameObject container;
+        static private DataManager instance;
         public static DataManager Instance
         {
             get
@@ -28,10 +28,10 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public bool LoadGameData()
         {
-            string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            var filePath = Application.persistentDataPath + "/" + GameDataFileName;
             if (File.Exists(filePath))
             {
-                string FromJsonData = File.ReadAllText(filePath);
+                var FromJsonData = File.ReadAllText(filePath);
                 try
                 {
                     data = JsonUtility.FromJson<GameData>(FromJsonData);
@@ -49,17 +49,19 @@ namespace Ciart.Pagomoa.Systems.Save
                 return false;
             }
         }
+
         public void DeleteGameData()
         {
-            string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            var filePath = Application.persistentDataPath + "/" + GameDataFileName;
             if(File.Exists(filePath))
                 File.Delete(filePath);
             data = null;
         }
+
         public void SaveGameData()
         {
-            string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-            string ToJasonData = JsonUtility.ToJson(data, true);
+            var filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            var ToJasonData = JsonUtility.ToJson(data, true);
             File.WriteAllText(filePath, ToJasonData);
             Debug.Log("Data Saved");
         }

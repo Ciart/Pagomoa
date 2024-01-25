@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa.Systems
         {
             FindObjectOfType<PlayerSpawnPoint>().Spawn();
         
-            SaveManager saveManager = SaveManager.Instance;
+            var saveManager = SaveManager.Instance;
             bool mapLoad = saveManager.LoadMap();
             if (mapLoad)
             {
@@ -49,7 +49,6 @@ namespace Ciart.Pagomoa.Systems
             else
                 saveManager.TagPosition(saveManager.loadPositionDelayTime);
         }
-
 
         private void Update()
         {

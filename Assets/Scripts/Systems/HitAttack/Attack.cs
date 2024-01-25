@@ -6,13 +6,14 @@ namespace Ciart.Pagomoa.Systems.HitAttack
     public class Attack : MonoBehaviour
     {
         public List<string> attackTargetTag;
+
         public void _Attack(GameObject attacker, float damage, Vector3 startPoint, Vector3 endPoint, int canHitCount = 1)
         {
-            int count = canHitCount;
-            Collider2D[] deffenders = Physics2D.OverlapAreaAll(startPoint, endPoint);
+            var count = canHitCount;
+            var deffenders = Physics2D.OverlapAreaAll(startPoint, endPoint);
             foreach (Collider2D deffender in deffenders)
             {
-                Hit target = deffender.GetComponent<Hit>();
+                var target = deffender.GetComponent<Hit>();
 
                 if (!target) continue;
                 if (deffender.isTrigger) continue;
@@ -21,8 +22,8 @@ namespace Ciart.Pagomoa.Systems.HitAttack
 
                 target.OnHit(attacker, damage);
             }
-        
         }
+
         public void _Attack(GameObject attacker, GameObject deffender, float damage)
         {
             Hit target = deffender.GetComponent<Hit>();
@@ -34,7 +35,8 @@ namespace Ciart.Pagomoa.Systems.HitAttack
 
             target.OnHit(attacker, damage);
         }
-        bool isAttackTarget(GameObject target)
+
+        private bool isAttackTarget(GameObject target)
         {
             return attackTargetTag.Contains(target.tag) ? true : false;
         }

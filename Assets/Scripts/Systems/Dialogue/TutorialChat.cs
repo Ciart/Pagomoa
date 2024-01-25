@@ -48,6 +48,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 _getUfoRemote = true;
             }
         }
+
         private bool CheckInventoryUfoRemote()
         {
             var inherentItem = InventoryDB.Instance.items.Find(inventoryItem => inventoryItem.item.itemType == Item.ItemType.Inherent);
@@ -58,7 +59,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
             return false;
         } 
-        IEnumerator Chat()
+
+        private IEnumerator Chat()
         {
             if (startingChat.Count == 0 || annoyingChat.Count == 0)
                 yield break;
@@ -97,6 +99,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             Invoke(nameof(StartChat), updateTime);
         }
+
         public void StartChatReservation(float time)
         {
             Invoke(nameof(StartChat), time);

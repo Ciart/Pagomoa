@@ -3,19 +3,20 @@ using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Systems.Skill
 {
     public class Skill : MonoBehaviour
     {
-        PlayerController _player;
-        bool Helicopter = false;
+        private PlayerController _player;
+        private bool Helicopter = false;
+
         private void Awake()
         {
             _player = GetComponent<PlayerController>();
         }
-        void Update()
+
+        private void Update()
         {
             //if (Input.GetKeyDown(KeyCode.H))
             //{
@@ -33,9 +34,9 @@ namespace Ciart.Pagomoa.Systems.Skill
             //}
         }
     
-        IEnumerator HelicopterStart()
+        private IEnumerator HelicopterStart()
         {
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            var rb = GetComponent<Rigidbody2D>();
             while (WorldManager.instance.CheckClimbable(transform.position) && Helicopter)
             {
                 _player.state = PlayerState.Jump;
@@ -47,7 +48,8 @@ namespace Ciart.Pagomoa.Systems.Skill
             }
             Helicopter = false;
         }
-        void MoleHill()
+
+        private void MoleHill()
         {
             Vector3 digVec;
             switch (_player.GetDirection()) 
@@ -75,7 +77,8 @@ namespace Ciart.Pagomoa.Systems.Skill
                 pointInt = WorldManager.ComputeCoords(point);
             }
         }
-        IEnumerator GoMole()
+
+        private IEnumerator GoMole()
         {
             var point = transform.position + new Vector3(0, -1.2f);
             var pointInt = WorldManager.ComputeCoords(point);

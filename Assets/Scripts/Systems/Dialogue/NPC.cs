@@ -10,23 +10,24 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public List<int> dialogueId = new List<int>();
         public UnityEvent AllDialogueReadEvent;
 
-        bool isTalking = false;
+        private bool isTalking = false;
 
-        bool nowTalkable = true;
-        int nowTalkDialogueId;
-        int iter = 0;
+        private bool nowTalkable = true;
+        private int nowTalkDialogueId;
+        private int iter = 0;
 
         private void Awake()
         {
             nowTalkDialogueId = dialogueId[iter];
         }
+
         public void Talking()
         {
             if (!nowTalkable) return;
+
             if (!isTalking)
             {
                 GetComponent<Animator>().SetTrigger("StartTalk");
-                //Debug.Log("��ȭ ���۽� �ִϸ��̼� ������ �ʿ��ϴٸ� Trigger StartTalk�߰� �� �ߵ� �����ּ���.");
                 if (GetComponent<AutoChat>())
                     GetComponent<AutoChat>().StopChat();
                 isTalking = true;
@@ -37,9 +38,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 StopTalking();
                 ChangeTalkDialogueId();
             }
-            
         }
-        void ChangeTalkDialogueId()
+
+        private void ChangeTalkDialogueId()
         {
             if (isRandomTalk)
             {
@@ -63,7 +64,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 }
             }
         }
+
         public void SetNowTalkable(bool tf) { nowTalkable = tf; }
+
         public void StopTalking()
         {
             if (GetComponent<AutoChat>())

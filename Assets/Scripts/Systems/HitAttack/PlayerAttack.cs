@@ -1,21 +1,19 @@
 using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
-using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
-using PlayerInput = Ciart.Pagomoa.Entities.Players.PlayerInput;
 
 namespace Ciart.Pagomoa.Systems.HitAttack
 {
     [RequireComponent(typeof(Attack))]
     public class PlayerAttack : MonoBehaviour
     {
-        bool attack = false;
-        int attackDirection = 0;
+        private bool attack = false;
+        private int attackDirection = 0;
 
-        PlayerController _playerController;
+        private PlayerController _playerController;
 
-        bool attackable = true;
-        float attackCooltime = 0.42f;
+        private bool attackable = true;
+        private float attackCooltime = 0.42f;
 
         private void Awake()
         {
