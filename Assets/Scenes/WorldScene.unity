@@ -4889,7 +4889,9 @@ MonoBehaviour:
   talkImage: {fileID: 1174656865}
   talkText: {fileID: 1187393284}
   nameText: {fileID: 389128761}
+  buttonGroup: {fileID: 1188291307}
   NowScenario: {fileID: 0}
+  buttonPrefab: {fileID: 11455116, guid: 37c108a6c38964f79a6621eccb33ddc1, type: 3}
 --- !u!4 &891737557
 Transform:
   m_ObjectHideFlags: 0
@@ -5441,6 +5443,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1188291307 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1152538681930701564, guid: 52232f4221db7fe409e5787bf8c6e9e0, type: 3}
+  m_PrefabInstance: {fileID: 7869840356993167239}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1193407967
 GameObject:
   m_ObjectHideFlags: 0
@@ -12477,10 +12484,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1166943723711811496, guid: 52232f4221db7fe409e5787bf8c6e9e0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5235192719349539939, guid: 52232f4221db7fe409e5787bf8c6e9e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -12559,6 +12562,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5235192719349539939, guid: 52232f4221db7fe409e5787bf8c6e9e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996496224723557707, guid: 52232f4221db7fe409e5787bf8c6e9e0, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
