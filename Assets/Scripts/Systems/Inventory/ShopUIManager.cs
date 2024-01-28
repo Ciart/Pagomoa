@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -9,6 +10,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private GameObject _toSell;
         [SerializeField] private GameObject _toBuy;
         [SerializeField] public ShopHover hovering;
+        [SerializeField] public TextMeshProUGUI[] gold;
 
         public static ShopUIManager Instance = null;
 

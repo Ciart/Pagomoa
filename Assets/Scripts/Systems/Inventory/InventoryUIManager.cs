@@ -5,12 +5,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUIManager : MonoBehaviour
     {
+        public static InventoryUIManager Instance = null;
+
         [SerializeField] private GameObject _itemsTab;
         [SerializeField] private Button _itemsTabButton;
         [SerializeField] private GameObject _infoTab;
         [SerializeField] private Button _infoTabButton;
         [SerializeField] private Sprite[] _tabSprites;
+        [SerializeField] public GameObject ItemHoverObject;
 
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(this.gameObject);
+        }
         public void SetUI()
         {
             bool click = false;

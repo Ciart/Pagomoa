@@ -16,34 +16,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public TextMeshProUGUI itemCount;
 
         [SerializeField] public int id;
-        [SerializeField] public EtcInventory inventory;
         [SerializeField] public InventoryItem inventoryItem;
         [SerializeField] public Image selectedSlotImage;
-        [SerializeField] private QuickSlotItemDB quickSlotItemDB;
         void Start()
         {
             Instance = this;
         }
-        public void OnDrop(PointerEventData eventData)
-        {
-            DragSlot dragSlot = eventData.pointerDrag.GetComponent<DragSlot>();
-            dragSlot.item = eventData.pointerDrag.GetComponent<DragSlot>().item;
-
-            this.inventoryItem = dragSlot.item;
-            if (eventData.pointerDrag.GetComponent<QuickSlot>())
-            {
-                ChangeSlot(eventData);
-            }
-            else if (eventData.pointerDrag.GetComponent<Slot>())
-            {
-                AddSlot(dragSlot.item);
-            }
-        }
+        
         private void AddSlot(InventoryItem data)
         {
-            //var quickslotitem = QuickSlotItemDB.instance.quickSlotItems.Find(quickslotitem => quickslotitem.item == data);
-
-            if (!QuickSlotItemDB.instance.quickSlotItems.Contains(data)/*quickslotitem == null*/)
+            if (!QuickSlotItemDB.instance.quickSlotItems.Contains(data))
             {
                 QuickSlotItemDB.instance.quickSlotItems.Insert(this.id, inventoryItem);
                 QuickSlotItemDB.instance.quickSlotItems.RemoveAt(this.id + 1);
@@ -68,6 +50,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             itemCount.text = inventoryItem.count.ToString();
         }
+        private void SetImage()
+        {
+            itemImage.sprite = inventoryItem.item.itemImage;
+            if (inventoryItem.count != 0)
+                SetItemCount();
+            else
+                return;
+        }
         public void SetQuickSlot()
         {
             for (int i = 0; i < QuickSlotItemDB.instance.quickSlotItems.Count; i++)
@@ -84,21 +74,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     QuickSlotItemDB.instance.quickSlots[i].itemImage.sprite = transparentImage;
             }
         }
-        public void SetImage()
-        {
-            itemImage.sprite = inventoryItem.item.itemImage;
-            if (inventoryItem.count != 0)
-                SetItemCount();
-            else
-                return;
-        }
-        public void Swap(List<InventoryItem> list, int i, int j)
+        private void Swap(List<InventoryItem> list, int i, int j)
         {
             (list[i], list[j]) = (list[j], list[i]);
         }
-        public void Swap(InventoryItem item1, InventoryItem item2)
+        public void OnDrop(PointerEventData eventData)
         {
-            (item1, item2) = (item2, item1);
+            Drag dragSlot = eventData.pointerDrag.GetComponent<Drag>();
+            this.inventoryItem = dragSlot.item;
+
+            if (eventData.pointerDrag.GetComponent<QuickSlot>())
+                ChangeSlot(eventData);
+            else if (eventData.pointerDrag.GetComponent<Slot>())
+                AddSlot(dragSlot.item);
         }
         public void OnBeginDrag(PointerEventData eventData)
         {

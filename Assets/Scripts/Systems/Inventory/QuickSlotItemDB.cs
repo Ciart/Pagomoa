@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
+using System.Collections.Generic;
 using UnityEngine;
 using Item = Ciart.Pagomoa.Items.Item;
 
@@ -8,7 +8,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class QuickSlotItemDB : MonoBehaviour
     {
-   
+
         static public QuickSlotItemDB instance;
 
         [SerializeField] public List<InventoryItem> quickSlotItems = new List<InventoryItem>();
@@ -39,40 +39,24 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
             };
         }
-        private void RemoveAll(Item data)
-        {
-            var quickSlotItem = quickSlotItems.Find(quickSlotItem => quickSlotItem.item == data);
-
-            for(int i = 0; i < quickSlotItems.Count; i++)
-            {
-                if (quickSlotItems[i].item == quickSlotItem.item)
-                {
-                    quickSlotItems.RemoveAt(i);
-                    quickSlotItems.Insert(i, new InventoryItem(null, 0));
-                }
-            }
-        }
         public void SetCount(Item data)
         {
             var inventoryItem = InventoryDB.Instance.items.Find(inventoryItem => inventoryItem.item == data);
             var quickslotItem = quickSlotItems.Find(quickslotItem => quickslotItem.item == data);
 
-            if (quickslotItem != null)
+            if (quickslotItem != null && inventoryItem.count != 0)
             {
-                if (quickslotItem != null && inventoryItem.count != 0)
+                quickslotItem.count = inventoryItem.count;
+                for (int i = 0; i < quickSlots.Count; i++)
                 {
-                    quickslotItem.count = inventoryItem.count;
-                    for (int i = 0; i < quickSlots.Count; i++)
+                    if (quickSlots[i].inventoryItem == quickslotItem && quickslotItem.count != 0)
                     {
-                        if (quickSlots[i].inventoryItem == quickslotItem && quickslotItem.count != 0)
-                        {
-                            _sellingQuickSlot = quickSlots[i];
-                            quickSlots[i].itemCount.text = quickslotItem.count.ToString();
-                        }
+                        _sellingQuickSlot = quickSlots[i];
+                        quickSlots[i].itemCount.text = quickslotItem.count.ToString();
                     }
                 }
             }
-            else
+            else if (quickslotItem == null)
                 return;
         }
         public void CleanSlot(Item data)
@@ -87,7 +71,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         quickSlotItems[i] = null;
                         quickslot.SetSlotNull();
-                        if(_sellingQuickSlot != null)
+                        if (_sellingQuickSlot != null)
                             _sellingQuickSlot.SetSlotNull();
                     }
                 }
@@ -106,15 +90,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 selectedSlot.SetItemCount();
                 selectedSlot.UseItem();
                 if (selectedSlot.inventoryItem.count == 0)
-                {
                     InventoryDB.Instance.Use(selectedSlot.inventoryItem.item);
-                    //RemoveAll(selectedSlot.inventoryItem.item);
-                    //selectedSlot.SetSlotNull();
-                }
-                if (EtcInventory.Instance)
+                if (Inventory.Instance)
                 {
-                    EtcInventory.Instance.DeleteSlot();
-                    EtcInventory.Instance.UpdateSlot();
+                    Inventory.Instance.DeleteSlot();
+                    Inventory.Instance.UpdateSlot();
                 }
                 else
                     return;
@@ -147,7 +127,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 else
                     quickSlots[index].selectedSlotImage.gameObject.SetActive(false);
             }
-
         }
     }
 }

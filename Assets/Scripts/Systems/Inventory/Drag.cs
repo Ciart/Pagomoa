@@ -3,13 +3,11 @@ using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        public static DragSlot Instance;
+        public static Drag Instance;
 
         [SerializeField] public Slot slot;
-        [SerializeField] private QuickSlot quickSlot;
-        [SerializeField] public GameObject image;
         [SerializeField] public InventoryItem item;
 
 
@@ -17,7 +15,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             Instance = this;
         }
-        public void OnBeginDrag(PointerEventData eventData) // ���콺 �巡�� �������� �� ȣ��
+        public void OnBeginDrag(PointerEventData eventData)
         {
             Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
 
@@ -27,30 +25,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if(slot.inventoryItem.item != null )
                     DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
             }
-            else
-            {
-                if (quickSlot.inventoryItem.item == null || quickSlot.inventoryItem == null)
-                    return;
-                item = quickSlot.inventoryItem;
-                DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.itemImage);
-            }
-
             DragItem.Instance.transform.position = newPosition;
         }
 
 
-        public void OnDrag(PointerEventData eventData) // ���콺 �巡�� ���� ���� ȣ��
+        public void OnDrag(PointerEventData eventData)
         {
             if (eventData.pointerPress.GetComponent<QuickSlot>())
                 return;
             else
             {
-                HoverEvent.Instance.OffHover();
+                ItemHoverObject.Instance.OffHover();
                 DragItem.Instance.transform.position = eventData.position;
             }
         }
 
-        public void OnEndDrag(PointerEventData eventData) // ���콺 �巡�� ������ �� ȣ��
+        public void OnEndDrag(PointerEventData eventData)
         {
             DragItem.Instance.SetColor(0);
         }
