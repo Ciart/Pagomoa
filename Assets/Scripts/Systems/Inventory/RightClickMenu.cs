@@ -36,31 +36,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void PressedEquipBtn()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EquipCheck();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipCheck();
         }
         public void PressedEquipYes()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EquipItem();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipItem();
         }
         public void PressedEatAllBtn()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EatAllMineral();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EatAllMineral();
         }
         public void PressedEatBtn()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EatMineral();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EatMineral();
         }
         public void PressedTenEatBtn()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().EatTenMineral();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EatTenMineral();
         }
         public void PressedUseBtn()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().UseItem();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().UseItem();
         }
         public void PressedThrowAwayBtn()
         {
-            EtcInventory.Instance.choiceSlot.GetComponent<ClickSlot>().AbandonItem();
+            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().AbandonItem();
         }
         public void PressedCancleBtn()
         {
@@ -69,50 +69,50 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipmentMenu()
         {
-            MakeMenu("�����ϱ�");
-            MakeMenu("������");
-            MakeMenu("�׸��α�");
+            MakeMenu("착용하기");
+            MakeMenu("버리기");
+            MakeMenu("그만두기");
             MakeUnderLine();
             MenuImage();
         }
         public void MineralMenu()
         {
-            if (EtcInventory.Instance.choiceSlot.inventoryItem.count >= 10)
+            if (Inventory.Instance.choiceSlot.inventoryItem.count >= 10)
             {
-                MakeMenu("��� �Ա�");
-                MakeMenu("10�� ���̱�");
-                MakeMenu("1�� ���̱�");
-                MakeMenu("������");
-                MakeMenu("�׸��α�");
+                MakeMenu("모두 먹이기");
+                MakeMenu("10개 먹이기");
+                MakeMenu("1개 먹이기");
+                MakeMenu("버리기");
+                MakeMenu("그만두기");
             }
-            else if (EtcInventory.Instance.choiceSlot.inventoryItem.count < 10 && EtcInventory.Instance.choiceSlot.inventoryItem.count > 1)
+            else if (Inventory.Instance.choiceSlot.inventoryItem.count < 10 && Inventory.Instance.choiceSlot.inventoryItem.count > 1)
             {
-                MakeMenu("��� �Ա�");
-                MakeMenu("1�� ���̱�");
-                MakeMenu("������");
-                MakeMenu("�׸��α�");
+                MakeMenu("모두 먹이기");
+                MakeMenu("1개 먹이기");
+                MakeMenu("버리기");
+                MakeMenu("그만두기");
             }
-            else if (EtcInventory.Instance.choiceSlot.inventoryItem.count == 1)
+            else if (Inventory.Instance.choiceSlot.inventoryItem.count == 1)
             {
-                MakeMenu("1�� ���̱�");
-                MakeMenu("������");
-                MakeMenu("�׸��α�");
+                MakeMenu("1개 먹이기");
+                MakeMenu("버리기");
+                MakeMenu("그만두기");
             }
             MakeUnderLine();
             MenuImage();
         }
         public void UseMenu()
         {
-            MakeMenu("����ϱ�");
-            MakeMenu("������");
-            MakeMenu("�׸��α�");
+            MakeMenu("사용하기");
+            MakeMenu("버리기");
+            MakeMenu("그만두기");
             MakeUnderLine();
             MenuImage();
         }
         public void InherentMenu()
         {
-            MakeMenu("����ϱ�");
-            MakeMenu("�׸��α�");
+            MakeMenu("사용하기");
+            MakeMenu("그만두기");
             MakeUnderLine();
             MenuImage();
         }
@@ -127,19 +127,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
             newMenu.SetActive(true);
             newMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
 
-            if (text == "�����ϱ�")
+            if (text == "착용하기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedEquipBtn);
-            else if (text == "������")
+            else if (text == "버리기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedThrowAwayBtn);
-            else if (text == "�׸��α�")
+            else if (text == "그만두기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedCancleBtn);
-            else if (text == "����ϱ�")
+            else if (text == "사용하기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedUseBtn);
-            else if (text == "10�� ���̱�")
+            else if (text == "10개 먹이기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedTenEatBtn);
-            else if (text == "��� �Ա�")
+            else if (text == "모두 먹이기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedEatAllBtn);
-            else if (text == "1�� ���̱�")
+            else if (text == "1개 먹이기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedEatBtn);
         }
         private void MakeUnderLine()

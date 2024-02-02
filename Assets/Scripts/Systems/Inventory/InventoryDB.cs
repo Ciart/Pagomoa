@@ -13,9 +13,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public int maxCount;
         [SerializeField] private Buy buy;
 
-        public UnityEvent makeSlots;
-        public UnityEvent changeInventory;
-        public UnityEvent marketCondition;
+        //public UnityEvent marketCondition;
 
         public static InventoryDB Instance = null;
 
@@ -28,30 +26,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             else
                 Destroy(this.gameObject);
-
-            //if (GameObject.Find("Inventory(Clone)") != null)
-            //    changeInventory.AddListener(EtcInventory.Instance.ResetSlot);
-
-            //SaveManager.Instance.LoadItem();
         }
         public void Add(Item data, int count = 1) // Item data
         {
             var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
-            //var quickSlot = QuickSlotItemDB.instance.quickSlots.Find(quickSlot => quickSlot.inventoryItem.item == data);
             var achieveItem = Achievements.Instance.AchieveMinerals.Find(achieveItem => achieveItem.item == data);
             if (inventoryItem != null)
             {
                 inventoryItem.count += count;
-                for(int i = 0;  i < QuickSlotItemDB.instance.quickSlotItems.Count; i++)
+                for(int i = 0;  i < QuickSlotItemDB.instance.quickSlots.Count; i++)
                 {
-                    if (QuickSlotItemDB.instance.quickSlotItems[i].item == inventoryItem.item)
+                    if (QuickSlotItemDB.instance.quickSlots[i].inventoryItem.item == inventoryItem.item)
                         QuickSlotItemDB.instance.quickSlots[i].itemCount.text = inventoryItem.count.ToString();
                 }
-                //if (quickSlot != null)
-                //    quickSlot.itemCount.text = inventoryItem.count.ToString();
-
-                //else if (quickSlot == null)
-                //    return;
             }
             else
             {
@@ -70,21 +57,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         Achievements.Instance.AchieveMinerals.Add(new InventoryItem(data, count));
                     else
                         return;
-                    marketCondition.Invoke();
+                    //marketCondition.Invoke();
                 }
             }
-            if (EtcInventory.Instance)
-                EtcInventory.Instance.ResetSlot();
+            if (Inventory.Instance)
+                Inventory.Instance.ResetSlot();
         }
         public void Remove(Item data)
         {
             Use(data);
             Gold += data.itemPrice;
-            Sell.Instance.gold.text = Gold.ToString();
-            buy.gold.text = Gold.ToString();
-            //EtcInventory.Instance.ResetSlot();
-            //Sell.Instance.ResetSlot();
-            //changeInventory.Invoke();
+            ShopUIManager.Instance.gold[0].text = Gold.ToString();
+            ShopUIManager.Instance.gold[1].text = Gold.ToString();
         }
         public void DeleteItem(Item data)
         {
@@ -130,13 +114,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
             if (inventoryItem != null && inventoryItem.count == 0)
-            {
                 Use(data);
-            }
-            EtcInventory.Instance.ResetSlot();
-            //Sell.Instance.ResetSlot();
-            //changeInventory.Invoke();
+            Inventory.Instance.ResetSlot();
         }
-    
     }
 }

@@ -11,9 +11,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
-            if (this.GetComponent<BuySlot>())
+            if (this.GetComponent<BuyArtifactSlot>())
             {
-                var ItemName = this.GetComponent<BuySlot>().inventoryItem.item.itemName;
+                var ItemName = this.GetComponent<BuyArtifactSlot>().inventoryItem.item.itemName;
                 ShopChat.Instance.chatting.text = ItemName;
             }
 

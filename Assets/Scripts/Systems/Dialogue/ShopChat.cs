@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             chatting.text = _awakeChats[random];
         }
 
-        public void ThakChat()
+        public void ThankChat()
         {
             int random = Random.Range(0, _endChats.Length);
             chatting.text = _endChats[random];
@@ -40,19 +40,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void BuyPriceToChat(int price)
         {
-            string itemprice = string.Format("�̰� �ʿ���? 1���� {0}����.", price);
+            string itemprice = string.Format("이게 필요해? 1개당 {0}골드야.", price);
             chatting.text = itemprice;
         }
 
         public void SellPriceToChat(int price)
         {
-            string itemprice = string.Format("�̰Ÿ� 1���� {0}��忡 ���� �� �־�.", price);
+            string itemprice = string.Format("이거면 1개당 {0}골드에 사줄 수 있어.", price);
             chatting.text = itemprice;
         }
 
         public void TotalPriceToChat(int price)
         {
-            string itemprice = string.Format("�� {0}����.~", price);
+            string itemprice = string.Format("총 {0}골드야.", price);
             chatting.text = itemprice;
         }
     }

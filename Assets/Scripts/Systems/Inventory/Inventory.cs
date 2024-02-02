@@ -4,18 +4,16 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class EtcInventory : MonoBehaviour
+    public class Inventory : MonoBehaviour
     {
         [SerializeField] public Slot choiceSlot;
         [SerializeField] public Slot hoverSlot;
-        [SerializeField] private GameObject slotParent;
-        [SerializeField] private GameObject slot;
-        [SerializeField] public GameObject gold;
-        [SerializeField] private Sprite image;
+        [SerializeField] private GameObject _slotParent;
+        [SerializeField] private GameObject _slot;
+        [SerializeField] private Sprite _image;
         public List<Slot> slotDatas = new List<Slot>();
-        [SerializeField] public int count;
 
-        public static EtcInventory Instance = null;
+        public static Inventory Instance = null;
         private void Awake()
         {
             if (Instance == null)
@@ -34,7 +32,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
             {
-                GameObject spawnedslot = Instantiate(slot, slotParent.transform);
+                GameObject spawnedslot = Instantiate(_slot, _slotParent.transform);
                 slotDatas.Add(spawnedslot.GetComponent<Slot>());
                 slotDatas[i].id = i;
                 spawnedslot.SetActive(true);
@@ -59,18 +57,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     convert = "";
             
                 if (InventoryDB.Instance.items[i].item == null)
-                    slotDatas[i].SetUI(image, convert);
+                    slotDatas[i].SetUI(_image, convert);
                 else
                     slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
             }
-            gold.GetComponent<Text>().text = InventoryDB.Instance.Gold.ToString();
         }
         public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
         {
             if (InventoryDB.Instance.items.Count >= 0)
             {
                 for (int i = 0; i < slotDatas.Count; i++)
-                    slotDatas[i].SetUI(image, "");
+                    slotDatas[i].SetUI(_image, "");
             }
         }
     }

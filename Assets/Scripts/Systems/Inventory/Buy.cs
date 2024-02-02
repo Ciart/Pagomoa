@@ -9,13 +9,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class Buy : MonoBehaviour
     {
         [SerializeField] public BuySlot choiceSlot;
-        [SerializeField] private GameObject _underMask;
         [SerializeField] private GameObject _artifactSlotsParent;
         [SerializeField] private GameObject _consumptionSlotsParent;
         [SerializeField] private GameObject _artifactSlot;
         [SerializeField] private GameObject _consumptionSlot;
-        [SerializeField] public TextMeshProUGUI gold;
-        [SerializeField] private List<BuySlot> _artifactSlots = new List<BuySlot>();
+        [SerializeField] private List<BuyArtifactSlot> _artifactSlots = new List<BuyArtifactSlot>();
         [SerializeField] private List<BuySlot> _consumptionSlots = new List<BuySlot>();
         [SerializeField] private Sprite[] _papers;
         [SerializeField] private Sprite[] _soldOuts;
@@ -36,7 +34,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void Awake()
         {
             MakeSlot();
-            //MakeUnderMask();
+        }
+        private void OnEnable()
+        {
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text = InventoryDB.Instance.Gold.ToString();
         }
         public void MakeSlot()
         {
@@ -45,7 +46,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Equipment)
                 {
                     GameObject SpawnedSlot = Instantiate(_artifactSlot, _artifactSlotsParent.transform);
-                    _artifactSlots.Add(SpawnedSlot.GetComponent<BuySlot>());
+                    _artifactSlots.Add(SpawnedSlot.GetComponent<BuyArtifactSlot>());
                     SpawnedSlot.SetActive(true);
                 }
                 else if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Use)
@@ -109,7 +110,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     z++;
                 }
             }
-            gold.text = InventoryDB.Instance.Gold.ToString();
         }
         public void DestroySlot()
         {
@@ -119,19 +119,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SoldOut()
         {
-            choiceSlot._soldOut.SetActive(true);
+            choiceSlot.GetComponent<BuyArtifactSlot>()._soldOut.SetActive(true);
             choiceSlot.GetComponent<Button>().interactable = false;
         }
         public void UpdateCount()
         {
-            choiceSlot.itemNum.text = choiceSlot.inventoryItem.count.ToString();
-        }
-        private void MakeUnderMask()
-        {
-            Vector3 position = _consumptionSlotsParent.transform.position;
-            GameObject mask = Instantiate(_underMask, transform.GetChild(0));
-            mask.transform.position = position;
-            mask.SetActive(true);
+            choiceSlot.GetComponent<BuyArtifactSlot>().itemNum.text = choiceSlot.inventoryItem.count.ToString();
         }
     }
 }

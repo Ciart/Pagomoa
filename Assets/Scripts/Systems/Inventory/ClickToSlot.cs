@@ -5,17 +5,16 @@ using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class ClickSlot : MonoBehaviour, IPointerClickHandler
+    public class ClickToSlot : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private RightClickMenu _rightClickMenu;
-        [SerializeField] private EquipUI _equipUI;
         [SerializeField] private StoneCount _stoneCount;
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                EtcInventory.Instance.choiceSlot = this.gameObject.GetComponent<Slot>();
-                var itemtype = EtcInventory.Instance.choiceSlot.inventoryItem.item.itemType;
+                Inventory.Instance.choiceSlot = this.gameObject.GetComponent<Slot>();
+                var itemtype = Inventory.Instance.choiceSlot.inventoryItem.item.itemType;
                 Vector3 mouseposition = new Vector3(eventData.position.x + 5, eventData.position.y);
                 _rightClickMenu.SetUI();
                 _rightClickMenu.gameObject.transform.position = mouseposition;
@@ -42,15 +41,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipCheck()
         {
-            //EtcInventory.Instance.choiceSlot = this;
-
-            var inventory = EtcInventory.Instance;
+            var inventory = Inventory.Instance;
 
             if (inventory.choiceSlot.inventoryItem.item == null || inventory.choiceSlot.inventoryItem == null)
                 return;
 
             if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
-                _equipUI.OnUI();
+                EquipItem();
 
             else if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Use)
             {
@@ -69,31 +66,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipItem()
         {
-            if (ArtifactSlotDB.Instance.Artifact.Count < 4 && EtcInventory.Instance.choiceSlot.inventoryItem != null)
+            if (ArtifactSlotDB.Instance.Artifact.Count < 4 && Inventory.Instance.choiceSlot.inventoryItem != null)
             {
-                EtcInventory.Instance.DeleteSlot();
-                ArtifactSlotDB.Instance.Artifact.Add(EtcInventory.Instance.choiceSlot.inventoryItem);
-                InventoryDB.Instance.Equip(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-                EtcInventory.Instance.UpdateSlot();
+                Inventory.Instance.DeleteSlot();
+                ArtifactSlotDB.Instance.Artifact.Add(Inventory.Instance.choiceSlot.inventoryItem);
+                InventoryDB.Instance.Equip(Inventory.Instance.choiceSlot.inventoryItem.item);
+                Inventory.Instance.UpdateSlot();
                 ArtifactContent.Instance.ResetSlot();
             }
             else
                 return;
-            _equipUI.OffUI();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }
         public void EatMineral()
         {
-            var inventory = EtcInventory.Instance;
+            var inventory = Inventory.Instance;
             if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Mineral)
             {
                 if (inventory.choiceSlot.inventoryItem.count > 1)
                     inventory.choiceSlot.inventoryItem.count -= 1;
                 else if(inventory.choiceSlot.inventoryItem.count == 1)
                     InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
-                EtcInventory.Instance.DeleteSlot();
-                EtcInventory.Instance.UpdateSlot();
+                Inventory.Instance.DeleteSlot();
+                Inventory.Instance.UpdateSlot();
                 _stoneCount.UpCount(1);
             }
             _rightClickMenu.SetUI();
@@ -101,17 +97,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatTenMineral()
         {
-            var inventory = EtcInventory.Instance;
+            var inventory = Inventory.Instance;
             if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Mineral)
             {
                 if (inventory.choiceSlot.inventoryItem.count > 10)
                     inventory.choiceSlot.inventoryItem.count -= 10;
                 else if (inventory.choiceSlot.inventoryItem.count == 10)
                     InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
-                //else if (inventory.choiceSlot.inventoryItem.count < 10)
-                //    Debug.Log("10������ ����");
-                EtcInventory.Instance.DeleteSlot();
-                EtcInventory.Instance.UpdateSlot();
+                
+                Inventory.Instance.DeleteSlot();
+                Inventory.Instance.UpdateSlot();
                 _stoneCount.UpCount(10);
             }
             _rightClickMenu.SetUI();
@@ -119,30 +114,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatAllMineral()
         {
-            var inventory = EtcInventory.Instance;
+            var inventory = Inventory.Instance;
             int count = inventory.choiceSlot.inventoryItem.count;
             inventory.choiceSlot.inventoryItem.count -= count;
             _stoneCount.UpCount(count);
             InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
-            EtcInventory.Instance.DeleteSlot();
-            EtcInventory.Instance.UpdateSlot();
+            Inventory.Instance.DeleteSlot();
+            Inventory.Instance.UpdateSlot();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }
         public void UseItem()
         {
             PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
-            EtcInventory.Instance.choiceSlot.inventoryItem.item.Active(playerStatus);
-            InventoryDB.Instance.Use(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-            EtcInventory.Instance.DeleteSlot();
-            EtcInventory.Instance.ResetSlot();
+            Inventory.Instance.choiceSlot.inventoryItem.item.Active(playerStatus);
+            InventoryDB.Instance.Use(Inventory.Instance.choiceSlot.inventoryItem.item);
+            Inventory.Instance.DeleteSlot();
+            Inventory.Instance.ResetSlot();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }
         public void AbandonItem()
         {
-            InventoryDB.Instance.DeleteItem(EtcInventory.Instance.choiceSlot.inventoryItem.item);
-            EtcInventory.Instance.ResetSlot();
+            InventoryDB.Instance.DeleteItem(Inventory.Instance.choiceSlot.inventoryItem.item);
+            Inventory.Instance.ResetSlot();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }

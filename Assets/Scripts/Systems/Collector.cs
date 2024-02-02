@@ -7,7 +7,7 @@ namespace Ciart.Pagomoa.Systems
 {
     public class Collector : MonoBehaviour
     {
-        public EtcInventory etcInventory;
+        public Inventory.Inventory etcInventory;
         public UnityEvent OnCollectEvent;
         private void Awake()
         {
