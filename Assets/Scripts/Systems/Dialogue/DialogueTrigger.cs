@@ -1,6 +1,7 @@
 using Ink.Parsed;
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +13,7 @@ public class DialogueTrigger : MonoBehaviour
     public void StartStory()
     {
         if (dialogueAsset == null) return;
-        Debug.Log("½ÃÀÛ");
+        Debug.Log("ì‹œìž‘");
         DialogueManager.Instance.SetJsonAsset(dialogueAsset);
         DialogueManager.Instance.StartStory();
     }
