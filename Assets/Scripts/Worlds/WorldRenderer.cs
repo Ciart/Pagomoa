@@ -31,10 +31,6 @@ namespace Ciart.Pagomoa.Worlds
 
         [Range(1, 256)] public int renderChunkRange = 2;
 
-        private WorldManager _worldManager;
-
-        private EntityManager _entityManager;
-
         private Chunk _currentChunk;
 
         private HashSet<Vector2Int> _renderedChunks = new();
@@ -69,15 +65,16 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
-            var chunk = _worldManager.world.GetChunk(key) ?? new Chunk(key);
+            var world = WorldManager.instance.world;
+            var chunk = world.GetChunk(key) ?? new Chunk(key);
 
-            foreach (var entityController in _entityManager.FindAllEntityInChunk(chunk))
+            foreach (var entityController in EntityManager.instance.FindAllEntityInChunk(chunk))
             {
                 var position = entityController.transform.position;
 
-                _worldManager.world.AddEntity(position.x, position.y, entityController.entity);
+                world.AddEntity(position.x, position.y, entityController.entity);
 
-                _entityManager.Despawn(entityController);
+                EntityManager.instance.Despawn(entityController);
             }
 
             if (_minimapRenderers.TryGetValue(key, out var value))
@@ -91,7 +88,7 @@ namespace Ciart.Pagomoa.Worlds
         private bool CheckSightBrick(Brick brick)
         {
             return brick.ground is null ||
-                   brick.mineral == _worldManager.database.GetMineral("UFORemote");
+                   brick.mineral == WorldManager.instance.database.GetMineral("UFORemote");
         }
 
         private bool[,] CreateFogMap(Chunk chunk, World world)
@@ -130,7 +127,7 @@ namespace Ciart.Pagomoa.Worlds
 
         private void RenderChunk(Vector2Int key)
         {
-            var world = _worldManager.world;
+            var world = WorldManager.instance.world;
             var texture = new Texture2D(Chunk.Size, Chunk.Size);
             var chunk = world.GetChunk(key);
 
@@ -162,7 +159,10 @@ namespace Ciart.Pagomoa.Worlds
                     mineralTilemap.SetTile(position, brick.mineral ? brick.mineral.tile : null);
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
                     overlayTilemap.SetTile(position,
-                        brick.mineral && !fogMap[i, j] ? _worldManager.database.glitterTile : null);
+                        brick.mineral && !fogMap[i, j]
+                            ? WorldManager
+                                .instance.database.glitterTile
+                            : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
                 }
@@ -208,19 +208,13 @@ namespace Ciart.Pagomoa.Worlds
 
             RenderChunk(e.chunk.key);
         }
-
-        private void Start()
-        {
-            _worldManager = WorldManager.instance;
-            _entityManager = EntityManager.instance;
-        }
-
+        
         private void OnEnable()
         {
             EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
         }
-        
+
         private void OnDisable()
         {
             EventManager.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
@@ -233,9 +227,9 @@ namespace Ciart.Pagomoa.Worlds
 
             groundOverlayTilemap.ClearAllTiles();
 
-            var brokenTiles = _worldManager.database.brokenEffectTiles;
+            var brokenTiles = WorldManager.instance.database.brokenEffectTiles;
 
-            foreach (var (key, value) in _worldManager.brickDamage)
+            foreach (var (key, value) in WorldManager.instance.brickDamage)
             {
                 var position = new Vector3Int(key.x, key.y, 0);
                 var brokenStep = Mathf.FloorToInt((1 - value.health / value.maxHealth) * (brokenTiles.Length - 1));
@@ -262,14 +256,14 @@ namespace Ciart.Pagomoa.Worlds
 
         private void RenderWorld()
         {
-            var world = _worldManager.world;
+            var world = WorldManager.instance.world;
 
             if (world is null)
             {
                 return;
             }
 
-            var playerCoord = WorldManager.ComputeCoords(_entityManager.player.transform.position);
+            // var playerCoord = WorldManager.ComputeCoords(_entityManager.player.transform.position);
             // var playerChunk = world.GetChunk(playerCoord.x, playerCoord.y);
             //
             // DrawChunkRectangle(playerChunk, Chunk.Size, Color.cyan);
@@ -311,12 +305,12 @@ namespace Ciart.Pagomoa.Worlds
                 var position = new Vector3(entityData.x, entityData.y);
                 var coords = WorldManager.ComputeCoords(position);
 
-                if (_worldManager.world.GetBrick(coords.x, coords.y, out _).wall is null)
+                if (world.GetBrick(coords.x, coords.y, out _).wall is null)
                 {
                     continue;
                 }
 
-                _entityManager.Spawn(entityData.entity, position);
+                EntityManager.instance.Spawn(entityData.entity, position);
             }
         }
     }

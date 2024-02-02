@@ -1,8 +1,10 @@
+using System;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
-using Item = Ciart.Pagomoa.Items.Item;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
@@ -22,23 +24,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             instance = this;
         }
-        private void Awake()
+
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
+            playerInput = e.player.GetComponent<PlayerInput>();
 
-            EntityManager.instance.spawnedPlayer += player =>
-            {
-                playerInput = player.GetComponent<PlayerInput>();
+            playerInput.Actions.Slot1.started += context => { ControlQuickSlot(0); };
+            playerInput.Actions.Slot2.started += context => { ControlQuickSlot(1); };
+            playerInput.Actions.Slot3.started += context => { ControlQuickSlot(2); };
+            playerInput.Actions.Slot4.started += context => { ControlQuickSlot(3); };
+            playerInput.Actions.Slot5.started += context => { ControlQuickSlot(4); };
+            playerInput.Actions.Slot6.started += context => { ControlQuickSlot(5); };
 
-                playerInput.Actions.Slot1.started += context => { ControlQuickSlot(0); };
-                playerInput.Actions.Slot2.started += context => { ControlQuickSlot(1); };
-                playerInput.Actions.Slot3.started += context => { ControlQuickSlot(2); };
-                playerInput.Actions.Slot4.started += context => { ControlQuickSlot(3); };
-                playerInput.Actions.Slot5.started += context => { ControlQuickSlot(4); };
-                playerInput.Actions.Slot6.started += context => { ControlQuickSlot(5); };
-
-                playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
-            };
+            playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
         }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
         public void SetCount(Item data)
         {
             var inventoryItem = InventoryDB.Instance.items.Find(inventoryItem => inventoryItem.item == data);

@@ -1,5 +1,7 @@
+using System;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
 using Cinemachine;
 using UnityEngine;
@@ -23,25 +25,38 @@ namespace Ciart.Pagomoa.Systems
         private void Awake()
         {
             _UI = GameObject.Find("UI");
+        }
 
-            EntityManager.instance.spawnedPlayer += player =>
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        {
+            var player = e.player;
+                
+            player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(UpdateOxygenBar);
+            player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
+
+            playerInput = player.GetComponent<PlayerInput>();
+
+            playerInput.Actions.SetEscUI.started += context => 
             {
-                player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(UpdateOxygenBar);
-                player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
+                SetEscUI();
+            };
 
-                playerInput = player.GetComponent<PlayerInput>();
-
-                playerInput.Actions.SetEscUI.started += context => 
-                {
-                    SetEscUI();
-                };
-
-                playerInput.Actions.SetInventoryUI.started += context =>
-                {
-                    CreateInventoryUI();
-                };
+            playerInput.Actions.SetInventoryUI.started += context =>
+            {
+                CreateInventoryUI();
             };
         }
+
         public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
         {
             oxygenbar.fillAmount = current_oxygen / max_oxygen;

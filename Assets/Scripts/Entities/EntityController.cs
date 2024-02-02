@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Systems;
+using Ciart.Pagomoa.Systems;
 using UnityEditor;
 using UnityEngine;
 
@@ -68,7 +68,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void TakeKnockback(float force, Vector2 direction)
         {
-            ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
+            ParticleManager.instance.Make(0, gameObject, Vector2.zero, 0.5f);
 
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
