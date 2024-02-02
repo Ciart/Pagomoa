@@ -1,12 +1,9 @@
-using Ciart.Pagomoa.Systems.Dialogue;
-using Ciart.Pagomoa.Systems.Inventory;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ciart.Pagomoa
+namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class BuySlot : MonoBehaviour
     {
