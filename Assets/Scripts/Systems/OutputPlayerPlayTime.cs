@@ -1,32 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 public class OutputPlayerPlayTime : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _tmpGuiText;
 
-    private void FixedUpdate()
+    private void Update()
     {
         SetPlayerPlayTimeOutput();
     }
+    
     public void SetPlayerPlayTimeOutput()
     {
         if (gameObject.name == "Day-N")
         {
-            _tmpGuiText.text = TimeManager.Instance.GetDay().ToString();
+            _tmpGuiText.text = TimeManager.instance.date.ToString();
         }
         if(gameObject.name == "Time")
         {
-            string hour = TimeManager.Instance.GetHour().ToString();
-            string minute = TimeManager.Instance.GetMinute().ToString();
-
-            if (int.Parse(hour) < 10)
-                hour = string.Concat(0, hour);
-            if(int.Parse(minute) < 10) 
-                minute = string.Concat(0, minute);
-
-            _tmpGuiText.text = string.Format("{0}:{1}", hour, minute);
+            var hour = TimeManager.instance.hour;
+            var minute = TimeManager.instance.minute;
+            
+            _tmpGuiText.text = $"{hour:D2}:{minute:D2}";
         }
     }
 }

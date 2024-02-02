@@ -97,14 +97,18 @@ namespace Entities.Players
 
             oxygenAlter.Invoke(gage, maxOxygen);
         }
-        void Die()
+
+        private void Die()
         {
-            InventoryDB.Instance.Gold = int.Parse((InventoryDB.Instance.Gold * 0.9f).ToString());
-            TimeManager.Instance.SetTime(6,0);
-            TimeManager.Instance.AddDay(1);
-            ReSpawn();
+            var inventory = InventoryDB.Instance;
+            inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
+            
+            TimeManager.instance.Sleep();
+            
+            Respawn();
         }
-        void ReSpawn()
+
+        private void Respawn()
         {
             EntityManager.instance.player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
             oxygen = maxOxygen;

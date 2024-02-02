@@ -10,8 +10,8 @@ namespace Entities
     public enum DamageFlag
     {
         None = 0,
-        Contact = 1 << 0,
-        Melee = 1 << 1,
+        Contact = 1 << 0, // 접촉
+        Melee = 1 << 1, // 근접
     }
 
     public class EntityDamagedEventArgs
@@ -30,6 +30,8 @@ namespace Entities
         public bool isEnemy = false;
 
         public event Action<EntityDamagedEventArgs> damaged;
+
+        public event Action died;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -89,12 +91,23 @@ namespace Entities
 
             if (attacker is not null)
             {
-                TakeKnockback(10f, transform.position - attacker.transform.position);
+                TakeKnockback(5f, transform.position - attacker.transform.position);
             }
 
             damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, attacker = attacker, flag = flag });
 
             StartCoroutine(RunInvincibleTimeFlash());
+        }
+        
+        public void Die()
+        {
+            if (died is null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            
+            died?.Invoke();
         }
 
         private IEnumerator RunInvincibleTimeFlash()
@@ -106,11 +119,6 @@ namespace Entities
                 _spriteRenderer.enabled = true;
                 yield return new WaitForSeconds(0.05f);
             }
-        }
-
-        private void Die()
-        {
-            gameObject.SetActive(false);
         }
 
         private void Awake()

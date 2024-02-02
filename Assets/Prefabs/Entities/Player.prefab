@@ -199,6 +199,7 @@ MonoBehaviour:
   oxygen: 100
   maxOxygen: 100
   minOxygen: 0
+  isDie: 0
   _oxygenRecovery: 1
   _oxygenConsume: 0.001
   hungry: 100
@@ -1066,7 +1067,7 @@ GameObject:
   - component: {fileID: 2009989193920012860}
   - component: {fileID: 967254256267651880}
   - component: {fileID: 8061429917024463191}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Collector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

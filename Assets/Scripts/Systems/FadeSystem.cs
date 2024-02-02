@@ -18,7 +18,7 @@ public class FadeSystem : MonoBehaviour
     {
         _image = GetComponent<Image>();
 
-        TimeManager.Instance.FadeEvent.AddListener(OnFade);
+        TimeManager.instance.FadeEvent.AddListener(OnFade);
     }
 
     private void OnFade(FadeState state)

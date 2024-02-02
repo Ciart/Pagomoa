@@ -19,7 +19,7 @@ namespace Environments
 
         private void Awake()
         {
-            _timeManager = TimeManager.Instance;
+            _timeManager = TimeManager.instance;
             _camera = Camera.main;
         }
 
@@ -31,7 +31,7 @@ namespace Environments
 
         private SkyLight GetNowSkyLight()
         {
-            var time = TimeManager.Instance.time / 60000f;
+            var time = TimeManager.instance.tick / 60000f;
             var max = 0f;
 
             foreach (var t in skyLights)
@@ -66,7 +66,7 @@ namespace Environments
         private float GetFlood()
         {
             var nowSkyLight = GetNowSkyLight();
-            var flood = (TimeManager.Instance.time - GetMaxMinTimeOfPeriod(nowSkyLight, false)) /
+            var flood = (TimeManager.instance.tick - GetMaxMinTimeOfPeriod(nowSkyLight, false)) /
                         (GetMaxMinTimeOfPeriod(nowSkyLight) - GetMaxMinTimeOfPeriod(nowSkyLight, false));
 
             return flood;

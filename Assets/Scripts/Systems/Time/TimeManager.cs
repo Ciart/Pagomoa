@@ -1,30 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using Environments;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 
 public class TimeManager : MonoBehaviour
 {
-    public const int Minute = 1000;
+    public const int MinuteTick = 30;
     
-    public const int Hour = 60000;
+    public const int HourTick = MinuteTick * 60;
     
-    public const int MaxTime = 1440000; // 24시
+    public const int MaxTick = HourTick * 24;
     
-    public const int Morning = 60000 * 6;
+    /// <summary>
+    /// 06:00
+    /// </summary>
+    public const int Morning = 0;
 
-    public int time = Morning;
+    public int tick = Morning;
+    
+    /// <summary>
+    /// 1초 당 틱 수
+    /// </summary>
+    public int tickSpeed = 30;
 
-    private int date = 1;
-    private float magnification = 1f;
+    public int date = 1;
+    
+    public int hour => tick / HourTick + 6;
 
-    string season = "";
-    bool eventTakePlace = true;
+    public int minute => tick % HourTick / MinuteTick;
+    
+    public bool canSleep = false;
+
+    private float nextUpdateTime = 0f;
+
+    private string season = "";
+    private bool eventTakePlace = true;
+    
+    public event Action<int> tickUpdated;
 
     [HideInInspector] public UnityEvent NextDaySpawn;
     [HideInInspector] public UnityEvent MonsterSleep;
@@ -33,7 +44,7 @@ public class TimeManager : MonoBehaviour
 
     private static TimeManager _instance = null;
 
-    public static TimeManager Instance
+    public static TimeManager instance
     {
         get
         {
@@ -53,46 +64,29 @@ public class TimeManager : MonoBehaviour
         MonsterWakeUp.AddListener(NightMonster.TimeToBye);
     }
 
-    private int _hour
-    {
-        get { return time / 60000; }
-    }
-
-    private int _minute
-    {
-        get { return time % 60000 / 1000; }
-    }
-
-    public bool canSleep = false;
-
-    private void Start()
-    {
-        InvokeRepeating(nameof(Timer), magnification, magnification);
-    }
-
     private void Update()
     {
-        if (canSleep && Input.GetKeyDown(KeyCode.P))
-            Sleep();
-    }
-
-    private void Timer()
-    {
-        time += 1000;
-
-        if (time >= MaxTime)
+        if (nextUpdateTime <= 0)
         {
-            time = 0;
-            date++;
-            NextDaySpawn.Invoke();
-        }
+            tick += 1;
+            nextUpdateTime += 1f / tickSpeed;
+            tickUpdated?.Invoke(tick);
 
+            if (tick >= MaxTick)
+            {
+                tick = 0;
+                date++;
+                NextDaySpawn.Invoke();
+            }
 
-        if (season != GetSeasonForPlayer())
-        {
-            season = GetSeasonForPlayer();
-            EventTime();
+            if (season != GetSeasonForPlayer())
+            {
+                season = GetSeasonForPlayer();
+                EventTime();
+            }
         }
+        
+        nextUpdateTime -= Time.deltaTime;
     }
 
     private void EventTime()
@@ -113,32 +107,29 @@ public class TimeManager : MonoBehaviour
             MonsterWakeUp.Invoke();
         }
     }
-
-
-    private void ReturnToBase()
-    {
-        Vector3 returnPosition = new Vector3(31.7f, 4, 0);
-        gameObject.transform.position = returnPosition;
-    }
+    
+    // private void ReturnToBase()
+    // {
+    //     Vector3 returnPosition = new Vector3(31.7f, 4, 0);
+    //     gameObject.transform.position = returnPosition;
+    // }
+    
     public void Sleep()
     {
         FadeEvent.Invoke(FadeState.FadeInOut);
-        CancelInvoke(nameof(Timer));
-        time = 360000;
-        if (time < 24 * Hour && time > 22 * Hour) date++;
 
-        InvokeRepeating(nameof(Timer), magnification, magnification);
+        AddDay(1);
+        SetTime(6,0);
 
-        canSleep = false;
         NextDaySpawn.Invoke();
         MonsterWakeUp.Invoke();
     }
 
     public string GetSeasonForMonster()
     {
-        if (time >= 0 && time < 6 * Hour) // 밤    // 360000
+        if (tick >= 0 && tick < 6 * HourTick) // 밤    // 360000
             return "Night";
-        else if (time < 22 * Hour) // 낮        // 1320000
+        else if (tick < 22 * HourTick) // 낮        // 1320000
             return "Day";
         else
             return "Night";
@@ -146,11 +137,11 @@ public class TimeManager : MonoBehaviour
 
     public string GetSeasonForPlayer()
     {
-        if (6 * Hour < time && time < 12 * Hour)
+        if (6 * HourTick < tick && tick < 12 * HourTick)
             return "Morning";
-        else if (time < 18 * Hour)
+        else if (tick < 18 * HourTick)
             return "Afternoon";
-        else if (time < 22 * Hour)
+        else if (tick < 22 * HourTick)
             return "Night";
         else
             return "MiddleNight";
@@ -158,30 +149,21 @@ public class TimeManager : MonoBehaviour
 
     public void AddTime(int hour, int minute)
     {
-        time += (hour * Hour) + (minute * Minute);
+        tick += (hour * HourTick) + (minute * MinuteTick);
     }
+    
     public void SetTime(int hour, int minute)
     {
-        time = (hour * Hour) + (minute * Minute);
+        tick = (hour * HourTick) + (minute * MinuteTick);
     }
+    
     public void SetDay(int day)
     {
         date = day;
     }
+    
     public void AddDay(int day)
     {
         date += day;
-    }
-    public int GetDay()
-    {
-        return date;
-    }
-    public int GetHour()
-    {
-        return _hour;
-    }
-    public int GetMinute()
-    {
-        return _minute;
     }
 }

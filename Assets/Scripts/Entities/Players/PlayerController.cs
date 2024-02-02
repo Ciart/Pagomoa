@@ -130,13 +130,6 @@ namespace Entities.Players
 
             _movement.isSideWall = true;
         }
-        // public void GetDamage(GameObject attacker, float damage)
-        // {
-        //     _status.oxygen -= damage;
-        //     HitAction(attacker);
-        //     if (_status.oxygen <= 0)
-        //         Die();
-        // }
         
         public bool Hungry(float value)
         {
