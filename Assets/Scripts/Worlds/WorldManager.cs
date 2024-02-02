@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds.UFO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Ciart.Pagomoa.Worlds
 {
-    public class WorldManager : MonoBehaviour
+    public class WorldManager : SingletonMonoBehaviour<WorldManager>
     {
         public WorldDatabase database;
 
@@ -33,39 +36,15 @@ namespace Ciart.Pagomoa.Worlds
                 }
 
                 _world = value;
-                createdWorld?.Invoke(_world);
+                EventManager.Notify(new WorldCreatedEvent(_world));
             }
         }
-
-        public event Action<World> createdWorld;
-
-        /// <summary>
-        /// Chunk 내부 Brick이 변경될 경우 호출됩니다.
-        /// 같은 Chunk는 LateUpdate당 한 번만 호출됩니다.
-        /// </summary>
-        public event Action<Chunk> changedChunk;
-
-        private static WorldManager _instance;
 
         private HashSet<Chunk> _expiredChunks = new();
 
-        public static WorldManager instance
+        protected override void Awake()
         {
-            get
-            {
-                if (_instance is null)
-                {
-                    _instance = (WorldManager)FindObjectOfType(typeof(WorldManager));
-                }
-
-                return _instance;
-            }
-        }
-
-        private void Awake()
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
 
             _ufoInteraction = ufo.GetComponent<UFOInteraction>();
         }
@@ -81,7 +60,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var chunk in _expiredChunks)
             {
-                changedChunk?.Invoke(chunk);
+                EventManager.Notify(new ChunkChangedEvent(chunk));
             }
 
             _expiredChunks.Clear();
@@ -212,6 +191,8 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
+            var prevBrick = brick.Clone();
+
             brick.ground = null;
             brick.mineral = null;
 
@@ -219,6 +200,8 @@ namespace Ciart.Pagomoa.Worlds
             {
                 _expiredChunks.Add(c);
             }
+            
+            EventManager.Notify(new GroundBrokenEvent(x, y, brick));
         }
 
         public bool CheckBreakable(int x, int y, int tier, string item)

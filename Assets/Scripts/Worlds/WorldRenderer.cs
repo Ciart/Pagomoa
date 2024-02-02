@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Events;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -192,32 +193,38 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
 
-        private void OnCreatedWorld(World world)
+        private void OnWorldCreated(WorldCreatedEvent e)
         {
             ClearWorld();
             RenderWorld();
         }
 
-        private void OnChangedChunk(Chunk chunk)
+        private void OnChunkChanged(ChunkChangedEvent e)
         {
             // if (!_renderedChunks.Contains(chunk.key))
             // {
             //     return;
             // }
 
-            RenderChunk(chunk.key);
+            RenderChunk(e.chunk.key);
         }
 
-        private void Awake()
+        private void Start()
         {
             _worldManager = WorldManager.instance;
             _entityManager = EntityManager.instance;
+        }
 
-            _worldManager.createdWorld += OnCreatedWorld;
-            _worldManager.changedChunk += OnChangedChunk;
-
-            // ClearWorld();
-            // RenderWorld();
+        private void OnEnable()
+        {
+            EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
+            EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
+            EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
         }
 
         private void LateUpdate()
