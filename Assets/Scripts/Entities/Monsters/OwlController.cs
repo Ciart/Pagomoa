@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 switch (touchingTarget.tag)
                 {
                     case "Player":
-                        _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
+                        // _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
                         break;
                 }
             }
@@ -116,12 +116,12 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5f);
                 foreach(Collider2D collider in colliders)
                 {
-                    if (_monster._attack.attackTargetTag.Contains(collider.tag))
-                    {
-                        _monster.target = collider.gameObject;
-                        _animator.SetBool("Move", true);
-                        break;
-                    }
+                    // if (_monster._attack.attackTargetTag.Contains(collider.tag))
+                    // {
+                    //     _monster.target = collider.gameObject;
+                    //     _animator.SetBool("Move", true);
+                    //     break;
+                    // }
                 }
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }

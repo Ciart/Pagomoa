@@ -1,19 +1,17 @@
 using Ciart.Pagomoa.Constants;
-using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Systems.HitAttack
+namespace Ciart.Pagomoa.Entities.Players
 {
-    [RequireComponent(typeof(Attack))]
     public class PlayerAttack : MonoBehaviour
     {
-        private bool attack = false;
-        private int attackDirection = 0;
+        bool attack = false;
+        int attackDirection = 0;
 
-        private PlayerController _playerController;
+        PlayerController _playerController;
 
-        private bool attackable = true;
-        private float attackCooltime = 0.42f;
+        bool attackable = true;
+        float attackCooltime = 0.42f;
 
         private void Awake()
         {
@@ -21,6 +19,7 @@ namespace Ciart.Pagomoa.Systems.HitAttack
 
             GetComponent<PlayerInput>().Actions.Attack.started += context => { attack = true; };
         }
+
         private void FixedUpdate()
         {
             AttackDirectionDetect();
@@ -30,9 +29,11 @@ namespace Ciart.Pagomoa.Systems.HitAttack
                 attack = false;
             }
         }
+
         void AttackDirectionDetect()
         {
-            switch (_playerController.GetDirection()) {
+            switch (_playerController.GetDirection())
+            {
                 case Direction.Right:
                     attackDirection = 1;
                     break;
@@ -41,6 +42,21 @@ namespace Ciart.Pagomoa.Systems.HitAttack
                     break;
             }
         }
+
+        void Attack(GameObject attacker, float damage, Vector3 startPoint, Vector3 endPoint, int canHitCount = 1)
+        {
+            int count = canHitCount;
+            Collider2D[] deffenders = Physics2D.OverlapAreaAll(startPoint, endPoint);
+            foreach (Collider2D deffender in deffenders)
+            {
+                EntityController target = deffender.GetComponent<EntityController>();
+
+                if (!target) continue;
+
+                target.TakeDamage(damage, attacker: attacker, flag: DamageFlag.Melee);
+            }
+        }
+
         void NormatAttack()
         {
             attackable = false;
@@ -55,9 +71,9 @@ namespace Ciart.Pagomoa.Systems.HitAttack
             pointA = playerPosition + new Vector3(0 * attackDirection, 0.5f);
             pointB = playerPosition + new Vector3(1.5f * attackDirection, -0.5f);
 
-            GetComponent<Attack>()._Attack(gameObject, GetComponent<PlayerStatus>().attackpower, pointA, pointB, 1);
-
+            Attack(gameObject, GetComponent<PlayerStatus>().attackpower, pointA, pointB, 1);
         }
+
         void CanAttack()
         {
             attackable = true;

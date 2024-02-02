@@ -47,19 +47,14 @@ namespace Ciart.Pagomoa.Entities
             _entities.Add(controller);
 
             controller.Init(entity, status);
-
-            return controller;
-        }
-        
-        public PlayerController SpawnPlayer(Entity entity, Vector3 position)
-        {
-            if (_player is null)
+            
+            if (entity.type == EntityType.Player)
             {
-                _player = Spawn(entity, position).GetComponent<PlayerController>();
+                _player = controller.GetComponent<PlayerController>();
                 spawnedPlayer?.Invoke(_player);
             }
 
-            return _player;
+            return controller;
         }
 
         public void Despawn(EntityController controller)
@@ -75,7 +70,7 @@ namespace Ciart.Pagomoa.Entities
             return _entities.Find(controller => controller.entity == entity);
         }
 
-        public List<EntityController> FindAllEntityInChunk(Chunk chunk)
+        public List<EntityController> FindAllEntityInChunk(Chunk chunk) 
         {
             // TODO: Quad-Tree로 최적화 해야 함.
             return _entities.FindAll((entity) => chunk.worldRect.Contains(entity.transform.position));

@@ -33,11 +33,11 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
-            {
-                _monster.target = touchingTarget = collision.gameObject;
-                StateChanged(Monster.MonsterState.Chase);
-            }
+            // if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
+            // {
+            //     _monster.target = touchingTarget = collision.gameObject;
+            //     StateChanged(Monster.MonsterState.Chase);
+            // }
         }
         private void OnCollisionExit2D(Collision2D collision)
         {

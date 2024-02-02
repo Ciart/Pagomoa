@@ -17,14 +17,14 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 switch (touchingTarget.tag)
                 {
                     case "Player":
-                        _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
+                        // _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
                         break;
                 }
             }
         }
         private void Start()
         {
-            if (TimeManager.Instance.GetSeasonForMonster() == "Night")
+            if (TimeManager.GetSeasonForMonster() == "Night")
                 StateChanged(Monster.MonsterState.Sleep);
             else
                 StateChanged(Monster.MonsterState.Active);
@@ -79,7 +79,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                     yield return new WaitForSeconds(Time.fixedDeltaTime);
                 }
             }
-            if(TimeManager.Instance.GetSeasonForMonster() == "Night")
+            if(TimeManager.GetSeasonForMonster() == "Night")
                 StateChanged(Monster.MonsterState.Sleep);
             else
                 StateChanged(Monster.MonsterState.Active);
