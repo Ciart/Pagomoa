@@ -1,9 +1,8 @@
-using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 
-namespace Environments
+namespace Ciart.Pagomoa.Environments
 {
     public class SkyLightConverter : MonoBehaviour
     {

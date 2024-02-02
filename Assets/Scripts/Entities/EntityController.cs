@@ -4,7 +4,7 @@ using Systems;
 using UnityEditor;
 using UnityEngine;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
     [Flags]
     public enum DamageFlag

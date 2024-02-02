@@ -1,13 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Worlds;
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class UFOLadderInteraction : MonoBehaviour
     {

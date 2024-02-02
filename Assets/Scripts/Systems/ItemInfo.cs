@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "New Item/itembefore")]
-public class ItemInfo : ScriptableObject
+namespace Ciart.Pagomoa.Systems
 {
-    public enum ItemType
+    [CreateAssetMenu(fileName = "New Item", menuName = "New Item/itembefore")]
+    public class ItemInfo : ScriptableObject
     {
-        Equipment,
-        Use,
-        Mineral,
-        Other,
+        public enum ItemType
+        {
+            Equipment,
+            Use,
+            Mineral,
+            Other,
+        }
+        public string itemName;
+        public ItemType itemType;
+        public Sprite itemImage;
+        public string itemInfo;
+        public int itemPrice;
     }
-    public string itemName;
-    public ItemType itemType;
-    public Sprite itemImage;
-    public string itemInfo;
-    public int itemPrice;
 }

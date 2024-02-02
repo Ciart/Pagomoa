@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Inventory
+namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class AuctionDB : MonoBehaviour
     {

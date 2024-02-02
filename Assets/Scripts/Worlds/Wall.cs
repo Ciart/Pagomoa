@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [CreateAssetMenu(fileName = "Wall", menuName = "World/Wall", order = 2)]
     public class Wall: ScriptableObject

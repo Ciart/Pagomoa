@@ -1,77 +1,80 @@
 using System.Collections;
-using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum FadeState { FadeIn = 0, FadeOut, FadeInOut, FadeLoop }
-public class FadeSystem : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    [SerializeField] [Range(0.01f, 10f)] private float fadeTime;
-
-    [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.Linear(0,0,1,1);
-    
-    private Image _image;
-
-    private FadeState _fadeState;
-    
-    private void Start()
+    public enum FadeState { FadeIn = 0, FadeOut, FadeInOut, FadeLoop }
+    public class FadeSystem : MonoBehaviour
     {
-        _image = GetComponent<Image>();
+        [SerializeField] [Range(0.01f, 10f)] private float fadeTime;
 
-        TimeManager.instance.FadeEvent.AddListener(OnFade);
-    }
+        [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.Linear(0,0,1,1);
+    
+        private Image _image;
 
-    private void OnFade(FadeState state)
-    {
-        _fadeState = state;
-        
-        switch ( _fadeState )
+        private FadeState _fadeState;
+    
+        private void Start()
         {
-            case FadeState.FadeIn:
-                StartCoroutine(Fade(0, 1));
-                break;
-            case FadeState.FadeOut:
-                StartCoroutine(Fade(1, 0));
-                break;
-            case FadeState.FadeInOut:
-            case FadeState.FadeLoop:
-                StartCoroutine(FadeInOut());
-                break;
+            _image = GetComponent<Image>();
+
+            TimeManager.Instance.FadeEvent.AddListener(OnFade);
         }
-    }
 
-    private IEnumerator FadeInOut()
-    {
-        while (true)
+        private void OnFade(FadeState state)
         {
-            yield return StartCoroutine(Fade(0, 1));
-
-            yield return new WaitForSeconds(4f);
-            
-            yield return StartCoroutine(Fade(1, 0));
-
-            if (_fadeState == FadeState.FadeInOut)
+            _fadeState = state;
+        
+            switch ( _fadeState )
             {
-                break;
-            } 
+                case FadeState.FadeIn:
+                    StartCoroutine(Fade(0, 1));
+                    break;
+                case FadeState.FadeOut:
+                    StartCoroutine(Fade(1, 0));
+                    break;
+                case FadeState.FadeInOut:
+                case FadeState.FadeLoop:
+                    StartCoroutine(FadeInOut());
+                    break;
+            }
         }
-    }
 
-    private IEnumerator Fade(float start, float end)
-    {
-        float currentTime = 0.0f;
-        float percent = 0.0f;
-        
-        while (percent < 1)
+        private IEnumerator FadeInOut()
         {
-            currentTime += Time.deltaTime;
-            percent = currentTime / fadeTime;
+            while (true)
+            {
+                yield return StartCoroutine(Fade(0, 1));
 
-            Color color = _image.color;
-            color.a = Mathf.Lerp(start, end, fadeCurve.Evaluate(percent));
-            _image.color = color;
+                yield return new WaitForSeconds(4f);
             
-            yield return null;
+                yield return StartCoroutine(Fade(1, 0));
+
+                if (_fadeState == FadeState.FadeInOut)
+                {
+                    break;
+                } 
+            }
+        }
+
+        private IEnumerator Fade(float start, float end)
+        {
+            float currentTime = 0.0f;
+            float percent = 0.0f;
+        
+            while (percent < 1)
+            {
+                currentTime += UnityEngine.Time.deltaTime;
+                percent = currentTime / fadeTime;
+
+                Color color = _image.color;
+                color.a = Mathf.Lerp(start, end, fadeCurve.Evaluate(percent));
+                _image.color = color;
+            
+                yield return null;
+            }
         }
     }
 }

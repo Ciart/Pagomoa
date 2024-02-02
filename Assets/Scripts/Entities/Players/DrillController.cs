@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using Constants;
+using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class DrillController : MonoBehaviour
     {

@@ -1,21 +1,23 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(ChatBalloon))]
-public class Chat : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    protected ChatBalloon chatBalloon;
+    [RequireComponent(typeof(ChatBalloon))]
+    public class Chat : MonoBehaviour
+    {
+        protected ChatBalloon chatBalloon;
 
-    private void Awake()
-    {
-        chatBalloon = GetComponent<ChatBalloon>();
-    }
-    // Start is called before the first frame update
-    public void Chatting(string content)
-    {
-        chatBalloon.chatContent.text = content;
-        chatBalloon.ReSizeBalloon();
+        private void Awake()
+        {
+            chatBalloon = GetComponent<ChatBalloon>();
+        }
+        // Start is called before the first frame update
+        public void Chatting(string content)
+        {
+            chatBalloon.chatContent.text = content;
+            chatBalloon.ReSizeBalloon();
         
-        chatBalloon.balloon.SetActive(true);
+            chatBalloon.balloon.SetActive(true);
+        }
     }
 }

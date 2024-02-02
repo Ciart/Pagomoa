@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipUI : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public void OnUI()
+    public class EquipUI : MonoBehaviour
     {
-        transform.gameObject.SetActive(true);
-    }
-    public void OffUI()
-    {
-        transform.gameObject.SetActive(false);
+        public void OnUI()
+        {
+            transform.gameObject.SetActive(true);
+        }
+        public void OffUI()
+        {
+            transform.gameObject.SetActive(false);
+        }
     }
 }

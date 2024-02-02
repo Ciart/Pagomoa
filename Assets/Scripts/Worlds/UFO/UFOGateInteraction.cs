@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class UFOGateInteraction : MonoBehaviour
     {

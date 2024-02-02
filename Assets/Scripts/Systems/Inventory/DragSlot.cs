@@ -1,57 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public static DragSlot Instance;
-
-    [SerializeField] public Slot slot;
-    [SerializeField] private QuickSlot quickSlot;
-    [SerializeField] public GameObject image;
-    [SerializeField] public InventoryItem item;
-
-
-    void Start()
+    public class DragSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        Instance = this;
-    }
-    public void OnBeginDrag(PointerEventData eventData) // ¸¶¿ì½º µå·¡±× ½ÃÀÛÇßÀ» ¶§ È£Ãâ
-    {
-        Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
+        public static DragSlot Instance;
 
-        if (slot != null)
+        [SerializeField] public Slot slot;
+        [SerializeField] private QuickSlot quickSlot;
+        [SerializeField] public GameObject image;
+        [SerializeField] public InventoryItem item;
+
+
+        void Start()
         {
-            item = slot.inventoryItem;
-            if(slot.inventoryItem.item != null )
-                DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
+            Instance = this;
         }
-        else
+        public void OnBeginDrag(PointerEventData eventData) // ï¿½ï¿½ï¿½ì½º ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
         {
-            if (quickSlot.inventoryItem.item == null || quickSlot.inventoryItem == null)
+            Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
+
+            if (slot != null)
+            {
+                item = slot.inventoryItem;
+                if(slot.inventoryItem.item != null )
+                    DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
+            }
+            else
+            {
+                if (quickSlot.inventoryItem.item == null || quickSlot.inventoryItem == null)
+                    return;
+                item = quickSlot.inventoryItem;
+                DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.itemImage);
+            }
+
+            DragItem.Instance.transform.position = newPosition;
+        }
+
+
+        public void OnDrag(PointerEventData eventData) // ï¿½ï¿½ï¿½ì½º ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+        {
+            if (eventData.pointerPress.GetComponent<QuickSlot>())
                 return;
-            item = quickSlot.inventoryItem;
-            DragItem.Instance.DragSetImage(quickSlot.inventoryItem.item.itemImage);
+            else
+            {
+                HoverEvent.Instance.OffHover();
+                DragItem.Instance.transform.position = eventData.position;
+            }
         }
 
-        DragItem.Instance.transform.position = newPosition;
-    }
-
-
-    public void OnDrag(PointerEventData eventData) // ¸¶¿ì½º µå·¡±× ÁßÀÎ µ¿¾È È£Ãâ
-    {
-        if (eventData.pointerPress.GetComponent<QuickSlot>())
-            return;
-        else
+        public void OnEndDrag(PointerEventData eventData) // ï¿½ï¿½ï¿½ì½º ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
         {
-            HoverEvent.Instance.OffHover();
-            DragItem.Instance.transform.position = eventData.position;
+            DragItem.Instance.SetColor(0);
         }
-    }
-
-    public void OnEndDrag(PointerEventData eventData) // ¸¶¿ì½º µå·¡±× ³¡³µÀ» ¶§ È£Ãâ
-    {
-        DragItem.Instance.SetColor(0);
     }
 }
