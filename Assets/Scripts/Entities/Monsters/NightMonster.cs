@@ -1,4 +1,3 @@
-using Ciart.Pagomoa.Systems.HitAttack;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.Monsters
@@ -10,7 +9,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
             _animator = GetComponent<Animator>();
             status = GetComponent<MonsterStatus>();
-            _attack = GetComponent<Attack>();
+            // _attack = GetComponent<Attack>();
 
             _controller = GetComponent<MonsterController>();
         }

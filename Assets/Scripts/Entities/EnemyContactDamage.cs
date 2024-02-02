@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
     [RequireComponent(typeof(EntityController))]
     public class EnemyContactDamage : MonoBehaviour

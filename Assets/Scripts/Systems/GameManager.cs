@@ -4,37 +4,14 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         public bool isLoadSave;
 
         public bool hasPowerGemEarth;
 
-        private static GameManager _instance;
-
-        public static GameManager instance
-        {
-            get
-            {
-                if (_instance is null)
-                {
-                    _instance = (GameManager)FindObjectOfType(typeof(GameManager));
-                }
-
-                return _instance;
-            }
-        }
-    
-        private void Awake()
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
         void Start()
         {
-            FindObjectOfType<PlayerSpawnPoint>().Spawn();
-        
             var saveManager = SaveManager.Instance;
             bool mapLoad = saveManager.LoadMap();
             if (mapLoad)

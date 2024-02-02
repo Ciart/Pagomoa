@@ -1,5 +1,5 @@
 using System.Collections;
-using Ciart.Pagomoa.Systems.HitAttack;
+using Systems;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.Monsters
@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         public GameObject target;
 
-        public Attack _attack;
+        // public Attack _attack;
         public int direction;
         public enum MonsterState
         {

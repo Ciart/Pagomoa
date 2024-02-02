@@ -1,7 +1,7 @@
-using Constants;
+using Ciart.Pagomoa.Constants;
 using UnityEngine;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerAttack : MonoBehaviour
     {

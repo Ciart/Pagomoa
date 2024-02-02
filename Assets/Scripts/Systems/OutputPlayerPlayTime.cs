@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 using TMPro;
 
@@ -17,7 +18,7 @@ namespace Ciart.Pagomoa.Systems {
             {
                 _tmpGuiText.text = TimeManager.instance.date.ToString();
             }
-            public void SetPlayerPlayTimeOutput()
+            else if (gameObject.name == "Time")
             {
                 var hour = TimeManager.instance.hour;
                 var minute = TimeManager.instance.minute;

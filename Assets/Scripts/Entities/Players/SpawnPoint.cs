@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     /// <summary>
     /// Player를 Scene에서 제거하기 위한 임시 조치입니다.

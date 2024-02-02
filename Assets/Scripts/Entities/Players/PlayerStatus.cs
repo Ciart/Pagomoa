@@ -207,8 +207,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void NextDay()
         {
-            TimeManager.Instance.SetTime(6, 0);
-            TimeManager.Instance.AddDay(1);
+            TimeManager.instance.SetTime(6, 0);
+            TimeManager.instance.AddDay(1);
         }
 
         private void FixedUpdate()
