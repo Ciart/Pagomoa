@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
-namespace Inventory
+namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class ArtifactSlotDB : MonoBehaviour
     {

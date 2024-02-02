@@ -1,6 +1,6 @@
 using System;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public enum PlayerState
     {

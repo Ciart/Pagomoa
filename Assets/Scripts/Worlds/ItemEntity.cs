@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class ItemEntity: MonoBehaviour

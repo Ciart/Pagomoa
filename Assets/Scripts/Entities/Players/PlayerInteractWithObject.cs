@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerInteractWithObject : MonoBehaviour
     {

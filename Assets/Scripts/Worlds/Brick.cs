@@ -1,6 +1,6 @@
 using System;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
     public struct BrickCoords

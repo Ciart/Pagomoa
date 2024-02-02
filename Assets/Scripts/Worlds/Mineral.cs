@@ -1,8 +1,8 @@
+using Ciart.Pagomoa.Items;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [CreateAssetMenu(fileName = "Mineral", menuName = "World/Mineral", order = 1)]
     public class Mineral: ScriptableObject

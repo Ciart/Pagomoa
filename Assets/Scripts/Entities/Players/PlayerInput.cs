@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerInput : MonoBehaviour
     {

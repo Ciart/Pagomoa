@@ -1,11 +1,10 @@
-using Constants;
+using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using UnityEngine.Events;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
-    [RequireComponent(typeof(Entities.Players.PlayerController))]
+    [RequireComponent(typeof(Ciart.Pagomoa.Entities.Players.PlayerController))]
     public class PlayerDigger : MonoBehaviour
     {
         public Direction direction;
@@ -38,7 +37,7 @@ namespace Entities.Players
             drillLevel++;
             if (drillLevel < drillSpeed.Length)
             {
-                GetComponent<Entities.Players.PlayerController>()._initialStatus.digSpeed = drillSpeed[drillLevel];
+                GetComponent<Ciart.Pagomoa.Entities.Players.PlayerController>()._initialStatus.digSpeed = drillSpeed[drillLevel];
             }
 
             if (drillLevel < drillTierSetting.Length)

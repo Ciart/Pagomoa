@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Constants
+namespace Ciart.Pagomoa.Constants
 {
     public enum Direction
     {

@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
     public enum EntityType
     {

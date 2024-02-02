@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Inventory
+namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class AuctionDB : MonoBehaviour
     {
@@ -27,7 +27,7 @@ namespace Inventory
             if (inventoryItem != null)
             {
                 if (data.itemType == Item.ItemType.Use)
-                    for (int i = 0; i < BuyCountUI.Instance.count; i++)
+                    for (int i = 0; i < CountUI.Instance.count; i++)
                     {
                         InventoryDB.Instance.Gold -= data.itemPrice;
                     }
@@ -37,7 +37,8 @@ namespace Inventory
                     acutionItem.count -= 1;
                 }
             }
-            Buy.Instance.gold.text = InventoryDB.Instance.Gold.ToString();
+            ShopUIManager.Instance.gold[0].text = InventoryDB.Instance.Gold.ToString();
+            ShopUIManager.Instance.gold[1].text = InventoryDB.Instance.Gold.ToString();
         }
     }
 }

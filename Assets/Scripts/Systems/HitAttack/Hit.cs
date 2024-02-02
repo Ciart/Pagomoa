@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Monsters;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 public class Hit : MonoBehaviour
 {

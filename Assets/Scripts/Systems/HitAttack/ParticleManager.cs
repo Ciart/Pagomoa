@@ -1,31 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class ParticleManager : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.HitAttack
 {
-    public List<GameObject> particles = new List<GameObject>();
-
-    static ParticleManager instance;
-
-    public static ParticleManager Instance
+    public class ParticleManager : MonoBehaviour
     {
-        get
+        public List<GameObject> particles = new List<GameObject>();
+
+        static ParticleManager instance;
+
+        public static ParticleManager Instance
         {
-            return instance;
+            get
+            {
+                return instance;
+            }
         }
-    }
 
-    private void Awake()
-    {
-        instance = this;
-    }
+        private void Awake()
+        {
+            instance = this;
+        }
 
-    public void Make(int id, GameObject parent, Vector3 position, float duration)
-    {
-        var particle = Instantiate(particles[id], parent.transform);
-        particle.transform.localPosition = position;
-        Destroy(particle, duration);
+        public void Make(int id, GameObject parent, Vector3 position, float duration)
+        {
+            var particle = Instantiate(particles[id], parent.transform);
+            particle.transform.localPosition = position;
+            Destroy(particle, duration);
+        }
     }
 }
