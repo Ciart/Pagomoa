@@ -60,7 +60,6 @@ namespace Ciart.Pagomoa.Systems
         }
         private void SetInventoryUI()
         {
-            bool OffHoverEvent = false;
             if (_activeInventory == false)
             {
                 _activeInventory = !_activeInventory;
@@ -70,13 +69,16 @@ namespace Ciart.Pagomoa.Systems
             else
             {
                 _activeInventory = !_activeInventory;
-                HoverEvent.Instance.HoverRenderer.SetActive(OffHoverEvent);
                 _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
                 _inventoryCamera.Priority = 9;
-                if (EtcInventory.Instance.hoverSlot != null)
+
+                if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
+                    InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
+
+                if (Inventory.Inventory.Instance.hoverSlot != null)
                 {
-                    EtcInventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
-                        EtcInventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
+                    Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
+                        Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
                 }
                 else
                     return;

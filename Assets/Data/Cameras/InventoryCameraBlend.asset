@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: InventoryCameraBlend
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: Virtual Camera
+  - m_From: VirtualCamera
     m_To: InventoryCamera
     m_Blend:
       m_Style: 1
-      m_Time: 0.2
+      m_Time: 1
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -25,10 +25,10 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: InventoryCamera
-    m_To: Virtual Camera
+    m_To: VirtualCamera
     m_Blend:
       m_Style: 1
-      m_Time: 0.2
+      m_Time: 1
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

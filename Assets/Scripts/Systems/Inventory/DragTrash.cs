@@ -20,7 +20,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             else if (eventData.pointerPress.GetComponent<Slot>())
             {
                 InventoryDB.Instance.DeleteItem(eventData.pointerDrag.GetComponent<Slot>().inventoryItem.item);
-                EtcInventory.Instance.ResetSlot();
+                Inventory.Instance.ResetSlot();
             }
         }
     }

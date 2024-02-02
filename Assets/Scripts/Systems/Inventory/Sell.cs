@@ -13,7 +13,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private GameObject _slot;
         [SerializeField] private GameObject _slotParent;
         [SerializeField] private Sprite _image;
-        [SerializeField] public TextMeshProUGUI gold;
         private List<Slot> _slotDatas = new List<Slot>();
         private void Awake()
         {
@@ -26,6 +25,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             DeleteSlot();
             ResetSlot();
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text = InventoryDB.Instance.Gold.ToString();
         }
         public void MakeSlot()
         {
@@ -58,9 +58,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 else
                     _slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
             }
-            gold.text = InventoryDB.Instance.Gold.ToString();
         }
-        public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
+        public void DeleteSlot()
         {
             if (InventoryDB.Instance.items.Count >= 0)
             {

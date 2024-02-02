@@ -27,7 +27,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (inventoryItem != null)
             {
                 if (data.itemType == Item.ItemType.Use)
-                    for (int i = 0; i < BuyCountUI.Instance.count; i++)
+                    for (int i = 0; i < CountUI.Instance.count; i++)
                     {
                         InventoryDB.Instance.Gold -= data.itemPrice;
                     }
@@ -37,7 +37,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     acutionItem.count -= 1;
                 }
             }
-            Buy.Instance.gold.text = InventoryDB.Instance.Gold.ToString();
+            ShopUIManager.Instance.gold[0].text = InventoryDB.Instance.Gold.ToString();
+            ShopUIManager.Instance.gold[1].text = InventoryDB.Instance.Gold.ToString();
         }
     }
 }
