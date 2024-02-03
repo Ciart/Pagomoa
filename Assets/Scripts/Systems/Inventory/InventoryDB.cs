@@ -15,6 +15,8 @@ public class InventoryDB : MonoBehaviour
     public UnityEvent changeInventory;
     public UnityEvent marketCondition;
 
+    public UnityEvent<int, Item> questEvent;
+
     public static InventoryDB Instance = null;
 
     private void Awake()
@@ -40,8 +42,11 @@ public class InventoryDB : MonoBehaviour
         if (inventoryItem != null)
         {
             inventoryItem.count += count;
+            questEvent.Invoke(inventoryItem.count, inventoryItem.item);
+            
             for(int i = 0;  i < QuickSlotItemDB.instance.quickSlotItems.Count; i++)
             {
+                
                 if (QuickSlotItemDB.instance.quickSlotItems[i].item == inventoryItem.item)
                     QuickSlotItemDB.instance.quickSlots[i].itemCount.text = inventoryItem.count.ToString();
             }
@@ -59,6 +64,7 @@ public class InventoryDB : MonoBehaviour
                 {
                     items.Insert(i, new InventoryItem(data, count));
                     items.RemoveAt(i + 1);
+                    questEvent.Invoke(count, data);
                     break;
                 }
             }

@@ -56,34 +56,38 @@ namespace Logger.ProcessScripts
             targetEntity = elements.targetEntity;
             valueType = elements.value;
             compareValue = 0;
-            // 인벤토리 수집요소 아이템은 checkComplete 돌려보기 
+
+            var inventoryDB = InventoryDB.Instance;
+            inventoryDB.questEvent.AddListener(CalculationValue);
+            
+            foreach (var inventory in inventoryDB.items)
+            {
+                if (inventory.item is null || !TypeValidation(inventory.item)) return;
+                compareValue = inventory.count > value ? value : inventory.count % value;
+                Debug.Log(compareValue);
+            }
+            // todo 퀘스트 완료 전까지 개수 변동 소모가 일어나면 값 변경을 해야함 
         }
 
         public override bool CheckComplete()
         {
-            var inventoryItems = InventoryDB.Instance.items;
-            
-            foreach (var inventory in inventoryItems)
-            {
-                if (inventory.item == targetEntity && inventory.count == value)
-                {
-                    compareValue = inventory.count;
-                    return true;
-                }
-                if (inventory.item == targetEntity && inventory.count != value)
-                {
-                    compareValue = inventory.count;
-                    return false;
-                }
-            }
-            return false;
+            return compareValue == value;
         }
 
-        public override void CalculationValue()
+        public sealed override bool TypeValidation(ScriptableObject target)
         {
-            if (CheckComplete() && compareValue >= value ) return;
-            
-            compareValue++;
+            return targetEntity.name == target.name;
+        }
+
+        public void CalculationValue(int itemCount, Item target)
+        {
+            if ( !TypeValidation(target) ) return; 
+
+            if ( CheckComplete() ) return ;
+        
+            compareValue = itemCount;
+        
+            Debug.Log("min :" + compareValue);
         }
     }
     
@@ -94,9 +98,19 @@ namespace Logger.ProcessScripts
             throw new System.NotImplementedException();
         }
 
+        public override bool TypeValidation(ScriptableObject target)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void CalculationValue()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+        
+        public void CalculationValue(int a)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -124,16 +138,24 @@ namespace Logger.ProcessScripts
             return compareValue == value;
         }
 
+        public override bool TypeValidation(ScriptableObject target)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void CalculationValue()
         {
+            // todo targetEntity 유효성 검사 필요 
             if (CheckComplete())
             {
                 // todo 퀘스트 완료 되면 퀘스트 npc에게 완료 신호 보내기
                 erase();
                 return ;
             }
-            compareValue++;
-            Debug.Log(compareValue);
+            
+            compareValue++; 
+            
+            Debug.Log("Block :" + compareValue);
         }
     }
     #endregion

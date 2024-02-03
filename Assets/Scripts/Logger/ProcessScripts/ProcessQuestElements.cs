@@ -12,5 +12,7 @@ namespace Logger.ProcessScripts
         public string valueType { get; set; }
         
         public abstract bool CheckComplete();
+
+        public abstract bool TypeValidation(ScriptableObject target);
     }
 }

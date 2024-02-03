@@ -30,7 +30,7 @@ namespace Logger.ProcessScripts
             compareValue = initCompareValue;
             targetEntity = initTargetEntity;
         }
-        public abstract void CalculationValue();
+        public virtual void CalculationValue() { }
     }
 
     public abstract class ProcessFloatQuestElements : ProcessQuestElements, IProcessQuestValue<float>

@@ -154,7 +154,7 @@ namespace Worlds
                 {
                     BreakGround(coords.x, coords.y, 10);
                     newBrickDamage.Remove(coords);
-                    WorldQuestEvent.Invoke();
+                    WorldQuestEvent.Invoke(); // Break Block 퀘스트 이벤트
                 }
             }
 
