@@ -1,10 +1,9 @@
 using System.Collections;
-using Entities;
+using Ciart.Pagomoa.Entities;
 using UnityEngine;
-using PlayerController = Entities.Players.PlayerController;
 
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class UFOInteraction : MonoBehaviour
     {

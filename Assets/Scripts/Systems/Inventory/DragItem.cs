@@ -1,27 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragItem : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    static public DragItem Instance;
+    public class DragItem : MonoBehaviour
+    {
+        static public DragItem Instance;
 
-    void Start()
-    {
-        Instance = this;
-    }
-    public void DragSetImage(Sprite image)
-    {
-        this.transform.SetAsLastSibling();
-        gameObject.GetComponent<Image>().sprite = image;
-        SetColor(230);
-    }    
-    public void SetColor(float a)
-    {
-        Color color = gameObject.GetComponent<Image>().color;
-        color.a = a;
-        gameObject.GetComponent<Image>().color = color;
+        void Start()
+        {
+            Instance = this;
+        }
+        public void DragSetImage(Sprite image)
+        {
+            this.transform.SetAsLastSibling();
+            gameObject.GetComponent<Image>().sprite = image;
+            SetColor(230);
+        }    
+        public void SetColor(float a)
+        {
+            Color color = gameObject.GetComponent<Image>().color;
+            color.a = a;
+            gameObject.GetComponent<Image>().color = color;
+        }
     }
 }

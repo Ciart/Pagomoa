@@ -1,9 +1,8 @@
-using System.Collections;
-using Constants;
+using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     [RequireComponent(typeof(PlayerStatus))]
     public partial class PlayerController : MonoBehaviour
@@ -129,35 +128,7 @@ namespace Entities.Players
 
             _movement.isSideWall = true;
         }
-        public void GetDamage(GameObject attacker, float damage)
-        {
-            _status.oxygen -= damage;
-            HitAction(attacker);
-            if (_status.oxygen <= 0)
-                Die();
-        }
-        public void HitAction(GameObject attacker)
-        {
-            StartCoroutine("CantMoveOn", GetComponent<Hit>().unbeatTime);
-            ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
-
-            float _knockBackForce = 5f;
-            Vector2 knockBackDirection = transform.position - attacker.transform.position;
-            knockBackDirection.Normalize();
-            Vector2 knockBackPosition = new Vector2(_knockBackForce * Mathf.Sign(knockBackDirection.x), 8f);
-
-            _rigidbody.AddForce(knockBackPosition, ForceMode2D.Impulse);
-        }
-        IEnumerator CantMoveOn(float time)
-        {
-            _movement.canMove = false;
-            yield return new WaitForSeconds(time);
-            _movement.canMove = true;
-        }
-        void Die()
-        {
-            Debug.Log("플레이어가 몬스터에게 질식해 죽었습니다. 꺠꼬닥!");
-        }
+        
         public bool Hungry(float value)
         {
             if (_status.hungry - value < 0) return true;

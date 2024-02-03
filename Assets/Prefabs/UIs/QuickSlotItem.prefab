@@ -399,8 +399,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot: {fileID: 0}
-  quickSlot: {fileID: 46853149073559881}
-  image: {fileID: 0}
   item:
     item: {fileID: 0}
     count: 0

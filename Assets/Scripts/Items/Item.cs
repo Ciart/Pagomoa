@@ -1,21 +1,24 @@
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
-public class Item : ScriptableObject
+namespace Ciart.Pagomoa.Items
 {
-    public enum ItemType
+    [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
+    public class Item : ScriptableObject
     {
-        Equipment,
-        Use,
-        Mineral,
-        Inherent
-    }
-    public string itemName;
-    public ItemType itemType;
-    public Sprite itemImage;
-    public string itemInfo;
-    public int itemPrice;
+        public enum ItemType
+        {
+            Equipment,
+            Use,
+            Mineral,
+            Inherent
+        }
+        public string itemName;
+        public ItemType itemType;
+        public Sprite itemImage;
+        public string itemInfo;
+        public int itemPrice;
 
-    public virtual void Active(PlayerStatus stat) { }
+        public virtual void Active(PlayerStatus stat) { }
+    }
 }

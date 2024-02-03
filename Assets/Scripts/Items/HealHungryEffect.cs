@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New ItemHealEffect", menuName = "New ItemEffect/itemHungryEffect")]
-public class HealHungryEffect : ItemEffect
+namespace Ciart.Pagomoa.Items
 {
-    public int hungryHealValue;
-    
-    public override void Effect(ConsumerableItem item, PlayerStatus stat)
+    [CreateAssetMenu(fileName = "New ItemHealEffect", menuName = "New ItemEffect/itemHungryEffect")]
+    public class HealHungryEffect : ItemEffect
     {
-        stat.hungry += hungryHealValue;
-        if(stat.hungry < stat.minHungry) stat.hungry = stat.minHungry;
-        else if(stat.hungry > stat.maxHungry) stat.hungry = stat.maxHungry;
-        stat.hungryAlter.Invoke(stat.hungry, stat.maxHungry);
+        public int hungryHealValue;
+    
+        public override void Effect(ConsumerableItem item, PlayerStatus stat)
+        {
+            stat.hungry += hungryHealValue;
+            if(stat.hungry < stat.minHungry) stat.hungry = stat.minHungry;
+            else if(stat.hungry > stat.maxHungry) stat.hungry = stat.maxHungry;
+            stat.hungryAlter.Invoke(stat.hungry, stat.maxHungry);
+        }
     }
 }

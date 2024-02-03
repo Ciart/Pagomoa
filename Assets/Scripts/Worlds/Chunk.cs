@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
     public class Chunk

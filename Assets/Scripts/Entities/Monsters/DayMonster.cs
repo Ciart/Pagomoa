@@ -1,38 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DayMonster : Monster
+namespace Ciart.Pagomoa.Entities.Monsters
 {
-    private SpriteRenderer _sleepingAnimation;
-
-    private void Awake()
+    public class DayMonster : Monster
     {
+        private SpriteRenderer _sleepingAnimation;
 
-        _animator = GetComponent<Animator>();
-        status = GetComponent<MonsterStatus>();
-        _attack = GetComponent<Attack>();
-
-        _controller = GetComponent<MonsterController>();
-
-        _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
-    }
-    public static void GetSleep()
-    {
-        DayMonster[] Monsters = GameObject.FindObjectsOfType<DayMonster>();
-        foreach (DayMonster monster in Monsters)
+        private void Awake()
         {
-            monster._controller.StateChanged(MonsterState.Sleep);
-            monster._sleepingAnimation.enabled = true;
+
+            _animator = GetComponent<Animator>();
+            status = GetComponent<MonsterStatus>();
+            // _attack = GetComponent<Attack>();
+
+            _controller = GetComponent<MonsterController>();
+
+            _sleepingAnimation = transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
-    }
-    public static void AwakeSleep()
-    {
-        DayMonster[] Monsters = GameObject.FindObjectsOfType<DayMonster>();
-        foreach (DayMonster monster in Monsters)
+        public static void GetSleep()
         {
-            monster._controller.StateChanged(MonsterState.Active);
-            monster._sleepingAnimation.enabled = false;
+            DayMonster[] Monsters = GameObject.FindObjectsOfType<DayMonster>();
+            foreach (DayMonster monster in Monsters)
+            {
+                monster._controller.StateChanged(MonsterState.Sleep);
+                monster._sleepingAnimation.enabled = true;
+            }
+        }
+        public static void AwakeSleep()
+        {
+            DayMonster[] Monsters = GameObject.FindObjectsOfType<DayMonster>();
+            foreach (DayMonster monster in Monsters)
+            {
+                monster._controller.StateChanged(MonsterState.Active);
+                monster._sleepingAnimation.enabled = false;
+            }
         }
     }
 }

@@ -1,17 +1,45 @@
 using System;
-using JetBrains.Annotations;
+using System.Collections;
+using Ciart.Pagomoa.Systems;
+using UnityEditor;
 using UnityEngine;
-using Worlds;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
+    [Flags]
+    public enum DamageFlag
+    {
+        None = 0,
+        Contact = 1 << 0, // 접촉
+        Melee = 1 << 1, // 근접
+    }
+
+    public class EntityDamagedEventArgs
+    {
+        public float amount;
+        public GameObject attacker;
+        public DamageFlag flag;
+    }
+
     public class EntityController : MonoBehaviour
     {
         public Entity entity;
 
         public EntityStatus status;
 
+        public bool isEnemy = false;
+
+        public event Action<EntityDamagedEventArgs> damaged;
+
+        public event Action died;
+
+        private SpriteRenderer _spriteRenderer;
+
         private Rigidbody2D _rigidbody;
+
+        private float _invincibleTime;
+
+        public bool isInvincibleTime => _invincibleTime > 0;
 
         public void Init(Entity entity, EntityStatus status = null)
         {
@@ -24,6 +52,8 @@ namespace Entities
                     health = entity.baseHealth,
                     maxHealth = entity.baseHealth
                 };
+
+                isEnemy = entity.isEnemy;
             }
             else
             {
@@ -31,30 +61,85 @@ namespace Entities
             }
         }
 
-        public void TakeDamage(float damage, float InvincibleTime = 0.3f, GameObject attacker = null)
+        private void OnDrawGizmos()
         {
-            status.health -= damage;
+            Handles.Label(transform.position, $"({status.health} / {status.maxHealth})");
+        }
 
+        public void TakeKnockback(float force, Vector2 direction)
+        {
+            ParticleManager.instance.Make(0, gameObject, Vector2.zero, 0.5f);
+
+            _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
+        }
+
+        public void TakeDamage(float amount, float invincibleTime = 0.3f, GameObject attacker = null,
+            DamageFlag flag = DamageFlag.None)
+        {
+            if (isInvincibleTime)
+            {
+                return;
+            }
+
+            _invincibleTime = invincibleTime;
+            
+            status.health -= amount;
             if (status.health <= 0)
             {
                 status.health = 0;
-                Die();
             }
+
+            if (attacker is not null)
+            {
+                TakeKnockback(5f, transform.position - attacker.transform.position);
+            }
+
+            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, attacker = attacker, flag = flag });
+
+            StartCoroutine(RunInvincibleTimeFlash());
+        }
+        
+        public void Die()
+        {
+            if (died is null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            
+            died?.Invoke();
         }
 
-        private void Die()
+        private IEnumerator RunInvincibleTimeFlash()
         {
-            //
+            while (isInvincibleTime)
+            {
+                _spriteRenderer.enabled = false;
+                yield return new WaitForSeconds(0.05f);
+                _spriteRenderer.enabled = true;
+                yield return new WaitForSeconds(0.05f);
+            }
         }
 
         private void Awake()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
+        }
+        
+        private void CheckDeath()
+        {
+            if (status.health <= 0)
+            {
+                Die();
+            }
         }
 
         private void Update()
         {
+            CheckDeath();
+            
             var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
 
             if (distance > 10f)
@@ -65,6 +150,8 @@ namespace Entities
             {
                 _rigidbody.simulated = true;
             }
+
+            _invincibleTime -= Time.deltaTime;
         }
     }
 }

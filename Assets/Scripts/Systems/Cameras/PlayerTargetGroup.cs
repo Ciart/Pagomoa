@@ -1,25 +1,35 @@
-﻿using Cinemachine;
-using Entities;
+﻿using System;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Events;
+using Cinemachine;
 using UnityEngine;
-using PlayerController = Entities.Players.PlayerController;
+using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
-namespace Cameras
+namespace Ciart.Pagomoa.Systems.Cameras
 {
     [RequireComponent(typeof(CinemachineTargetGroup))]
     public class PlayerTargetGroup: MonoBehaviour
     {
         private CinemachineTargetGroup _targetGroup;
         
-        private void OnSpawnedPlayer(PlayerController player)
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
-            _targetGroup.AddMember(player.transform, 1, 0);
+            _targetGroup.AddMember(e.player.transform, 1, 0);
         }
         
         private void Awake()
         {
             _targetGroup = GetComponent<CinemachineTargetGroup>();
-            
-            EntityManager.instance.spawnedPlayer += OnSpawnedPlayer;
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
     }
 }

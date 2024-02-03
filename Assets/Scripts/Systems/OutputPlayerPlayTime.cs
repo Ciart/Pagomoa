@@ -1,32 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 using TMPro;
-public class OutputPlayerPlayTime : MonoBehaviour
-{
-    [SerializeField] private TextMeshProUGUI _tmpGuiText;
 
-    private void FixedUpdate()
+namespace Ciart.Pagomoa.Systems {
+    public class OutputPlayerPlayTime : MonoBehaviour
     {
-        SetPlayerPlayTimeOutput();
-    }
-    public void SetPlayerPlayTimeOutput()
-    {
-        if (gameObject.name == "Day-N")
+        [SerializeField] private TextMeshProUGUI _tmpGuiText;
+
+        private void Update()
         {
-            _tmpGuiText.text = TimeManager.Instance.GetDay().ToString();
+            SetPlayerPlayTimeOutput();
         }
-        if(gameObject.name == "Time")
+        
+        public void SetPlayerPlayTimeOutput()
         {
-            string hour = TimeManager.Instance.GetHour().ToString();
-            string minute = TimeManager.Instance.GetMinute().ToString();
-
-            if (int.Parse(hour) < 10)
-                hour = string.Concat(0, hour);
-            if(int.Parse(minute) < 10) 
-                minute = string.Concat(0, minute);
-
-            _tmpGuiText.text = string.Format("{0}:{1}", hour, minute);
+            if (gameObject.name == "Day-N")
+            {
+                _tmpGuiText.text = TimeManager.instance.date.ToString();
+            }
+            else if (gameObject.name == "Time")
+            {
+                var hour = TimeManager.instance.hour;
+                var minute = TimeManager.instance.minute;
+                
+                _tmpGuiText.text = $"{hour:D2}:{minute:D2}";
+            }
         }
     }
 }

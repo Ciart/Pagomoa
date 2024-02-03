@@ -1,22 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
-using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New ItemPlantBombEffect", menuName = "New ItemEffect/itemPlantBombEffect")]
-[Serializable]
-public class PlantBombEffect : ItemEffect
+namespace Ciart.Pagomoa.Items
 {
-    [SerializeField] private GameObject prefab;
-
-    public override void Effect(ConsumerableItem item, PlayerStatus stat)
+    [CreateAssetMenu(fileName = "New ItemPlantBombEffect", menuName = "New ItemEffect/itemPlantBombEffect")]
+    [Serializable]
+    public class PlantBombEffect : ItemEffect
     {
-        Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        if (playerTransform == null) return;
-        GameObject Bomb = Instantiate(prefab);
-        Bomb.transform.position = playerTransform.position + new Vector3(0, -1);
+        [SerializeField] private GameObject prefab;
+
+        public override void Effect(ConsumerableItem item, PlayerStatus stat)
+        {
+            Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            if (playerTransform == null) return;
+            GameObject Bomb = Instantiate(prefab);
+            Bomb.transform.position = playerTransform.position + new Vector3(0, -1);
+        }
     }
 }

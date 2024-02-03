@@ -1,13 +1,13 @@
 using System;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
     public struct BrickCoords
     {
         public int x;
         public int y;
-        
+
         public BrickCoords(int x, int y)
         {
             this.x = x;
@@ -21,7 +21,7 @@ namespace Worlds
         public float health;
         public float maxHealth;
         public Brick brick;
-        
+
         public BrickHealth(float health, float maxHealth, Brick brick)
         {
             this.health = health;
@@ -35,13 +35,13 @@ namespace Worlds
             {
                 return new BrickHealth(0, 0, brick);
             }
-            
+
             return new BrickHealth(brick.ground.strength, brick.ground.strength, brick);
         }
     }
-    
+
     [Serializable]
-    public class Brick
+    public class Brick : ICloneable
     {
         public Wall wall;
         public Ground ground;
@@ -56,9 +56,15 @@ namespace Worlds
             brick.mineral = mineral;
             brick.isRock = isRock;
         }
+        
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         public static bool operator ==(Brick lhs, Brick rhs) =>
-            lhs.wall == rhs.wall && lhs.ground == rhs.ground && lhs.mineral == rhs.mineral && lhs.mineral == rhs.mineral;
+            lhs.wall == rhs.wall && lhs.ground == rhs.ground && lhs.mineral == rhs.mineral &&
+            lhs.mineral == rhs.mineral;
 
         public static bool operator !=(Brick lhs, Brick rhs) => !(lhs == rhs);
     }
