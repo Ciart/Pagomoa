@@ -297,6 +297,7 @@ MonoBehaviour:
   _infoTab: {fileID: 0}
   _infoTabButton: {fileID: 0}
   _tabSprites: []
+  ItemHoverObject: {fileID: 0}
 --- !u!1 &61943814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,75 +1346,6 @@ MonoBehaviour:
   stoneCount: 0
   maxCount: 0
   buy: {fileID: 1171842542}
-  makeSlots:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EtcInventory, Assembly-CSharp
-        m_MethodName: MakeSlot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EtcInventory, Assembly-CSharp
-        m_MethodName: MakeSlot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  changeInventory:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EtcInventory, Assembly-CSharp
-        m_MethodName: ResetSlot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EtcInventory, Assembly-CSharp
-        m_MethodName: ResetSlot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  marketCondition:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1914262374}
-        m_TargetAssemblyTypeName: MarketCondition, Assembly-CSharp
-        m_MethodName: MakeSlot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &293903517
 Transform:
   m_ObjectHideFlags: 0
@@ -1849,6 +1781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46aab3c9dcdee5b4680233e2f1b2a1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttons: []
   itemCount: {fileID: 718197052}
   count: 0
 --- !u!1 &351452819
@@ -2070,6 +2003,7 @@ MonoBehaviour:
   _infoTab: {fileID: 0}
   _infoTabButton: {fileID: 0}
   _tabSprites: []
+  ItemHoverObject: {fileID: 0}
 --- !u!114 &389128761 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6214223720248160020, guid: 52232f4221db7fe409e5787bf8c6e9e0, type: 3}
@@ -2125,7 +2059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a2ad41452348abb4baccdc61afacd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerEntity: {fileID: 11400000, guid: 7944684b29568f140bb3c7cc2387443f, type: 2}
+  entity: {fileID: 11400000, guid: 7944684b29568f140bb3c7cc2387443f, type: 2}
 --- !u!1 &407615760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,10 +2530,6 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  equipUI: {fileID: 0}
-  sellCountUI: {fileID: 660020840}
-  buyCountUI: {fileID: 0}
-  buyNoCountUI: {fileID: 0}
   image: {fileID: 1241472726}
   text: {fileID: 1938210013}
   id: 0
@@ -4960,7 +4890,9 @@ MonoBehaviour:
   talkImage: {fileID: 1174656865}
   talkText: {fileID: 1187393284}
   nameText: {fileID: 389128761}
+  buttonGroup: {fileID: 0}
   NowScenario: {fileID: 0}
+  buttonPrefab: {fileID: 0}
 --- !u!4 &891737557
 Transform:
   m_ObjectHideFlags: 0
@@ -9497,10 +9429,6 @@ MonoBehaviour:
   inventoryItem:
     item: {fileID: 0}
     count: 0
-  equipUI: {fileID: 0}
-  sellCountUI: {fileID: 0}
-  buyCountUI: {fileID: 348790648}
-  buyNoCountUI: {fileID: 2142252716}
   image: {fileID: 1642910134}
   text: {fileID: 1626031842}
   id: 0

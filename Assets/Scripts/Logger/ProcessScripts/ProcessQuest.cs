@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
+using Logger.ProcessScripts;
 using UnityEngine;
-using UnityEngine.Events;
-using Worlds;
 
-namespace Logger.ProcessScripts
+namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public class ProcessQuest
     {
@@ -58,7 +60,7 @@ namespace Logger.ProcessScripts
             compareValue = 0;
 
             var inventoryDB = InventoryDB.Instance;
-            inventoryDB.questEvent.AddListener(CalculationValue);
+            //inventoryDB.questEvent.AddListener(CalculationValue);
             
             foreach (var inventory in inventoryDB.items)
             {

@@ -1,3 +1,5 @@
+using Ciart.Pagomoa.Entities.Monsters;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.Events;
 
