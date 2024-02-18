@@ -7,6 +7,8 @@ namespace Ciart.Pagomoa.Entities.Players
     [RequireComponent(typeof(Ciart.Pagomoa.Entities.Players.PlayerController))]
     public class PlayerDigger : MonoBehaviour
     {
+        public DrillController drill;
+        
         public Direction direction;
         public bool isDig;
         public float tiredDigSpeedScoop = 5f;
@@ -48,11 +50,16 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             if (!isDig)
             {
+                drill.gameObject.SetActive(false);
                 return;
             }
+            
+            drill.gameObject.SetActive(true);
 
             _target.ChangeTarget(DirectionCheck(width % 2 == 0), width, length,
                 direction is Direction.Left or Direction.Right);
+
+            drill.isGroundHit = _target.targetCoordsList.Length != 0;
 
             foreach (var (x, y) in _target.targetCoordsList)
             {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Systems;
@@ -19,6 +20,18 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public Vector2 rightOffset;
         
+        public AudioClip spinSound;
+
+        public AudioClip groundHitSound;
+
+        public AudioClip groundHitLoopSound;
+        
+        public bool isGroundHit;
+        
+        private AudioSource _spinAudioSource;
+        
+        private AudioSource _groundHitAudioSource;
+        
         private PlayerDigger _digger;
 
         private Direction _prevDirection;
@@ -27,9 +40,19 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Awake()
         {
+            _spinAudioSource = gameObject.AddComponent<AudioSource>();
+            _spinAudioSource.clip = spinSound;
+            
+            _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
+            
             _digger = transform.parent.GetComponent<PlayerDigger>();
         }
-        
+
+        private void OnEnable()
+        {
+            _spinAudioSource.Play();
+        }
+
         private void UpdateDirection()
         {
             var direction = _digger.direction;
@@ -57,6 +80,33 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Update()
         {
             UpdateDirection();
+
+            if (isGroundHit)
+            {
+                if (!_groundHitAudioSource.isPlaying)
+                {
+                    if (_groundHitAudioSource.clip == groundHitSound)
+                    {
+                        _groundHitAudioSource.clip = groundHitLoopSound;
+                        _groundHitAudioSource.loop = true;
+                    }
+                    else
+                    {
+                        _groundHitAudioSource.clip = groundHitSound;
+                        _groundHitAudioSource.loop = false;
+                    }
+                    
+                    _groundHitAudioSource.Play();
+                }
+            }
+            else
+            {
+                if (_groundHitAudioSource.isPlaying)
+                {
+                    _groundHitAudioSource.Stop();
+                    _groundHitAudioSource.clip = groundHitLoopSound;
+                }
+            }
             
             foreach (var enemy in _enemies)
             {
