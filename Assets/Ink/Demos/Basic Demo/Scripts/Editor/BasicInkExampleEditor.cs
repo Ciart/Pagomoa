@@ -5,8 +5,7 @@ using UnityEngine;
 
 [CustomEditor(typeof(BasicInkExample))]
 [InitializeOnLoad]
-public class BasicInkExampleEditor : UnityEditor.Editor
-{
+public class BasicInkExampleEditor : Editor {
     static bool storyExpanded;
     static BasicInkExampleEditor () {
         BasicInkExample.OnCreateStory += OnCreateStory;

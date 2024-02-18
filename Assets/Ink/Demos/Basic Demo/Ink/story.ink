@@ -1,21 +1,19 @@
-- 설명
-* 진행
-- 설명2
-*   [A]
-    A를 골랐을 때 다음 선택지
-    * *     A-1[이 사이는 선택지때만 보이고 다음엔 생략]이후엔 이글도 더함
-            더 말해도 됌
-            * * *   A-1-A
-            * * *   A-1-B
-            - - -   어떤 선택을 하든 나옴
-            * * *   C
-                    C선택지에 대한 답
-            * * *   D
-                    D선택지에 대한 답
-            * * *   E 
-                    E선택지에 대한 답
-    * *     A-2[]
-    - -     <>
-*   B[] and <>
+- I looked at Monsieur Fogg 
+*   ... and I could contain myself no longer.
+    'What is the purpose of our journey, Monsieur?'
+    'A wager,' he replied.
+    * *     'A wager!'[] I returned.
+            He nodded. 
+            * * *   'But surely that is foolishness!'
+            * * *  'A most serious matter then!'
+            - - -   He nodded again.
+            * * *   'But can we win?'
+                    'That is what we will endeavour to find out,' he answered.
+            * * *   'A modest wager, I trust?'
+                    'Twenty thousand pounds,' he replied, quite flatly.
+            * * *   I asked nothing further of him then[.], and after a final, polite cough, he offered nothing more to me. <>
+    * *     'Ah[.'],' I replied, uncertain what I thought.
+    - -     After that, <>
+*   ... but I said nothing[] and <>
 - we passed the day in silence.
 - -> END
