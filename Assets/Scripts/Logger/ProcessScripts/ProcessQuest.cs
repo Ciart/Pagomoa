@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
@@ -127,12 +129,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             value = int.Parse(elements.value);
             compareValue = 0;
             
-            WorldManager.instance.WorldQuestEvent.AddListener(CalculationValue);
-        }
-        
-        public void erase()
-        {
-            WorldManager.instance.WorldQuestEvent.RemoveListener(CalculationValue);
+            EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
         }
 
         public override bool CheckComplete()
@@ -145,13 +142,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             throw new NotImplementedException();
         }
 
+        public void OnGroundBroken(GroundBrokenEvent e)
+        {
+            CalculationValue();
+        }
+        
         public override void CalculationValue()
         {
             // todo targetEntity 유효성 검사 필요 
             if (CheckComplete())
             {
                 // todo 퀘스트 완료 되면 퀘스트 npc에게 완료 신호 보내기
-                erase();
+                
                 return ;
             }
             
