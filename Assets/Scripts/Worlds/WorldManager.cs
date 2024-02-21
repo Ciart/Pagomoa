@@ -22,8 +22,6 @@ namespace Ciart.Pagomoa.Worlds
 
         public Tilemap ufoLadder;
 
-        public UnityEvent WorldQuestEvent;
-        
         private UFOInteraction _ufoInteraction;
 
         private World _world;
@@ -131,7 +129,6 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     BreakGround(coords.x, coords.y, 10);
                     newBrickDamage.Remove(coords);
-                    WorldQuestEvent.Invoke(); // Break Block 퀘스트 이벤트
                 }
             }
 

@@ -36,10 +36,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         var collectMineral = new CollectMineral(condition);
                         elements.Add(collectMineral);                        
                         break;
-                    case QuestType.ConsumeMineral :
-                        var consumeMineral = new CollectMineral(condition);
-                        elements.Add(consumeMineral);                        
-                        break;
                     case QuestType.BreakBlock :
                         var breakBlock = new BreakBlock(condition);
                         elements.Add(breakBlock);                        
@@ -52,72 +48,64 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     #region IntQuestElements
     public class CollectMineral : ProcessIntQuestElements
     {
+        private readonly InventoryDB _inventoryDB = InventoryDB.Instance;
         public CollectMineral(QuestCondition elements)
         {
-            questType = elements.questType;
+            questType = elements.questType; 
             summary = elements.summary;
             value = int.Parse(elements.value);
             targetEntity = elements.targetEntity;
-            valueType = elements.value;
-            compareValue = 0;
-
-            var inventoryDB = InventoryDB.Instance;
-            //inventoryDB.questEvent.AddListener(CalculationValue);
+            valueType = elements.value; 
+            compareValue = SearchItemCount();
             
-            foreach (var inventory in inventoryDB.items)
-            {
-                if (inventory.item is null || !TypeValidation(inventory.item)) return;
-                compareValue = inventory.count > value ? value : inventory.count % value;
-                Debug.Log(compareValue);
-            }
-            // todo 퀘스트 완료 전까지 개수 변동 소모가 일어나면 값 변경을 해야함 
+            EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
         }
 
         public override bool CheckComplete()
         {
-            return compareValue == value;
-        }
-
-        public sealed override bool TypeValidation(ScriptableObject target)
-        {
-            return targetEntity.name == target.name;
-        }
-
-        public void CalculationValue(int itemCount, Item target)
-        {
-            if ( !TypeValidation(target) ) return; 
-
-            if ( CheckComplete() ) return ;
-        
-            compareValue = itemCount;
-        
-            Debug.Log("min :" + compareValue);
-        }
-    }
-    
-    public class ConsumeMineral : ProcessIntQuestElements
-    {
-        public override bool CheckComplete()
-        {
-            throw new System.NotImplementedException();
+            return compareValue >= value;
         }
 
         public override bool TypeValidation(ScriptableObject target)
         {
-            throw new NotImplementedException();
-        }
-
-        public override void CalculationValue()
-        {
-            throw new NotImplementedException();
+            Debug.Log(targetEntity);
+            Debug.Log((Mineral)target);
+            return targetEntity == target;
         }
         
-        public void CalculationValue(int a)
+        public bool TypeValidationA(Mineral target)
         {
-            throw new NotImplementedException();
+            Debug.Log(targetEntity);
+            Debug.Log(target);
+            return targetEntity == target;
+        }
+
+        private void OnGroundBroken(GroundBrokenEvent e)
+        {
+            if ( !TypeValidationA(e.brick.mineral) ) return ;  
+            CalculationValue();
+        }
+        
+        public override void CalculationValue()
+        {
+            compareValue = SearchItemCount();
+        
+            Debug.Log("min :" + compareValue);
+            
+            CheckComplete();
+        }
+
+        private int SearchItemCount()
+        {
+            foreach (var inventory in _inventoryDB.items)
+            {
+                if (inventory.item is null) return compareValue;
+                return inventory.count;
+            }
+            
+            return compareValue;
         }
     }
-
     public class BreakBlock : ProcessIntQuestElements
     {
         public BreakBlock(QuestCondition elements)
@@ -134,22 +122,24 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public override bool CheckComplete()
         {
-            return compareValue == value;
+            return compareValue >= value;
         }
 
         public override bool TypeValidation(ScriptableObject target)
         {
+            // e.brick : Brick
+            // targetEntity : Ground
             throw new NotImplementedException();
         }
 
-        public void OnGroundBroken(GroundBrokenEvent e)
+
+        private void OnGroundBroken(GroundBrokenEvent e)
         {
             CalculationValue();
         }
         
         public override void CalculationValue()
         {
-            // todo targetEntity 유효성 검사 필요 
             if (CheckComplete())
             {
                 // todo 퀘스트 완료 되면 퀘스트 npc에게 완료 신호 보내기
@@ -160,6 +150,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue++; 
             
             Debug.Log("Block :" + compareValue);
+
+            CheckComplete();
         }
     }
     #endregion

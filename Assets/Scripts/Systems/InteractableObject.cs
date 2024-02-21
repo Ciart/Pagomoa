@@ -12,8 +12,7 @@ namespace Ciart.Pagomoa.Systems
     
         // 유니티 이벤트 호출
         public UnityEvent InteractionEvent; 
-    
-    
+        
         void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
