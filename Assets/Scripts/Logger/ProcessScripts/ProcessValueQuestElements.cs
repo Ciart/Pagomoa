@@ -1,7 +1,8 @@
 using Logger.ForEditorBaseScripts;
+using Logger.ProcessScripts;
 using UnityEngine;
 
-namespace Logger.ProcessScripts
+namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public abstract class ProcessIntQuestElements : ProcessQuestElements, IProcessQuestValue<int>
     {

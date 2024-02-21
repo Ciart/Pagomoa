@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,6 +32,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
             var achieveItem = Achievements.Instance.AchieveMinerals.Find(achieveItem => achieveItem.item == data);
+
             if (inventoryItem != null)
             {
                 inventoryItem.count += count;
@@ -62,6 +64,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             if (Inventory.Instance)
                 Inventory.Instance.ResetSlot();
+            
+            EventManager.Notify(new CollectItemEvent(inventoryItem));
         }
         public void Remove(Item data)
         {
@@ -81,6 +85,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         items.RemoveAt(i);
                         items.Insert(i, new InventoryItem(null, 0));
+
+                        EventManager.Notify(new ConsumeItemEvent(items[i]));
                     }
                 }
             }

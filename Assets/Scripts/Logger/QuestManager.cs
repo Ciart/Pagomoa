@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-using Ciart.Pagomoa.Systems.Inventory;
-using Logger.ProcessScripts;
+
 using UnityEngine;
 
 namespace Logger

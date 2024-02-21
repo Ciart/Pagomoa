@@ -10,6 +10,8 @@ namespace Logger.ProcessScripts
         public string summary { get; set; }
         public ScriptableObject targetEntity { get; set; }
         public string valueType { get; set; }
+
+        public bool complete { get; set; } = false;
         
         public abstract bool CheckComplete();
 

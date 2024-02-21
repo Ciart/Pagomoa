@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Inventory;
-using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
 using Logger.ProcessScripts;
 using UnityEngine;
@@ -18,6 +15,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string description;
         public Reward reward;
         public List<ProcessQuestElements> elements;
+        public bool accomplishment = false;
 
         public ProcessQuest(int questId, int nextQuestId, string description, Reward reward,
             List<QuestCondition> questConditions)
@@ -43,6 +41,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 }
             }
         }
+
+        public void QuestAcomplishment()
+        {
+            foreach (var element in elements)
+            {
+                if (!element.complete) break;
+            }
+
+            accomplishment = true;
+        }
     }
     
     #region IntQuestElements
@@ -58,39 +66,42 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             valueType = elements.value; 
             compareValue = SearchItemCount();
             
-            EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
+            EventManager.AddListener<CollectItemEvent>(CollectItem);
+            EventManager.AddListener<ConsumeItemEvent>(ConsumeItem);
         }
 
         public override bool CheckComplete()
         {
-            return compareValue >= value;
+            complete = compareValue >= value;
+            return complete;
         }
 
         public override bool TypeValidation(ScriptableObject target)
-        {
-            Debug.Log(targetEntity);
-            Debug.Log((Mineral)target);
-            return targetEntity == target;
-        }
-        
-        public bool TypeValidationA(Mineral target)
-        {
-            Debug.Log(targetEntity);
-            Debug.Log(target);
-            return targetEntity == target;
+        { 
+            throw new NotImplementedException();
         }
 
-        private void OnGroundBroken(GroundBrokenEvent e)
+        private void CollectItem(CollectItemEvent e)
         {
-            if ( !TypeValidationA(e.brick.mineral) ) return ;  
+            // TypeValidation
             CalculationValue();
+            
+            Debug.Log("mineral :" + compareValue);
+        }
+
+        private void ConsumeItem(ConsumeItemEvent e)
+        {
+            // TypeValidation
+            CalculationValue();
+            
+            if (e.item.item == null) compareValue = 0;
+            
+            Debug.Log("mineral :" + compareValue);
         }
         
         public override void CalculationValue()
         {
             compareValue = SearchItemCount();
-        
-            Debug.Log("min :" + compareValue);
             
             CheckComplete();
         }
@@ -99,8 +110,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             foreach (var inventory in _inventoryDB.items)
             {
-                if (inventory.item is null) return compareValue;
-                return inventory.count;
+                if (inventory.item == targetEntity)
+                {
+                    return inventory.count;
+                }
             }
             
             return compareValue;
@@ -122,16 +135,15 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public override bool CheckComplete()
         {
-            return compareValue >= value;
+            complete = compareValue >= value;
+            return complete;
         }
 
         public override bool TypeValidation(ScriptableObject target)
         {
-            // e.brick : Brick
-            // targetEntity : Ground
+            
             throw new NotImplementedException();
         }
-
 
         private void OnGroundBroken(GroundBrokenEvent e)
         {
@@ -140,18 +152,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         public override void CalculationValue()
         {
-            if (CheckComplete())
-            {
-                // todo 퀘스트 완료 되면 퀘스트 npc에게 완료 신호 보내기
-                
-                return ;
-            }
-            
             compareValue++; 
             
             Debug.Log("Block :" + compareValue);
 
-            CheckComplete();
+            complete = CheckComplete();
         }
     }
     #endregion
