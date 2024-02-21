@@ -191,7 +191,9 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
-            var prevBrick = brick.Clone();
+            var prevBrick = (Brick)brick.Clone();
+            
+            Debug.Log(prevBrick.mineral?.displayName);
 
             brick.ground = null;
             brick.mineral = null;
@@ -200,8 +202,8 @@ namespace Ciart.Pagomoa.Worlds
             {
                 _expiredChunks.Add(c);
             }
-            
-            EventManager.Notify(new GroundBrokenEvent(x, y, brick));
+
+            EventManager.Notify(new GroundBrokenEvent(x, y, prevBrick));
         }
 
         public bool CheckBreakable(int x, int y, int tier, string item)
