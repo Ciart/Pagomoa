@@ -11,7 +11,6 @@ namespace Ciart.Pagomoa.Logger
 
         private void Start()
         {
-            if (questId == 0) questId = 1;
             _interactableObject = GetComponent<InteractableObject>();
             _interactableObject.InteractionEvent.AddListener(Enroll);
         }

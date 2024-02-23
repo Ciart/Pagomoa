@@ -40,13 +40,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         break;
                 }
             }
+            EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
 
-        public void QuestAccomplishment()
+        private void QuestAccomplishment(QuestAccomplishEvent e)
         {
             foreach (var element in elements)
             {
-                if (!element.complete) break;
+                if (!element.complete)
+                {
+                    accomplishment = false;
+                    return ;
+                }
             }
 
             accomplishment = true;
@@ -100,7 +105,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (!TypeValidation(e.item)) return ;
             CalculationValue(e);
 
-            CheckComplete();
+            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
     }
     public class BreakBlock : ProcessIntQuestElements
@@ -140,7 +145,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (!TypeValidation(e.brick.ground)) return;
             CalculationValue(e);
 
-            CheckComplete();
+            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
     }
     #endregion
