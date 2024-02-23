@@ -1,5 +1,5 @@
+using Ciart.Pagomoa.Events;
 using Logger.ForEditorBaseScripts;
-using Logger.ProcessScripts;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
@@ -30,7 +30,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = initCompareValue;
             targetEntity = initTargetEntity;
         }
-        public virtual void CalculationValue() { }
+        public virtual void CalculationValue(IEvent e) { }
     }
 
     public abstract class ProcessFloatQuestElements : ProcessQuestElements, IProcessQuestValue<float>

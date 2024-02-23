@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Inventory;
 using Logger.ForEditorBaseScripts;
-using Logger.ProcessScripts;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             }
         }
 
-        public void QuestAcomplishment()
+        public void QuestAccomplishment()
         {
             foreach (var element in elements)
             {
@@ -56,7 +56,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     #region IntQuestElements
     public class CollectMineral : ProcessIntQuestElements
     {
-        private readonly InventoryDB _inventoryDB = InventoryDB.Instance;
         public CollectMineral(QuestCondition elements)
         {
             questType = elements.questType; 
@@ -64,10 +63,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             value = int.Parse(elements.value);
             targetEntity = elements.targetEntity;
             valueType = elements.value; 
-            compareValue = SearchItemCount();
+            compareValue = 0;
             
-            EventManager.AddListener<CollectItemEvent>(CollectItem);
-            EventManager.AddListener<ConsumeItemEvent>(ConsumeItem);
+            EventManager.AddListener<ItemCountEvent>(CountItem);
+
+            var inventoryItems = InventoryDB.Instance.items;
+            foreach (var inventoryItem in inventoryItems)
+            {
+                if (inventoryItem.item == targetEntity)
+                    EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));                    
+            }
         }
 
         public override bool CheckComplete()
@@ -77,46 +82,25 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         }
 
         public override bool TypeValidation(ScriptableObject target)
-        { 
-            throw new NotImplementedException();
+        {
+            return target == targetEntity;
         }
 
-        private void CollectItem(CollectItemEvent e)
+        public override void CalculationValue(IEvent e)
         {
-            // TypeValidation
-            CalculationValue();
+            var inventoryItem = (ItemCountEvent)e;
+            
+            InitQuestValue(value, inventoryItem.itemCount);
             
             Debug.Log("mineral :" + compareValue);
         }
 
-        private void ConsumeItem(ConsumeItemEvent e)
+        private void CountItem(ItemCountEvent e)
         {
-            // TypeValidation
-            CalculationValue();
-            
-            if (e.item.item == null) compareValue = 0;
-            
-            Debug.Log("mineral :" + compareValue);
-        }
-        
-        public override void CalculationValue()
-        {
-            compareValue = SearchItemCount();
-            
+            if (!TypeValidation(e.item)) return ;
+            CalculationValue(e);
+
             CheckComplete();
-        }
-
-        private int SearchItemCount()
-        {
-            foreach (var inventory in _inventoryDB.items)
-            {
-                if (inventory.item == targetEntity)
-                {
-                    return inventory.count;
-                }
-            }
-            
-            return compareValue;
         }
     }
     public class BreakBlock : ProcessIntQuestElements
@@ -141,22 +125,22 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public override bool TypeValidation(ScriptableObject target)
         {
-            
-            throw new NotImplementedException();
+            return target == targetEntity;
         }
 
-        private void OnGroundBroken(GroundBrokenEvent e)
+        public override void CalculationValue(IEvent e)
         {
-            CalculationValue();
-        }
-        
-        public override void CalculationValue()
-        {
-            compareValue++; 
+            compareValue++;
             
             Debug.Log("Block :" + compareValue);
+        }
+        
+        private void OnGroundBroken(GroundBrokenEvent e)
+        {
+            if (!TypeValidation(e.brick.ground)) return;
+            CalculationValue(e);
 
-            complete = CheckComplete();
+            CheckComplete();
         }
     }
     #endregion
