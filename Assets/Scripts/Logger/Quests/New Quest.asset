@@ -31,7 +31,7 @@ MonoBehaviour:
   - questType: 2
     summary: "\uBCBD\uAE68\uB77C"
     value: 10
-    targetEntity: {fileID: 11400000, guid: 5aab25ed6b2b1bb45a5d8a99e1c596b6, type: 2}
+    targetEntity: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
     conditionType:
       target: 2
       typeValue: int

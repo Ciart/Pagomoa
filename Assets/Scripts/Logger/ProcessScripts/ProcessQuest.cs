@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Inventory;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
@@ -50,11 +48,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (!element.complete)
                 {
                     accomplishment = false;
+                    EventManager.Notify(new SignalToNpc(accomplishment));
                     return ;
                 }
             }
 
             accomplishment = true;
+            EventManager.Notify(new SignalToNpc(accomplishment));
         }
     }
     
@@ -76,7 +76,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             foreach (var inventoryItem in inventoryItems)
             {
                 if (inventoryItem.item == targetEntity)
-                    EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));                    
+                {
+                    EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
+                    break;
+                }
             }
         }
 
@@ -103,9 +106,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         private void CountItem(ItemCountEvent e)
         {
             if (!TypeValidation(e.item)) return ;
-            CalculationValue(e);
 
+            var prevValue = compareValue;
+
+            CalculationValue(e);
+            
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+            if (e.itemCount <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
         }
     }
     public class BreakBlock : ProcessIntQuestElements

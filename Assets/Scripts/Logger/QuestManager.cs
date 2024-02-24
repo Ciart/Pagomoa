@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-
+using Logger;
 using UnityEngine;
 
-namespace Logger
+namespace Ciart.Pagomoa.Logger
 {
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
@@ -14,7 +14,7 @@ namespace Logger
         public QuestDatabase database;
         
         private static QuestManager _instance;
-        public static QuestManager Instance
+        public static QuestManager instance
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Logger
             
         }
 
-        public void MakeQuest(int questId)
+        public void MakeQuest(QuestEnroll inCharge, int questId)
         {
             foreach (var quest in database.quests)
             {
@@ -47,43 +47,11 @@ namespace Logger
                     progressQuests.Add(q);
                 }
             }
+        }
+
+        public void CompleteQuest()
+        {
             
-            /*foreach (var progressQuest in progressQuests)
-            {
-                Debug.Log("ID");
-                Debug.Log("questId: " + progressQuest.questId);
-                Debug.Log("nextQuestId: " + progressQuest.nextQuestId);
-                
-                Debug.Log("Reward");
-                Debug.Log("gold: " + progressQuest.reward.gold);
-                Debug.Log("targetEntity: " + progressQuest.reward.targetEntity);
-                Debug.Log("EntityValue: " + progressQuest.reward.value);
-                
-                for (int i = 0; i < progressQuest.elements.Count; i++)
-                {
-                    Debug.Log("QuestType: " + progressQuest.elements[i].questType);
-                    Debug.Log("Summary: " + progressQuest.elements[i].summary);
-                    Debug.Log("ValueType: " + progressQuest.elements[i].valueType);
-                    Debug.Log("Target: " + progressQuest.elements[i].targetEntity);
-                    if (progressQuest.elements[i] is ProcessIntQuestElements)
-                    {
-                        var intVal = (ProcessIntQuestElements)progressQuest.elements[i];
-                        Debug.Log("intValue: " + intVal.value);
-                    }
-                    else if (progressQuest.elements[i] is ProcessFloatQuestElements)
-                    {
-                        var floatVal = (ProcessFloatQuestElements)progressQuest.elements[i];
-                        Debug.Log("floatValue: " + floatVal.value);
-                    }
-                    else if (progressQuest.elements[i] is ProcessBoolQuestElements)
-                    {
-                        var boolVal = (ProcessBoolQuestElements)progressQuest.elements[i];
-                        Debug.Log("boolValue: " + boolVal.value);
-                        
-                        CompleteBoolQuest(questId, boolVal.value);
-                    }
-                }
-            }*/
         }
     }   
 }
