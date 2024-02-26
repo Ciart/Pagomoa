@@ -24,16 +24,17 @@ namespace Ciart.Pagomoa.Logger
         private void EnrollQuest()
         {
             Debug.Log("퀘스트 등록");
+            EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
             QuestManager.instance.MakeQuest(this, questId);
             _interactableObject.InteractionEvent.RemoveListener(EnrollQuest);
-            EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
         }
 
         private void QuestAccomplishment(SignalToNpc e)
         {
-            Debug.Log(e.accomplishment);
-            spriteRenderer.enabled = e.accomplishment;
-
+            var isQuestComplete = e.accomplishment;
+            
+            spriteRenderer.enabled = isQuestComplete;
+            
             // 끝났음 퀘스트 보상 받을 준비같은거 해야함
         }
     }

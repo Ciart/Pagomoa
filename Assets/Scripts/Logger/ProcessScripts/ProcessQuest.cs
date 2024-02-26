@@ -15,6 +15,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public List<ProcessQuestElements> elements;
         public bool accomplishment = false;
 
+        ~ProcessQuest(){
+            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
+        }
+        
         public ProcessQuest(int questId, int nextQuestId, string description, Reward reward,
             List<QuestCondition> questConditions)
         {
@@ -24,6 +28,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             this.reward = reward;
             elements = new List<ProcessQuestElements>();
 
+            EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
+            
             foreach (var condition in questConditions)
             {
                 switch (condition.questType)
@@ -38,7 +44,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         break;
                 }
             }
-            EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
 
         private void QuestAccomplishment(QuestAccomplishEvent e)
@@ -52,7 +57,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                     return ;
                 }
             }
-
+            
             accomplishment = true;
             EventManager.Notify(new SignalToNpc(accomplishment));
         }
@@ -61,6 +66,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     #region IntQuestElements
     public class CollectMineral : ProcessIntQuestElements
     {
+        ~CollectMineral() {
+            EventManager.RemoveListener<ItemCountEvent>(CountItem);
+        }
         public CollectMineral(QuestCondition elements)
         {
             questType = elements.questType; 
@@ -78,6 +86,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (inventoryItem.item == targetEntity)
                 {
                     EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
+                    EventManager.Notify(new QuestAccomplishEvent());
                     break;
                 }
             }
@@ -117,6 +126,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     }
     public class BreakBlock : ProcessIntQuestElements
     {
+        ~BreakBlock() {
+            EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
+        }
         public BreakBlock(QuestCondition elements)
         {
             questType = elements.questType;
