@@ -73,7 +73,7 @@ ScriptedImporter:
   previousAsepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
-    layerImportMode: 1
+    layerImportMode: 0
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
@@ -85,7 +85,7 @@ ScriptedImporter:
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
-    layerImportMode: 1
+    layerImportMode: 0
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638444050106386726
+  platformSettingsDirtyTick: 638454466046315778
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,9 +119,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: ShopkeeperTent
+  - name: Broken
     originalName: 
-    pivot: {x: 0.49438202, y: 0}
+    pivot: {x: 0.4835165, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 91
       height: 43
-    spriteID: f95e87e9abdbf7d4ab69d3d7f763d1cb
+    spriteID: 2cbc065d0811d6f499254884d6df8eca
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,23 +139,60 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Normal
+    originalName: 
+    pivot: {x: 0.4835165, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 55
+      width: 91
+      height: 20
+    spriteID: 3e8ce3b02a3472b4faa6cc7d4188f72b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 55}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 755123
-    name: ShopkeeperTent
-    layerFlags: 0
+    guid: -1711510949
+    name: Broken
+    layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: ShopkeeperTent
+    - name: Broken
       frameIndex: 0
       cellRect:
         x: 4
         y: 0
         width: 89
         height: 41
-      spriteId: f95e87e9abdbf7d4ab69d3d7f763d1cb
+      spriteId: 2cbc065d0811d6f499254884d6df8eca
+    linkedCells: []
+    parentIndex: -1
+  - layerIndex: 1
+    guid: 1102682338
+    name: Normal
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Normal
+      frameIndex: 0
+      cellRect:
+        x: 4
+        y: 0
+        width: 89
+        height: 18
+      spriteId: 3e8ce3b02a3472b4faa6cc7d4188f72b
     linkedCells: []
     parentIndex: -1
   platformSettings:
