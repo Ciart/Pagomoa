@@ -25,7 +25,7 @@ namespace Ciart.Pagomoa.Entities.Players
             set { _oxygenRecovery = value; }
         }
 
-        [SerializeField] protected float _oxygenConsume = 0.001f;
+        [SerializeField] protected float _oxygenConsume = 0.01f;
 
         public float oxygenConsume
         {
@@ -134,7 +134,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             else if (oxygen < maxOxygen)
             {
-                oxygen += Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
+                oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
                 gage = oxygen;
             }
 
@@ -216,8 +216,7 @@ namespace Ciart.Pagomoa.Entities.Players
             UpdateOxygen();
             if (oxygen < minOxygen && !isDie)
             {
-                isDie = true;
-                Die();
+                GetComponent<EntityController>().TakeDamage(10);
             }
         }
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1bb9b144f7283c642940f2a8c3ad3b32
+guid: d2321b0225b13f84a8ef4a29f56fbdeb
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638456197041859506
+  platformSettingsDirtyTick: 638456175518561014
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,18 +119,38 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Broken
+  - name: BackWheel
     originalName: 
-    pivot: {x: 0.4835165, y: 0}
+    pivot: {x: 0.16129033, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 137
+      y: 69
+      width: 62
+      height: 28
+    spriteID: 338db8ec3246fc245948c0472c1c7b4e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 137, y: 69}
+  - name: Layer 3
+    originalName: 
+    pivot: {x: 0.32, y: -0.15789473}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 91
-      height: 43
-    spriteID: 2cbc065d0811d6f499254884d6df8eca
+      width: 125
+      height: 57
+    spriteID: 10adb1e6a76749142a770cc6d70f063d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,18 +159,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Normal
+  - name: Layer 4
     originalName: 
-    pivot: {x: 0.4835165, y: 0}
+    pivot: {x: 0.7941177, y: 0.05263158}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 55
-      width: 91
-      height: 20
-    spriteID: 3e8ce3b02a3472b4faa6cc7d4188f72b
+      x: 137
+      y: 4
+      width: 68
+      height: 57
+    spriteID: f796cd46ce073924f88277ed5044321e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -158,41 +178,95 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 55}
+    uvTransform: {x: 137, y: 4}
+  - name: FrontWheel
+    originalName: 
+    pivot: {x: -0.45161298, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 69
+      width: 62
+      height: 28
+    spriteID: 768a9beaf46f2694db02f7e62093e9cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 69}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1711510949
-    name: Broken
+    guid: 1441386676
+    name: BackWheel
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Broken
+    - name: BackWheel
       frameIndex: 0
       cellRect:
-        x: 4
+        x: 78
         y: 0
-        width: 89
-        height: 41
-      spriteId: 2cbc065d0811d6f499254884d6df8eca
+        width: 60
+        height: 26
+      spriteId: 338db8ec3246fc245948c0472c1c7b4e
     linkedCells: []
     parentIndex: -1
   - layerIndex: 1
-    guid: 1102682338
-    name: Normal
+    guid: 1317221951
+    name: Layer 3
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Normal
+    - name: Layer 3
       frameIndex: 0
       cellRect:
-        x: 4
+        x: 48
+        y: 9
+        width: 123
+        height: 55
+      spriteId: 10adb1e6a76749142a770cc6d70f063d
+    linkedCells: []
+    parentIndex: -1
+  - layerIndex: 2
+    guid: 1317223933
+    name: Layer 4
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Layer 4
+      frameIndex: 0
+      cellRect:
+        x: 34
+        y: -3
+        width: 66
+        height: 55
+      spriteId: f796cd46ce073924f88277ed5044321e
+    linkedCells: []
+    parentIndex: -1
+  - layerIndex: 3
+    guid: 336872891
+    name: FrontWheel
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: FrontWheel
+      frameIndex: 0
+      cellRect:
+        x: 116
         y: 0
-        width: 89
-        height: 18
-      spriteId: 3e8ce3b02a3472b4faa6cc7d4188f72b
+        width: 60
+        height: 26
+      spriteId: 768a9beaf46f2694db02f7e62093e9cc
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -234,4 +308,4 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 96, y: 48}
+  canvasSize: {x: 176, y: 96}
