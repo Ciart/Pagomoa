@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        public List<Dialogue> dialogues;
-
-        [Space]
         public GameObject talkPannel;
         public Image talkImage;
         public TextMeshProUGUI talkText;
@@ -20,13 +18,10 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         [SerializeField]
         private GameObject buttonGroup;
 
-        // <Dialogue Version>
-        [Space]
-        public Dialogue NowScenario;
-        int talkIndex;
-        [Space]
+        public List<Sprite> spriteGroup;
+
         private static DialogueManager _instance = null;
-        public static DialogueManager Instance
+        public static DialogueManager instance
         {
             get
             {
@@ -38,68 +33,44 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        private Dialogue GetDialogueByID(int id)
+        public static event Action<Story> onCreateStory;
+
+        private TextAsset inkJSONAsset = null;
+        public Story story;
+
+        [SerializeField]
+        private Button buttonPrefab = null;
+
+        private List<Button> pool;
+
+
+        private void Awake()
         {
-            foreach(Dialogue dialogue in dialogues)
-            {
-                if (dialogue.id == id)
-                    return dialogue;
-            }
-            return null;
+            Debug.Log(spriteGroup.Count);
+            Debug.Log(spriteGroup[0].name);
         }
-
-        public bool ConversationProgress(int id)
-        {
-            NowScenario = GetDialogueByID(id);
-
-            if(NowScenario.talk.Count <= talkIndex)
-            {
-                talkIndex = 0;
-                NowScenario = null;
-                talkPannel.SetActive(false);
-                return false;
-            }
-            talkText.text = talkIndex < NowScenario.talk.Count ? NowScenario.talk[talkIndex] : "";
-            talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null ;
-            nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
-            talkImage.enabled = talkImage.sprite == null ? false : true;
-            bool visible = nameText.text == "" ? false : true;
-            nameText.transform.parent.gameObject.SetActive(visible);
-
-            talkPannel.SetActive(true);
-            talkIndex++;
-            return true;
-        }
-        // </>
-
-
-        /// <summary>
-        /// ///////////////////////////////////////////////////////////////////////////
-        /// </summary>
-
-        public static event Action<Story> OnCreateStory;
-
-        // Creates a new Story object with the compiled story which we can then play!
 
         public void SetJsonAsset(TextAsset asset)
         {
             inkJSONAsset = asset;
         }
+
         public void StartStory()
         {
             story = new Story(inkJSONAsset.text);
-            if (OnCreateStory != null) OnCreateStory(story);
+            if (onCreateStory != null) onCreateStory(story);
             RefreshView();
             talkPannel.SetActive(true);
         }
+
         public void StopStory()
         {
             talkPannel.SetActive(false);
         }
+
         private void RefreshView()
         {
-            buttonGroup.SetActive(false);
-            // Remove all the UI on screen
+            Debug.Log("새 화면~!");
             RemoveChildren(buttonGroup);
 
             // Read all the content until we can't continue any more
@@ -125,7 +96,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                         OnClickChoiceButton(choice);
                     });
                 }
-                buttonGroup.SetActive(true);
             }
             // If we've read all the content and there's no choices, the story is finished!
             else
@@ -135,7 +105,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 {
                     StopStory();
                 });
-                buttonGroup.SetActive(true);
             }
         }
 
@@ -149,53 +118,23 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         // Creates a textbox showing the the line of text
         private void CreateContentView(string text)
         {
-            //Text storyText = Instantiate(textPrefab) as Text;
             talkText.text = text;
-            //storyText.transform.SetParent(canvas.transform, false);
+            ParseTag();
         }
 
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            // Creates the button from a prefab
-            Button choice = GetButton();
+            Button choice = Instantiate(buttonPrefab) as Button;
             choice.transform.SetParent(buttonGroup.transform, false);
 
-            // Gets the text from the button prefab
             Text choiceText = choice.GetComponentInChildren<Text>();
             choiceText.text = text;
-            // Make the button expand to fit the text
+
             HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
             layoutGroup.childForceExpandHeight = false;
 
             return choice;
-        }
-
-        // Object Pooling
-        private Button GetButton()
-        {
-            if (pool == null)
-                pool = new List<Button>();
-
-            Button select = null;
-
-            foreach (var item in pool)
-            {
-                if (!item.gameObject.activeSelf)
-                {
-                    select = item;
-                    select.onClick.RemoveAllListeners();
-                    select.gameObject.SetActive(true);
-                    break;
-                }
-            }
-            if (!select)
-            {
-                select = Instantiate(buttonPrefab, transform);
-                pool.Add(select);
-            }
-
-            return select;
         }
 
         // Destroys all the children of this gameobject (all the UI)
@@ -204,17 +143,62 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             int childCount = vas.transform.childCount;
             for (int i = childCount - 1; i >= 0; --i)
             {
-                vas.transform.GetChild(i).gameObject.SetActive(false);
+                Destroy(vas.transform.GetChild(i).gameObject);
             }
         }
 
-        private TextAsset inkJSONAsset = null;
-        public Story story;
+        private void ParseTag()
+        {
+            List<string> tags = new List<string>();
+            tags = story.currentTags;
 
+            foreach(var tag in tags)
+            {
+                string prefix = tag.Split(' ')[0];
+                string param = tag.Split(' ')[1];
 
-        [SerializeField]
-        private Button buttonPrefab = null;
+                switch (prefix.ToLower())
+                {
+                    case "talker":
+                        SetTalkerName(param);
+                        break;
+                    case "sprite":
+                        SetSpriteImage(param);
+                        break;
 
-        private List<Button> pool;
+                }
+            }
+        }
+
+        
+        private void SetTalkerName(string name)
+        {
+            Debug.Log("말하는사람: " + name);
+            nameText.text = name;
+        }
+
+        private void SetSpriteImage(string param)
+        {
+            Debug.Log("이미지: " + param);
+            if (param == "null")
+            {
+                talkImage.gameObject.SetActive(false);
+                return;
+            }
+
+            foreach(var sprite in spriteGroup)
+            {
+                string name = sprite.name;
+                if (name.Replace(" ", string.Empty) == param)
+                {
+                    talkImage.sprite = sprite;
+                    talkImage.gameObject.SetActive(true);
+                    return;
+                }
+            }
+
+            Debug.LogError("no image There");
+        }
+
     }
 }
