@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dedc33b253a4ca68b9317bab92a33d3, type: 3}
-  m_Name: Snake
+  m_Name: Shopkeeper
   m_EditorClassIdentifier: 
-  displayName: "\uBC40"
-  description: "\uD589\uBCF5\uD589\uBCF5"
-  type: 100
+  displayName: Player
+  description: "\uD30C\uACE0"
+  type: 1
   subType: 0
-  isEnemy: 1
-  prefab: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
+  isEnemy: 0
+  prefab: {fileID: 106713657715818926, guid: e5700915582fdef4a88ed0a9e06f64b2, type: 3}
   baseHealth: 100

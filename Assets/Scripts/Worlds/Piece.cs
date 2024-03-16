@@ -31,7 +31,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public float weight = 1;
 
-        public List<WorldEntityData> entities = new();
+        public List<EntityData> entities = new();
 
         [SerializeField] private Brick[] _bricks;
 
@@ -69,7 +69,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            entities.Add(new WorldEntityData(x, y, origin));
+            entities.Add(new EntityData(x, y, origin));
         }
     }
 }

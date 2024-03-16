@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds.UFO;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
