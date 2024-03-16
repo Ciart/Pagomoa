@@ -62,14 +62,14 @@ namespace Ciart.Pagomoa.Worlds
             return 0 <= x && x < width && 0 <= y && y < height;
         }
 
-        public void AddEntity(int x, int y, Entity entity)
+        public void AddEntity(int x, int y, EntityOrigin origin)
         {
             if (!CheckRange(x, y))
             {
                 return;
             }
 
-            entities.Add(new WorldEntityData(x, y, entity));
+            entities.Add(new WorldEntityData(x, y, origin));
         }
     }
 }
