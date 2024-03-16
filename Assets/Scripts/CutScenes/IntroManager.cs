@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Systems.Dialogue;
+﻿using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -29,14 +29,14 @@ namespace Ciart.Pagomoa.CutScenes
             if (_time >= 5f)
             {
                 _time = 0f;
-                if (!DialogueManager.Instance.ConversationProgress(_nowScenario))
+                //if (!DialogueManager.Instance.ConversationProgress(_nowScenario))
                     _director.Play();
             }
             
             if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
             {
                 _time = 0f;
-                if (!DialogueManager.Instance.ConversationProgress(_nowScenario))
+                //if (!DialogueManager.Instance.ConversationProgress(_nowScenario))
                     _director.Play();
             }
         }
@@ -46,10 +46,10 @@ namespace Ciart.Pagomoa.CutScenes
             _director.Pause();
             _nowScenario = firstDialogId;
 
-            var dialogManager = DialogueManager.Instance;
-            var progressDialog = dialogManager.ConversationProgress(_nowScenario);
+            var dialogManager = DialogueManager.instance;
+            //var progressDialog = dialogManager.ConversationProgress(_nowScenario);
             
-            if (!progressDialog) NoDialogSignal();
+            //if (!progressDialog) NoDialogSignal();
         }
         
         public void PlaySecondDialogClip()
@@ -57,10 +57,10 @@ namespace Ciart.Pagomoa.CutScenes
             _director.Pause();
             _nowScenario = secondDialogId;
             
-            var dialogManager = DialogueManager.Instance;
-            var progressDialog = dialogManager.ConversationProgress(_nowScenario);
+            var dialogManager = DialogueManager.instance;
+            //var progressDialog = dialogManager.ConversationProgress(_nowScenario);
             
-            if (!progressDialog) NoDialogSignal();
+            //if (!progressDialog) NoDialogSignal();
         }
         
         public void PlayThirdDialogClip()
@@ -68,10 +68,10 @@ namespace Ciart.Pagomoa.CutScenes
             _director.Pause();
             _nowScenario = thirdDialogId;
             
-            var dialogManager = DialogueManager.Instance;
-            var progressDialog = dialogManager.ConversationProgress(_nowScenario);
+            var dialogManager = DialogueManager.instance;
+            //var progressDialog = dialogManager.ConversationProgress(_nowScenario);
             
-            if (!progressDialog) NoDialogSignal();
+            //if (!progressDialog) NoDialogSignal();
         }
         
         public void PlayFourthDialogClip()
@@ -79,10 +79,10 @@ namespace Ciart.Pagomoa.CutScenes
             _director.Pause();
             _nowScenario = fourthDialogId;
             
-            var dialogManager = DialogueManager.Instance;
-            var progressDialog = dialogManager.ConversationProgress(_nowScenario);
+            var dialogManager = DialogueManager.instance;
+            //var progressDialog = dialogManager.ConversationProgress(_nowScenario);
 
-            if (!progressDialog) NoDialogSignal();
+            //if (!progressDialog) NoDialogSignal();
         }
 
         public void IntroEnd()

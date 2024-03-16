@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Entities.Players;
+﻿using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -29,14 +29,14 @@ namespace Ciart.Pagomoa
                 if (_time >= 5f)
                 {
                     _time = 0f;
-                    if (!DialogueManager.Instance.ConversationProgress(6))
+                    //if (!DialogueManager.Instance.ConversationProgress(6))
                         StopChat();
                 }
 
                 if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
                 {
                     _time = 0f;
-                    if (!DialogueManager.Instance.ConversationProgress(6))
+                    //if (!DialogueManager.Instance.ConversationProgress(6))
                         StopChat();
                 }    
             }
@@ -59,7 +59,7 @@ namespace Ciart.Pagomoa
 
         public void StartDialogUfoRemoteGuide()
         {
-            DialogueManager.Instance.ConversationProgress(6);
+            //DialogueManager.Instance.ConversationProgress(6);
         }
 
         public void ControlPlayerState()
