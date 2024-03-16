@@ -3,6 +3,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
@@ -17,14 +18,15 @@ namespace Ciart.Pagomoa.Entities
 
         private List<EntityController> _entities = new();
 
-        public EntityController Spawn(Entity entity, Vector3 position, EntityStatus status = null)
+        public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
         {
-            var controller = Instantiate(entity.prefab, position, Quaternion.identity);
+            var entity = Instantiate(origin.prefab, position, Quaternion.identity);
+            var controller = entity.GetOrAddComponent<EntityController>();
             _entities.Add(controller);
 
-            controller.Init(entity, status);
+            controller.Init(origin, status);
             
-            if (entity.type == EntityType.Player)
+            if (origin.type == EntityType.Player)
             {
                 _player = controller.GetComponent<PlayerController>();
                 EventManager.Notify(new PlayerSpawnedEvent(_player));
@@ -41,9 +43,9 @@ namespace Ciart.Pagomoa.Entities
         }
 
         [CanBeNull]
-        public EntityController Find(Entity entity)
+        public EntityController Find(EntityOrigin origin)
         {
-            return _entities.Find(controller => controller.entity == entity);
+            return _entities.Find(controller => controller.origin == origin);
         }
 
         public List<EntityController> FindAllEntityInChunk(Chunk chunk) 

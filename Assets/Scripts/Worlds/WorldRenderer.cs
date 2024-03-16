@@ -72,7 +72,7 @@ namespace Ciart.Pagomoa.Worlds
             {
                 var position = entityController.transform.position;
 
-                world.AddEntity(position.x, position.y, entityController.entity);
+                world.AddEntity(position.x, position.y, entityController.origin);
 
                 EntityManager.instance.Despawn(entityController);
             }
@@ -310,7 +310,7 @@ namespace Ciart.Pagomoa.Worlds
                     continue;
                 }
 
-                EntityManager.instance.Spawn(entityData.entity, position);
+                EntityManager.instance.Spawn(entityData.origin, position);
             }
         }
     }

@@ -189,7 +189,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var prefab in piece.entities)
             {
-                world.AddEntity(worldX - piece.pivot.x + prefab.x + 0.5f, worldY - piece.pivot.y + prefab.y + 0.5f, prefab.entity);
+                world.AddEntity(worldX - piece.pivot.x + prefab.x + 0.5f, worldY - piece.pivot.y + prefab.y + 0.5f, prefab.origin);
             }
         }
     }
