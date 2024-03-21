@@ -10,15 +10,15 @@ namespace Ciart.Pagomoa.Worlds
 
         public float y;
 
-        public Entity entity;
+        public EntityOrigin origin;
 
         public EntityStatus status;
 
-        public WorldEntityData(float x, float y, Entity entity, EntityStatus status = null)
+        public WorldEntityData(float x, float y, EntityOrigin origin, EntityStatus status = null)
         {
             this.x = x;
             this.y = y;
-            this.entity = entity;
+            this.origin = origin;
             this.status = status;
         }
     }

@@ -9,16 +9,16 @@ namespace Ciart.Pagomoa.Entities
     /// </summary>
     public class SpawnPoint : MonoBehaviour
     {
-        public Entity entity;
+        public EntityOrigin entityOrigin;
 
         private void Start()
         {
-            EntityManager.instance.Spawn(entity, transform.position);
+            EntityManager.instance.Spawn(entityOrigin, transform.position);
         }
 
         private void OnDrawGizmos()
         {
-            Handles.Label(transform.position, $"SpawnPoint: {entity.displayName ?? "Null"}");
+            Handles.Label(transform.position, $"SpawnPoint: {entityOrigin.displayName ?? "Null"}");
         }
     }
 }
