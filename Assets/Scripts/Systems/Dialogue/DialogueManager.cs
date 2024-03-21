@@ -41,13 +41,15 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         [SerializeField]
         private Button buttonPrefab = null;
 
-        private List<Button> pool;
-
-
-        private void Awake()
+        private void Update()
         {
-            Debug.Log(spriteGroup.Count);
-            Debug.Log(spriteGroup[0].name);
+            SetBtnSizeAfterContentSizeFitter();
+        }
+
+        private void SetBtnSizeAfterContentSizeFitter()
+        {
+            var rect = buttonGroup.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
         }
 
         public void SetJsonAsset(TextAsset asset)
@@ -70,7 +72,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void RefreshView()
         {
-            Debug.Log("새 화면~!");
             RemoveChildren(buttonGroup);
 
             // Read all the content until we can't continue any more
@@ -125,14 +126,18 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            Button choice = Instantiate(buttonPrefab) as Button;
+            var choice = Instantiate(buttonPrefab);
+
+            TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
+            foreach(var chosedtext in choiceText)
+                chosedtext.text = text;
+
             choice.transform.SetParent(buttonGroup.transform, false);
 
-            Text choiceText = choice.GetComponentInChildren<Text>();
-            choiceText.text = text;
 
-            HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
+            var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
             layoutGroup.childForceExpandHeight = false;
+
 
             return choice;
         }
@@ -173,13 +178,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         
         private void SetTalkerName(string name)
         {
-            Debug.Log("말하는사람: " + name);
             nameText.text = name;
         }
 
         private void SetSpriteImage(string param)
         {
-            Debug.Log("이미지: " + param);
             if (param == "null")
             {
                 talkImage.gameObject.SetActive(false);

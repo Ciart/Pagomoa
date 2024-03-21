@@ -13,7 +13,6 @@ public class DialogueTrigger : MonoBehaviour
     public void StartStory()
     {
         if (dialogueAsset == null) return;
-        Debug.Log("시작");
         DialogueManager.instance.SetJsonAsset(dialogueAsset);
         DialogueManager.instance.StartStory();
     }
