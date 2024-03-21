@@ -16,8 +16,8 @@ namespace Ciart.Pagomoa.Entities
         Owl
     }
 
-    [CreateAssetMenu(fileName = "New Entity", menuName = "Pagomoa/Entity")]
-    public class Entity : ScriptableObject
+    [CreateAssetMenu(fileName = "New Entity Definition", menuName = "Pagomoa/Entity")]
+    public class EntityOrigin : ScriptableObject
     {
         public string displayName;
 
@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Entities
 
         public bool isEnemy;
         
-        public EntityController prefab;
+        public GameObject prefab;
         
         public float baseHealth;
     }
