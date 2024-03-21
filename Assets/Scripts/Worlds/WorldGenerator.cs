@@ -13,9 +13,11 @@ namespace Ciart.Pagomoa.Worlds
     {
         public const int ForestHeight = -200;
 
+        public bool isTestWorld = false;
+
         public uint seed = 1234;
 
-        public int chunkSize = 32;
+        public int chunkSize = 16;
 
         public int top = 4;
 
@@ -27,13 +29,19 @@ namespace Ciart.Pagomoa.Worlds
 
         public Wall wall;
 
-        public Ground ground;
-
         private WorldManager _worldManager;
 
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
+            
+            if (isTestWorld)
+            {
+                top = 4;
+                bottom = 4;
+                left = 4;
+                right = 4;
+            }
         }
 
         private WeightedPieces Preload(IEnumerable<Piece> pieces)
@@ -181,7 +189,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var prefab in piece.entities)
             {
-                world.AddEntity(worldX - piece.pivot.x + prefab.x + 0.5f, worldY - piece.pivot.y + prefab.y + 0.5f, prefab.entity);
+                world.AddEntity(worldX - piece.pivot.x + prefab.x + 0.5f, worldY - piece.pivot.y + prefab.y + 0.5f, prefab.origin);
             }
         }
     }

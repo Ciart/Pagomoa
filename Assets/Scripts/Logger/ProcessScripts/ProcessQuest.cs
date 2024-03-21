@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -13,6 +13,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public int questId;
         public int nextQuestId;
         public string description;
+        public string title;
         public Reward reward;
         public List<IQuestElements> elements;
         public bool accomplishment = false;
@@ -26,6 +27,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             this.questId = questId;
             this.nextQuestId = nextQuestId;
+            this.title = title;
             this.description = description;
             this.reward = reward;
             elements = new List<IQuestElements>();

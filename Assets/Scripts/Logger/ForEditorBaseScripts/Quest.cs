@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ namespace Logger.ForEditorBaseScripts
 
         [SerializeField] public int questId;
         [SerializeField] public int nextQuestId;
+        [SerializeField] public string title;
         [TextArea, SerializeField] public string description;
         [SerializeField] public Reward reward = new();
         

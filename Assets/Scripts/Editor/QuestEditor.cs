@@ -24,6 +24,7 @@ namespace Editor
             newQuest.questId = EditorGUILayout.IntField("Quest ID", newQuest.questId);
             newQuest.nextQuestId = EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
+            newQuest.title = EditorGUILayout.TextField("퀘스트 제목", newQuest.title);
 
             GUILayout.Space(20);
             

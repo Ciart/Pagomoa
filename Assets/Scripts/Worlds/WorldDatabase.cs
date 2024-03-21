@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public Mineral[] minerals;
 
-        public Entity[] entities;
+        public EntityOrigin[] entities;
 
         public Piece[] pieces = { new Piece() };
 
@@ -39,7 +39,7 @@ namespace Ciart.Pagomoa.Worlds
             return Array.Find(minerals, mineral => mineral.name == name);
         }
         
-        public Entity GetEntity(string name)
+        public EntityOrigin GetEntity(string name)
         {
             return Array.Find(entities, entity => entity.name == name);
         }

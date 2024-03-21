@@ -1,4 +1,4 @@
-using Logger.ForEditorBaseScripts;
+﻿using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
