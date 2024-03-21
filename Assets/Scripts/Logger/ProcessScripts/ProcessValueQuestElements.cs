@@ -30,6 +30,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = initCompareValue;
             targetEntity = initTargetEntity;
         }
+
         public virtual void CalculationValue(IEvent e) { }
     }
 
@@ -101,11 +102,4 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         }
         public abstract void CalculationValue();
     }
-    public interface IProcessQuestValue<T>
-    {
-        public T value { get; set; }
-        public T compareValue { get; set; }
-    }
-    
-    
 }

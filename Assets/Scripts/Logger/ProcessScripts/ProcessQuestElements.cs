@@ -9,10 +9,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string summary { get; set; }
         public ScriptableObject targetEntity { get; set; }
         public string valueType { get; set; }
-        public bool complete { get; set; } = false;
-        
-        public abstract bool CheckComplete();
 
         public abstract bool TypeValidation(ScriptableObject target);
+    }
+    public interface IProcessQuestValue<T>
+    {
+        public T value { get; set; }
+        public T compareValue { get; set; }
     }
 }

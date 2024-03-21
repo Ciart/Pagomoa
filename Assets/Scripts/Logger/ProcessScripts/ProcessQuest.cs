@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
@@ -12,7 +14,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public int nextQuestId;
         public string description;
         public Reward reward;
-        public List<ProcessQuestElements> elements;
+        public List<IQuestElements> elements;
         public bool accomplishment = false;
 
         ~ProcessQuest(){
@@ -26,7 +28,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             this.nextQuestId = nextQuestId;
             this.description = description;
             this.reward = reward;
-            elements = new List<ProcessQuestElements>();
+            elements = new List<IQuestElements>();
 
             EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
             
@@ -61,11 +63,31 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             accomplishment = true;
             EventManager.Notify(new SignalToNpc(accomplishment));
         }
+
+        public MineralItem GetMineralItemEntity()
+        {
+            return (MineralItem)reward.targetEntity;
+        }
+        public Ground GetGroundEntity()
+        {
+            return (Ground)reward.targetEntity;
+        }
+    }
+
+    public interface IQuestElements
+    {
+        public bool complete { get; set; }
+        public bool CheckComplete();
+        public string GetQuestSummary();
+        public string GetValueToString();
+        public string GetCompareValueToString();
     }
     
     #region IntQuestElements
-    public class CollectMineral : ProcessIntQuestElements
+    public class CollectMineral : ProcessIntQuestElements, IQuestElements
     {
+        public bool complete { get; set; } = false;
+        
         ~CollectMineral() {
             EventManager.RemoveListener<ItemCountEvent>(CountItem);
         }
@@ -92,7 +114,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             }
         }
 
-        public override bool CheckComplete()
+        
+
+        public bool CheckComplete()
         {
             complete = compareValue >= value;
             return complete;
@@ -123,9 +147,26 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
             if (e.itemCount <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
         }
+
+        public string GetQuestSummary()
+        {
+            return summary;
+        }
+
+        public string GetValueToString()
+        {
+            return value.ToString();
+        }
+
+        public string GetCompareValueToString()
+        {
+            return compareValue.ToString();
+        }
     }
-    public class BreakBlock : ProcessIntQuestElements
+    public class BreakBlock : ProcessIntQuestElements, IQuestElements
     {
+        public bool complete { get; set; } = false;
+        
         ~BreakBlock() {
             EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
         }
@@ -141,7 +182,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
         }
 
-        public override bool CheckComplete()
+        public bool CheckComplete()
         {
             complete = compareValue >= value;
             return complete;
@@ -165,6 +206,21 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             CalculationValue(e);
 
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+        }
+        
+        public string GetQuestSummary()
+        {
+            return summary;
+        }
+
+        public string GetValueToString()
+        {
+            return value.ToString();
+        }
+
+        public string GetCompareValueToString()
+        {
+            return compareValue.ToString();
         }
     }
     #endregion
