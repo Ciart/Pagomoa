@@ -155,8 +155,6 @@ namespace Ciart.Pagomoa.Worlds
             var powerY= random.NextInt(ForestHeight, 100);
             GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), world, powerX, powerY, true);
             
-            GeneratePiece(database.GetPieceWithTag("Remote"), world, 0, -4, true);
-
             _worldManager.world = world;
         }
 

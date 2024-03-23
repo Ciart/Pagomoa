@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
             if (_cactusBoss.CheckPlayerInRange())
             {
-                if (Time.time - _cactusBoss._prevAttackTime < _cactusBoss.attackDelay)
+                if (!_cactusBoss.CheckAttackAble())
                 {
                     return;
                 }

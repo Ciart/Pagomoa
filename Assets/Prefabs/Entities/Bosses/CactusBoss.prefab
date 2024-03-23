@@ -101,7 +101,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5df565e740c8846678fa7456b339901e, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -215,5 +215,4 @@ MonoBehaviour:
   armOrigin: {fileID: 11400000, guid: 3d142c04d9cf94818be29d23476136c3, type: 2}
   speed: 20
   attackRange: 10
-  attackDelay: 5
-  _prevAttackTime: -100
+  attackRate: 3

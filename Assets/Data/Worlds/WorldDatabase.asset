@@ -307,10 +307,10 @@ MonoBehaviour:
     entities:
     - x: 3
       y: 2
-      entity: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+      origin: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
       status:
-        health: 0
-        maxHealth: 0
+        health: 100
+        maxHealth: 100
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
@@ -658,64 +658,6 @@ MonoBehaviour:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 11400000, guid: a19f5ccaee5c6904f81ae44f9b6134a5, type: 2}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-  - name: "\uB9AC\uBAA8\uCF58"
-    appearanceArea: 0
-    tags:
-    - Remote
-    width: 3
-    height: 4
-    pivot: {x: 1, y: 0}
-    weight: 1
-    entities: []
-    _bricks:
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 11400000, guid: 2d3c94abf05d24c24bc41d99c2b61e01, type: 2}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
-      isRock: 0
-    - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
-      ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-      mineral: {fileID: 0}
       isRock: 0
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}

@@ -24,35 +24,35 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             _controller.damaged -= OnDamaged;
         }
 
-        private void OnTriggerEnter2D(Collider2D other) {
-            var entityController = other.GetComponent<EntityController>();
+        private void OnTriggerEnter2D(Collider2D collision) {
+            var entity = collision.attachedRigidbody.GetComponent<EntityController>();
 
-            if (entityController)
+            if (entity != _controller.parent)
             {
-                _targets.Add(entityController);
+                _targets.Add(entity);
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other) {
-            var entityController = other.GetComponent<EntityController>();
+        private void OnTriggerExit2D(Collider2D collision) {
+            var entity = collision.attachedRigidbody.GetComponent<EntityController>();
 
-            if (entityController)
+            if (entity != _controller.parent)
             {
-                _targets.Remove(entityController);
+                _targets.Remove(entity);
             }
         }
 
         // TODO: 대미지를 상위 엔티티에게 전달하는 함수를 따로 분리해야 함.
         private void OnDamaged(EntityDamagedEventArgs args)
         {
-            _controller.parent.TakeDamage(args.amount, attacker: args.attacker, flag: args.flag);
+            _controller.parent.TakeDamage(args.amount, args.invincibleTime, args.attacker, args.flag);
         }
 
         private void OnTakeDamage()
         {
             foreach (var target in _targets)
             {
-                target.TakeDamage(damage, attacker: _controller);
+                target?.TakeDamage(damage, attacker: _controller);
             }
         }
 

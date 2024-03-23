@@ -18,6 +18,7 @@ namespace Ciart.Pagomoa.Entities
     public class EntityDamagedEventArgs
     {
         public float amount;
+        public float invincibleTime;
         public EntityController attacker;
         public DamageFlag flag;
     }
@@ -76,7 +77,7 @@ namespace Ciart.Pagomoa.Entities
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
 
-        public void TakeDamage(float amount, float invincibleTime = 0.3f, EntityController attacker = null,
+        public void TakeDamage(float amount, float invincibleTime = 0f, EntityController attacker = null,
             DamageFlag flag = DamageFlag.None)
         {
             if (isInvincibleTime)
@@ -85,7 +86,7 @@ namespace Ciart.Pagomoa.Entities
             }
 
             _invincibleTime = invincibleTime;
-            
+
             status.health -= amount;
             if (status.health <= 0)
             {
@@ -97,11 +98,11 @@ namespace Ciart.Pagomoa.Entities
                 TakeKnockback(5f, transform.position - attacker.transform.position);
             }
 
-            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, attacker = attacker, flag = flag });
+            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
 
             StartCoroutine(RunInvincibleTimeFlash());
         }
-        
+
         public void Die()
         {
             if (died is null)
@@ -109,7 +110,7 @@ namespace Ciart.Pagomoa.Entities
                 gameObject.SetActive(false);
                 return;
             }
-            
+
             died?.Invoke();
         }
 
@@ -117,9 +118,9 @@ namespace Ciart.Pagomoa.Entities
         {
             while (isInvincibleTime)
             {
-                _spriteRenderer.enabled = false;
+                _spriteRenderer.color = Color.clear;
                 yield return new WaitForSeconds(0.05f);
-                _spriteRenderer.enabled = true;
+                _spriteRenderer.color = Color.white;
                 yield return new WaitForSeconds(0.05f);
             }
         }
@@ -130,7 +131,7 @@ namespace Ciart.Pagomoa.Entities
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
         }
-        
+
         private void CheckDeath()
         {
             if (status.health <= 0)
@@ -142,7 +143,7 @@ namespace Ciart.Pagomoa.Entities
         private void Update()
         {
             CheckDeath();
-            
+
             var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
 
             if (distance > 100f)

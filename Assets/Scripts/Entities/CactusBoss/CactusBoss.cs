@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         public float attackRange = 10f;
 
-        public float attackDelay = 5f;
+        public float attackRate = 3f;
 
         [HideInInspector]
         [NonSerialized]
@@ -27,9 +27,11 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         private Animator _animator;
 
-        public float _prevAttackTime = -100f;
+        private float _nextAttack;
 
         public bool CheckPlayerInRange() => Vector3.Distance(EntityManager.instance.player.transform.position, transform.position) <= attackRange;
+
+        public bool CheckAttackAble() => Time.time > _nextAttack;
 
         private void Awake()
         {
@@ -42,22 +44,16 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         public void ResetArm()
         {
             _animator.SetTrigger("Idle");
+            _nextAttack = Time.time + attackRate;
         }
 
         private void OnSpawnArm()
         {
-            if (Time.time - _prevAttackTime < attackDelay)
-            {
-                return;
-            }
-
             var player = EntityManager.instance.player;
             var spawnPosition = new Vector2(player.transform.position.x, 0);
 
             var arm = EntityManager.instance.Spawn(armOrigin, spawnPosition);
             arm.parent = controller;
-
-            _prevAttackTime = Time.time;
         }
     }
 }
