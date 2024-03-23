@@ -14,10 +14,11 @@ namespace Ciart.Pagomoa.Entities
         Melee = 1 << 1, // 근접
     }
 
+    // TODO: 무적 시간 추가
     public class EntityDamagedEventArgs
     {
         public float amount;
-        public GameObject attacker;
+        public EntityController attacker;
         public DamageFlag flag;
     }
 
@@ -26,6 +27,8 @@ namespace Ciart.Pagomoa.Entities
         public EntityOrigin origin;
 
         public EntityStatus status;
+
+        public EntityController parent;
 
         public bool isEnemy = false;
 
@@ -73,7 +76,7 @@ namespace Ciart.Pagomoa.Entities
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
 
-        public void TakeDamage(float amount, float invincibleTime = 0.3f, GameObject attacker = null,
+        public void TakeDamage(float amount, float invincibleTime = 0.3f, EntityController attacker = null,
             DamageFlag flag = DamageFlag.None)
         {
             if (isInvincibleTime)
@@ -142,7 +145,7 @@ namespace Ciart.Pagomoa.Entities
             
             var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
 
-            if (distance > 10f)
+            if (distance > 100f)
             {
                 _rigidbody.simulated = false;
             }

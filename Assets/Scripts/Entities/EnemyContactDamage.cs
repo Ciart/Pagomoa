@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Entities
 
             foreach (var enemy in _targets)
             {
-                enemy.TakeDamage(damage, attacker: gameObject, flag: DamageFlag.Contact);
+                enemy.TakeDamage(damage, attacker: _entity, flag: DamageFlag.Contact);
             }
         }
 

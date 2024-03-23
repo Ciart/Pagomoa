@@ -2868,7 +2868,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3613,6 +3613,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &658219079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 658219081}
+  - component: {fileID: 658219080}
+  m_Layer: 0
+  m_Name: BossSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &658219080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658219079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a2ad41452348abb4baccdc61afacd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityOrigin: {fileID: 11400000, guid: 206f7c13e238042159da1b6852c67b66, type: 2}
+--- !u!4 &658219081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658219079}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -21.66, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &660020836
 GameObject:
   m_ObjectHideFlags: 0
@@ -12418,6 +12463,7 @@ SceneRoots:
   - {fileID: 61943815}
   - {fileID: 1400426186}
   - {fileID: 405246041}
+  - {fileID: 658219081}
   - {fileID: 619394802}
   - {fileID: 7467345807268936666}
   - {fileID: 1500683812}
@@ -12428,7 +12474,6 @@ SceneRoots:
   - {fileID: 407615762}
   - {fileID: 293903517}
   - {fileID: 1650482113}
-  - {fileID: 3662964948530307250}
   - {fileID: 2380287356156771475}
   - {fileID: 677367476}
   - {fileID: 888006530}

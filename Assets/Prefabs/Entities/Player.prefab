@@ -140,10 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
+  origin: {fileID: 0}
   status:
     health: 0
     maxHealth: 0
+  parent: {fileID: 0}
   isEnemy: 0
 --- !u!114 &2442559022297014597
 MonoBehaviour:

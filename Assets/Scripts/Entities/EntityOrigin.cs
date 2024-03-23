@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Entities
 
         public bool isEnemy;
         
-        public GameObject prefab;
+        public EntityController prefab;
         
         public float baseHealth;
     }

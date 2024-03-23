@@ -60,7 +60,8 @@ namespace Ciart.Pagomoa.Entities.Players
             
             foreach (var enemy in _enemies)
             {
-                enemy.TakeDamage(10, attacker: _digger.gameObject, flag: DamageFlag.Melee);
+                // TODO: attacker 변경해야 함.
+                enemy.TakeDamage(10, attacker: null, flag: DamageFlag.Melee);
             }
         }
 

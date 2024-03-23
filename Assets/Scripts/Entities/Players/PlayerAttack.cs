@@ -43,19 +43,19 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
-        void Attack(GameObject attacker, float damage, Vector3 startPoint, Vector3 endPoint, int canHitCount = 1)
-        {
-            int count = canHitCount;
-            Collider2D[] deffenders = Physics2D.OverlapAreaAll(startPoint, endPoint);
-            foreach (Collider2D deffender in deffenders)
-            {
-                EntityController target = deffender.GetComponent<EntityController>();
+        // void Attack(GameObject attacker, float damage, Vector3 startPoint, Vector3 endPoint, int canHitCount = 1)
+        // {
+        //     int count = canHitCount;
+        //     Collider2D[] deffenders = Physics2D.OverlapAreaAll(startPoint, endPoint);
+        //     foreach (Collider2D deffender in deffenders)
+        //     {
+        //         EntityController target = deffender.GetComponent<EntityController>();
 
-                if (!target) continue;
+        //         if (!target) continue;
 
-                target.TakeDamage(damage, attacker: attacker, flag: DamageFlag.Melee);
-            }
-        }
+        //         target.TakeDamage(damage, attacker: attacker, flag: DamageFlag.Melee);
+        //     }
+        // }
 
         void NormatAttack()
         {
@@ -71,7 +71,7 @@ namespace Ciart.Pagomoa.Entities.Players
             pointA = playerPosition + new Vector3(0 * attackDirection, 0.5f);
             pointB = playerPosition + new Vector3(1.5f * attackDirection, -0.5f);
 
-            Attack(gameObject, GetComponent<PlayerStatus>().attackpower, pointA, pointB, 1);
+            // Attack(gameObject, GetComponent<PlayerStatus>().attackpower, pointA, pointB, 1);
         }
 
         void CanAttack()
