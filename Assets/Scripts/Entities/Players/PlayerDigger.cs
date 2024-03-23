@@ -1,3 +1,4 @@
+using System.Linq;
 using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Ciart.Pagomoa.Entities.Players
     public class PlayerDigger : MonoBehaviour
     {
         public DrillController drill;
-        
+
         public Direction direction;
         public bool isDig;
         public float tiredDigSpeedScoop = 5f;
@@ -23,7 +24,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private int[] drillSpeed = { 10, 20, 40, 80, 200, 5000, 1000000 };
         private int[] drillTierSetting = { 1, 2, 3, 4, 5 };
-        
+
         private TargetBrickChecker _target;
 
         private PlayerStatus _playerStatus;
@@ -39,7 +40,8 @@ namespace Ciart.Pagomoa.Entities.Players
             drillLevel++;
             if (drillLevel < drillSpeed.Length)
             {
-                GetComponent<Ciart.Pagomoa.Entities.Players.PlayerController>()._initialStatus.digSpeed = drillSpeed[drillLevel];
+                GetComponent<Ciart.Pagomoa.Entities.Players.PlayerController>()._initialStatus.digSpeed =
+                    drillSpeed[drillLevel];
             }
 
             if (drillLevel < drillTierSetting.Length)
@@ -53,13 +55,20 @@ namespace Ciart.Pagomoa.Entities.Players
                 drill.gameObject.SetActive(false);
                 return;
             }
-            
+
             drill.gameObject.SetActive(true);
 
             _target.ChangeTarget(DirectionCheck(width % 2 == 0), width, length,
                 direction is Direction.Left or Direction.Right);
 
-            drill.isGroundHit = _target.targetCoordsList.Length != 0;
+            // TODO: 최적화 필요합니다.
+            drill.isGroundHit = _target.targetCoordsList.Any((coord) =>
+            {
+                var (x, y) = coord;
+                var brick = WorldManager.instance.world.GetBrick(x, y, out _);
+
+                return brick.ground is not null;
+            });
 
             foreach (var (x, y) in _target.targetCoordsList)
             {

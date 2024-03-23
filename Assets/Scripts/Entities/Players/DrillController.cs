@@ -40,10 +40,14 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Awake()
         {
+            // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
             _spinAudioSource = gameObject.AddComponent<AudioSource>();
             _spinAudioSource.clip = spinSound;
+            _spinAudioSource.volume = 0.25f;
             
+            // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
             _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
+            _groundHitAudioSource.volume = 0.25f;
             
             _digger = transform.parent.GetComponent<PlayerDigger>();
         }
