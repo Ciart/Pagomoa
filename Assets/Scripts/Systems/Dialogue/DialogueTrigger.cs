@@ -1,4 +1,4 @@
-using Ink.Parsed;
+﻿using Ink.Parsed;
 using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Dialogue;
@@ -13,8 +13,7 @@ public class DialogueTrigger : MonoBehaviour
     public void StartStory()
     {
         if (dialogueAsset == null) return;
-        Debug.Log("시작");
-        DialogueManager.Instance.SetJsonAsset(dialogueAsset);
-        DialogueManager.Instance.StartStory();
+        DialogueManager.instance.SetJsonAsset(dialogueAsset);
+        DialogueManager.instance.StartStory();
     }
 }

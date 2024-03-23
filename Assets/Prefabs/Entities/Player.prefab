@@ -296,8 +296,8 @@ MonoBehaviour:
   maxOxygen: 100
   minOxygen: 0
   isDie: 0
-  _oxygenRecovery: 1
-  _oxygenConsume: 0.001
+  _oxygenRecovery: 100
+  _oxygenConsume: 1
   hungry: 100
   maxHungry: 100
   minHungry: 0

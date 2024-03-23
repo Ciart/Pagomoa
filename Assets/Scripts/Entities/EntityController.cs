@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa.Entities
 
     public class EntityController : MonoBehaviour
     {
-        public Entity entity;
+        public EntityOrigin origin;
 
         public EntityStatus status;
 
@@ -41,19 +41,19 @@ namespace Ciart.Pagomoa.Entities
 
         public bool isInvincibleTime => _invincibleTime > 0;
 
-        public void Init(Entity entity, EntityStatus status = null)
+        public void Init(EntityOrigin origin, EntityStatus status = null)
         {
-            this.entity = entity;
+            this.origin = origin;
 
             if (status is null)
             {
                 this.status = new EntityStatus
                 {
-                    health = entity.baseHealth,
-                    maxHealth = entity.baseHealth
+                    health = origin.baseHealth,
+                    maxHealth = origin.baseHealth
                 };
 
-                isEnemy = entity.isEnemy;
+                isEnemy = origin.isEnemy;
             }
             else
             {
