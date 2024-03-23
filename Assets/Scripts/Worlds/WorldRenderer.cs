@@ -177,7 +177,7 @@ namespace Ciart.Pagomoa.Worlds
             if (!_minimapRenderers.TryGetValue(chunk.key, out var spriteRenderer))
             {
                 spriteRenderer = Instantiate(minimapRenderer,
-                    new Vector3(chunk.key.x * Chunk.Size, chunk.key.y * Chunk.Size), quaternion.identity);
+                    new Vector3(chunk.key.x * Chunk.Size, chunk.key.y * Chunk.Size), quaternion.identity, transform);
                 _minimapRenderers.Add(chunk.key, spriteRenderer);
             }
 
@@ -208,7 +208,7 @@ namespace Ciart.Pagomoa.Worlds
 
             RenderChunk(e.chunk.key);
         }
-        
+
         private void OnEnable()
         {
             EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
