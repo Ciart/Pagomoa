@@ -2852,7 +2852,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5449,17 +5449,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117468279}
   m_CullTransparentMesh: 1
---- !u!114 &1171842542 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7712953595873478310, guid: 0767d93238e8c1947827e861222c4476, type: 3}
-  m_PrefabInstance: {fileID: 3504981351771164511}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd61a757ae39064e8b662856d897b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &1188291310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6147,7 +6136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 52.609985, y: 5.7199707}
+  m_AnchoredPosition: {x: 52.609375, y: 5.720703}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1298135603
@@ -7555,7 +7544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 16
-  m_ScaleFactor: 2
+  m_ScaleFactor: 1
   m_ReferenceResolution: {x: 480, y: 272}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -12272,7 +12261,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0767d93238e8c1947827e861222c4476, type: 3}
-
 --- !u!1001 &3662964948530307250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12503,7 +12491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4665259403366483558 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8622559263753057161, guid: 2054213b237c6ac4182d733308e476a1, type: 3}
