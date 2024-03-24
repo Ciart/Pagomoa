@@ -10,9 +10,7 @@ namespace Ciart.Pagomoa.Entities.Players
         public PlayerState state = PlayerState.Idle;
 
         public bool isGrounded = false;
-
-        public GameObject drill;
-
+        
         public PlayerStatus _status;
 
         public PlayerStatus _initialStatus;
@@ -22,6 +20,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public float sideWallDistance = 1.0625f;
 
         private Rigidbody2D _rigidbody;
+        
+        private AudioSource _audioSource;
         
         private PlayerInput _input;
 
@@ -37,10 +37,11 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Awake()
         {
-            _status = GetComponent<PlayerStatus>(); // ���� �ʱ�ȭ
-            _initialStatus = _status.copy();  // �⺻ ���� ����
+            _status = GetComponent<PlayerStatus>();
+            _initialStatus = _status.copy();
 
             _rigidbody = GetComponent<Rigidbody2D>();
+            _audioSource = GetComponent<AudioSource>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();
@@ -63,6 +64,7 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Update()
         {
             UpdateState();
+            UpdateSound();
 
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
@@ -73,18 +75,15 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 _digger.isDig = true;
                 _digger.direction = _direction;
-                drill.SetActive(true);
             }
             else if (_input.DigDirection.magnitude > 0.001f)
             {
                 _digger.isDig = true;
                 _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
-                drill.SetActive(true);
             }
             else
             {
                 _digger.isDig = false;
-                drill.SetActive(false);
             }
 
             TryJump();
