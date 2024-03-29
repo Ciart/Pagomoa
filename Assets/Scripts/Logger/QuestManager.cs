@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Logger
             {
                 if (quest.questId == questId)
                 {
-                    var q = new ProcessQuest(quest.questId, quest.nextQuestId, quest.title, quest.description, quest.reward, quest.questList);
+                    var q = new ProcessQuest(quest.questId, quest.nextQuestId, quest.description, quest.reward, quest.questList);
                     
                     progressQuests.Add(q);
                 }

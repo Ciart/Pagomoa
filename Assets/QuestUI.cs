@@ -1,7 +1,5 @@
-﻿using Ciart.Pagomoa.Logger.ProcessScripts;
+﻿using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Systems;
-using Logger;
-using Logger.ForEditorBaseScripts;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,17 +25,17 @@ namespace Ciart.Pagomoa
         }
         private void MakeProgressQuestList()
         {
-            int assigncount = assignQuestDatas.Count;
-            int progresscount = QuestManager.Instance.progressQuests.Count;
-            int dif = QuestManager.Instance.progressQuests.Count - assignQuestDatas.Count;
+            int assignCount = assignQuestDatas.Count;
+            int progressCount = QuestManager.instance.progressQuests.Count;
+            int dif = QuestManager.instance.progressQuests.Count - assignQuestDatas.Count;
 
-            if (assigncount < progresscount)
+            if (assignCount < progressCount)
             {
-                for (int i = 0; i < QuestManager.Instance.progressQuests.Count - assignQuestDatas.Count; i++)
+                for (int i = 0; i < QuestManager.instance.progressQuests.Count - assignQuestDatas.Count; i++)
                 {
                     var listText = Instantiate(this.listText, this.listText.transform.parent);
                     assignQuestDatas.Add(listText.GetComponent<AssignQuestData>());
-                    listText.GetComponent<AssignQuestData>().assignProgressQuest = QuestManager.Instance.progressQuests[progresscount - dif];
+                    listText.GetComponent<AssignQuestData>().assignProgressQuest = QuestManager.instance.progressQuests[progressCount - dif];
                     listText.GetComponent<TextMeshProUGUI>().text = listText.GetComponent<AssignQuestData>().assignProgressQuest.title;
                     listText.gameObject.SetActive(true);
                     dif++;
@@ -48,25 +46,33 @@ namespace Ciart.Pagomoa
         }
         public void MakeQuestValueBox(GameObject quest)
         {
-            for (int i = 0; i < quest.GetComponent<AssignQuestData>().assignProgressQuest.elements.Count; i++) {
-                switch (quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i].questType)
-                {
-                    case QuestType.CollectMineral:
-                        var collectMineral = (CollectMineral)quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i];
-                        var collectMineralBox = Instantiate(valueBox, valueBox.transform.parent);
-                        collectMineralBox.SetActive(true);
-                        collectMineralBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = collectMineral.summary + " (" + collectMineral.compareValue + "/" +
-                            collectMineral.value + ")";
-                        break;
-                    case QuestType.BreakBlock:
-                        var breakBlock = (BreakBlock)quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i];
-                        var breakBlockBox = Instantiate(valueBox, valueBox.transform.parent);
-                        breakBlockBox.SetActive(true);
-                        breakBlockBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = breakBlock.summary + " (" + breakBlock.compareValue + "/" +
-                            breakBlock.value + ")";
-                        break;
-                }
-                
+            for (int i = 0; i < quest.GetComponent<AssignQuestData>().assignProgressQuest.elements.Count; i++)
+            {
+                var elements = quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i];
+                var Box = Instantiate(valueBox, valueBox.transform.parent);
+                Box.SetActive(true);
+                Box.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
+                    elements.GetQuestSummary() + " (" + elements.GetCompareValueToString() + "/" +
+                       elements.GetValueToString() + ")";
+
+                //switch (quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i].)
+                //{
+                //    case QuestType.CollectMineral:
+                //        var collectMineral = (CollectMineral)quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i];
+                //        var collectMineralBox = Instantiate(valueBox, valueBox.transform.parent);
+                //        collectMineralBox.SetActive(true);
+                //        collectMineralBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = collectMineral.summary + " (" + collectMineral.compareValue + "/" +
+                //            collectMineral.value + ")";
+                //        break;
+                //    case QuestType.BreakBlock:
+                //        var breakBlock = (BreakBlock)quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i];
+                //        var breakBlockBox = Instantiate(valueBox, valueBox.transform.parent);
+                //        breakBlockBox.SetActive(true);
+                //        breakBlockBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = breakBlock.summary + " (" + breakBlock.compareValue + "/" +
+                //            breakBlock.value + ")";
+                //        break;
+                //}
+
             }
         }
         public void BasicQuest(GameObject quest)

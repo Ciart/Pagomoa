@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
@@ -32,11 +32,11 @@ public class NPC : MonoBehaviour
             isTalking = true;
         }
 
-        if (!DialogueManager.Instance.ConversationProgress(nowTalkDialogueId))
-        {
-            StopTalking();
-            ChangeTalkDialogueId();
-        }
+        //if (!DialogueManager.instance.ConversationProgress(nowTalkDialogueId))
+        //{
+        //    StopTalking();
+        //    ChangeTalkDialogueId();
+        //}
             
     }
     void ChangeTalkDialogueId()

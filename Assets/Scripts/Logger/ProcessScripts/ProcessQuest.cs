@@ -27,7 +27,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             this.questId = questId;
             this.nextQuestId = nextQuestId;
-            this.title = title;
             this.description = description;
             this.reward = reward;
             elements = new List<IQuestElements>();
@@ -78,6 +77,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
     public interface IQuestElements
     {
+        public QuestType questType { get; set; }
         public bool complete { get; set; }
         public bool CheckComplete();
         public string GetQuestSummary();
