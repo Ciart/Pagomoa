@@ -76,6 +76,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
     public interface IQuestElements
     {
+        public QuestType questType { get; set; }
         public bool complete { get; set; }
         public bool CheckComplete();
         public string GetQuestSummary();
