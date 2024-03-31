@@ -22,6 +22,7 @@ namespace Logger.ForEditorBaseScripts
     {
         public int gold;
         public ScriptableObject targetEntity;
+        public Sprite targetEntitySprite;
         public int value;
     }
 }

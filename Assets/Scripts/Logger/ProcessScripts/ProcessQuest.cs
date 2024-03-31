@@ -63,15 +63,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             accomplishment = true;
             EventManager.Notify(new SignalToNpc(accomplishment));
         }
-
-        public MineralItem GetMineralItemEntity()
-        {
-            return (MineralItem)reward.targetEntity;
-        }
-        public Ground GetGroundEntity()
-        {
-            return (Ground)reward.targetEntity;
-        }
     }
 
     public interface IQuestElements
@@ -85,6 +76,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     }
     
     #region IntQuestElements
+    
+    // This quest counts minerals when player earn minerals that same type from inventory.
     public class CollectMineral : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
@@ -114,8 +107,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 }
             }
         }
-
-        
 
         public bool CheckComplete()
         {
@@ -149,21 +140,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (e.itemCount <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
         }
 
-        public string GetQuestSummary()
-        {
-            return summary;
-        }
-
-        public string GetValueToString()
-        {
-            return value.ToString();
-        }
-
-        public string GetCompareValueToString()
-        {
-            return compareValue.ToString();
-        }
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString(); }
+        public string GetCompareValueToString() { return compareValue.ToString(); }
     }
+    // This quest counts blocks when player dig blocks that same Type.      
     public class BreakBlock : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
@@ -181,6 +162,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = 0;
             
             EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
+        }
+
+        public Ground GetRewardEntity()
+        {
+            return (Ground)targetEntity;
         }
 
         public bool CheckComplete()
@@ -209,25 +195,93 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
         
-        public string GetQuestSummary()
-        {
-            return summary;
-        }
-
-        public string GetValueToString()
-        {
-            return value.ToString();
-        }
-
-        public string GetCompareValueToString()
-        {
-            return compareValue.ToString();
-        }
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString(); }
+        public string GetCompareValueToString() { return compareValue.ToString(); }
     }
     #endregion
     
     #region FloatQuestElements
     
+    // How 
+    public class PlayerMoveDistance : ProcessFloatQuestElements, IQuestElements
+    {
+        public bool complete { get; set; }
+        
+        ~PlayerMoveDistance() {
+            
+        }
+        
+        public override bool TypeValidation(ScriptableObject target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CalculationValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CheckComplete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetQuestSummary()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetValueToString()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCompareValueToString()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    
+    // How deeply player go down from y : 0. This quest calculate player best deep transform of y. 
+    public class PlayerMoveDeeply : ProcessFloatQuestElements, IQuestElements
+    {
+        public bool complete { get; set; }
+        ~PlayerMoveDeeply()
+        {
+            
+        }
+        
+        public override bool TypeValidation(ScriptableObject target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CalculationValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CheckComplete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetQuestSummary()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetValueToString()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCompareValueToString()
+        {
+            throw new NotImplementedException();
+        }
+    }
     #endregion
     
     #region BoolQuestElements
