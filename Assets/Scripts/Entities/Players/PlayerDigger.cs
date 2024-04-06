@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Constants;
+﻿using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -19,8 +19,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public TargetBrickChecker targetPrefabs;
 
-        private int[] drillSpeed = { 10, 20, 40, 80, 200, 5000, 1000000 };
-        private int[] drillTierSetting = { 1, 2, 3, 4, 5 };
+        private int[] drillSpeed = { 10, 15, 20, 30, 40, 50, 66 };
+        private int[] drillTierSetting = { 1, 2, 3, 4, 5};
         
         private TargetBrickChecker _target;
 
