@@ -20,6 +20,7 @@ MonoBehaviour:
   reward:
     gold: 1000
     targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+    targetEntitySprite: {fileID: 402394799, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
     value: 1
   questList:
   - questType: 0

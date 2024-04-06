@@ -31,6 +31,7 @@ namespace Editor
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
             newQuest.reward.gold = EditorGUILayout.IntField("보상 골드", newQuest.reward.gold);
             newQuest.reward.targetEntity = (ScriptableObject)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(ScriptableObject), true);
+            newQuest.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuest.reward.targetEntitySprite, typeof(Sprite), true);
             newQuest.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuest.reward.value);
             GUILayout.EndVertical();
             
