@@ -1,5 +1,4 @@
 using System;
-using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -11,20 +10,20 @@ namespace Ciart.Pagomoa.Systems
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] Image oxygenbar;
-        [SerializeField] Image hungrybar;
-        [SerializeField] Image digbar;
-        [SerializeField] public GameObject InventoryUI;
-        [SerializeField] public GameObject EscUI;
-        [SerializeField] private CinemachineVirtualCamera _inventoryCamera;
+        public Image oxygenbar;
+        public Image hungrybar;
+        public GameObject inventoryUIPrefab;
+        public GameObject escUI;
+        public CinemachineVirtualCamera inventoryCamera;
 
-        private GameObject _UI;
-        private bool _activeInventory = false;
-        private PlayerInput playerInput;
+        private PlayerInput _playerInput;
+        private GameObject _inventoryUI;
+        private bool _isActiveInventory;
 
         private void Awake()
         {
-            _UI = GameObject.Find("UI");
+            _inventoryUI = Instantiate(inventoryUIPrefab, transform);
+            _inventoryUI.SetActive(false);
         }
 
         private void OnEnable()
@@ -36,25 +35,19 @@ namespace Ciart.Pagomoa.Systems
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
-        
+
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             var player = e.player;
-                
+
             player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(UpdateOxygenBar);
             player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
 
-            playerInput = player.GetComponent<PlayerInput>();
+            _playerInput = player.GetComponent<PlayerInput>();
 
-            playerInput.Actions.SetEscUI.started += context => 
-            {
-                SetEscUI();
-            };
+            _playerInput.Actions.Menu.performed += context => { ToggleEscUI(); };
 
-            playerInput.Actions.SetInventoryUI.started += context =>
-            {
-                CreateInventoryUI();
-            };
+            _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
         }
 
         public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
@@ -66,52 +59,36 @@ namespace Ciart.Pagomoa.Systems
         {
             hungrybar.fillAmount = current_hungry / max_hungry;
         }
-        private void SetEscUI()
+
+        private void ToggleEscUI()
         {
-            bool activeEscUI = false;
-            if (EscUI.activeSelf == false)
-                activeEscUI = !activeEscUI;
-            EscUI.SetActive(activeEscUI);
+            escUI.SetActive(!escUI.activeSelf);
         }
-        private void SetInventoryUI()
+
+        private void ToggleInventoryUI()
         {
-            if (_activeInventory == false)
+            _isActiveInventory = !_isActiveInventory;
+            _inventoryUI.SetActive(_isActiveInventory);
+
+            if (_isActiveInventory)
             {
-                _activeInventory = !_activeInventory;
-                _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
-                _inventoryCamera.Priority = 11;
+                inventoryCamera.Priority = 11;
             }
             else
             {
-                _activeInventory = !_activeInventory;
-                _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
-                _inventoryCamera.Priority = 9;
+                inventoryCamera.Priority = 9;
 
                 if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
                     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
 
-                if (Inventory.Inventory.Instance.hoverSlot != null)
+                if (Inventory.Inventory.Instance.hoverSlot == null)
                 {
-                    Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
-                        Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
-                }
-                else
                     return;
+                }
+
+                Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
+                    Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             }
         }
-        private void CreateInventoryUI()
-        {
-
-            if (_UI.transform.Find("Inventory(Clone)") == null)
-            {
-                Instantiate(InventoryUI, transform).SetActive(false);
-                SetInventoryUI();
-            }
-            else
-                SetInventoryUI();
-        }
-        //}
-
     }
 }
-
