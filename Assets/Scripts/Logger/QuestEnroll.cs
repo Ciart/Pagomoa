@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Events;
+﻿using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Logger;
 using UnityEngine;
@@ -27,6 +27,11 @@ namespace Ciart.Pagomoa.Logger
             EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
             QuestManager.instance.MakeQuest(this, questId);
             _interactableObject.InteractionEvent.RemoveListener(EnrollQuest);
+
+            if (QuestUI.instance != null)
+                QuestUI.instance.MakeProgressQuestList();
+            else
+                return;
         }
 
         private void QuestAccomplishment(SignalToNpc e)

@@ -1,9 +1,10 @@
 ﻿using Ciart.Pagomoa.Logger.ProcessScripts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa
 {
-    public class AssignQuestData : MonoBehaviour
+    public class AssignQuestData : MonoBehaviour,IPointerClickHandler
     {
         public ProcessQuest assignProgressQuest;
         public void ClickToQuest()
@@ -12,6 +13,11 @@ namespace Ciart.Pagomoa
             QuestUI.instance.CheckTargetEntity(gameObject);
             QuestUI.instance.BasicQuest(gameObject);
             QuestUI.instance.MakeQuestValueBox(gameObject);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            ClickToQuest();
         }
     }
 }

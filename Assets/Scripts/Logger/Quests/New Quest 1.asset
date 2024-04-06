@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: New Quest 1
   m_EditorClassIdentifier: 
   clear: 0
-  questId: 1
-  nextQuestId: 0
-  description: 
+  questId: 2
+  nextQuestId: 3
+  title: "\uD14C\uC2A4\uD2B8\uB97C \uD574\uBCF4\uC790"
+  description: "\uB450\uBC88\uC9F8 \uD14C\uC2A4\uD2B8"
   reward:
-    gold: 0
-    targetEntity: {fileID: 0}
-    value: 0
+    gold: 10
+    targetEntity: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}
+    targetEntitySprite: {fileID: 1527017041, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    value: 1
   questList:
   - questType: 0
-    summary: 
+    summary: "\uB450\uBC88\uC9F8 \uD14C\uC2A4\uD2B8"
     value: 1
     targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
     conditionType:

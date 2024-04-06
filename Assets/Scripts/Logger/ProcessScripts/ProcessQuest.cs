@@ -22,12 +22,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
         
-        public ProcessQuest(int questId, int nextQuestId, string description, Reward reward,
+        public ProcessQuest(int questId, int nextQuestId, string description, string title, Reward reward,
             List<QuestCondition> questConditions)
         {
             this.questId = questId;
             this.nextQuestId = nextQuestId;
             this.description = description;
+            this.title = title;
             this.reward = reward;
             elements = new List<IQuestElements>();
 
