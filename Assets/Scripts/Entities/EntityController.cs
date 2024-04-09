@@ -45,6 +45,23 @@ namespace Ciart.Pagomoa.Entities
 
         public bool isInvincibleTime => _invincibleTime > 0;
 
+        // https://discussions.unity.com/t/how-do-i-check-if-my-rigidbody-player-is-grounded/33250/11
+        private bool _isGrounded;
+
+        public bool isGrounded
+        {
+            get
+            {
+                if (_isGrounded)
+                {
+                    _isGrounded = false;
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public void Init(EntityOrigin origin, EntityStatus status = null)
         {
             this.origin = origin;
@@ -156,6 +173,27 @@ namespace Ciart.Pagomoa.Entities
             }
 
             _invincibleTime -= Time.deltaTime;
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+            {
+                _isGrounded = true;
+                return;
+            }
+
+            _isGrounded = false;
+            return;
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+            {
+                _isGrounded = false;
+                return;
+            }
         }
     }
 }

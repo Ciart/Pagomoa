@@ -259,6 +259,66 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 192, y: 420}
+  - name: CactusBoss_Frame_7
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 848
+      width: 175
+      height: 114
+    spriteID: 0985b0af8f7484464ae16335e83be3e5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 848}
+  - name: CactusBoss_Frame_8
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 192
+      y: 631
+      width: 175
+      height: 114
+    spriteID: d3fa93140d93c47558cda9ec773bc551
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 192, y: 631}
+  - name: CactusBoss_Frame_9
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 192
+      y: 753
+      width: 175
+      height: 75
+    spriteID: d260c0e149375484c9c2b40953646b0f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 192, y: 753}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -324,6 +384,30 @@ ScriptedImporter:
         width: 163
         height: 201
       spriteId: 94a54b6ad6c0f4809a6375292763dd9d
+    - name: CactusBoss_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 14
+        y: 0
+        width: 173
+        height: 112
+      spriteId: 0985b0af8f7484464ae16335e83be3e5
+    - name: CactusBoss_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 14
+        y: 0
+        width: 173
+        height: 112
+      spriteId: d3fa93140d93c47558cda9ec773bc551
+    - name: CactusBoss_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 14
+        y: 0
+        width: 173
+        height: 73
+      spriteId: d260c0e149375484c9c2b40953646b0f
     linkedCells: []
     parentIndex: -1
   platformSettings:

@@ -126,7 +126,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8a6f6d77b511d3549ad84ecdd6ade6aa, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -215,4 +215,4 @@ MonoBehaviour:
   armOrigin: {fileID: 11400000, guid: 3d142c04d9cf94818be29d23476136c3, type: 2}
   speed: 20
   attackRange: 10
-  attackRate: 3
+  attackRate: 0.5

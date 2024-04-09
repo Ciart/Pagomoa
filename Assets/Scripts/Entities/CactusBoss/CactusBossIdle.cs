@@ -22,7 +22,14 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                     return;
                 }
                 
-                animator.SetTrigger("Attack");
+                if (Random.Range(1, 3) == 1)
+                {
+                    animator.SetTrigger("UnderArm");
+                }
+                else
+                {
+                    animator.SetTrigger("SmallJump");
+                }
             }
             else
             {
