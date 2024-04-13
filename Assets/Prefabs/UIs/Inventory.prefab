@@ -5029,7 +5029,8 @@ MonoBehaviour:
   - {fileID: 1864950174557244976}
   - {fileID: 808602553447722153}
   - {fileID: 5306703652719464291}
-  npcImage: {fileID: 0}
+  npcImages: []
+  npcImageObject: {fileID: 3322611919001321131}
   valueBox: {fileID: 1513990770842784454}
   rewardBox: {fileID: 5479499235630370122}
   _sprites:
@@ -8059,6 +8060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f91cb9fa608ef46b99bd98b3ed047a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcImage: {fileID: 0}
 --- !u!1 &8379548071316502161
 GameObject:
   m_ObjectHideFlags: 0

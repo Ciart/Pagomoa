@@ -12,7 +12,8 @@ namespace Ciart.Pagomoa
     {
         public TextMeshProUGUI listText;
         public TextMeshProUGUI[] infoText;
-        public Image npcImage;
+        public List<Sprite> npcImages = new List<Sprite>();
+        public Image npcImageObject;
         public GameObject valueBox;
         public GameObject rewardBox;
         public List<ProcessQuest> assignQuestDatas = new List<ProcessQuest>();
@@ -21,7 +22,7 @@ namespace Ciart.Pagomoa
         private List<GameObject> _reward = new List<GameObject>();
         private void OnEnable()
         {
-            MakeProgressQuestList();
+            //MakeProgressQuestList();
         }
         public void MakeProgressQuestList()
         {
@@ -31,27 +32,22 @@ namespace Ciart.Pagomoa
 
             if (assignCount < progressCount)
             {
-                for (int i = 0; i < QuestManager.instance.progressQuests.Count - assignQuestDatas.Count; i++)
-                {
-                    var text = Instantiate(listText, listText.transform.parent);
-                    assignQuestDatas.Add(text.GetComponent<AssignQuestData>().assignProgressQuest);
-                    text.GetComponent<AssignQuestData>().assignProgressQuest = QuestManager.instance.progressQuests[progressCount - dif];
-                    text.GetComponent<TextMeshProUGUI>().text = text.GetComponent<AssignQuestData>().assignProgressQuest.title;
-                    Debug.Log(text.GetComponent<AssignQuestData>().assignProgressQuest.title);
-                    text.gameObject.SetActive(true);
-                    dif++;
-                }
+                var text = Instantiate(listText, listText.transform.parent);
+                assignQuestDatas.Add(text.GetComponent<AssignQuestData>().assignProgressQuest);
+                text.GetComponent<AssignQuestData>().assignProgressQuest = QuestManager.instance.progressQuests[progressCount - dif];
+                text.GetComponent<TextMeshProUGUI>().text = text.GetComponent<AssignQuestData>().assignProgressQuest.title;
+                text.GetComponent<AssignQuestData>().npcImage = npcImages[npcImages.Count - 1];
+                Debug.Log(text.GetComponent<AssignQuestData>().assignProgressQuest.title);
+                text.gameObject.SetActive(true);
+                Debug.Log(QuestManager.instance.progressQuests.Count + "/" +npcImages.Count);
             }
             else
                 return;
         }
         public void MakeQuestValueBox(GameObject quest)
         {
-            for (int i = 0; i < valueBox.transform.parent.childCount -1; i++)
-            {
-                Destroy(valueBox.transform.parent.GetChild(i+1).gameObject);
-            }
-                
+            DestroyValueBox();
+
             for (int i = 0; i < quest.GetComponent<AssignQuestData>().assignProgressQuest.elements.Count; i++)
             {
                 var elements = quest.GetComponent<AssignQuestData>().assignProgressQuest.elements[i];
@@ -61,6 +57,11 @@ namespace Ciart.Pagomoa
                     elements.GetQuestSummary() + " (" + elements.GetCompareValueToString() + "/" +
                        elements.GetValueToString() + ")";
             }
+        }
+        public void DestroyValueBox()
+        {
+            for (int i = 0; i < valueBox.transform.parent.childCount - 1; i++)
+                Destroy(valueBox.transform.parent.GetChild(i + 1).gameObject);
         }
         public void BasicQuest(GameObject quest)
         {

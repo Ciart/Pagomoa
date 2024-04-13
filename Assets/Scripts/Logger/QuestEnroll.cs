@@ -29,7 +29,10 @@ namespace Ciart.Pagomoa.Logger
             _interactableObject.InteractionEvent.RemoveListener(EnrollQuest);
 
             if (QuestUI.instance != null)
+            {
+                QuestUI.instance.npcImages.Add(_interactableObject.GetComponent<SpriteRenderer>().sprite);
                 QuestUI.instance.MakeProgressQuestList();
+            }
             else
                 return;
         }
