@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             switch (transition)
             {
                 case Transition.ColorTint:
-                    StartColorTween(tintColor * colors.colorMultiplier, instant);
+                    StartColorTween(tintColor * colors.colorMultiplier, true);
                     break;
                 case Transition.SpriteSwap:
                     DoSpriteSwap(transitionSprite);
@@ -76,7 +76,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
             foreach(var childButton in GetComponentsInChildren<ChildButton>())
             {
-                childButton.GetComponent<ChildButton>().SetButtonByParent(state.ToString(), instant);
+                childButton.GetComponent<ChildButton>().SetButtonByParent(state.ToString(), true);
             }
             
         }
