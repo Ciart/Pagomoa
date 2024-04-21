@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8783710180759264370}
   - component: {fileID: 1156628388696455948}
   m_Layer: 5
-  m_Name: UISelectBtn
+  m_Name: UIOutSelectBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
