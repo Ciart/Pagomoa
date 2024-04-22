@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Entities;
@@ -36,6 +36,8 @@ namespace Ciart.Pagomoa.Worlds
         private HashSet<Vector2Int> _renderedChunks = new();
 
         private Dictionary<Vector2Int, SpriteRenderer> _minimapRenderers = new();
+
+        private GameObject minimapObjects;
 
         private void ClearWorld()
         {
@@ -174,10 +176,16 @@ namespace Ciart.Pagomoa.Worlds
             var sprite = Sprite.Create(texture, Rect.MinMaxRect(0f, 0f, Chunk.Size, Chunk.Size),
                 Vector2.zero, 1f);
 
+            if (minimapObjects == null)
+            {
+                minimapObjects = new GameObject();
+                minimapObjects.name = "minimap objects";
+            }
+
             if (!_minimapRenderers.TryGetValue(chunk.key, out var spriteRenderer))
             {
                 spriteRenderer = Instantiate(minimapRenderer,
-                    new Vector3(chunk.key.x * Chunk.Size, chunk.key.y * Chunk.Size), quaternion.identity);
+                    new Vector3(chunk.key.x * Chunk.Size, chunk.key.y * Chunk.Size), quaternion.identity, minimapObjects.transform);
                 _minimapRenderers.Add(chunk.key, spriteRenderer);
             }
 

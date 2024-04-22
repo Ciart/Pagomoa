@@ -16,7 +16,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public TextMeshProUGUI nameText;
 
         [SerializeField]
-        private GameObject buttonGroup;
+        private GameObject outButtonGroup;
+        [SerializeField]
+        private GameObject inButtonGroup;
 
         public List<Sprite> spriteGroup;
 
@@ -36,10 +38,22 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public static event Action<Story> onCreateStory;
 
         private TextAsset inkJSONAsset = null;
+        private DialogueTrigger nowTrigger;
+
         public Story story;
 
         [SerializeField]
-        private Button buttonPrefab = null;
+        private Button outButtonPrefab = null;
+        [SerializeField]
+        private Button inButtonPrefab = null;
+
+        enum UISelectMode {
+            In,
+            Out
+        }
+        
+        UISelectMode uiMode = UISelectMode.Out;
+        bool changeDialogue = false;
 
         private void Update()
         {
@@ -48,13 +62,21 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void SetBtnSizeAfterContentSizeFitter()
         {
-            var rect = buttonGroup.GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
+            if (uiMode == UISelectMode.Out)
+            {
+                var rect = outButtonGroup.GetComponent<RectTransform>();
+                rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
+            }
         }
 
         public void SetJsonAsset(TextAsset asset)
         {
             inkJSONAsset = asset;
+        }
+
+        public void SetDialogueTrigger(DialogueTrigger trigger)
+        {
+            nowTrigger = trigger;
         }
 
         public void StartStory()
@@ -72,7 +94,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void RefreshView()
         {
-            RemoveChildren(buttonGroup);
+            RemoveChildren(outButtonGroup);
+            RemoveChildren(inButtonGroup);
 
             // Read all the content until we can't continue any more
             while (story.canContinue)
@@ -81,10 +104,17 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 string text = story.Continue();
                 // This removes any white space from the text.
                 text = text.Trim();
+
                 // Display the text on screen!
                 CreateContentView(text);
             }
-
+            ParseTag();
+            
+            if (changeDialogue == true)
+            {
+                changeDialogue = false;
+                return;
+            }
             // Display all the choices, if there are any!
             if (story.currentChoices.Count > 0)
             {
@@ -120,19 +150,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void CreateContentView(string text)
         {
             talkText.text = text;
-            ParseTag();
         }
 
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            var choice = Instantiate(buttonPrefab);
+            var choice = Instantiate(uiMode == UISelectMode.Out ? outButtonPrefab : inButtonPrefab);
 
             TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
             foreach(var chosedtext in choiceText)
                 chosedtext.text = text;
 
-            choice.transform.SetParent(buttonGroup.transform, false);
+
+            choice.transform.SetParent(uiMode == UISelectMode.Out ? outButtonGroup.transform : inButtonGroup.transform, false);
 
 
             var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
@@ -170,6 +200,25 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     case "sprite":
                         SetSpriteImage(param);
                         break;
+                    case "uimode":
+                        if (param == "In") uiMode = UISelectMode.In;
+                        if (param == "Out") uiMode = UISelectMode.Out;
+                        break;
+                    case "start":
+                        if (param == "dialogue")
+                        {
+                            nowTrigger.StartRandomDialogue();
+                            changeDialogue = true;
+                        }
+                        if (param == "quest")
+                        {
+                            nowTrigger.StartQuestDialogue();
+                            changeDialogue = true;
+                        }
+                        break;
+                    case "quest":
+                        QuestAccept(param);
+                        break;
 
                 }
             }
@@ -203,5 +252,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             Debug.LogError("no image There");
         }
 
+        private void QuestAccept(string name)
+        {
+            Debug.Log("Quest Accept : " + name);
+        }
     }
 }
