@@ -2,35 +2,34 @@
 using Ciart.Pagomoa.Systems;
 using Logger;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Logger
 {
     public class QuestEnroll : MonoBehaviour
     {
         private InteractableObject _interactableObject;
-        [SerializeField] private SpriteRenderer spriteRenderer; // todo 코드 변경을 생각해 봐야함
-        [SerializeField] private int questId;
+        [SerializeField] private SpriteRenderer questFinishRenderer;
 
         private void Start()
         {
             _interactableObject = GetComponent<InteractableObject>();
-            _interactableObject.InteractionEvent.AddListener(EnrollQuest);
+            _interactableObject.interactionEvent.AddListener(EnrollQuest);
 
-            spriteRenderer ??= transform.GetChild(1).GetComponent<SpriteRenderer>();
-
-            spriteRenderer.enabled = false;
+            questFinishRenderer ??= transform.GetChild(1).GetComponent<SpriteRenderer>();
+            questFinishRenderer.enabled = false;
         }
 
         private void EnrollQuest()
         {
             Debug.Log("퀘스트 등록");
             EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
-            QuestManager.instance.MakeQuest(this, questId);
-            _interactableObject.InteractionEvent.RemoveListener(EnrollQuest);
+            //QuestManager.instance.RegistrationQuest(this, questId);
+            _interactableObject.interactionEvent.RemoveListener(EnrollQuest);
 
             if (QuestUI.instance != null)
             {
-                QuestUI.instance.npcImages.Add(_interactableObject.GetComponent<SpriteRenderer>().sprite);
+                QuestUI.instance.npcImages.Add(GetComponent<SpriteRenderer>().sprite);
                 QuestUI.instance.MakeProgressQuestList();
             }
             else
@@ -40,10 +39,22 @@ namespace Ciart.Pagomoa.Logger
         private void QuestAccomplishment(SignalToNpc e)
         {
             var isQuestComplete = e.accomplishment;
-            
-            spriteRenderer.enabled = isQuestComplete;
-            
+
+            if (isQuestComplete == false)
+            {
+                   
+            }
+            else
+            {
+                questFinishRenderer.gameObject.SetActive(true);
+            }
+
             // 끝났음 퀘스트 보상 받을 준비같은거 해야함
+        }
+
+        private void GetReward()
+        {
+            
         }
     }
 }

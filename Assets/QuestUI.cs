@@ -37,9 +37,9 @@ namespace Ciart.Pagomoa
                 text.GetComponent<AssignQuestData>().assignProgressQuest = QuestManager.instance.progressQuests[progressCount - dif];
                 text.GetComponent<TextMeshProUGUI>().text = text.GetComponent<AssignQuestData>().assignProgressQuest.title;
                 text.GetComponent<AssignQuestData>().npcImage = npcImages[npcImages.Count - 1];
-                Debug.Log(text.GetComponent<AssignQuestData>().assignProgressQuest.title);
+                //Debug.Log(text.GetComponent<AssignQuestData>().assignProgressQuest.title);
                 text.gameObject.SetActive(true);
-                Debug.Log(QuestManager.instance.progressQuests.Count + "/" +npcImages.Count);
+                //Debug.Log(QuestManager.instance.progressQuests.Count + "/" +npcImages.Count);
             }
             else
                 return;

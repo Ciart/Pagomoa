@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Logger;
 using Ink.Runtime;
 using TMPro;
 using UnityEditor.U2D.Aseprite;
@@ -23,6 +24,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public List<Sprite> spriteGroup;
 
         private static DialogueManager _instance = null;
+
         public static DialogueManager instance
         {
             get
@@ -252,9 +254,20 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             Debug.LogError("no image There");
         }
 
-        private void QuestAccept(string name)
+        private void QuestAccept(string id)
         {
-            Debug.Log("Quest Accept : " + name);
+            var questId = int.Parse(id);
+            var interact = nowTrigger.GetComponent<InteractableObject>();
+            
+            if (interact is null)
+            {
+                Debug.LogError("is not interactable quest NPC.");
+                return ;
+            }
+            
+            Debug.Log("Quest Accept : " + questId);
+            
+            QuestManager.instance.registerQuest.Invoke(interact, questId);
         }
     }
 }

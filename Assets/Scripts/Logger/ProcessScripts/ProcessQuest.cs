@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
@@ -10,6 +11,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public class ProcessQuest
     {
+        public InteractableObject questInCharge;
         public int questId;
         public int nextQuestId;
         public string description;
@@ -17,7 +19,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public Reward reward;
         public List<IQuestElements> elements;
         public bool accomplishment = false;
-
+        
         ~ProcessQuest(){
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
@@ -57,13 +59,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (!element.complete)
                 {
                     accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(accomplishment));
+                    EventManager.Notify(new SignalToNpc(accomplishment, questInCharge));
                     return ;
                 }
             }
             
             accomplishment = true;
-            EventManager.Notify(new SignalToNpc(accomplishment));
+            EventManager.Notify(new SignalToNpc(accomplishment, questInCharge));
         }
     }
 
@@ -154,6 +156,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         ~BreakBlock() {
             EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
         }
+        
         public BreakBlock(QuestCondition elements)
         {
             questType = elements.questType;
@@ -165,12 +168,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
         }
-
-        public Ground GetRewardEntity()
-        {
-            return (Ground)targetEntity;
-        }
-
+        
         public bool CheckComplete()
         {
             complete = compareValue >= value;

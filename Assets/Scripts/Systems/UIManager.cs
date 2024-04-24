@@ -81,7 +81,7 @@ namespace Ciart.Pagomoa.Systems
                 if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
                     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
 
-                if (Inventory.Inventory.Instance.hoverSlot == null)
+                    if (Inventory.Inventory.Instance.hoverSlot == null)
                 {
                     return;
                 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DialogueTrigger : MonoBehaviour
 {

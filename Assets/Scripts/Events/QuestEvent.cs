@@ -1,6 +1,10 @@
-﻿namespace Ciart.Pagomoa.Events
+﻿using Ciart.Pagomoa.Systems;
+
+namespace Ciart.Pagomoa.Events
 {
     public record QuestAccomplishEvent() : IEvent;
 
-    public record SignalToNpc(bool accomplishment) : IEvent;
+    public record SignalToNpc(bool accomplishment, InteractableObject questInCharge) : IEvent;
+
+    public record QuestCompleted(InteractableObject questInCharge) : IEvent;
 }

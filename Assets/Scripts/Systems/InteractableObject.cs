@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems
 {
@@ -11,7 +12,7 @@ namespace Ciart.Pagomoa.Systems
         private readonly string _outline = "_OutlineColor";
     
         // 유니티 이벤트 호출
-        public UnityEvent InteractionEvent; 
+        public UnityEvent interactionEvent; 
         
         void Start()
         {
