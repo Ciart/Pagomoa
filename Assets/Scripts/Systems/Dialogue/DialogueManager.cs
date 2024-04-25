@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -207,23 +206,46 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     case "start":
                         if (param == "dialogue")
                         {
-                            nowTrigger.StartRandomDialogue();
+                            nowTrigger.StartDialogue();
                             changeDialogue = true;
                         }
                         if (param == "quest")
                         {
-                            nowTrigger.StartQuestDialogue();
+                            SelectQuest(nowTrigger.GetQuestDialogue());
                             changeDialogue = true;
                         }
                         break;
                     case "quest":
                         QuestAccept(param);
                         break;
+                    case "reward":
+                        QuestComplete(param);
+                        break;
 
                 }
             }
         }
 
+        private void QuestComplete(string param)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void SelectQuest(QuestDialogue[] quests)
+        {
+            uiMode = UISelectMode.In;
+            foreach (var quest in quests)
+            {
+                Button button = CreateChoiceView(quest.questName);
+                // Tell the button what to do when we press it
+                button.onClick.AddListener(delegate
+                {
+                    SetJsonAsset(quest.questStartPrologos);
+                    StartStory();
+                });
+            }
+        }
         
         private void SetTalkerName(string name)
         {
