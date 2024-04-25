@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
+using UnityEngine.Events;
+using Ciart.Pagomoa;
 
 public class DialogueTrigger : MonoBehaviour
 {
@@ -10,9 +12,9 @@ public class DialogueTrigger : MonoBehaviour
     private TextAsset basicDialogue = null;
 
     [SerializeField]
-    private TextAsset[] dialogueAssets;
+    private DailyDialogue dailyDialogues;
     [SerializeField]
-    private TextAsset[] questAssets;
+    private QuestDialogue[] questDialogues;
 
     public void StartStory()
     {
@@ -22,16 +24,14 @@ public class DialogueTrigger : MonoBehaviour
         DialogueManager.instance.StartStory();
     }
 
-    public void StartRandomDialogue()
+    public void StartDialogue()
     {
-        var n = Random.Range(0, dialogueAssets.Length);
-        DialogueManager.instance.SetJsonAsset(dialogueAssets[n]);
+        DialogueManager.instance.SetJsonAsset(dailyDialogues.GetRandomDialogue());
         DialogueManager.instance.StartStory();
     }
 
-    public void StartQuestDialogue()
+    public QuestDialogue[] GetQuestDialogue()
     {
-        DialogueManager.instance.SetJsonAsset(questAssets[0]);
-        DialogueManager.instance.StartStory();
+        return questDialogues;
     }
 }

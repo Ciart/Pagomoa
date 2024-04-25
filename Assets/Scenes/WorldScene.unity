@@ -12097,14 +12097,26 @@ PrefabInstance:
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: basicDialogue
       value: 
-      objectReference: {fileID: 4900000, guid: f689e5b7b67d37a4a84d727827877b24, type: 3}
+      objectReference: {fileID: 4900000, guid: 2917720dd06856745b9a14685ba6761c, type: 3}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: dailyDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: b56eb786fcea32f4e85c3cb7d3bff2fd, type: 2}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: dialogueAsset
       value: 
       objectReference: {fileID: 4900000, guid: f689e5b7b67d37a4a84d727827877b24, type: 3}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: dailyDialogues
+      value: 
+      objectReference: {fileID: 11400000, guid: b56eb786fcea32f4e85c3cb7d3bff2fd, type: 2}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: questAssets.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogue.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: dialogueAssets.Array.size
@@ -12115,6 +12127,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4900000, guid: 15e2d4af128f69049912224787360192, type: 3}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogue.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogue.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 652e6fe8d59c76942890f3e165731d49, type: 2}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: dialogueAssets.Array.data[0]
       value: 
       objectReference: {fileID: 4900000, guid: a76c7d38d225dbb4e85cfd807db53732, type: 3}
@@ -12122,6 +12146,14 @@ PrefabInstance:
       propertyPath: dialogueAssets.Array.data[1]
       value: 
       objectReference: {fileID: 4900000, guid: f35dbf3b6d626df47baa5801561940a6, type: 3}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogues.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogues.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: dc5d2acb1ffebaf46807045475a2c2ba, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
