@@ -228,12 +228,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        private void QuestComplete(string param)
-        {
-            throw new NotImplementedException();
-        }
-
-
         private void SelectQuest(QuestDialogue[] quests)
         {
             uiMode = UISelectMode.In;
@@ -280,6 +274,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             var questId = int.Parse(id);
             var interact = nowTrigger.GetComponent<InteractableObject>();
+
+            var questDialogues = nowTrigger.GetQuestDialogue();
+            
             
             if (interact is null)
             {
@@ -290,6 +287,22 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             Debug.Log("Quest Accept : " + questId);
             
             QuestManager.instance.registerQuest.Invoke(interact, questId);
+        }
+
+        private void QuestComplete(string id)
+        {
+            var questId = int.Parse(id);
+            var interact = nowTrigger.GetComponent<InteractableObject>();
+            
+            if (interact is null)
+            {
+                Debug.LogError("is not interactable quest NPC.");
+                return ;
+            }
+            
+            Debug.Log("Quest Complete : " + questId);
+            
+            QuestManager.instance.completeQuest.Invoke(interact, questId);
         }
     }
 }

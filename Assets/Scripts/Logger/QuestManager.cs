@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
 using Logger;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +12,7 @@ using UnityEngine.Events;
 namespace Ciart.Pagomoa.Logger
 {
     public delegate void RegisterQuest(InteractableObject questInCharge, int id);
+    public delegate void CompleteQuest(InteractableObject questInCharge, int id);
 
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
@@ -19,6 +22,7 @@ namespace Ciart.Pagomoa.Logger
         public QuestDatabase database;
         
         public RegisterQuest registerQuest;
+        public CompleteQuest completeQuest;
         
         private static QuestManager _instance;
         public static QuestManager instance
@@ -38,6 +42,7 @@ namespace Ciart.Pagomoa.Logger
             database ??= GetComponent<QuestDatabase>();
 
             registerQuest = RegistrationQuest;
+            completeQuest = CompleteQuest;
         }
 
         public void RegistrationQuest(InteractableObject questInCharge, int questId)
@@ -60,34 +65,66 @@ namespace Ciart.Pagomoa.Logger
                         QuestUI.instance.npcImages.Add(questInCharge.GetComponent<SpriteRenderer>().sprite);
                         QuestUI.instance.MakeProgressQuestList();
                     }
-                    
-                    Debug.Log(q);
                 }
             }
         }
-
+        
         private void QuestAccomplishment(SignalToNpc e)
         {
             var isQuestComplete = e.accomplishment;
             var questInCharge = e.questInCharge;
+            var dialogueTrigger = e.questInCharge.GetComponent<DialogueTrigger>();
 
             if (isQuestComplete == false)
             {
                 questInCharge.transform.GetChild(1).gameObject.SetActive(false);
+                
+                // todo : 유효성 검사 
+                questInCharge.interactionEvent.SetPersistentListenerState(0, UnityEventCallState.EditorAndRuntime);
+                questInCharge.interactionEvent.RemoveListener( () => dialogueTrigger.QuestCompleteDialogue(e.questId));
+                questInCharge.interactionEvent.AddListener(dialogueTrigger.StartStory);
             }
             else
             {
                 questInCharge.transform.GetChild(1).gameObject.SetActive(true);
                 questInCharge.interactionEvent.SetPersistentListenerState(0, UnityEventCallState.Off);
-                questInCharge.interactionEvent.AddListener(() => GetReward(questInCharge)); // todo: 퀘스트 완료 대화
+                questInCharge.interactionEvent.AddListener(() => dialogueTrigger.QuestCompleteDialogue(e.questId));
             }
         }
-
-        private void GetReward(InteractableObject questInCharge)
+        
+        private void CompleteQuest(InteractableObject questInCharge, int questId)
         {
+            var dialogueTrigger = questInCharge.GetComponent<DialogueTrigger>();
+            
             questInCharge.transform.GetChild(1).gameObject.SetActive(false);
             questInCharge.interactionEvent.SetPersistentListenerState(0, UnityEventCallState.EditorAndRuntime);
-            questInCharge.interactionEvent.RemoveListener(() => GetReward(questInCharge));            
+            questInCharge.interactionEvent.RemoveListener(() => dialogueTrigger.QuestCompleteDialogue(questId));
+            
+            GetReward(questInCharge, questId);
+        }
+        
+        private void GetReward(InteractableObject questInCharge, int questId)
+        {
+            Debug.Log("리워드 지급");
+
+            var targetQuest = FindQuestByID(questId);
+            var reward = targetQuest.reward;
+
+            InventoryDB.Instance.Add((Item)reward.targetEntity, reward.value);
+            InventoryDB.Instance.Gold += reward.gold;
+        }
+
+        private ProcessQuest FindQuestByID(int questId)
+        {
+            foreach (var quest in progressQuests)
+            {
+                if (quest.questId == questId)
+                {
+                    return quest;
+                }
+            }
+            
+            return null;
         }
     }   
 }

@@ -18,14 +18,14 @@ MonoBehaviour:
   title: "\uD14C\uC2A4\uD2B8\uB97C \uD574\uBCF4\uC790"
   description: "\uB450\uBC88\uC9F8 \uD14C\uC2A4\uD2B8"
   reward:
-    gold: 10
+    gold: 2222
     targetEntity: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}
     targetEntitySprite: {fileID: 1527017041, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
     value: 1
   questList:
   - questType: 0
     summary: "\uB450\uBC88\uC9F8 \uD14C\uC2A4\uD2B8"
-    value: 1
+    value: 2
     targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
     conditionType:
       target: 1

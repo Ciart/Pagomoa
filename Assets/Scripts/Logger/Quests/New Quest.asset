@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: New Quest
   m_EditorClassIdentifier: 
   clear: 0
-  questId: 11
+  questId: 1
   nextQuestId: 2
-  title: 11
-  description: 11
+  title: "\uD018\uC2A4\uD2B8 \uC81C\uBAA9"
+  description: "\uD018\uC2A4\uD2B8 \uC124\uBA85"
   reward:
     gold: 1000
     targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
@@ -29,4 +29,11 @@ MonoBehaviour:
     targetEntity: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
     conditionType:
       target: 2
+      typeValue: int
+  - questType: 0
+    summary: "\uC124\uBA85\uC785\uB2C8\uB2E4."
+    value: 2
+    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    conditionType:
+      target: 1
       typeValue: int

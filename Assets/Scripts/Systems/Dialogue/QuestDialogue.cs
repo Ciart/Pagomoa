@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa
         public int[] questPrerequisiteIds;
         public TextAsset questStartPrologos;
         public TextAsset questCompletePrologos;
-        public bool isPrerequisiteCompleted()
+        public bool IsPrerequisiteCompleted()
         {
             // questPrerequisitelds Complete Check
             return true;

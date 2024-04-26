@@ -59,13 +59,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (!element.complete)
                 {
                     accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(accomplishment, questInCharge));
+                    EventManager.Notify(new SignalToNpc(questId, accomplishment, questInCharge));
                     return ;
                 }
             }
             
             accomplishment = true;
-            EventManager.Notify(new SignalToNpc(accomplishment, questInCharge));
+            EventManager.Notify(new SignalToNpc(questId, accomplishment, questInCharge));
         }
     }
 
