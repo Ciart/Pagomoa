@@ -20,10 +20,10 @@ namespace Ciart.Pagomoa.Systems
         private GameObject _inventoryUI;
         private bool _isActiveInventory;
 
-        private void Awake()
+        private void Start()
         {
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
-            _inventoryUI.SetActive(false);
+            _inventoryUI.SetActive(false);   
         }
 
         private void OnEnable()
@@ -81,7 +81,7 @@ namespace Ciart.Pagomoa.Systems
                 if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
                     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
 
-                if (Inventory.Inventory.Instance.hoverSlot == null)
+                    if (Inventory.Inventory.Instance.hoverSlot == null)
                 {
                     return;
                 }

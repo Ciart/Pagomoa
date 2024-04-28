@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KillClover 1
   m_EditorClassIdentifier: 
   questName: "\uD074\uB85C\uBC84\uC950 \uC18C\uD0D52"
-  questId: 0
+  questId: 2
   questPrerequisiteIds: 
   questStartPrologos: {fileID: 4900000, guid: eca49514a5d1d7549bef857ed9618e28, type: 3}
   questCompletePrologos: {fileID: 4900000, guid: f248d7d5eeed84f44b00e5af10bea435, type: 3}

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
@@ -207,9 +207,9 @@ namespace Ciart.Pagomoa.Systems.Save
             var dataManager = DataManager.Instance;
             if (dataManager.data.quickSlotData == null) return;
 
-            if (dataManager.data.quickSlotData.items != null)
+            if (dataManager.data.quickSlotData.items.Find(x => x.item) != null)
             {
-                QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items.ToList();
+                QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items/*.ToList()*/;
                 QuickSlot.Instance.SetQuickSlot();
                 QuickSlotItemDB.instance.ControlQuickSlot(dataManager.data.quickSlotData.selectedSlotID);
             }

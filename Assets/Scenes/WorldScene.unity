@@ -2852,7 +2852,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2897,8 +2897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 16
-  m_RefResolutionX: 640
-  m_RefResolutionY: 360
+  m_RefResolutionX: 480
+  m_RefResolutionY: 272
   m_CropFrame: 0
   m_GridSnapping: 2
   m_FilterMode: 0
@@ -6620,6 +6620,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359310392}
   m_CullTransparentMesh: 1
+--- !u!1 &1376096344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4809351473810362442, guid: ec4a96fe3554a7f4cb6ad5212f349981, type: 3}
+  m_PrefabInstance: {fileID: 2380287356156771475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1394362740
 GameObject:
   m_ObjectHideFlags: 3
@@ -7150,6 +7155,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416124325}
   m_CullTransparentMesh: 1
+--- !u!212 &1437770343 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 302834430979151023, guid: a3aa8548fe0884d4ba019cc380c6bf84, type: 3}
+  m_PrefabInstance: {fileID: 137472375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1446570918
 GameObject:
   m_ObjectHideFlags: 0
@@ -12974,7 +12984,6 @@ SceneRoots:
   - {fileID: 1650482113}
   - {fileID: 3662964948530307250}
   - {fileID: 2380287356156771475}
-  - {fileID: 677367476}
   - {fileID: 888006530}
   - {fileID: 612048129}
   - {fileID: 1794409634}
