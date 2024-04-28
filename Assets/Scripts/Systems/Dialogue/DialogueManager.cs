@@ -38,8 +38,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public static event Action<Story> onCreateStory;
 
-        private TextAsset inkJSONAsset = null;
-        private DialogueTrigger nowTrigger;
+        private TextAsset _inkJsonAsset = null;
+        private DialogueTrigger _nowTrigger;
 
         public Story story;
 
@@ -72,17 +72,17 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void SetJsonAsset(TextAsset asset)
         {
-            inkJSONAsset = asset;
+            _inkJsonAsset = asset;
         }
 
         public void SetDialogueTrigger(DialogueTrigger trigger)
         {
-            nowTrigger = trigger;
+            _nowTrigger = trigger;
         }
 
         public void StartStory()
         {
-            story = new Story(inkJSONAsset.text);
+            story = new Story(_inkJsonAsset.text);
             if (onCreateStory != null) onCreateStory(story);
             RefreshView();
             talkPannel.SetActive(true);
@@ -208,12 +208,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     case "start":
                         if (param == "dialogue")
                         {
-                            nowTrigger.StartDialogue();
+                            _nowTrigger.StartDialogue();
                             changeDialogue = true;
                         }
                         if (param == "quest")
                         {
-                            SelectQuest(nowTrigger.GetQuestDialogue());
+                            SelectQuest(_nowTrigger.GetQuestDialogue());
                             changeDialogue = true;
                         }
                         break;
@@ -273,11 +273,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void QuestAccept(string id)
         {
             var questId = int.Parse(id);
-            var interact = nowTrigger.GetComponent<InteractableObject>();
+            var interact = _nowTrigger.GetComponent<InteractableObject>();
 
-            var questDialogues = nowTrigger.GetQuestDialogue();
-            
-            
             if (interact is null)
             {
                 Debug.LogError("is not interactable quest NPC.");
@@ -292,7 +289,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void QuestComplete(string id)
         {
             var questId = int.Parse(id);
-            var interact = nowTrigger.GetComponent<InteractableObject>();
+            var interact = _nowTrigger.GetComponent<InteractableObject>();
             
             if (interact is null)
             {

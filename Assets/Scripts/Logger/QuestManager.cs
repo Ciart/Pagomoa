@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
 using Logger;
 using UnityEngine;
@@ -44,7 +45,7 @@ namespace Ciart.Pagomoa.Logger
             registerQuest = RegistrationQuest;
             completeQuest = CompleteQuest;
         }
-
+        
         public void RegistrationQuest(InteractableObject questInCharge, int questId)
         {
             foreach (var quest in database.quests)
@@ -55,7 +56,7 @@ namespace Ciart.Pagomoa.Logger
                         {
                             questInCharge = questInCharge
                         };
-                           
+                    
                     progressQuests.Add(q);
                     
                     EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
@@ -80,51 +81,83 @@ namespace Ciart.Pagomoa.Logger
                 questInCharge.transform.GetChild(1).gameObject.SetActive(false);
                 
                 // todo : 유효성 검사 
-                questInCharge.interactionEvent.SetPersistentListenerState(0, UnityEventCallState.EditorAndRuntime);
                 questInCharge.interactionEvent.RemoveListener( () => dialogueTrigger.QuestCompleteDialogue(e.questId));
                 questInCharge.interactionEvent.AddListener(dialogueTrigger.StartStory);
             }
             else
             {
                 questInCharge.transform.GetChild(1).gameObject.SetActive(true);
-                questInCharge.interactionEvent.SetPersistentListenerState(0, UnityEventCallState.Off);
                 questInCharge.interactionEvent.AddListener(() => dialogueTrigger.QuestCompleteDialogue(e.questId));
             }
         }
         
-        private void CompleteQuest(InteractableObject questInCharge, int questId)
+        private void CompleteQuest(InteractableObject questInCharge, int id)
         {
             var dialogueTrigger = questInCharge.GetComponent<DialogueTrigger>();
             
             questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-            questInCharge.interactionEvent.SetPersistentListenerState(0, UnityEventCallState.EditorAndRuntime);
-            questInCharge.interactionEvent.RemoveListener(() => dialogueTrigger.QuestCompleteDialogue(questId));
-            
-            GetReward(questInCharge, questId);
+            questInCharge.interactionEvent.RemoveListener(() => dialogueTrigger.QuestCompleteDialogue(id));
+            questInCharge.interactionEvent.AddListener(() => dialogueTrigger.StartStory());
+
+            GetReward(id);
         }
         
-        private void GetReward(InteractableObject questInCharge, int questId)
+        private void GetReward(int id)
         {
-            Debug.Log("리워드 지급");
-
-            var targetQuest = FindQuestByID(questId);
+            var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
             InventoryDB.Instance.Add((Item)reward.targetEntity, reward.value);
             InventoryDB.Instance.Gold += reward.gold;
+            
+            // todo : 완료된 퀘스트를 저장 할까 말까?
+            database.progressedQuests.Add(new ProgressedQuest(targetQuest));
+            progressQuests.Remove(targetQuest);
         }
-
-        private ProcessQuest FindQuestByID(int questId)
+        
+        public ProcessQuest FindQuestById(int id)
         {
             foreach (var quest in progressQuests)
             {
-                if (quest.questId == questId)
-                {
-                    return quest;
-                }
+                if (quest.questId == id) return quest;
             }
             
             return null;
+        }
+
+        public bool CheckQuestCompleteById(int id)
+        {
+            foreach (var quest in progressQuests)
+            {
+                return FindQuestById(id) is not null && quest.accomplishment;
+            }
+            
+            return false;
+        }
+        
+        // 경훈아 이거쓰셈
+        public bool IsRegisteredQuest(int id)
+        {
+            var check = false;
+            
+            foreach (var quest in progressQuests)
+            {
+                if (quest.questId == id) check = true;
+            }
+
+            return check;
+        }
+
+        public bool IsCompleteQuest(int id)
+        {
+            var check = false;
+            
+            foreach (var quest in database.progressedQuests)
+            {
+                if (quest.questId == id) check = true;
+            }
+
+            return check;
         }
     }   
 }

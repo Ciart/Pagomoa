@@ -46,4 +46,5 @@ public class DialogueTrigger : MonoBehaviour
             }
         }
     }
+    
 }
