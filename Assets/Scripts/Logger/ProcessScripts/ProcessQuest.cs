@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -207,21 +208,39 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public class PlayerMoveDistance : ProcessFloatQuestElements, IQuestElements
     {
         public bool complete { get; set; }
+        public Transform player { get; set; }
         
         ~PlayerMoveDistance() {
             
         }
         
+        public PlayerMoveDistance(QuestCondition elements)
+        {
+            questType = elements.questType;
+            summary = elements.summary;
+            targetEntity = elements.targetEntity;
+            valueType = elements.value;
+            value = float.Parse(elements.value);
+            compareValue = 0.0f;
+
+            EventManager.AddListener<PlayerMove>(MoveDistance);
+        }
+        
         public override bool TypeValidation(ScriptableObject target)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public override void CalculationValue()
         {
-            throw new NotImplementedException();
+            
         }
 
+        private void MoveDistance(PlayerMove e)
+        {
+            // todo : 움직임 연산
+        }
+        
         public bool CheckComplete()
         {
             throw new NotImplementedException();
