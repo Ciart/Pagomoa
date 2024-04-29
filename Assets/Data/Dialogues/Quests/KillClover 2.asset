@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe2831d8a9a12064abcf9f0fba38da9e, type: 3}
-  m_Name: KillClover
+  m_Name: KillClover 2
   m_EditorClassIdentifier: 
-  questName: "\uD074\uB85C\uBC84\uC950 \uC18C\uD0D5"
-  questId: 1
-  questPrerequisiteIds: 
-  questStartPrologos: {fileID: 4900000, guid: 7d40a1a3f44987d4c8ffd31c8c2de321, type: 3}
-  questCompletePrologos: {fileID: 4900000, guid: f248d7d5eeed84f44b00e5af10bea435, type: 3}
+  questName: "\uD074\uB85C\uBC84\uC950 \uC18C\uD0D52"
+  questId: 3
+  questPrerequisiteIds: 02000000
+  questStartPrologos: {fileID: 4900000, guid: eca49514a5d1d7549bef857ed9618e28, type: 3}
+  questCompletePrologos: {fileID: 4900000, guid: 4b4919b50aa4ca84b9037620d789d45e, type: 3}

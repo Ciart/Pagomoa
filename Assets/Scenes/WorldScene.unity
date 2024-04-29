@@ -296,6 +296,8 @@ MonoBehaviour:
   _itemsTabButton: {fileID: 0}
   _infoTab: {fileID: 0}
   _infoTabButton: {fileID: 0}
+  _questTab: {fileID: 0}
+  _questTabButton: {fileID: 0}
   _tabSprites: []
   ItemHoverObject: {fileID: 0}
 --- !u!1 &61943814
@@ -932,6 +934,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6201800308963581311, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
   m_PrefabInstance: {fileID: 442100724}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &265064714 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+  m_PrefabInstance: {fileID: 3662964948530307250}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cfb25d961118f4d9be1fc91d3a8310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &265579673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,6 +1895,8 @@ MonoBehaviour:
   _itemsTabButton: {fileID: 0}
   _infoTab: {fileID: 0}
   _infoTabButton: {fileID: 0}
+  _questTab: {fileID: 0}
+  _questTabButton: {fileID: 0}
   _tabSprites: []
   ItemHoverObject: {fileID: 0}
 --- !u!1 &405246040
@@ -2852,7 +2867,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6620,11 +6635,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359310392}
   m_CullTransparentMesh: 1
---- !u!1 &1376096344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4809351473810362442, guid: ec4a96fe3554a7f4cb6ad5212f349981, type: 3}
-  m_PrefabInstance: {fileID: 2380287356156771475}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1394362740
 GameObject:
   m_ObjectHideFlags: 3
@@ -7155,11 +7165,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416124325}
   m_CullTransparentMesh: 1
---- !u!212 &1437770343 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 302834430979151023, guid: a3aa8548fe0884d4ba019cc380c6bf84, type: 3}
-  m_PrefabInstance: {fileID: 137472375}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1446570918
 GameObject:
   m_ObjectHideFlags: 0
@@ -12154,6 +12159,34 @@ PrefabInstance:
       propertyPath: questDialogues.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: dc5d2acb1ffebaf46807045475a2c2ba, type: 2}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 265064714}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartStory
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DialogueTrigger, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12992,3 +13025,4 @@ SceneRoots:
   - {fileID: 1626704889}
   - {fileID: 496189417}
   - {fileID: 2128536395}
+  - {fileID: 677367476}
