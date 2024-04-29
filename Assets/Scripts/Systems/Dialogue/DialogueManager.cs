@@ -233,12 +233,26 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             uiMode = UISelectMode.In;
             foreach (var quest in quests)
             {
+                if (!quest.IsPrerequisiteCompleted()) continue;
+                if (QuestManager.instance.IsRegisteredQuest(quest.questId)) continue;
+                if (QuestManager.instance.IsCompleteQuest(quest.questId)) continue;
+
                 Button button = CreateChoiceView(quest.questName);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
                     SetJsonAsset(quest.questStartPrologos);
                     StartStory();
+                });
+            }
+            if (quests.Length < 1)
+            {
+                uiMode = UISelectMode.Out;
+                CreateContentView("더이상 진행 가능한 퀘스트가 없습니다.");
+                Button choice = CreateChoiceView("확인");
+                choice.onClick.AddListener(delegate
+                {
+                    StopStory();
                 });
             }
         }

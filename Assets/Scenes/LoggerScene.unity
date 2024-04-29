@@ -2856,7 +2856,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9974,6 +9974,7 @@ MonoBehaviour:
   quests:
   - {fileID: 11400000, guid: a6812fac925f7464880a10197b46607a, type: 2}
   - {fileID: 11400000, guid: 3fa34e75be6ecb642b37ce6b8e26e82a, type: 2}
+  - {fileID: 11400000, guid: 9d1e84d0af1cda24da0bcab2ee9ef314, type: 2}
 --- !u!114 &1898187374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12242,7 +12243,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 15e2d4af128f69049912224787360192, type: 3}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: questDialogues.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: questDialogue.Array.data[0]
@@ -12263,9 +12264,13 @@ PrefabInstance:
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: questDialogues.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
+      objectReference: {fileID: 11400000, guid: 57dbf2657c78e6d4b95403cd19d3bcb0, type: 2}
     - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: questDialogues.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
+    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: questDialogues.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: dc5d2acb1ffebaf46807045475a2c2ba, type: 2}
     - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
@@ -13086,7 +13091,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -13158,6 +13163,7 @@ SceneRoots:
   - {fileID: 1517881707}
   - {fileID: 1270842126}
   - {fileID: 1976014096}
+  - {fileID: 1898187376}
   - {fileID: 1793737718}
   - {fileID: 519420032}
   - {fileID: 1979542733}
@@ -13182,4 +13188,3 @@ SceneRoots:
   - {fileID: 1626704889}
   - {fileID: 496189417}
   - {fileID: 2128536395}
-  - {fileID: 1898187376}
