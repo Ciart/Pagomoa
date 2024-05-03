@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Ciart.Pagomoa
+namespace Ciart.Pagomoa.Sounds
 {
-    [CreateAssetMenu (fileName ="MusicBundle", menuName ="MuselicBundle")]
+    [CreateAssetMenu (fileName ="MusicBundle", menuName ="MusicBundle")]
     public class MusicBundle : ScriptableObject
     {
-        public AudioClip intro;
-        public AudioClip loop;
+        public AudioClip music;
         public float volume;
+        public double loopStartTime;
+        public double loopEndTime;
     }
 }

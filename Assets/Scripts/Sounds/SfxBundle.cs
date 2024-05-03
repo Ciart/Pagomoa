@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Ciart.Pagomoa
+namespace Ciart.Pagomoa.Sounds
 {
     [CreateAssetMenu(fileName ="New SfxBundle", menuName ="New SfxBundle")]
     public class SfxBundle : ScriptableObject
@@ -13,7 +11,7 @@ namespace Ciart.Pagomoa
             TeamEffect,
             MonsterEffect
         }
-        public AudioClip[] audioClips;
+        public AudioClip audioClip;
         public float volume;
     }
 }
