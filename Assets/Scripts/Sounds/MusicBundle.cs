@@ -2,7 +2,7 @@
 
 namespace Ciart.Pagomoa.Sounds
 {
-    [CreateAssetMenu (fileName ="MusicBundle", menuName ="MusicBundle")]
+    [CreateAssetMenu (fileName ="New MusicBundle", menuName ="New MusicBundle")]
     public class MusicBundle : ScriptableObject
     {
         public AudioClip music;
