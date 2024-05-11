@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using System.Collections.Generic;
@@ -20,9 +20,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private PlayerInput playerInput;
         [SerializeField] private QuickSlot _sellingQuickSlot;
 
-        private void Start()
+        private void Awake()
         {
-            instance = this;
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(this.gameObject);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

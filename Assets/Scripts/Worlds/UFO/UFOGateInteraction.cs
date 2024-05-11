@@ -45,8 +45,8 @@ namespace Ciart.Pagomoa.Worlds.UFO
             _inCollider = _gateIn.GetComponent<CircleCollider2D>();
             _outCollider = GetComponent<CircleCollider2D>();
 
-            _gateIn.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
-            _gateOut.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
+            _gateIn.GetComponent<InteractableObject>().interactionEvent.AddListener(ActiveGravityBeam);
+            _gateOut.GetComponent<InteractableObject>().interactionEvent.AddListener(ActiveGravityBeam);
 
             _beamBack = GetComponentInChildren<BeamBack>().GetComponent<SpriteRenderer>();
             _beamFront = GetComponentInChildren<BeamFront>().GetComponent<SpriteRenderer>();

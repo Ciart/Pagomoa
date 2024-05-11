@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Entities.Players
             GetComponentInParent<PlayerInput>().Actions.Interaction.started += context =>
             {
                 if (!_activatedObject) return;
-                _activatedObject.InteractionEvent.Invoke();
+                _activatedObject.interactionEvent.Invoke();
             };
         }
         void FixedUpdate()
