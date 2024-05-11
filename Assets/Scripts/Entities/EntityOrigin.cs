@@ -28,6 +28,8 @@ namespace Ciart.Pagomoa.Entities
         public int subType;
 
         public bool isEnemy;
+
+        public bool isInvincible;
         
         public EntityController prefab;
         

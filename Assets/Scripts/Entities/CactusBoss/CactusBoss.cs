@@ -9,9 +9,9 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         public float speed = 20f;
 
-        public float attackRange = 10f;
+        public float attackRange = 30f;
 
-        public float attackRate = 0.5f;
+        public float attackRate = 1f;
 
         [HideInInspector]
         [NonSerialized]
@@ -41,9 +41,14 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             _animator = GetComponent<Animator>();
         }
 
+        // TODO: 삭제 예정.
         public void ResetArm()
         {
             _animator.SetTrigger("Idle");
+        }
+
+        public void ApplyAttackRate()
+        {
             _nextAttack = Time.time + attackRate;
         }
 
@@ -54,16 +59,6 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
             var arm = EntityManager.instance.Spawn(armOrigin, spawnPosition);
             arm.parent = controller;
-        }
-
-        private void OnSmallJumpUp()
-        {
-            
-        }
-
-        private void OnSmallJumpDown()
-        {
-
         }
     }
 }

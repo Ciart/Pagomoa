@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2357527780685838860}
   - component: {fileID: 8082500476600118954}
   - component: {fileID: 6265122512632462020}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: noung
   m_TagString: NPC
   m_Icon: {fileID: 0}

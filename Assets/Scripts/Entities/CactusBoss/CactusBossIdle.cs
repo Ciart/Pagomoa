@@ -9,6 +9,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _cactusBoss = animator.GetComponent<CactusBoss>();
+            _cactusBoss.ApplyAttackRate();
         }
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -28,7 +29,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                 }
                 else
                 {
-                    animator.SetTrigger("SmallJump");
+                    animator.SetTrigger("TakeDown");
                 }
             }
             else

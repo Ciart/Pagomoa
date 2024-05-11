@@ -3220,6 +3220,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2021472510585308925, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
+      propertyPath: uiOffset.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4074779730341191468, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.64
@@ -3329,7 +3333,8 @@ PrefabInstance:
       value: 0.53125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5302021177878785907, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6843392044339612283, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
@@ -3385,7 +3390,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000c563d9e3c584b7768139beb21f11519c
+  m_ApplyToSortingLayers: 00000000c563d9e3c584b7761f11519c8139beb2edd4921c
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -7545,7 +7550,7 @@ GameObject:
   - component: {fileID: 1500683813}
   - component: {fileID: 1500683814}
   m_Layer: 5
-  m_Name: UI
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7660,6 +7665,7 @@ MonoBehaviour:
   hungrybar: {fileID: 696422447}
   inventoryUIPrefab: {fileID: 6869503557337763794, guid: 29acaf8792274624b96b9b1af5be2212, type: 3}
   escUI: {fileID: 726928999}
+  interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
   inventoryCamera: {fileID: 1469825036}
 --- !u!114 &1500683814
 MonoBehaviour:
@@ -11998,7 +12004,7 @@ PrefabInstance:
       objectReference: {fileID: 1009402063}
     - target: {fileID: 3083039652163683543, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.88
+      value: -2.42
       objectReference: {fileID: 0}
     - target: {fileID: 3083039652163683543, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12040,6 +12046,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: noung
       objectReference: {fileID: 0}
+    - target: {fileID: 3628637834904415878, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3628637834904415878, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144998713433992924, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 5e53e59a8194340f89619cd8641c4efa, type: 3}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: uiOffset.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8082500476600118954, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: updateTime
       value: 4
@@ -12051,7 +12073,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8082500476600118954, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
     - {fileID: 2357527780685838860, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7670807927592362859, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}

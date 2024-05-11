@@ -1,10 +1,11 @@
-using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.CactusBoss
 {
     public class CactusBossSmallJump : StateMachineBehaviour
     {
+        public float jumpForce = 20f;
+
         private CactusBoss _cactusBoss;
 
         private Vector2 _targetPosition;
@@ -14,7 +15,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             _cactusBoss = animator.GetComponent<CactusBoss>();
             _targetPosition = EntityManager.instance.player.transform.position;
 
-            _cactusBoss.rigidbody.velocity = new Vector2(0, 12);
+            _cactusBoss.rigidbody.AddForce(new Vector2(0, jumpForce));
         }
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -8,12 +8,13 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : SingletonMonoBehaviour<UIManager>
     {
         public Image oxygenbar;
         public Image hungrybar;
         public GameObject inventoryUIPrefab;
         public GameObject escUI;
+        public GameObject interactableUI;
         public CinemachineVirtualCamera inventoryCamera;
 
         private PlayerInput _playerInput;
@@ -22,6 +23,8 @@ namespace Ciart.Pagomoa.Systems
 
         private void Awake()
         {
+            base.Awake();
+            
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
             _inventoryUI.SetActive(false);
         }
@@ -89,6 +92,11 @@ namespace Ciart.Pagomoa.Systems
                 Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
                     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             }
+        }
+
+        public static GameObject CreateInteractableUI(Transform parent)
+        {
+            return Instantiate(instance.interactableUI, parent);
         }
     }
 }

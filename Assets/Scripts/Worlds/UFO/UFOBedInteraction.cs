@@ -18,7 +18,7 @@ namespace Ciart.Pagomoa.Worlds.UFO
         {
             _interactable = GetComponent<InteractableObject>();
             
-            _interactable.InteractionEvent.AddListener(GotoBed);
+            _interactable.interactionEvent.AddListener(GotoBed);
             
             _timeManager = FindObjectOfType<TimeManager>();
         }

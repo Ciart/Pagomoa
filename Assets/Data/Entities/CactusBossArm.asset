@@ -17,5 +17,6 @@ MonoBehaviour:
   type: 100
   subType: 0
   isEnemy: 1
+  isInvincible: 1
   prefab: {fileID: 5207551622515475544, guid: ceec03b9d2b894880a5f415df97ac517, type: 3}
   baseHealth: 1000

@@ -121,13 +121,13 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: CactusBoss_Frame_0
     originalName: 
-    pivot: {x: 0.47398844, y: 0}
+    pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 426
+      x: 222
+      y: 215
       width: 175
       height: 203
     spriteID: 64903ebf45d1243798211d37c5043664
@@ -138,16 +138,16 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 426}
+    uvTransform: {x: 222, y: 215}
   - name: CactusBoss_Frame_1
     originalName: 
-    pivot: {x: 0.47398844, y: 0}
+    pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 192
-      y: 215
+      x: 441
+      y: 4
       width: 175
       height: 197
     spriteID: d70672d78b9104aa3a85e8e406094e0a
@@ -158,16 +158,16 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 192, y: 215}
+    uvTransform: {x: 441, y: 4}
   - name: CactusBoss_Frame_2
     originalName: 
-    pivot: {x: 0.47398844, y: 0}
+    pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 637
+      x: 222
+      y: 426
       width: 175
       height: 203
     spriteID: bfdfd0c10d37d4209b783a16f1f53299
@@ -178,7 +178,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 637}
+    uvTransform: {x: 222, y: 426}
   - name: CactusBoss_Frame_3
     originalName: 
     pivot: {x: 0.46857142, y: 0}
@@ -186,8 +186,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 192
-      y: 4
+      x: 222
+      y: 637
       width: 175
       height: 203
     spriteID: 25721ec16825b4ca58e8a0aa31c5acab
@@ -198,17 +198,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 192, y: 4}
+    uvTransform: {x: 222, y: 637}
   - name: CactusBoss_Frame_4
     originalName: 
-    pivot: {x: 0.48333335, y: 0}
+    pivot: {x: 0.3716216, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
-      width: 180
+      x: 441
+      y: 420
+      width: 148
       height: 203
     spriteID: f231cd4c88f934260b7893c18f6d0f31
     spriteBone: []
@@ -218,17 +218,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 441, y: 420}
   - name: CactusBoss_Frame_5
     originalName: 
-    pivot: {x: 0.47457626, y: 0}
+    pivot: {x: 0.5592417, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 215
-      width: 177
+      x: 222
+      y: 4
+      width: 211
       height: 203
     spriteID: eb0b3a88f2b374f53b3f97aa01ac8aa8
     spriteBone: []
@@ -238,18 +238,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 215}
+    uvTransform: {x: 222, y: 4}
   - name: CactusBoss_Frame_6
     originalName: 
-    pivot: {x: 0.43636364, y: 0}
+    pivot: {x: 0.53431374, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 192
-      y: 420
-      width: 165
-      height: 203
+      x: 4
+      y: 220
+      width: 204
+      height: 204
     spriteID: 94a54b6ad6c0f4809a6375292763dd9d
     spriteBone: []
     spriteOutline: []
@@ -258,18 +258,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 192, y: 420}
+    uvTransform: {x: 4, y: 220}
   - name: CactusBoss_Frame_7
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.5095238, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 848
-      width: 175
-      height: 114
+      y: 4
+      width: 210
+      height: 208
     spriteID: 0985b0af8f7484464ae16335e83be3e5
     spriteBone: []
     spriteOutline: []
@@ -278,18 +278,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 848}
+    uvTransform: {x: 4, y: 4}
   - name: CactusBoss_Frame_8
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.48333332, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 192
-      y: 631
-      width: 175
-      height: 114
+      x: 4
+      y: 432
+      width: 180
+      height: 203
     spriteID: d3fa93140d93c47558cda9ec773bc551
     spriteBone: []
     spriteOutline: []
@@ -298,18 +298,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 192, y: 631}
+    uvTransform: {x: 4, y: 432}
   - name: CactusBoss_Frame_9
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47457626, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 192
-      y: 753
-      width: 175
-      height: 75
+      x: 4
+      y: 643
+      width: 177
+      height: 203
     spriteID: d260c0e149375484c9c2b40953646b0f
     spriteBone: []
     spriteOutline: []
@@ -318,7 +318,107 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 192, y: 753}
+    uvTransform: {x: 4, y: 643}
+  - name: CactusBoss_Frame_10
+    originalName: 
+    pivot: {x: 0.43636364, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 441
+      y: 209
+      width: 165
+      height: 203
+    spriteID: 8e0835825e9564a36a03da4e0f9147d0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 441, y: 209}
+  - name: CactusBoss_Frame_11
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 854
+      width: 175
+      height: 114
+    spriteID: a5c03be80f53042d193848ce5f46e787
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 854}
+  - name: CactusBoss_Frame_12
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 222
+      y: 848
+      width: 175
+      height: 114
+    spriteID: c66eadff5fdd54edb91496bc83b487cb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 222, y: 848}
+  - name: CactusBoss_Frame_13
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 441
+      y: 631
+      width: 175
+      height: 114
+    spriteID: a4e236a76ad48452398ba4c667ed2629
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 441, y: 631}
+  - name: CactusBoss_Frame_14
+    originalName: 
+    pivot: {x: 0.46857142, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 441
+      y: 753
+      width: 175
+      height: 114
+    spriteID: 2c8af8a01d4d04938befb3a0b565d9f4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 441, y: 753}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -331,7 +431,7 @@ ScriptedImporter:
     - name: CactusBoss_Frame_0
       frameIndex: 0
       cellRect:
-        x: 14
+        x: 78
         y: 0
         width: 173
         height: 201
@@ -339,7 +439,7 @@ ScriptedImporter:
     - name: CactusBoss_Frame_1
       frameIndex: 1
       cellRect:
-        x: 14
+        x: 78
         y: 0
         width: 173
         height: 195
@@ -347,7 +447,7 @@ ScriptedImporter:
     - name: CactusBoss_Frame_2
       frameIndex: 2
       cellRect:
-        x: 14
+        x: 78
         y: 0
         width: 173
         height: 201
@@ -355,7 +455,7 @@ ScriptedImporter:
     - name: CactusBoss_Frame_3
       frameIndex: 3
       cellRect:
-        x: 14
+        x: 78
         y: 0
         width: 173
         height: 201
@@ -363,51 +463,91 @@ ScriptedImporter:
     - name: CactusBoss_Frame_4
       frameIndex: 4
       cellRect:
-        x: 9
+        x: 105
         y: 0
-        width: 178
+        width: 146
         height: 201
       spriteId: f231cd4c88f934260b7893c18f6d0f31
     - name: CactusBoss_Frame_5
       frameIndex: 5
       cellRect:
-        x: 12
+        x: 42
         y: 0
-        width: 175
+        width: 209
         height: 201
       spriteId: eb0b3a88f2b374f53b3f97aa01ac8aa8
     - name: CactusBoss_Frame_6
       frameIndex: 6
       cellRect:
-        x: 24
+        x: 51
         y: 0
-        width: 163
-        height: 201
+        width: 202
+        height: 202
       spriteId: 94a54b6ad6c0f4809a6375292763dd9d
     - name: CactusBoss_Frame_7
       frameIndex: 7
       cellRect:
-        x: 14
+        x: 53
         y: 0
-        width: 173
-        height: 112
+        width: 208
+        height: 206
       spriteId: 0985b0af8f7484464ae16335e83be3e5
     - name: CactusBoss_Frame_8
       frameIndex: 8
       cellRect:
-        x: 14
+        x: 73
         y: 0
-        width: 173
-        height: 112
+        width: 178
+        height: 201
       spriteId: d3fa93140d93c47558cda9ec773bc551
     - name: CactusBoss_Frame_9
       frameIndex: 9
       cellRect:
-        x: 14
+        x: 76
+        y: 0
+        width: 175
+        height: 201
+      spriteId: d260c0e149375484c9c2b40953646b0f
+    - name: CactusBoss_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 88
+        y: 0
+        width: 163
+        height: 201
+      spriteId: 8e0835825e9564a36a03da4e0f9147d0
+    - name: CactusBoss_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 78
         y: 0
         width: 173
-        height: 73
-      spriteId: d260c0e149375484c9c2b40953646b0f
+        height: 112
+      spriteId: a5c03be80f53042d193848ce5f46e787
+    - name: CactusBoss_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 78
+        y: 0
+        width: 173
+        height: 112
+      spriteId: c66eadff5fdd54edb91496bc83b487cb
+    - name: CactusBoss_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 78
+        y: 0
+        width: 173
+        height: 112
+      spriteId: a4e236a76ad48452398ba4c667ed2629
+    - name: CactusBoss_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 78
+        y: 0
+        width: 173
+        height: 112
+      spriteId: 2c8af8a01d4d04938befb3a0b565d9f4
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -461,4 +601,4 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 192, y: 224}
+  canvasSize: {x: 320, y: 224}

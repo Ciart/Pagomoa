@@ -199,7 +199,6 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
   parent: {fileID: 0}
-  isEnemy: 0
 --- !u!114 &5342312901274064250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,5 +213,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armOrigin: {fileID: 11400000, guid: 3d142c04d9cf94818be29d23476136c3, type: 2}
   speed: 20
-  attackRange: 10
-  attackRate: 0.5
+  attackRange: 30
+  attackRate: 1

@@ -31,8 +31,6 @@ namespace Ciart.Pagomoa.Entities
 
         public EntityController parent;
 
-        public bool isEnemy = false;
-
         public event Action<EntityDamagedEventArgs> damaged;
 
         public event Action died;
@@ -43,7 +41,9 @@ namespace Ciart.Pagomoa.Entities
 
         private float _invincibleTime;
 
-        public bool isInvincibleTime => _invincibleTime > 0;
+        public bool isEnemy => origin.isEnemy;
+
+        public bool isInvincible => _invincibleTime > 0 || origin.isInvincible;
 
         // https://discussions.unity.com/t/how-do-i-check-if-my-rigidbody-player-is-grounded/33250/11
         private bool _isGrounded;
@@ -73,8 +73,6 @@ namespace Ciart.Pagomoa.Entities
                     health = origin.baseHealth,
                     maxHealth = origin.baseHealth
                 };
-
-                isEnemy = origin.isEnemy;
             }
             else
             {
@@ -97,7 +95,7 @@ namespace Ciart.Pagomoa.Entities
         public void TakeDamage(float amount, float invincibleTime = 0f, EntityController attacker = null,
             DamageFlag flag = DamageFlag.None)
         {
-            if (isInvincibleTime)
+            if (isInvincible)
             {
                 return;
             }
@@ -133,7 +131,7 @@ namespace Ciart.Pagomoa.Entities
 
         private IEnumerator RunInvincibleTimeFlash()
         {
-            while (isInvincibleTime)
+            while (isInvincible)
             {
                 _spriteRenderer.color = Color.clear;
                 yield return new WaitForSeconds(0.05f);
