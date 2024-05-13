@@ -1,6 +1,5 @@
 using System;
 using Ciart.Pagomoa.Sounds;
-using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
@@ -12,14 +11,7 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 if (!SoundManager.instance.FindAudioSource("TeamEffect").isPlaying)
                 {
-                    SoundManager.instance.Play("FootSteps");
-                }
-            }
-            else
-            {
-                if (_audioSource.isPlaying)
-                {
-                    _audioSource.Stop();
+                    SoundManager.instance.PlaySfx("FootSteps");
                 }
             }
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Sounds
@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Sounds
         
         private void Start()
         {
-            Init();
+            // Init();
         }
         
         private void Update() // BGM Loop 시점 감지
@@ -28,23 +28,18 @@ namespace Ciart.Pagomoa.Sounds
         
         private void Init() // SfxBundle의 Type의 개수만큼 생성
         {
-            GameObject root = GameObject.Find("SfxSources");
-            if (root == null)
+            string[] soundNames = Enum.GetNames(typeof(SfxType));
+            for (int i = 0; i < soundNames.Length; i++)
             {
-                root = new GameObject { name = "SfxSources" };
-                Object.DontDestroyOnLoad(root);
-                
-                string[] soundNames = Enum.GetNames(typeof(SfxType));
-                for (int i = 0; i < soundNames.Length; i++)
-                {
-                    GameObject audioSource = new GameObject { name = soundNames[i] };
-                    sfxSources[i] = audioSource.AddComponent<AudioSource>();
-                    audioSource.transform.parent = root.transform;
-                }
+                GameObject audioSource = new GameObject { name = soundNames[i] };
+                sfxSources[i] = audioSource.AddComponent<AudioSource>();
+                audioSource.transform.parent = this.transform;
             }
         }
-        public void Play(MusicBundle bundle)// 배경음악 재생
+        public void PlayMusic(string bundleName)// 배경음악 재생
         {
+            MusicBundle bundle = FindMusicBundle(bundleName);
+            
             _loopStartSamples = (int)(bundle.loopStartTime * musicSource.clip.frequency);
             _loopEndSamples = (int)(bundle.loopEndTime * musicSource.clip.frequency);
             _loopLengthSamples = _loopEndSamples * _loopStartSamples;
@@ -52,7 +47,7 @@ namespace Ciart.Pagomoa.Sounds
             musicSource.clip = bundle.music;
             musicSource.Play();
         }
-        public void Play(string bundleName, Vector3? position = null) // 효과음 재생
+        public void PlaySfx(string bundleName, Vector3? position = null) // 효과음 재생
         {
             SfxBundle bundle = FindSfxBundle(bundleName);
             if (position == null) // SfxSources 자식들한테서 재생
@@ -61,7 +56,7 @@ namespace Ciart.Pagomoa.Sounds
             }
             else // 특정 position에서 소리 재생
             {
-                // PlayClipAtPoint(bundle.audioClip, position);
+                PlaySfxBundlePosition(bundle, position);
             }
         }
         private void PlaySfxBundle(SfxBundle bundle)
@@ -70,26 +65,38 @@ namespace Ciart.Pagomoa.Sounds
             switch (bundle.type)
             {
                 case SfxType.MonsterEffect:
-                    FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random]);
+                    FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random], FindAudioSource("MonsterEffect").volume);
                     break;
                 case SfxType.TeamEffect:
-                    FindAudioSource("TeamEffect").PlayOneShot(bundle.audioClip[random]);
+                    FindAudioSource("TeamEffect").PlayOneShot(bundle.audioClip[random], FindAudioSource("TeamEffect").volume);
                     break;
                 case SfxType.UIEffect:
-                    FindAudioSource("UIEffect").PlayOneShot(bundle.audioClip[random]);
+                    FindAudioSource("UIEffect").PlayOneShot(bundle.audioClip[random], FindAudioSource("UIEffect").volume);
                     break;
             }
         }
         
+        private void PlaySfxBundlePosition(SfxBundle bundle, Vector3? position)
+        {
+            int random = RandomClip(bundle);
+            AudioSource.PlayClipAtPoint(bundle.audioClip[random], position.GetValueOrDefault(), FindAudioSource("TeamEffect").volume);
+        }
         public AudioSource FindAudioSource(string indexName)
         {
             AudioSource sfxSource = Array.Find(sfxSources, source => source.gameObject.name == $"{indexName}");
             return sfxSource;
         }
         
+        private MusicBundle FindMusicBundle(string bundleName)
+        {
+            MusicBundle musicBundle =
+                Array.Find(AudioClipDB.instance.MusicBundleDB, bundle => bundle.name == bundleName);
+            return musicBundle;
+        }
         private SfxBundle FindSfxBundle(string bundleName)
         {
-            SfxBundle sfxBundle = Array.Find(AudioClipDB.instance.SfxBundleDB, bundle => bundle.name == bundleName);
+            SfxBundle sfxBundle = 
+                Array.Find(AudioClipDB.instance.SfxBundleDB, bundle => bundle.name == bundleName);
             return sfxBundle;
         }
         private int RandomClip(SfxBundle bundle)
