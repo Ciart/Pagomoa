@@ -15,5 +15,5 @@ MonoBehaviour:
   questName: "\uD074\uB85C\uBC84\uC950 \uC18C\uD0D52"
   questId: 3
   questPrerequisiteIds: 02000000
-  questStartPrologos: {fileID: 4900000, guid: eca49514a5d1d7549bef857ed9618e28, type: 3}
-  questCompletePrologos: {fileID: 4900000, guid: 4b4919b50aa4ca84b9037620d789d45e, type: 3}
+  questStartPrologue: {fileID: 4900000, guid: eca49514a5d1d7549bef857ed9618e28, type: 3}
+  questCompletePrologue: {fileID: 4900000, guid: 4b4919b50aa4ca84b9037620d789d45e, type: 3}

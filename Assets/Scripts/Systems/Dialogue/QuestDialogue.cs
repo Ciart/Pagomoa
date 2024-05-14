@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -11,8 +12,8 @@ namespace Ciart.Pagomoa
         public string questName;
         public int questId;
         public int[] questPrerequisiteIds;
-        public TextAsset questStartPrologos;
-        public TextAsset questCompletePrologos;
+        public TextAsset questStartPrologue;
+        public TextAsset questCompletePrologue;
         public bool IsPrerequisiteCompleted()
         {
             bool isReceivable = true;

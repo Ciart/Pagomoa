@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ink.Runtime;
 using TMPro;
@@ -8,6 +10,8 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
+    public delegate void QuestAccomplishment(DialogueTrigger questInCharge, int questId, bool isFinish);
+    
     public class DialogueManager : MonoBehaviour
     {
         public GameObject talkPannel;
@@ -21,7 +25,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private GameObject inButtonGroup;
 
         public List<Sprite> spriteGroup;
-
+        
         private static DialogueManager _instance = null;
 
         public static DialogueManager instance
@@ -36,6 +40,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
+        public QuestAccomplishment accomplishment;
+        
         public static event Action<Story> onCreateStory;
 
         private TextAsset _inkJsonAsset = null;
@@ -56,6 +62,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         UISelectMode uiMode = UISelectMode.Out;
         bool changeDialogue = false;
 
+
+        private void Start()
+        {
+            accomplishment = QuestAccomplish;
+        }
+        
         private void Update()
         {
             SetBtnSizeAfterContentSizeFitter();
@@ -241,7 +253,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    SetJsonAsset(quest.questStartPrologos);
+                    SetJsonAsset(quest.questStartPrologue);
                     StartStory();
                 });
             }
@@ -287,33 +299,33 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void QuestAccept(string id)
         {
             var questId = int.Parse(id);
-            var interact = _nowTrigger.GetComponent<InteractableObject>();
 
-            if (interact is null)
-            {
-                Debug.LogError("is not interactable quest NPC.");
-                return ;
-            }
-            
             Debug.Log("Quest Accept : " + questId);
             
-            QuestManager.instance.registerQuest.Invoke(interact, questId);
+            QuestManager.instance.registerQuest.Invoke(_nowTrigger, questId);
+        }
+
+        private void QuestAccomplish(DialogueTrigger questInCharge, int questId, bool isFinish)
+        {
+            _nowTrigger = questInCharge;
+            
+            if (isFinish is false) _nowTrigger.InitDialogue();
+            else
+            {
+                if (_nowTrigger.GetQuestDialogue().Any(dialogue => dialogue.questId == questId))
+                {
+                    _nowTrigger.QuestCompleteDialogue(questId);
+                }
+            }
         }
 
         private void QuestComplete(string id)
         {
             var questId = int.Parse(id);
-            var interact = _nowTrigger.GetComponent<InteractableObject>();
-            
-            if (interact is null)
-            {
-                Debug.LogError("is not interactable quest NPC.");
-                return ;
-            }
-            
+
             Debug.Log("Quest Complete : " + questId);
             
-            QuestManager.instance.completeQuest.Invoke(interact, questId);
+            QuestManager.instance.completeQuest.Invoke(_nowTrigger, questId);
         }
     }
 }

@@ -16,12 +16,36 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField]
     private QuestDialogue[] questDialogues;
 
+    private bool _isQuestDialogue;
+    
     public void StartStory()
     {
         if (basicDialogue == null) return;
         DialogueManager.instance.SetDialogueTrigger(this);
         DialogueManager.instance.SetJsonAsset(basicDialogue);
         DialogueManager.instance.StartStory();
+    }
+
+    public void StartSetUpTextStory()
+    {
+        if (basicDialogue == null) return;
+        DialogueManager.instance.SetDialogueTrigger(this);
+        
+        if (_isQuestDialogue == false)
+        {
+            DialogueManager.instance.SetJsonAsset(basicDialogue);
+            DialogueManager.instance.StartStory();
+        }
+        else
+        {
+            DialogueManager.instance.StartStory();
+            _isQuestDialogue = false;
+        }
+    }
+    
+    public void InitDialogue()
+    {
+        DialogueManager.instance.SetJsonAsset(basicDialogue);
     }
 
     public void StartDialogue()
@@ -41,8 +65,8 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (id == questDialogue.questId)
             {
-                DialogueManager.instance.SetJsonAsset(questDialogue.questCompletePrologos);
-                DialogueManager.instance.StartStory();
+                DialogueManager.instance.SetJsonAsset(questDialogue.questCompletePrologue);
+                _isQuestDialogue = true;
             }
         }
     }

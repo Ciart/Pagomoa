@@ -2,6 +2,7 @@
 using System.Text;
 using Logger;
 using Logger.ForEditorBaseScripts;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 
@@ -19,12 +20,39 @@ namespace Editor
 
         public override void OnInspectorGUI()
         {
+            
             Quest newQuest = (Quest)target;
             
-            newQuest.questId = EditorGUILayout.IntField("Quest ID", newQuest.questId);
-            newQuest.nextQuestId = EditorGUILayout.IntField("NextQuest ID", newQuest.nextQuestId);
-            newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
+            GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
+            newQuest.id = EditorGUILayout.IntField("Quest ID", newQuest.id);
+            GUILayout.EndVertical();
+            
+            GUILayout.Space(20);
+            
+            GUILayout.BeginVertical("선행 퀘스트 id", new GUIStyle(GUI.skin.window));
+            for (int i = 0; i < newQuest.nextQuestIds.Count; i++)
+            {
+                newQuest.nextQuestIds[i] = EditorGUILayout.IntField(i+1 + ". PrevQuest ID", newQuest.nextQuestIds[i]);    
+            }
+            
+            if (GUILayout.Button("+"))
+            {
+                newQuest.nextQuestIds.Add(0);
+            }
+
+            if (GUILayout.Button("-"))
+            {
+                if (newQuest.nextQuestIds.Count == 0) return;
+                newQuest.nextQuestIds.RemoveAt(newQuest.nextQuestIds.Count - 1);
+            }
+            GUILayout.EndVertical();
+            
+            GUILayout.Space(20);
+            
+            GUILayout.BeginVertical("퀘스트 설명", new GUIStyle(GUI.skin.window));
             newQuest.title = EditorGUILayout.TextField("퀘스트 제목", newQuest.title);
+            newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
+            GUILayout.EndVertical();
 
             GUILayout.Space(20);
             
@@ -33,6 +61,15 @@ namespace Editor
             newQuest.reward.targetEntity = (ScriptableObject)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(ScriptableObject), true);
             newQuest.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuest.reward.targetEntitySprite, typeof(Sprite), true);
             newQuest.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuest.reward.value);
+            GUILayout.EndVertical();
+            
+            GUILayout.Space(20);
+            
+            GUILayout.BeginVertical("퀘스트 대화", new GUIStyle(GUI.skin.window));
+            newQuest.startPrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Start Dialogue",
+                newQuest.completePrologue, typeof(TextAsset), true);
+            newQuest.completePrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Complete Dialogue",
+                newQuest.completePrologue, typeof(TextAsset), true);
             GUILayout.EndVertical();
             
             GUILayout.Space(20);

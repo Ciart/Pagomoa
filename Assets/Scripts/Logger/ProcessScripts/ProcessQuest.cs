@@ -25,9 +25,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
         
-        public ProcessQuest(int questId, int nextQuestId, string description, string title, Reward reward,
+        public ProcessQuest(InteractableObject questInCharge, int questId, int nextQuestId, string description, string title, Reward reward,
             List<QuestCondition> questConditions)
         {
+            this.questInCharge = questInCharge;
             this.questId = questId;
             this.nextQuestId = nextQuestId;
             this.description = description;
@@ -36,7 +37,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             elements = new List<IQuestElements>();
 
             EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
-            
+
             foreach (var condition in questConditions)
             {
                 switch (condition.questType)
@@ -208,10 +209,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public class PlayerMoveDistance : ProcessFloatQuestElements, IQuestElements
     {
         public bool complete { get; set; }
-        public Transform player { get; set; }
-        
+        private Vector3 _previousPos = Vector3.zero;
+
         ~PlayerMoveDistance() {
-            
+            EventManager.RemoveListener<PlayerMove>(MoveDistance);
         }
         
         public PlayerMoveDistance(QuestCondition elements)
@@ -231,35 +232,34 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return true;
         }
 
-        public override void CalculationValue()
+        public override void CalculationValue(IEvent e)
         {
-            
+            var playerMove = (PlayerMove)e;
+            var distance = Vector3.Distance(_previousPos, playerMove.playerPos);
+
+            compareValue += distance;
         }
 
         private void MoveDistance(PlayerMove e)
         {
-            // todo : 움직임 연산
+            if (_previousPos == Vector3.zero) _previousPos = e.playerPos;
+
+            CalculationValue(e);
+            
+            _previousPos = e.playerPos;
+            
+            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
         
         public bool CheckComplete()
         {
-            throw new NotImplementedException();
+            complete = compareValue >= value;
+            return complete;
         }
 
-        public string GetQuestSummary()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetValueToString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetCompareValueToString()
-        {
-            throw new NotImplementedException();
-        }
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString("F1"); }
+        public string GetCompareValueToString() { return compareValue.ToString("F1"); }
     }
     
     // How deeply player go down from y : 0. This quest calculate player best deep transform of y. 
@@ -276,7 +276,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             throw new NotImplementedException();
         }
 
-        public override void CalculationValue()
+        public override void CalculationValue(IEvent e)
         {
             throw new NotImplementedException();
         }

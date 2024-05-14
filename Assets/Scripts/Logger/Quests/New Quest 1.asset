@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: New Quest 1
   m_EditorClassIdentifier: 
   clear: 0
-  questId: 2
-  nextQuestId: 3
+  questInCharge: {fileID: 0}
+  id: 0
+  nextQuestIds: 
   title: "\uD14C\uC2A4\uD2B8\uB97C \uD574\uBCF4\uC790"
   description: "\uB450\uBC88\uC9F8 \uD14C\uC2A4\uD2B8"
+  startPrologue: {fileID: 0}
+  completePrologue: {fileID: 0}
   reward:
     gold: 2222
     targetEntity: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}

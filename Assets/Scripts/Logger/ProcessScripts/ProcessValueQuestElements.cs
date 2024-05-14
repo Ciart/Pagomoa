@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             targetEntity = initTargetEntity;
         }
         
-        public abstract void CalculationValue();
+        public abstract void CalculationValue(IEvent e);
     }
 
     public abstract class ProcessBoolQuestElements : ProcessQuestElements, IProcessQuestValue<bool>
