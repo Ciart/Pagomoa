@@ -11,6 +11,7 @@ namespace Ciart.Pagomoa.Sounds
         public AudioSource musicSource;
         public AudioSource[] sfxSources;
         
+        [SerializeField] private AudioMixer audioMixer;
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
@@ -65,20 +66,19 @@ namespace Ciart.Pagomoa.Sounds
             switch (bundle.type)
             {
                 case SfxType.MonsterEffect:
-                    FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random], FindAudioSource("MonsterEffect").volume);
+                    FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random], bundle.volume); // SfxBundle 볼륨으로 바꾸기
                     break;
                 case SfxType.TeamEffect:
-                    FindAudioSource("TeamEffect").PlayOneShot(bundle.audioClip[random], FindAudioSource("TeamEffect").volume);
+                    FindAudioSource("TeamEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
                     break;
                 case SfxType.UIEffect:
-                    FindAudioSource("UIEffect").PlayOneShot(bundle.audioClip[random], FindAudioSource("UIEffect").volume);
+                    FindAudioSource("UIEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
                     break;
             }
         }
-        
         private void PlaySfxBundlePosition(SfxBundle bundle, Vector3? position)
         {
-            int random = RandomClip(bundle);
+            int random = RandomClip(bundle);  
             AudioSource.PlayClipAtPoint(bundle.audioClip[random], position.GetValueOrDefault(), FindAudioSource("TeamEffect").volume);
         }
         public AudioSource FindAudioSource(string indexName)
@@ -86,7 +86,6 @@ namespace Ciart.Pagomoa.Sounds
             AudioSource sfxSource = Array.Find(sfxSources, source => source.gameObject.name == $"{indexName}");
             return sfxSource;
         }
-        
         private MusicBundle FindMusicBundle(string bundleName)
         {
             MusicBundle musicBundle =

@@ -1,22 +1,21 @@
-using System;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Sounds
 {
-    public class AudioMixerController : MonoBehaviour
+    public class AudioMixerController : SingletonMonoBehaviour<AudioMixerController>
     {
         [SerializeField] private AudioMixer audioMixer;
-        [SerializeField] private Slider masterSlider;
-        [SerializeField] private Slider musicSlider;
-        [SerializeField] private Slider sfxSlider;
-        [SerializeField] private Slider teamSlider;
-        [SerializeField] private Slider monsterSlider;
-        [SerializeField] private Slider uiSlider;
+        public Slider masterSlider;
+        public Slider musicSlider;
+        public Slider sfxSlider;
+        public Slider teamSlider;
+        public Slider monsterSlider;
+        public Slider uiSlider;
         
-        
-        private void Awake()
+        private void Start()
         {
             masterSlider.onValueChanged.AddListener(SetMasterVolume);
             musicSlider.onValueChanged.AddListener(SetMusicVolume);

@@ -1,30 +1,27 @@
-using Ciart.Pagomoa.Systems.Save;
-using UnityEngine;
-using UnityEngine.UI;
+using Ciart.Pagomoa.Sounds;
+using Ciart.Pagomoa.Systems;
+
 
 namespace Ciart.Pagomoa.UI.Title
 {
-    public class OptionDB : MonoBehaviour
+    public class OptionDB : SingletonMonoBehaviour<OptionDB>
     {
-        public static OptionDB instance = null;
-
-        [SerializeField] public int scale;
-        [SerializeField] public float audioValue;
-
+        public float masterMixerValue;
+        public float musicMixerValue;
+        public float sfxMixerValue;
+        public float teamMixerValue;
+        public float monsterMixerValue;
+        public float uiMixerValue;
+        public float uiScale;
+        
         private void Start()
         {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                if(instance != this)
-                    Destroy(gameObject);
-            }
-            SaveManager.Instance.LoadOption();
-            GameObject.Find("Canvas").GetComponent<CanvasScaler>().scaleFactor = scale;
+            masterMixerValue = AudioMixerController.instance.masterSlider.value;
+            musicMixerValue = AudioMixerController.instance.musicSlider.value;
+            sfxMixerValue = AudioMixerController.instance.sfxSlider.value;
+            teamMixerValue = AudioMixerController.instance.teamSlider.value;
+            monsterMixerValue = AudioMixerController.instance.monsterSlider.value;
+            uiMixerValue = AudioMixerController.instance.uiSlider.value;
         }
     }
 }
