@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
 using TMPro;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public int id;
         [SerializeField] public InventoryItem inventoryItem;
         [SerializeField] public Image selectedSlotImage;
-        void Start()
+        void Awake()
         {
             Instance = this;
         }

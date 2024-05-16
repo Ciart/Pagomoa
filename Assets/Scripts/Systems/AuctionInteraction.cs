@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Systems
         private void Start()
         {
             _interactable = GetComponent<InteractableObject>();
-            _interactable.InteractionEvent.AddListener(SetUI);
+            _interactable.interactionEvent.AddListener(SetUI);
         }
         private void SetUI()
         {

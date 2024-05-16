@@ -5,6 +5,7 @@ using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds.UFO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 

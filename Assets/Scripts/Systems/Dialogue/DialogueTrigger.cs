@@ -34,4 +34,17 @@ public class DialogueTrigger : MonoBehaviour
     {
         return questDialogues;
     }
+
+    public void QuestCompleteDialogue(int id)
+    {
+        foreach (var questDialogue in questDialogues)
+        {
+            if (id == questDialogue.questId)
+            {
+                DialogueManager.instance.SetJsonAsset(questDialogue.questCompletePrologos);
+                DialogueManager.instance.StartStory();
+            }
+        }
+    }
+    
 }
