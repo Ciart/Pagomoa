@@ -1,7 +1,6 @@
 ﻿using System;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
-using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Sounds
@@ -11,7 +10,6 @@ namespace Ciart.Pagomoa.Sounds
         public AudioSource musicSource;
         public AudioSource[] sfxSources;
         
-        [SerializeField] private AudioMixer audioMixer;
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
@@ -66,7 +64,7 @@ namespace Ciart.Pagomoa.Sounds
             switch (bundle.type)
             {
                 case SfxType.MonsterEffect:
-                    FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random], bundle.volume); // SfxBundle 볼륨으로 바꾸기
+                    FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
                     break;
                 case SfxType.TeamEffect:
                     FindAudioSource("TeamEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
