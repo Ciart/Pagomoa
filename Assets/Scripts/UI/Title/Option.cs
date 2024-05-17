@@ -8,7 +8,7 @@ namespace Ciart.Pagomoa.UI.Title
     {
         static public Option instance = null;
 
-        [SerializeField] public SetAudio audio;
+        // [SerializeField] public SetAudio audio;
  
 
         [SerializeField] public TMP_Dropdown dropdown;
@@ -42,13 +42,13 @@ namespace Ciart.Pagomoa.UI.Title
         }
         public void FirstOption()
         {
-            if (OptionDB.instance.scale == 1)
-            {
-                dropdown.value = currentOption;
-                SetDropDown(currentOption);
-            }
-            else
-                dropdown.value = OptionDB.instance.scale - 1;
+            // if (OptionDB.instance.scale == 1)
+            // {
+            //     dropdown.value = currentOption;
+            //     SetDropDown(currentOption);
+            // }
+            // else
+            //     dropdown.value = OptionDB.instance.scale - 1;
         }
         public void OnOptionUI()
         {
@@ -59,15 +59,15 @@ namespace Ciart.Pagomoa.UI.Title
         
             gameObject.SetActive(activeOption);
 
-            if(audio != null) 
-                OptionDB.instance.audioValue = audio.audioSlider.value;
+            // if(audio != null) 
+            //     OptionDB.instance.audioValue = audio.audioSlider.value;
 
         }
         public void OffOptionUI()
         {
             bool activeOption = false;
-            OptionDB.instance.scale = dropdown.value + 1;
-            AudioSlider.instance.SaveAudioValue();
+            // OptionDB.instance.scale = dropdown.value + 1;
+            // AudioSlider.instance.SaveAudioValue();
         
             gameObject.SetActive(activeOption);
         }
@@ -77,13 +77,13 @@ namespace Ciart.Pagomoa.UI.Title
         }
         public void SoundOptionCancle()
         {
-            if (audio != null)
-            {
-                audio.audioMixer.SetFloat("BGM", OptionDB.instance.audioValue);
-                audio.audioSlider.value = OptionDB.instance.audioValue;
-            }
-            OptionDB.instance.scale -= 1;
-            dropdown.value = OptionDB.instance.scale;
+            // if (audio != null)
+            // {
+            //     audio.audioMixer.SetFloat("BGM", OptionDB.instance.audioValue);
+            //     audio.audioSlider.value = OptionDB.instance.audioValue;
+            // }
+            // OptionDB.instance.scale -= 1;
+            // dropdown.value = OptionDB.instance.scale;
         
             gameObject.SetActive(false);
         }

@@ -1,4 +1,5 @@
 using System;
+using Ciart.Pagomoa.Sounds;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
@@ -8,16 +9,9 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             if (state == PlayerState.Walk && isGrounded && MathF.Abs(_rigidbody.velocity.x) > 0.1f)
             {
-                if (!_audioSource.isPlaying)
+                if (!SoundManager.instance.FindAudioSource("TeamEffect").isPlaying)
                 {
-                    _audioSource.Play();
-                }
-            }
-            else
-            {
-                if (_audioSource.isPlaying)
-                {
-                    _audioSource.Stop();
+                    SoundManager.instance.PlaySfx("FootSteps");
                 }
             }
         }
