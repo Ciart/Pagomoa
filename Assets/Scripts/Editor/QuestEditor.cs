@@ -24,32 +24,40 @@ namespace Editor
             Quest newQuest = (Quest)target;
             
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
+            GUILayout.Space(10);
             newQuest.id = EditorGUILayout.IntField("Quest ID", newQuest.id);
             GUILayout.EndVertical();
             
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("선행 퀘스트 id", new GUIStyle(GUI.skin.window));
-            for (int i = 0; i < newQuest.nextQuestIds.Count; i++)
+            GUILayout.Space(10);
+            for (int i = 0; i < newQuest.prevQuestIds.Count; i++)
             {
-                newQuest.nextQuestIds[i] = EditorGUILayout.IntField(i+1 + ". PrevQuest ID", newQuest.nextQuestIds[i]);    
+                newQuest.prevQuestIds[i] = EditorGUILayout.IntField(i+1 + ". PrevQuest ID", newQuest.prevQuestIds[i]);    
             }
+            
+            if( newQuest.prevQuestIds.Count == 0) 
+                EditorGUILayout.LabelField("There is no Prev Quest.");
+            
+            GUILayout.Space(10);
             
             if (GUILayout.Button("+"))
             {
-                newQuest.nextQuestIds.Add(0);
+                newQuest.prevQuestIds.Add(0);
             }
 
             if (GUILayout.Button("-"))
             {
-                if (newQuest.nextQuestIds.Count == 0) return;
-                newQuest.nextQuestIds.RemoveAt(newQuest.nextQuestIds.Count - 1);
+                if (newQuest.prevQuestIds.Count == 0) return;
+                newQuest.prevQuestIds.RemoveAt(newQuest.prevQuestIds.Count - 1);
             }
             GUILayout.EndVertical();
             
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("퀘스트 설명", new GUIStyle(GUI.skin.window));
+            GUILayout.Space(10);
             newQuest.title = EditorGUILayout.TextField("퀘스트 제목", newQuest.title);
             newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
             GUILayout.EndVertical();
@@ -57,6 +65,7 @@ namespace Editor
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
+            GUILayout.Space(10);
             newQuest.reward.gold = EditorGUILayout.IntField("보상 골드", newQuest.reward.gold);
             newQuest.reward.targetEntity = (ScriptableObject)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(ScriptableObject), true);
             newQuest.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuest.reward.targetEntitySprite, typeof(Sprite), true);
@@ -66,8 +75,9 @@ namespace Editor
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("퀘스트 대화", new GUIStyle(GUI.skin.window));
+            GUILayout.Space(10);
             newQuest.startPrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Start Dialogue",
-                newQuest.completePrologue, typeof(TextAsset), true);
+                newQuest.startPrologue, typeof(TextAsset), true);
             newQuest.completePrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Complete Dialogue",
                 newQuest.completePrologue, typeof(TextAsset), true);
             GUILayout.EndVertical();

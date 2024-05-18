@@ -15,7 +15,7 @@ namespace Logger
         {
             foreach (var quest in progressedQuests)
             {
-                if (quest.questId == id) return quest;
+                if (quest.id == id) return quest;
             }
             
             return null;

@@ -6,24 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/CollectMineral.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/CollectMineral.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 2.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete.ink" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/QuestFinish.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/QuestFinish.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/LoggerScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/LoggerScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessValueQuestElements.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessValueQuestElements.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestCompleteIcon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestCompleteIcon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 1.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueTrigger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/InteractableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/InteractableObject.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +51,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -119,6 +118,14 @@
       <workItem from="1715530051751" duration="5021000" />
       <workItem from="1715535190974" duration="2057000" />
       <workItem from="1715689006595" duration="4263000" />
+      <workItem from="1715703403514" duration="1636000" />
+      <workItem from="1715782177578" duration="6431000" />
+      <workItem from="1715859886041" duration="3893000" />
+      <workItem from="1715874278688" duration="5993000" />
+      <workItem from="1715951212921" duration="392000" />
+      <workItem from="1715951691478" duration="587000" />
+      <workItem from="1716040102624" duration="108000" />
+      <workItem from="1716040230063" duration="447000" />
     </task>
     <servers />
   </component>

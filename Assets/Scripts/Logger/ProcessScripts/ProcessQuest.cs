@@ -12,9 +12,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public class ProcessQuest
     {
-        public InteractableObject questInCharge;
+        public GameObject questInCharge;
         public int questId;
-        public int nextQuestId;
         public string description;
         public string title;
         public Reward reward;
@@ -25,20 +24,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
         
-        public ProcessQuest(InteractableObject questInCharge, int questId, int nextQuestId, string description, string title, Reward reward,
-            List<QuestCondition> questConditions)
+        public ProcessQuest(Quest quest, GameObject questInCharge)
         {
             this.questInCharge = questInCharge;
-            this.questId = questId;
-            this.nextQuestId = nextQuestId;
-            this.description = description;
-            this.title = title;
-            this.reward = reward;
+            this.questId = quest.id;
+            this.description = quest.description;
+            this.title = quest.title;
+            this.reward = quest.reward;
             elements = new List<IQuestElements>();
 
             EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
 
-            foreach (var condition in questConditions)
+            foreach (var condition in quest.questList)
             {
                 switch (condition.questType)
                 {

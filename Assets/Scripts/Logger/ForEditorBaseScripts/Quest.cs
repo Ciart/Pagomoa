@@ -12,7 +12,7 @@ namespace Logger.ForEditorBaseScripts
 
         [SerializeField] public GameObject questInCharge;
         [SerializeField] public int id;
-        [SerializeField] public List<int> nextQuestIds = new();
+        [SerializeField] public List<int> prevQuestIds = new();
         [SerializeField] public string title;
         [TextArea, SerializeField] public string description;
         

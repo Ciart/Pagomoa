@@ -1,74 +1,47 @@
-﻿using Ink.Parsed;
-using System.Collections;
-using System.Collections.Generic;
-using Ciart.Pagomoa.Systems.Dialogue;
+﻿using Logger.ForEditorBaseScripts;
 using UnityEngine;
-using UnityEngine.Events;
-using Ciart.Pagomoa;
 
-public class DialogueTrigger : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    [SerializeField]
-    private TextAsset basicDialogue = null;
+    public class DialogueTrigger : MonoBehaviour
+    {
+        [SerializeField]
+        private TextAsset basicDialogue;
 
-    [SerializeField]
-    private DailyDialogue dailyDialogues;
-    [SerializeField]
-    private QuestDialogue[] questDialogues;
-
-    private bool _isQuestDialogue;
+        [SerializeField]
+        private DailyDialogue dailyDialogues;
     
-    public void StartStory()
-    {
-        if (basicDialogue == null) return;
-        DialogueManager.instance.SetDialogueTrigger(this);
-        DialogueManager.instance.SetJsonAsset(basicDialogue);
-        DialogueManager.instance.StartStory();
-    }
+        [SerializeField]
+        private Quest[] quests;
 
-    public void StartSetUpTextStory()
-    {
-        if (basicDialogue == null) return;
-        DialogueManager.instance.SetDialogueTrigger(this);
-        
-        if (_isQuestDialogue == false)
+        public void StartStory()
         {
+            if (basicDialogue == null) return;
             DialogueManager.instance.SetJsonAsset(basicDialogue);
-            DialogueManager.instance.StartStory();
+            DialogueManager.instance.StartStory(this);
         }
-        else
+        
+        public void StartDialogue()
         {
-            DialogueManager.instance.StartStory();
-            _isQuestDialogue = false;
+            DialogueManager.instance.SetJsonAsset(dailyDialogues.GetRandomDialogue());
+            DialogueManager.instance.StartStory(this);
         }
-    }
-    
-    public void InitDialogue()
-    {
-        DialogueManager.instance.SetJsonAsset(basicDialogue);
-    }
 
-    public void StartDialogue()
-    {
-        DialogueManager.instance.SetJsonAsset(dailyDialogues.GetRandomDialogue());
-        DialogueManager.instance.StartStory();
-    }
-
-    public QuestDialogue[] GetQuestDialogue()
-    {
-        return questDialogues;
-    }
-
-    public void QuestCompleteDialogue(int id)
-    {
-        foreach (var questDialogue in questDialogues)
+        public Quest[] GetQuestDialogue()
         {
-            if (id == questDialogue.questId)
+            return quests;
+        }
+
+        public void QuestCompleteDialogue(int id)
+        {
+            foreach (var quest in quests)
             {
-                DialogueManager.instance.SetJsonAsset(questDialogue.questCompletePrologue);
-                _isQuestDialogue = true;
+                if (id == quest.id)
+                {
+                    DialogueManager.instance.SetJsonAsset(quest.completePrologue);
+                }
             }
         }
-    }
     
+    }
 }

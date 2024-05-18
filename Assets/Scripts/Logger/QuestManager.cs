@@ -28,10 +28,7 @@ namespace Ciart.Pagomoa.Logger
         public QuestDatabase database;
 
         [Header("QuestComplete Prefab")] 
-        public QuestCompleteIcon questFinishPrefab; 
-        
-        public RegisterQuest registerQuest;
-        public CompleteQuest completeQuest;
+        public QuestCompleteIcon questFinishPrefab;
 
         private static QuestManager _instance;
         public static QuestManager instance
@@ -49,145 +46,63 @@ namespace Ciart.Pagomoa.Logger
         private void Start()
         {
             database ??= GetComponent<QuestDatabase>();
-
-            registerQuest = RegistrationQuest;
-            completeQuest = CompleteQuest;
+            
+            EventManager.AddListener<QuestRegister>(RegistrationQuest);
         }
         
-        public void RegistrationQuest(DialogueTrigger questInCharge, int questId)
+        public void RegistrationQuest(QuestRegister e)
         {
+            
             foreach (var quest in database.quests)
             {
-                if (quest.id == questId)
+                if (quest.id != e.id) continue;
+                
+                EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
+                    
+                var target = e.questInCharge;
+                    
+                var progressQuest = new ProcessQuest(quest, e.questInCharge);
+
+                progressQuests.Add(progressQuest);
+
+                if (QuestUI.instance != null)
                 {
-                    EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
-                    
-                    var target = questInCharge.GetComponent<InteractableObject>();
-
-                    var targetTransform = questInCharge.transform;
-                    
-                    var completeIcon = 
-                        Instantiate(
-                            questFinishPrefab
-                            , targetTransform.GetChild(0).transform.position + new Vector3(0, 1.3f, 0)
-                            , Quaternion.identity, targetTransform);
-                    
-                    completeIcon.questId = questId;
-
-                    var q = new ProcessQuest(target, quest.id, 1, quest.description, quest.title,
-                        quest.reward, quest.questList);
-
-                    progressQuests.Add(q);
-
-                    if (QuestUI.instance != null)
-                    {
-                        QuestUI.instance.npcImages.Add(questInCharge.GetComponent<SpriteRenderer>().sprite);
-                        QuestUI.instance.MakeProgressQuestList();
-                    }
-                    
-                    EventManager.Notify(new SignalToNpc(q.questId, q.accomplishment, q.questInCharge));
+                    QuestUI.instance.npcImages.Add(target.GetComponent<SpriteRenderer>().sprite);
+                    QuestUI.instance.MakeProgressQuestList();
                 }
+                    
+                EventManager.Notify(new SignalToNpc(progressQuest.questId, progressQuest.accomplishment, progressQuest.questInCharge));
             }
         }
         
         public void QuestAccomplishment(SignalToNpc e)
         {
             var isQuestComplete = e.accomplishment;
-            var questInCharge = e.questInCharge;
+            var questInCharge = e.questInCharge.transform.Find("QuestCompleteIcon").GetComponent<QuestCompleteIcon>();
+            
 
-            var iconList = new List<QuestCompleteIcon>();
-            bool findQuest = false;
-
-            if (isQuestComplete == false)
+            if (isQuestComplete)
             {
-                for (int i = 0; i < questInCharge.transform.childCount; i++)
-                {
-                    findQuest = true;
-                    
-                    var icon = questInCharge.transform.GetChild(i).GetComponent<QuestCompleteIcon>();
-
-                    if (icon) iconList.Add(icon);
-                    
-                    if (!icon) continue;
-                    if (icon.questId == e.questId)
-                    {
-                        icon.InactiveQuestComplete();
-                        
-                        var dialogueTrigger = questInCharge.GetComponent<DialogueTrigger>();
-                        DialogueManager.instance.accomplishment.Invoke(dialogueTrigger, e.questId, false);
-
-                        iconList.Remove(icon);
-                    }
-                }
+                questInCharge.gameObject.SetActive(true);
+                EventManager.Notify(new IsQuestComplete(e.questId));
                 
-                if (!findQuest || iconList.Count == 0) return;
-
-                foreach (var icon in iconList)
-                {
-                    ProcessQuest quest;
-                    
-                    try
-                    {
-                        quest = FindQuestById(icon.questId);
-                        
-                        if (quest.accomplishment)
-                        {
-                            icon.ActiveQuestComplete();
-                    
-                            var dialogueTrigger = questInCharge.GetComponent<DialogueTrigger>();
-                            DialogueManager.instance.accomplishment.Invoke(dialogueTrigger, icon.questId, true);
-                            return ;   
-                        }
-                    }
-                    catch (NullReferenceException exception)
-                    {
-                        Console.WriteLine(exception);
-                        
-                        return;
-                    }
-                }
             }
             else
             {
-                for (int i = 0; i < questInCharge.transform.childCount; i++)
-                {
-                    var icon = questInCharge.transform.GetChild(i).GetComponent<QuestCompleteIcon>();
-                    
-                    if (icon) iconList.Add(icon);
-
-                    if (!icon) continue;
-                    if (icon.questId == e.questId)
-                    {
-                        findQuest = true;
-                        
-                        icon.ActiveQuestComplete();
-                        
-                        var dialogueTrigger = questInCharge.GetComponent<DialogueTrigger>();
-                        DialogueManager.instance.accomplishment.Invoke(dialogueTrigger, e.questId, true);
-                        
-                        iconList.Remove(icon);
-                    }
-                }
-
-                if (!findQuest || iconList.Count == 0) return;
-
-                foreach (var icon in iconList)
-                {
-                    
-                    Debug.Log(icon);
-                    icon.InactiveQuestComplete();
-                }
+                questInCharge.gameObject.SetActive(false);
+                
+                // todo : 이미 완료 상태로 대기중인 퀘스트가 있는지
             }
         }
         
         public void CompleteQuest(DialogueTrigger questInCharge, int id)
         {
-            for (int i = 0; i < questInCharge.transform.childCount; i++)
+            /*for (int i = 0; i < questInCharge.transform.childCount; i++)
             {
                 var icon = questInCharge.transform.GetChild(i).GetComponent<QuestCompleteIcon>();
                 if (!icon) continue;
                 if (icon.questId == id) Destroy(icon.gameObject);
-            }
+            }*/
 
             GetReward(id);
         }
@@ -232,10 +147,22 @@ namespace Ciart.Pagomoa.Logger
             
             foreach (var quest in database.progressedQuests)
             {
-                if (quest.questId == id) check = true;
+                if (quest.id == id) check = true;
             }
 
             return check;
+        }
+
+        public bool IsCompleteQuest(List<int> ids)
+        {
+            if (ids.Count == 0) return true;
+            
+            foreach (var id in ids)
+            {
+                if (!IsCompleteQuest(id)) return false;
+            }
+
+            return true;
         }
     }   
 }

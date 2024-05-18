@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1567439000459838490}
   - component: {fileID: -7352818095676281682}
   m_Layer: 0
-  m_Name: QuestFinish
+  m_Name: QuestCompleteIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

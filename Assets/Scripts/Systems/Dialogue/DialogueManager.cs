@@ -4,14 +4,13 @@ using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ink.Runtime;
+using Logger.ForEditorBaseScripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public delegate void QuestAccomplishment(DialogueTrigger questInCharge, int questId, bool isFinish);
-    
     public class DialogueManager : MonoBehaviour
     {
         public GameObject talkPannel;
@@ -40,8 +39,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        public QuestAccomplishment accomplishment;
-        
         public static event Action<Story> onCreateStory;
 
         private TextAsset _inkJsonAsset = null;
@@ -62,12 +59,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         UISelectMode uiMode = UISelectMode.Out;
         bool changeDialogue = false;
 
-
-        private void Start()
-        {
-            accomplishment = QuestAccomplish;
-        }
-        
         private void Update()
         {
             SetBtnSizeAfterContentSizeFitter();
@@ -86,14 +77,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             _inkJsonAsset = asset;
         }
-
-        public void SetDialogueTrigger(DialogueTrigger trigger)
+        
+        public void StartStory(DialogueTrigger trigger, int id = 0)
         {
             _nowTrigger = trigger;
-        }
-
-        public void StartStory()
-        {
+            
             story = new Story(_inkJsonAsset.text);
             if (onCreateStory != null) onCreateStory(story);
             RefreshView();
@@ -240,21 +228,21 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        private void SelectQuest(QuestDialogue[] quests)
+        private void SelectQuest(Quest[] quests)
         {
             uiMode = UISelectMode.In;
             foreach (var quest in quests)
             {
-                if (!quest.IsPrerequisiteCompleted()) continue;
-                if (QuestManager.instance.IsRegisteredQuest(quest.questId)) continue;
-                if (QuestManager.instance.IsCompleteQuest(quest.questId)) continue;
+                if (!QuestManager.instance.IsCompleteQuest(quest.prevQuestIds)) continue;
+                if (QuestManager.instance.IsRegisteredQuest(quest.id)) continue;
+                if (QuestManager.instance.IsCompleteQuest(quest.id)) continue;
 
-                Button button = CreateChoiceView(quest.questName);
+                Button button = CreateChoiceView(quest.title);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    SetJsonAsset(quest.questStartPrologue);
-                    StartStory();
+                    SetJsonAsset(quest.startPrologue);
+                    StartStory(_nowTrigger);
                 });
             }
             if (quests.Length < 1)
@@ -301,21 +289,21 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var questId = int.Parse(id);
 
             Debug.Log("Quest Accept : " + questId);
+
+            var target = _nowTrigger.gameObject;
             
-            QuestManager.instance.registerQuest.Invoke(_nowTrigger, questId);
+            EventManager.Notify(new QuestRegister(target, questId));
+            
+            EventManager.AddListener<IsQuestComplete>(QuestAccomplish);
         }
 
-        private void QuestAccomplish(DialogueTrigger questInCharge, int questId, bool isFinish)
+        private void QuestAccomplish(IsQuestComplete e)
         {
-            _nowTrigger = questInCharge;
-            
-            if (isFinish is false) _nowTrigger.InitDialogue();
-            else
+            var a = e.id;
+
+            if (_nowTrigger.GetQuestDialogue().Any(quest => quest.id == e.id))
             {
-                if (_nowTrigger.GetQuestDialogue().Any(dialogue => dialogue.questId == questId))
-                {
-                    _nowTrigger.QuestCompleteDialogue(questId);
-                }
+                _nowTrigger.QuestCompleteDialogue(e.id);
             }
         }
 
@@ -325,7 +313,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             Debug.Log("Quest Complete : " + questId);
             
-            QuestManager.instance.completeQuest.Invoke(_nowTrigger, questId);
+            EventManager.RemoveListener<IsQuestComplete>(QuestAccomplish);
         }
     }
 }
