@@ -6,32 +6,38 @@ namespace Ciart.Pagomoa.Systems
 {
     public class InteractableObject : MonoBehaviour
     {
-        private SpriteRenderer _spriteRenderer;
-        private SpriteRenderer _clickRenderer;
+        public Vector3 uiOffset = new Vector3(0f, 2f, 0f);
 
-        private readonly string _outline = "_OutlineColor";
-    
         // 유니티 이벤트 호출
         public UnityEvent interactionEvent; 
-        
-        void Start()
+
+        private SpriteRenderer _spriteRenderer;
+
+        private GameObject _interactableUI;
+
+        private const string Outline = "_OutlineColor";
+    
+        private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _clickRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-            _clickRenderer.enabled = false;
+
+            _interactableUI = UIManager.CreateInteractableUI(transform);
+            _interactableUI.SetActive(false);
+            _interactableUI.transform.position += uiOffset;
         }
+
         public void ActiveObject()
         {
-            Color a = new Color(0.38f,0.75f, 0.92f, 1f);
+            var color = new Color(0.38f,0.75f, 0.92f, 1f);
         
-            _spriteRenderer.material.SetColor(_outline, a);
-            _clickRenderer.enabled = true;
+            _spriteRenderer.material.SetColor(Outline, color);
+            _interactableUI.SetActive(true);
         }
 
         public void DisableObject()
         {
-            _spriteRenderer.material.SetColor(_outline, Color.white);
-            _clickRenderer.enabled = false;
+            _spriteRenderer.material.SetColor(Outline, Color.white);
+            _interactableUI.SetActive(false);
         }
     }
 }

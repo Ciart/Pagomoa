@@ -160,12 +160,12 @@
                 },
                 {
                     "name": "DigDirection",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6bed1080-9a66-45bd-a28a-b52c96067e3a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -597,6 +597,17 @@
                     "action": "DigDirection",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7a6690ac-c260-45d1-a556-0026476393d8",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DigDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
