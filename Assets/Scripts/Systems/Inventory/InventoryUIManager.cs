@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -11,6 +11,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private Button _itemsTabButton;
         [SerializeField] private GameObject _infoTab;
         [SerializeField] private Button _infoTabButton;
+        [SerializeField] private GameObject _questTab;
+        [SerializeField] private Button _questTabButton;
         [SerializeField] private Sprite[] _tabSprites;
         [SerializeField] public GameObject ItemHoverObject;
 
@@ -32,6 +34,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             _itemsTab.SetActive(true);
             _infoTab.SetActive(false);
+            _questTab.SetActive(false);
             _itemsTabButton.image.sprite = _tabSprites[0];
             _infoTabButton.image.sprite = _tabSprites[2];
         }
@@ -39,8 +42,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             _infoTab.SetActive(true);
             _itemsTab.SetActive(false);
+            _questTab.SetActive(false);
             _infoTabButton.image.sprite = _tabSprites[3];
             _itemsTabButton.image.sprite = _tabSprites[1];
+        }
+        public void ClickQuestTab()
+        {
+            _questTab.SetActive(true);
+            _itemsTab.SetActive(false);
+            _infoTab.SetActive(false);
+            //_infoTabButton.image.sprite = _tabSprites[3];
+            //_itemsTabButton.image.sprite = _tabSprites[1];
         }
     }
 }

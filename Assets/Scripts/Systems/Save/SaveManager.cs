@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
@@ -185,16 +185,7 @@ namespace Ciart.Pagomoa.Systems.Save
             else
                 Debug.Log("Item Data is Nothing");
         }
-
-        public void LoadOption()
-        {
-            if (DataManager.Instance.data.optionData != null)
-            {
-                OptionDB.instance.scale = DataManager.Instance.data.optionData.scale;
-                OptionDB.instance.audioValue = DataManager.Instance.data.optionData.audioValue;
-            }
-        }
-
+        
         public void LoadArtifactItem()
         {
             if(DataManager.Instance.data.artifactData != null && ArtifactSlotDB.Instance != null)
@@ -207,9 +198,9 @@ namespace Ciart.Pagomoa.Systems.Save
             var dataManager = DataManager.Instance;
             if (dataManager.data.quickSlotData == null) return;
 
-            if (dataManager.data.quickSlotData.items != null)
+            if (dataManager.data.quickSlotData.items.Find(x => x.item) != null)
             {
-                QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items.ToList();
+                QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items/*.ToList()*/;
                 QuickSlot.Instance.SetQuickSlot();
                 QuickSlotItemDB.instance.ControlQuickSlot(dataManager.data.quickSlotData.selectedSlotID);
             }
@@ -265,13 +256,7 @@ namespace Ciart.Pagomoa.Systems.Save
             InitData();
             DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
         }
-
-        public void WriteOptionData()
-        {
-            InitData();
-            DataManager.Instance.data.optionData.SetOptionDataFromOptionDB(OptionDB.instance);
-        }
-
+        
         private void WriteArtifactData()
         {
             InitData();
@@ -322,11 +307,11 @@ namespace Ciart.Pagomoa.Systems.Save
                 Debug.Log("No Item Data before, Instantiate new Item Data");
                 DataManager.Instance.data.itemData = new ItemData();
             }
-            if (DataManager.Instance.data.optionData == null)
-            {
-                Debug.Log("No Option Data before, Instantiate new Option Data");
-                DataManager.Instance.data.optionData = new OptionData();
-            }
+            // if (DataManager.Instance.data.optionData == null)
+            // {
+            //     Debug.Log("No Option Data before, Instantiate new Option Data");
+            //     DataManager.Instance.data.optionData = new OptionData();
+            // }
             if (DataManager.Instance.data.artifactData == null)
             {
                 Debug.Log("No Artifact Data before, Instantiate new Artifact Data");
@@ -355,7 +340,6 @@ namespace Ciart.Pagomoa.Systems.Save
             WritePosData();
             WriteMapData();
             WriteItemData();
-            WriteOptionData();
             WriteArtifactData();
             WriteQuickSlotData();
             WritePlayerCurrentStatusData();
