@@ -24,18 +24,18 @@ namespace Ciart.Pagomoa.Worlds
 
         private World _world;
 
-        public World world
+        public static World world
         {
-            get => _world;
+            get => instance._world;
             set
             {
-                if (_world == value)
+                if (instance._world == value)
                 {
                     return;
                 }
 
-                _world = value;
-                EventManager.Notify(new WorldCreatedEvent(_world));
+                instance._world = value;
+                EventManager.Notify(new WorldCreatedEvent(instance._world));
             }
         }
 
@@ -59,7 +59,8 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var chunk in _expiredChunks)
             {
-                EventManager.Notify(new ChunkChangedEvent(chunk));
+                // TODO: Level 값 다른 방식으로 변경
+                EventManager.Notify(new ChunkChangedEvent(world.currentLevel, chunk));
             }
 
             _expiredChunks.Clear();
@@ -93,7 +94,7 @@ namespace Ciart.Pagomoa.Worlds
         public bool CheckNull(Vector3 pos)
         {
             var p = ComputeCoords(pos);
-            var brick = _world.GetBrick(p.x, p.y, out var chunk);
+            var brick = _world.currentLevel.GetBrick(p.x, p.y, out var chunk);
             if (brick?.ground is null)
                 return true;
             else
@@ -134,7 +135,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var (coords, damage) in diggingBrickDamage)
             {
-                var brick = _world.GetBrick(coords.x, coords.y, out _);
+                var brick = _world.currentLevel.GetBrick(coords.x, coords.y, out _);
 
                 if (brick?.ground is null)
                 {
@@ -170,7 +171,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public void BreakGround(int x, int y, int tier, bool isForceBreak = false)
         {
-            var brick = _world.GetBrick(x, y, out var chunk);
+            var brick = _world.currentLevel.GetBrick(x, y, out var chunk);
             var rock = database.GetMineral("Rock");
 
             if (chunk is null)
@@ -197,7 +198,7 @@ namespace Ciart.Pagomoa.Worlds
             brick.ground = null;
             brick.mineral = null;
 
-            foreach (var c in _world.GetNeighborChunks(chunk.key))
+            foreach (var c in _world.currentLevel.GetNeighborChunks(chunk.key))
             {
                 _expiredChunks.Add(c);
             }
@@ -207,7 +208,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public bool CheckBreakable(int x, int y, int tier, string item)
         {
-            var brick = _world.GetBrick(x, y, out var chunk);
+            var brick = _world.currentLevel.GetBrick(x, y, out var chunk);
             if (item == "item")
             {
                 if (chunk is null) return false;
@@ -232,7 +233,7 @@ namespace Ciart.Pagomoa.Worlds
         public bool CheckClimbable(Vector3 position)
         {
             var coords = ComputeCoords(position);
-            var brick = _world.GetBrick(coords.x, coords.y, out _);
+            var brick = _world.currentLevel.GetBrick(coords.x, coords.y, out _);
 
             var ladderPos = ufoLadder.WorldToCell(new Vector3(position.x, position.y - 1f));
             var ladder = ufoLadder.GetTile<TileBase>(ladderPos);

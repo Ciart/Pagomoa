@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Entities.Players
             drill.isGroundHit = _target.targetCoordsList.Any((coord) =>
             {
                 var (x, y) = coord;
-                var brick = WorldManager.instance.world.GetBrick(x, y, out _);
+                var brick = WorldManager.world.currentLevel.GetBrick(x, y, out _);
 
                 return brick.ground is not null;
             });

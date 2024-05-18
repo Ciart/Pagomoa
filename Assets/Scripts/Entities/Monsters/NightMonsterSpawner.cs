@@ -167,14 +167,13 @@ namespace Ciart.Pagomoa.Entities.Monsters
             {
                 for (int y = bottomLeft.y; y <= topRight.y; y++)
                 {
-                    var worldManager = WorldManager.instance;
-                    Vector2Int tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
-                    var tile = worldManager.world.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
+                    var tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
+                    var tile = WorldManager.world.currentLevel.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
 
                     if (!tile)
                     {
-                        Vector2Int isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
-                        var tileCheck = worldManager.world.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
+                        var isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
+                        var tileCheck = WorldManager.world.currentLevel.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
 
                         if (tileCheck)
                         {

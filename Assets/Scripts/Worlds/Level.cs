@@ -7,6 +7,10 @@ namespace Ciart.Pagomoa.Worlds
 {
     public class Level
     {
+        public readonly string id;
+        
+        public readonly LevelType type;
+        
         public readonly int top;
 
         public readonly int bottom;
@@ -19,8 +23,10 @@ namespace Ciart.Pagomoa.Worlds
         
         private readonly Dictionary<Vector2Int, Chunk> _chunks;
 
-        public Level(int top, int bottom, int left, int right)
+        public Level(string id, LevelType type, int top, int bottom, int left, int right)
         {
+            this.id = id;
+            this.type = type;
             this.top = top;
             this.bottom = bottom;
             this.left = left;
