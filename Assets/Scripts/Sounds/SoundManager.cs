@@ -59,8 +59,9 @@ namespace Ciart.Pagomoa.Sounds
             }
         }
         private void PlaySfxBundle(SfxBundle bundle)
-        {
+        { 
             int random = RandomClip(bundle);
+            
             switch (bundle.type)
             {
                 case SfxType.MonsterEffect:
@@ -98,8 +99,16 @@ namespace Ciart.Pagomoa.Sounds
         }
         private int RandomClip(SfxBundle bundle)
         {
-            int random = Random.Range(0, bundle.audioClip.Length);
-            return random;
+            Debug.Log(bundle.name);
+            if (bundle.audioClip.Length >= 2)
+            {
+                int random = Random.Range(0, bundle.audioClip.Length);
+                return random;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

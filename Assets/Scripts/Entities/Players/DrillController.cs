@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public Vector2 rightOffset;
         
-        public AudioClip spinSound;
+        // public AudioClip spinSound;
 
         public AudioClip groundHitSound;
 
@@ -28,7 +29,7 @@ namespace Ciart.Pagomoa.Entities.Players
         
         public bool isGroundHit;
         
-        private AudioSource _spinAudioSource;
+        // private AudioSource _spinAudioSource;
         
         private AudioSource _groundHitAudioSource;
         
@@ -41,9 +42,9 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Awake()
         {
             // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
-            _spinAudioSource = gameObject.AddComponent<AudioSource>();
-            _spinAudioSource.clip = spinSound;
-            _spinAudioSource.volume = 0.25f;
+            // _spinAudioSource = gameObject.AddComponent<AudioSource>();
+            // _spinAudioSource.clip = spinSound;
+            // _spinAudioSource.volume = 0.25f;
             
             // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
             _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
@@ -54,7 +55,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            _spinAudioSource.Play();
+            // _spinAudioSource.Play();
+            SoundManager.instance.PlaySfx("DrillSpin");
         }
 
         private void UpdateDirection()
@@ -87,30 +89,33 @@ namespace Ciart.Pagomoa.Entities.Players
 
             if (isGroundHit)
             {
-                if (!_groundHitAudioSource.isPlaying)
-                {
-                    if (_groundHitAudioSource.clip == groundHitSound)
-                    {
-                        _groundHitAudioSource.clip = groundHitLoopSound;
-                        _groundHitAudioSource.loop = true;
-                    }
-                    else
-                    {
-                        _groundHitAudioSource.clip = groundHitSound;
-                        _groundHitAudioSource.loop = false;
-                    }
+                // if (!SoundManager.instance.FindAudioSource("TeamEffect").clip == AudioClipDB.instance.SfxBundleDB)
+                //     SoundManager.instance.PlaySfx("DrillGroundHit");
                     
-                    _groundHitAudioSource.Play();
-                }
+                // if (!_groundHitAudioSource.isPlaying)
+                // {
+                    // if (_groundHitAudioSource.clip == groundHitSound)
+                    // {
+                    //     _groundHitAudioSource.clip = groundHitLoopSound;
+                    //     _groundHitAudioSource.loop = true;
+                    // }
+                    // else
+                    // {
+                    //     _groundHitAudioSource.clip = groundHitSound;
+                    //     _groundHitAudioSource.loop = false;
+                    // }
+                    //
+                    // _groundHitAudioSource.Play();
+                // }
             }
-            else
-            {
-                if (_groundHitAudioSource.isPlaying)
-                {
-                    _groundHitAudioSource.Stop();
-                    _groundHitAudioSource.clip = groundHitLoopSound;
-                }
-            }
+            // else
+            // {
+            //     if (_groundHitAudioSource.isPlaying)
+            //     {
+            //         _groundHitAudioSource.Stop();
+            //         _groundHitAudioSource.clip = groundHitLoopSound;
+            //     }
+            // }
             
             foreach (var enemy in _enemies)
             {

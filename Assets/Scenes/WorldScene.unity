@@ -2039,6 +2039,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: sfxBundleDB.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: sfxBundleDB.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: fc393ba8b34b4c547844f7874bc64f92, type: 2}
+    - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: sfxBundleDB.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 97df7277819f71d48be4d7c37736e965, type: 2}
+    - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: sfxBundleDB.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: e8be95aeb52c7d642bf87a93da466f5c, type: 2}
     - target: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: uiSlider
       value: 
