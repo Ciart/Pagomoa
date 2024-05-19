@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Systems
         private GameObject _inventoryUI;
         private bool _isActiveInventory;
 
-        private void Start()
+        protected override void Awake()
         {
             base.Awake();
             
