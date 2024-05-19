@@ -216,7 +216,7 @@ namespace Ciart.Pagomoa.Worlds
 
             RenderChunk(e.chunk.key);
         }
-        
+
         private void OnEnable()
         {
             EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
