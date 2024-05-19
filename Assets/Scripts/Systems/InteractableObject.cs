@@ -14,8 +14,9 @@ namespace Ciart.Pagomoa.Systems
         private SpriteRenderer _spriteRenderer;
 
         private GameObject _interactableUI;
-
+        
         private const string Outline = "_OutlineColor";
+        private static readonly int OutlineColor = Shader.PropertyToID(Outline);
     
         private void Awake()
         {
@@ -30,13 +31,13 @@ namespace Ciart.Pagomoa.Systems
         {
             var color = new Color(0.38f,0.75f, 0.92f, 1f);
         
-            _spriteRenderer.material.SetColor(Outline, color);
+            _spriteRenderer.material.SetColor(OutlineColor, color);
             _interactableUI.SetActive(true);
         }
 
         public void DisableObject()
         {
-            _spriteRenderer.material.SetColor(Outline, Color.white);
+            _spriteRenderer.material.SetColor(OutlineColor, Color.white);
             _interactableUI.SetActive(false);
         }
     }
