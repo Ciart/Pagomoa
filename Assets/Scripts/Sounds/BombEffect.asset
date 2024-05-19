@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecbb16de8c1347549bb9b4afb11ffa9e, type: 3}
-  m_Name: DrillSpin
+  m_Name: BombEffect
   m_EditorClassIdentifier: 
-  type: 3
+  type: 0
   audioClip:
-  - {fileID: 8300000, guid: 2ab08426cf58ee74dbcc1e3f411f9b6f, type: 3}
-  volume: 0.5
+  - {fileID: 8300000, guid: 36cadb212e7ece74aadca677cb6c8c47, type: 3}
+  volume: 0.25
