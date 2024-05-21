@@ -1,10 +1,8 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa
 {
@@ -15,50 +13,47 @@ namespace Ciart.Pagomoa
         public float halfFloatingTime = 2f;
         public AnimationCurve moveCurve;
 
-        private InteractableObject _interactable;
+        private float _moaSpeed = 1;
+        private bool _canInteraction;
         
         private int _floatingNormalized = -1;
         private bool _floatingEnd;
-        private Vector3 _prevTargetPosition;
-
+        
+        private Vector2 _targetDirectionVector;
+        private int _targetLastDirection = 1;
+        private PlayerMovement _targetMovement;
+        
         private const float LinearPoint = 1f;
-        
-        
-        
 
         void Start()
         {
             StartCoroutine(FindPlayer());
-
-            _interactable = GetComponent<InteractableObject>();
         }
         
         void Update()
         {
             if(!target) return;
+
+            if (_targetMovement) _targetDirectionVector = _targetMovement.directionVector;
             
-            if (TargetIsNotMove() && _floatingEnd)
+            var destinationPos = target.position + new Vector3(1.5f * _targetLastDirection, 1f, 0);
+
+            if (TargetIsNotMove() && _canInteraction)
             {
-                // todo: interaction 가능 & 상 하 선형운동
+                if (!_floatingEnd) return;
+                    
+                if (!transform.parent)
+                {
+                    transform.SetParent(target);
+                }
+                    
                 _floatingEnd = false;
                 StartCoroutine(MoaFloating());
             }
             else
             {
-                // todo: interaction 불가능 & 플레이어 따라가기 이건 Vector2 선형
-                StopAllCoroutines();
-                _floatingEnd = true;
-                
-                transform.SetParent(null);
-
-                var targetDirection = (_prevTargetPosition - target.position).x > 0 ? -1 : 1;    
-                var directionPos = _prevTargetPosition - transform.position;
-                
-                transform.position += directionPos * Time.deltaTime;
+                ChaseTarget(destinationPos);
             }
-
-            _prevTargetPosition = target.position;
-             
         }
 
         public void MoaTempInteraction() { Debug.Log(" 상호작용 "); }
@@ -91,19 +86,47 @@ namespace Ciart.Pagomoa
         {
             yield return new WaitForSeconds(2f);
 
-            var moaTransform = transform;
-            
-            target = FindObjectOfType<PlayerController>().transform;
-            
-            moaTransform.SetParent(target);
-            moaTransform.position = target.position + new Vector3(1.5f, 1f, 0);
-
-            _floatingEnd = true;
+            var player = FindObjectOfType<PlayerMovement>();
+            if (player)
+            {
+                target = player.transform;
+                _targetMovement = player;
+                _targetDirectionVector = player.directionVector;
+            }
         }
 
         private bool TargetIsNotMove()
         {
-            return _prevTargetPosition == target.position;
+            switch (_targetDirectionVector.x)
+            {
+                case 1 : _targetLastDirection = -1;
+                    _canInteraction = false;
+                    break;
+                case -1 : _targetLastDirection = 1;
+                    _canInteraction = false;
+                    break;
+            }
+
+            return _targetDirectionVector.x == 0;
+        }
+        
+        private void ChaseTarget(Vector3 destinationPos)
+        {
+            StopAllCoroutines();
+            if (transform.parent) transform.SetParent(null);
+
+            var distancePos = destinationPos - transform.position;
+
+            _moaSpeed = (Mathf.Abs(distancePos.x) > 2 || Mathf.Abs(distancePos.y) > 2) ? 5f : 2f;
+
+            transform.position = Vector3.MoveTowards(transform.position, destinationPos, Time.deltaTime * _moaSpeed);
+
+            if (transform.position == destinationPos)
+            {
+                _floatingEnd = true;
+                _canInteraction = true;
+                _floatingNormalized = -1;
+            }
         }
         
     }
