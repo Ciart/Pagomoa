@@ -17,13 +17,13 @@ namespace Ciart.Pagomoa.Sounds
         private void Start()
         {
             // Init();
-            PlayMusic("WorldMusic");
+            // PlayMusic("WorldMusic");
         }
         
         private void Update() // BGM Loop 시점 감지
         {
-            if (musicSource.timeSamples >= _loopEndSamples)
-                musicSource.timeSamples -= _loopLengthSamples;
+            // if (musicSource.timeSamples >= _loopEndSamples)
+            //     musicSource.timeSamples -= _loopLengthSamples;
         }
         
         private void Init() // SfxBundle의 Type의 개수만큼 생성
@@ -38,13 +38,14 @@ namespace Ciart.Pagomoa.Sounds
         }
         public void PlayMusic(string bundleName)// 배경음악 재생
         {
+            musicSource.Stop();
             MusicBundle bundle = FindMusicBundle(bundleName);
             
             musicSource.clip = bundle.music;
 
-            _loopStartSamples = (int)(bundle.loopStartTime * musicSource.clip.frequency);
-            _loopEndSamples = (int)(bundle.loopEndTime * musicSource.clip.frequency);
-            _loopLengthSamples = _loopEndSamples * _loopStartSamples;
+            // _loopStartSamples = (int)(bundle.loopStartTime * musicSource.clip.frequency);
+            // _loopEndSamples = (int)(bundle.loopEndTime * musicSource.clip.frequency);
+            // _loopLengthSamples = _loopEndSamples * _loopStartSamples;
             
             musicSource.Play();
         }

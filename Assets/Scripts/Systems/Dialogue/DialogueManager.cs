@@ -58,7 +58,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void Update()
         {
-            // SetBtnSizeAfterContentSizeFitter();
+            SetBtnSizeAfterContentSizeFitter();
         }
 
         private void SetBtnSizeAfterContentSizeFitter()

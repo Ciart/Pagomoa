@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   music: {fileID: 8300000, guid: 4a27b4c1332dc0e468d152be038010ee, type: 3}
   volume: 0.25
-  loopStartTime: 1
-  loopEndTime: 2
+  loopStartTime: 0.25
+  loopEndTime: 0.1
