@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 549794293895274938}
   - component: {fileID: 1257000768853689320}
   - component: {fileID: 377619212974230273}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Clovee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,10 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
+  origin: {fileID: 0}
   status:
     health: 0
     maxHealth: 0
+  parent: {fileID: 0}
   isEnemy: 0
 --- !u!114 &377619212974230273
 MonoBehaviour:

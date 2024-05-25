@@ -58,7 +58,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Drill
+  - name: Player
     uniqueID: 2998811009
     locked: 0
   - name: UI

@@ -17,5 +17,5 @@ MonoBehaviour:
   type: 100
   subType: 0
   isEnemy: 1
-  prefab: {fileID: 8094247419071719335, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
+  prefab: {fileID: 5833853642368172660, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
   baseHealth: 100

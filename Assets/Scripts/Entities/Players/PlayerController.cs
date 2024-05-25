@@ -21,8 +21,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private Rigidbody2D _rigidbody;
         
-        private AudioSource _audioSource;
-        
         private PlayerInput _input;
 
         private PlayerMovement _movement;
@@ -41,7 +39,6 @@ namespace Ciart.Pagomoa.Entities.Players
             _initialStatus = _status.copy();
 
             _rigidbody = GetComponent<Rigidbody2D>();
-            _audioSource = GetComponent<AudioSource>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponent<PlayerDigger>();

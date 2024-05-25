@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public PositionData posData;
         public IntroData introData;
         public ItemData itemData;
-        public OptionData optionData;
+        // public OptionData optionData;
         public ArtifactData artifactData;
         public QuickSlotData quickSlotData;
         public MineralData mineralData;
@@ -81,18 +81,18 @@ namespace Ciart.Pagomoa.Systems.Save
         }
     }
 
-    [System.Serializable]
-    public class OptionData
-    {
-        public int scale = 1;
-        public float audioValue = 0;
-        public void SetOptionDataFromOptionDB(OptionDB optionDB)
-        {
-            if (!optionDB) return;
-            scale = optionDB.scale;
-            audioValue = optionDB.audioValue;
-        }
-    }
+    // [System.Serializable]
+    // public class OptionData
+    // {
+    //     public int scale = 1;
+    //     public float audioValue = 0;
+    //     public void SetOptionDataFromOptionDB(OptionDB optionDB)
+    //     {
+    //         if (!optionDB) return;
+    //         scale = optionDB.scale;
+    //         audioValue = optionDB.audioValue;
+    //     }
+    // }
 
     [System.Serializable]
     public class ArtifactData
