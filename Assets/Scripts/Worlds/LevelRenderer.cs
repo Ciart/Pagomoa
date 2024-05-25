@@ -35,9 +35,9 @@ namespace Ciart.Pagomoa.Worlds
 
         private Chunk _currentChunk;
 
-        private HashSet<Vector2Int> _renderedChunks = new();
+        private HashSet<ChunkCoords> _renderedChunks = new();
 
-        private Dictionary<Vector2Int, SpriteRenderer> _minimapRenderers = new();
+        private Dictionary<ChunkCoords, SpriteRenderer> _minimapRenderers = new();
 
         private GameObject minimapObjects;
 
@@ -56,18 +56,18 @@ namespace Ciart.Pagomoa.Worlds
             fogTilemap.ClearAllTiles();
 
             _currentChunk = null;
-            _renderedChunks = new HashSet<Vector2Int>();
-            _minimapRenderers = new Dictionary<Vector2Int, SpriteRenderer>();
+            _renderedChunks = new HashSet<ChunkCoords>();
+            _minimapRenderers = new Dictionary<ChunkCoords, SpriteRenderer>();
         }
 
-        private void ClearChunk(Vector2Int key)
+        private void ClearChunk(ChunkCoords coords)
         {
             // TODO: 리팩토링 해야 함
             for (var i = 0; i < Chunk.Size; i++)
             {
                 for (var j = 0; j < Chunk.Size; j++)
                 {
-                    var position = new Vector3Int(key.x * Chunk.Size + i, key.y * Chunk.Size + j);
+                    var position = new Vector3Int(coords.x * Chunk.Size + i, coords.y * Chunk.Size + j);
 
                     wallTilemap.SetTile(position, null);
                     groundTilemap.SetTile(position, null);
@@ -77,7 +77,7 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             var world = WorldManager.world;
-            var chunk = world.currentLevel.GetChunk(key) ?? new Chunk(key);
+            var chunk = world.currentLevel.GetChunk(coords) ?? new Chunk(coords);
 
             foreach (var entityController in EntityManager.instance.FindAllEntityInChunk(chunk))
             {
@@ -88,12 +88,12 @@ namespace Ciart.Pagomoa.Worlds
                 EntityManager.instance.Despawn(entityController);
             }
 
-            if (_minimapRenderers.TryGetValue(key, out var value))
+            if (_minimapRenderers.TryGetValue(coords, out var value))
             {
                 Destroy(value.gameObject);
             }
 
-            _minimapRenderers.Remove(key);
+            _minimapRenderers.Remove(coords);
         }
 
         private bool CheckSightBrick(Brick brick)
@@ -110,7 +110,7 @@ namespace Ciart.Pagomoa.Worlds
             {
                 for (var j = -sight; j < Chunk.Size + sight; j++)
                 {
-                    var brick = world.currentLevel.GetBrick(chunk.key.x * Chunk.Size + i, chunk.key.y * Chunk.Size + j,
+                    var brick = world.currentLevel.GetBrick(chunk.coords.x * Chunk.Size + i, chunk.coords.y * Chunk.Size + j,
                         out _);
 
                     if (brick is null || !CheckSightBrick(brick))
@@ -136,11 +136,11 @@ namespace Ciart.Pagomoa.Worlds
             return fogMap;
         }
 
-        private void RenderChunk(Vector2Int key)
+        private void RenderChunk(ChunkCoords coords)
         {
             var world = WorldManager.world;
             var texture = new Texture2D(Chunk.Size, Chunk.Size);
-            var chunk = world.currentLevel.GetChunk(key);
+            var chunk = world.currentLevel.GetChunk(coords);
 
             if (chunk is null)
             {
@@ -162,8 +162,8 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     var brick = chunk.bricks[i + j * Chunk.Size];
 
-                    var position = new Vector3Int(chunk.key.x * Chunk.Size + i,
-                        chunk.key.y * Chunk.Size + j);
+                    var position = new Vector3Int(chunk.coords.x * Chunk.Size + i,
+                        chunk.coords.y * Chunk.Size + j);
 
                     wallTilemap.SetTile(position, brick.wall ? brick.wall.tile : null);
                     groundTilemap.SetTile(position, brick.ground ? brick.ground.tile : null);
@@ -191,11 +191,11 @@ namespace Ciart.Pagomoa.Worlds
                 minimapObjects.name = "minimap objects";
             }
 
-            if (!_minimapRenderers.TryGetValue(chunk.key, out var spriteRenderer))
+            if (!_minimapRenderers.TryGetValue(chunk.coords, out var spriteRenderer))
             {
                 spriteRenderer = Instantiate(minimapRenderer,
-                    new Vector3(chunk.key.x * Chunk.Size, chunk.key.y * Chunk.Size), quaternion.identity, minimapObjects.transform);
-                _minimapRenderers.Add(chunk.key, spriteRenderer);
+                    new Vector3(chunk.coords.x * Chunk.Size, chunk.coords.y * Chunk.Size), quaternion.identity, minimapObjects.transform);
+                _minimapRenderers.Add(chunk.coords, spriteRenderer);
             }
 
             spriteRenderer.sprite = sprite;
@@ -222,7 +222,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            RenderChunk(e.chunk.key);
+            RenderChunk(e.chunk.coords);
         }
         
         private void OnEnable()
@@ -261,7 +261,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            var position = new Vector3(chunk.key.x * chunkSize, chunk.key.y * chunkSize, 0);
+            var position = new Vector3(chunk.coords.x * chunkSize, chunk.coords.y * chunkSize, 0);
 
             Debug.DrawLine(position, position + Vector3.right * chunkSize, color);
             Debug.DrawLine(position + Vector3.right * chunkSize, position + new Vector3(chunkSize, chunkSize, 0),

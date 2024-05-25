@@ -56,7 +56,7 @@ namespace Ciart.Pagomoa.Systems.Save
     
         public List<EntityData> entityDataList;
 
-        public DicList<Vector2Int, Chunk> _chunks;
+        public DicList<ChunkCoords, Chunk> _chunks;
 
         public void SetLevelDataFromLevel(Level level)
         {

@@ -21,7 +21,9 @@ namespace Ciart.Pagomoa.Worlds
         
         public readonly List<EntityData> entityDataList;
         
-        private readonly Dictionary<Vector2Int, Chunk> _chunks;
+        private readonly Dictionary<ChunkCoords, Chunk> _chunks;
+
+        public WorldBounds bounds => WorldBounds.FromTopBottomLeftRight(top, bottom, left, right);
 
         public Level(string id, LevelType type, int top, int bottom, int left, int right)
         {
@@ -34,15 +36,11 @@ namespace Ciart.Pagomoa.Worlds
 
             entityDataList = new List<EntityData>();
             
-            _chunks = new Dictionary<Vector2Int, Chunk>();
+            _chunks = new Dictionary<ChunkCoords, Chunk>();
 
-            for (var keyX = -this.left; keyX < this.right; keyX++)
+            foreach (var key in bounds.GetChunkKeys())
             {
-                for (var keyY = -this.bottom; keyY < this.top; keyY++)
-                {
-                    var key = new Vector2Int(keyX, keyY);
-                    _chunks[key] = new Chunk(key);
-                }
+                _chunks[key] = new Chunk(key);
             }
         }
 
@@ -58,25 +56,25 @@ namespace Ciart.Pagomoa.Worlds
             _chunks = ListDictionaryConverter.ToDictionary(levelData._chunks);
         }
 
-        public Chunk GetChunk(Vector2Int key)
+        public Chunk GetChunk(ChunkCoords coords)
         {
-            return _chunks.TryGetValue(key, out var chunk) ? chunk : null;
+            return _chunks.TryGetValue(coords, out var chunk) ? chunk : null;
         }
 
         public Chunk GetChunk(int x, int y)
         {
-            var key = new Vector2Int(Mathf.FloorToInt((float)x / Chunk.Size), Mathf.FloorToInt((float)y / Chunk.Size));
+            var key = new ChunkCoords(Mathf.FloorToInt((float)x / Chunk.Size), Mathf.FloorToInt((float)y / Chunk.Size));
 
             return GetChunk(key);
         }
 
-        public IEnumerable<Chunk> GetNeighborChunks(Vector2Int key)
+        public IEnumerable<Chunk> GetNeighborChunks(ChunkCoords coords)
         {
             for (var i = -1; i < 2; i++)
             {
                 for (var j = -1; j < 2; j++)
                 {
-                    var chunk = GetChunk(key + new Vector2Int(i, j));
+                    var chunk = GetChunk(coords + new ChunkCoords(i, j));
 
                     if (chunk is null)
                     {
@@ -88,7 +86,7 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
 
-        public Dictionary<Vector2Int, Chunk> GetAllChunks()
+        public Dictionary<ChunkCoords, Chunk> GetAllChunks()
         {
             return _chunks;
         }

@@ -3,7 +3,6 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 

@@ -198,7 +198,7 @@ namespace Ciart.Pagomoa.Worlds
             brick.ground = null;
             brick.mineral = null;
 
-            foreach (var c in _world.currentLevel.GetNeighborChunks(chunk.key))
+            foreach (var c in _world.currentLevel.GetNeighborChunks(chunk.coords))
             {
                 _expiredChunks.Add(c);
             }

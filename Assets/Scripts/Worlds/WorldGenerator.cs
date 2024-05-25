@@ -11,21 +11,19 @@ namespace Ciart.Pagomoa.Worlds
     [RequireComponent(typeof(WorldManager))]
     public class WorldGenerator : MonoBehaviour
     {
-        public const int ForestHeight = -200;
-
-        public bool isTestWorld = false;
+        public const int ForestHeight = -100;
 
         public uint seed = 1234;
 
         public int chunkSize = 16;
 
-        public int top = 4;
+        public int top = 64;
 
-        public int bottom = 8;
+        public int bottom = 128;
 
-        public int left = 4;
+        public int left = 64;
 
-        public int right = 4;
+        public int right = 64;
 
         public Wall wall;
 
@@ -34,14 +32,6 @@ namespace Ciart.Pagomoa.Worlds
         private void Awake()
         {
             _worldManager = GetComponent<WorldManager>();
-
-            if (isTestWorld)
-            {
-                top = 4;
-                bottom = 4;
-                left = 4;
-                right = 4;
-            }
         }
 
         private WeightedPieces Preload(IEnumerable<Piece> pieces)
@@ -91,106 +81,80 @@ namespace Ciart.Pagomoa.Worlds
             var forestPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Forest)));
 
-            var worldLeft = -left * chunkSize;
-            var worldRight = right * chunkSize;
-            var worldBottom = -bottom * chunkSize;
-            var worldTop = top * chunkSize;
-
             var sand = database.GetGround("Sand");
             var grass = database.GetGround("Grass");
+            
+            var levelBounds = level.bounds;
 
-            for (var x = worldLeft; x < worldRight; x++)
+            foreach (var coords in levelBounds.GetWorldCoords())
             {
-                for (var y = worldBottom; y < worldTop; y++)
+                if (coords.y >= World.GroundHeight)
                 {
-                    if (y >= World.GroundHeight)
-                    {
-                        continue;
-                    }
-
-
-                    var worldBrick = level.GetBrick(x, y, out _);
-
-                    if (worldBrick is not null)
-                    {
-                        worldBrick.wall = wall;
-
-                        if (y > ForestHeight)
-                        {
-                            worldBrick.ground = sand;
-                        }
-                        else
-                        {
-                            worldBrick.ground = grass;
-                        }
-                    }
+                    continue;
                 }
-            }
 
-            for (var x = worldLeft; x < worldRight; x++)
-            {
-                for (var y = worldBottom; y < worldTop; y++)
+
+                var worldBrick = level.GetBrick(coords.x, coords.y, out _);
+
+                if (worldBrick is not null)
                 {
-                    if (random.NextFloat() >= 1f / 30f)
-                    {
-                        continue;
-                    }
+                    worldBrick.wall = wall;
 
-                    Piece piece;
-
-                    if (y > ForestHeight)
+                    if (coords.y > ForestHeight)
                     {
-                        piece = GetRandomPiece(desertPieces, random);
+                        worldBrick.ground = sand;
                     }
                     else
                     {
-                        piece = GetRandomPiece(forestPieces, random);
+                        worldBrick.ground = grass;
                     }
-
-                    GeneratePiece(piece, level, x, y);
                 }
             }
 
-            var powerX = random.NextInt(worldLeft, worldRight);
-            var powerY = random.NextInt(ForestHeight, 100);
+            foreach (var coords in levelBounds.GetWorldCoords())
+            {
+                if (random.NextFloat() >= 1f / 30f)
+                {
+                    continue;
+                }
+
+                Piece piece;
+
+                if (coords.y > ForestHeight)
+                {
+                    piece = GetRandomPiece(desertPieces, random);
+                }
+                else
+                {
+                    piece = GetRandomPiece(forestPieces, random);
+                }
+
+                GeneratePiece(piece, level, coords.x, coords.y);
+            }
+
+            var powerX = random.NextInt(levelBounds.xMin, levelBounds.xMax);
+            var powerY = random.NextInt(-20, 0);
             GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), level, powerX, powerY, true);
 
-            GeneratePiece(database.GetPieceWithTag("Remote"), level, 0, -4, true);
+            // GeneratePiece(database.GetPieceWithTag("Remote"), level, 0, -4, true);
 
             return level;
         }
 
-        public Level GenerateDungeonLevel()
+        public Level GenerateDungeonLevel(string id, string pieceTag)
         {
-            var level = new Level("Dungeon", LevelType.YellowDungeon, 1, 1, 1, 1);
+            var database = _worldManager.database;
+            var piece = database.GetPieceWithTag(pieceTag);
             
-            var levelLeft = -left * chunkSize;
-            var levelRight = right * chunkSize;
-            var levelBottom = -bottom * chunkSize;
-            var levelTop = top * chunkSize;
+            var levelTop = piece.height - piece.pivot.y;
+            var levelBottom = piece.pivot.y;
+            var levelLeft = piece.pivot.x;
+            var levelRight = piece.width - piece.pivot.x;
             
-            var sand = _worldManager.database.GetGround("Sand");
+            var level = new Level(id, LevelType.YellowDungeon, levelTop, levelBottom, levelLeft, levelRight);
+
+            GeneratePiece(piece, level, 0, 0, true);
             
-            for (var x = levelLeft; x < levelRight; x++)
-            {
-                for (var y = levelBottom; y < levelTop; y++)
-                {
-                    if (y >= World.GroundHeight)
-                    {
-                        continue;
-                    }
-
-
-                    var worldBrick = level.GetBrick(x, y, out _);
-
-                    if (worldBrick is not null)
-                    {
-                        worldBrick.wall = wall;
-                        worldBrick.ground = sand;
-                    }
-                }
-            }
-
             return level;
         }
 
@@ -199,7 +163,7 @@ namespace Ciart.Pagomoa.Worlds
             var world = new World();
 
             world.levels.Add(GenerateMainLevel());
-            world.levels.Add(GenerateDungeonLevel());
+            world.levels.Add(GenerateDungeonLevel("YellowDungeon", "YellowDungeon"));
 
             WorldManager.world = world;
         }
