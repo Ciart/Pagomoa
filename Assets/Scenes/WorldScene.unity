@@ -2071,7 +2071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: musicBundleDB.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: sfxBundleDB.Array.data[1]
@@ -2093,6 +2093,10 @@ PrefabInstance:
       propertyPath: musicBundleDB.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 1048e3ad76900ca408ede8dfe6ffedca, type: 2}
+    - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: musicBundleDB.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d721e0e34fb18f3439fe6441aa04508b, type: 2}
     - target: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: uiSlider
       value: 
@@ -8068,7 +8072,7 @@ MonoBehaviour:
   hungrybar: {fileID: 696422447}
   inventoryUIPrefab: {fileID: 6869503557337763794, guid: 29acaf8792274624b96b9b1af5be2212, type: 3}
   escUI: {fileID: 142423336}
-  interactableUI: {fileID: 0}
+  interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
   inventoryCamera: {fileID: 1469825036}
 --- !u!1 &1504262572
 GameObject:

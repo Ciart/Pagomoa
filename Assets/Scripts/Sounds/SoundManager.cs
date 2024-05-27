@@ -16,24 +16,15 @@ namespace Ciart.Pagomoa.Sounds
         
         private void Start()
         {
-            // Init();
-            // PlayMusic("WorldMusic");
+            PlayMusic("WorldMusic");
         }
         
         private void Update() // BGM Loop 시점 감지
         {
-            // if (musicSource.timeSamples >= _loopEndSamples)
-            //     musicSource.timeSamples -= _loopLengthSamples;
-        }
-        
-        private void Init() // SfxBundle의 Type의 개수만큼 생성
-        {
-            string[] soundNames = Enum.GetNames(typeof(SfxType));
-            for (int i = 0; i < soundNames.Length; i++)
+            if (musicSource.timeSamples >= _loopEndSamples)
             {
-                GameObject audioSource = new GameObject { name = soundNames[i] };
-                sfxSources[i] = audioSource.AddComponent<AudioSource>();
-                audioSource.transform.parent = this.transform;
+                musicSource.timeSamples -= _loopLengthSamples;
+                musicSource.Play();
             }
         }
         public void PlayMusic(string bundleName)// 배경음악 재생
@@ -43,10 +34,10 @@ namespace Ciart.Pagomoa.Sounds
             
             musicSource.clip = bundle.music;
 
-            // _loopStartSamples = (int)(bundle.loopStartTime * musicSource.clip.frequency);
-            // _loopEndSamples = (int)(bundle.loopEndTime * musicSource.clip.frequency);
-            // _loopLengthSamples = _loopEndSamples * _loopStartSamples;
-            
+             _loopStartSamples = (int)(bundle.loopStartTime * musicSource.clip.frequency);
+             _loopEndSamples = (int)(bundle.loopEndTime * musicSource.clip.frequency);
+             _loopLengthSamples = _loopEndSamples - _loopStartSamples;
+             
             musicSource.Play();
         }
         public void PlaySfx(string bundleName, bool duplication, Vector3? position = null) // 효과음 재생
