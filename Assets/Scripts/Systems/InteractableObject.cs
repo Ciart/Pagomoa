@@ -29,6 +29,8 @@ namespace Ciart.Pagomoa.Systems
 
         public void ActiveObject()
         {
+            if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
+            
             var color = new Color(0.38f,0.75f, 0.92f, 1f);
         
             _spriteRenderer.material.SetColor(OutlineColor, color);
@@ -37,8 +39,32 @@ namespace Ciart.Pagomoa.Systems
 
         public void DisableObject()
         {
+            if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
+            
             _spriteRenderer.material.SetColor(OutlineColor, Color.white);
             _interactableUI.SetActive(false);
+        }
+
+        public void LockInteraction()
+        {
+            _interactableUI.SetActive(false);
+            
+            var eventIndex = interactionEvent.GetPersistentEventCount();
+
+            for (int i = 0; i < eventIndex; i++)
+            {
+                interactionEvent.SetPersistentListenerState(i, UnityEventCallState.Off);
+            }
+        }
+
+        public void UnlockInteraction()
+        {
+            var eventIndex = interactionEvent.GetPersistentEventCount();
+
+            for (int i = 0; i < eventIndex; i++)
+            {
+                interactionEvent.SetPersistentListenerState(i, UnityEventCallState.RuntimeOnly);
+            }
         }
     }
 }

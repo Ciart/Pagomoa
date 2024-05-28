@@ -9,10 +9,15 @@ namespace Ciart.Pagomoa
     public class MoaInteraction : MonoBehaviour
     {
         public Transform target;
-
+        public GameObject appearanceEffect;
+        
         public float halfFloatingTime = 2f;
         public AnimationCurve moveCurve;
+        
+        [SerializeField] private float minSpeed = 4f;
 
+        private InteractableObject _interactableObject;
+        
         private float _moaSpeed = 1;
         private bool _canInteraction;
         
@@ -22,11 +27,15 @@ namespace Ciart.Pagomoa
         private Vector2 _targetDirectionVector;
         private int _targetLastDirection = 1;
         private PlayerMovement _targetMovement;
-        
+        private PlayerDigger _targetDigger;
+        private bool _wasDigging;
+
         private const float LinearPoint = 1f;
 
         void Start()
         {
+            _interactableObject = GetComponent<InteractableObject>();
+            
             StartCoroutine(FindPlayer());
         }
         
@@ -38,15 +47,30 @@ namespace Ciart.Pagomoa
             
             var destinationPos = target.position + new Vector3(1.5f * _targetLastDirection, 1f, 0);
 
+            if (_targetDigger.isDig && gameObject.activeSelf)
+            {
+                GameObject activatedEffect = Instantiate(appearanceEffect, destinationPos, Quaternion.identity);
+                Destroy(activatedEffect, 0.5f);
+                
+                gameObject.SetActive(false);
+            } else if (!_targetDigger.isDig && !gameObject.activeSelf)
+            {
+                GameObject activatedEffect = Instantiate(appearanceEffect, destinationPos, Quaternion.identity);
+                Destroy(activatedEffect, 0.5f);
+
+                transform.position = destinationPos;
+                
+                gameObject.SetActive(true);
+            }
+            
+            if (_targetDigger.isDig) return;
+            
             if (TargetIsNotMove() && _canInteraction)
             {
                 if (!_floatingEnd) return;
                     
-                if (!transform.parent)
-                {
-                    transform.SetParent(target);
-                }
-                    
+                if (!transform.parent) transform.SetParent(target);
+
                 _floatingEnd = false;
                 StartCoroutine(MoaFloating());
             }
@@ -82,7 +106,7 @@ namespace Ciart.Pagomoa
             _floatingEnd = true;
         }
         
-            private IEnumerator FindPlayer()
+        private IEnumerator FindPlayer()
         {
             yield return new WaitForSeconds(2f);
 
@@ -91,6 +115,7 @@ namespace Ciart.Pagomoa
             {
                 target = player.transform;
                 _targetMovement = player;
+                _targetDigger = player.GetComponent<PlayerDigger>();
                 _targetDirectionVector = player.directionVector;
             }
         }
@@ -101,9 +126,11 @@ namespace Ciart.Pagomoa
             {
                 case 1 : _targetLastDirection = -1;
                     _canInteraction = false;
+                    _interactableObject.LockInteraction();
                     break;
                 case -1 : _targetLastDirection = 1;
                     _canInteraction = false;
+                    _interactableObject.LockInteraction();
                     break;
             }
 
@@ -117,17 +144,22 @@ namespace Ciart.Pagomoa
 
             var distancePos = destinationPos - transform.position;
 
-            _moaSpeed = (Mathf.Abs(distancePos.x) > 2 || Mathf.Abs(distancePos.y) > 2) ? 5f : 2f;
+            _moaSpeed += (Mathf.Abs(distancePos.x) > 2 || Mathf.Abs(distancePos.y) > 2) ? 0.2f : -0.2f;
+            if (_moaSpeed > 10f && (Mathf.Abs(distancePos.x) < 10f && Mathf.Abs(distancePos.y) < 10f)) _moaSpeed += -(_moaSpeed/5);
+            if (_moaSpeed < minSpeed) _moaSpeed +=  0.2f;
 
             transform.position = Vector3.MoveTowards(transform.position, destinationPos, Time.deltaTime * _moaSpeed);
 
             if (transform.position == destinationPos)
             {
+                _moaSpeed = minSpeed;
+                
                 _floatingEnd = true;
-                _canInteraction = true;
                 _floatingNormalized = -1;
+                
+                _canInteraction = true;
+                _interactableObject.UnlockInteraction();
             }
         }
-        
     }
 }
