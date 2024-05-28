@@ -1,6 +1,7 @@
 
 using System.Linq;
 using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -54,6 +55,8 @@ namespace Ciart.Pagomoa.Entities.Players
             if (!isDig)
             {
                 drill.gameObject.SetActive(false);
+                SoundManager.instance.FindAudioSource("DrillSpinEffect").Stop();
+                SoundManager.instance.FindAudioSource("DrillHitEffect").Stop();
                 return;
             }
 
