@@ -3039,7 +3039,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8009,6 +8009,7 @@ MonoBehaviour:
   hungrybar: {fileID: 696422447}
   inventoryUIPrefab: {fileID: 6869503557337763794, guid: 29acaf8792274624b96b9b1af5be2212, type: 3}
   escUI: {fileID: 142423336}
+  interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
   inventoryCamera: {fileID: 1469825036}
 --- !u!1 &1504262572
 GameObject:
@@ -8196,12 +8197,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7838139360534063085, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
+      propertyPath: top
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838139360534063085, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
+      propertyPath: left
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838139360534063085, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
       propertyPath: wall
       value: 
       objectReference: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
     - target: {fileID: 7838139360534063085, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
+      propertyPath: right
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838139360534063085, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
       propertyPath: bottom
-      value: 8
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 7838139360534063085, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
       propertyPath: chunkSize

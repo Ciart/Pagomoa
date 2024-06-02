@@ -309,9 +309,9 @@ namespace Ciart.Pagomoa.Worlds
             //
             // _renderedChunks = renderedChunks;
 
-            foreach (var key in level.GetAllChunks().Keys)
+            foreach (var chunkCoords in level.GetAllChunks().Keys)
             {
-                RenderChunk(key);
+                RenderChunk(chunkCoords);
             }
 
             foreach (var entityData in level.entityDataList)

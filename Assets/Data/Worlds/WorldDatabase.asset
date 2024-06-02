@@ -173,7 +173,7 @@ MonoBehaviour:
       mineral: {fileID: 11400000, guid: 54f0ac9502065474fa9a39f4b38e4c4d, type: 2}
       isRock: 0
   - name: "\uB178\uB791 \uB358\uC804"
-    appearanceArea: -1
+    appearanceArea: 0
     tags:
     - YellowDungeon
     <width>k__BackingField: 16
