@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 13
+        y: 15
         width: 640
         height: 647
       alignment: 0
@@ -172,6 +172,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: TitleParticle_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 640
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c6a010f984a44f49acbff5db22096f0
+      internalID: 131891885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -185,6 +206,7 @@ TextureImporter:
     nameFileIdTable:
       TitleParticle_0: 1437020588
       TitleParticle_1: 1778060126
+      TitleParticle_2: 131891885
       TitleParticle_2 640-453: 932248093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

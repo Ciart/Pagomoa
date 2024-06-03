@@ -7,9 +7,9 @@ namespace Ciart.Pagomoa.UI.Title
         public override void Scroll()
         {
             transform.position += Time.deltaTime * moveDirection * speed;
-            if (transform.position.y >= 25.4f)
+            if (transform.position.y >= 32.5f)
             {
-                gameObject.transform.position = new Vector2(0,-25.4f);
+                gameObject.transform.position = new Vector2(0,-50.5f);
             }
         }
     }
