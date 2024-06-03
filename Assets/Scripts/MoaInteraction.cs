@@ -3,6 +3,7 @@ using System.Collections;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -14,11 +15,10 @@ namespace Ciart.Pagomoa
         public float halfFloatingTime = 2f;
         public AnimationCurve moveCurve;
         
-        [SerializeField] private float minSpeed = 4f;
+        [SerializeField] private float moaSpeed;
+        [SerializeField] private float minSpeed;
 
         private InteractableObject _interactableObject;
-        
-        private float _moaSpeed = 1;
         private bool _canInteraction;
         
         private int _floatingNormalized = -1;
@@ -124,11 +124,13 @@ namespace Ciart.Pagomoa
         {
             switch (_targetDirectionVector.x)
             {
-                case 1 : _targetLastDirection = -1;
+                case 1 : 
+                    _targetLastDirection = -1;
                     _canInteraction = false;
                     _interactableObject.LockInteraction();
                     break;
-                case -1 : _targetLastDirection = 1;
+                case -1 : 
+                    _targetLastDirection = 1;
                     _canInteraction = false;
                     _interactableObject.LockInteraction();
                     break;
@@ -144,15 +146,20 @@ namespace Ciart.Pagomoa
 
             var distancePos = destinationPos - transform.position;
 
-            _moaSpeed += (Mathf.Abs(distancePos.x) > 2 || Mathf.Abs(distancePos.y) > 2) ? 0.2f : -0.2f;
-            if (_moaSpeed > 10f && (Mathf.Abs(distancePos.x) < 10f && Mathf.Abs(distancePos.y) < 10f)) _moaSpeed += -(_moaSpeed/5);
-            if (_moaSpeed < minSpeed) _moaSpeed +=  0.2f;
+            var xDistance = Mathf.Abs(distancePos.x);
+            var yDistance = Mathf.Abs(distancePos.y);
+            
+            moaSpeed += (xDistance > 1 || yDistance > 1) ? 0.02f : -0.02f;
+            
+            if (moaSpeed < minSpeed) moaSpeed = minSpeed;
 
-            transform.position = Vector3.MoveTowards(transform.position, destinationPos, Time.deltaTime * _moaSpeed);
+            if (moaSpeed > 10f && (xDistance < 10f && yDistance < 10f)) moaSpeed += -(moaSpeed/5);
+
+            transform.position = Vector3.MoveTowards(transform.position, destinationPos, Time.deltaTime * moaSpeed);
 
             if (transform.position == destinationPos)
             {
-                _moaSpeed = minSpeed;
+                moaSpeed = minSpeed;
                 
                 _floatingEnd = true;
                 _floatingNormalized = -1;

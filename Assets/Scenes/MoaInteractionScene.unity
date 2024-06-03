@@ -5492,7 +5492,10 @@ MonoBehaviour:
   searchRange: 15
   minSearchRange: 3
   onGroundList: []
+  closeBricks: []
   testPos: {x: 0, y: 0, z: 0}
+  targetVector: {x: 0, y: 0}
+  targetBrickVector2Int: {x: 0, y: 0}
 --- !u!1 &1107194803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7674,7 +7677,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minSpeed: 1
+  moaSpeed: 0
+  minSpeed: 3
 --- !u!1 &1446570918
 GameObject:
   m_ObjectHideFlags: 0
