@@ -6,6 +6,7 @@ using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
+using Direction = Ciart.Pagomoa.Constants.Direction;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
@@ -26,13 +27,13 @@ namespace Ciart.Pagomoa.Entities.Players
         public AudioClip spinSound;
 
         public AudioClip groundHitSound;
-
+        
         public AudioClip groundHitLoopSound;
 
         public bool isGroundHit;
 
         private AudioSource _spinAudioSource;
-
+        
         private AudioSource _groundHitAudioSource;
 
         private Direction _prevDirection;
@@ -63,10 +64,10 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Awake()
         {
             // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
-            _spinAudioSource = gameObject.AddComponent<AudioSource>();
-            _spinAudioSource.clip = spinSound;
-            _spinAudioSource.volume = 0.25f;
-
+            // _spinAudioSource = gameObject.AddComponent<AudioSource>();
+            // _spinAudioSource.clip = spinSound;
+            // _spinAudioSource.volume = 0.25f;
+            
             // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
             _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
             _groundHitAudioSource.volume = 0.25f;
@@ -141,8 +142,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            _spinAudioSource.Play();
-
+            // _spinAudioSource.Play();
+            SoundManager.instance.PlaySfx("DrillSpin", true);
             TimeManager.instance.tickUpdated += OnTickUpdated;
         }
 
@@ -150,44 +151,72 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             TimeManager.instance.tickUpdated -= OnTickUpdated;
         }
-
+        
         private void OnTickUpdated(int tick)
         {
             if (isGroundHit)
             {
-                if (!_groundHitAudioSource.isPlaying)
+                if (!SoundManager.instance.FindAudioSource("DrillHitEffect").isPlaying)
                 {
-                    if (_groundHitAudioSource.clip == groundHitSound)
+                    if (SoundManager.instance.FindAudioSource("DrillHitEffect").clip ==
+                        SoundManager.instance.FindSfxBundle("DrillHitGround").audioClip[0])
                     {
-                        _groundHitAudioSource.clip = groundHitLoopSound;
-                        _groundHitAudioSource.loop = true;
+                        SoundManager.instance.FindAudioSource("DrillHitEffect").clip =
+                            SoundManager.instance.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
+                        SoundManager.instance.FindAudioSource("DrillHitEffect").loop = true;
                     }
                     else
                     {
-                        _groundHitAudioSource.clip = groundHitSound;
-                        _groundHitAudioSource.loop = false;
+                        SoundManager.instance.FindAudioSource("DrillHitEffect").clip =
+                            SoundManager.instance.FindSfxBundle("DrillHitGround").audioClip[0];
+                        SoundManager.instance.FindAudioSource("DrillHitEffect").loop = false;
                     }
-                    
-                    _groundHitAudioSource.Play();
+                    SoundManager.instance.FindAudioSource("DrillHitEffect").Play();
                 }
             }
             else
             {
-                if (_groundHitAudioSource.isPlaying)
+                if (SoundManager.instance.FindAudioSource("DrillHitEffect").isPlaying)
                 {
-                    _groundHitAudioSource.Stop();
-                    _groundHitAudioSource.clip = groundHitLoopSound;
+                    SoundManager.instance.FindAudioSource("DrillHitEffect").Stop();
+                    SoundManager.instance.FindAudioSource("DrillHitEffect").clip =
+                        SoundManager.instance.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
                 }
             }
             
-            foreach (var enemy in _enemies)
-            {
-                // TODO: attacker 변경해야 함.
-                // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: null, flag: DamageFlag.Melee);
-            }
+                
+                //         if (!_groundHitAudioSource.isPlaying)
+                //         {
+                //             if (_groundHitAudioSource.clip == groundHitSound)
+                //             {
+                //                 _groundHitAudioSource.clip = groundHitLoopSound;
+                //                 _groundHitAudioSource.loop = true;
+                //             }
+                //             else
+                //             {
+                //                 _groundHitAudioSource.clip = groundHitSound;
+                //                 _groundHitAudioSource.loop = false;
+                //             }
+                //             
+                //             _groundHitAudioSource.Play();
+                //         }
+                //     }
+                //     else
+                //     {
+                //         if (_groundHitAudioSource.isPlaying)
+                //         {
+                //             _groundHitAudioSource.Stop();
+                //             _groundHitAudioSource.clip = groundHitLoopSound;
+                //         }
+                // }
+                foreach (var enemy in _enemies)
+                {
+                    // TODO: attacker 변경해야 함.
+                    // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
+                    enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: null, flag: DamageFlag.Melee);
+                }
         }
-
+        
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var entity = collision.GetComponent<EntityController>();
