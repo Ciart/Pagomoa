@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2442559022297014597}
   - component: {fileID: 6532384969457569552}
   - component: {fileID: 1015079352211381871}
-  - component: {fileID: 7880955015287657402}
   - component: {fileID: 3585343481981625419}
   - component: {fileID: 4177568309858970068}
   - component: {fileID: 4194115565561829200}
@@ -159,8 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isGrounded: 0
-  _status: {fileID: 0}
-  _initialStatus: {fileID: 0}
+  status: {fileID: 0}
+  initialStatus: {fileID: 0}
   groundDistance: 1.125
   sideWallDistance: 1.0625
 --- !u!114 &6532384969457569552
@@ -218,27 +217,6 @@ MonoBehaviour:
   hungryAlter:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7880955015287657402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106713657715818926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3baccdf20f8482c9cdef7e300c47b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drill: {fileID: 4382321979675749985}
-  direction: 0
-  isDig: 0
-  tiredDigSpeedScoop: 5
-  drillLevel: 0
-  drillTier: 10
-  width: 2
-  length: 1
-  targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
 --- !u!95 &3585343481981625419
 Animator:
   serializedVersion: 5
@@ -477,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &112773553881347867
 Transform:
   m_ObjectHideFlags: 0
@@ -517,6 +495,13 @@ MonoBehaviour:
   groundHitSound: {fileID: 8300000, guid: d7fcd7529cf241943a74c9321fd221ec, type: 3}
   groundHitLoopSound: {fileID: 8300000, guid: e20d51d28e3340e4aa0e1245998cda7d, type: 3}
   isGroundHit: 0
+  _drills:
+  - {fileID: 11400000, guid: e652450880491a64283d0c2eda31911d, type: 2}
+  - {fileID: 11400000, guid: 88a153b1ee0d71e41acdf14d2905c603, type: 2}
+  - {fileID: 11400000, guid: a75ca8835bdf7e9448dc0de3ef098012, type: 2}
+  targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
+  direction: 0
+  isDig: 0
 --- !u!95 &3470090247393011381
 Animator:
   serializedVersion: 5
