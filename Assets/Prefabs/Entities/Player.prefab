@@ -496,6 +496,7 @@ MonoBehaviour:
   groundHitLoopSound: {fileID: 8300000, guid: e20d51d28e3340e4aa0e1245998cda7d, type: 3}
   isGroundHit: 0
   _drills:
+  - {fileID: 11400000, guid: d55e1dc6a86e37c4d9835e9330ff940b, type: 2}
   - {fileID: 11400000, guid: e652450880491a64283d0c2eda31911d, type: 2}
   - {fileID: 11400000, guid: 88a153b1ee0d71e41acdf14d2905c603, type: 2}
   - {fileID: 11400000, guid: a75ca8835bdf7e9448dc0de3ef098012, type: 2}
