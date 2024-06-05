@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
@@ -49,8 +50,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private int length = 1;
 
-        private PlayerStatus _playerStatus;
-
         private TargetBrickChecker _target;
 
         private Transform[] _drillParts;
@@ -73,8 +72,6 @@ namespace Ciart.Pagomoa.Entities.Players
             _groundHitAudioSource.volume = 0.25f;
 
             _target = Instantiate(targetPrefabs);
-
-            _playerStatus = transform.parent.GetComponent<PlayerStatus>();
 
             _drillParts = gameObject.GetComponentsInChildren<Transform>();
         }
@@ -136,7 +133,7 @@ namespace Ciart.Pagomoa.Entities.Players
             foreach (var (x, y) in _target.targetCoordsList)
             {
                 var worldManager = WorldManager.instance;
-                worldManager.DigGround(new BrickCoords(x, y), _playerStatus.digSpeed);
+                worldManager.DigGround(new BrickCoords(x, y), _drills[_drillLevel].speed);
             }
         }
 
@@ -244,22 +241,22 @@ namespace Ciart.Pagomoa.Entities.Players
         private Vector2Int DirectionCheck(bool a = false)
         {
             Vector3 digVec;
-            switch (direction)
-            {
-                case Direction.Up:
-                    //digVec = new Vector3(a ? -0.5f : 0f, 1.2f);
-                    break;
-                case Direction.Left:
-                    //digVec = new Vector3(-0.6f, a ? -0.5f : 0f);
-                    break;
-                case Direction.Right:
-                    //digVec = new Vector3(0.6f, a ? -0.5f : 0f);
-                    break;
-                case Direction.Down:
-                default:
-                    //digVec = new Vector3(a ? -0.5f : 0f, -1.2f);
-                    break;
-            }
+            //switch (direction)
+            //{
+            //    case Direction.Up:
+            //        digVec = new Vector3(a ? -0.5f : 0f, 1.2f);
+            //        break;
+            //    case Direction.Left:
+            //        digVec = new Vector3(-0.6f, a ? -0.5f : 0f);
+            //        break;
+            //    case Direction.Right:
+            //        digVec = new Vector3(0.6f, a ? -0.5f : 0f);
+            //        break;
+            //    case Direction.Down:
+            //    default:
+            //        digVec = new Vector3(a ? -0.5f : 0f, -1.2f);
+            //        break;
+            //}
             digVec = transform.localPosition;
             return WorldManager.ComputeCoords(transform.position + digVec);
         }
@@ -269,5 +266,6 @@ namespace Ciart.Pagomoa.Entities.Players
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             _drillLevel += 1;
         }
+
     }
 }
