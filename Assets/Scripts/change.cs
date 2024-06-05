@@ -61,5 +61,14 @@ namespace Ciart.Pagomoa
             
             gameObject.SetActive(false);
         }
+        
+        public void UIOn()
+        {
+            Debug.Log("눌림");
+            if(this.gameObject.activeSelf == false)
+                gameObject.SetActive(true);
+            else
+                gameObject.SetActive(false);
+        }
     }
 }
