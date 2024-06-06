@@ -15,7 +15,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void BuyCheck()
         {
             Buy.Instance.choiceSlot = this;
-
             var Shop = Buy.Instance.choiceSlot.inventoryItem.item;
             _countUI.OnUI(this.gameObject);
             ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);

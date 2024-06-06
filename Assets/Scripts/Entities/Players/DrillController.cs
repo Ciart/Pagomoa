@@ -25,12 +25,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public Vector2 rightOffset;
 
-        public AudioClip spinSound;
-
-        public AudioClip groundHitSound;
-        
-        public AudioClip groundHitLoopSound;
-
         public bool isGroundHit;
 
         private AudioSource _spinAudioSource;
@@ -59,15 +53,11 @@ namespace Ciart.Pagomoa.Entities.Players
         public Direction direction;
 
         public bool isDig = false;
-
+        
+        public bool isPlayed = false;
+        
         private void Awake()
         {
-            // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
-            // _spinAudioSource = gameObject.AddComponent<AudioSource>();
-            // _spinAudioSource.clip = spinSound;
-            // _spinAudioSource.volume = 0.25f;
-            
-            // TODO: 자식 오브젝트의 컴포넌트로 변경해야 합니다.
             _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
             _groundHitAudioSource.volume = 0.25f;
 
@@ -115,10 +105,23 @@ namespace Ciart.Pagomoa.Entities.Players
                 if(drillPart.gameObject != gameObject)
                     drillPart.gameObject.SetActive(isDig);
             }
-
+            
             if (!isDig) return;
-
-
+            if (isDig)
+            {
+                if (!SoundManager.instance.FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
+                {
+                    SoundManager.instance.PlaySfx("DrillSpin", false);
+                    isPlayed = true;
+                }
+            }
+            else
+            {
+                SoundManager.instance.FindAudioSource("DrillSpinEffect").Stop();
+                isPlayed = false;
+                return;
+            }
+            
             _target.ChangeTarget(DirectionCheck(width % 2 == 0), width, length, direction is Direction.Left or Direction.Right);
 
             // TODO: 최적화 필요합니다.
@@ -139,8 +142,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            // _spinAudioSource.Play();
-            SoundManager.instance.PlaySfx("DrillSpin", true);
             TimeManager.instance.tickUpdated += OnTickUpdated;
         }
 
@@ -151,7 +152,7 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private void OnTickUpdated(int tick)
         {
-            if (isGroundHit)
+            if (isDig && isGroundHit)
             {
                 if (!SoundManager.instance.FindAudioSource("DrillHitEffect").isPlaying)
                 {
@@ -180,38 +181,12 @@ namespace Ciart.Pagomoa.Entities.Players
                         SoundManager.instance.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
                 }
             }
-            
-                
-                //         if (!_groundHitAudioSource.isPlaying)
-                //         {
-                //             if (_groundHitAudioSource.clip == groundHitSound)
-                //             {
-                //                 _groundHitAudioSource.clip = groundHitLoopSound;
-                //                 _groundHitAudioSource.loop = true;
-                //             }
-                //             else
-                //             {
-                //                 _groundHitAudioSource.clip = groundHitSound;
-                //                 _groundHitAudioSource.loop = false;
-                //             }
-                //             
-                //             _groundHitAudioSource.Play();
-                //         }
-                //     }
-                //     else
-                //     {
-                //         if (_groundHitAudioSource.isPlaying)
-                //         {
-                //             _groundHitAudioSource.Stop();
-                //             _groundHitAudioSource.clip = groundHitLoopSound;
-                //         }
-                // }
-                foreach (var enemy in _enemies)
-                {
-                    // TODO: attacker 변경해야 함.
-                    // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                    enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: null, flag: DamageFlag.Melee);
-                }
+            foreach (var enemy in _enemies)
+            {
+                // TODO: attacker 변경해야 함.
+                // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
+                enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: null, flag: DamageFlag.Melee);
+            }
         }
         
         private void OnTriggerEnter2D(Collider2D collision)

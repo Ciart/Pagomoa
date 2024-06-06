@@ -491,9 +491,6 @@ MonoBehaviour:
   downOffset: {x: 0, y: -0.9375}
   leftOffset: {x: -0.625, y: -0.125}
   rightOffset: {x: 0.625, y: -0.125}
-  spinSound: {fileID: 8300000, guid: 2ab08426cf58ee74dbcc1e3f411f9b6f, type: 3}
-  groundHitSound: {fileID: 8300000, guid: d7fcd7529cf241943a74c9321fd221ec, type: 3}
-  groundHitLoopSound: {fileID: 8300000, guid: e20d51d28e3340e4aa0e1245998cda7d, type: 3}
   isGroundHit: 0
   _drills:
   - {fileID: 11400000, guid: d55e1dc6a86e37c4d9835e9330ff940b, type: 2}
