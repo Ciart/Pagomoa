@@ -81,19 +81,18 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             RemoveChildren(_outButtonGroup);
             RemoveChildren(_inButtonGroup);
-
+            talkText.text = "";
             // Read all the content until we can't continue any more
+            string text = "";
             while (story.canContinue)
             {
-                // Continue gets the next line of the story
-                string text = story.Continue();
-                // This removes any white space from the text.
+                text += story.Continue();
                 text = text.Trim();
-
-                // Display the text on screen!
-                CreateContentView(text);
+                if(text != "") text += "\n";
+                Debug.Log(text);
+                ParseTag();
             }
-            ParseTag();
+            if(text != "") CreateContentView(text);
 
             if (_changeDialogue == true)
             {
