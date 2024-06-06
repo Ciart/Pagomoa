@@ -977,17 +977,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6201800308963581311, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
   m_PrefabInstance: {fileID: 442100724}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &265064714 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-  m_PrefabInstance: {fileID: 3662964948530307250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06cfb25d961118f4d9be1fc91d3a8310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &265579673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5375,12 +5364,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0554bf2431ca90644be837f52f397bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _outButtonGroup: {fileID: 7118477735063467387}
+  _inButtonGroup: {fileID: 1408592263}
+  _outButtonPrefab: {fileID: 1156628388696455948, guid: de2019327ed3be74a8eff8463c3c9bb9, type: 3}
+  _inButtonPrefab: {fileID: 1156628388696455948, guid: 62cd3e2a73887e840bf0569da2b02114, type: 3}
   talkPannel: {fileID: 4467746273021276876}
   talkImage: {fileID: 2862678203977525030}
   talkText: {fileID: 8919950328305015173}
   nameText: {fileID: 4254232139814322323}
-  outButtonGroup: {fileID: 7118477735063467387}
-  inButtonGroup: {fileID: 1408592263}
   spriteGroup:
   - {fileID: 824159298, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
   - {fileID: 602315920, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
@@ -5389,8 +5380,6 @@ MonoBehaviour:
   - {fileID: -520062999, guid: bf913eb41ab14f34e98193b512282a92, type: 3}
   - {fileID: -566670888, guid: 727a67a6c076a994584b4a4755b4d2f5, type: 3}
   - {fileID: -1206354684, guid: 727a67a6c076a994584b4a4755b4d2f5, type: 3}
-  outButtonPrefab: {fileID: 1156628388696455948, guid: de2019327ed3be74a8eff8463c3c9bb9, type: 3}
-  inButtonPrefab: {fileID: 1156628388696455948, guid: 62cd3e2a73887e840bf0569da2b02114, type: 3}
 --- !u!4 &891737557
 Transform:
   m_ObjectHideFlags: 0
@@ -12557,10 +12546,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1166198548169152413, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2357527780685838860, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: chatBalloonPrefab
       value: 
@@ -12609,94 +12594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: noung
       objectReference: {fileID: 0}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: basicDialogue
-      value: 
-      objectReference: {fileID: 4900000, guid: 2917720dd06856745b9a14685ba6761c, type: 3}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: dailyDialogue
-      value: 
-      objectReference: {fileID: 11400000, guid: b56eb786fcea32f4e85c3cb7d3bff2fd, type: 2}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: dialogueAsset
-      value: 
-      objectReference: {fileID: 4900000, guid: f689e5b7b67d37a4a84d727827877b24, type: 3}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: dailyDialogues
-      value: 
-      objectReference: {fileID: 11400000, guid: b56eb786fcea32f4e85c3cb7d3bff2fd, type: 2}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questAssets.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questDialogue.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: dialogueAssets.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questAssets.Array.data[0]
-      value: 
-      objectReference: {fileID: 4900000, guid: 15e2d4af128f69049912224787360192, type: 3}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questDialogues.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questDialogue.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questDialogue.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 652e6fe8d59c76942890f3e165731d49, type: 2}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: dialogueAssets.Array.data[0]
-      value: 
-      objectReference: {fileID: 4900000, guid: a76c7d38d225dbb4e85cfd807db53732, type: 3}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: dialogueAssets.Array.data[1]
-      value: 
-      objectReference: {fileID: 4900000, guid: f35dbf3b6d626df47baa5801561940a6, type: 3}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questDialogues.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
-    - target: {fileID: 5789162265615388691, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: questDialogues.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: dc5d2acb1ffebaf46807045475a2c2ba, type: 2}
-    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265064714}
-    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartStory
-      objectReference: {fileID: 0}
-    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DialogueTrigger, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
-      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 891737556}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
