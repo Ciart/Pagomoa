@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Ciart.Pagomoa.Entities.Monsters;
 using UnityEngine;
 using UnityEngine.Events;
@@ -48,7 +48,6 @@ namespace Ciart.Pagomoa.Systems.Time
         protected override void Awake()
         {
             base.Awake();
-            
             MonsterSleep.AddListener(DayMonster.GetSleep);
             MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
             MonsterWakeUp.AddListener(NightMonster.TimeToBye);
