@@ -74,15 +74,14 @@ namespace Ciart.Pagomoa.Logger
         {
             var isQuestComplete = e.accomplishment;
             var questInCharge = e.questInCharge;
-            var dialogueTrigger = e.questInCharge.GetComponent<DialogueTrigger>();
+            var dialogueTrigger = e.questInCharge.GetComponent<EntityDialogue>();
 
             if (isQuestComplete == false)
             {
                 questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-                
+
                 // todo : 유효성 검사 
-                questInCharge.interactionEvent.RemoveListener( () => dialogueTrigger.QuestCompleteDialogue(e.questId));
-                questInCharge.interactionEvent.AddListener(dialogueTrigger.StartStory);
+                questInCharge.interactionEvent.RemoveListener( () => DialogueManager.instance.StartQuestCompleteChat(e.questId));
             }
             else
             {
@@ -93,11 +92,10 @@ namespace Ciart.Pagomoa.Logger
         
         private void CompleteQuest(InteractableObject questInCharge, int id)
         {
-            var dialogueTrigger = questInCharge.GetComponent<DialogueTrigger>();
-            
+            var dialogueTrigger = questInCharge.GetComponent<EntityDialogue>();
+
             questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-            questInCharge.interactionEvent.RemoveListener(() => dialogueTrigger.QuestCompleteDialogue(id));
-            questInCharge.interactionEvent.AddListener(() => dialogueTrigger.StartStory());
+            questInCharge.interactionEvent.RemoveListener(() => DialogueManager.instance.StartQuestCompleteChat(id));
 
             GetReward(id);
         }
