@@ -117,6 +117,11 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     continue;
                 }
+                
+                if (coords.y >= World.GroundHeight)
+                {
+                    continue;
+                }
 
                 Piece piece;
 

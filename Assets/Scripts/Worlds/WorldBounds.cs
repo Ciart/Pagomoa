@@ -58,5 +58,10 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
         }
+        
+        public bool Contains(WorldCoords coords)
+        {
+            return coords.x >= xMin && coords.x <= xMax && coords.y >= yMin && coords.y <= yMax;
+        }
     }
 }

@@ -76,7 +76,7 @@ namespace Ciart.Pagomoa.Worlds
         /// </summary>
         /// <param name="coords">World 좌표</param>
         /// <returns>Scene의 Global 위치</returns>
-        public static Vector3 ComputePosition(Vector2Int coords)
+        public static Vector3 ComputePosition(WorldCoords coords)
         {
             return ComputePosition(coords.x, coords.y);
         }
@@ -86,9 +86,9 @@ namespace Ciart.Pagomoa.Worlds
         /// </summary>
         /// <param name="position">Scene의 Global 위치</param>
         /// <returns>World 좌표</returns>
-        public static Vector2Int ComputeCoords(Vector3 position)
+        public static WorldCoords ComputeCoords(Vector3 position)
         {
-            return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
+            return new WorldCoords(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
 
         public bool CheckNull(Vector3 pos)
@@ -193,8 +193,6 @@ namespace Ciart.Pagomoa.Worlds
 
             var prevBrick = (Brick)brick.Clone();
             
-            Debug.Log(prevBrick.mineral?.displayName);
-
             brick.ground = null;
             brick.mineral = null;
 

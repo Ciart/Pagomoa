@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         private List<GameObject> _spawnedMonster;
 
-        private List<Vector2Int> _canSpawnPoints;
+        private List<WorldCoords> _canSpawnPoints;
     
         private Vector2 _spawnPoint;
 
@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
         void Start()
         {
             _spawnedMonster = new List<GameObject>();
-            _canSpawnPoints = new List<Vector2Int>();
+            _canSpawnPoints = new List<WorldCoords>();
 
             SetSpawnMonster();
             CheckSpawnPosition();
@@ -121,7 +121,8 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 CheckSpawnPosition();
             
                 int randomPoint = UnityEngine.Random.Range(0, _canSpawnPoints.Count);
-                _spawnPoint = _canSpawnPoints[randomPoint];
+                var coords = _canSpawnPoints[randomPoint];
+                _spawnPoint = new Vector2(coords.x, coords.y);
                 _spawnPoint.y += 0.5f;
             
 

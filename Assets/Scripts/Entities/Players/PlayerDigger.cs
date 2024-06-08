@@ -78,7 +78,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
-        private Vector2Int DirectionCheck(bool a = false)
+        private WorldCoords DirectionCheck(bool a = false)
         {
             Vector3 digVec;
             switch (direction)

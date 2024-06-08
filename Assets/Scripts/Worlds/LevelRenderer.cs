@@ -46,6 +46,7 @@ namespace Ciart.Pagomoa.Worlds
             this.level = level;
             
             RenderLevel();
+            SpawnEntities();
         }
 
         private void ClearLevel()
@@ -227,14 +228,17 @@ namespace Ciart.Pagomoa.Worlds
         
         private void OnEnable()
         {
-            RenderLevel();
-            
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
+            
+            RenderLevel();
+            SpawnEntities();
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
+
+            DespawnEntities();
         }
 
         private void LateUpdate()
@@ -313,19 +317,56 @@ namespace Ciart.Pagomoa.Worlds
             {
                 RenderChunk(chunkCoords);
             }
+        }
+        
+        private List<EntityController> _entities = new();
 
+        private void SpawnEntities()
+        {
+            if (level is null)
+            {
+                return;
+            }
+            
             foreach (var entityData in level.entityDataList)
             {
                 var position = new Vector3(entityData.x, entityData.y);
                 var coords = WorldManager.ComputeCoords(position);
 
-                if (level.GetBrick(coords.x, coords.y, out _).wall is null)
+                if (!level.bounds.Contains(coords))
                 {
                     continue;
                 }
 
-                EntityManager.instance.Spawn(entityData.origin, position);
+                _entities.Add(EntityManager.instance.Spawn(entityData.origin, position));
             }
+        }
+        
+        private void DespawnEntities()
+        {
+            if (level is null)
+            {
+                return;
+            }
+            
+            var dataList = new List<EntityData>();
+            
+            foreach (var entityController in _entities)
+            {
+                if (entityController.isDead)
+                {
+                    continue;
+                }
+                
+                var data = entityController.GetEntityData();
+                dataList.Add(data);
+                
+                EntityManager.instance.Despawn(entityController);
+            }
+            
+            level.entityDataList = dataList;
+
+            _entities.Clear();
         }
     }
 }

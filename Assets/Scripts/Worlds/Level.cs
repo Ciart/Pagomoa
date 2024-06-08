@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public readonly int right;
         
-        public readonly List<EntityData> entityDataList;
+        public List<EntityData> entityDataList;
         
         private readonly Dictionary<ChunkCoords, Chunk> _chunks;
 
@@ -51,7 +51,9 @@ namespace Ciart.Pagomoa.Worlds
             left = levelData.left;
             right = levelData.right;
 
-            entityDataList = levelData.entityDataList;
+            // entityDataList = levelData.entityDataList;
+            
+            entityDataList = new List<EntityData>();
 
             _chunks = ListDictionaryConverter.ToDictionary(levelData._chunks);
         }
