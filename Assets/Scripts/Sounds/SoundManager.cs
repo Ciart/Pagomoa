@@ -82,18 +82,23 @@ namespace Ciart.Pagomoa.Sounds
                 {
                     case SfxType.MonsterEffect:
                         FindAudioSource("MonsterEffect").clip = bundle.audioClip[random];
-                        // FindAudioSource("MonsterEffect").volume = bundle.volume;
+                        FindAudioSource("MonsterEffect").volume = bundle.volume;
                         FindAudioSource("MonsterEffect").Play();
                         break;
                     case SfxType.TeamEffect:
                         FindAudioSource("TeamEffect").clip = bundle.audioClip[random];
-                        // FindAudioSource("TeamEffect").volume = bundle.volume;
+                        FindAudioSource("TeamEffect").volume = bundle.volume;
                         FindAudioSource("TeamEffect").Play();
                         break;
                     case SfxType.UIEffect:
                         FindAudioSource("UIEffect").clip = bundle.audioClip[random];
-                        // FindAudioSource("UIEffect").volume = bundle.volume;
+                        FindAudioSource("UIEffect").volume = bundle.volume;
                         FindAudioSource("UIEffect").Play();
+                        break;
+                    case SfxType.DrillSpinEffect:
+                        FindAudioSource("DrillSpinEffect").clip = bundle.audioClip[random];
+                        FindAudioSource("DrillSpinEffect").volume = bundle.volume;
+                        FindAudioSource("DrillSpinEffect").Play();                        
                         break;
                 }
             }
