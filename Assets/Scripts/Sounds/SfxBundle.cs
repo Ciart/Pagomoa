@@ -6,7 +6,9 @@ namespace Ciart.Pagomoa.Sounds
     {
         TeamEffect,
         MonsterEffect,
-        UIEffect
+        UIEffect,
+        DrillSpinEffect,
+        DrillHitEffect
     }
     [CreateAssetMenu(fileName = "New SfxBundle", menuName = "New SfxBundle")]
     public class SfxBundle : ScriptableObject

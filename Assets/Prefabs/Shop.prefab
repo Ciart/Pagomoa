@@ -2021,8 +2021,8 @@ GameObject:
   - component: {fileID: 8608462375325911604}
   - component: {fileID: 587429650747886364}
   - component: {fileID: 7444223439885983884}
-  - component: {fileID: 7712953595873478310}
   - component: {fileID: 1984320419410008856}
+  - component: {fileID: 9014749859596801235}
   m_Layer: 5
   m_Name: Buy
   m_TagString: Untagged
@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7712953595873478310
+--- !u!114 &1984320419410008856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2128,7 +2128,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3376514053816164424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd61a757ae39064e8b662856d897b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
+--- !u!114 &9014749859596801235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376514053816164424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0433a50ad3895a4e865fa868ad547c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   choiceSlot: {fileID: 0}
@@ -2146,22 +2159,9 @@ MonoBehaviour:
   - {fileID: 954854434, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
   - {fileID: -217509975, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
   _soldOuts:
-  - {fileID: -1821472105, guid: 6983cfb63606f4e4cb4e98863b6133f7, type: 3}
-  - {fileID: 1518507505, guid: 6983cfb63606f4e4cb4e98863b6133f7, type: 3}
-  - {fileID: -1833682122, guid: 6983cfb63606f4e4cb4e98863b6133f7, type: 3}
---- !u!114 &1984320419410008856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3376514053816164424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
+  - {fileID: 403013701, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: -1347286481, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: -1966595857, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
 --- !u!1 &3451898154400606347
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,7 +2765,7 @@ GameObject:
   - component: {fileID: 159798019857692886}
   - component: {fileID: 9047952613806592642}
   - component: {fileID: 5906384395075802142}
-  - component: {fileID: 8006413552087046795}
+  - component: {fileID: 255569100241148304}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -2880,8 +2880,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8006413552087046795}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.BuySlot, Assembly-CSharp
+      - m_Target: {fileID: 255569100241148304}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.BuySlot, Assembly-CSharp
         m_MethodName: BuyCheck
         m_Mode: 1
         m_Arguments:
@@ -2909,7 +2909,7 @@ MonoBehaviour:
   - {fileID: 477239177, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
   boostImage: {fileID: 3509220108674596558}
   _edgeImage: {fileID: 2517827825520971288}
---- !u!114 &8006413552087046795
+--- !u!114 &255569100241148304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2918,7 +2918,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3785268109224392253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6e5156830359b408dec0a974e05ca2, type: 3}
+  m_Script: {fileID: 11500000, guid: cd6475329a5e0d94b99a044fc9e9f99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItem:
@@ -5114,7 +5114,7 @@ GameObject:
   - component: {fileID: 9180173067784247124}
   - component: {fileID: 2083523562826450610}
   - component: {fileID: 5165654612320321361}
-  - component: {fileID: 2182413318018497373}
+  - component: {fileID: 5142473656436439060}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -5230,8 +5230,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2182413318018497373}
-        m_TargetAssemblyTypeName: BuySlot, Assembly-CSharp
+      - m_Target: {fileID: 5142473656436439060}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.BuySlot, Assembly-CSharp
         m_MethodName: BuyCheck
         m_Mode: 1
         m_Arguments:
@@ -5259,7 +5259,7 @@ MonoBehaviour:
   - {fileID: 477239177, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
   boostImage: {fileID: 2364224077076431256}
   _edgeImage: {fileID: 6464958444697618944}
---- !u!114 &2182413318018497373
+--- !u!114 &5142473656436439060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5268,7 +5268,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7081289068220410947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b6d213175eac44b90c2c367d17f991, type: 3}
+  m_Script: {fileID: 11500000, guid: 458c48e6ff97e2f499d434bc3b9b0372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItem:

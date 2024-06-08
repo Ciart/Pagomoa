@@ -211,6 +211,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadPlayerCurrentStatusData()
         {
             if (DataManager.Instance.data.playerStatusData == null) return;
+            if (EntityManager.instance.player == null) return;
 
             PlayerStatus playerStatus = EntityManager.instance.player.GetComponent<PlayerStatus>();
             playerStatus.oxygen = DataManager.Instance.data.playerStatusData.currentOxygen;
