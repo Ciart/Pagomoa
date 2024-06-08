@@ -128,7 +128,7 @@ namespace Ciart.Pagomoa.Entities.Players
             isGroundHit = _target.targetCoordsList.Any((coord) =>
             {
                 var (x, y) = coord;
-                var brick = WorldManager.instance.world.GetBrick(x, y, out _);
+                var brick = WorldManager.world.currentLevel.GetBrick(x, y, out _);
 
                 return brick.ground is not null;
             });
@@ -213,7 +213,7 @@ namespace Ciart.Pagomoa.Entities.Players
             _enemies.Remove(entity);
         }
 
-        private Vector2Int DirectionCheck(bool a = false)
+        private WorldCoords DirectionCheck(bool a = false)
         {
             Vector3 digVec;
             //switch (direction)
