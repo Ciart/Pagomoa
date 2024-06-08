@@ -129,13 +129,16 @@ namespace Ciart.Pagomoa.Entities.Players
                 gage = oxygen;
                 if (oxygen < minOxygen)
                 {
+                    Die();
                     gage = minOxygen;
+                    Debug.Log("0 됐다");
                 }
             }
             else if (oxygen < maxOxygen)
             {
                 oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
-                gage = oxygen;
+                gage = oxygen;                    
+                Debug.Log("올라간다");
             }
 
             oxygenAlter.Invoke(gage, maxOxygen);
@@ -150,7 +153,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             LoseMoney(0.1f);
             LoseItem(Item.ItemType.Mineral, 0.5f);
-            NextDay();
+            // NextDay();
 
             Respawn();
         }

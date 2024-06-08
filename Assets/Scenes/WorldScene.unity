@@ -1841,6 +1841,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 351634117}
   m_CullTransparentMesh: 1
+--- !u!4 &359751763 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7036410858450081891, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
+  m_PrefabInstance: {fileID: 1480150948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &385330432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,7 +1976,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 359751763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &405246042
 MonoBehaviour:
@@ -7824,7 +7829,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7036410858450081891, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405246041}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
 --- !u!1 &1481781972
@@ -13462,7 +13470,6 @@ SceneRoots:
   - {fileID: 1469825037}
   - {fileID: 61943815}
   - {fileID: 1400426186}
-  - {fileID: 405246041}
   - {fileID: 619394802}
   - {fileID: 7467345807268936666}
   - {fileID: 1500683812}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Ciart.Pagomoa.Entities.Monsters;
+using Ciart.Pagomoa.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -51,6 +52,7 @@ namespace Ciart.Pagomoa.Systems.Time
             MonsterSleep.AddListener(DayMonster.GetSleep);
             MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
             MonsterWakeUp.AddListener(NightMonster.TimeToBye);
+            
         }
 
         private void Update()
@@ -105,8 +107,8 @@ namespace Ciart.Pagomoa.Systems.Time
     
         public void Sleep()
         {
-            FadeEvent.Invoke(FadeState.FadeInOut);
-
+            // FadeEvent.Invoke(FadeState.FadeInOut);
+            EventManager.Notify(new FadeEvent(FadeState.FadeInOut));
             AddDay(1);
             SetTime(6,0);
 
