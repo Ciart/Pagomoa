@@ -4,7 +4,7 @@ using Ciart.Pagomoa.Entities;
 namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
-    public class WorldEntityData
+    public class EntityData
     {
         public float x;
 
@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public EntityStatus status;
 
-        public WorldEntityData(float x, float y, EntityOrigin origin, EntityStatus status = null)
+        public EntityData(float x, float y, EntityOrigin origin, EntityStatus status = null)
         {
             this.x = x;
             this.y = y;

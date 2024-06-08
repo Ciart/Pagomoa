@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Worlds;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,6 +35,8 @@ namespace Ciart.Pagomoa.Entities
         public event Action<EntityDamagedEventArgs> damaged;
 
         public event Action died;
+        
+        public bool isDead = false;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -62,22 +65,29 @@ namespace Ciart.Pagomoa.Entities
             }
         }
 
-        public void Init(EntityOrigin origin, EntityStatus status = null)
+        public void Init(EntityData data)
         {
-            this.origin = origin;
+            origin = data.origin;
 
-            if (status is null)
+            // if (status is null)
             {
-                this.status = new EntityStatus
+                status = new EntityStatus
                 {
                     health = origin.baseHealth,
                     maxHealth = origin.baseHealth
                 };
             }
-            else
-            {
-                this.status = status;
-            }
+            // else
+            // {
+            //     status = data.status;
+            // }
+        }
+        
+        public EntityData GetEntityData()
+        {
+            var position = transform.position;
+            
+            return new EntityData(position.x, position.y, origin, status);
         }
 
         private void OnDrawGizmos()
@@ -120,12 +130,8 @@ namespace Ciart.Pagomoa.Entities
 
         public void Die()
         {
-            if (died is null)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
+            isDead = true;
+            gameObject.SetActive(false);
             died?.Invoke();
         }
 
@@ -149,7 +155,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void CheckDeath()
         {
-            if (status.health <= 0)
+            if (!isDead && status.health <= 0)
             {
                 Die();
             }

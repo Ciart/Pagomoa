@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Items
 
             while (!find)
             {
-                if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
+                if (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                     find = true;
 
                 WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
