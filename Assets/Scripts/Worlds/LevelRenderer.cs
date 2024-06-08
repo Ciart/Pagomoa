@@ -189,6 +189,7 @@ namespace Ciart.Pagomoa.Worlds
             if (minimapObjects == null)
             {
                 minimapObjects = new GameObject();
+                minimapObjects.transform.parent = transform;
                 minimapObjects.name = "minimap objects";
             }
 
