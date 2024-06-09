@@ -51,13 +51,13 @@ namespace Ciart.Pagomoa
 
         public bool IsBrickAboveGround(int targetX, int targetY)
         {
-            var world = WorldManager.instance.world;
+            var lev = WorldManager.world.currentLevel;
             
-            var targetBrick = world.GetBrick(targetX, targetY, out var notUseChunk1);
+            var targetBrick = lev.GetBrick(targetX, targetY, out var notUseChunk1);
 
             if (targetBrick.ground) return false;
 
-            var targetGroundBrick = world.GetBrick(targetX, targetY - 1, out var notUseChunk2);
+            var targetGroundBrick = lev.GetBrick(targetX, targetY - 1, out var notUseChunk2);
 
             return targetGroundBrick.ground;
         }

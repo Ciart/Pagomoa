@@ -55,6 +55,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public bool isDig = false;
         
         public bool isPlayed = false;
+
+        private MoaInteraction _fairyMoa;
         
         private void Awake()
         {
@@ -64,6 +66,9 @@ namespace Ciart.Pagomoa.Entities.Players
             _target = Instantiate(targetPrefabs);
 
             _drillParts = gameObject.GetComponentsInChildren<Transform>();
+            
+            _fairyMoa = FindObjectOfType<MoaInteraction>();
+            _fairyMoa.InitMoa();
         }
 
         private void UpdateDirection()
@@ -105,14 +110,30 @@ namespace Ciart.Pagomoa.Entities.Players
                 if(drillPart.gameObject != gameObject)
                     drillPart.gameObject.SetActive(isDig);
             }
-            
-            if (!isDig) return;
+
+            if (!isDig)
+            {
+                if (!_fairyMoa.gameObject.activeSelf)
+                {
+                    _fairyMoa.gameObject.SetActive(true);
+                    
+                    _fairyMoa.MoaAppearEffect();
+                }
+                return;
+            }
             if (isDig)
             {
                 if (!SoundManager.instance.FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
                 {
                     SoundManager.instance.PlaySfx("DrillSpin", false);
                     isPlayed = true;
+                }
+
+                if (_fairyMoa.gameObject.activeSelf)
+                {
+                    _fairyMoa.MoaAppearEffect();
+                    
+                    _fairyMoa.gameObject.SetActive(false);
                 }
             }
             else

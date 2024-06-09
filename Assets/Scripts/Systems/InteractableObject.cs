@@ -29,6 +29,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void ActiveObject()
         {
+            if (interactionEvent.GetPersistentEventCount() == 0) return;
             if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
             
             var color = new Color(0.38f,0.75f, 0.92f, 1f);
@@ -39,6 +40,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void DisableObject()
         {
+            if (interactionEvent.GetPersistentEventCount() == 0) return;
             if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
             
             _spriteRenderer.material.SetColor(OutlineColor, Color.white);

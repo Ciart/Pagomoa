@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa
         public GameObject appearanceEffect;
         
         public float halfFloatingTime = 2f;
-        public AnimationCurve moveCurve;
+        public AnimationCurve floatingCurve;
         
         [SerializeField] private float moaSpeed;
         [SerializeField] private float minSpeed;
@@ -27,7 +27,6 @@ namespace Ciart.Pagomoa
         private Vector2 _targetDirectionVector;
         private int _targetLastDirection = 1;
         private PlayerMovement _targetMovement;
-        private PlayerDigger _targetDigger;
         private bool _wasDigging;
 
         private const float LinearPoint = 1f;
@@ -35,8 +34,6 @@ namespace Ciart.Pagomoa
         void Start()
         {
             _interactableObject = GetComponent<InteractableObject>();
-            
-            StartCoroutine(FindPlayer());
         }
         
         void Update()
@@ -47,24 +44,6 @@ namespace Ciart.Pagomoa
             
             var destinationPos = target.position + new Vector3(1.5f * _targetLastDirection, 1f, 0);
 
-            /*if (_targetDigger.isDig && gameObject.activeSelf)
-            {
-                GameObject activatedEffect = Instantiate(appearanceEffect, destinationPos, Quaternion.identity);
-                Destroy(activatedEffect, 0.5f);
-                
-                gameObject.SetActive(false);
-            } else if (!_targetDigger.isDig && !gameObject.activeSelf)
-            {
-                GameObject activatedEffect = Instantiate(appearanceEffect, destinationPos, Quaternion.identity);
-                Destroy(activatedEffect, 0.5f);
-
-                transform.position = destinationPos;
-                
-                gameObject.SetActive(true);
-            }*/
-            
-            if (_targetDigger.isDig) return;
-            
             if (TargetIsNotMove() && _canInteraction)
             {
                 if (!_floatingEnd) return;
@@ -97,7 +76,7 @@ namespace Ciart.Pagomoa
                 current += Time.deltaTime;
                 percent = current / halfFloatingTime;
                 
-                transform.position = Vector3.Lerp(startPos, endPos, moveCurve.Evaluate(percent));
+                transform.position = Vector3.Lerp(startPos, endPos, floatingCurve.Evaluate(percent));
                 
                 yield return null;
             }
@@ -106,18 +85,16 @@ namespace Ciart.Pagomoa
             _floatingEnd = true;
         }
         
-        private IEnumerator FindPlayer()
+        public void InitMoa()
         {
-            yield return new WaitForSeconds(2f);
-
             var player = FindObjectOfType<PlayerMovement>();
-            if (player)
-            {
-                target = player.transform;
-                _targetMovement = player;
-                _targetDigger = player.GetComponent<PlayerDigger>();
-                _targetDirectionVector = player.directionVector;
-            }
+            if (!player.gameObject) return;
+            
+            target = player.transform;
+            _targetMovement = player;
+            _targetDirectionVector = player.directionVector;
+
+            transform.SetParent(target);
         }
 
         private bool TargetIsNotMove()
@@ -171,6 +148,23 @@ namespace Ciart.Pagomoa
                 
             _canInteraction = true;
             _interactableObject.UnlockInteraction();
+        }
+
+        public void MoaAppearEffect()
+        {
+            StopAllCoroutines();
+            
+            if (transform.parent) transform.SetParent(null);
+            
+            var appearPoint = target.position + new Vector3(1.5f * _targetLastDirection, 1f, 0);
+            
+            GameObject activatedEffect = Instantiate(appearanceEffect, appearPoint, Quaternion.identity);
+            Destroy(activatedEffect, 0.5f);
+
+            transform.position = appearPoint;
+            
+            _floatingEnd = true;
+            _floatingNormalized = -1;
         }
     }
 }
