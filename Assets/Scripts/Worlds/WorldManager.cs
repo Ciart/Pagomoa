@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds.UFO;
@@ -239,6 +240,184 @@ namespace Ciart.Pagomoa.Worlds
             return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
         }
 
+        public bool IsBrickAboveGround(int targetX, int targetY)
+        {
+            var targetBrick = world.GetBrick(targetX, targetY, out var notUseChunk1);
+
+            if (targetBrick.ground) return false;
+
+            var targetGroundBrick = world.GetBrick(targetX, targetY - 1, out var notUseChunk2);
+
+            return targetGroundBrick.ground;
+        }
+        
+        public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY, int searchRange, int minSearchRange = 0)
+        {
+            var closeBricks = new List<Vector2Int>();
+            
+            var searchCount = 0;
+
+            var x = Mathf.FloorToInt(basePosX);
+            var y = Mathf.FloorToInt(basePosY);
+
+            var initVector = new Vector2Int(-1, 1);
+            var intPos = new Vector2Int(x, y);
+
+            var xPlusCount = 2 + 2 * minSearchRange;
+            var xMinusCount = -2 - 2 * minSearchRange;
+            var yPlusCount = 2 + 2 * minSearchRange;
+            var yMinusCount = -2 - 2 * minSearchRange;
+            
+            var startPos = intPos + initVector * minSearchRange;
+
+            while (searchCount < searchRange - minSearchRange)
+            {
+                startPos += initVector ;
+
+                var targetVector = startPos;
+
+                for (int xp = 0; xp < xPlusCount; xp++)
+                {
+                    targetVector += new Vector2Int(1, 0);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+
+                for (int ym = 0; ym > yMinusCount; ym--)
+                {
+                    targetVector += new Vector2Int(0, -1);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+
+                for (int xm = 0; xm > xMinusCount; xm--)
+                {
+                    targetVector += new Vector2Int(-1, 0);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+                
+                for (int yp = 0; yp < yPlusCount; yp++)
+                {
+                    targetVector += new Vector2Int(0, 1);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+                
+                if (closeBricks.Count > 0)
+                {
+                    var targetPos = new Vector2(basePosX, basePosY);
+                    var distances = new Dictionary<float, Vector2Int>(); 
+                    
+                    foreach (var vector in closeBricks)
+                    {
+                        var distance = Vector2.Distance(targetPos, vector);
+                        distances.Add(distance, vector);
+                    }
+                    
+                    var minDistance = distances.Keys.Min();
+
+                    return distances[minDistance];
+                }
+
+                searchCount++;
+                
+                xPlusCount += 2;
+                xMinusCount -= 2;
+                yPlusCount += 2;
+                yMinusCount -= 2;
+            }
+            
+            // 주변에 가까운 블럭이 없으면 매개변수를 다시 반환
+            return new Vector2Int((int)basePosX, (int)basePosY);
+        }
+        
+        public List<Vector2Int> GetAboveEmptyGroundVectors(int basePosX, int basePosY, int searchRange, int minSearchRange = 0)
+        {
+            var onGroundList = new List<Vector2Int>();
+
+            var xRange = 0;
+            var yRange = 0;
+            
+            xRange = basePosX + searchRange;
+            yRange = basePosY - searchRange;
+
+            for (var x = basePosX + 1; x < xRange; x++)
+            {
+                for (var y = basePosY; y > yRange; y--)
+                {
+                    if (x <= basePosX + minSearchRange && y >= basePosY - minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+            
+            xRange = basePosX - searchRange;
+            yRange = basePosY + searchRange;
+            
+            for (var x = basePosX - 1; x > xRange; x--)
+            {
+                for (var y = basePosY; y < yRange; y++)
+                {
+                    if (x >= basePosX - minSearchRange && y <= basePosY + minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+
+            xRange = basePosX + searchRange;
+            yRange = basePosY + searchRange;
+            
+            for (var y = basePosY + 1; y < yRange; y++)
+            {
+                for (var x = basePosX; x < xRange; x++)
+                {
+                    if (x <= basePosX + minSearchRange && y <= basePosY + minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+            
+            xRange = basePosX - searchRange;
+            yRange = basePosY - searchRange;
+            
+            for (var y = basePosY - 1; y > yRange; y--)
+            {
+                for (var x = basePosX; x > xRange; x--)
+                {
+                    if (x >= basePosX - minSearchRange && y >= basePosY - minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+            
+            return onGroundList;
+        }
+        
         public void MoveUfoBase()
         {
             if (_ufoInteraction.canMove)

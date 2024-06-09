@@ -14,8 +14,9 @@ namespace Ciart.Pagomoa.Systems
         private SpriteRenderer _spriteRenderer;
 
         private GameObject _interactableUI;
-
+        
         private const string Outline = "_OutlineColor";
+        private static readonly int OutlineColor = Shader.PropertyToID(Outline);
     
         private void Awake()
         {
@@ -28,16 +29,42 @@ namespace Ciart.Pagomoa.Systems
 
         public void ActiveObject()
         {
+            if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
+            
             var color = new Color(0.38f,0.75f, 0.92f, 1f);
         
-            _spriteRenderer.material.SetColor(Outline, color);
+            _spriteRenderer.material.SetColor(OutlineColor, color);
             _interactableUI.SetActive(true);
         }
 
         public void DisableObject()
         {
-            _spriteRenderer.material.SetColor(Outline, Color.white);
+            if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
+            
+            _spriteRenderer.material.SetColor(OutlineColor, Color.white);
             _interactableUI.SetActive(false);
+        }
+
+        public void LockInteraction()
+        {
+            _interactableUI.SetActive(false);
+            
+            var eventIndex = interactionEvent.GetPersistentEventCount();
+
+            for (int i = 0; i < eventIndex; i++)
+            {
+                interactionEvent.SetPersistentListenerState(i, UnityEventCallState.Off);
+            }
+        }
+
+        public void UnlockInteraction()
+        {
+            var eventIndex = interactionEvent.GetPersistentEventCount();
+
+            for (int i = 0; i < eventIndex; i++)
+            {
+                interactionEvent.SetPersistentListenerState(i, UnityEventCallState.RuntimeOnly);
+            }
         }
     }
 }
