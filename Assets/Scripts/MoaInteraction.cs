@@ -142,6 +142,7 @@ namespace Ciart.Pagomoa
         private void ChaseTarget(Vector3 destinationPos)
         {
             StopAllCoroutines();
+            
             if (transform.parent) transform.SetParent(null);
 
             var distancePos = destinationPos - transform.position;
@@ -149,24 +150,27 @@ namespace Ciart.Pagomoa
             var xDistance = Mathf.Abs(distancePos.x);
             var yDistance = Mathf.Abs(distancePos.y);
             
-            moaSpeed += (xDistance > 1 || yDistance > 1) ? 0.02f : -0.02f;
+            if (moaSpeed > 10f && (xDistance < 10f || yDistance < 10f)) moaSpeed += 0.02f;
+
+            if (xDistance > 2f || yDistance > 2f) moaSpeed += 0.02f;
+            else moaSpeed = minSpeed;
             
-            if (moaSpeed < minSpeed) moaSpeed = minSpeed;
+            transform.position = Vector3.Lerp(transform.position, destinationPos, Time.deltaTime * moaSpeed);
 
-            if (moaSpeed > 10f && (xDistance < 10f && yDistance < 10f)) moaSpeed += -(moaSpeed/5);
-
-            transform.position = Vector3.MoveTowards(transform.position, destinationPos, Time.deltaTime * moaSpeed);
-
-            if (transform.position == destinationPos)
+            if (Mathf.Abs(transform.position.x) <= Mathf.Abs(destinationPos.x) + 0.05f || Mathf.Abs(transform.position.y) <= Mathf.Abs(destinationPos.y) + 0.05f)
             {
-                moaSpeed = minSpeed;
-                
-                _floatingEnd = true;
-                _floatingNormalized = -1;
-                
-                _canInteraction = true;
-                _interactableObject.UnlockInteraction();
+                transform.position = Vector3.MoveTowards(transform.position, destinationPos, Time.deltaTime);
             }
+
+            if (transform.position != destinationPos) return;
+
+            moaSpeed = minSpeed;
+                
+            _floatingEnd = true;
+            _floatingNormalized = -1;
+                
+            _canInteraction = true;
+            _interactableObject.UnlockInteraction();
         }
     }
 }
