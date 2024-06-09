@@ -62,7 +62,7 @@ namespace Ciart.Pagomoa
             return targetGroundBrick.ground;
         }
 
-        public Vector2Int? GetClosestAboveEmptyGroundVector(float basePosX, float basePosY)
+        public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY)
         {
             closeBricks.Clear();
             
@@ -84,8 +84,7 @@ namespace Ciart.Pagomoa
             while (searchCount < searchRange - minSearchRange)
             {
                 startPos += initVector ;
-                Debug.Log(startPos);
-                // todo : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
                 targetVector = startPos;
 
                 for (int xp = 0; xp < xPlusCount; xp++)
@@ -159,7 +158,8 @@ namespace Ciart.Pagomoa
                 yMinusCount -= 2;
             }
             
-            return null;
+            // 주변에 가까운 블럭이 없으면 매개변수를 다시 반환
+            return new Vector2Int((int)basePosX, (int)basePosY);
         }
 
         public List<Vector2Int> GetAboveEmptyGroundVectors(int basePosX, int basePosY)

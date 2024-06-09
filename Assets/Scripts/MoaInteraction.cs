@@ -47,7 +47,7 @@ namespace Ciart.Pagomoa
             
             var destinationPos = target.position + new Vector3(1.5f * _targetLastDirection, 1f, 0);
 
-            if (_targetDigger.isDig && gameObject.activeSelf)
+            /*if (_targetDigger.isDig && gameObject.activeSelf)
             {
                 GameObject activatedEffect = Instantiate(appearanceEffect, destinationPos, Quaternion.identity);
                 Destroy(activatedEffect, 0.5f);
@@ -61,7 +61,7 @@ namespace Ciart.Pagomoa
                 transform.position = destinationPos;
                 
                 gameObject.SetActive(true);
-            }
+            }*/
             
             if (_targetDigger.isDig) return;
             

@@ -5749,6 +5749,18 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4591575106485777854, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591575106485777854, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591575106485777854, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591575106485777854, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
