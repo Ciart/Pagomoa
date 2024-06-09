@@ -44,7 +44,7 @@ namespace Ciart.Pagomoa.Items
                 }
                 point.x = _bombEffect.transform.position.x - 2;
             }
-            SoundManager.instance.PlaySfx("FootSteps", this.transform.position);
+            SoundManager.instance.PlaySfx("BombEffect", true, this.transform.position);
         }
         private void Destroy(GameObject Bomb, int time)
         {

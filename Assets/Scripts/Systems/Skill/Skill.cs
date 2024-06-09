@@ -67,9 +67,9 @@ namespace Ciart.Pagomoa.Systems.Skill
         
             var point = transform.position + digVec * 1.2f;
             var pointInt = WorldManager.ComputeCoords(point);
-            while (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).ground)
+            while (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).ground)
             {
-                if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
+                if (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                     return;
             
                 WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
@@ -84,9 +84,9 @@ namespace Ciart.Pagomoa.Systems.Skill
             var pointInt = WorldManager.ComputeCoords(point);
             bool find = false;
 
-            while (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).ground && !find)
+            while (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).ground && !find)
             {
-                if (WorldManager.instance.world.GetBrick(pointInt.x, pointInt.y, out _).mineral)
+                if (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                     find = true;
             
                 WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);

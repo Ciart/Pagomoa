@@ -61,7 +61,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             else if (distance < _closestDistance && interactableObjectList.Count > 1)
             {
-                _activatedObject.DisableObject();
+                _activatedObject?.DisableObject();
                 _activatedObject = obj;
                 _closestDistance = distance;
                 obj.ActiveObject();

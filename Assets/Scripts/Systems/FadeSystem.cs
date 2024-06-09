@@ -1,4 +1,5 @@
 using System.Collections;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,9 +21,16 @@ namespace Ciart.Pagomoa.Systems
         {
             _image = GetComponent<Image>();
 
-            TimeManager.instance.FadeEvent.AddListener(OnFade);
-        }
+            // TimeManager.instance.FadeEvent.AddListener(OnFade);
+            EventManager.AddListener<FadeEvent>(Faded);
 
+        }
+        
+        private void Faded(FadeEvent e)
+        {
+            OnFade(e.state);
+        }
+        
         private void OnFade(FadeState state)
         {
             _fadeState = state;

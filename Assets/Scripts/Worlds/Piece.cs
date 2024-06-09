@@ -23,25 +23,40 @@ namespace Ciart.Pagomoa.Worlds
 
         public string[] tags;
 
-        public int width = 2;
+        [field: SerializeField]
+        public int width
+        {
+            get;
+            private set;
+        } = 2;
 
-        public int height = 2;
+        [field: SerializeField]
+        public int height
+        {
+            get;
+            private set;
+        } = 2;
 
         public Vector2Int pivot = Vector2Int.zero;
 
         public float weight = 1;
 
-        public List<WorldEntityData> entities = new();
+        public List<EntityData> entities = new();
 
         [SerializeField] private Brick[] _bricks;
+
+        public bool isValid => _bricks.Length == width * height;
 
         public Piece()
         {
             _bricks = new Brick[width * height];
         }
 
-        public void ResizeBricks()
+        public void ResizeBricks(int newWidth, int newHeight)
         {
+            width = newWidth;
+            height = newHeight;
+            
             Array.Resize(ref _bricks, width * height);
 
             entities = entities.FindAll(item => CheckRange(item.x, item.y));
@@ -69,7 +84,14 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            entities.Add(new WorldEntityData(x, y, origin));
+            var entityData = new EntityData(x, y, origin);
+
+            if (entities.Exists(data => data == entityData))
+            {
+                return;
+            }
+            
+            entities.Add(entityData);
         }
     }
 }

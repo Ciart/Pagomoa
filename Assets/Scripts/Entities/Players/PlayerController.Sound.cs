@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 if (!SoundManager.instance.FindAudioSource("TeamEffect").isPlaying)
                 {
-                    SoundManager.instance.PlaySfx("FootSteps");
+                    SoundManager.instance.PlaySfx("FootSteps", true);
                 }
             }
         }

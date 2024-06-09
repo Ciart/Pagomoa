@@ -60,19 +60,19 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             if (DataManager.Instance.data == null) return true;
             bool allNullCheck = true;
-            DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
-            if (chunks == null) return true;
-            int dataSize = chunks.data.Count;
-            //Debug.Log("수량: " + dataSize);
-            for (int i = 0; i < dataSize; i++)
-            {
-                int brickSize = chunks.data[i].Value.bricks.Length;
-                for (int j = 0; j < brickSize; j++)
-                {
-                    if (chunks.data[i].Value.bricks[j].ground != null)
-                        allNullCheck = false;
-                }
-            }
+            // DicList<Vector2Int, Chunk> chunks = DataManager.Instance.data.worldData._chunks;
+            // if (chunks == null) return true;
+            // int dataSize = chunks.data.Count;
+            // //Debug.Log("수량: " + dataSize);
+            // for (int i = 0; i < dataSize; i++)
+            // {
+            //     int brickSize = chunks.data[i].Value.bricks.Length;
+            //     for (int j = 0; j < brickSize; j++)
+            //     {
+            //         if (chunks.data[i].Value.bricks[j].ground != null)
+            //             allNullCheck = false;
+            //     }
+            // }
             return allNullCheck;
         }
 
@@ -211,6 +211,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadPlayerCurrentStatusData()
         {
             if (DataManager.Instance.data.playerStatusData == null) return;
+            if (EntityManager.instance.player == null) return;
 
             PlayerStatus playerStatus = EntityManager.instance.player.GetComponent<PlayerStatus>();
             playerStatus.oxygen = DataManager.Instance.data.playerStatusData.currentOxygen;
@@ -242,7 +243,7 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WriteMapData()
         {
             InitData();
-            DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
+            // DataManager.Instance.data.worldData.SetWorldDataFromWorld(WorldManager.instance.world);
         }
 
         public void WriteIntroData(bool arg)

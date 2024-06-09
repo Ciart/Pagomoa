@@ -3,7 +3,6 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
@@ -23,7 +22,7 @@ namespace Ciart.Pagomoa.Entities
             var entity = Instantiate(origin.prefab, position, Quaternion.identity);
             _entities.Add(entity);
 
-            entity.Init(origin, status);
+            entity.Init(new EntityData(position.x, position.y, origin, status));
             
             if (origin.type == EntityType.Player)
             {

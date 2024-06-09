@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uBAA8\uB798"
   strength: 10
-  sprite: {fileID: -880552388, guid: 6e56002d60d9842818c5acbd51e7e7b0, type: 3}
+  sprite: {fileID: 240705523, guid: 232c662ec941d8c4287da185d67a9667, type: 3}
   tile: {fileID: 11400000, guid: 5aab25ed6b2b1bb45a5d8a99e1c596b6, type: 2}
   color: {r: 0.90196085, g: 0.5647059, b: 0.30588236, a: 1}
