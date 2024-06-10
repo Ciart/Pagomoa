@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         private List<GameObject> _spawnedMonster;
 
-        private List<Vector2Int> _canSpawnPoints;
+        private List<WorldCoords> _canSpawnPoints;
     
         private Vector2 _spawnPoint;
 
@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
         void Start()
         {
             _spawnedMonster = new List<GameObject>();
-            _canSpawnPoints = new List<Vector2Int>();
+            _canSpawnPoints = new List<WorldCoords>();
 
             SetSpawnMonster();
             CheckSpawnPosition();
@@ -121,7 +121,8 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 CheckSpawnPosition();
             
                 int randomPoint = UnityEngine.Random.Range(0, _canSpawnPoints.Count);
-                _spawnPoint = _canSpawnPoints[randomPoint];
+                var coords = _canSpawnPoints[randomPoint];
+                _spawnPoint = new Vector2(coords.x, coords.y);
                 _spawnPoint.y += 0.5f;
             
 
@@ -167,14 +168,13 @@ namespace Ciart.Pagomoa.Entities.Monsters
             {
                 for (int y = bottomLeft.y; y <= topRight.y; y++)
                 {
-                    var worldManager = WorldManager.instance;
-                    Vector2Int tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
-                    var tile = worldManager.world.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
+                    var tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
+                    var tile = WorldManager.world.currentLevel.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
 
                     if (!tile)
                     {
-                        Vector2Int isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
-                        var tileCheck = worldManager.world.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
+                        var isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
+                        var tileCheck = WorldManager.world.currentLevel.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
 
                         if (tileCheck)
                         {

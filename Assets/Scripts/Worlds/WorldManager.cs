@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds.UFO;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -26,18 +25,18 @@ namespace Ciart.Pagomoa.Worlds
 
         private World _world;
 
-        public World world
+        public static World world
         {
-            get => _world;
+            get => instance._world;
             set
             {
-                if (_world == value)
+                if (instance._world == value)
                 {
                     return;
                 }
 
-                _world = value;
-                EventManager.Notify(new WorldCreatedEvent(_world));
+                instance._world = value;
+                EventManager.Notify(new WorldCreatedEvent(instance._world));
             }
         }
 
@@ -61,7 +60,8 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var chunk in _expiredChunks)
             {
-                EventManager.Notify(new ChunkChangedEvent(chunk));
+                // TODO: Level 값 다른 방식으로 변경
+                EventManager.Notify(new ChunkChangedEvent(world.currentLevel, chunk));
             }
 
             _expiredChunks.Clear();
@@ -77,7 +77,7 @@ namespace Ciart.Pagomoa.Worlds
         /// </summary>
         /// <param name="coords">World 좌표</param>
         /// <returns>Scene의 Global 위치</returns>
-        public static Vector3 ComputePosition(Vector2Int coords)
+        public static Vector3 ComputePosition(WorldCoords coords)
         {
             return ComputePosition(coords.x, coords.y);
         }
@@ -87,15 +87,15 @@ namespace Ciart.Pagomoa.Worlds
         /// </summary>
         /// <param name="position">Scene의 Global 위치</param>
         /// <returns>World 좌표</returns>
-        public static Vector2Int ComputeCoords(Vector3 position)
+        public static WorldCoords ComputeCoords(Vector3 position)
         {
-            return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
+            return new WorldCoords(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
         }
 
         public bool CheckNull(Vector3 pos)
         {
             var p = ComputeCoords(pos);
-            var brick = _world.GetBrick(p.x, p.y, out var chunk);
+            var brick = _world.currentLevel.GetBrick(p.x, p.y, out var chunk);
             if (brick?.ground is null)
                 return true;
             else
@@ -136,7 +136,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var (coords, damage) in diggingBrickDamage)
             {
-                var brick = _world.GetBrick(coords.x, coords.y, out _);
+                var brick = _world.currentLevel.GetBrick(coords.x, coords.y, out _);
 
                 if (brick?.ground is null)
                 {
@@ -172,7 +172,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public void BreakGround(int x, int y, int tier, bool isForceBreak = false)
         {
-            var brick = _world.GetBrick(x, y, out var chunk);
+            var brick = _world.currentLevel.GetBrick(x, y, out var chunk);
             var rock = database.GetMineral("Rock");
 
             if (chunk is null)
@@ -194,12 +194,10 @@ namespace Ciart.Pagomoa.Worlds
 
             var prevBrick = (Brick)brick.Clone();
             
-            Debug.Log(prevBrick.mineral?.displayName);
-
             brick.ground = null;
             brick.mineral = null;
 
-            foreach (var c in _world.GetNeighborChunks(chunk.key))
+            foreach (var c in _world.currentLevel.GetNeighborChunks(chunk.coords))
             {
                 _expiredChunks.Add(c);
             }
@@ -209,7 +207,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public bool CheckBreakable(int x, int y, int tier, string item)
         {
-            var brick = _world.GetBrick(x, y, out var chunk);
+            var brick = _world.currentLevel.GetBrick(x, y, out var chunk);
             if (item == "item")
             {
                 if (chunk is null) return false;
@@ -234,7 +232,7 @@ namespace Ciart.Pagomoa.Worlds
         public bool CheckClimbable(Vector3 position)
         {
             var coords = ComputeCoords(position);
-            var brick = _world.GetBrick(coords.x, coords.y, out _);
+            var brick = _world.currentLevel.GetBrick(coords.x, coords.y, out _);
 
             var ladderPos = ufoLadder.WorldToCell(new Vector3(position.x, position.y - 1f));
             var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
@@ -242,6 +240,184 @@ namespace Ciart.Pagomoa.Worlds
             return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
         }
 
+        public bool IsBrickAboveGround(int targetX, int targetY)
+        {
+            var targetBrick = _world.currentLevel.GetBrick(targetX, targetY, out var notUseChunk1);
+
+            if (targetBrick.ground) return false;
+
+            var targetGroundBrick = _world.currentLevel.GetBrick(targetX, targetY - 1, out var notUseChunk2);
+
+            return targetGroundBrick.ground;
+        }
+        
+        public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY, int searchRange, int minSearchRange = 0)
+        {
+            var closeBricks = new List<Vector2Int>();
+            
+            var searchCount = 0;
+
+            var x = Mathf.FloorToInt(basePosX);
+            var y = Mathf.FloorToInt(basePosY);
+
+            var initVector = new Vector2Int(-1, 1);
+            var intPos = new Vector2Int(x, y);
+
+            var xPlusCount = 2 + 2 * minSearchRange;
+            var xMinusCount = -2 - 2 * minSearchRange;
+            var yPlusCount = 2 + 2 * minSearchRange;
+            var yMinusCount = -2 - 2 * minSearchRange;
+            
+            var startPos = intPos + initVector * minSearchRange;
+
+            while (searchCount < searchRange - minSearchRange)
+            {
+                startPos += initVector ;
+
+                var targetVector = startPos;
+
+                for (int xp = 0; xp < xPlusCount; xp++)
+                {
+                    targetVector += new Vector2Int(1, 0);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+
+                for (int ym = 0; ym > yMinusCount; ym--)
+                {
+                    targetVector += new Vector2Int(0, -1);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+
+                for (int xm = 0; xm > xMinusCount; xm--)
+                {
+                    targetVector += new Vector2Int(-1, 0);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+                
+                for (int yp = 0; yp < yPlusCount; yp++)
+                {
+                    targetVector += new Vector2Int(0, 1);
+
+                    if (IsBrickAboveGround(targetVector.x, targetVector.y))
+                    {
+                        var targetBrick = new Vector2Int(targetVector.x, targetVector.y);
+                        closeBricks.Add(targetBrick);
+                    }
+                }
+                
+                if (closeBricks.Count > 0)
+                {
+                    var targetPos = new Vector2(basePosX, basePosY);
+                    var distances = new Dictionary<float, Vector2Int>(); 
+                    
+                    foreach (var vector in closeBricks)
+                    {
+                        var distance = Vector2.Distance(targetPos, vector);
+                        distances.Add(distance, vector);
+                    }
+                    
+                    var minDistance = distances.Keys.Min();
+
+                    return distances[minDistance];
+                }
+
+                searchCount++;
+                
+                xPlusCount += 2;
+                xMinusCount -= 2;
+                yPlusCount += 2;
+                yMinusCount -= 2;
+            }
+            
+            // 주변에 가까운 블럭이 없으면 매개변수를 다시 반환
+            return new Vector2Int((int)basePosX, (int)basePosY);
+        }
+        
+        public List<Vector2Int> GetAboveEmptyGroundVectors(int basePosX, int basePosY, int searchRange, int minSearchRange = 0)
+        {
+            var onGroundList = new List<Vector2Int>();
+
+            var xRange = 0;
+            var yRange = 0;
+            
+            xRange = basePosX + searchRange;
+            yRange = basePosY - searchRange;
+
+            for (var x = basePosX + 1; x < xRange; x++)
+            {
+                for (var y = basePosY; y > yRange; y--)
+                {
+                    if (x <= basePosX + minSearchRange && y >= basePosY - minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+            
+            xRange = basePosX - searchRange;
+            yRange = basePosY + searchRange;
+            
+            for (var x = basePosX - 1; x > xRange; x--)
+            {
+                for (var y = basePosY; y < yRange; y++)
+                {
+                    if (x >= basePosX - minSearchRange && y <= basePosY + minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+
+            xRange = basePosX + searchRange;
+            yRange = basePosY + searchRange;
+            
+            for (var y = basePosY + 1; y < yRange; y++)
+            {
+                for (var x = basePosX; x < xRange; x++)
+                {
+                    if (x <= basePosX + minSearchRange && y <= basePosY + minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+            
+            xRange = basePosX - searchRange;
+            yRange = basePosY - searchRange;
+            
+            for (var y = basePosY - 1; y > yRange; y--)
+            {
+                for (var x = basePosX; x > xRange; x--)
+                {
+                    if (x >= basePosX - minSearchRange && y >= basePosY - minSearchRange) continue;
+                    if (!IsBrickAboveGround(x, y)) continue;
+                    
+                    var targetIntPos = new Vector2Int(x, y);
+                    onGroundList.Add(targetIntPos);
+                }
+            }
+            
+            return onGroundList;
+        }
+        
         public void MoveUfoBase()
         {
             if (_ufoInteraction.canMove)

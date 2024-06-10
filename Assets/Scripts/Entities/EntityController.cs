@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Worlds;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,10 +15,12 @@ namespace Ciart.Pagomoa.Entities
         Melee = 1 << 1, // 근접
     }
 
+    // TODO: 무적 시간 추가
     public class EntityDamagedEventArgs
     {
         public float amount;
-        public GameObject attacker;
+        public float invincibleTime;
+        public EntityController attacker;
         public DamageFlag flag;
     }
 
@@ -27,11 +30,13 @@ namespace Ciart.Pagomoa.Entities
 
         public EntityStatus status;
 
-        public bool isEnemy = false;
+        public EntityController parent;
 
         public event Action<EntityDamagedEventArgs> damaged;
 
         public event Action died;
+        
+        public bool isDead = false;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -39,26 +44,50 @@ namespace Ciart.Pagomoa.Entities
 
         private float _invincibleTime;
 
-        public bool isInvincibleTime => _invincibleTime > 0;
+        public bool isEnemy => origin.isEnemy;
 
-        public void Init(EntityOrigin origin, EntityStatus status = null)
+        public bool isInvincible => _invincibleTime > 0 || origin.isInvincible;
+
+        // https://discussions.unity.com/t/how-do-i-check-if-my-rigidbody-player-is-grounded/33250/11
+        private bool _isGrounded;
+
+        public bool isGrounded
         {
-            this.origin = origin;
-
-            if (status is null)
+            get
             {
-                this.status = new EntityStatus
+                if (_isGrounded)
+                {
+                    _isGrounded = false;
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public void Init(EntityData data)
+        {
+            origin = data.origin;
+
+            // if (status is null)
+            {
+                status = new EntityStatus
                 {
                     health = origin.baseHealth,
                     maxHealth = origin.baseHealth
                 };
-
-                isEnemy = origin.isEnemy;
             }
-            else
-            {
-                this.status = status;
-            }
+            // else
+            // {
+            //     status = data.status;
+            // }
+        }
+        
+        public EntityData GetEntityData()
+        {
+            var position = transform.position;
+            
+            return new EntityData(position.x, position.y, origin, status);
         }
 
         private void OnDrawGizmos()
@@ -73,16 +102,16 @@ namespace Ciart.Pagomoa.Entities
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
 
-        public void TakeDamage(float amount, float invincibleTime = 0.3f, GameObject attacker = null,
+        public void TakeDamage(float amount, float invincibleTime = 0f, EntityController attacker = null,
             DamageFlag flag = DamageFlag.None)
         {
-            if (isInvincibleTime)
+            if (isInvincible)
             {
                 return;
             }
 
             _invincibleTime = invincibleTime;
-            
+
             status.health -= amount;
             if (status.health <= 0)
             {
@@ -94,29 +123,25 @@ namespace Ciart.Pagomoa.Entities
                 TakeKnockback(5f, transform.position - attacker.transform.position);
             }
 
-            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, attacker = attacker, flag = flag });
+            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
 
             StartCoroutine(RunInvincibleTimeFlash());
         }
-        
+
         public void Die()
         {
-            if (died is null)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-            
+            isDead = true;
+            gameObject.SetActive(false);
             died?.Invoke();
         }
 
         private IEnumerator RunInvincibleTimeFlash()
         {
-            while (isInvincibleTime)
+            while (isInvincible)
             {
-                _spriteRenderer.enabled = false;
+                _spriteRenderer.color = Color.clear;
                 yield return new WaitForSeconds(0.05f);
-                _spriteRenderer.enabled = true;
+                _spriteRenderer.color = Color.white;
                 yield return new WaitForSeconds(0.05f);
             }
         }
@@ -127,10 +152,10 @@ namespace Ciart.Pagomoa.Entities
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
         }
-        
+
         private void CheckDeath()
         {
-            if (status.health <= 0)
+            if (!isDead && status.health <= 0)
             {
                 Die();
             }
@@ -139,10 +164,10 @@ namespace Ciart.Pagomoa.Entities
         private void Update()
         {
             CheckDeath();
-            
+
             var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
 
-            if (distance > 10f)
+            if (distance > 100f)
             {
                 _rigidbody.simulated = false;
             }
@@ -152,6 +177,27 @@ namespace Ciart.Pagomoa.Entities
             }
 
             _invincibleTime -= Time.deltaTime;
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+            {
+                _isGrounded = true;
+                return;
+            }
+
+            _isGrounded = false;
+            return;
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+            {
+                _isGrounded = false;
+                return;
+            }
         }
     }
 }

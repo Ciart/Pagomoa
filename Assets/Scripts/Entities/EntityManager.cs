@@ -3,7 +3,6 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
@@ -21,18 +20,17 @@ namespace Ciart.Pagomoa.Entities
         public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
         {
             var entity = Instantiate(origin.prefab, position, Quaternion.identity);
-            var controller = entity.GetOrAddComponent<EntityController>();
-            _entities.Add(controller);
+            _entities.Add(entity);
 
-            controller.Init(origin, status);
+            entity.Init(new EntityData(position.x, position.y, origin, status));
             
             if (origin.type == EntityType.Player)
             {
-                _player = controller.GetComponent<PlayerController>();
+                _player = entity.GetComponent<PlayerController>();
                 EventManager.Notify(new PlayerSpawnedEvent(_player));
             }
 
-            return controller;
+            return entity;
         }
 
         public void Despawn(EntityController controller)

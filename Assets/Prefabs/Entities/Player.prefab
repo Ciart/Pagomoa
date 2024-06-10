@@ -11,12 +11,10 @@ GameObject:
   - component: {fileID: 7701893231697460608}
   - component: {fileID: 1217589383783385779}
   - component: {fileID: 545810255901230581}
-  - component: {fileID: 5423070708030023191}
   - component: {fileID: 4741998686411541126}
   - component: {fileID: 2442559022297014597}
   - component: {fileID: 6532384969457569552}
   - component: {fileID: 1015079352211381871}
-  - component: {fileID: 7880955015287657402}
   - component: {fileID: 3585343481981625419}
   - component: {fileID: 4177568309858970068}
   - component: {fileID: 4194115565561829200}
@@ -88,8 +86,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1296156287
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 1691140904, guid: 727a67a6c076a994584b4a4755b4d2f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -129,102 +127,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!82 &5423070708030023191
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106713657715818926}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2409859268131024294, guid: 78824776f796f13468ff4a23500b9f4f, type: 2}
-  m_audioClip: {fileID: 8300000, guid: bf497a106d2463d41a419a4fcb140af0, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.25
-  m_Pitch: 1.5
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &4741998686411541126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,11 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
+  origin: {fileID: 0}
   status:
     health: 0
     maxHealth: 0
-  isEnemy: 0
+  parent: {fileID: 0}
 --- !u!114 &2442559022297014597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,8 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isGrounded: 0
-  _status: {fileID: 0}
-  _initialStatus: {fileID: 0}
+  status: {fileID: 0}
+  initialStatus: {fileID: 0}
   groundDistance: 1.125
   sideWallDistance: 1.0625
 --- !u!114 &6532384969457569552
@@ -315,27 +217,6 @@ MonoBehaviour:
   hungryAlter:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7880955015287657402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106713657715818926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3baccdf20f8482c9cdef7e300c47b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drill: {fileID: 4382321979675749985}
-  direction: 0
-  isDig: 0
-  tiredDigSpeedScoop: 5
-  drillLevel: 0
-  drillTier: 10
-  width: 2
-  length: 1
-  targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
 --- !u!95 &3585343481981625419
 Animator:
   serializedVersion: 5
@@ -524,7 +405,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1296156287
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -574,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &112773553881347867
 Transform:
   m_ObjectHideFlags: 0
@@ -610,10 +491,15 @@ MonoBehaviour:
   downOffset: {x: 0, y: -0.9375}
   leftOffset: {x: -0.625, y: -0.125}
   rightOffset: {x: 0.625, y: -0.125}
-  spinSound: {fileID: 8300000, guid: 2ab08426cf58ee74dbcc1e3f411f9b6f, type: 3}
-  groundHitSound: {fileID: 8300000, guid: d7fcd7529cf241943a74c9321fd221ec, type: 3}
-  groundHitLoopSound: {fileID: 8300000, guid: e20d51d28e3340e4aa0e1245998cda7d, type: 3}
   isGroundHit: 0
+  _drills:
+  - {fileID: 11400000, guid: d55e1dc6a86e37c4d9835e9330ff940b, type: 2}
+  - {fileID: 11400000, guid: e652450880491a64283d0c2eda31911d, type: 2}
+  - {fileID: 11400000, guid: 88a153b1ee0d71e41acdf14d2905c603, type: 2}
+  - {fileID: 11400000, guid: a75ca8835bdf7e9448dc0de3ef098012, type: 2}
+  targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
+  direction: 0
+  isDig: 0
 --- !u!95 &3470090247393011381
 Animator:
   serializedVersion: 5
@@ -973,7 +859,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1296156287
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

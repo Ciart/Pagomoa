@@ -1,5 +1,4 @@
-using Ciart.Pagomoa.Constants;
-using Ciart.Pagomoa.Events;
+﻿using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -12,9 +11,9 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public bool isGrounded = false;
         
-        public PlayerStatus _status;
+        public PlayerStatus status;
 
-        public PlayerStatus _initialStatus;
+        public PlayerStatus initialStatus;
 
         public float groundDistance = 1.125f;
         
@@ -22,13 +21,11 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private Rigidbody2D _rigidbody;
         
-        private AudioSource _audioSource;
-        
         private PlayerInput _input;
 
         private PlayerMovement _movement;
 
-        private PlayerDigger _digger;
+        private DrillController _digger;
         
         private Camera _camera;
 
@@ -38,15 +35,14 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Awake()
         {
-            _status = GetComponent<PlayerStatus>();
-            _initialStatus = _status.copy();
+            status = GetComponent<PlayerStatus>();
+            initialStatus = status.copy();
 
             _rigidbody = GetComponent<Rigidbody2D>();
-            _audioSource = GetComponent<AudioSource>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
-            _digger = GetComponent<PlayerDigger>();
-
+            _digger = transform.GetChild(0).GetComponent<DrillController>();
+            Debug.Log(_digger);
             _camera = Camera.main;
             _world = WorldManager.instance;
         }
@@ -133,9 +129,9 @@ namespace Ciart.Pagomoa.Entities.Players
         
         public bool Hungry(float value)
         {
-            if (_status.hungry - value < 0) return true;
-            _status.hungry -= value;
-            _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
+            if (status.hungry - value < 0) return true;
+            status.hungry -= value;
+            status.hungryAlter.Invoke(status.hungry, status.maxHungry);
             return false;
         }
         

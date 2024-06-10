@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 8782856950872123134}
   - component: {fileID: 1166198548169152413}
   - component: {fileID: 3594193921400847855}
-  - component: {fileID: 5789162265615388691}
   - component: {fileID: 2357527780685838860}
   - component: {fileID: 8082500476600118954}
   - component: {fileID: 6265122512632462020}
-  m_Layer: 0
+  - component: {fileID: 2862396688852459538}
+  m_Layer: 8
   m_Name: noung
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -186,19 +186,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5789162265615388691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628637834904415878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06cfb25d961118f4d9be1fc91d3a8310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueAsset: {fileID: 4900000, guid: a76c7d38d225dbb4e85cfd807db53732, type: 3}
 --- !u!114 &2357527780685838860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,21 +236,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbf4aee7a5eff14f9b8f81f302e1552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionEvent:
+  uiOffset: {x: 0, y: 2, z: 0}
+  interactionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5789162265615388691}
-        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
-        m_MethodName: StartStory
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Dialogue.DialogueManager,
+          Assembly-CSharp
+        m_MethodName: StartDialogue
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2862396688852459538}
+          m_ObjectArgumentAssemblyTypeName: EntityDialogue, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2862396688852459538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628637834904415878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460fe55a96245c54994795816d33e40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicDialogue: {fileID: 4900000, guid: 2917720dd06856745b9a14685ba6761c, type: 3}
+  dailyDialogues: {fileID: 11400000, guid: b56eb786fcea32f4e85c3cb7d3bff2fd, type: 2}
+  questDialogues:
+  - {fileID: 11400000, guid: 59da68c3558085b47b48f1caeaba74b7, type: 2}
+  - {fileID: 11400000, guid: dc5d2acb1ffebaf46807045475a2c2ba, type: 2}
 --- !u!1 &7663766976922309395
 GameObject:
   m_ObjectHideFlags: 0

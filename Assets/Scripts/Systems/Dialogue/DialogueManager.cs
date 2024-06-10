@@ -13,19 +13,41 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
+        private static DialogueManager _instance = null;
+
+        private TextAsset _inkJsonAsset = null;
+
+        private EntityDialogue _nowEntityDialogue;
+
+        private enum UISelectMode
+        {
+            In,
+            Out
+        }
+
+        private UISelectMode _uiMode = UISelectMode.Out;
+
+        private bool _changeDialogue = false;
+
+        [SerializeField] private GameObject _outButtonGroup;
+
+        [SerializeField] private GameObject _inButtonGroup;
+
+        [SerializeField] private Button _outButtonPrefab = null;
+
+        [SerializeField] private Button _inButtonPrefab = null;
+
+        [Space]
+
         public GameObject talkPannel;
+
         public Image talkImage;
+
         public TextMeshProUGUI talkText;
+
         public TextMeshProUGUI nameText;
 
-        [SerializeField]
-        private GameObject outButtonGroup;
-        [SerializeField]
-        private GameObject inButtonGroup;
-
         public List<Sprite> spriteGroup;
-        
-        private static DialogueManager _instance = null;
 
         public static DialogueManager instance
         {
@@ -41,23 +63,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public static event Action<Story> onCreateStory;
 
-        private TextAsset _inkJsonAsset = null;
-        private DialogueTrigger _nowTrigger;
-
         public Story story;
-
-        [SerializeField]
-        private Button outButtonPrefab = null;
-        [SerializeField]
-        private Button inButtonPrefab = null;
-
-        enum UISelectMode {
-            In,
-            Out
-        }
-        
-        UISelectMode uiMode = UISelectMode.Out;
-        bool changeDialogue = false;
 
         private void Update()
         {
@@ -66,54 +72,33 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void SetBtnSizeAfterContentSizeFitter()
         {
-            if (uiMode == UISelectMode.Out)
+            if (_uiMode == UISelectMode.Out)
             {
-                var rect = outButtonGroup.GetComponent<RectTransform>();
+                var rect = _outButtonGroup.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
             }
         }
 
-        public void SetJsonAsset(TextAsset asset)
-        {
-            _inkJsonAsset = asset;
-        }
-        
-        public void StartStory(DialogueTrigger trigger, int id = 0)
-        {
-            _nowTrigger = trigger;
-            
-            story = new Story(_inkJsonAsset.text);
-            if (onCreateStory != null) onCreateStory(story);
-            RefreshView();
-            talkPannel.SetActive(true);
-        }
-
-        public void StopStory()
-        {
-            talkPannel.SetActive(false);
-        }
-
         private void RefreshView()
         {
-            RemoveChildren(outButtonGroup);
-            RemoveChildren(inButtonGroup);
-
+            RemoveChildren(_outButtonGroup);
+            RemoveChildren(_inButtonGroup);
+            talkText.text = "";
             // Read all the content until we can't continue any more
+            string text = "";
             while (story.canContinue)
             {
-                // Continue gets the next line of the story
-                string text = story.Continue();
-                // This removes any white space from the text.
+                text += story.Continue();
                 text = text.Trim();
-
-                // Display the text on screen!
-                CreateContentView(text);
+                if(text != "") text += "\n";
+                Debug.Log(text);
+                ParseTag();
             }
-            ParseTag();
-            
-            if (changeDialogue == true)
+            if(text != "") CreateContentView(text);
+
+            if (_changeDialogue == true)
             {
-                changeDialogue = false;
+                _changeDialogue = false;
                 return;
             }
             // Display all the choices, if there are any!
@@ -156,14 +141,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            var choice = Instantiate(uiMode == UISelectMode.Out ? outButtonPrefab : inButtonPrefab);
+            var choice = Instantiate(_uiMode == UISelectMode.Out ? _outButtonPrefab : _inButtonPrefab);
 
             TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
-            foreach(var chosedtext in choiceText)
+            foreach (var chosedtext in choiceText)
                 chosedtext.text = text;
 
 
-            choice.transform.SetParent(uiMode == UISelectMode.Out ? outButtonGroup.transform : inButtonGroup.transform, false);
+            choice.transform.SetParent(_uiMode == UISelectMode.Out ? _outButtonGroup.transform : _inButtonGroup.transform, false);
 
 
             var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
@@ -188,7 +173,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             List<string> tags = new List<string>();
             tags = story.currentTags;
 
-            foreach(var tag in tags)
+            foreach (var tag in tags)
             {
                 string prefix = tag.Split(' ')[0];
                 string param = tag.Split(' ')[1];
@@ -202,19 +187,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                         SetSpriteImage(param);
                         break;
                     case "uimode":
-                        if (param == "In") uiMode = UISelectMode.In;
-                        if (param == "Out") uiMode = UISelectMode.Out;
+                        if (param == "In") _uiMode = UISelectMode.In;
+                        if (param == "Out") _uiMode = UISelectMode.Out;
                         break;
                     case "start":
                         if (param == "dialogue")
                         {
-                            _nowTrigger.StartDialogue();
-                            changeDialogue = true;
+                            StartDailyChat();
+                            _changeDialogue = true;
                         }
                         if (param == "quest")
                         {
-                            SelectQuest(_nowTrigger.GetQuestDialogue());
-                            changeDialogue = true;
+                            StartQuestChat();
+                            _changeDialogue = true;
                         }
                         break;
                     case "quest":
@@ -228,9 +213,62 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        private void SelectQuest(Quest[] quests)
+        private void SetTalkerName(string name)
         {
-            uiMode = UISelectMode.In;
+            nameText.text = name;
+        }
+
+        private void SetSpriteImage(string param)
+        {
+            if (param == "null")
+            {
+                talkImage.gameObject.SetActive(false);
+                return;
+            }
+
+            foreach (var sprite in spriteGroup)
+            {
+                string name = sprite.name;
+                if (name.Replace(" ", string.Empty) == param)
+                {
+                    talkImage.sprite = sprite;
+                    talkImage.gameObject.SetActive(true);
+                    return;
+                }
+            }
+
+            Debug.LogError("no image There");
+        }
+
+        private void SetJsonAsset(TextAsset asset)
+        {
+            _inkJsonAsset = asset;
+        }
+
+        private void StartStory()
+        {
+            story = new Story(_inkJsonAsset.text);
+            if (onCreateStory != null) onCreateStory(story);
+            RefreshView();
+            talkPannel.SetActive(true);
+        }
+
+        private void StopStory()
+        {
+            story = null;
+            talkPannel.SetActive(false);
+        }
+
+        private void StartDailyChat()
+        {
+            SetJsonAsset(_nowEntityDialogue.dailyDialogues.GetRandomDialogue());
+            StartStory();
+        }
+
+        private void StartQuestChat()
+        {
+            _uiMode = UISelectMode.In;
+            var quests = _nowEntityDialogue.questDialogues;
             foreach (var quest in quests)
             {
                 if (!QuestManager.instance.IsCompleteQuest(quest.prevQuestIds)) continue;
@@ -247,7 +285,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
             if (quests.Length < 1)
             {
-                uiMode = UISelectMode.Out;
+                _uiMode = UISelectMode.Out;
                 CreateContentView("더이상 진행 가능한 퀘스트가 없습니다.");
                 Button choice = CreateChoiceView("확인");
                 choice.onClick.AddListener(delegate
@@ -256,37 +294,30 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 });
             }
         }
-        
-        private void SetTalkerName(string name)
-        {
-            nameText.text = name;
-        }
 
-        private void SetSpriteImage(string param)
+        public void StartQuestCompleteChat(int id)
         {
-            if (param == "null")
+            foreach (var questDialogue in _nowEntityDialogue.questDialogues)
             {
-                talkImage.gameObject.SetActive(false);
-                return;
-            }
-
-            foreach(var sprite in spriteGroup)
-            {
-                string name = sprite.name;
-                if (name.Replace(" ", string.Empty) == param)
+                if (id == questDialogue.questId)
                 {
-                    talkImage.sprite = sprite;
-                    talkImage.gameObject.SetActive(true);
-                    return;
+                     SetJsonAsset(questDialogue.questCompletePrologos);
+                     StartStory();
                 }
             }
+        }
 
-            Debug.LogError("no image There");
+        public void StartDialogue(EntityDialogue dialogue)
+        {
+            _nowEntityDialogue = dialogue;
+            SetJsonAsset(_nowEntityDialogue.basicDialogue);
+            StartStory();
         }
 
         private void QuestAccept(string id)
         {
             var questId = int.Parse(id);
+            var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
 
             Debug.Log("Quest Accept : " + questId);
 
@@ -310,7 +341,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void QuestComplete(string id)
         {
             var questId = int.Parse(id);
-
+            var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
+            
+            if (interact is null)
+            {
+                Debug.LogError("is not interactable quest NPC.");
+                return ;
+            }
+            
             Debug.Log("Quest Complete : " + questId);
             
             EventManager.RemoveListener<IsQuestComplete>(QuestAccomplish);

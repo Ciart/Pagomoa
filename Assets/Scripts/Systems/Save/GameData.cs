@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public PositionData posData;
         public IntroData introData;
         public ItemData itemData;
-        public OptionData optionData;
+        // public OptionData optionData;
         public ArtifactData artifactData;
         public QuickSlotData quickSlotData;
         public MineralData mineralData;
@@ -40,6 +40,12 @@ namespace Ciart.Pagomoa.Systems.Save
     [System.Serializable]
     public class WorldData
     {
+        public DicList<string, LevelData> levelData;
+    }
+
+    [System.Serializable]
+    public class LevelData
+    {
         public int top;
 
         public int bottom;
@@ -48,18 +54,18 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public int right;
     
-        public List<WorldEntityData> entityDataList;
+        public List<EntityData> entityDataList;
 
-        public DicList<Vector2Int, Chunk> _chunks;
+        public DicList<ChunkCoords, Chunk> _chunks;
 
-        public void SetWorldDataFromWorld(World world)
+        public void SetLevelDataFromLevel(Level level)
         {
-            top = world.top;
-            bottom = world.bottom;
-            left = world.left;
-            right = world.right;
-            entityDataList = world.entityDataList;
-            _chunks = ListDictionaryConverter.ToList(world.GetAllChunks(), true);
+            top = level.top;
+            bottom = level.bottom;
+            left = level.left;
+            right = level.right;
+            entityDataList = level.entityDataList;
+            _chunks = ListDictionaryConverter.ToList(level.GetAllChunks(), true);
         }
     }
 
@@ -75,18 +81,18 @@ namespace Ciart.Pagomoa.Systems.Save
         }
     }
 
-    [System.Serializable]
-    public class OptionData
-    {
-        public int scale = 1;
-        public float audioValue = 0;
-        public void SetOptionDataFromOptionDB(OptionDB optionDB)
-        {
-            if (!optionDB) return;
-            scale = optionDB.scale;
-            audioValue = optionDB.audioValue;
-        }
-    }
+    // [System.Serializable]
+    // public class OptionData
+    // {
+    //     public int scale = 1;
+    //     public float audioValue = 0;
+    //     public void SetOptionDataFromOptionDB(OptionDB optionDB)
+    //     {
+    //         if (!optionDB) return;
+    //         scale = optionDB.scale;
+    //         audioValue = optionDB.audioValue;
+    //     }
+    // }
 
     [System.Serializable]
     public class ArtifactData
