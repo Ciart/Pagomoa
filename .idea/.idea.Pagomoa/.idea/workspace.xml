@@ -5,28 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/CollectMineral.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/CollectMineral.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 2.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/KillClover 2.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/RestoreTent.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/Quests/RestoreTent.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/IntroManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CutScenes/IntroManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Players/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Players/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueTrigger.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/EntityDialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/EntityDialogue.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs.meta" beforeDir="false" />
     </list>
@@ -141,6 +123,7 @@
       <workItem from="1718032496814" duration="2067000" />
       <workItem from="1718034601235" duration="220000" />
       <workItem from="1718034892049" duration="2990000" />
+      <workItem from="1718093835995" duration="8690000" />
     </task>
     <servers />
   </component>

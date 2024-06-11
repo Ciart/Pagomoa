@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ink.Runtime;
-using Logger.ForEditorBaseScripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +11,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        private static DialogueManager _instance = null;
+        private static DialogueManager _instance;
 
-        private TextAsset _inkJsonAsset = null;
+        private TextAsset _inkJsonAsset;
 
         private EntityDialogue _nowEntityDialogue;
 
@@ -27,19 +25,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private UISelectMode _uiMode = UISelectMode.Out;
 
-        private bool _changeDialogue = false;
+        private bool _changeDialogue;
 
-        [SerializeField] private GameObject _outButtonGroup;
+        private bool _questValid;
 
-        [SerializeField] private GameObject _inButtonGroup;
+        [SerializeField] private GameObject outButtonGroup;
 
-        [SerializeField] private Button _outButtonPrefab = null;
+        [SerializeField] private GameObject inButtonGroup;
 
-        [SerializeField] private Button _inButtonPrefab = null;
+        [SerializeField] private Button outButtonPrefab;
 
-        [Space]
+        [SerializeField] private Button inButtonPrefab;
 
-        public GameObject talkPannel;
+        public GameObject talkPanel;
 
         public Image talkImage;
 
@@ -65,6 +63,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public Story story;
 
+        private void Start()
+        {
+            EventManager.AddListener<ValidationResult>(ReturnQuestValidation);
+        }
+        
         private void Update()
         {
             SetBtnSizeAfterContentSizeFitter();
@@ -74,15 +77,15 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             if (_uiMode == UISelectMode.Out)
             {
-                var rect = _outButtonGroup.GetComponent<RectTransform>();
+                var rect = outButtonGroup.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
             }
         }
 
         private void RefreshView()
         {
-            RemoveChildren(_outButtonGroup);
-            RemoveChildren(_inButtonGroup);
+            RemoveChildren(outButtonGroup);
+            RemoveChildren(inButtonGroup);
             talkText.text = "";
             // Read all the content until we can't continue any more
             string text = "";
@@ -96,7 +99,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
             if(text != "") CreateContentView(text);
 
-            if (_changeDialogue == true)
+            if (_changeDialogue)
             {
                 _changeDialogue = false;
                 return;
@@ -141,15 +144,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            var choice = Instantiate(_uiMode == UISelectMode.Out ? _outButtonPrefab : _inButtonPrefab);
+            var choice = Instantiate(_uiMode == UISelectMode.Out ? outButtonPrefab : inButtonPrefab);
 
             TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
             foreach (var chosenText in choiceText)
                 chosenText.text = text;
-
-
-            choice.transform.SetParent(_uiMode == UISelectMode.Out ? _outButtonGroup.transform : _inButtonGroup.transform, false);
-
+            
+            choice.transform.SetParent(_uiMode == UISelectMode.Out ? outButtonGroup.transform : inButtonGroup.transform, false);
 
             var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
             layoutGroup.childForceExpandHeight = false;
@@ -170,13 +171,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void ParseTag()
         {
-            List<string> tags = new List<string>();
-            tags = story.currentTags;
-
-            foreach (var tag in tags)
+            List<string> currentTags = story.currentTags;
+            
+            foreach (var currentTag in currentTags)
             {
-                string prefix = tag.Split(' ')[0];
-                string param = tag.Split(' ')[1];
+                string prefix = currentTag.Split(' ')[0];
+                string param = currentTag.Split(' ')[1];
 
                 switch (prefix.ToLower())
                 {
@@ -213,9 +213,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        private void SetTalkerName(string name)
+        private void SetTalkerName(string talkerName)
         {
-            nameText.text = name;
+            nameText.text = talkerName;
         }
 
         private void SetSpriteImage(string param)
@@ -228,8 +228,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             foreach (var sprite in spriteGroup)
             {
-                string name = sprite.name;
-                if (name.Replace(" ", string.Empty) == param)
+                string spriteName = sprite.name;
+                if (spriteName.Replace(" ", string.Empty) == param)
                 {
                     talkImage.sprite = sprite;
                     talkImage.gameObject.SetActive(true);
@@ -250,13 +250,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             story = new Story(_inkJsonAsset.text);
             if (onCreateStory != null) onCreateStory(story);
             RefreshView();
-            talkPannel.SetActive(true);
+            talkPanel.SetActive(true);
         }
 
         private void StopStory()
         {
             story = null;
-            talkPannel.SetActive(false);
+            talkPanel.SetActive(false);
         }
 
         private void StartDailyChat()
@@ -271,9 +271,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var quests = _nowEntityDialogue.entityQuests;
             foreach (var quest in quests)
             {
-                //if (!quest.IsPrerequisiteCompleted()) continue;
-                if (QuestManager.instance.IsRegisteredQuest(quest.id)) continue;
-                if (QuestManager.instance.IsCompleteQuest(quest.id)) continue;
+                EventManager.Notify(new QuestValidation(quest));
+                if (!_questValid) continue;
 
                 Button button = CreateChoiceView(quest.name);
                 // Tell the button what to do when we press it
@@ -356,6 +355,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             Debug.Log("Quest Complete : " + questId);
             
             //QuestManager.instance.completeQuest.Invoke(interact, questId);
+        }
+
+        private void ReturnQuestValidation(ValidationResult e)
+        {
+            _questValid = e.result;
         }
     }
 }

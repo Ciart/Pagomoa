@@ -6,12 +6,8 @@ using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
-using Ink.Parsed;
 using Logger;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Logger
 {
@@ -45,6 +41,7 @@ namespace Ciart.Pagomoa.Logger
             database ??= GetComponent<QuestDatabase>();
             
             EventManager.AddListener<QuestRegister>(RegistrationQuest);
+            EventManager.AddListener<QuestValidation>(CheckQuestValidation);
         }
         
         public void RegistrationQuest(QuestRegister e)
@@ -125,6 +122,29 @@ namespace Ciart.Pagomoa.Logger
             return null;
         }
 
+        public void CheckQuestValidation(QuestValidation e)
+        {
+            if (!IsCompleteQuest(e.quest.prevQuestIds))
+            {
+                EventManager.Notify(new ValidationResult(false));
+                return;
+            }
+
+            if (IsCompleteQuest(e.quest.id))
+            {
+                EventManager.Notify(new ValidationResult(false));
+                return;
+            }
+
+            if (IsRegisteredQuest(e.quest.id))
+            {
+                EventManager.Notify(new ValidationResult(false));
+                return;
+            }
+            
+            EventManager.Notify(new ValidationResult(true)); 
+        }
+        
         public bool IsRegisteredQuest(int id)
         {
             var check = false;
