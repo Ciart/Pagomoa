@@ -1,29 +1,14 @@
-﻿using Ink.Parsed;
-using System.Collections;
-using System.Collections.Generic;
-using Ciart.Pagomoa.Systems.Dialogue;
+﻿using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using UnityEngine;
-using UnityEngine.Events;
-using Ciart.Pagomoa;
 
-public class EntityDialogue : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public TextAsset basicDialogue = null;
-
-    public DailyDialogue dailyDialogues;
-
-    public QuestDialogue[] questDialogues;
-
-    public void QuestCompleteDialogue(int id)
+    public class EntityDialogue : MonoBehaviour
     {
-        foreach (var questDialogue in questDialogues)
-        {
-            if (id == questDialogue.questId)
-            {
-                //DialogueManager.instance.SetJsonAsset(questDialogue.questCompletePrologos);
-                //DialogueManager.instance.StartStory();
-            }
-        }
+        public TextAsset basicDialogue = null;
+
+        public DailyDialogue dailyDialogues;
+
+        public Quest[] entityQuests;
     }
-    
 }

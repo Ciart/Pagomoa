@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
@@ -12,7 +13,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public class ProcessQuest
     {
-        public GameObject questInCharge;
+        public InteractableObject questInCharge;
         public int questId;
         public string description;
         public string title;
@@ -24,7 +25,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
         
-        public ProcessQuest(Quest quest, GameObject questInCharge)
+        public ProcessQuest(Quest quest, InteractableObject questInCharge)
         {
             this.questInCharge = questInCharge;
             this.questId = quest.id;

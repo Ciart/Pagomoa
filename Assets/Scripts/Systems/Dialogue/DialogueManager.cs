@@ -144,8 +144,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var choice = Instantiate(_uiMode == UISelectMode.Out ? _outButtonPrefab : _inButtonPrefab);
 
             TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
-            foreach (var chosedtext in choiceText)
-                chosedtext.text = text;
+            foreach (var chosenText in choiceText)
+                chosenText.text = text;
 
 
             choice.transform.SetParent(_uiMode == UISelectMode.Out ? _outButtonGroup.transform : _inButtonGroup.transform, false);
@@ -268,21 +268,22 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void StartQuestChat()
         {
             _uiMode = UISelectMode.In;
-            var quests = _nowEntityDialogue.questDialogues;
+            var quests = _nowEntityDialogue.entityQuests;
             foreach (var quest in quests)
             {
-                if (!QuestManager.instance.IsCompleteQuest(quest.prevQuestIds)) continue;
+                //if (!quest.IsPrerequisiteCompleted()) continue;
                 if (QuestManager.instance.IsRegisteredQuest(quest.id)) continue;
                 if (QuestManager.instance.IsCompleteQuest(quest.id)) continue;
 
-                Button button = CreateChoiceView(quest.title);
+                Button button = CreateChoiceView(quest.name);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
                     SetJsonAsset(quest.startPrologue);
-                    StartStory(_nowTrigger);
+                    StartStory();
                 });
             }
+            
             if (quests.Length < 1)
             {
                 _uiMode = UISelectMode.Out;
@@ -297,11 +298,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void StartQuestCompleteChat(int id)
         {
-            foreach (var questDialogue in _nowEntityDialogue.questDialogues)
+            foreach (var questDialogue in _nowEntityDialogue.entityQuests)
             {
-                if (id == questDialogue.questId)
+                if (id == questDialogue.id)
                 {
-                     SetJsonAsset(questDialogue.questCompletePrologos);
+                     SetJsonAsset(questDialogue.completePrologue);
                      StartStory();
                 }
             }
@@ -319,16 +320,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var questId = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
 
+            if (interact is null)
+            {
+                Debug.LogError("is not interactable quest NPC.");
+                return ;
+            }
+            
             Debug.Log("Quest Accept : " + questId);
-
-            var target = _nowTrigger.gameObject;
             
-            EventManager.Notify(new QuestRegister(target, questId));
-            
-            EventManager.AddListener<IsQuestComplete>(QuestAccomplish);
+            //QuestManager.instance.registerQuest.Invoke(interact, questId);
         }
 
-        private void QuestAccomplish(IsQuestComplete e)
+
+        /*private void QuestAccomplish(IsQuestComplete e)
         {
             var a = e.id;
 
@@ -336,7 +340,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             {
                 _nowTrigger.QuestCompleteDialogue(e.id);
             }
-        }
+        }*/
 
         private void QuestComplete(string id)
         {
@@ -351,7 +355,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             
             Debug.Log("Quest Complete : " + questId);
             
-            EventManager.RemoveListener<IsQuestComplete>(QuestAccomplish);
+            //QuestManager.instance.completeQuest.Invoke(interact, questId);
         }
     }
 }

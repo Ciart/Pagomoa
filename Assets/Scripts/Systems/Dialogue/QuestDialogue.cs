@@ -1,8 +1,5 @@
-﻿using Ciart.Pagomoa.Logger;
-using System.Collections;
-using System.Collections.Generic;
+using Ciart.Pagomoa.Logger;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -14,14 +11,5 @@ namespace Ciart.Pagomoa
         public int[] questPrerequisiteIds;
         public TextAsset questStartPrologue;
         public TextAsset questCompletePrologue;
-        public bool IsPrerequisiteCompleted()
-        {
-            bool isReceivable = true;
-            foreach(var item in questPrerequisiteIds)
-            {
-               if(!QuestManager.instance.IsCompleteQuest(item)) isReceivable = false;
-            }
-            return isReceivable;
-        }
     }
 }

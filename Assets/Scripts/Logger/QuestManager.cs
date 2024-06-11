@@ -15,9 +15,6 @@ using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Logger
 {
-    public delegate void RegisterQuest(DialogueTrigger questInCharge, int id);
-    public delegate void CompleteQuest(DialogueTrigger questInCharge, int id);
-
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
     public class QuestManager : MonoBehaviour
@@ -86,7 +83,7 @@ namespace Ciart.Pagomoa.Logger
                 questInCharge.transform.GetChild(1).gameObject.SetActive(false);
 
                 // todo : 유효성 검사 
-                questInCharge.interactionEvent.RemoveListener( () => DialogueManager.instance.StartQuestCompleteChat(e.questId));
+                //questInCharge.interactionEvent.RemoveListener( () => DialogueManager.instance.StartQuestCompleteChat(e.questId));
             }
             else
             {
@@ -96,12 +93,12 @@ namespace Ciart.Pagomoa.Logger
             }
         }
         
-        public void CompleteQuest(DialogueTrigger questInCharge, int id)
+        public void CompleteQuest(InteractableObject questInCharge, int id)
         {
             var dialogueTrigger = questInCharge.GetComponent<EntityDialogue>();
 
             questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-            questInCharge.interactionEvent.RemoveListener(() => DialogueManager.instance.StartQuestCompleteChat(id));
+            //questInCharge.interactionEvent.RemoveListener(() => DialogueManager.instance.StartQuestCompleteChat(id));
 
             GetReward(id);
         }

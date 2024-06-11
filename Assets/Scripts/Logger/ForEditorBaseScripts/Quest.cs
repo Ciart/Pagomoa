@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Logger.ForEditorBaseScripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Logger.ForEditorBaseScripts
+namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
 {
     [CreateAssetMenu(menuName = "MakeQuest")]
     public class Quest : ScriptableObject

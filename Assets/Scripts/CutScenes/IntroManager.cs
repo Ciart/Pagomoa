@@ -1,4 +1,5 @@
-﻿using Ciart.Pagomoa.Systems.Dialogue;
+﻿/*
+using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -98,4 +99,5 @@ namespace Ciart.Pagomoa.CutScenes
 
     }    
 }
+*/
 
