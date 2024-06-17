@@ -5,12 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/QuestCompleteIcon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/QuestCompleteIcon.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 1.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 1.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/InteractableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/InteractableObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +34,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/56073df97ede4f769c2cc45d546d986d172200/09/af003218/UnityEvent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/56073df97ede4f769c2cc45d546d986d172200/f5/3f014d03/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bf6080dbf0564cf1b405dfd6e0dac725940e00/f5/33d6d826/SerializedObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/QuestDialogue.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -40,6 +53,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.3527027&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -124,6 +138,11 @@
       <workItem from="1718034601235" duration="220000" />
       <workItem from="1718034892049" duration="2990000" />
       <workItem from="1718093835995" duration="8690000" />
+      <workItem from="1718108350125" duration="31000" />
+      <workItem from="1718110055036" duration="8497000" />
+      <workItem from="1718199551963" duration="8056000" />
+      <workItem from="1718623175794" duration="6328000" />
+      <workItem from="1718641934740" duration="1661000" />
     </task>
     <servers />
   </component>

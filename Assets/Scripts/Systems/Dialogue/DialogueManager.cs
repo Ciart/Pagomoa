@@ -66,6 +66,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void Start()
         {
             EventManager.AddListener<ValidationResult>(ReturnQuestValidation);
+            EventManager.AddListener<SetCompleteChat>(SetQuestCompleteChat);
         }
         
         private void Update()
@@ -269,11 +270,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             _uiMode = UISelectMode.In;
             var quests = _nowEntityDialogue.entityQuests;
+            
             foreach (var quest in quests)
             {
                 EventManager.Notify(new QuestValidation(quest));
+                
                 if (!_questValid) continue;
-
+                
                 Button button = CreateChoiceView(quest.name);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
@@ -295,20 +298,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        public void StartQuestCompleteChat(int id)
-        {
-            foreach (var questDialogue in _nowEntityDialogue.entityQuests)
-            {
-                if (id == questDialogue.id)
-                {
-                     SetJsonAsset(questDialogue.completePrologue);
-                     StartStory();
-                }
-            }
-        }
-
         public void StartDialogue(EntityDialogue dialogue)
         {
+            var icon = dialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
+            if (icon) {
+                StartStory();
+                return; }
+
             _nowEntityDialogue = dialogue;
             SetJsonAsset(_nowEntityDialogue.basicDialogue);
             StartStory();
@@ -316,50 +312,37 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void QuestAccept(string id)
         {
-            var questId = int.Parse(id);
+            var questID = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
-
-            if (interact is null)
-            {
-                Debug.LogError("is not interactable quest NPC.");
-                return ;
-            }
             
-            Debug.Log("Quest Accept : " + questId);
-            
-            //QuestManager.instance.registerQuest.Invoke(interact, questId);
+            Debug.Log("Quest Accept : " + questID);
+                        
+            EventManager.Notify(new QuestRegister(interact, questID));
         }
-
-
-        /*private void QuestAccomplish(IsQuestComplete e)
-        {
-            var a = e.id;
-
-            if (_nowTrigger.GetQuestDialogue().Any(quest => quest.id == e.id))
-            {
-                _nowTrigger.QuestCompleteDialogue(e.id);
-            }
-        }*/
 
         private void QuestComplete(string id)
         {
-            var questId = int.Parse(id);
+            var questID = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
             
-            if (interact is null)
-            {
-                Debug.LogError("is not interactable quest NPC.");
-                return ;
-            }
+            Debug.Log("Quest Complete : " + questID);
             
-            Debug.Log("Quest Complete : " + questId);
-            
-            //QuestManager.instance.completeQuest.Invoke(interact, questId);
+            EventManager.Notify(new CompleteQuest(interact, questID));
         }
 
         private void ReturnQuestValidation(ValidationResult e)
         {
             _questValid = e.result;
+        }
+
+        private void SetQuestCompleteChat(SetCompleteChat e)
+        {
+            foreach (var questDialogue in _nowEntityDialogue.entityQuests)
+            {
+                if (e.id != questDialogue.id) continue;
+                
+                SetJsonAsset(questDialogue.completePrologue);
+            }
         }
     }
 }

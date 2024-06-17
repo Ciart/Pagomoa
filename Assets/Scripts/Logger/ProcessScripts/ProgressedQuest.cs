@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         public ProgressedQuest(ProcessQuest quest)
         {
-            id = quest.questId;
+            id = quest.id;
             accomplishment = quest.accomplishment;
         }
     }

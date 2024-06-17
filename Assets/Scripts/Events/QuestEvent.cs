@@ -15,6 +15,10 @@ namespace Ciart.Pagomoa.Events
     public record QuestValidation(Quest quest) : IEvent;
 
     public record ValidationResult(bool result) : IEvent;
-    
+
+    public record SetCompleteChat(int id) : IEvent;
+
+    public record CompleteQuest(InteractableObject questInCharge, int id) : IEvent;
+
     public record IsQuestComplete(int id) : IEvent;
 }

@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public class ProcessQuest
     {
         public InteractableObject questInCharge;
-        public int questId;
+        public int id;
         public string description;
         public string title;
         public Reward reward;
@@ -28,7 +28,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public ProcessQuest(Quest quest, InteractableObject questInCharge)
         {
             this.questInCharge = questInCharge;
-            this.questId = quest.id;
+            this.id = quest.id;
             this.description = quest.description;
             this.title = quest.title;
             this.reward = quest.reward;
@@ -59,13 +59,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (!element.complete)
                 {
                     accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(questId, accomplishment, questInCharge));
+                    EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
                     return ;
                 }
             }
             
             accomplishment = true;
-            EventManager.Notify(new SignalToNpc(questId, accomplishment, questInCharge));
+            EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
         }
     }
 

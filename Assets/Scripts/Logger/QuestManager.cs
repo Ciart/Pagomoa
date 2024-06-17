@@ -20,9 +20,6 @@ namespace Ciart.Pagomoa.Logger
         
         public QuestDatabase database;
 
-        [Header("QuestComplete Prefab")] 
-        public QuestCompleteIcon questFinishPrefab;
-
         private static QuestManager _instance;
         public static QuestManager instance
         {
@@ -42,11 +39,11 @@ namespace Ciart.Pagomoa.Logger
             
             EventManager.AddListener<QuestRegister>(RegistrationQuest);
             EventManager.AddListener<QuestValidation>(CheckQuestValidation);
+            EventManager.AddListener<CompleteQuest>(CompleteQuest);
         }
         
         public void RegistrationQuest(QuestRegister e)
         {
-            
             foreach (var quest in database.quests)
             {
                 if (quest.id != e.id) continue;
@@ -65,46 +62,40 @@ namespace Ciart.Pagomoa.Logger
                     QuestUI.instance.MakeProgressQuestList();
                 }
                     
-                EventManager.Notify(new SignalToNpc(progressQuest.questId, progressQuest.accomplishment, progressQuest.questInCharge));
+                EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment, progressQuest.questInCharge));
             }
         }
         
         public void QuestAccomplishment(SignalToNpc e)
         {
+            var signalID = e.questId;
             var isQuestComplete = e.accomplishment;
             var questInCharge = e.questInCharge;
-            var dialogueTrigger = e.questInCharge.GetComponent<EntityDialogue>();
-
+            
             if (isQuestComplete)
             {
-                questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-
-                // todo : 유효성 검사 
-                //questInCharge.interactionEvent.RemoveListener( () => DialogueManager.instance.StartQuestCompleteChat(e.questId));
+                questInCharge.ActiveQuestCompleteUI();
+                
+                EventManager.Notify(new SetCompleteChat(signalID));
             }
             else
             {
-                questInCharge.gameObject.SetActive(false);
-                
-                // todo : 이미 완료 상태로 대기중인 퀘스트가 있는지
+                WaitingForCompletedQuest(questInCharge);
             }
         }
         
-        public void CompleteQuest(InteractableObject questInCharge, int id)
+        public void CompleteQuest(CompleteQuest e)
         {
-            var dialogueTrigger = questInCharge.GetComponent<EntityDialogue>();
-
-            questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-            //questInCharge.interactionEvent.RemoveListener(() => DialogueManager.instance.StartQuestCompleteChat(id));
-
-            GetReward(id);
+            GetReward(e.id);
+            
+            WaitingForCompletedQuest(e.questInCharge);
         }
         
         private void GetReward(int id)
         {
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
-
+            
             InventoryDB.Instance.Add((Item)reward.targetEntity, reward.value);
             InventoryDB.Instance.Gold += reward.gold;
             
@@ -112,24 +103,24 @@ namespace Ciart.Pagomoa.Logger
             progressQuests.Remove(targetQuest);
         }
         
-        public ProcessQuest FindQuestById(int id)
+        private ProcessQuest FindQuestById(int id)
         {
             foreach (var quest in progressQuests)
             {
-                if (quest.questId == id) return quest;
+                if (quest.id == id) return quest;
             }
             
             return null;
         }
 
-        public void CheckQuestValidation(QuestValidation e)
+        private void CheckQuestValidation(QuestValidation e)
         {
             if (!IsCompleteQuest(e.quest.prevQuestIds))
             {
                 EventManager.Notify(new ValidationResult(false));
                 return;
             }
-
+                
             if (IsCompleteQuest(e.quest.id))
             {
                 EventManager.Notify(new ValidationResult(false));
@@ -144,20 +135,39 @@ namespace Ciart.Pagomoa.Logger
             
             EventManager.Notify(new ValidationResult(true)); 
         }
+
+        private void WaitingForCompletedQuest(InteractableObject questInCharge)
+        {
+            var dialogue = questInCharge.GetComponent<EntityDialogue>();
+            
+            foreach (var quest in dialogue.entityQuests)
+            {
+                foreach (var processQuest in progressQuests)
+                { 
+                    if (processQuest.accomplishment && processQuest.id == quest.id)
+                    {
+                        EventManager.Notify(new SetCompleteChat(processQuest.id));
+                        return;
+                    }
+                }
+            }
+            
+            questInCharge.DeActiveQuestCompleteUI();
+        }
         
-        public bool IsRegisteredQuest(int id)
+        private bool IsRegisteredQuest(int id)
         {
             var check = false;
             
             foreach (var quest in progressQuests)
             {
-                if (quest.questId == id) check = true;
+                if (quest.id == id) check = true;
             }
 
             return check;
         }
 
-        public bool IsCompleteQuest(int id)
+        private bool IsCompleteQuest(int id)
         {
             var check = false;
             
@@ -169,7 +179,7 @@ namespace Ciart.Pagomoa.Logger
             return check;
         }
 
-        public bool IsCompleteQuest(List<int> ids)
+        private bool IsCompleteQuest(List<int> ids)
         {
             if (ids.Count == 0) return true;
             
@@ -177,7 +187,7 @@ namespace Ciart.Pagomoa.Logger
             {
                 if (!IsCompleteQuest(id)) return false;
             }
-
+                
             return true;
         }
     }   

@@ -3574,7 +3574,8 @@ PrefabInstance:
       value: 0.53125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5302021177878785907, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6843392044339612283, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
@@ -5962,6 +5963,83 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1232868273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232868277}
+  - component: {fileID: 1232868276}
+  - component: {fileID: 1232868275}
+  - component: {fileID: 1232868274}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1232868274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232868273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71835b2ca574a3ba1add1929b4d07a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quests:
+  - {fileID: 11400000, guid: a6812fac925f7464880a10197b46607a, type: 2}
+  - {fileID: 11400000, guid: 3fa34e75be6ecb642b37ce6b8e26e82a, type: 2}
+  - {fileID: 11400000, guid: 9d1e84d0af1cda24da0bcab2ee9ef314, type: 2}
+  - {fileID: 11400000, guid: 40f78e75b1ff71c4ba37d54df3892943, type: 2}
+--- !u!114 &1232868275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232868273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912ce34185d8593499b3971213d045a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 1232868274}
+--- !u!114 &1232868276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232868273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71835b2ca574a3ba1add1929b4d07a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quests: []
+--- !u!4 &1232868277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232868273}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.38, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241472724
 GameObject:
   m_ObjectHideFlags: 0
@@ -8022,6 +8100,7 @@ MonoBehaviour:
   inventoryUIPrefab: {fileID: 6869503557337763794, guid: 29acaf8792274624b96b9b1af5be2212, type: 3}
   escUI: {fileID: 142423336}
   interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
+  questCompleteUI: {fileID: 8066941655077391920, guid: abf165692bd09d344b428f7840bb9e8d, type: 3}
   inventoryCamera: {fileID: 1469825036}
 --- !u!1 &1504262572
 GameObject:
@@ -10312,6 +10391,17 @@ MonoBehaviour:
   slot: {fileID: 287633312}
   count: 0
   contentDatas: []
+--- !u!114 &1921221842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+  m_PrefabInstance: {fileID: 3662964948530307250}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460fe55a96245c54994795816d33e40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1928550688
 GameObject:
   m_ObjectHideFlags: 0
@@ -12497,15 +12587,49 @@ PrefabInstance:
       value: noung
       objectReference: {fileID: 0}
     - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 891737556}
     - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 891737556}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Ciart.Pagomoa.Systems.Dialogue.DialogueManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1921221842}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Ciart.Pagomoa.Systems.Dialogue.EntityDialogue, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 6265122512632462020, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: interactionEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Ciart.Pagomoa.Systems.Dialogue.EntityDialogue, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7670807927592362859, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+    - {fileID: 7663766976922309395, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
@@ -13295,7 +13419,7 @@ PrefabInstance:
     - target: {fileID: 7092287889939606630, guid: 925c106995b2966408ae7d979d4e4a67, type: 3}
       propertyPath: talkPanel
       value: 
-      objectReference: {fileID: 9009058776017969199}
+      objectReference: {fileID: 4467746273021276876}
     - target: {fileID: 7092287889939606630, guid: 925c106995b2966408ae7d979d4e4a67, type: 3}
       propertyPath: talkPannel
       value: 
@@ -13413,6 +13537,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1520502531}
+  - {fileID: 1232868277}
   - {fileID: 1480150948}
   - {fileID: 8924686872427643348}
   - {fileID: 1936156634366678707}

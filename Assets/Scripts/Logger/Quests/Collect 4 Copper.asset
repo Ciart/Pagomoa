@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
-  m_Name: New Quest 2
+  m_Name: Collect 4 Copper
   m_EditorClassIdentifier: 
   clear: 0
   questInCharge: {fileID: 0}
-  id: 3
-  prevQuestIds: 02000000
-  title: "\uC120\uD589 2\uBC88 & \uAD6C\uB9AC 2\uAC1C \uCE90\uAE30"
-  description: "\uD018\uC2A4\uD2B8 3 \uC124\uBA85"
-  startPrologue: {fileID: 4900000, guid: eca49514a5d1d7549bef857ed9618e28, type: 3}
-  completePrologue: {fileID: 4900000, guid: 4b4919b50aa4ca84b9037620d789d45e, type: 3}
+  id: 2
+  prevQuestIds: 
+  title: "\uAD6C\uB9AC 4\uAC1C \uCE90\uAE30"
+  description: "\uD018\uC2A4\uD2B8 2 \uC124\uBA85"
+  startPrologue: {fileID: 4900000, guid: 7d40a1a3f44987d4c8ffd31c8c2de321, type: 3}
+  completePrologue: {fileID: 4900000, guid: f248d7d5eeed84f44b00e5af10bea435, type: 3}
   reward:
-    gold: 3
+    gold: 2
     targetEntity: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}
     targetEntitySprite: {fileID: 1527017041, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
-    value: 3
+    value: 2
   questList:
   - questType: 0
     summary: "\uB450\uBC88\uC9F8 \uD14C\uC2A4\uD2B8"
-    value: 2
+    value: 4
     targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
     conditionType:
       target: 1
