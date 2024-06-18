@@ -94,8 +94,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             {
                 text += story.Continue();
                 text = text.Trim();
+                
                 if(text != "") text += "\n";
-                Debug.Log(text);
+                
                 ParseTag();
             }
             if(text != "") CreateContentView(text);
@@ -277,7 +278,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 
                 if (!_questValid) continue;
                 
-                Button button = CreateChoiceView(quest.name);
+                Button button = CreateChoiceView(quest.title);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {

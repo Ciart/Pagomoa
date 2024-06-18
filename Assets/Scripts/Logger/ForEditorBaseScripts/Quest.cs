@@ -8,8 +8,6 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     [CreateAssetMenu(menuName = "MakeQuest")]
     public class Quest : ScriptableObject
     {
-        public bool clear = false;
-
         [SerializeField] public GameObject questInCharge;
         [SerializeField] public int id;
         [SerializeField] public List<int> prevQuestIds = new();

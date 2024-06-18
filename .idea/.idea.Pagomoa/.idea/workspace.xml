@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/QuestCompleteIcon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/QuestCompleteIcon.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete2.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete2.ink" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete2.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/KillClover_Complete2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 1.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/InteractableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/InteractableObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,10 +76,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Unity 에디터에 연결" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Unity 에디터에 연결" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="24880">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="24880" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -143,6 +132,7 @@
       <workItem from="1718199551963" duration="8056000" />
       <workItem from="1718623175794" duration="6328000" />
       <workItem from="1718641934740" duration="1661000" />
+      <workItem from="1718700048419" duration="13082000" />
     </task>
     <servers />
   </component>

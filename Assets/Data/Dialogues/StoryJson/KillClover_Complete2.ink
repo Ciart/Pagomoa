@@ -16,6 +16,6 @@
 *[확인] -> Accept
 
  === Accept
-#reward 1
+#reward 3
 일단 고생했고, 이건 보상이야. 가져가
 -> END

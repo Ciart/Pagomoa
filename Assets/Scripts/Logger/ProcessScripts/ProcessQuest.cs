@@ -22,6 +22,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public bool accomplishment = false;
         
         ~ProcessQuest(){
+            Debug.Log("delete quest");
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
         
@@ -50,13 +51,17 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         break;
                 }
             }
+            
+            EventManager.Notify(new QuestAccomplishEvent());
         }
 
         private void QuestAccomplishment(QuestAccomplishEvent e)
-        {
+        { 
+            Debug.Log(elements.Count);
+
             foreach (var element in elements)
             {
-                if (!element.complete)
+                if (element.complete == false)
                 {
                     accomplishment = false;
                     EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
@@ -87,6 +92,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public bool complete { get; set; } = false;
         
         ~CollectMineral() {
+            Debug.Log("delete element");
             EventManager.RemoveListener<ItemCountEvent>(CountItem);
         }
         public CollectMineral(QuestCondition elements)
@@ -106,7 +112,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (inventoryItem.item == targetEntity)
                 {
                     EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
-                    EventManager.Notify(new QuestAccomplishEvent());
+                    //EventManager.Notify(new QuestAccomplishEvent());
                     break;
                 }
             }
