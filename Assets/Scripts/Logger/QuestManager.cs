@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ProcessScripts;
@@ -101,6 +102,7 @@ namespace Ciart.Pagomoa.Logger
             
             database.progressedQuests.Add(new ProgressedQuest(targetQuest));
             progressQuests.Remove(targetQuest);
+            targetQuest.Dispose();
         }
         
         private ProcessQuest FindQuestById(int id)

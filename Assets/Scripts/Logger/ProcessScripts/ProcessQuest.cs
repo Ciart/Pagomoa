@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
-    public class ProcessQuest
+    public class ProcessQuest : IDisposable
     {
         public InteractableObject questInCharge;
         public int id;
@@ -20,12 +20,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public Reward reward;
         public List<IQuestElements> elements;
         public bool accomplishment = false;
-        
-        ~ProcessQuest(){
-            Debug.Log("delete quest");
-            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
-        }
-        
+
         public ProcessQuest(Quest quest, InteractableObject questInCharge)
         {
             this.questInCharge = questInCharge;
@@ -71,6 +66,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             accomplishment = true;
             EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
+        }
+
+        public void Dispose()
+        {
+            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
         }
     }
 
