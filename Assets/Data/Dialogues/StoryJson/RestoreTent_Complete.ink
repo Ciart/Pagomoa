@@ -9,6 +9,6 @@
 *[확인] -> Accept
 
  === Accept
-#reward 1
+#reward 4
 뚝딱뚝딱..
 -> END

@@ -56,13 +56,10 @@ namespace Ciart.Pagomoa.Logger
                 var progressQuest = new ProcessQuest(quest, e.questInCharge);
 
                 progressQuests.Add(progressQuest);
-
-                if (QuestUI.instance != null)
-                {
-                    QuestUI.instance.npcImages.Add(target.GetComponent<SpriteRenderer>().sprite);
-                    QuestUI.instance.MakeProgressQuestList();
-                }
-                    
+                
+                EventManager.Notify(new AddNpcImageEvent(target.GetComponent<SpriteRenderer>().sprite));
+                EventManager.Notify(new MakeQuestListEvent());
+              
                 EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment, progressQuest.questInCharge));
             }
         }
@@ -96,9 +93,9 @@ namespace Ciart.Pagomoa.Logger
         {
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
-            
-            InventoryDB.Instance.Add((Item)reward.targetEntity, reward.value);
-            InventoryDB.Instance.Gold += reward.gold;
+
+            EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
+            EventManager.Notify(new AddGold(reward.gold));
             
             database.progressedQuests.Add(new ProgressedQuest(targetQuest));
             progressQuests.Remove(targetQuest);
