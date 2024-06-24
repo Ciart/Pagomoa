@@ -92,7 +92,7 @@ namespace Ciart.Pagomoa.Logger
             WaitingForCompletedQuest(e.questInCharge);
         }
         
-        private void GetReward(int id)
+        private void GetReward(string id)
         {
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
@@ -102,10 +102,11 @@ namespace Ciart.Pagomoa.Logger
             
             database.progressedQuests.Add(new ProgressedQuest(targetQuest));
             progressQuests.Remove(targetQuest);
+            
             targetQuest.Dispose();
         }
         
-        private ProcessQuest FindQuestById(int id)
+        private ProcessQuest FindQuestById(string id)
         {
             foreach (var quest in progressQuests)
             {
@@ -157,7 +158,7 @@ namespace Ciart.Pagomoa.Logger
             questInCharge.DeActiveQuestCompleteUI();
         }
         
-        private bool IsRegisteredQuest(int id)
+        private bool IsRegisteredQuest(string id)
         {
             var check = false;
             
@@ -169,7 +170,7 @@ namespace Ciart.Pagomoa.Logger
             return check;
         }
 
-        private bool IsCompleteQuest(int id)
+        private bool IsCompleteQuest(string id)
         {
             var check = false;
             
@@ -181,7 +182,7 @@ namespace Ciart.Pagomoa.Logger
             return check;
         }
 
-        private bool IsCompleteQuest(List<int> ids)
+        private bool IsCompleteQuest(List<string> ids)
         {
             if (ids.Count == 0) return true;
             

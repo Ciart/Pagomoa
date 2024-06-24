@@ -313,22 +313,20 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void QuestAccept(string id)
         {
-            var questID = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
             
-            Debug.Log("Quest Accept : " + questID);
+            Debug.Log("Quest Accept : " + id);
                         
-            EventManager.Notify(new QuestRegister(interact, questID));
+            EventManager.Notify(new QuestRegister(interact, id));
         }
 
         private void QuestComplete(string id)
         {
-            var questID = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
             
-            Debug.Log("Quest Complete : " + questID);
+            Debug.Log("Quest Complete : " + id);
             
-            EventManager.Notify(new CompleteQuest(interact, questID));
+            EventManager.Notify(new CompleteQuest(interact, id));
         }
 
         private void ReturnQuestValidation(ValidationResult e)

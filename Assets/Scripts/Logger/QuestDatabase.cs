@@ -12,7 +12,7 @@ namespace Logger
 
         public List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
         
-        public ProgressedQuest FindQuestById(int id)
+        public ProgressedQuest FindQuestById(string id)
         {
             foreach (var quest in progressedQuests)
             {
@@ -22,7 +22,7 @@ namespace Logger
             return null;
         }
 
-        public bool CheckQuestCompleteById(int id)
+        public bool CheckQuestCompleteById(string id)
         {
             foreach (var quest in progressedQuests)
             {

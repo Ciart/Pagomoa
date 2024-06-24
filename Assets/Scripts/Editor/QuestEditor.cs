@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Text;
+using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
-using Logger;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
-using Unity.VisualScripting;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-namespace Editor
+namespace Ciart.Pagomoa.Editor
 {
     [CustomEditor(typeof(Quest))]
     [CanEditMultipleObjects]
@@ -26,7 +27,7 @@ namespace Editor
             
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            newQuest.id = EditorGUILayout.IntField("Quest ID", newQuest.id);
+            newQuest.id = EditorGUILayout.TextField("Quest ID", newQuest.id);
             GUILayout.EndVertical();
             
             GUILayout.Space(20);
@@ -35,7 +36,7 @@ namespace Editor
             GUILayout.Space(10);
             for (int i = 0; i < newQuest.prevQuestIds.Count; i++)
             {
-                newQuest.prevQuestIds[i] = EditorGUILayout.IntField(i+1 + ". PrevQuest ID", newQuest.prevQuestIds[i]);    
+                newQuest.prevQuestIds[i] = EditorGUILayout.TextField(i+1 + ". PrevQuest ID", newQuest.prevQuestIds[i]);    
             }
             
             if( newQuest.prevQuestIds.Count == 0) 
@@ -45,7 +46,7 @@ namespace Editor
             
             if (GUILayout.Button("+"))
             {
-                newQuest.prevQuestIds.Add(0);
+                newQuest.prevQuestIds.Add("");
             }
 
             if (GUILayout.Button("-"))
@@ -68,7 +69,7 @@ namespace Editor
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuest.reward.gold = EditorGUILayout.IntField("보상 골드", newQuest.reward.gold);
-            newQuest.reward.targetEntity = (ScriptableObject)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(ScriptableObject), true);
+            newQuest.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(Item), true);
             newQuest.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuest.reward.targetEntitySprite, typeof(Sprite), true);
             newQuest.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuest.reward.value);
             GUILayout.EndVertical();
@@ -140,8 +141,18 @@ namespace Editor
                 
                 EditorGUILayout.LabelField("퀘스트 타입", newQuest.questList[i].questType.ToString());
 
-                newQuest.questList[i].targetEntity = (ScriptableObject)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                    ,newQuest.questList[i].targetEntity , typeof(ScriptableObject), true);
+                if (newQuest.questList[i].questType == QuestType.CollectMineral)
+                {
+                    newQuest.questList[i].targetEntity = (MineralItem)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
+                        ,newQuest.questList[i].targetEntity , typeof(MineralItem), true);
+                } else if (newQuest.questList[i].questType == QuestType.BreakBlock)
+                {
+                    newQuest.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
+                        ,newQuest.questList[i].targetEntity , typeof(Ground), true);
+                }
+                
+                /*newQuest.questList[i].targetEntity = (ScriptableObject)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
+                    ,newQuest.questList[i].targetEntity , typeof(ScriptableObject), true);*/
                 
                 EditorGUILayout.LabelField("타입 값", newQuest.questList[i].conditionType.typeValue);
 

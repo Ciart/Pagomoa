@@ -5,8 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.ink" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.ink" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/Quest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProgressedQuest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 2 Copper.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/Collect 4 Copper.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/New Quest 2.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +34,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/56073df97ede4f769c2cc45d546d986d172200/09/af003218/UnityEvent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/56073df97ede4f769c2cc45d546d986d172200/f5/3f014d03/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/97/f2920df2/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bf6080dbf0564cf1b405dfd6e0dac725940e00/f5/33d6d826/SerializedObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -128,7 +147,10 @@
       <workItem from="1718641934740" duration="1661000" />
       <workItem from="1718700048419" duration="13082000" />
       <workItem from="1718805476339" duration="74000" />
-      <workItem from="1718805871910" duration="3057000" />
+      <workItem from="1718805871910" duration="3807000" />
+      <workItem from="1719042981191" duration="5494000" />
+      <workItem from="1719076543008" duration="548000" />
+      <workItem from="1719126755514" duration="1334000" />
     </task>
     <servers />
   </component>

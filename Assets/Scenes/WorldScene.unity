@@ -5995,10 +5995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quests:
-  - {fileID: 11400000, guid: a6812fac925f7464880a10197b46607a, type: 2}
-  - {fileID: 11400000, guid: 3fa34e75be6ecb642b37ce6b8e26e82a, type: 2}
-  - {fileID: 11400000, guid: 9d1e84d0af1cda24da0bcab2ee9ef314, type: 2}
-  - {fileID: 11400000, guid: 40f78e75b1ff71c4ba37d54df3892943, type: 2}
+  - {fileID: 11400000, guid: a2f39462e2d640848b4aac8227f844ca, type: 2}
 --- !u!114 &1232868275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12528,12 +12525,12 @@ PrefabInstance:
       objectReference: {fileID: 1009402063}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: a6812fac925f7464880a10197b46607a, type: 2}
+      objectReference: {fileID: 11400000, guid: a2f39462e2d640848b4aac8227f844ca, type: 2}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.data[1]
       value: 

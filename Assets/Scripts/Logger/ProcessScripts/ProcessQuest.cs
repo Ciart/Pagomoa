@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public class ProcessQuest : IDisposable
     {
         public InteractableObject questInCharge;
-        public int id;
+        public string id;
         public string description;
         public string title;
         public Reward reward;
@@ -51,9 +51,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         }
 
         private void QuestAccomplishment(QuestAccomplishEvent e)
-        { 
-            Debug.Log(elements.Count);
-
+        {
             foreach (var element in elements)
             {
                 if (element.complete == false)
@@ -71,10 +69,15 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public void Dispose()
         {
             EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
+
+            foreach (var element in elements)
+            {
+                element.Dispose();
+            }
         }
     }
 
-    public interface IQuestElements
+    public interface IQuestElements : IDisposable
     {
         public QuestType questType { get; set; }
         public bool complete { get; set; }
@@ -86,15 +89,15 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region IntQuestElements
     
-    // This quest counts minerals when player earn minerals that same type from inventory.
     public class CollectMineral : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
-        
-        ~CollectMineral() {
-            Debug.Log("delete element");
+
+        public void Dispose()
+        {
             EventManager.RemoveListener<ItemCountEvent>(CountItem);
         }
+
         public CollectMineral(QuestCondition elements)
         {
             questType = elements.questType; 
@@ -112,7 +115,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (inventoryItem.item == targetEntity)
                 {
                     EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
-                    //EventManager.Notify(new QuestAccomplishEvent());
                     break;
                 }
             }
@@ -159,10 +161,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     {
         public bool complete { get; set; } = false;
         
-        ~BreakBlock() {
+        public void Dispose()
+        {
             EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
         }
-        
+
         public BreakBlock(QuestCondition elements)
         {
             questType = elements.questType;
@@ -195,9 +198,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         private void OnGroundBroken(GroundBrokenEvent e)
         {
+            Debug.Log("in 1");
             if (!TypeValidation(e.brick.ground)) return;
+            Debug.Log("in 2");
             CalculationValue(e);
-
+            Debug.Log("in 3");
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
         
@@ -218,7 +223,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         ~PlayerMoveDistance() {
             EventManager.RemoveListener<PlayerMove>(MoveDistance);
         }
-        
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         public PlayerMoveDistance(QuestCondition elements)
         {
             questType = elements.questType;
@@ -274,7 +284,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             
         }
-        
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool TypeValidation(ScriptableObject target)
         {
             throw new NotImplementedException();
