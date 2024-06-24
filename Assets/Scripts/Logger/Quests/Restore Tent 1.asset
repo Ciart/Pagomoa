@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
-  m_Name: Restore Tent
+  m_Name: Restore Tent 1
   m_EditorClassIdentifier: 
   questInCharge: {fileID: 0}
-  id: 4
-  prevQuestIds: 
+  id: tent_1
+  prevQuestIds: []
   title: "\uD150\uD2B8 \uBCF5\uC6D0 \uC0AC\uC5C5"
-  description: "\uC7AC\uB8CC\uB97C \uAD6C\uD574 \uD150\uD2B8\uB97C \uBCF5\uC6D0\uD558\uC790!"
+  description: "\uC7AC\uB8CC\uB97C \uAD6C\uD574 \uD150\uD2B8\uB97C \uACE0\uC9C0\uC790!"
   startPrologue: {fileID: 4900000, guid: b54790df71cfb1549bbec741b263345a, type: 3}
   completePrologue: {fileID: 4900000, guid: fd8639ae484fca846a192acbcc32a551, type: 3}
   reward:
@@ -26,9 +26,9 @@ MonoBehaviour:
     value: 1
   questList:
   - questType: 0
-    summary: "\uC0C1\uC810\uC5D0\uC11C \uC0AC\uC624\uAE30"
+    summary: temp
     value: 1
-    targetEntity: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
     conditionType:
       target: 1
       typeValue: int

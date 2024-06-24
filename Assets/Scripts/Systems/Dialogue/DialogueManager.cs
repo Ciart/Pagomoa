@@ -299,18 +299,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        public void StartDialogue(EntityDialogue dialogue)
-        {
-            var icon = dialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
-            if (icon) {
-                StartStory();
-                return; }
-
-            _nowEntityDialogue = dialogue;
-            SetJsonAsset(_nowEntityDialogue.basicDialogue);
-            StartStory();
-        }
-
         private void QuestAccept(string id)
         {
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
@@ -341,7 +329,22 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 if (e.id != questDialogue.id) continue;
                 
                 SetJsonAsset(questDialogue.completePrologue);
+                Debug.Log("1 ");
             }
+        }
+        
+        public void StartDialogue(EntityDialogue dialogue)
+        {
+            _nowEntityDialogue = dialogue;
+            var icon = dialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
+            
+            if (icon) {
+                EventManager.Notify(new FindEntityCompleteQuest(dialogue.entityQuests));
+                StartStory();
+                return; }
+            
+            SetJsonAsset(_nowEntityDialogue.basicDialogue);
+            StartStory();
         }
     }
 }

@@ -22,7 +22,6 @@ namespace Ciart.Pagomoa.Editor
 
         public override void OnInspectorGUI()
         {
-            
             Quest newQuest = (Quest)target;
             
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));

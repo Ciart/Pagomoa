@@ -12,7 +12,7 @@ namespace Logger
 
         public List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
         
-        public ProgressedQuest FindQuestById(string id)
+        private ProgressedQuest FindQuestById(string id)
         {
             foreach (var quest in progressedQuests)
             {

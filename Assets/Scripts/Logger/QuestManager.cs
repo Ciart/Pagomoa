@@ -41,6 +41,7 @@ namespace Ciart.Pagomoa.Logger
             EventManager.AddListener<QuestRegister>(RegistrationQuest);
             EventManager.AddListener<QuestValidation>(CheckQuestValidation);
             EventManager.AddListener<CompleteQuest>(CompleteQuest);
+            EventManager.AddListener<FindEntityCompleteQuest>(FindCompleteQuest);
         }
         
         public void RegistrationQuest(QuestRegister e)
@@ -73,8 +74,6 @@ namespace Ciart.Pagomoa.Logger
             if (isQuestComplete)
             {
                 questInCharge.ActiveQuestCompleteUI();
-                
-                EventManager.Notify(new SetCompleteChat(signalID));
             }
             else
             {
@@ -115,13 +114,13 @@ namespace Ciart.Pagomoa.Logger
 
         private void CheckQuestValidation(QuestValidation e)
         {
-            if (!IsCompleteQuest(e.quest.prevQuestIds))
+            if (!IsCompletedQuest(e.quest.prevQuestIds))
             {
                 EventManager.Notify(new ValidationResult(false));
                 return;
             }
                 
-            if (IsCompleteQuest(e.quest.id))
+            if (IsCompletedQuest(e.quest.id))
             {
                 EventManager.Notify(new ValidationResult(false));
                 return;
@@ -146,7 +145,6 @@ namespace Ciart.Pagomoa.Logger
                 { 
                     if (processQuest.accomplishment && processQuest.id == quest.id)
                     {
-                        EventManager.Notify(new SetCompleteChat(processQuest.id));
                         return;
                     }
                 }
@@ -167,28 +165,39 @@ namespace Ciart.Pagomoa.Logger
             return check;
         }
 
-        private bool IsCompleteQuest(string id)
+        private bool IsCompletedQuest(string id)
         {
             var check = false;
-            
-            foreach (var quest in database.progressedQuests)
-            {
-                if (quest.id == id) check = true;
-            }
+
+            check = database.CheckQuestCompleteById(id);
 
             return check;
         }
 
-        private bool IsCompleteQuest(List<string> ids)
+        private bool IsCompletedQuest(List<string> ids)
         {
             if (ids.Count == 0) return true;
             
             foreach (var id in ids)
             {
-                if (!IsCompleteQuest(id)) return false;
+                if (!IsCompletedQuest(id)) return false;
             }
                 
             return true;
+        }
+
+        private void FindCompleteQuest(FindEntityCompleteQuest e) 
+        {
+            foreach (var quest in e.quests)
+            {
+                var progressQuest = FindQuestById(quest.id);
+                
+                if (progressQuest.accomplishment)
+                {
+                    EventManager.Notify(new SetCompleteChat(quest.id));  
+                    return;
+                }    
+            }
         }
     }   
 }
