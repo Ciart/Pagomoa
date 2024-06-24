@@ -329,17 +329,16 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 if (e.id != questDialogue.id) continue;
                 
                 SetJsonAsset(questDialogue.completePrologue);
-                Debug.Log("1 ");
             }
         }
         
         public void StartDialogue(EntityDialogue dialogue)
         {
             _nowEntityDialogue = dialogue;
-            var icon = dialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
+            var icon = _nowEntityDialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
             
             if (icon) {
-                EventManager.Notify(new FindEntityCompleteQuest(dialogue.entityQuests));
+                EventManager.Notify(new FindEntityCompleteQuest(_nowEntityDialogue.entityQuests));
                 StartStory();
                 return; }
             
