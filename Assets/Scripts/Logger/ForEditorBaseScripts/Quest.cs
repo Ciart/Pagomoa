@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
-namespace Logger.ForEditorBaseScripts
+namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
 {
     [CreateAssetMenu(menuName = "MakeQuest")]
     public class Quest : ScriptableObject
     {
-        public bool clear = false;
-
-        [SerializeField] public int questId;
-        [SerializeField] public int nextQuestId;
+        [SerializeField] public GameObject questInCharge;
+        [SerializeField] public string id;
+        [SerializeField] public List<string> prevQuestIds = new();
         [SerializeField] public string title;
         [TextArea, SerializeField] public string description;
+        
+        [SerializeField] public TextAsset startPrologue;
+        [SerializeField] public TextAsset completePrologue;
+        
         [SerializeField] public Reward reward = new();
         
         public List<QuestCondition> questList;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ink.Runtime;
 using TMPro;
@@ -10,10 +11,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
+        private static DialogueManager _instance;
 
-        private static DialogueManager _instance = null;
-
-        private TextAsset _inkJsonAsset = null;
+        private TextAsset _inkJsonAsset;
 
         private EntityDialogue _nowEntityDialogue;
 
@@ -25,19 +25,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private UISelectMode _uiMode = UISelectMode.Out;
 
-        private bool _changeDialogue = false;
+        private bool _changeDialogue;
 
-        [SerializeField] private GameObject _outButtonGroup;
+        private bool _questValid;
 
-        [SerializeField] private GameObject _inButtonGroup;
+        [SerializeField] private GameObject outButtonGroup;
 
-        [SerializeField] private Button _outButtonPrefab = null;
+        [SerializeField] private GameObject inButtonGroup;
 
-        [SerializeField] private Button _inButtonPrefab = null;
+        [SerializeField] private Button outButtonPrefab;
 
-        [Space]
+        [SerializeField] private Button inButtonPrefab;
 
-        public GameObject talkPannel;
+        public GameObject talkPanel;
 
         public Image talkImage;
 
@@ -63,6 +63,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public Story story;
 
+        private void Start()
+        {
+            EventManager.AddListener<ValidationResult>(ReturnQuestValidation);
+            EventManager.AddListener<SetCompleteChat>(SetQuestCompleteChat);
+        }
+        
         private void Update()
         {
             SetBtnSizeAfterContentSizeFitter();
@@ -72,15 +78,15 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             if (_uiMode == UISelectMode.Out)
             {
-                var rect = _outButtonGroup.GetComponent<RectTransform>();
+                var rect = outButtonGroup.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
             }
         }
 
         private void RefreshView()
         {
-            RemoveChildren(_outButtonGroup);
-            RemoveChildren(_inButtonGroup);
+            RemoveChildren(outButtonGroup);
+            RemoveChildren(inButtonGroup);
             talkText.text = "";
             // Read all the content until we can't continue any more
             string text = "";
@@ -88,13 +94,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             {
                 text += story.Continue();
                 text = text.Trim();
+                
                 if(text != "") text += "\n";
-                Debug.Log(text);
+                
                 ParseTag();
             }
             if(text != "") CreateContentView(text);
 
-            if (_changeDialogue == true)
+            if (_changeDialogue)
             {
                 _changeDialogue = false;
                 return;
@@ -139,15 +146,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            var choice = Instantiate(_uiMode == UISelectMode.Out ? _outButtonPrefab : _inButtonPrefab);
+            var choice = Instantiate(_uiMode == UISelectMode.Out ? outButtonPrefab : inButtonPrefab);
 
             TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
-            foreach (var chosedtext in choiceText)
-                chosedtext.text = text;
-
-
-            choice.transform.SetParent(_uiMode == UISelectMode.Out ? _outButtonGroup.transform : _inButtonGroup.transform, false);
-
+            foreach (var chosenText in choiceText)
+                chosenText.text = text;
+            
+            choice.transform.SetParent(_uiMode == UISelectMode.Out ? outButtonGroup.transform : inButtonGroup.transform, false);
 
             var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
             layoutGroup.childForceExpandHeight = false;
@@ -168,13 +173,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void ParseTag()
         {
-            List<string> tags = new List<string>();
-            tags = story.currentTags;
-
-            foreach (var tag in tags)
+            List<string> currentTags = story.currentTags;
+            
+            foreach (var currentTag in currentTags)
             {
-                string prefix = tag.Split(' ')[0];
-                string param = tag.Split(' ')[1];
+                string prefix = currentTag.Split(' ')[0];
+                string param = currentTag.Split(' ')[1];
 
                 switch (prefix.ToLower())
                 {
@@ -211,9 +215,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        private void SetTalkerName(string name)
+        private void SetTalkerName(string talkerName)
         {
-            nameText.text = name;
+            nameText.text = talkerName;
         }
 
         private void SetSpriteImage(string param)
@@ -226,8 +230,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             foreach (var sprite in spriteGroup)
             {
-                string name = sprite.name;
-                if (name.Replace(" ", string.Empty) == param)
+                string spriteName = sprite.name;
+                if (spriteName.Replace(" ", string.Empty) == param)
                 {
                     talkImage.sprite = sprite;
                     talkImage.gameObject.SetActive(true);
@@ -248,13 +252,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             story = new Story(_inkJsonAsset.text);
             if (onCreateStory != null) onCreateStory(story);
             RefreshView();
-            talkPannel.SetActive(true);
+            talkPanel.SetActive(true);
         }
 
         private void StopStory()
         {
             story = null;
-            talkPannel.SetActive(false);
+            talkPanel.SetActive(false);
         }
 
         private void StartDailyChat()
@@ -266,21 +270,23 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void StartQuestChat()
         {
             _uiMode = UISelectMode.In;
-            var quests = _nowEntityDialogue.questDialogues;
+            var quests = _nowEntityDialogue.entityQuests;
+            
             foreach (var quest in quests)
             {
-                if (!quest.IsPrerequisiteCompleted()) continue;
-                if (QuestManager.instance.IsRegisteredQuest(quest.questId)) continue;
-                if (QuestManager.instance.IsCompleteQuest(quest.questId)) continue;
-
-                Button button = CreateChoiceView(quest.questName);
+                EventManager.Notify(new QuestValidation(quest));
+                
+                if (!_questValid) continue;
+                
+                Button button = CreateChoiceView(quest.title);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    SetJsonAsset(quest.questStartPrologos);
+                    SetJsonAsset(quest.startPrologue);
                     StartStory();
                 });
             }
+            
             if (quests.Length < 1)
             {
                 _uiMode = UISelectMode.Out;
@@ -293,55 +299,51 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
         }
 
-        public void StartQuestCompleteChat(int id)
-        {
-            foreach (var questDialogue in _nowEntityDialogue.questDialogues)
-            {
-                if (id == questDialogue.questId)
-                {
-                     SetJsonAsset(questDialogue.questCompletePrologos);
-                     StartStory();
-                }
-            }
-        }
-
-        public void StartDialogue(EntityDialogue dialogue)
-        {
-            _nowEntityDialogue = dialogue;
-            SetJsonAsset(_nowEntityDialogue.basicDialogue);
-            StartStory();
-        }
-
         private void QuestAccept(string id)
         {
-            var questId = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
-
-            if (interact is null)
-            {
-                Debug.LogError("is not interactable quest NPC.");
-                return ;
-            }
             
-            Debug.Log("Quest Accept : " + questId);
-            
-            QuestManager.instance.registerQuest.Invoke(interact, questId);
+            Debug.Log("Quest Accept : " + id);
+                        
+            EventManager.Notify(new QuestRegister(interact, id));
         }
 
         private void QuestComplete(string id)
         {
-            var questId = int.Parse(id);
             var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
             
-            if (interact is null)
+            Debug.Log("Quest Complete : " + id);
+            
+            EventManager.Notify(new CompleteQuest(interact, id));
+        }
+
+        private void ReturnQuestValidation(ValidationResult e)
+        {
+            _questValid = e.result;
+        }
+
+        private void SetQuestCompleteChat(SetCompleteChat e)
+        {
+            foreach (var questDialogue in _nowEntityDialogue.entityQuests)
             {
-                Debug.LogError("is not interactable quest NPC.");
-                return ;
+                if (e.id != questDialogue.id) continue;
+                
+                SetJsonAsset(questDialogue.completePrologue);
             }
+        }
+        
+        public void StartDialogue(EntityDialogue dialogue)
+        {
+            _nowEntityDialogue = dialogue;
+            var icon = _nowEntityDialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
             
-            Debug.Log("Quest Complete : " + questId);
+            if (icon) {
+                EventManager.Notify(new FindEntityCompleteQuest(_nowEntityDialogue.entityQuests));
+                StartStory();
+                return; }
             
-            QuestManager.instance.completeQuest.Invoke(interact, questId);
+            SetJsonAsset(_nowEntityDialogue.basicDialogue);
+            StartStory();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
@@ -9,34 +11,28 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
-    public class ProcessQuest
+    public class ProcessQuest : IDisposable
     {
         public InteractableObject questInCharge;
-        public int questId;
-        public int nextQuestId;
+        public string id;
         public string description;
         public string title;
         public Reward reward;
         public List<IQuestElements> elements;
         public bool accomplishment = false;
-        
-        ~ProcessQuest(){
-            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
-        }
-        
-        public ProcessQuest(int questId, int nextQuestId, string description, string title, Reward reward,
-            List<QuestCondition> questConditions)
+
+        public ProcessQuest(Quest quest, InteractableObject questInCharge)
         {
-            this.questId = questId;
-            this.nextQuestId = nextQuestId;
-            this.description = description;
-            this.title = title;
-            this.reward = reward;
+            this.questInCharge = questInCharge;
+            this.id = quest.id;
+            this.description = quest.description;
+            this.title = quest.title;
+            this.reward = quest.reward;
             elements = new List<IQuestElements>();
 
             EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
-            
-            foreach (var condition in questConditions)
+
+            foreach (var condition in quest.questList)
             {
                 switch (condition.questType)
                 {
@@ -50,26 +46,38 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         break;
                 }
             }
+            
+            EventManager.Notify(new QuestAccomplishEvent());
         }
 
         private void QuestAccomplishment(QuestAccomplishEvent e)
         {
             foreach (var element in elements)
             {
-                if (!element.complete)
+                if (element.complete == false)
                 {
                     accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(questId, accomplishment, questInCharge));
+                    EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
                     return ;
                 }
             }
             
             accomplishment = true;
-            EventManager.Notify(new SignalToNpc(questId, accomplishment, questInCharge));
+            EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
+        }
+
+        public void Dispose()
+        {
+            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
+
+            foreach (var element in elements)
+            {
+                element.Dispose();
+            }
         }
     }
 
-    public interface IQuestElements
+    public interface IQuestElements : IDisposable
     {
         public QuestType questType { get; set; }
         public bool complete { get; set; }
@@ -81,14 +89,15 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region IntQuestElements
     
-    // This quest counts minerals when player earn minerals that same type from inventory.
     public class CollectMineral : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
-        
-        ~CollectMineral() {
+
+        public void Dispose()
+        {
             EventManager.RemoveListener<ItemCountEvent>(CountItem);
         }
+
         public CollectMineral(QuestCondition elements)
         {
             questType = elements.questType; 
@@ -106,7 +115,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (inventoryItem.item == targetEntity)
                 {
                     EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
-                    EventManager.Notify(new QuestAccomplishEvent());
                     break;
                 }
             }
@@ -153,10 +161,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     {
         public bool complete { get; set; } = false;
         
-        ~BreakBlock() {
+        public void Dispose()
+        {
             EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
         }
-        
+
         public BreakBlock(QuestCondition elements)
         {
             questType = elements.questType;
@@ -189,9 +198,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         private void OnGroundBroken(GroundBrokenEvent e)
         {
+            Debug.Log("in 1");
             if (!TypeValidation(e.brick.ground)) return;
+            Debug.Log("in 2");
             CalculationValue(e);
-
+            Debug.Log("in 3");
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
         
@@ -207,40 +218,62 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public class PlayerMoveDistance : ProcessFloatQuestElements, IQuestElements
     {
         public bool complete { get; set; }
-        
+        private Vector3 _previousPos = Vector3.zero;
+
         ~PlayerMoveDistance() {
-            
+            EventManager.RemoveListener<PlayerMove>(MoveDistance);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PlayerMoveDistance(QuestCondition elements)
+        {
+            questType = elements.questType;
+            summary = elements.summary;
+            targetEntity = elements.targetEntity;
+            valueType = elements.value;
+            value = float.Parse(elements.value);
+            compareValue = 0.0f;
+
+            EventManager.AddListener<PlayerMove>(MoveDistance);
         }
         
         public override bool TypeValidation(ScriptableObject target)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public override void CalculationValue()
+        public override void CalculationValue(IEvent e)
         {
-            throw new NotImplementedException();
+            var playerMove = (PlayerMove)e;
+            var distance = Vector3.Distance(_previousPos, playerMove.playerPos);
+
+            compareValue += distance;
         }
 
+        private void MoveDistance(PlayerMove e)
+        {
+            if (_previousPos == Vector3.zero) _previousPos = e.playerPos;
+
+            CalculationValue(e);
+            
+            _previousPos = e.playerPos;
+            
+            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+        }
+        
         public bool CheckComplete()
         {
-            throw new NotImplementedException();
+            complete = compareValue >= value;
+            return complete;
         }
 
-        public string GetQuestSummary()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetValueToString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetCompareValueToString()
-        {
-            throw new NotImplementedException();
-        }
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString("F1"); }
+        public string GetCompareValueToString() { return compareValue.ToString("F1"); }
     }
     
     // How deeply player go down from y : 0. This quest calculate player best deep transform of y. 
@@ -251,13 +284,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             
         }
-        
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool TypeValidation(ScriptableObject target)
         {
             throw new NotImplementedException();
         }
 
-        public override void CalculationValue()
+        public override void CalculationValue(IEvent e)
         {
             throw new NotImplementedException();
         }

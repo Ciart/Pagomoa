@@ -5033,7 +5033,7 @@ MonoBehaviour:
   npcImageObject: {fileID: 3322611919001321131}
   valueBox: {fileID: 1513990770842784454}
   rewardBox: {fileID: 5479499235630370122}
-  _sprites:
+  sprites:
   - {fileID: 1303293088, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
 --- !u!1 &4943156515268346931
 GameObject:

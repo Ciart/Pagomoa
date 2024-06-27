@@ -15,6 +15,8 @@ namespace Ciart.Pagomoa.Systems
         public GameObject inventoryUIPrefab;
         public GameObject escUI;
         public GameObject interactableUI;
+        public GameObject questCompleteUI;
+        public QuestUI questUI;
         public CinemachineVirtualCamera inventoryCamera;
 
         private PlayerInput _playerInput;
@@ -26,9 +28,16 @@ namespace Ciart.Pagomoa.Systems
             base.Awake();
             
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
-            _inventoryUI.SetActive(false);   
+            _inventoryUI.SetActive(false);
+            questUI = _inventoryUI.GetComponentInChildren<QuestUI>();
         }
-
+        
+        private void Start()
+        {
+            EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
+            EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
+        }
+        
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
@@ -97,6 +106,11 @@ namespace Ciart.Pagomoa.Systems
         public static GameObject CreateInteractableUI(Transform parent)
         {
             return Instantiate(instance.interactableUI, parent);
+        }
+
+        public static GameObject CreateQuestCompleteUI(Transform parent)
+        {
+            return Instantiate(instance.questCompleteUI, parent);
         }
     }
 }

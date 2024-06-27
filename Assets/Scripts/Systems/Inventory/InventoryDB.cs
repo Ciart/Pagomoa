@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
@@ -27,6 +28,26 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             else
                 Destroy(this.gameObject);
+        }
+        
+        private void Start()
+        {
+            EventManager.AddListener<AddReward>(AddReward);
+            EventManager.AddListener<AddGold>(ChangeGold);
+        }
+        
+        private void ChangeGold(AddGold e)
+        {
+            AddGold(e.gold);
+        }
+        private void AddReward(AddReward e)
+        {
+            Add(e.item, e.itemCount);
+        }
+        
+        private void AddGold(int gold)
+        {
+            Gold += gold;
         }
         public void Add(Item data, int count = 1) // Item data
         {

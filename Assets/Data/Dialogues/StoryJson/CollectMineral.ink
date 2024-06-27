@@ -34,7 +34,7 @@
 *[거절] -> Deny
  
   === Accept
- #quest 1
+ #quest copper_1
  정말 고마워! 이 은혜는 절대 잊을게
  -> END
  

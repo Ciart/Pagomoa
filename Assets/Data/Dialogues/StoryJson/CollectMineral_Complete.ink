@@ -8,6 +8,6 @@
 *[건네준다] -> Accept
 
 === Accept
-#reward 1
+#reward copper_1
 맛있구만, 이제 넌 가봐도 좋아
 -> END

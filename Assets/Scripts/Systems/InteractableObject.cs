@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -14,6 +16,7 @@ namespace Ciart.Pagomoa.Systems
         private SpriteRenderer _spriteRenderer;
 
         private GameObject _interactableUI;
+        private GameObject _questCompleteUI;
         
         private const string Outline = "_OutlineColor";
         private static readonly int OutlineColor = Shader.PropertyToID(Outline);
@@ -25,6 +28,10 @@ namespace Ciart.Pagomoa.Systems
             _interactableUI = UIManager.CreateInteractableUI(transform);
             _interactableUI.SetActive(false);
             _interactableUI.transform.position += uiOffset;
+
+            _questCompleteUI = UIManager.CreateQuestCompleteUI(transform);
+            _questCompleteUI.SetActive(false);
+            _questCompleteUI.transform.position += uiOffset * 1.6f;
         }
 
         public void ActiveObject()
@@ -67,6 +74,16 @@ namespace Ciart.Pagomoa.Systems
             {
                 interactionEvent.SetPersistentListenerState(i, UnityEventCallState.RuntimeOnly);
             }
+        }
+
+        public void ActiveQuestCompleteUI()
+        {
+            _questCompleteUI.SetActive(true);
+        }
+
+        public void DeActiveQuestCompleteUI()
+        {
+            _questCompleteUI.SetActive(false);
         }
     }
 }

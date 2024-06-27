@@ -4,12 +4,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public class ProgressedQuest
     {
-        public int questId;
+        public string id;
         public bool accomplishment;
         
         public ProgressedQuest(ProcessQuest quest)
         {
-            questId = quest.questId;
+            id = quest.id;
             accomplishment = quest.accomplishment;
         }
     }

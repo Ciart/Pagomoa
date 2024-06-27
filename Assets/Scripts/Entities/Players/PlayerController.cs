@@ -1,4 +1,5 @@
 ﻿using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -84,6 +85,8 @@ namespace Ciart.Pagomoa.Entities.Players
             }
 
             TryJump();
+            
+            EventManager.Notify(new PlayerMove(transform.position));
         }
 
         private void UpdateIsGrounded()

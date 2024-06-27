@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ProcessScripts;
@@ -8,23 +9,18 @@ using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
 using Logger;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Ciart.Pagomoa.Logger
 {
-    public delegate void RegisterQuest(InteractableObject questInCharge, int id);
-    public delegate void CompleteQuest(InteractableObject questInCharge, int id);
-
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
     public class QuestManager : MonoBehaviour
     {
+        [Header("수행중인 퀘스트")]
         public List<ProcessQuest> progressQuests = new List<ProcessQuest>();
+        
         public QuestDatabase database;
-        
-        public RegisterQuest registerQuest;
-        public CompleteQuest completeQuest;
-        
+
         private static QuestManager _instance;
         public static QuestManager instance
         {
@@ -41,121 +37,167 @@ namespace Ciart.Pagomoa.Logger
         private void Start()
         {
             database ??= GetComponent<QuestDatabase>();
-
-            registerQuest = RegistrationQuest;
-            completeQuest = CompleteQuest;
+            
+            EventManager.AddListener<QuestRegister>(RegistrationQuest);
+            EventManager.AddListener<QuestValidation>(CheckQuestValidation);
+            EventManager.AddListener<CompleteQuest>(CompleteQuest);
+            EventManager.AddListener<FindEntityCompleteQuest>(FindCompleteQuest);
         }
         
-        public void RegistrationQuest(InteractableObject questInCharge, int questId)
+        public void RegistrationQuest(QuestRegister e)
         {
             foreach (var quest in database.quests)
             {
-                if (quest.questId == questId)
-                {
-                    var q = new ProcessQuest(quest.questId, quest.nextQuestId, quest.description, quest.title, quest.reward, quest.questList)
-                        {
-                            questInCharge = questInCharge
-                        };
+                if (quest.id != e.id) continue;
+                
+                EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
                     
-                    progressQuests.Add(q);
+                var target = e.questInCharge;
                     
-                    EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
-                    
-                    if (QuestUI.instance != null)
-                    {
-                        QuestUI.instance.npcImages.Add(questInCharge.GetComponent<SpriteRenderer>().sprite);
-                        QuestUI.instance.MakeProgressQuestList();
-                    }
-                }
+                var progressQuest = new ProcessQuest(quest, e.questInCharge);
+
+                progressQuests.Add(progressQuest);
+                
+                EventManager.Notify(new AddNpcImageEvent(target.GetComponent<SpriteRenderer>().sprite));
+                EventManager.Notify(new MakeQuestListEvent());
+              
+                EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment, progressQuest.questInCharge));
             }
         }
         
-        private void QuestAccomplishment(SignalToNpc e)
+        public void QuestAccomplishment(SignalToNpc e)
         {
+            var signalID = e.questId;
             var isQuestComplete = e.accomplishment;
             var questInCharge = e.questInCharge;
-            var dialogueTrigger = e.questInCharge.GetComponent<EntityDialogue>();
-
-            if (isQuestComplete == false)
+            
+            if (isQuestComplete)
             {
-                questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-
-                // todo : 유효성 검사 
-                questInCharge.interactionEvent.RemoveListener( () => DialogueManager.instance.StartQuestCompleteChat(e.questId));
+                questInCharge.ActiveQuestCompleteUI();
             }
             else
             {
-                questInCharge.transform.GetChild(1).gameObject.SetActive(true);
-                questInCharge.interactionEvent.AddListener(() => dialogueTrigger.QuestCompleteDialogue(e.questId));
+                WaitingForCompletedQuest(questInCharge);
             }
         }
         
-        private void CompleteQuest(InteractableObject questInCharge, int id)
+        public void CompleteQuest(CompleteQuest e)
         {
-            var dialogueTrigger = questInCharge.GetComponent<EntityDialogue>();
-
-            questInCharge.transform.GetChild(1).gameObject.SetActive(false);
-            questInCharge.interactionEvent.RemoveListener(() => DialogueManager.instance.StartQuestCompleteChat(id));
-
-            GetReward(id);
+            GetReward(e.id);
+            
+            WaitingForCompletedQuest(e.questInCharge);
         }
         
-        private void GetReward(int id)
+        private void GetReward(string id)
         {
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
-            InventoryDB.Instance.Add((Item)reward.targetEntity, reward.value);
-            InventoryDB.Instance.Gold += reward.gold;
+            EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
+            EventManager.Notify(new AddGold(reward.gold));
             
-            // todo : 완료된 퀘스트를 저장 할까 말까?
             database.progressedQuests.Add(new ProgressedQuest(targetQuest));
             progressQuests.Remove(targetQuest);
+            
+            targetQuest.Dispose();
         }
         
-        public ProcessQuest FindQuestById(int id)
+        private ProcessQuest FindQuestById(string id)
         {
             foreach (var quest in progressQuests)
             {
-                if (quest.questId == id) return quest;
+                if (quest.id == id) return quest;
             }
             
             return null;
         }
 
-        public bool CheckQuestCompleteById(int id)
+        private void CheckQuestValidation(QuestValidation e)
         {
-            foreach (var quest in progressQuests)
+            if (!IsCompletedQuest(e.quest.prevQuestIds))
             {
-                return FindQuestById(id) is not null && quest.accomplishment;
+                EventManager.Notify(new ValidationResult(false));
+                return;
+            }
+                
+            if (IsCompletedQuest(e.quest.id))
+            {
+                EventManager.Notify(new ValidationResult(false));
+                return;
+            }
+
+            if (IsRegisteredQuest(e.quest.id))
+            {
+                EventManager.Notify(new ValidationResult(false));
+                return;
             }
             
-            return false;
+            EventManager.Notify(new ValidationResult(true)); 
+        }
+
+        private void WaitingForCompletedQuest(InteractableObject questInCharge)
+        {
+            var dialogue = questInCharge.GetComponent<EntityDialogue>();
+            
+            foreach (var quest in dialogue.entityQuests)
+            {
+                foreach (var processQuest in progressQuests)
+                { 
+                    if (processQuest.accomplishment && processQuest.id == quest.id)
+                    {
+                        return;
+                    }
+                }
+            }
+            
+            questInCharge.DeActiveQuestCompleteUI();
         }
         
-        // 경훈아 이거쓰셈
-        public bool IsRegisteredQuest(int id)
+        private bool IsRegisteredQuest(string id)
         {
             var check = false;
             
             foreach (var quest in progressQuests)
             {
-                if (quest.questId == id) check = true;
+                if (quest.id == id) check = true;
             }
 
             return check;
         }
 
-        public bool IsCompleteQuest(int id)
+        private bool IsCompletedQuest(string id)
         {
             var check = false;
-            
-            foreach (var quest in database.progressedQuests)
-            {
-                if (quest.questId == id) check = true;
-            }
+
+            check = database.CheckQuestCompleteById(id);
 
             return check;
+        }
+
+        private bool IsCompletedQuest(List<string> ids)
+        {
+            if (ids.Count == 0) return true;
+            
+            foreach (var id in ids)
+            {
+                if (!IsCompletedQuest(id)) return false;
+            }
+                
+            return true;
+        }
+
+        private void FindCompleteQuest(FindEntityCompleteQuest e) 
+        {
+            foreach (var quest in e.quests)
+            {
+                var progressQuest = FindQuestById(quest.id);
+                
+                if (progressQuest.accomplishment)
+                {
+                    EventManager.Notify(new SetCompleteChat(quest.id));  
+                    return;
+                }    
+            }
         }
     }   
 }
