@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                 return;
             }
 
-            var player = EntityManager.instance.player;
+            var player = GameManager.player;
             var velocity = new Vector2((player.transform.position.x - animator.transform.position.x) * _cactusBoss.speed * Time.deltaTime, _cactusBoss.rigidbody.velocity.y);
 
             _cactusBoss.rigidbody.velocity = velocity;

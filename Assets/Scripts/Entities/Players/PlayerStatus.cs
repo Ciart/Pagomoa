@@ -137,7 +137,7 @@ namespace Ciart.Pagomoa.Entities.Players
             else if (oxygen < maxOxygen)
             {
                 oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
-                gage = oxygen;                    
+                gage = oxygen;
                 Debug.Log("올라간다");
             }
 
@@ -160,7 +160,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Respawn()
         {
-            EntityManager.instance.player.transform.position =
+            GameManager.player.transform.position =
                 GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
             oxygen = maxOxygen;
             isDie = false;

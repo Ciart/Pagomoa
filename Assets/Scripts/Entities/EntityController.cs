@@ -165,7 +165,7 @@ namespace Ciart.Pagomoa.Entities
         {
             CheckDeath();
 
-            var distance = Vector3.Distance(transform.position, EntityManager.instance.player.transform.position);
+            var distance = Vector3.Distance(transform.position, GameManager.player.transform.position);
 
             if (distance > 100f)
             {

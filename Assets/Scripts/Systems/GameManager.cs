@@ -1,4 +1,6 @@
+using System;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
@@ -9,6 +11,15 @@ namespace Ciart.Pagomoa.Systems
         public bool isLoadSave;
 
         public bool hasPowerGemEarth;
+
+        private PlayerController _player;
+        
+        public static PlayerController player => instance._player;
+        
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        {
+            _player = e.player;
+        }
 
         void Start()
         {
@@ -33,6 +44,16 @@ namespace Ciart.Pagomoa.Systems
             {
                 Debug.Log("데모 종료");
             }
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
     }
 }

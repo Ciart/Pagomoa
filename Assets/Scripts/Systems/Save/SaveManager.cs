@@ -211,9 +211,9 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadPlayerCurrentStatusData()
         {
             if (DataManager.Instance.data.playerStatusData == null) return;
-            if (EntityManager.instance.player == null) return;
+            if (GameManager.player == null) return;
 
-            PlayerStatus playerStatus = EntityManager.instance.player.GetComponent<PlayerStatus>();
+            PlayerStatus playerStatus = GameManager.player.GetComponent<PlayerStatus>();
             playerStatus.oxygen = DataManager.Instance.data.playerStatusData.currentOxygen;
             playerStatus.hungry = DataManager.Instance.data.playerStatusData.currentHungry;
             playerStatus.oxygenAlter.Invoke(playerStatus.oxygen, playerStatus.maxOxygen);
@@ -273,7 +273,7 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WritePlayerCurrentStatusData()
         {
             InitData();
-            DataManager.Instance.data.playerStatusData.SetCurrentStatusData(EntityManager.instance.player.GetComponent<PlayerStatus>());
+            DataManager.Instance.data.playerStatusData.SetCurrentStatusData(GameManager.player.GetComponent<PlayerStatus>());
         
         }
 
