@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.CactusBoss
@@ -14,7 +15,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var player = EntityManager.instance.player;
+            var player = GameManager.player;
 
             if (_cactusBoss.CheckPlayerInRange())
             {

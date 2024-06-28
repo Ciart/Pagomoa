@@ -10,9 +10,6 @@ namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : SingletonMonoBehaviour<EntityManager>
     {
-        private PlayerController _player;
-        public PlayerController player => _player;
-
         private static EntityManager _instance;
 
         private List<EntityController> _entities = new();
@@ -26,8 +23,8 @@ namespace Ciart.Pagomoa.Entities
             
             if (origin.type == EntityType.Player)
             {
-                _player = entity.GetComponent<PlayerController>();
-                EventManager.Notify(new PlayerSpawnedEvent(_player));
+                var player = entity.GetComponent<PlayerController>();
+                EventManager.Notify(new PlayerSpawnedEvent(player));
             }
 
             return entity;

@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.CactusBoss
@@ -13,7 +14,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _cactusBoss = animator.GetComponent<CactusBoss>();
-            _targetPosition = EntityManager.instance.player.transform.position;
+            _targetPosition = GameManager.player.transform.position;
 
             _cactusBoss.rigidbody.AddForce(new Vector2(0, jumpForce));
         }

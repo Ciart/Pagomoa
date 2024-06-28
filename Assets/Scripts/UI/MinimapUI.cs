@@ -1,5 +1,6 @@
 using System;
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Ciart.Pagomoa.UI
         
         private void Update()
         {
-            var position = EntityManager.instance.player.transform.position;
+            var position = GameManager.player.transform.position;
 
             if (Math.Round(position.x) >= 1)
                 coordXText.text = $"{position.x:+0}";

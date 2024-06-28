@@ -1,5 +1,6 @@
 using System.Collections;
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 
@@ -13,7 +14,7 @@ namespace Ciart.Pagomoa.Worlds.UFO
 
         public IEnumerator MoveToPlayer()
         {
-            var player = EntityManager.instance.player;
+            var player = GameManager.player;
             var startPos = transform.position;
             var targetPos = new Vector3(player.transform.position.x, startPos.y);
             var sqrDistance = (targetPos - startPos).sqrMagnitude;

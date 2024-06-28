@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbf4aee7a5eff14f9b8f81f302e1552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionEvent:
+  uiOffset: {x: 0, y: 0, z: 0}
+  interactionEvent:
     m_PersistentCalls:
       m_Calls: []

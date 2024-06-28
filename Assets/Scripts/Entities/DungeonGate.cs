@@ -1,4 +1,5 @@
 ﻿using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -14,8 +15,8 @@ namespace Ciart.Pagomoa.Entities
         {
             WorldManager.world.ChangeLevel(levelId);
 
+            var player = GameManager.player;
             var entityManager = EntityManager.instance;
-            var player = entityManager.player;
             var destinationEntity = entityManager.Find(destination);
             
             if (destinationEntity is null)
