@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
-using Ciart.Pagomoa.Systems.Inventory;
 using Logger;
 using UnityEngine;
 
@@ -37,24 +36,19 @@ namespace Ciart.Pagomoa.Logger
         private void Start()
         {
             database ??= GetComponent<QuestDatabase>();
-            
-            EventManager.AddListener<QuestRegister>(RegistrationQuest);
-            EventManager.AddListener<QuestValidation>(CheckQuestValidation);
-            EventManager.AddListener<CompleteQuest>(CompleteQuest);
-            EventManager.AddListener<FindEntityCompleteQuest>(FindCompleteQuest);
         }
         
-        public void RegistrationQuest(QuestRegister e)
+        public void RegistrationQuest(InteractableObject questInCharge, string id)
         {
             foreach (var quest in database.quests)
             {
-                if (quest.id != e.id) continue;
+                if (quest.id != id) continue;
                 
                 EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
                     
-                var target = e.questInCharge;
+                var target = questInCharge;
                     
-                var progressQuest = new ProcessQuest(quest, e.questInCharge);
+                var progressQuest = new ProcessQuest(quest, questInCharge);
 
                 progressQuests.Add(progressQuest);
                 
@@ -81,11 +75,11 @@ namespace Ciart.Pagomoa.Logger
             }
         }
         
-        public void CompleteQuest(CompleteQuest e)
+        public void CompleteQuest(InteractableObject questInCharge, string id)
         {
-            GetReward(e.id);
+            GetReward(id);
             
-            WaitingForCompletedQuest(e.questInCharge);
+            WaitingForCompletedQuest(questInCharge);
         }
         
         private void GetReward(string id)
@@ -102,7 +96,7 @@ namespace Ciart.Pagomoa.Logger
             targetQuest.Dispose();
         }
         
-        private ProcessQuest FindQuestById(string id)
+        public ProcessQuest FindQuestById(string id)
         {
             foreach (var quest in progressQuests)
             {
@@ -112,27 +106,24 @@ namespace Ciart.Pagomoa.Logger
             return null;
         }
 
-        private void CheckQuestValidation(QuestValidation e)
+        public bool CheckQuestValidation(Quest quest)
         {
-            if (!IsCompletedQuest(e.quest.prevQuestIds))
+            if (!IsCompletedQuest(quest.prevQuestIds))
             {
-                EventManager.Notify(new ValidationResult(false));
-                return;
+                return false;
             }
                 
-            if (IsCompletedQuest(e.quest.id))
+            if (IsCompletedQuest(quest.id))
             {
-                EventManager.Notify(new ValidationResult(false));
-                return;
+                return false;
             }
 
-            if (IsRegisteredQuest(e.quest.id))
+            if (IsRegisteredQuest(quest.id))
             {
-                EventManager.Notify(new ValidationResult(false));
-                return;
+                return false;
             }
-            
-            EventManager.Notify(new ValidationResult(true)); 
+
+            return true;
         }
 
         private void WaitingForCompletedQuest(InteractableObject questInCharge)
@@ -184,20 +175,6 @@ namespace Ciart.Pagomoa.Logger
             }
                 
             return true;
-        }
-
-        private void FindCompleteQuest(FindEntityCompleteQuest e) 
-        {
-            foreach (var quest in e.quests)
-            {
-                var progressQuest = FindQuestById(quest.id);
-                
-                if (progressQuest.accomplishment)
-                {
-                    EventManager.Notify(new SetCompleteChat(quest.id));  
-                    return;
-                }    
-            }
         }
     }   
 }
