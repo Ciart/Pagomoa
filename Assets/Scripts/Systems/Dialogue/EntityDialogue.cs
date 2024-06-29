@@ -70,6 +70,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     }
                     
                     DialogueManager.instance.StartStory(this, quest.completePrologue);
+                    return;
                 }
             }
 

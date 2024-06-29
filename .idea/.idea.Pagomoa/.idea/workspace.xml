@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/QuestEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/EntityDialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/EntityDialogue.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,13 +54,13 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "/Users/pdom/Library/Application Support/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
-      "/Users/pdom/Library/Application Support/JetBrains/Rider2023.2/resharper-host/SourcesCache",
-      "/Users/pdom/.local/share/Symbols/src"
+      "C:\\Users\\a9018\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\a9018\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\a9018\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+  <component name="RunManager" selected="Unity 에디터에 연결.Attach to Unity Editor">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\a9018\Desktop\PagoMoa -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
@@ -159,6 +156,7 @@
       <workItem from="1719191556279" duration="3031000" />
       <workItem from="1719210144263" duration="9766000" />
       <workItem from="1719592239726" duration="13531000" />
+      <workItem from="1719645540043" duration="680000" />
     </task>
     <servers />
   </component>
