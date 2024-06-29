@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Logger;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine;
@@ -13,8 +11,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
     {
         private static DialogueManager _instance;
 
-        private TextAsset _inkJsonAsset;
-
         private EntityDialogue _nowEntityDialogue;
 
         private enum UISelectMode
@@ -25,9 +21,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private UISelectMode _uiMode = UISelectMode.Out;
 
-        private bool _changeDialogue;
-
-        private bool _questValid;
+        private bool _changeDialogue; 
 
         [SerializeField] private GameObject outButtonGroup;
 
@@ -62,12 +56,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public static event Action<Story> onCreateStory;
 
         public Story story;
-
-        private void Start()
-        {
-            EventManager.AddListener<ValidationResult>(ReturnQuestValidation);
-            EventManager.AddListener<SetCompleteChat>(SetQuestCompleteChat);
-        }
         
         private void Update()
         {
@@ -205,10 +193,10 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                         }
                         break;
                     case "quest":
-                        QuestAccept(param);
+                        _nowEntityDialogue.QuestAccept(param);
                         break;
                     case "reward":
-                        QuestComplete(param);
+                        _nowEntityDialogue.QuestComplete(param);
                         break;
 
                 }
@@ -241,15 +229,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             Debug.LogError("no image There");
         }
-
-        private void SetJsonAsset(TextAsset asset)
+        
+        public void StartStory(EntityDialogue dialogue, TextAsset asset)
         {
-            _inkJsonAsset = asset;
-        }
-
-        private void StartStory()
-        {
-            story = new Story(_inkJsonAsset.text);
+            _nowEntityDialogue = dialogue;
+            story = new Story(asset.text);
             if (onCreateStory != null) onCreateStory(story);
             RefreshView();
             talkPanel.SetActive(true);
@@ -263,27 +247,21 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void StartDailyChat()
         {
-            SetJsonAsset(_nowEntityDialogue.dailyDialogues.GetRandomDialogue());
-            StartStory();
+            StartStory(_nowEntityDialogue, _nowEntityDialogue.dailyDialogues.GetRandomDialogue());
         }
 
         private void StartQuestChat()
         {
             _uiMode = UISelectMode.In;
-            var quests = _nowEntityDialogue.entityQuests;
+            var quests = _nowEntityDialogue.GetValidationQuests();
             
             foreach (var quest in quests)
             {
-                EventManager.Notify(new QuestValidation(quest));
-                
-                if (!_questValid) continue;
-                
                 Button button = CreateChoiceView(quest.title);
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    SetJsonAsset(quest.startPrologue);
-                    StartStory();
+                    StartStory(_nowEntityDialogue, quest.startPrologue);
                 });
             }
             
@@ -297,53 +275,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     StopStory();
                 });
             }
-        }
-
-        private void QuestAccept(string id)
-        {
-            var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
-            
-            Debug.Log("Quest Accept : " + id);
-                        
-            EventManager.Notify(new QuestRegister(interact, id));
-        }
-
-        private void QuestComplete(string id)
-        {
-            var interact = _nowEntityDialogue.GetComponent<InteractableObject>();
-            
-            Debug.Log("Quest Complete : " + id);
-            
-            EventManager.Notify(new CompleteQuest(interact, id));
-        }
-
-        private void ReturnQuestValidation(ValidationResult e)
-        {
-            _questValid = e.result;
-        }
-
-        private void SetQuestCompleteChat(SetCompleteChat e)
-        {
-            foreach (var questDialogue in _nowEntityDialogue.entityQuests)
-            {
-                if (e.id != questDialogue.id) continue;
-                
-                SetJsonAsset(questDialogue.completePrologue);
-            }
-        }
-        
-        public void StartDialogue(EntityDialogue dialogue)
-        {
-            _nowEntityDialogue = dialogue;
-            var icon = _nowEntityDialogue.transform.GetComponentInChildren<QuestCompleteIcon>();
-            
-            if (icon) {
-                EventManager.Notify(new FindEntityCompleteQuest(_nowEntityDialogue.entityQuests));
-                StartStory();
-                return; }
-            
-            SetJsonAsset(_nowEntityDialogue.basicDialogue);
-            StartStory();
         }
     }
 }
