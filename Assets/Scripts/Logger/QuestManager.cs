@@ -38,48 +38,35 @@ namespace Ciart.Pagomoa.Logger
             database ??= GetComponent<QuestDatabase>();
         }
         
-        public void RegistrationQuest(InteractableObject questInCharge, string id)
+        public void RegistrationQuest(Sprite entitySprite, string id)
         {
             foreach (var quest in database.quests)
             {
                 if (quest.id != id) continue;
                 
                 EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
-                    
-                var target = questInCharge;
-                    
-                var progressQuest = new ProcessQuest(quest, questInCharge);
+
+                var progressQuest = new ProcessQuest(quest);
 
                 progressQuests.Add(progressQuest);
                 
-                EventManager.Notify(new AddNpcImageEvent(target.GetComponent<SpriteRenderer>().sprite));
+                EventManager.Notify(new AddNpcImageEvent(entitySprite));
                 EventManager.Notify(new MakeQuestListEvent());
               
-                EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment, progressQuest.questInCharge));
+                EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment));
             }
         }
         
         public void QuestAccomplishment(SignalToNpc e)
         {
-            var signalID = e.questId;
-            var isQuestComplete = e.accomplishment;
-            var questInCharge = e.questInCharge;
-            
-            if (isQuestComplete)
-            {
-                questInCharge.ActiveQuestCompleteUI();
-            }
-            else
-            {
-                WaitingForCompletedQuest(questInCharge);
-            }
+            EventManager.Notify(new CompleteQuestsUpdated(IsCompleteQuest()));
         }
         
-        public void CompleteQuest(InteractableObject questInCharge, string id)
+        public void CompleteQuest(string id)
         {
             GetReward(id);
             
-            WaitingForCompletedQuest(questInCharge);
+            EventManager.Notify(new CompleteQuestsUpdated(IsCompleteQuest()));
         }
         
         private void GetReward(string id)
@@ -126,24 +113,6 @@ namespace Ciart.Pagomoa.Logger
             return true;
         }
 
-        private void WaitingForCompletedQuest(InteractableObject questInCharge)
-        {
-            var dialogue = questInCharge.GetComponent<EntityDialogue>();
-            
-            foreach (var quest in dialogue.entityQuests)
-            {
-                foreach (var processQuest in progressQuests)
-                { 
-                    if (processQuest.accomplishment && processQuest.id == quest.id)
-                    {
-                        return;
-                    }
-                }
-            }
-            
-            questInCharge.DeActiveQuestCompleteUI();
-        }
-        
         private bool IsRegisteredQuest(string id)
         {
             var check = false;
@@ -158,9 +127,7 @@ namespace Ciart.Pagomoa.Logger
 
         private bool IsCompletedQuest(string id)
         {
-            var check = false;
-
-            check = database.CheckQuestCompleteById(id);
+            var check = database.CheckQuestCompleteById(id);
 
             return check;
         }
@@ -175,6 +142,18 @@ namespace Ciart.Pagomoa.Logger
             }
                 
             return true;
+        }
+
+        private ProcessQuest[] IsCompleteQuest()
+        {
+            var completeQuest = new List<ProcessQuest>();
+
+            foreach (var quest in progressQuests)
+            {
+                if (quest.accomplishment) completeQuest.Add(quest);
+            }
+
+            return completeQuest.ToArray();
         }
     }   
 }

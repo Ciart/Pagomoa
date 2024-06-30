@@ -32,7 +32,7 @@
 *[거절] -> Deny
  
   === Accept
- #quest 2
+ #quest copper_2
  흐흐..! 좋아 그 중에 설마 네잎클로버 하나 없겠어?
  -> END
  

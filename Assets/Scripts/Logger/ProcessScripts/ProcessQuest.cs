@@ -13,7 +13,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public class ProcessQuest : IDisposable
     {
-        public InteractableObject questInCharge;
         public string id;
         public string description;
         public string title;
@@ -21,9 +20,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public List<IQuestElements> elements;
         public bool accomplishment = false;
 
-        public ProcessQuest(Quest quest, InteractableObject questInCharge)
+        public ProcessQuest(Quest quest)
         {
-            this.questInCharge = questInCharge;
             this.id = quest.id;
             this.description = quest.description;
             this.title = quest.title;
@@ -57,13 +55,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 if (element.complete == false)
                 {
                     accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
+                    EventManager.Notify(new SignalToNpc(id, accomplishment));
                     return ;
                 }
             }
             
             accomplishment = true;
-            EventManager.Notify(new SignalToNpc(id, accomplishment, questInCharge));
+            EventManager.Notify(new SignalToNpc(id, accomplishment));
         }
 
         public void Dispose()

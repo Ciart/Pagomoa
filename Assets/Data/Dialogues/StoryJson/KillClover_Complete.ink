@@ -9,6 +9,6 @@
 *[확인] -> Accept
 
  === Accept
-#reward 2
+#reward copper_2
 여기 보상이야 다음에도 잘 부탁해. (크크 호구 녀석)
 -> END

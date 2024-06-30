@@ -3096,7 +3096,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5974,7 +5974,6 @@ GameObject:
   - component: {fileID: 1232868277}
   - component: {fileID: 1232868276}
   - component: {fileID: 1232868275}
-  - component: {fileID: 1232868274}
   m_Layer: 0
   m_Name: QuestManager
   m_TagString: Untagged
@@ -5982,19 +5981,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1232868274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232868273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71835b2ca574a3ba1add1929b4d07a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quests: []
 --- !u!114 &1232868275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6007,7 +5993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912ce34185d8593499b3971213d045a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  database: {fileID: 1232868274}
+  database: {fileID: 0}
 --- !u!114 &1232868276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11181,6 +11167,7 @@ MonoBehaviour:
   dailyDialogues: {fileID: 11400000, guid: bd21f2b850652454288c37febf83128d, type: 2}
   entityQuests:
   - {fileID: 11400000, guid: 83d7f4258c2481942a58f27511215775, type: 2}
+  uiOffset: {x: 0, y: 3.2, z: 0}
 --- !u!1839735485 &2012602249 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 6180679446835050106, guid: a3aa8548fe0884d4ba019cc380c6bf84, type: 3}
@@ -12674,7 +12661,7 @@ PrefabInstance:
       objectReference: {fileID: 1009402063}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.data[0]
@@ -12683,7 +12670,7 @@ PrefabInstance:
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 3fa34e75be6ecb642b37ce6b8e26e82a, type: 2}
+      objectReference: {fileID: 11400000, guid: 20465bb09effd0041b82d9eab2dff67f, type: 2}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.data[2]
       value: 
