@@ -1,17 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.Systems.Dialogue;
 using Logger.ForEditorBaseScripts;
+using UnityEditor.TerrainTools;
 using UnityEngine;
 
 namespace Logger
 {
     public class QuestDatabase : MonoBehaviour
     {
-        public List<Quest> quests = new List<Quest>();
+        public readonly List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
 
-        public List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
-        
+        public List<EntityDialogue> entities;
+
+        [Serializable]
+        public class MapEntityQuest
+        {
+            public string entityID = "";
+            public List<Quest> entityQuests = new List<Quest>();
+        }
+
+        public List<MapEntityQuest> mapEntityQuests;
+
         private ProgressedQuest FindQuestById(string id)
         {
             foreach (var quest in progressedQuests)
@@ -30,6 +42,19 @@ namespace Logger
             }
             
             return false;
+        }
+
+        public Quest[] GetEntityQuestsByEntityID(string id)
+        {
+            foreach (var mapEntity in mapEntityQuests)
+            {
+                if (mapEntity.entityID == id)
+                {
+                    return mapEntity.entityQuests.ToArray();
+                }
+            }
+
+            return null;
         }
     }
 }

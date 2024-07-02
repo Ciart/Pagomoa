@@ -13,18 +13,15 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public DailyDialogue dailyDialogues;
 
-        public Quest[] entityQuests;
+        public string entityID;
+        
+        private Quest[] _entityQuests;
 
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
         private GameObject _questCompleteUI;
         
         private void Start()
-        { 
-            for (int i = 0; i < entityQuests.Length; i++)
-            {
-                QuestManager.instance.database.quests.Add(entityQuests[i]);
-            }
-            
+        {
             _questCompleteUI = UIManager.CreateQuestCompleteUI(transform);
             _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
@@ -34,7 +31,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
            var result = new List<Quest>();
 
-           foreach (var quest in entityQuests)
+           foreach (var quest in _entityQuests)
            {
                if (QuestManager.instance.CheckQuestValidation(quest))
                {
@@ -51,7 +48,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             var entitySprite = transform.GetComponent<SpriteRenderer>().sprite;
 
-            QuestManager.instance.RegistrationQuest(entitySprite, id);
+            QuestManager.instance.RegistrationQuest(entitySprite, entityID, id);
         }
 
         public void QuestComplete(string id)
@@ -67,7 +64,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             if (icon)
             {
-                foreach (var quest in entityQuests)
+                foreach (var quest in _entityQuests)
                 {
                     var progressQuest = QuestManager.instance.FindQuestById(quest.id);
                     
@@ -88,7 +85,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             foreach (var completeQuest in e.completeQuests)
             {
-                foreach (var entityQuest in entityQuests)
+                foreach (var entityQuest in _entityQuests)
                 {
                     if (completeQuest.id == entityQuest.id)
                     {
@@ -103,6 +100,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void OnEnable()
         {
+            _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(entityID);
+            
             EventManager.AddListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
         }
 
