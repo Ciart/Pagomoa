@@ -1,17 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-using Logger.ForEditorBaseScripts;
 using UnityEngine;
+
 
 namespace Logger
 {
     public class QuestDatabase : MonoBehaviour
     {
-        public List<Quest> quests = new List<Quest>();
+        public readonly List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
 
-        public List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
-        
+        public List<EntityOrigin> entities;
+
+        [Serializable]
+        public class MapEntityQuest
+        {
+            public string entityName = "";
+            public List<Quest> entityQuests = new List<Quest>();
+        }
+
+        public List<MapEntityQuest> mapEntityQuests;
+
         private ProgressedQuest FindQuestById(string id)
         {
             foreach (var quest in progressedQuests)
@@ -30,6 +41,19 @@ namespace Logger
             }
             
             return false;
+        }
+
+        public Quest[] GetEntityQuestsByEntityID(string id)
+        {
+            foreach (var mapEntity in mapEntityQuests)
+            {
+                if (mapEntity.entityName == id)
+                {
+                    return mapEntity.entityQuests.ToArray();
+                }
+            }
+
+            return null;
         }
     }
 }

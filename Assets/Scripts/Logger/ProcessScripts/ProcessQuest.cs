@@ -22,10 +22,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public ProcessQuest(Quest quest)
         {
-            this.id = quest.id;
-            this.description = quest.description;
-            this.title = quest.title;
-            this.reward = quest.reward;
+            id = quest.id;
+            description = quest.description;
+            title = quest.title;
+            reward = quest.reward;
             elements = new List<IQuestElements>();
 
             EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
@@ -112,7 +112,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             {
                 if (inventoryItem.item == targetEntity)
                 {
-                    EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
+                    compareValue = inventoryItem.count;
+                    if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
                     break;
                 }
             }
@@ -196,11 +197,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         private void OnGroundBroken(GroundBrokenEvent e)
         {
-            Debug.Log("in 1");
             if (!TypeValidation(e.brick.ground)) return;
-            Debug.Log("in 2");
+            
             CalculationValue(e);
-            Debug.Log("in 3");
+            
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
         }
         
@@ -212,7 +212,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region FloatQuestElements
     
-    // How 
+    
     public class PlayerMoveDistance : ProcessFloatQuestElements, IQuestElements
     {
         public bool complete { get; set; }
