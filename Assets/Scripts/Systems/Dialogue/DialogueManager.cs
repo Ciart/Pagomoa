@@ -41,14 +41,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             story = new Story(asset.text);
             if (onCreateStory != null) onCreateStory(story);
 
-            EventManager.Notify(new UISetVisible(true));
-            EventManager.Notify(new RefreshView());
+            UIManager.instance.dialogueUI.gameObject.SetActive(true);
+            EventManager.Notify(new StoryStarted());
         }
 
         public void StopStory()
         {
             story = null;
-            EventManager.Notify(new UISetVisible(false));
+            UIManager.instance.dialogueUI.gameObject.SetActive(false);
         }
 
         public void StartDailyChat()
@@ -58,12 +58,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void StartQuestChat()
         {
-            EventManager.Notify(new UIMode(DialogueUI.UISelectMode.In));
-
             var quests = nowEntityDialogue.GetValidationQuests();
-            EventManager.Notify(new MakeQuestContentView(quests));
+            EventManager.Notify(new QuestStoryStarted(quests));
         }
-
-
     }
 }

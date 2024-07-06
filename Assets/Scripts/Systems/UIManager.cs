@@ -43,9 +43,6 @@ namespace Ciart.Pagomoa.Systems
         {
             EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
             EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
-
-            EventManager.AddListener<UISetVisible>(ToggleDialogueUI);
-
         }
 
         private void OnEnable()
@@ -114,11 +111,6 @@ namespace Ciart.Pagomoa.Systems
                 Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
                     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             }
-        }
-
-        private void ToggleDialogueUI(UISetVisible e)
-        {
-            _dialogueUI.SetActive(e.visible);
         }
 
         private void ToggleEscDialogueUI()
