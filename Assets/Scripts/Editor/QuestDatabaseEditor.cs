@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Logger;
@@ -15,6 +16,10 @@ namespace Ciart.Pagomoa.Editor
         public override void OnInspectorGUI()
         {
             GUILayout.BeginVertical(new GUIStyle(GUI.skin.window));
+            
+            EditorGUILayout.LabelField("EntityOrigin Scriptable");
+            GUILayout.Space(10);
+            
             if (GUILayout.Button("Entity 추가"))
             {
                 _questDatabase.entities.Add(null);
@@ -36,19 +41,19 @@ namespace Ciart.Pagomoa.Editor
             {
                 if (_questDatabase.entities.Count == 0) continue;
                 
-                _questDatabase.entities[i] = (EntityDialogue)EditorGUILayout
-                    .ObjectField($"엔티티 {i + 1}", _questDatabase.entities[i], typeof(EntityDialogue), true);
+                _questDatabase.entities[i] = (EntityOrigin)EditorGUILayout
+                    .ObjectField($"엔티티 {i + 1}", _questDatabase.entities[i], typeof(EntityOrigin), true);
 
                 if (_questDatabase.entities[i] is null) continue;
 
-                _questDatabase.mapEntityQuests[i].entityID = _questDatabase.entities[i].entityID;
+                _questDatabase.mapEntityQuests[i].entityName = _questDatabase.entities[i].name;
 
                 GUILayout.BeginVertical(new GUIStyle(GUI.skin.window));
-                if (GUILayout.Button($"{_questDatabase.entities[i].entityID} Quest 추가", GUILayout.Width(120)))
+                if (GUILayout.Button($"{_questDatabase.entities[i].name} Quest 추가", GUILayout.MaxWidth(200)))
                 {
                     _questDatabase.mapEntityQuests[i].entityQuests.Add(null);
                 }
-                if (GUILayout.Button($"{_questDatabase.entities[i].entityID} Quest 제거", GUILayout.Width(120)))
+                if (GUILayout.Button($"{_questDatabase.entities[i].name} Quest 제거", GUILayout.MaxWidth(200)))
                 {
                     if (_questDatabase.mapEntityQuests[i].entityQuests.Count == 0) return;
 
@@ -60,7 +65,7 @@ namespace Ciart.Pagomoa.Editor
                 for (var j = 0; j < _questDatabase.mapEntityQuests[i].entityQuests.Count; j++)
                 {
                     _questDatabase.mapEntityQuests[i].entityQuests[j] = (Quest)EditorGUILayout
-                        .ObjectField($"{_questDatabase.mapEntityQuests[i].entityID} Quest {j + 1}", _questDatabase.mapEntityQuests[i].entityQuests[j], typeof(Quest), false);
+                        .ObjectField($"{_questDatabase.mapEntityQuests[i].entityName} Quest {j + 1}", _questDatabase.mapEntityQuests[i].entityQuests[j], typeof(Quest), false);
                 }
                 
                 GUILayout.EndVertical();
@@ -75,7 +80,7 @@ namespace Ciart.Pagomoa.Editor
         {
             _questDatabase = (QuestDatabase)target;
 
-            _questDatabase.entities ??= new List<EntityDialogue>();
+            _questDatabase.entities ??= new List<EntityOrigin>();
             _questDatabase.mapEntityQuests ??= new List<QuestDatabase.MapEntityQuest>();
         }
     }

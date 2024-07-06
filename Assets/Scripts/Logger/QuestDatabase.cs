@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-using Ciart.Pagomoa.Systems.Dialogue;
-using Logger.ForEditorBaseScripts;
-using UnityEditor.TerrainTools;
 using UnityEngine;
+
 
 namespace Logger
 {
@@ -13,12 +12,12 @@ namespace Logger
     {
         public readonly List<ProgressedQuest> progressedQuests = new List<ProgressedQuest>();
 
-        public List<EntityDialogue> entities;
+        public List<EntityOrigin> entities;
 
         [Serializable]
         public class MapEntityQuest
         {
-            public string entityID = "";
+            public string entityName = "";
             public List<Quest> entityQuests = new List<Quest>();
         }
 
@@ -48,7 +47,7 @@ namespace Logger
         {
             foreach (var mapEntity in mapEntityQuests)
             {
-                if (mapEntity.entityID == id)
+                if (mapEntity.entityName == id)
                 {
                     return mapEntity.entityQuests.ToArray();
                 }

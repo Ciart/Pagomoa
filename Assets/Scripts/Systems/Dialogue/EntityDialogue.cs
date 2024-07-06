@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
@@ -13,15 +14,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public DailyDialogue dailyDialogues;
 
-        public string entityID;
-        
+        private EntityController _entityController;
         private Quest[] _entityQuests;
 
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
         private GameObject _questCompleteUI;
         
         private void Start()
-        {
+        { 
             _questCompleteUI = UIManager.CreateQuestCompleteUI(transform);
             _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
@@ -48,7 +48,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             var entitySprite = transform.GetComponent<SpriteRenderer>().sprite;
 
-            QuestManager.instance.RegistrationQuest(entitySprite, entityID, id);
+            var origin = _entityController.origin.name;
+            
+            QuestManager.instance.RegistrationQuest(entitySprite, origin, id);
         }
 
         public void QuestComplete(string id)
@@ -100,8 +102,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void OnEnable()
         {
-            _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(entityID);
+            _entityController = GetComponent<EntityController>();
+            var origin = _entityController.origin.name;
             
+            _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
+
             EventManager.AddListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
         }
 
