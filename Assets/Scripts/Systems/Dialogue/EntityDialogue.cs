@@ -48,7 +48,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             var entitySprite = transform.GetComponent<SpriteRenderer>().sprite;
 
-            var origin = _entityController.origin.name;
+            var origin = _entityController.origin;
             
             QuestManager.instance.RegistrationQuest(entitySprite, origin, id);
         }
@@ -103,7 +103,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void OnEnable()
         {
             _entityController = GetComponent<EntityController>();
-            var origin = _entityController.origin.name;
+            var origin = _entityController.origin;
             
             _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
 
