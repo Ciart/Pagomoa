@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
@@ -145,6 +145,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (inventoryItem != null && inventoryItem.count == 0)
                 Use(data);
             Inventory.Instance.ResetSlot();
+        }
+
+        public int FindItemCount(Item data)
+        {
+            var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
+            if (inventoryItem != null)
+                return inventoryItem.count;
+            else
+                return 0;
         }
     }
 }
