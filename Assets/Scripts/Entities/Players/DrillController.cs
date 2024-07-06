@@ -4,6 +4,7 @@ using System.Linq;
 using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
@@ -95,6 +96,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Update()
         {
+            RemoveThisIfItWorkedProperly();
             UpdateDirection();
             //if (!isDig)
             //{
@@ -260,8 +262,34 @@ namespace Ciart.Pagomoa.Entities.Players
         public void DrillUpgrade()
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
-            _drillLevel += 1;
+            bool upgradable = true;
+            var inventory = InventoryDB.Instance;
+
+            foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
+            {
+                if (needs.count > inventory.FindItemCount(needs.mineral))
+                {
+                    upgradable = false;
+                    Debug.Log("업그레이드 실패: " + inventory.FindItemCount(needs.mineral) + "/" + needs.count);
+                }
+            }
+            if (upgradable) {
+                foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
+                {
+                    int used = 0;
+                    while (used < needs.count)
+                    {
+                        inventory.Use(needs.mineral);
+                        used++;
+                    }
+                }
+                _drillLevel += 1; Debug.Log("업그레이드 성공"); 
+            }
         }
 
+        private void RemoveThisIfItWorkedProperly()
+        {
+            if (Input.GetKeyDown(KeyCode.U)) DrillUpgrade();
+        }
     }
 }
