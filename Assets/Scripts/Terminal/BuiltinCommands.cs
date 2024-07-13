@@ -1,8 +1,7 @@
-using System.Text;
 using System.Diagnostics;
-using UnityEngine;
+using System.Text;
 
-namespace CommandTerminal
+namespace Ciart.Pagomoa.Terminal
 {
     public static class BuiltinCommands
     {

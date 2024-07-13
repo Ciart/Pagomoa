@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CommandTerminal
+namespace Ciart.Pagomoa.Terminal
 {
     public class CommandAutocomplete
     {

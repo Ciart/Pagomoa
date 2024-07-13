@@ -3,19 +3,6 @@ using System;
 namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
-    public struct BrickCoords
-    {
-        public int x;
-        public int y;
-
-        public BrickCoords(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    [Serializable]
     public struct BrickHealth
     {
         public float health;

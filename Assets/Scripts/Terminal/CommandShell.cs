@@ -1,10 +1,8 @@
 using System;
-using System.Reflection;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Reflection;
 
-namespace CommandTerminal
+namespace Ciart.Pagomoa.Terminal
 {
     public struct CommandInfo
     {
@@ -65,7 +63,7 @@ namespace CommandTerminal
         }
 
         void TypeError(string expected_type) {
-            Terminal.Shell.IssueErrorMessage(
+            global::Ciart.Pagomoa.Terminal.Terminal.Shell.IssueErrorMessage(
                 "Incorrect type for {0}, expected <{1}>",
                 String, expected_type
             );

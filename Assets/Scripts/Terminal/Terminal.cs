@@ -1,9 +1,8 @@
-using UnityEngine;
 using System.Text;
-using System.Collections;
+using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace CommandTerminal
+namespace Ciart.Pagomoa.Terminal
 {
     public enum TerminalState
     {

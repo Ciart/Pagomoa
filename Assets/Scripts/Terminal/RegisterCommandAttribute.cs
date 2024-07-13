@@ -1,7 +1,6 @@
 using System;
-using System.Reflection;
 
-namespace CommandTerminal
+namespace Ciart.Pagomoa.Terminal
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class RegisterCommandAttribute : Attribute
