@@ -7,7 +7,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public static Drag Instance;
 
-        [SerializeField] public Slot slot;
+        [SerializeField] public InventorySlotUI slot;
         [SerializeField] public InventoryItem item;
 
 

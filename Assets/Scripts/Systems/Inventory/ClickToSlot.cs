@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                Inventory.Instance.choiceSlot = this.gameObject.GetComponent<Slot>();
+                Inventory.Instance.choiceSlot = this.gameObject.GetComponent<InventorySlotUI>();
                 var itemtype = Inventory.Instance.choiceSlot.inventoryItem.item.itemType;
                 Vector3 mouseposition = new Vector3(eventData.position.x + 5, eventData.position.y);
                 _rightClickMenu.SetUI();

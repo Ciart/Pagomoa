@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             boostImage.sprite = hoverImage[0];
-            Inventory.Instance.hoverSlot = this.gameObject.GetComponent<Slot>();
+            Inventory.Instance.hoverSlot = this.gameObject.GetComponent<InventorySlotUI>();
         }
         public virtual void OnPointerExit(PointerEventData eventData)
         {

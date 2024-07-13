@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,12 +7,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] public Slot choiceSlot;
-        [SerializeField] public Slot hoverSlot;
+        [SerializeField] public InventorySlotUI choiceSlot;
+        [SerializeField] public InventorySlotUI hoverSlot;
         [SerializeField] private GameObject _slotParent;
         [SerializeField] private GameObject _slot;
         [SerializeField] private Sprite _image;
-        public List<Slot> slotDatas = new List<Slot>();
+        public List<InventorySlotUI> slotDatas = new List<InventorySlotUI>();
 
         public static Inventory Instance = null;
         private void Awake()
@@ -20,9 +21,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 Instance = this;
             }
+        }
+
+        private void Start()
+        {
             MakeSlot();
             QuickSlotItemDB.instance.transform.SetAsLastSibling();
         }
+
         private void OnEnable()
         {
             DeleteSlot();
@@ -33,7 +39,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
             {
                 GameObject spawnedslot = Instantiate(_slot, _slotParent.transform);
-                slotDatas.Add(spawnedslot.GetComponent<Slot>());
+                slotDatas.Add(spawnedslot.GetComponent<InventorySlotUI>());
                 slotDatas[i].id = i;
                 spawnedslot.SetActive(true);
             }

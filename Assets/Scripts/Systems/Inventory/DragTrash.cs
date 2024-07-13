@@ -17,9 +17,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 Data.itemImage.sprite = Data.transparentImage;
                 Data.itemCount.text = "";
             }
-            else if (eventData.pointerPress.GetComponent<Slot>())
+            else if (eventData.pointerPress.GetComponent<InventorySlotUI>())
             {
-                InventoryDB.Instance.DeleteItem(eventData.pointerDrag.GetComponent<Slot>().inventoryItem.item);
+                InventoryDB.Instance.DeleteItem(eventData.pointerDrag.GetComponent<InventorySlotUI>().inventoryItem.item);
                 Inventory.Instance.ResetSlot();
             }
         }

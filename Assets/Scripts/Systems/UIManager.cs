@@ -90,8 +90,8 @@ namespace Ciart.Pagomoa.Systems
             {
                 inventoryCamera.Priority = 9;
 
-                if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
-                    InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
+                // if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
+                //     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
 
                     if (Inventory.Inventory.Instance.hoverSlot == null)
                 {

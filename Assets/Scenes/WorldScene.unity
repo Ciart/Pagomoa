@@ -1242,7 +1242,7 @@ MonoBehaviour:
     count: 0
   Gold: 10000
   stoneCount: 0
-  maxCount: 30
+  maxCount: 36
   buy: {fileID: 0}
 --- !u!4 &293903517
 Transform:
@@ -8093,7 +8093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxygenbar: {fileID: 1848143613}
   hungrybar: {fileID: 696422447}
-  inventoryUIPrefab: {fileID: 6869503557337763794, guid: 29acaf8792274624b96b9b1af5be2212, type: 3}
+  inventoryUIPrefab: {fileID: 6869503557337763794, guid: a610056d81c9441f08a624e1a202883e, type: 3}
   escUI: {fileID: 142423336}
   interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
   questCompleteUI: {fileID: 8066941655077391920, guid: abf165692bd09d344b428f7840bb9e8d, type: 3}

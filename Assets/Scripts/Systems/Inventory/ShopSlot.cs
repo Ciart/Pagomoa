@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa
 {
-    public class ShopSlot : Slot
+    public class ShopSlot : InventorySlotUI
     {
         [SerializeField] private CountUI _countUI;
 

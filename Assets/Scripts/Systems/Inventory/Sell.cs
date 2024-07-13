@@ -8,12 +8,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public static Sell Instance = null;
 
-        [SerializeField] public Slot choiceSlot;
+        [SerializeField] public InventorySlotUI choiceSlot;
         [SerializeField] public ShopHover hovering;
         [SerializeField] private GameObject _slot;
         [SerializeField] private GameObject _slotParent;
         [SerializeField] private Sprite _image;
-        private List<Slot> _slotDatas = new List<Slot>();
+        private List<InventorySlotUI> _slotDatas = new List<InventorySlotUI>();
         private void Awake()
         {
             if(Instance == null)
@@ -32,7 +32,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             for(int i = 0; i < InventoryDB.Instance.items.Count; i++)
             {
                 GameObject SpawnedSlot = Instantiate(_slot, _slotParent.transform);
-                _slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+                _slotDatas.Add(SpawnedSlot.GetComponent<InventorySlotUI>());
                 _slotDatas[i].id = i;
                 SpawnedSlot.SetActive(true);
             }

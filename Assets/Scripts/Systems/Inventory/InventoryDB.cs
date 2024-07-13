@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryDB : MonoBehaviour
     {
-        public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
+        public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[36]);
         public int Gold;
         [SerializeField] public int stoneCount;
         [SerializeField] public int maxCount;

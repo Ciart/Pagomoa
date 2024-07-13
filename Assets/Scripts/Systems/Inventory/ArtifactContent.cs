@@ -7,7 +7,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         //[SerializeField] private ArtifactSlotDB artifactSlotDB;
         [SerializeField] private Sprite _emptyImage;
-        [SerializeField] private List<Slot> _artifactSlotDatas = new List<Slot>();
+        [SerializeField] private List<InventorySlotUI> _artifactSlotDatas = new List<InventorySlotUI>();
 
         private static ArtifactContent instance;
         public static ArtifactContent Instance

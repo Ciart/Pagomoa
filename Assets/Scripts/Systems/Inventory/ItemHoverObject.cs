@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa
             else
                 Destroy(this.gameObject);
         }
-        public void WriteText(Slot slot)
+        public void WriteText(InventorySlotUI slot)
         {
             _itemName.GetComponent<TextMeshProUGUI>().text = slot.inventoryItem.item.itemName;
             _itemInfo.GetComponent<TextMeshProUGUI>().text = slot.inventoryItem.item.itemInfo;
