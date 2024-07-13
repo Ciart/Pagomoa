@@ -1,20 +1,23 @@
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.UI.Title
 {
-    public class SceneManage : MonoBehaviour
+    public class TitleController : MonoBehaviour
     {
         public bool isFirstStart = false;
 
+        public ScrollBackground[] backGrounds = new ScrollBackground[3];
+
+        public GameObject titlePanel;
+        
         private void Start()
         {
             DataManager.Instance.LoadGameData();
         }
         public void StartGame(bool restart)
         {
-            isFirstStart = DataManager.Instance.data.introData.isFirstStart;
+            /*isFirstStart = DataManager.Instance.data.introData.isFirstStart;
         
             if (!isFirstStart || restart == true)
             {
@@ -25,6 +28,11 @@ namespace Ciart.Pagomoa.UI.Title
             else
             {
                 SceneManager.LoadScene("Scenes/WorldScene");
+            }*/
+            foreach (var backGround in backGrounds)
+            {
+                backGround.startIntro = true;
+                titlePanel.SetActive(false);
             }
         }
         public void ReStart()
@@ -55,6 +63,6 @@ namespace Ciart.Pagomoa.UI.Title
         {
             Application.Quit();
         }
-
+        
     }
 }
