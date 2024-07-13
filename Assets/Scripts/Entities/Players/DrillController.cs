@@ -159,7 +159,7 @@ namespace Ciart.Pagomoa.Entities.Players
             foreach (var (x, y) in _target.targetCoordsList)
             {
                 var worldManager = WorldManager.instance;
-                worldManager.DigGround(new BrickCoords(x, y), _drills[_drillLevel].speed);
+                worldManager.DigGround(new WorldCoords(x, y), _drills[_drillLevel].speed);
             }
         }
 
