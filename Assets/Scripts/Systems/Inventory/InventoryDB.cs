@@ -1,34 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
-using UnityEngine.Events;
+
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class InventoryDB : MonoBehaviour
+    [Serializable]
+    public class InventoryDB
     {
-        public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
         public int Gold;
         [SerializeField] public int stoneCount;
         [SerializeField] public int maxCount;
-        [SerializeField] private Buy buy;
-
-        //public UnityEvent marketCondition;
-
-        public static InventoryDB Instance = null;
-
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(this.gameObject);
-            }
-            else
-                Destroy(this.gameObject);
-        }
+        
+        const int MaxQuickSlot = 6;
+        public InventoryItem[] quickSlots = new InventoryItem[MaxQuickSlot];
+        
+        const int MaxArtifactItems = 4;
+        public InventoryItem[] artifactItems = new InventoryItem[MaxArtifactItems];
+        
+        const int MaxItems = 30;
+        public InventoryItem[] items = new InventoryItem[MaxItems];
         
         private void Start()
         {
@@ -47,111 +39,140 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void AddGold(int gold)
         {
-            Gold += gold;
+            this.Gold += gold;
         }
+        public void Equip(Item data)
+        {
+            int idx = Array.FindIndex(items, element => element.item == data);
+            
+            if (idx != -1)
+            {
+                InventoryItem item = items[idx];
+                
+                if (item.count == 0)
+                    DecreaseItemCount(data);
+            }
+            Inventory.Instance.ResetSlot();
+        }
+        
+        public void AddArtifactData(Item data)
+        {
+            for (int i = 0; i < artifactItems.Length; i++)
+            {
+                if (artifactItems[i].item == null)
+                {
+                    artifactItems[i].item = data;
+                    break;
+                }
+                // else if(artifactItems[artifactItems.Length].item != null)
+                // {
+                //     Debug.Log("꽉참");
+                //     return;
+                // } 수정 필요
+            }
+        }
+        public void RemoveArtifactData(Item data)
+        {
+            int idx = Array.FindIndex(artifactItems, element => element.item == data);
+            
+            if (idx != -1)
+            {
+                artifactItems[idx].item = null;
+            }
+        }
+        
         public void Add(Item data, int count = 1) // Item data
         {
-            var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
-            var achieveItem = Achievements.Instance.AchieveMinerals.Find(achieveItem => achieveItem.item == data);
+            int idx = Array.FindIndex(items, element => element.item == data);
 
-            if (inventoryItem != null)
+            if (idx != -1)
             {
-                inventoryItem.count += count;
-                for(int i = 0;  i < QuickSlotItemDB.instance.quickSlots.Count; i++)
+                InventoryItem item = items[idx];
+
+                item.count += count;
+                for(int i = 0;  i < QuickSlotUI.instance.quickSlotsUI.Length; i++)
                 {
-                    if (QuickSlotItemDB.instance.quickSlots[i].inventoryItem.item == inventoryItem.item)
+                    if (QuickSlotUI.instance.quickSlotsUI[i].inventoryItem.item == item.item)
                     {
-                        QuickSlotItemDB.instance.quickSlots[i].itemCount.text = inventoryItem.count.ToString();
+                        QuickSlotUI.instance.quickSlotsUI[i].itemCount.text = item.count.ToString();
                     }
                 }
-                EventManager.Notify(new ItemCountEvent(inventoryItem.item, inventoryItem.count));
+                EventManager.Notify(new ItemCountEvent(item.item, item.count));
             }
             else
             {
-                for (int i = 0; i < items.Count; i++)
+                for (int i = 0; i < items.Length; i++)
                 {
                     if (items[i].item == null)
                     {
-                        items.Insert(i, new InventoryItem(data, count));
-                        items.RemoveAt(i + 1);
+                        items[i].item = data;
+                        items[i].count = count;
                         EventManager.Notify(new ItemCountEvent(items[i].item, items[i].count));
                         break;
                     }
-                }
-                if (data.itemType == Item.ItemType.Mineral)
-                {
-                    if (!Achievements.Instance.AchieveMinerals.Contains(achieveItem))
-                        Achievements.Instance.AchieveMinerals.Add(new InventoryItem(data, count));
-                    else
-                        return;
-                    //marketCondition.Invoke();
                 }
             }
             if (Inventory.Instance)
                 Inventory.Instance.ResetSlot();
         }
-        public void Remove(Item data)
+        public void SellItem(Item data)
         {
-            Use(data);
+            DecreaseItemCount(data);
             Gold += data.itemPrice;
             ShopUIManager.Instance.gold[0].text = Gold.ToString();
             ShopUIManager.Instance.gold[1].text = Gold.ToString();
         }
-        public void DeleteItem(Item data)
+        public void DecreaseItemCount(Item data)
         {
-            var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
-            if (inventoryItem != null)
+            int idx = Array.FindIndex(items, element => element.item == data);
+            
+            if (idx != -1)
             {
-                for (int i = 0; i < items.Count; i++)
+                InventoryItem item = items[idx];
+                
+                if (item.count > 1)
                 {
-                    if (items[i] == inventoryItem)
-                    {
-                        items.RemoveAt(i);
-                        items.Insert(i, new InventoryItem(null, 0));
-
-                        EventManager.Notify(new ItemCountEvent(inventoryItem.item, items[i].count));
-                    }
+                    item.count--;
                 }
-            }
-        }
-        public void Use(Item data)
-        {
-            var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
-            if (inventoryItem != null)
-            {
-                if (inventoryItem.count > 1)
+                else if (item.count == 1 || item.count == 0)
                 {
-                    inventoryItem.count--;
-                    QuickSlotItemDB.instance.SetCount(inventoryItem.item);
-                }
-                else if (inventoryItem.count == 1 || inventoryItem.count == 0)
-                {
-                    QuickSlotItemDB.instance.CleanSlot(inventoryItem.item);
-
-                    for (int i = 0; i < items.Count; i++)
+                    for (int i = 0; i < items.Length; i++)
                     {
-                        if (items[i] == inventoryItem)
+                        if (items[i] == item)
                         {
-                            items.RemoveAt(i);
-                            items.Insert(i, new InventoryItem(null, 0));
+                            items[i].item = null;
+                            items[i].count = 0;
                         }
                     }
                 }
             }
         }
-        public void Equip(Item data)
+        public void RemoveItemData(Item data)
         {
-            var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
-            if (inventoryItem != null && inventoryItem.count == 0)
-                Use(data);
-            Inventory.Instance.ResetSlot();
-        }
+            int idx = Array.FindIndex(items, element => element.item == data);
+            
+            if (idx != -1)
+            {
+                InventoryItem item = items[idx];
 
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i] == item)
+                    {
+                        items[i].item = null;
+                        items[i].count = 0;
+
+                        EventManager.Notify(new ItemCountEvent(item.item, items[i].count));
+                    }
+                }
+            }
+        }
         public int FindItemCount(Item data)
         {
-            var inventoryItem = items.Find(inventoryItem => inventoryItem.item == data);
-            if (inventoryItem != null)
-                return inventoryItem.count;
+            int idx = Array.FindIndex(items, element => element.item == data);
+
+            if (idx != -1)
+                return items[idx].count;
             else
                 return 0;
         }

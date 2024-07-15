@@ -107,9 +107,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var Shop = Buy.Instance.choiceSlot.inventoryItem;
             if (Shop.item.itemType == Item.ItemType.Use)
             {
-                if (InventoryDB.Instance.Gold >= Shop.item.itemPrice * count && count > 0)
+                if (GameManager.player.inventoryDB.Gold >= Shop.item.itemPrice * count && count > 0)
                 {
-                    InventoryDB.Instance.Add(Shop.item, count);
+                    GameManager.player.inventoryDB.Add(Shop.item, count);
                     AuctionDB.Instance.Remove(Shop.item);
                     ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
                     OffUI();
@@ -122,9 +122,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             else if (Shop.item.itemType == Item.ItemType.Equipment || Shop.item.itemType == Item.ItemType.Inherent)
             {
-                if (InventoryDB.Instance.Gold >= Shop.item.itemPrice && Shop.count == count)
+                if (GameManager.player.inventoryDB.Gold >= Shop.item.itemPrice && Shop.count == count)
                 {
-                    InventoryDB.Instance.Add(Shop.item, 0);
+                    GameManager.player.inventoryDB.Add(Shop.item, 0);
                     AuctionDB.Instance.Remove(Shop.item);
                     Buy.Instance.UpdateCount();
                     Buy.Instance.SoldOut();
@@ -166,11 +166,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
                 {
-                    InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
                 {
-                    InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
                     //QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 Sell.Instance.DeleteSlot();

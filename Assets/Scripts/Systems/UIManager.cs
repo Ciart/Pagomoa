@@ -31,8 +31,9 @@ namespace Ciart.Pagomoa.Systems
             base.Awake();
             
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
+            Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
-            questUI = _inventoryUI.GetComponentInChildren<QuestUI>();
+            questUI = _inventoryUI.GetComponent<QuestUI>();
 
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
@@ -103,16 +104,13 @@ namespace Ciart.Pagomoa.Systems
                 if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
                     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
 
-                    if (Inventory.Inventory.Instance.hoverSlot == null)
-                {
+                if (Inventory.Inventory.Instance.hoverSlot == null)
                     return;
-                }
 
                 Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
                     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             }
         }
-
         private void ToggleEscDialogueUI()
         {
             _dialogueUI.SetActive(false);

@@ -1,5 +1,6 @@
 ﻿using Ciart.Pagomoa.Constants;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public float groundDistance = 1.125f;
         
         public float sideWallDistance = 1.0625f;
+        
+        public InventoryDB inventoryDB;
 
         private Rigidbody2D _rigidbody;
         
