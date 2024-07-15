@@ -31,8 +31,9 @@ namespace Ciart.Pagomoa.Systems
             base.Awake();
             
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
+            Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
-            questUI = _inventoryUI.GetComponentInChildren<QuestUI>();
+            questUI = _inventoryUI.GetComponent<QuestUI>();
 
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
@@ -41,8 +42,8 @@ namespace Ciart.Pagomoa.Systems
         
         private void Start()
         {
-            // EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
-            // EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
+            EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
+            EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
         }
 
         private void OnEnable()

@@ -263,7 +263,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             bool upgradable = true;
-            var inventory = InventoryDB.Instance;
+            var inventory = GameManager.player.inventoryDB;
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {
@@ -279,7 +279,7 @@ namespace Ciart.Pagomoa.Entities.Players
                     int used = 0;
                     while (used < needs.count)
                     {
-                        inventory.Use(needs.mineral);
+                        inventory.RemoveItemData(needs.mineral);
                         used++;
                     }
                 }

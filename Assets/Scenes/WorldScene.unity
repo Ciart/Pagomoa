@@ -2976,7 +2976,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5918,8 +5918,8 @@ MonoBehaviour:
   mapEntityQuests:
   - entity: {fileID: 1921221851}
     entityQuests:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: a2f39462e2d640848b4aac8227f844ca, type: 2}
+    - {fileID: 11400000, guid: 20465bb09effd0041b82d9eab2dff67f, type: 2}
 --- !u!114 &1232868279
 MonoBehaviour:
   m_ObjectHideFlags: 0
