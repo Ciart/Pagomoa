@@ -55,7 +55,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 UseItem();
                 if (inventory.choiceSlot.inventoryItem.count == 0)
                 {
-                    InventoryDB.Instance.Remove(inventory.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.SellItem(inventory.choiceSlot.inventoryItem.item);
                     inventory.ResetSlot();
                 }
                 inventory.DeleteSlot();
@@ -66,13 +66,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipItem()
         {
-            if (ArtifactSlotDB.Instance.Artifact.Count < 4 && Inventory.Instance.choiceSlot.inventoryItem != null)
+            if (GameManager.player.inventoryDB.artifactItems.Length < 4 && Inventory.Instance.choiceSlot.inventoryItem != null)
             {
                 Inventory.Instance.DeleteSlot();
-                ArtifactSlotDB.Instance.Artifact.Add(Inventory.Instance.choiceSlot.inventoryItem);
-                InventoryDB.Instance.Equip(Inventory.Instance.choiceSlot.inventoryItem.item);
+                GameManager.player.inventoryDB.AddArtifactData(Inventory.Instance.choiceSlot.inventoryItem.item);
+                GameManager.player.inventoryDB.Equip(Inventory.Instance.choiceSlot.inventoryItem.item);
                 Inventory.Instance.UpdateSlot();
-                ArtifactContent.Instance.ResetSlot();
+                Inventory.Instance.SetArtifactSlots();
             }
             else
                 return;
@@ -87,7 +87,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (inventory.choiceSlot.inventoryItem.count > 1)
                     inventory.choiceSlot.inventoryItem.count -= 1;
                 else if(inventory.choiceSlot.inventoryItem.count == 1)
-                    InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.RemoveItemData(inventory.choiceSlot.inventoryItem.item);
                 Inventory.Instance.DeleteSlot();
                 Inventory.Instance.UpdateSlot();
                 _stoneCount.UpCount(1);
@@ -103,7 +103,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (inventory.choiceSlot.inventoryItem.count > 10)
                     inventory.choiceSlot.inventoryItem.count -= 10;
                 else if (inventory.choiceSlot.inventoryItem.count == 10)
-                    InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.RemoveItemData(inventory.choiceSlot.inventoryItem.item);
                 
                 Inventory.Instance.DeleteSlot();
                 Inventory.Instance.UpdateSlot();
@@ -118,7 +118,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             int count = inventory.choiceSlot.inventoryItem.count;
             inventory.choiceSlot.inventoryItem.count -= count;
             _stoneCount.UpCount(count);
-            InventoryDB.Instance.DeleteItem(inventory.choiceSlot.inventoryItem.item);
+            GameManager.player.inventoryDB.RemoveItemData(inventory.choiceSlot.inventoryItem.item);
             Inventory.Instance.DeleteSlot();
             Inventory.Instance.UpdateSlot();
             _rightClickMenu.SetUI();
@@ -128,7 +128,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
             Inventory.Instance.choiceSlot.inventoryItem.item.Active(playerStatus);
-            InventoryDB.Instance.Use(Inventory.Instance.choiceSlot.inventoryItem.item);
+            GameManager.player.inventoryDB.DecreaseItemCount(Inventory.Instance.choiceSlot.inventoryItem.item);
             Inventory.Instance.DeleteSlot();
             Inventory.Instance.ResetSlot();
             _rightClickMenu.SetUI();
@@ -136,7 +136,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void AbandonItem()
         {
-            InventoryDB.Instance.DeleteItem(Inventory.Instance.choiceSlot.inventoryItem.item);
+            GameManager.player.inventoryDB.RemoveItemData(Inventory.Instance.choiceSlot.inventoryItem.item);
             Inventory.Instance.ResetSlot();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();

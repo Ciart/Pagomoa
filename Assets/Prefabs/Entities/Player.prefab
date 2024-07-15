@@ -144,6 +144,7 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
   parent: {fileID: 0}
+  isDead: 0
 --- !u!114 &2442559022297014597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +163,93 @@ MonoBehaviour:
   initialStatus: {fileID: 0}
   groundDistance: 1.125
   sideWallDistance: 1.0625
+  inventoryDB:
+    Gold: 0
+    stoneCount: 0
+    maxCount: 0
+    quickSlots:
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    artifactItems:
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    items:
+    - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+      count: 5
+    - item: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
+      count: 0
 --- !u!114 &6532384969457569552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +588,7 @@ MonoBehaviour:
   targetPrefabs: {fileID: 23481512531710917, guid: 75b6545fe9f5846cf8e35adc10894955, type: 3}
   direction: 0
   isDig: 0
+  isPlayed: 0
 --- !u!95 &3470090247393011381
 Animator:
   serializedVersion: 5

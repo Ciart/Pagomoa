@@ -41,8 +41,8 @@ namespace Ciart.Pagomoa.Systems
         
         private void Start()
         {
-            EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
-            EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
+            // EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
+            // EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
 
             EventManager.AddListener<UISetVisible>(ToggleDialogueUI);
 

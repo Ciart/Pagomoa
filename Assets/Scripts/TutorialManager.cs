@@ -1,5 +1,7 @@
-﻿using Ciart.Pagomoa.Entities.Players;
+﻿using System;
+using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
 using UnityEngine;
@@ -44,11 +46,11 @@ namespace Ciart.Pagomoa
 
         private bool CheckInventoryUfoRemote()
         {
-            var inherentItem = InventoryDB.Instance.items.Find(inventoryItem => inventoryItem.item.itemType == Item.ItemType.Inherent);
-
-            if (InventoryDB.Instance.items.Contains(inherentItem))
+            int idx = Array.FindIndex(GameManager.player.inventoryDB.items, element => element.item.itemType == Item.ItemType.Inherent);
+            if (idx != -1)
             {
-                if (inherentItem.item.itemName == "UFO리모컨")
+                InventoryItem item =  GameManager.player.inventoryDB.items[idx];
+                if (item.item.itemName == "UFO리모컨")
                 {
                     _director.Play();
                     return true;

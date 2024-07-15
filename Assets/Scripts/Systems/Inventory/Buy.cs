@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            transform.GetComponentInParent<ShopUIManager>().gold[0].text = InventoryDB.Instance.Gold.ToString();
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.player.inventoryDB.Gold.ToString();
         }
         public void MakeSlot()
         {

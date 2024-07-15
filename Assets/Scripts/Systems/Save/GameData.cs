@@ -72,11 +72,12 @@ namespace Ciart.Pagomoa.Systems.Save
     [System.Serializable]
     public class ItemData
     {
-        public List<InventoryItem> items = new List<InventoryItem>(new InventoryItem[30]);
+        const int MaxItems = 30;
+        public InventoryItem[] itemss = new InventoryItem[MaxItems];
         public int gold;
         public void SetItemDataFromInventoryDB(InventoryDB inventoryDB)
         {
-            items = inventoryDB.items;
+            itemss = inventoryDB.items;
             gold = inventoryDB.Gold;
         }
     }
@@ -99,23 +100,23 @@ namespace Ciart.Pagomoa.Systems.Save
     {
         public List<InventoryItem> artifacts;
 
-        public void SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB artifactSlotDB)
-        {
-            artifacts = artifactSlotDB.Artifact;
-        }
+        // public void SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB artifactSlotDB)
+        // {
+        //     artifacts = artifactSlotDB.Artifact;
+        // }
     }
 
     [System.Serializable]
     public class QuickSlotData
     {
-        public List<InventoryItem> items;
-        public int selectedSlotID = -1;
-        public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
-        {
-            items = quickSlotItemDB.quickSlotItems;
-            if(quickSlotItemDB.selectedSlot)
-                selectedSlotID = quickSlotItemDB.selectedSlot.id;
-        }
+        // public List<InventoryItem> items;
+        // public int selectedSlotID = -1;
+        // public void SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB quickSlotItemDB)
+        // {
+        //     items = quickSlotItemDB.quickSlotItems;
+        //     if(quickSlotItemDB.selectedSlot)
+        //         selectedSlotID = quickSlotItemDB.selectedSlot.id;
+        // }
     }
 
     [System.Serializable]
