@@ -43,9 +43,6 @@ namespace Ciart.Pagomoa.Systems
         {
             // EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
             // EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
-
-            EventManager.AddListener<UISetVisible>(ToggleDialogueUI);
-
         }
 
         private void OnEnable()
@@ -106,21 +103,13 @@ namespace Ciart.Pagomoa.Systems
                 if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
                     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
 
-                    if (Inventory.Inventory.Instance.hoverSlot == null)
-                {
+                if (Inventory.Inventory.Instance.hoverSlot == null)
                     return;
-                }
 
                 Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
                     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             }
         }
-
-        private void ToggleDialogueUI(UISetVisible e)
-        {
-            _dialogueUI.SetActive(e.visible);
-        }
-
         private void ToggleEscDialogueUI()
         {
             _dialogueUI.SetActive(false);

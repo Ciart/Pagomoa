@@ -68,7 +68,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 // {
                 //     Debug.Log("꽉참");
                 //     return;
-                // }
+                // } 수정 필요
             }
         }
         public void RemoveArtifactData(Item data)
@@ -166,6 +166,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     }
                 }
             }
+        }
+        public int FindItemCount(Item data)
+        {
+            int idx = Array.FindIndex(items, element => element.item == data);
+
+            if (idx != -1)
+                return items[idx].count;
+            else
+                return 0;
         }
     }
 }
