@@ -50,16 +50,14 @@ namespace Ciart.Pagomoa
 
         private void OnEnable()
         {
-            EventManager.AddListener<RefreshView>(RefreshView);
-            EventManager.AddListener<UIMode>(SetUIMode);
-            EventManager.AddListener<MakeQuestContentView>(MakeQuestContentView);
+            EventManager.AddListener<StoryStarted>(RefreshView);
+            EventManager.AddListener<QuestStoryStarted>(MakeQuestContentView);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<RefreshView>(RefreshView);
-            EventManager.RemoveListener<UIMode>(SetUIMode);
-            EventManager.RemoveListener<MakeQuestContentView>(MakeQuestContentView);
+            EventManager.RemoveListener<StoryStarted>(RefreshView);
+            EventManager.RemoveListener<QuestStoryStarted>(MakeQuestContentView);
         }
 
 
@@ -77,12 +75,7 @@ namespace Ciart.Pagomoa
             }
         }
 
-        private void SetUIMode(UIMode mode)
-        {
-            uiMode = mode.mode;
-        }
-
-        private void RefreshView(RefreshView n)
+        private void RefreshView(StoryStarted n)
         {
             RefreshView();
         }
@@ -251,9 +244,10 @@ namespace Ciart.Pagomoa
             Debug.LogError("no image There");
         }
 
-        private void MakeQuestContentView(MakeQuestContentView qc)
+        private void MakeQuestContentView(QuestStoryStarted qc)
         {
             var quests = qc.quests;
+            uiMode = UISelectMode.In;
             foreach (var quest in quests)
             {
                 Button button = CreateChoiceView(quest.title);
@@ -266,7 +260,7 @@ namespace Ciart.Pagomoa
 
             if (quests.Length < 1)
             {
-                EventManager.Notify(new UIMode(DialogueUI.UISelectMode.Out));
+                uiMode = UISelectMode.Out;
 
                 CreateContentView("더이상 진행 가능한 퀘스트가 없습니다.");
                 Button choice = CreateChoiceView("확인");
