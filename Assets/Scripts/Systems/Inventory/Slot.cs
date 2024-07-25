@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Ciart.Pagomoa.Items;
-using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,12 +19,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (inventory.choiceSlot.inventoryItem == null || inventory.choiceSlot.inventoryItem.item == null)
                 return;
-
-            InventoryDB.Instance.Add(inventoryItem.item, 0);
+            
+            Debug.Log(this.inventoryItem.item);
+            GameManager.player.inventoryDB.Add(this.inventoryItem.item, 0);
             Inventory.Instance.ResetSlot();
-            ArtifactSlotDB.Instance.Remove(inventoryItem.item);
-            ArtifactContent.Instance.DeleteSlot();
-            ArtifactContent.Instance.ResetSlot();
+            GameManager.player.inventoryDB.RemoveArtifactData(this.inventoryItem.item);
+            Inventory.Instance.SetArtifactSlots();
         }
         public void SetUI(Sprite s, string m)
         {
@@ -40,11 +37,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnDrop(PointerEventData eventData)
         {
-            Swap(InventoryDB.Instance.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
+            Swap(GameManager.player.inventoryDB.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
             Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
             Inventory.Instance.ResetSlot();
         }
-        public void Swap(List<InventoryItem> list, int i, int j)
+        public void Swap(InventoryItem[] list, int i, int j)
         {
             (list[i], list[j]) = (list[j], list[i]);
         }

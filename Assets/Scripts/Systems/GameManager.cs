@@ -29,8 +29,8 @@ namespace Ciart.Pagomoa.Systems
             {
                 saveManager.LoadPosition();
                 saveManager.LoadItem();
-                saveManager.LoadArtifactItem();
-                saveManager.LoadQuickSlot();
+                // saveManager.LoadArtifactItem();
+                // saveManager.LoadQuickSlot();
                 saveManager.LoadPlayerCurrentStatusData();
                 saveManager.LoadEatenMineralCountData();
             }

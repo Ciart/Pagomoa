@@ -11,15 +11,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (Data)
             {
-                QuickSlotItemDB.instance.quickSlotItems.RemoveAt(Data.id);
-                QuickSlotItemDB.instance.quickSlotItems.Insert(Data.id, null);
+                GameManager.player.inventoryDB.quickSlots[Data.id] = null;
                 Data.inventoryItem = null;
                 Data.itemImage.sprite = Data.transparentImage;
                 Data.itemCount.text = "";
             }
             else if (eventData.pointerPress.GetComponent<Slot>())
             {
-                InventoryDB.Instance.DeleteItem(eventData.pointerDrag.GetComponent<Slot>().inventoryItem.item);
+                GameManager.player.inventoryDB.RemoveItemData(eventData.pointerDrag.GetComponent<Slot>().inventoryItem.item);
                 Inventory.Instance.ResetSlot();
             }
         }

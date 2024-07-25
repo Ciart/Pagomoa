@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
 using TMPro;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Ciart.Pagomoa.UI
         }
         private void SetMoneyUI()
         {
-            _tmpGuiText.text = InventoryDB.Instance.Gold.ToString();
+            _tmpGuiText.text = GameManager.player.inventoryDB.Gold.ToString();
         }
     }
 }

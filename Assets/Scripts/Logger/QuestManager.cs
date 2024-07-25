@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
@@ -38,9 +39,9 @@ namespace Ciart.Pagomoa.Logger
             database ??= GetComponent<QuestDatabase>();
         }
         
-        public void RegistrationQuest(Sprite entitySprite, string originName, string id)
+        public void RegistrationQuest(Sprite entitySprite, EntityOrigin origin, string id)
         {
-            var targetQuests = database.GetEntityQuestsByEntityID(originName);
+            var targetQuests = database.GetEntityQuestsByEntityID(origin);
             
             foreach (var quest in targetQuests)
             {

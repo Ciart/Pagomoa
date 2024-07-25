@@ -20,8 +20,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (Instance == null)
                 Instance = this;
-            else
-                Destroy(this.gameObject);
         }
         public void SetUI()
         {
