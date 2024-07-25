@@ -5,12 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TwinkeEffect-Sheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TwinkeEffect-Sheet.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/TwinkeEffect-Sheet_0.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/TwinkeEffect-Sheet_0.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/TwinkleEffect.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/TwinkleEffect.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/PagoChat.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/IntroManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/IntroManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/Chat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/Chat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TutorialManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TutorialManager.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/SceneManage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/SceneManage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/ScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/ScrollBackground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Clouds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Clouds.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Idle-Sheet.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Idle-Sheet.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Walk-Sheet.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Walk-Sheet.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/QuestionEffect.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Intro/QuestionEffect.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Title/TitleBack.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Title/TitleBack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Title/TitleBack.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Title/TitleBack.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/QuestionEffect.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/QuestionEffect.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog1.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog1.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog2.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog2.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog3.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog3.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog4.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/Dialog4.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/IntroEnd.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/IntroEnd.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/Tutorial.playable" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/Tutorial.playable.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/TutorialDialog1.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/TutorialDialog1.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/TutorialDialogEnd.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/TutorialDialogEnd.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/TutorialScenerio.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/TutorialTimeline/TutorialScenerio.asset.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +63,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Events/QuestUIEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Events/QuestUIEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.7.5/Editor/Signals/SignalReceiverInspector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.7.5/Runtime/Events/Signals/SignalReceiver.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -171,6 +216,16 @@
       <workItem from="1720280432762" duration="2847000" />
       <workItem from="1720338409959" duration="7115000" />
       <workItem from="1720360454086" duration="12000" />
+      <workItem from="1721049606990" duration="1757000" />
+      <workItem from="1721131673995" duration="5174000" />
+      <workItem from="1721212206832" duration="4425000" />
+      <workItem from="1721235709932" duration="1207000" />
+      <workItem from="1721287988644" duration="3443000" />
+      <workItem from="1721467653947" duration="615000" />
+      <workItem from="1721481005883" duration="3374000" />
+      <workItem from="1721662166331" duration="671000" />
+      <workItem from="1721745770846" duration="1844000" />
+      <workItem from="1721886803446" duration="4879000" />
     </task>
     <servers />
   </component>

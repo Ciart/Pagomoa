@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3a69fc3394cf57343b9ade8cafaaa295
+guid: 78242b8a6c824b041ad5676ba80d261e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Robe_Idle-Sheet_0
+      name: Player_Robe_Surprise-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 464af957dff62004182697f23db5d2e2
-      internalID: -1302426601
+      spriteID: be2a8356f0a3e2e47b4ed3bac0a66eb1
+      internalID: -653856537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Robe_Idle-Sheet_1
+      name: Player_Robe_Surprise-Sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5162ea6663b99c1418c2b3be2551dac4
-      internalID: -139696800
+      spriteID: a9b4d851be1d71e4394ccd24efdd0f66
+      internalID: -555544448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Robe_Idle-Sheet_2
+      name: Player_Robe_Surprise-Sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d3941ef9ee1f634cb63057a95a23286
-      internalID: -886832344
+      spriteID: a33b82d7a45a5e4438f902a287e2ed5c
+      internalID: -43860249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Robe_Idle-Sheet_3
+      name: Player_Robe_Surprise-Sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57be4be4a4c944d4da0ce34b954996c1
-      internalID: 1453983987
+      spriteID: 7afb0249a4032914d8b5488d6e490103
+      internalID: 227264726
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Robe_Idle-Sheet_4
+      name: Player_Robe_Surprise-Sheet_4
       rect:
         serializedVersion: 2
         x: 128
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83f2c1573ad9aac469b1c6f03bbe2e6c
-      internalID: -6889690
+      spriteID: ef4543d736e41aa4e84ebcbff034bc27
+      internalID: -1131487988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Robe_Idle-Sheet_5
+      name: Player_Robe_Surprise-Sheet_5
       rect:
         serializedVersion: 2
         x: 160
@@ -229,8 +229,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72bef46efb2764646906b1aa473c5c10
-      internalID: 1122474126
+      spriteID: a0cf4c78b8d606e49a77aba3ca039b40
+      internalID: -1249728000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Robe_Surprise-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9cd75e5334f055408b51622205c3799
+      internalID: 100429695
       vertices: []
       indices: 
       edges: []
@@ -246,12 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Robe_Idle-Sheet_0: -1302426601
-      Player_Robe_Idle-Sheet_1: -139696800
-      Player_Robe_Idle-Sheet_2: -886832344
-      Player_Robe_Idle-Sheet_3: 1453983987
-      Player_Robe_Idle-Sheet_4: -6889690
-      Player_Robe_Idle-Sheet_5: 1122474126
+      Player_Robe_Surprise-Sheet_0: -653856537
+      Player_Robe_Surprise-Sheet_1: -555544448
+      Player_Robe_Surprise-Sheet_2: -43860249
+      Player_Robe_Surprise-Sheet_3: 227264726
+      Player_Robe_Surprise-Sheet_4: -1131487988
+      Player_Robe_Surprise-Sheet_5: -1249728000
+      Player_Robe_Surprise-Sheet_6: 100429695
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

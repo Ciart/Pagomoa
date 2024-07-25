@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using Ciart.Pagomoa.CutScenes;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,13 +9,20 @@ namespace Ciart.Pagomoa.UI.Title
 {
     public class InfiniteScrollBackground : ScrollBackground
     {
-         public bool goToBackGround;
-        
-        public override void Scroll()
+        public bool stopScroll;
+        private bool _goToBackGround;
+
+         protected override void Scroll()
         {
-            if (goToBackGround && speed >= 0f) speed -= 0.8f;
-            else if (goToBackGround) return;
+            if (stopScroll) return;
             
+            if (_goToBackGround && speed >= 30f) speed -= 0.8f;
+            else if (_goToBackGround)
+            {
+                stopScroll = true;
+                return;
+            }
+
             transform.position += moveDirection * (Time.deltaTime * speed);
 
             if (moveDirection == Vector3.down && speed < 150f) speed += 0.4f;
@@ -42,9 +51,9 @@ namespace Ciart.Pagomoa.UI.Title
         {
             moveDirection = Vector3.down;
             
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(4f);
 
-            goToBackGround = true;
+            _goToBackGround = true;
         } 
     }
 }

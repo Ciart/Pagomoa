@@ -13,15 +13,7 @@ namespace Ciart.Pagomoa.UI.Title
         {
             Scroll();
         }
-        
-        public virtual void Scroll()
-        {
-            transform.position += moveDirection * (Time.deltaTime * speed);
-            
-            if (transform.position.y >= 39.35f)
-            {
-                Destroy(gameObject);
-            }
-        }
+
+        protected virtual void Scroll() { }
     }
 }

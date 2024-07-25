@@ -1,15 +1,21 @@
+using System;
+using System.Collections;
+using Ciart.Pagomoa.CutScenes;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.UI.Title
 {
-    public class TitleController : MonoBehaviour
+    public class TitleController : SingletonMonoBehaviour<TitleController>
     {
         public bool isFirstStart = false;
 
-        public ScrollBackground[] backGrounds = new ScrollBackground[3];
+        public InfiniteScrollBackground[] backGrounds = new InfiniteScrollBackground[2];
 
         public GameObject titlePanel;
+
+        public Intro intro; 
         
         private void Start()
         {
@@ -32,6 +38,7 @@ namespace Ciart.Pagomoa.UI.Title
             foreach (var backGround in backGrounds)
             {
                 backGround.startIntro = true;
+                
                 titlePanel.SetActive(false);
             }
         }
@@ -63,6 +70,25 @@ namespace Ciart.Pagomoa.UI.Title
         {
             Application.Quit();
         }
-        
+
+        private void FixedUpdate()
+        {
+            if (IsReadyToPlayIntro())
+            {
+                intro.StartIntro();
+            }
+        }
+
+        private bool IsReadyToPlayIntro()
+        {
+            var index = backGrounds.Length;
+
+            for (var i = 0; i < index; i++)
+            {
+                if (!backGrounds[i].stopScroll) return false;
+            }
+
+            return true;
+        }
     }
 }
