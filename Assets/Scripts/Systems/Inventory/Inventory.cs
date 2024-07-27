@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] public InventorySlotUI choiceSlot;
-        [SerializeField] public InventorySlotUI hoverSlot;
-        [SerializeField] private GameObject _slotParent;
-        [SerializeField] private GameObject _slot;
-        [SerializeField] private Sprite _image;
-        public List<InventorySlotUI> slotDatas = new List<InventorySlotUI>();
-
+        [SerializeField] public Slot choiceSlot;
+        [SerializeField] public Slot hoverSlot;
+        [SerializeField] private GameObject slotParent;
+        [SerializeField] private GameObject slot;
+        [SerializeField] private Sprite emptyImage;
+        public List<Slot> slotDatas = new List<Slot>();
+        
+        private const int MaxArtifactSlotData = 4;
+        public Slot[] artifactSlotData = new Slot[MaxArtifactSlotData];
+        
         public static Inventory Instance = null;
         private void Awake()
         {
@@ -26,7 +28,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void Start()
         {
             MakeSlot();
-            QuickSlotItemDB.instance.transform.SetAsLastSibling();
+            QuickSlotUI.instance.transform.SetAsLastSibling();
         }
 
         private void OnEnable()
@@ -36,10 +38,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MakeSlot() // slotdatas 갯수만큼 슬롯 만들기
         {
-            for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
+            for (int i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
             {
-                GameObject spawnedslot = Instantiate(_slot, _slotParent.transform);
-                slotDatas.Add(spawnedslot.GetComponent<InventorySlotUI>());
+                GameObject spawnedslot = Instantiate(slot, slotParent.transform);
+                slotDatas.Add(spawnedslot.GetComponent<Slot>());
                 slotDatas[i].id = i;
                 spawnedslot.SetActive(true);
             }
@@ -50,30 +52,43 @@ namespace Ciart.Pagomoa.Systems.Inventory
             int i = 0;
             for (; i < slotDatas.Count; i++)
             {
-                slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
+                slotDatas[i].inventoryItem =GameManager.player.inventoryDB.items[i];
             }
             UpdateSlot();
         }
         public void UpdateSlot() // List안의 Item 전체 인벤토리에 출력
         {
-            for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
+            for (int i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
             {
-                string convert = InventoryDB.Instance.items[i].count.ToString();
-                if (InventoryDB.Instance.items[i].count == 0)
+                string convert = GameManager.player.inventoryDB.items[i].count.ToString();
+                if (GameManager.player.inventoryDB.items[i].count == 0)
                     convert = "";
             
-                if (InventoryDB.Instance.items[i].item == null)
-                    slotDatas[i].SetUI(_image, convert);
+                if (GameManager.player.inventoryDB.items[i].item == null)
+                    slotDatas[i].SetUI(emptyImage, convert);
                 else
-                    slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
+                    slotDatas[i].SetUI(GameManager.player.inventoryDB.items[i].item.itemImage, convert);
             }
         }
         public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
         {
-            if (InventoryDB.Instance.items.Count >= 0)
+            for (int i = 0; i < slotDatas.Count; i++)
+                slotDatas[i].SetUI(emptyImage, "");
+        }
+        
+        public void SetArtifactSlots()
+        {
+            for (int i = 0; i < artifactSlotData.Length; i++)
             {
-                for (int i = 0; i < slotDatas.Count; i++)
-                    slotDatas[i].SetUI(_image, "");
+                if (GameManager.player.inventoryDB.artifactItems[i].item != null)
+                {
+                    artifactSlotData[i].inventoryItem = GameManager.player.inventoryDB.artifactItems[i];
+                    artifactSlotData[i].SetUI(artifactSlotData[i].inventoryItem.item.itemImage);
+                }
+                else
+                {
+                    artifactSlotData[i].SetUI(emptyImage);
+                }
             }
         }
     }

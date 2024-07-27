@@ -281,20 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce459347c28bb74ab62e23b77e4eedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickSlotItems:
-  - item: {fileID: 0}
-    count: 0
-  - item: {fileID: 0}
-    count: 0
-  - item: {fileID: 0}
-    count: 0
-  - item: {fileID: 0}
-    count: 0
-  - item: {fileID: 0}
-    count: 0
-  - item: {fileID: 0}
-    count: 0
-  quickSlots:
+  quickSlotsUI:
   - {fileID: 5894868549157444056}
   - {fileID: 7317506838819896048}
   - {fileID: 8063007612622951082}

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using UnityEngine;
@@ -11,21 +14,24 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public DailyDialogue dailyDialogues;
 
-        public Quest[] entityQuests;
+        private EntityController _entityController;
+        private Quest[] _entityQuests;
 
+        public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
+        private GameObject _questCompleteUI;
+        
         private void Start()
-        {
-            for (int i = 0; i < entityQuests.Length; i++)
-            {
-                QuestManager.instance.database.quests.Add(entityQuests[i]);
-            }
+        { 
+            _questCompleteUI = UIManager.CreateQuestCompleteUI(transform);
+            _questCompleteUI.SetActive(false);
+            _questCompleteUI.transform.position += uiOffset;
         }
         
         public Quest[] GetValidationQuests()
         {
            var result = new List<Quest>();
 
-           foreach (var quest in entityQuests)
+           foreach (var quest in _entityQuests)
            {
                if (QuestManager.instance.CheckQuestValidation(quest))
                {
@@ -38,20 +44,20 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void QuestAccept(string id)
         {
-            var interact = GetComponent<InteractableObject>();
-
             Debug.Log("Quest Accept : " + id);
 
-            QuestManager.instance.RegistrationQuest(interact, id);
+            var entitySprite = transform.GetComponent<SpriteRenderer>().sprite;
+
+            var origin = _entityController.origin;
+            
+            QuestManager.instance.RegistrationQuest(entitySprite, origin, id);
         }
 
         public void QuestComplete(string id)
         {
-            var interact = GetComponent<InteractableObject>();
-
             Debug.Log("Quest Complete : " + id);
 
-            QuestManager.instance.CompleteQuest(interact, id);
+            QuestManager.instance.CompleteQuest(id);
         }
 
         public void StartDialogue()
@@ -60,11 +66,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             if (icon)
             {
-                foreach (var quest in entityQuests)
+                foreach (var quest in _entityQuests)
                 {
                     var progressQuest = QuestManager.instance.FindQuestById(quest.id);
-
-                    if (!progressQuest.accomplishment)
+                    
+                    if (progressQuest is null || !progressQuest.accomplishment)
                     {
                         continue;
                     }
@@ -75,6 +81,38 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             }
 
             DialogueManager.instance.StartStory(this, basicDialogue);
+        }
+
+        private void OnCompleteQuestsUpdated(CompleteQuestsUpdated e)
+        {
+            foreach (var completeQuest in e.completeQuests)
+            {
+                foreach (var entityQuest in _entityQuests)
+                {
+                    if (completeQuest.id == entityQuest.id)
+                    {
+                        _questCompleteUI.SetActive(true);
+                        return;
+                    }
+                }
+            }
+            
+            _questCompleteUI.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            _entityController = GetComponent<EntityController>();
+            var origin = _entityController.origin;
+            
+            _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
+
+            EventManager.AddListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
         }
     }
 }

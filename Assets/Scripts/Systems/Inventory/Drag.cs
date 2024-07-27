@@ -5,16 +5,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        public static Drag Instance;
-
-        [SerializeField] public InventorySlotUI slot;
+        [SerializeField] public Slot slot;
         [SerializeField] public InventoryItem item;
-
-
-        void Start()
-        {
-            Instance = this;
-        }
         public void OnBeginDrag(PointerEventData eventData)
         {
             Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
@@ -28,10 +20,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             DragItem.Instance.transform.position = newPosition;
         }
 
-
         public void OnDrag(PointerEventData eventData)
         {
-            if (eventData.pointerPress.GetComponent<QuickSlot>())
+            if (eventData.pointerDrag.GetComponent<QuickSlot>())
                 return;
             else
             {

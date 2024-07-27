@@ -3,6 +3,7 @@ using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 namespace Ciart.Pagomoa
@@ -33,13 +34,13 @@ namespace Ciart.Pagomoa
             {
                 if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
                 {
-                    InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
-                    QuickSlotItemDB.instance.SetCount(Sell.Instance.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
+                    QuickSlotUI.instance.SetQuickSlotItemCount(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
                 {
-                    InventoryDB.Instance.Remove(Sell.Instance.choiceSlot.inventoryItem.item);
-                    QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
+                    QuickSlotUI.instance.SetQuickSlotItemCount(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 Sell.Instance.DeleteSlot();
                 Sell.Instance.ResetSlot();

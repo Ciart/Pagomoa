@@ -102,12 +102,12 @@ namespace Ciart.Pagomoa.Worlds
                 return false;
         }
 
-        public Dictionary<BrickCoords, BrickHealth> brickDamage = new();
-        private Dictionary<BrickCoords, float> diggingBrickDamage = new();
+        public Dictionary<WorldCoords, BrickHealth> brickDamage = new();
+        private Dictionary<WorldCoords, float> diggingBrickDamage = new();
 
         private void UpdateDiggingBrickDamage()
         {
-            var newBrickDamage = new Dictionary<BrickCoords, BrickHealth>();
+            var newBrickDamage = new Dictionary<WorldCoords, BrickHealth>();
 
             foreach (var (coords, damage) in brickDamage)
             {
@@ -158,7 +158,7 @@ namespace Ciart.Pagomoa.Worlds
             diggingBrickDamage.Clear();
         }
 
-        public void DigGround(BrickCoords coords, float digSpeed)
+        public void DigGround(WorldCoords coords, float digSpeed)
         {
             if (diggingBrickDamage.ContainsKey(coords))
             {

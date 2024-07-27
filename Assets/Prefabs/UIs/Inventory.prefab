@@ -534,8 +534,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1156948479422194719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.34600002}
+  m_AnchorMax: {x: 1, y: 0.996}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -743,8 +743,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9189294724075546299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.5, y: 7.55}
   m_SizeDelta: {x: 20, y: -15.1}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1486,10 +1486,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choiceSlot: {fileID: 0}
   hoverSlot: {fileID: 0}
-  _slotParent: {fileID: 2430162423089957148}
-  _slot: {fileID: 2957487576081340213}
-  _image: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
+  slotParent: {fileID: 2430162423089957148}
+  slot: {fileID: 2957487576081340213}
+  emptyImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotDatas: []
+  artifactSlotData:
+  - {fileID: 8828060249461876548}
+  - {fileID: 6353991056428870852}
+  - {fileID: 3205736309166047457}
+  - {fileID: 2416060698979397300}
 --- !u!1 &1490685333576942908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,8 +2178,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2024396601759704552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.3333333}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000011444092, y: 10}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2251,9 +2256,9 @@ RectTransform:
   - {fileID: 6009897864396999392}
   m_Father: {fileID: 1286769988838064442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 45, y: -35}
   m_SizeDelta: {x: 90, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5758574027172926163
@@ -3580,7 +3585,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8828060249461876548}
-        m_TargetAssemblyTypeName: Slot, Assembly-CSharp
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.Slot, Assembly-CSharp
         m_MethodName: ReleaseItem
         m_Mode: 1
         m_Arguments:
@@ -4034,9 +4039,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1286769988838064442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 45, y: -5}
   m_SizeDelta: {x: 90, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1174442690404812086
@@ -4974,14 +4979,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5339409206063691019}
   - component: {fileID: 1686462964066188621}
-  - component: {fileID: 6548788459135206901}
   m_Layer: 8
   m_Name: QuestTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5339409206063691019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5012,74 +5016,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4899696898204492530}
   m_CullTransparentMesh: 1
---- !u!114 &6548788459135206901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4899696898204492530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519a0fd34f36078458898da606694981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listText: {fileID: 5247265135066138236}
-  infoText:
-  - {fileID: 1864950174557244976}
-  - {fileID: 808602553447722153}
-  - {fileID: 5306703652719464291}
-  npcImages: []
-  npcImageObject: {fileID: 3322611919001321131}
-  valueBox: {fileID: 1513990770842784454}
-  rewardBox: {fileID: 5479499235630370122}
-  sprites:
-  - {fileID: 1303293088, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
---- !u!1 &4943156515268346931
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3868584461738770073}
-  - component: {fileID: 2050523334907361802}
-  m_Layer: 0
-  m_Name: ArtifactDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3868584461738770073
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4943156515268346931}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -235.53436, y: -132.99817, z: -0.9708316}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5596439097604587993}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2050523334907361802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4943156515268346931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982fd65b37420914685ed466543cd5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Artifact: []
 --- !u!1 &5076387917011082459
 GameObject:
   m_ObjectHideFlags: 0
@@ -6867,6 +6803,7 @@ GameObject:
   - component: {fileID: 5596439097604587993}
   - component: {fileID: 3444852479014687937}
   - component: {fileID: 6361489740598777684}
+  - component: {fileID: 4622513158617991433}
   m_Layer: 8
   m_Name: Inventory
   m_TagString: Untagged
@@ -6889,7 +6826,6 @@ RectTransform:
   - {fileID: 5703831654129228404}
   - {fileID: 4551163896510667529}
   - {fileID: 5736799424642847693}
-  - {fileID: 3868584461738770073}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6929,6 +6865,29 @@ MonoBehaviour:
   - {fileID: 889245347, guid: 30cfdffcadf03974e91744d12afd1f45, type: 3}
   - {fileID: -1690993502, guid: 30cfdffcadf03974e91744d12afd1f45, type: 3}
   ItemHoverObject: {fileID: 8716167080750243433}
+--- !u!114 &4622513158617991433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6869503557337763794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 519a0fd34f36078458898da606694981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listText: {fileID: 5247265135066138236}
+  infoText:
+  - {fileID: 1864950174557244976}
+  - {fileID: 808602553447722153}
+  - {fileID: 5306703652719464291}
+  npcImages: []
+  npcImageObject: {fileID: 3322611919001321131}
+  valueBox: {fileID: 1513990770842784454}
+  rewardBox: {fileID: 5479499235630370122}
+  sprites:
+  - {fileID: 1303293088, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
 --- !u!1 &6921926411854557654
 GameObject:
   m_ObjectHideFlags: 0
@@ -8835,7 +8794,6 @@ GameObject:
   - component: {fileID: 1957203685418117927}
   - component: {fileID: 6339100386829743106}
   - component: {fileID: 3428296556227023092}
-  - component: {fileID: 5941198699678658730}
   m_Layer: 8
   m_Name: Artifacts
   m_TagString: Untagged
@@ -8928,21 +8886,3 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 12}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &5941198699678658730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9138379675615927909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336e216d273bbe54bacbed6207730b22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _emptyImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
-  _artifactSlotDatas:
-  - {fileID: 8828060249461876548}
-  - {fileID: 6353991056428870852}
-  - {fileID: 3205736309166047457}
-  - {fileID: 2416060698979397300}

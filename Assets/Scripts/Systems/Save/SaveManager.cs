@@ -177,36 +177,36 @@ namespace Ciart.Pagomoa.Systems.Save
             var dataManager = DataManager.Instance;
             if (dataManager.data.itemData == null) return;
 
-            if (dataManager.data.itemData.items != null)
+            if (dataManager.data.itemData.itemss != null)
             {
-                InventoryDB.Instance.items = dataManager.data.itemData.items.ToList();
-                InventoryDB.Instance.Gold = dataManager.data.itemData.gold;
+                GameManager.player.inventoryDB.items = dataManager.data.itemData.itemss;
+                GameManager.player.inventoryDB.Gold = dataManager.data.itemData.gold;
             }
             else
                 Debug.Log("Item Data is Nothing");
         }
         
-        public void LoadArtifactItem()
-        {
-            if(DataManager.Instance.data.artifactData != null && ArtifactSlotDB.Instance != null)
-                if(DataManager.Instance.data.artifactData.artifacts != null)
-                    ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
-        }   
+        // public void LoadArtifactItem()
+        // {
+        //     if(DataManager.Instance.data.artifactData != null && ArtifactSlotDB.Instance != null)
+        //         if(DataManager.Instance.data.artifactData.artifacts != null)
+        //             ArtifactSlotDB.Instance.Artifact = DataManager.Instance.data.artifactData.artifacts.ToList();
+        // }   
 
-        public void LoadQuickSlot()
-        {
-            var dataManager = DataManager.Instance;
-            if (dataManager.data.quickSlotData == null) return;
-
-            if (dataManager.data.quickSlotData.items.Find(x => x.item) != null)
-            {
-                QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items/*.ToList()*/;
-                QuickSlot.Instance.SetQuickSlot();
-                QuickSlotItemDB.instance.ControlQuickSlot(dataManager.data.quickSlotData.selectedSlotID);
-            }
-            else
-                Debug.Log("QuickSlot Data is Nothing");
-        }
+        // public void LoadQuickSlot()
+        // {
+        //     var dataManager = DataManager.Instance;
+        //     if (dataManager.data.quickSlotData == null) return;
+        //
+        //     if (dataManager.data.quickSlotData.items.Find(x => x.item) != null)
+        //     {
+        //         QuickSlotItemDB.instance.quickSlotItems = dataManager.data.quickSlotData.items/*.ToList()*/;
+        //         QuickSlot.Instance.SetQuickSlot();
+        //         QuickSlotItemDB.instance.ControlQuickSlot(dataManager.data.quickSlotData.selectedSlotID);
+        //     }
+        //     else
+        //         Debug.Log("QuickSlot Data is Nothing");
+        // }
 
         public void LoadPlayerCurrentStatusData()
         {
@@ -223,7 +223,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadEatenMineralCountData()
         {
             if (DataManager.Instance.data.mineralData != null)
-                InventoryDB.Instance.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
+                GameManager.player.inventoryDB.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
             else
                 Debug.Log("Mineral Data is Nothing");
         }
@@ -255,20 +255,20 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WriteItemData()
         {
             InitData();
-            DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(InventoryDB.Instance);
+            DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(GameManager.player.inventoryDB);
         }
         
-        private void WriteArtifactData()
-        {
-            InitData();
-            DataManager.Instance.data.artifactData.SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB.Instance);
-        }
+        // private void WriteArtifactData()
+        // {
+        //     InitData();
+        //     DataManager.Instance.data.artifactData.SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB.Instance);
+        // }
 
-        private void WriteQuickSlotData()
-        {
-            InitData();
-            DataManager.Instance.data.quickSlotData.SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB.instance);
-        }
+        // private void WriteQuickSlotData()
+        // {
+        //     InitData();
+        //     DataManager.Instance.data.quickSlotData.SetQuickSlotDataFromQuickSlotDB(QuickSlotItemDB.instance);
+        // }
 
         private void WritePlayerCurrentStatusData()
         {
@@ -280,7 +280,7 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WriteEatenMineralCountData()
         {
             InitData();
-            DataManager.Instance.data.mineralData.SetEatenMineralData(InventoryDB.Instance);
+            DataManager.Instance.data.mineralData.SetEatenMineralData(GameManager.player.inventoryDB);
         }
 
         public void InitData()
@@ -341,8 +341,8 @@ namespace Ciart.Pagomoa.Systems.Save
             WritePosData();
             WriteMapData();
             WriteItemData();
-            WriteArtifactData();
-            WriteQuickSlotData();
+            // WriteArtifactData();
+            // WriteQuickSlotData();
             WritePlayerCurrentStatusData();
             WriteEatenMineralCountData();
             DataManager.Instance.SaveGameData();

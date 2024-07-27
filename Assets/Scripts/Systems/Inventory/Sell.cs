@@ -25,11 +25,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             DeleteSlot();
             ResetSlot();
-            transform.GetComponentInParent<ShopUIManager>().gold[0].text = InventoryDB.Instance.Gold.ToString();
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text =GameManager.player.inventoryDB.Gold.ToString();
         }
         public void MakeSlot()
         {
-            for(int i = 0; i < InventoryDB.Instance.items.Count; i++)
+            for(int i = 0; i <GameManager.player.inventoryDB.items.Length; i++)
             {
                 GameObject SpawnedSlot = Instantiate(_slot, _slotParent.transform);
                 _slotDatas.Add(SpawnedSlot.GetComponent<InventorySlotUI>());
@@ -41,27 +41,27 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void ResetSlot()
         {
             for(int i = 0; i < _slotDatas.Count; i++)
-                _slotDatas[i].inventoryItem = InventoryDB.Instance.items[i];
+                _slotDatas[i].inventoryItem = GameManager.player.inventoryDB.items[i];
             UpdateSlot();
         }
         public void UpdateSlot()
         {
-            for (int i = 0; i < InventoryDB.Instance.items.Count; i++)
+            for (int i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
             {
-                string convert = InventoryDB.Instance.items[i].count.ToString();
-                if (InventoryDB.Instance.items[i].count == 0)
+                string convert = GameManager.player.inventoryDB.items[i].count.ToString();
+                if (GameManager.player.inventoryDB.items[i].count == 0)
                 {
                     convert = "";
                 }
-                if (InventoryDB.Instance.items[i].item == null)
+                if (GameManager.player.inventoryDB.items[i].item == null)
                     _slotDatas[i].SetUI(_image, convert);
                 else
-                    _slotDatas[i].SetUI(InventoryDB.Instance.items[i].item.itemImage, convert);
+                    _slotDatas[i].SetUI(GameManager.player.inventoryDB.items[i].item.itemImage, convert);
             }
         }
         public void DeleteSlot()
         {
-            if (InventoryDB.Instance.items.Count >= 0)
+            if (GameManager.player.inventoryDB.items.Length >= 0)
             {
                 for (int i = 0; i < _slotDatas.Count; i++)
                     _slotDatas[i].SetUI(_image, "");
