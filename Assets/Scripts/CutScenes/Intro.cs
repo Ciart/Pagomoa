@@ -9,49 +9,40 @@ namespace Ciart.Pagomoa.CutScenes
 {
     public class Intro : MonoBehaviour
     {
+        private bool _introIsPlayed;
+        
         private PlayableDirector _director;
         private float _time;
 
         void Start()
         {
             _director = GetComponent<PlayableDirector>();
+
+            _director.paused += FirstDialogue;
         }
 
         public void StartIntro()
         {
-            if (_director.initialTime != 0f) return;
+            if (_introIsPlayed) return;
+
+            _introIsPlayed = true;
             
             _director.Play();
         }
         
         private void Update()
         {
-            if (_director.state == PlayState.Playing) return;
             
-            _time += Time.deltaTime;
+        }
 
-            if (_time >= 5f)
-            {
-                _time = 0f;
-                Debug.Log("8초 지남 대화 스킵");
-            }
-            /*if (_director.state == PlayState.Playing) return;
+        private void FirstDialogue(PlayableDirector aDirector)
+        {
             
-            _time += Time.deltaTime;
+        }
 
-            if (_time >= 5f)
-            {
-                _time = 0f;
-                //if (!DialogueManager.Instance.ConversationProgress(_nowScenario))
-                    _director.Play();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
-            {
-                _time = 0f;
-                //if (!DialogueManager.Instance.ConversationProgress(_nowScenario))
-                    _director.Play();
-            }*/
+        public void PauseDirector()
+        {
+            _director.Pause();
         }
     }    
 }

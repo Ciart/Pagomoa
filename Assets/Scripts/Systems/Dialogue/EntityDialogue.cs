@@ -22,6 +22,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         
         private void Start()
         { 
+            if (!UIManager.instance) return;
+            
             _questCompleteUI = UIManager.CreateQuestCompleteUI(transform);
             _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
@@ -105,8 +107,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             _entityController = GetComponent<EntityController>();
             var origin = _entityController.origin;
             
+            if (!QuestManager.instance) return;
+            
             _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
 
+            if (_entityQuests == Array.Empty<Quest>()) return; 
+            
             EventManager.AddListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
         }
 

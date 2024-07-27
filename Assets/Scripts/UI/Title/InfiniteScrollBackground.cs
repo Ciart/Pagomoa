@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.UI.Title
         {
             if (stopScroll) return;
             
-            if (_goToBackGround && speed >= 30f) speed -= 0.8f;
+            if (_goToBackGround && speed >= 40f) speed -= 0.8f;
             else if (_goToBackGround)
             {
                 stopScroll = true;
@@ -51,7 +51,7 @@ namespace Ciart.Pagomoa.UI.Title
         {
             moveDirection = Vector3.down;
             
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(1.5f);
 
             _goToBackGround = true;
         } 
