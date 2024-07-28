@@ -3,6 +3,8 @@ using System.Collections;
 using Ciart.Pagomoa.CutScenes;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
+using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.UI.Title
@@ -15,8 +17,8 @@ namespace Ciart.Pagomoa.UI.Title
 
         public GameObject titlePanel;
 
-        public Intro intro; 
-        
+        public Intro intro;
+
         private void Start()
         {
             DataManager.Instance.LoadGameData();
@@ -37,8 +39,7 @@ namespace Ciart.Pagomoa.UI.Title
             }*/
             foreach (var backGround in backGrounds)
             {
-                backGround.startIntro = true;
-                
+                backGround.needSlowDownScroll = true;
                 titlePanel.SetActive(false);
             }
         }
@@ -73,22 +74,8 @@ namespace Ciart.Pagomoa.UI.Title
 
         private void FixedUpdate()
         {
-            if (IsReadyToPlayIntro())
-            {
+            if (backGrounds[0].startIntro && !intro.isPlayed)
                 intro.StartIntro();
-            }
-        }
-
-        private bool IsReadyToPlayIntro()
-        {
-            var index = backGrounds.Length;
-
-            for (var i = 0; i < index; i++)
-            {
-                if (!backGrounds[i].stopScroll) return false;
-            }
-
-            return true;
         }
     }
 }

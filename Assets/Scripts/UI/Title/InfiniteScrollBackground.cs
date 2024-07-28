@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using Ciart.Pagomoa.CutScenes;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,50 +7,128 @@ namespace Ciart.Pagomoa.UI.Title
     public class InfiniteScrollBackground : ScrollBackground
     {
         public bool stopScroll;
-        private bool _goToBackGround;
+        public bool startIntro;
 
-         protected override void Scroll()
+        public bool needSlowDownScroll;
+        public bool needSpeedUpScroll;
+        private float _speedDecreaseRate;
+        private float _speedIncreaseRate;
+
+        [Header("MaxMin Speed")] 
+        [SerializeField] private float minSpeed = 0.0f;
+        [SerializeField] private float maxSpeed = 150.0f;
+        
+        [Header("Scroll Duration")] 
+        [SerializeField] private float decreaseDuration = 2.0f;
+        [SerializeField] private float increaseDuration = 5.0f;
+        
+        [SerializeField] private float scrollOffset;
+        [SerializeField] private float moveLength;
+        [SerializeField] private float currentMoveLength;
+
+        void Start()
+        {
+            if (scrollOffset != 0.0f) currentMoveLength += scrollOffset;
+
+            _speedDecreaseRate = (speed - minSpeed) / decreaseDuration;
+            _speedIncreaseRate = (maxSpeed - minSpeed) / increaseDuration;
+        }
+        
+        protected override void Scroll()
         {
             if (stopScroll) return;
-            
-            if (_goToBackGround && speed >= 40f) speed -= 0.8f;
-            else if (_goToBackGround)
-            {
-                stopScroll = true;
-                return;
-            }
 
-            transform.position += moveDirection * (Time.deltaTime * speed);
+            ChangeForIntro();
+            
+            var frameLength = moveDirection.y * (Time.deltaTime * speed);
+            
+            currentMoveLength += Mathf.Abs(frameLength);
+            transform.position += new Vector3(0.0f, frameLength, 0.0f);
 
-            if (moveDirection == Vector3.down && speed < 150f) speed += 0.4f;
-
-            if (moveDirection == Vector3.down && transform.position.y <= -48.2f)
-            {
-                gameObject.transform.position = new Vector2(0,32.6f);
-                return;
-            }
+            ScrollUp();
             
-            if (moveDirection == Vector3.down) return;
+            if (startIntro) return;
             
-            if (moveDirection == Vector3.up &&transform.position.y >= 32.6f)
-            {
-                gameObject.transform.position = new Vector2(0,-48.2f);
-            }
-
-            if (startIntro && speed >= 0f) speed -= 0.01f;
-            
-            if (speed > 0f) return;
-            
-            StartCoroutine(GotoSpaceBackground());
+            ScrollDown();
         }
 
-        private IEnumerator GotoSpaceBackground()
+        private void ScrollDown()
         {
-            moveDirection = Vector3.down;
+            if (moveDirection != Vector3.up) return;
             
-            yield return new WaitForSeconds(1.5f);
+            if (currentMoveLength >= moveLength)
+            {
+                var gotoInitPos = new Vector3(0.0f, moveLength, 0.0f);
+                currentMoveLength = 0.0f;
+                transform.position -= gotoInitPos;
+            }
+        }
 
-            _goToBackGround = true;
-        } 
+        private void ScrollUp()
+        {
+            if (moveDirection != Vector3.down) return; 
+            
+            if (currentMoveLength >= moveLength)
+            {
+                var gotoInitPos = new Vector3(0.0f, moveLength, 0.0f);
+                currentMoveLength = 0.0f;
+                transform.position += gotoInitPos;
+            }
+        }
+
+        private void ChangeForIntro()
+        {
+            IncreaseSpeed();
+            
+            if (startIntro) return; 
+            
+            DecreaseSpeed();
+            
+            if (speed <= minSpeed)
+            {
+                needSlowDownScroll = false;
+                needSpeedUpScroll = true;
+                    
+                startIntro = true;
+                moveDirection = Vector3.down;
+                
+                currentMoveLength = Mathf.Abs(moveLength - currentMoveLength);
+
+                StartCoroutine(StopScroll());
+            }
+        }
+        
+        private void DecreaseSpeed()
+        {
+            if (!needSlowDownScroll) return;
+
+            if (speed <= minSpeed)
+            {
+                needSlowDownScroll = false;
+            }
+            
+            speed -= _speedDecreaseRate * Time.deltaTime;
+            speed = Mathf.Max(speed, minSpeed);
+        }
+
+        private void IncreaseSpeed()
+        {
+            if (!needSpeedUpScroll) return;
+            
+            if (speed >= maxSpeed)
+            {
+                needSpeedUpScroll = false;
+            }
+            
+            speed += _speedIncreaseRate * Time.deltaTime;
+            speed = Mathf.Min(speed, maxSpeed);
+        }
+
+        private IEnumerator StopScroll()
+        {
+            yield return new WaitForSeconds(increaseDuration);
+            
+            stopScroll = true;
+        }
     }
 }

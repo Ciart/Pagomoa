@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/IntroDialogue.signal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Signal/IntroDialogue.signal.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestDatabase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/EntityDialogue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/EntityDialogue.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/ScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/ScrollBackground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +182,9 @@
       <workItem from="1720872872237" duration="3445000" />
       <workItem from="1721024474963" duration="1471000" />
       <workItem from="1721905985584" duration="6627000" />
-      <workItem from="1722079574607" duration="7784000" />
+      <workItem from="1722079574607" duration="13383000" />
+      <workItem from="1722145836477" duration="17218000" />
+      <workItem from="1722173990775" duration="4406000" />
     </task>
     <servers />
   </component>

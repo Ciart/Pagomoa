@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.CutScenes
 {
     public class Intro : MonoBehaviour
     {
-        private bool _introIsPlayed;
+        public bool isPlayed;
         
         private PlayableDirector _director;
         private float _time;
@@ -21,19 +21,7 @@ namespace Ciart.Pagomoa.CutScenes
             _director.paused += FirstDialogue;
         }
 
-        public void StartIntro()
-        {
-            if (_introIsPlayed) return;
-
-            _introIsPlayed = true;
-            
-            _director.Play();
-        }
-        
-        private void Update()
-        {
-            
-        }
+        public void StartIntro() { _director.Play(); }
 
         private void FirstDialogue(PlayableDirector aDirector)
         {
@@ -42,7 +30,7 @@ namespace Ciart.Pagomoa.CutScenes
 
         public void PauseDirector()
         {
-            _director.Pause();
+            
         }
     }    
 }
