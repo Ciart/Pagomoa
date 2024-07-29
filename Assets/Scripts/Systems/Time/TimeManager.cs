@@ -161,5 +161,16 @@ namespace Ciart.Pagomoa.Systems.Time
         {
             date += day;
         }
+
+        public void PauseTime()
+        {
+            UnityEngine.Time.timeScale = 0;
+        }
+
+        public void ResumeTime()
+        {
+            UnityEngine.Time.timeScale = 1;
+        }
+
     }
 }
