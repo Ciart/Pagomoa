@@ -47,8 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waitingTime: 3
+  _boomRange: 1
   _bombImage: {fileID: 1735884206487617717}
   _bombEffect: {fileID: 2416090528943535579}
+  _damageTargetLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1735884206487617717
 GameObject:
   m_ObjectHideFlags: 0
