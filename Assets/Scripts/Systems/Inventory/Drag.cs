@@ -5,7 +5,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField] public Slot slot;
+        [SerializeField] public InventorySlotUI slot;
         [SerializeField] public InventoryItem item;
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (eventData.pointerDrag.GetComponent<QuickSlot>())
+            if (eventData.pointerDrag.GetComponent<QuickSlotUI>())
                 return;
             else
             {

@@ -14,32 +14,46 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void ReleaseItem()
         {
-            Inventory.Instance.choiceSlot = this;
-            var inventory = Inventory.Instance;
+            InventoryUI.Instance.choiceSlot = this;
+            var inventory = InventoryUI.Instance;
 
             if (inventory.choiceSlot.inventoryItem == null || inventory.choiceSlot.inventoryItem.item == null)
                 return;
             
             Debug.Log(this.inventoryItem.item);
             GameManager.player.inventoryDB.Add(this.inventoryItem.item, 0);
-            Inventory.Instance.ResetSlot();
+            InventoryUI.Instance.ResetSlot();
             GameManager.player.inventoryDB.RemoveArtifactData(this.inventoryItem.item);
-            Inventory.Instance.SetArtifactSlots();
+            InventoryUI.Instance.SetArtifactSlots();
         }
-        public void SetUI(Sprite s, string m)
+        public void SetItem(InventoryItem item)
         {
-            image.sprite = s;
-            text.text = m;
+            if (item.item is null)
+            {
+                ResetItem();
+                return;
+            }
+            
+            SetSprite(item.item.itemImage);
+            text.text = item.count == 0 ? "" : item.count.ToString();
         }
-        public void SetUI(Sprite s)
+        
+        public void ResetItem()
         {
-            image.sprite = s;
+            SetSprite(null);
+            text.text = "";
+        }
+        
+        private void SetSprite(Sprite sprite)
+        {
+            image.sprite = sprite;
+            image.enabled = sprite != null;
         }
         public void OnDrop(PointerEventData eventData)
         {
-            Swap(GameManager.player.inventoryDB.items, this.id, eventData.pointerPress.GetComponent<Slot>().id);
-            Swap(this.inventoryItem, eventData.pointerPress.GetComponent<Slot>().inventoryItem);
-            Inventory.Instance.ResetSlot();
+            Swap(GameManager.player.inventoryDB.items, this.id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
+            Swap(this.inventoryItem, eventData.pointerPress.GetComponent<InventorySlotUI>().inventoryItem);
+            InventoryUI.Instance.ResetSlot();
         }
         public void Swap(InventoryItem[] list, int i, int j)
         {

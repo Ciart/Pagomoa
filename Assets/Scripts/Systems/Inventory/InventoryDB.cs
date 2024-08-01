@@ -1,4 +1,5 @@
 using System;
+using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
@@ -13,13 +14,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public int stoneCount;
         [SerializeField] public int maxCount;
         
-        const int MaxQuickSlot = 6;
-        public InventoryItem[] quickSlots = new InventoryItem[MaxQuickSlot];
+        public const int MaxQuickSlot = 6;
+        private InventoryItem[] _quickSlots = new InventoryItem[MaxQuickSlot];
         
-        const int MaxArtifactItems = 4;
+        public const int MaxArtifactItems = 4;
         public InventoryItem[] artifactItems = new InventoryItem[MaxArtifactItems];
         
-        const int MaxItems = 30;
+        public const int MaxItems = 36;
         public InventoryItem[] items = new InventoryItem[MaxItems];
         
         private void Start()
@@ -52,7 +53,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (item.count == 0)
                     DecreaseItemCount(data);
             }
-            Inventory.Instance.ResetSlot();
+            InventoryUI.Instance.ResetSlot();
         }
         
         public void AddArtifactData(Item data)
@@ -87,17 +88,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (idx != -1)
             {
-                InventoryItem item = items[idx];
-
+                var item = items[idx];
                 item.count += count;
-                for(int i = 0;  i < QuickSlotUI.instance.quickSlotsUI.Length; i++)
-                {
-                    if (QuickSlotUI.instance.quickSlotsUI[i].inventoryItem.item == item.item)
-                    {
-                        QuickSlotUI.instance.quickSlotsUI[i].itemCount.text = item.count.ToString();
-                    }
-                }
-                EventManager.Notify(new ItemCountEvent(item.item, item.count));
+                
+                EventManager.Notify(new ItemCountChangedEvent(item.item, item.count));
             }
             else
             {
@@ -107,13 +101,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         items[i].item = data;
                         items[i].count = count;
-                        EventManager.Notify(new ItemCountEvent(items[i].item, items[i].count));
+                        EventManager.Notify(new ItemCountChangedEvent(items[i].item, items[i].count));
                         break;
                     }
                 }
             }
-            if (Inventory.Instance)
-                Inventory.Instance.ResetSlot();
+            if (InventoryUI.Instance)
+                InventoryUI.Instance.ResetSlot();
         }
         public void SellItem(Item data)
         {
@@ -136,15 +130,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
                 else if (item.count == 1 || item.count == 0)
                 {
-                    for (int i = 0; i < items.Length; i++)
-                    {
-                        if (items[i] == item)
-                        {
-                            items[i].item = null;
-                            items[i].count = 0;
-                        }
-                    }
+                    item.item = null;
+                    item.count = 0;
                 }
+                
+                EventManager.Notify(new ItemCountChangedEvent(data, item.count));
             }
         }
         public void RemoveItemData(Item data)
@@ -162,19 +152,55 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         items[i].item = null;
                         items[i].count = 0;
 
-                        EventManager.Notify(new ItemCountEvent(item.item, items[i].count));
+                        EventManager.Notify(new ItemCountChangedEvent(item.item, items[i].count));
                     }
                 }
             }
         }
-        public int FindItemCount(Item data)
+        public int GetItemCount(Item data)
         {
-            int idx = Array.FindIndex(items, element => element.item == data);
+            var idx = Array.FindIndex(items, element => element.item == data);
 
             if (idx != -1)
                 return items[idx].count;
-            else
-                return 0;
+            
+            return 0;
+        }
+        
+        public Item GetQuickSlot(int id)
+        {
+            return _quickSlots[id].item;
+        }
+        
+        public void SetQuickSlot(int id, Item item)
+        {
+            _quickSlots[id].item = item;
+            EventManager.Notify(new QuickSlotChangedEvent(_quickSlots));
+        }
+        
+        public void SwapQuickSlot(int a, int b)
+        {
+            (_quickSlots[a], _quickSlots[b]) = (_quickSlots[b], _quickSlots[a]);
+            EventManager.Notify(new QuickSlotChangedEvent(_quickSlots));
+        }
+        
+        // TODO: GameManager.player.GetComponent<PlayerStatus>() 없애야 합니다. Item.Active()에 왜 stat을 넣어야 하나요?
+        public void UseQuickSlotItem(int index)
+        {
+            var item = _quickSlots[index].item;
+            
+            switch (item.itemType)
+            {
+                case Item.ItemType.Use:
+                    DecreaseItemCount(item);
+                    item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                    break;
+                case Item.ItemType.Inherent:
+                    item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                    break;
+                default:
+                    return;
+            }
         }
     }
 }

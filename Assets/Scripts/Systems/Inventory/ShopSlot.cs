@@ -35,12 +35,10 @@ namespace Ciart.Pagomoa
                 if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
                 {
                     GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
-                    QuickSlotUI.instance.SetQuickSlotItemCount(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
                 {
                     GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
-                    QuickSlotUI.instance.SetQuickSlotItemCount(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 Sell.Instance.DeleteSlot();
                 Sell.Instance.ResetSlot();

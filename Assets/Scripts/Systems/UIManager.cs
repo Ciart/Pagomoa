@@ -93,23 +93,23 @@ namespace Ciart.Pagomoa.Systems
             _isActiveInventory = !_isActiveInventory;
             _inventoryUI.SetActive(_isActiveInventory);
 
-            if (_isActiveInventory)
-            {
-                inventoryCamera.Priority = 11;
-            }
-            else
-            {
-                inventoryCamera.Priority = 9;
-
-                // if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
-                //     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
-
-                if (Inventory.Inventory.Instance.hoverSlot == null)
-                    return;
-
-                Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
-                    Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
-            }
+            // if (_isActiveInventory)
+            // {
+            //     inventoryCamera.Priority = 11;
+            // }
+            // else
+            // {
+            //     inventoryCamera.Priority = 9;
+            //
+            //     // if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
+            //     //     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
+            //
+            //     if (Inventory.Inventory.Instance.hoverSlot == null)
+            //         return;
+            //
+            //     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
+            //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
+            // }
         }
         private void ToggleEscDialogueUI()
         {

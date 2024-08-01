@@ -48,15 +48,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
             {
-                string convert = GameManager.player.inventoryDB.items[i].count.ToString();
-                if (GameManager.player.inventoryDB.items[i].count == 0)
-                {
-                    convert = "";
-                }
-                if (GameManager.player.inventoryDB.items[i].item == null)
-                    _slotDatas[i].SetUI(_image, convert);
-                else
-                    _slotDatas[i].SetUI(GameManager.player.inventoryDB.items[i].item.itemImage, convert);
+                _slotDatas[i].SetItem(GameManager.player.inventoryDB.items[i]);
             }
         }
         public void DeleteSlot()
@@ -64,7 +56,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (GameManager.player.inventoryDB.items.Length >= 0)
             {
                 for (int i = 0; i < _slotDatas.Count; i++)
-                    _slotDatas[i].SetUI(_image, "");
+                    _slotDatas[i].ResetItem();
             }
         }
     }

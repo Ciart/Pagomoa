@@ -93,7 +93,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public void Dispose()
         {
-            EventManager.RemoveListener<ItemCountEvent>(CountItem);
+            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
         }
 
         public CollectMineral(QuestCondition elements)
@@ -105,7 +105,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             valueType = elements.value; 
             compareValue = 0;
             
-            EventManager.AddListener<ItemCountEvent>(CountItem);
+            EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
             var inventoryItems = GameManager.player.inventoryDB.items;
             foreach (var inventoryItem in inventoryItems)
@@ -132,14 +132,14 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public override void CalculationValue(IEvent e)
         {
-            var inventoryItem = (ItemCountEvent)e;
+            var inventoryItem = (ItemCountChangedEvent)e;
             
-            InitQuestValue(value, inventoryItem.itemCount);
+            InitQuestValue(value, inventoryItem.count);
             
             Debug.Log("mineral :" + compareValue);
         }
 
-        private void CountItem(ItemCountEvent e)
+        private void CountItem(ItemCountChangedEvent e)
         {
             if (!TypeValidation(e.item)) return ;
 
@@ -148,7 +148,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             CalculationValue(e);
             
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
-            if (e.itemCount <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
+            if (e.count <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
         }
 
         public string GetQuestSummary() { return summary; }
