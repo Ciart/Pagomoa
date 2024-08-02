@@ -33,6 +33,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             AddGold(e.gold);
         }
+        
         private void AddReward(AddReward e)
         {
             Add(e.item, e.itemCount);
@@ -42,6 +43,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             this.Gold += gold;
         }
+        
         public void Equip(Item data)
         {
             int idx = Array.FindIndex(items, element => element.item == data);
@@ -72,6 +74,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 // } 수정 필요
             }
         }
+        
         public void RemoveArtifactData(Item data)
         {
             int idx = Array.FindIndex(artifactItems, element => element.item == data);
@@ -109,6 +112,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (InventoryUI.Instance)
                 InventoryUI.Instance.ResetSlot();
         }
+        
         public void SellItem(Item data)
         {
             DecreaseItemCount(data);
@@ -116,6 +120,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             ShopUIManager.Instance.gold[0].text = Gold.ToString();
             ShopUIManager.Instance.gold[1].text = Gold.ToString();
         }
+        
         public void DecreaseItemCount(Item data)
         {
             int idx = Array.FindIndex(items, element => element.item == data);
@@ -137,26 +142,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 EventManager.Notify(new ItemCountChangedEvent(data, item.count));
             }
         }
+        
         public void RemoveItemData(Item data)
         {
-            int idx = Array.FindIndex(items, element => element.item == data);
+            var idx = Array.FindIndex(items, element => element.item == data);
             
-            if (idx != -1)
-            {
-                InventoryItem item = items[idx];
-
-                for (int i = 0; i < items.Length; i++)
-                {
-                    if (items[i] == item)
-                    {
-                        items[i].item = null;
-                        items[i].count = 0;
-
-                        EventManager.Notify(new ItemCountChangedEvent(item.item, items[i].count));
-                    }
-                }
-            }
+            if (idx == -1) return;
+            
+            var item = items[idx];
+            
+            item.item = null;
+            item.count = 0;
+            
+            EventManager.Notify(new ItemCountChangedEvent(item.item, item.count));
         }
+        
         public int GetItemCount(Item data)
         {
             var idx = Array.FindIndex(items, element => element.item == data);

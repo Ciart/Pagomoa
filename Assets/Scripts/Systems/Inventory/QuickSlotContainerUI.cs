@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         private int _selectedSlotIndex = 0;
         
-        private QuickSlotUI[] _quickSlotUIs = new QuickSlotUI[InventoryDB.MaxQuickSlot];
+        public QuickSlotUI[] quickSlotUIs = new QuickSlotUI[InventoryDB.MaxQuickSlot];
         
         [FormerlySerializedAs("_sellingQuickSlot")] [SerializeField] private QuickSlotUI sellingQuickSlotUI;
 
@@ -34,7 +34,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void OnQuickSlotChanged(QuickSlotChangedEvent e)
         {
-            foreach (var slotUI in _quickSlotUIs)
+            foreach (var slotUI in quickSlotUIs)
             {
                 slotUI.UpdateSlot();
             }
@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void OnItemCountChanged(ItemCountChangedEvent e)
         {
-            foreach (var slotUI in _quickSlotUIs)
+            foreach (var slotUI in quickSlotUIs)
             {
                 slotUI.UpdateSlot();
             }
@@ -101,9 +101,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void UpdateQuickSlot()
         {
-            for (var i = 0; i < _quickSlotUIs.Length; i++)
+            for (var i = 0; i < quickSlotUIs.Length; i++)
             {
-                var slotUI = _quickSlotUIs[i];
+                var slotUI = quickSlotUIs[i];
                 
                 if (i == _selectedSlotIndex)
                 {
@@ -112,7 +112,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
                 else
                 {
-                    _quickSlotUIs[i].selectedSlotImage.gameObject.SetActive(false);
+                    quickSlotUIs[i].selectedSlotImage.gameObject.SetActive(false);
                 }
             }
         }

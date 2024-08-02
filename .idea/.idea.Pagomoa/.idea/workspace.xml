@@ -5,34 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotContainerUI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotContainerUI.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UIs/Book.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/Book.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Renders/MinimapTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Renders/MinimapTexture.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Players/DrillController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Players/DrillController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/InventoryEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/InventoryEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Players/PlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Players/PlayerStatus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/AuctionDB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/AuctionDB.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ClickToSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ClickToSlot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/DragTrash.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/DragTrash.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Hover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Hover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Inventory.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryDB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryDB.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryItem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventorySlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventorySlotUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlot.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotUI.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/RightClickMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/RightClickMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Sell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Sell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ShopSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ShopSlot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ItemHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ItemHover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotContainerUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotContainerUI.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +23,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eef08f56e2e042f1b3027eca477293d946ac00/56/209ad3e3/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Events/QuestUIEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Hover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs" root0="FORCE_HIGHLIGHTING" />
@@ -70,10 +51,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Attach to Unity Editor.Attach to Unity Editor & Play.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "XThreadsFramesViewSplitterKey": "0.3527027",
+    "XThreadsFramesViewSplitterKey": "0.18380062",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "feature/inventory-ui",
     "ignore.virus.scanning.warn.message": "true",
@@ -93,7 +75,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Unity\Unity 2022.3.5f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\a9018\Desktop\PagoMoa -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
@@ -126,10 +108,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29216">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="29216" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -202,6 +184,7 @@
       <workItem from="1720872872237" duration="3445000" />
       <workItem from="1721024474963" duration="1471000" />
       <workItem from="1722075617248" duration="10334000" />
+      <workItem from="1722609314662" duration="4025000" />
     </task>
     <servers />
   </component>
@@ -218,6 +201,38 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs</url>
+          <line>42</line>
+          <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Systems\Inventory\InventoryUI.cs" containingFunctionPresentation="Method 'MakeSlot'">
+            <startOffsets>
+              <option value="1307" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1372" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs</url>
+          <line>39</line>
+          <properties documentPath="C:\Users\ahb03\Developments\Pagomoa\Assets\Scripts\Systems\Inventory\InventoryUI.cs" containingFunctionPresentation="Method 'MakeSlot'">
+            <startOffsets>
+              <option value="1193" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1194" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

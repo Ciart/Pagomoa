@@ -4,7 +4,7 @@ using Ciart.Pagomoa.Items;
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     [Serializable]
-    public class InventoryItem
+    public struct InventoryItem
     {
         public Item item;
         public int count;

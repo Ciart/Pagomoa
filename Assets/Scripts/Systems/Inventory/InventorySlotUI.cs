@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             InventoryUI.Instance.choiceSlot = this;
             var inventory = InventoryUI.Instance;
 
-            if (inventory.choiceSlot.inventoryItem == null || inventory.choiceSlot.inventoryItem.item == null)
+            if (inventory.choiceSlot.inventoryItem.item == null)
                 return;
             
             Debug.Log(this.inventoryItem.item);

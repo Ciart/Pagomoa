@@ -43,7 +43,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventory = InventoryUI.Instance;
 
-            if (inventory.choiceSlot.inventoryItem.item == null || inventory.choiceSlot.inventoryItem == null)
+            if (inventory.choiceSlot.inventoryItem.item == null)
                 return;
 
             if (inventory.choiceSlot.inventoryItem.item.itemType == Item.ItemType.Equipment)
@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipItem()
         {
-            if (GameManager.player.inventoryDB.artifactItems.Length < 4 && InventoryUI.Instance.choiceSlot.inventoryItem != null)
+            if (GameManager.player.inventoryDB.artifactItems.Length < 4)
             {
                 InventoryUI.Instance.DeleteSlot();
                 GameManager.player.inventoryDB.AddArtifactData(InventoryUI.Instance.choiceSlot.inventoryItem.item);

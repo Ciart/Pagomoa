@@ -179,7 +179,6 @@ namespace Ciart.Pagomoa.Entities.Players
             List<InventoryItem> deleteItems = new List<InventoryItem>();
             foreach (InventoryItem item in inventoryDatabase.items)
             {
-                if (item == null) continue;
                 if (item.item == null) continue;
 
                 var rand = Random.Range(0, 101) * 0.01f;
