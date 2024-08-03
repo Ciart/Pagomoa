@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             else
             {
-                ItemHoverObject.Instance.OffHover();
+                // ItemHoverObject.Instance.OffHover();
                 DragItem.Instance.transform.position = eventData.position;
             }
         }

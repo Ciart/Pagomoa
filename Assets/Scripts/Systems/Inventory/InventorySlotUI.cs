@@ -8,7 +8,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
-        [FormerlySerializedAs("inventoryItem")] public InventorySlot slot;
+        public InventorySlot slot;
         public Image image;
         public TextMeshProUGUI text;
         public int id;
@@ -21,7 +21,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (inventory.choiceSlot.slot.item == null)
                 return;
             
-            Debug.Log(this.slot.item);
             GameManager.player.inventory.Add(this.slot.item, 0);
             InventoryUI.Instance.UpdateSlots();
             GameManager.player.inventory.RemoveArtifactData(this.slot.item);
@@ -52,17 +51,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnDrop(PointerEventData eventData)
         {
-            Swap(GameManager.player.inventory.items, this.id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
-            Swap(this.slot, eventData.pointerPress.GetComponent<InventorySlotUI>().slot);
-            InventoryUI.Instance.UpdateSlots();
+            GameManager.player.inventory.SwapSlot(id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
+            Swap(ref slot, ref eventData.pointerPress.GetComponent<InventorySlotUI>().slot);
         }
-        public void Swap(InventorySlot[] list, int i, int j)
+
+        public void Swap(ref InventorySlot a, ref InventorySlot b)
         {
-            (list[i], list[j]) = (list[j], list[i]);
-        }
-        public void Swap(InventorySlot item1, InventorySlot item2)
-        {
-            (item1, item2) = (item2, item1);
+            (a, b) = (b, a);
         }
     }
 }

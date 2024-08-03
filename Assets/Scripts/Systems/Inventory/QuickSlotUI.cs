@@ -31,7 +31,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void UpdateSlot()
         {
-            itemImage.sprite = _item?.itemImage ?? transparentImage;
+            if (_item?.itemImage is null)
+            {
+                itemImage.sprite = transparentImage;
+                itemCount.text = "";
+                return;
+            }
+
+            itemImage.sprite = _item.itemImage;
             itemCount.text =  GameManager.player.inventory.GetItemCount(_item).ToString();
         }
 

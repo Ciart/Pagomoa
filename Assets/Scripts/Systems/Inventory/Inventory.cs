@@ -90,7 +90,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (idx != -1)
             {
-                var item = items[idx];
+                ref var item = ref items[idx];
                 item.count += count;
                 
                 EventManager.Notify(new ItemCountChangedEvent(item.item, item.count));
@@ -152,6 +152,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             item.count = 0;
             
             EventManager.Notify(new ItemCountChangedEvent(item.item, item.count));
+        }
+
+        public void SwapSlot(int a, int b)
+        {
+            (items[a], items[b]) = (items[b], items[a]);
+            EventManager.Notify(new ItemCountChangedEvent(items[a].item, items[a].count));
+            EventManager.Notify(new ItemCountChangedEvent(items[b].item, items[b].count));
         }
         
         public int GetItemCount(Item data)

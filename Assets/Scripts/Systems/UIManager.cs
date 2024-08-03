@@ -14,6 +14,7 @@ namespace Ciart.Pagomoa.Systems
         public Image hungrybar;
         public GameObject inventoryUIPrefab;
         public GameObject dialogueUIPrefab;
+        public GameObject quickSlotContainerUIPrefab;
         public GameObject escUI;
         public GameObject interactableUI;
         public GameObject questCompleteUI;
@@ -34,10 +35,12 @@ namespace Ciart.Pagomoa.Systems
             Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
             questUI = _inventoryUI.GetComponent<QuestUI>();
-
+            
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
             dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+
+            Instantiate(quickSlotContainerUIPrefab, transform);
         }
         
         private void Start()

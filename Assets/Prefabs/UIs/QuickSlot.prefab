@@ -171,9 +171,6 @@ MonoBehaviour:
   transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 8077026720076916315}
   id: 4
-  inventoryItem:
-    item: {fileID: 0}
-    count: 0
   selectedSlotImage: {fileID: 6539035227484251349}
 --- !u!114 &7548238593520031126
 MonoBehaviour:
@@ -281,15 +278,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce459347c28bb74ab62e23b77e4eedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickSlotsUI:
+  quickSlotUIs:
   - {fileID: 5894868549157444056}
   - {fileID: 7317506838819896048}
   - {fileID: 8063007612622951082}
   - {fileID: 4408623535754150720}
   - {fileID: 7661694380287040429}
   - {fileID: 5398786904220555106}
-  selectedSlot: {fileID: 0}
-  _sellingQuickSlot: {fileID: 0}
+  sellingQuickSlotUI: {fileID: 0}
 --- !u!1 &280502414195430274
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,9 +457,6 @@ MonoBehaviour:
   transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 8984337216803139819}
   id: 0
-  inventoryItem:
-    item: {fileID: 0}
-    count: 0
   selectedSlotImage: {fileID: 1135792032744611603}
 --- !u!114 &6249877804766755937
 MonoBehaviour:
@@ -1226,9 +1219,6 @@ MonoBehaviour:
   transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 4260869494353000939}
   id: 1
-  inventoryItem:
-    item: {fileID: 0}
-    count: 0
   selectedSlotImage: {fileID: 764141812209141584}
 --- !u!114 &2043256441810477381
 MonoBehaviour:
@@ -1985,9 +1975,6 @@ MonoBehaviour:
   transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 7202722452023712630}
   id: 2
-  inventoryItem:
-    item: {fileID: 0}
-    count: 0
   selectedSlotImage: {fileID: 1009373223460012998}
 --- !u!114 &7931874232718157459
 MonoBehaviour:
@@ -2251,9 +2238,6 @@ MonoBehaviour:
   transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 6930615632877755885}
   id: 3
-  inventoryItem:
-    item: {fileID: 0}
-    count: 0
   selectedSlotImage: {fileID: 1079525022586820900}
 --- !u!114 &5083732282300850870
 MonoBehaviour:
@@ -2843,9 +2827,6 @@ MonoBehaviour:
   transparentImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   itemCount: {fileID: 6980203172247210648}
   id: 5
-  inventoryItem:
-    item: {fileID: 0}
-    count: 0
   selectedSlotImage: {fileID: 2635630043373926466}
 --- !u!114 &8961154113413784852
 MonoBehaviour:

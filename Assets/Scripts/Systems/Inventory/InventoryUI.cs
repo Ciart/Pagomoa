@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -31,11 +32,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
             // QuickSlotContainerUI.instance.transform.SetAsLastSibling();
         }
 
-        private void OnEnable()
+        private void OnItemCountChanged(ItemCountChangedEvent e)
         {
             UpdateSlots();
         }
-        
+
+        private void OnEnable()
+        {
+            UpdateSlots();
+            
+            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
+        }
+
         public void MakeSlots() // slotdatas 갯수만큼 슬롯 만들기
         {
             for (int i = 0; i < GameManager.player.inventory.items.Length; i++)
@@ -47,7 +60,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             UpdateSlots();
         }
-
+        
         public void UpdateSlots() // List안의 Item 전체 인벤토리에 출력
         {
             for (var i = 0; i < slotDatas.Count; i++)
