@@ -239,24 +239,23 @@ namespace Ciart.Pagomoa.Entities.Players
         private WorldCoords DirectionCheck(bool a = false)
         {
             Vector3 digVec;
-            //switch (direction)
-            //{
-            //    case Direction.Up:
-            //        digVec = new Vector3(a ? -0.5f : 0f, 1.2f);
-            //        break;
-            //    case Direction.Left:
-            //        digVec = new Vector3(-0.6f, a ? -0.5f : 0f);
-            //        break;
-            //    case Direction.Right:
-            //        digVec = new Vector3(0.6f, a ? -0.5f : 0f);
-            //        break;
-            //    case Direction.Down:
-            //    default:
-            //        digVec = new Vector3(a ? -0.5f : 0f, -1.2f);
-            //        break;
-            //}
-            digVec = transform.localPosition;
-            return WorldManager.ComputeCoords(transform.position + digVec);
+            switch (direction)
+            {
+                case Direction.Up:
+                    digVec = new Vector3(a ? -0.5f : 0f, 1.2f);
+                    break;
+                case Direction.Left:
+                    digVec = new Vector3(-0.6f, a ? -0.5f : 0f);
+                    break;
+                case Direction.Right:
+                    digVec = new Vector3(0.6f, a ? -0.5f : 0f);
+                    break;
+                case Direction.Down:
+                default:
+                    digVec = new Vector3(a ? -0.5f : 0f, -1.2f);
+                    break;
+            }
+            return WorldManager.ComputeCoords(transform.position + digVec - transform.localPosition);
         }
 
         public void DrillUpgrade()
