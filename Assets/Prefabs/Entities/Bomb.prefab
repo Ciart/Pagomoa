@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waitingTime: 3
-  _boomRange: 1
+  _boomRange: 3
   _bombImage: {fileID: 1735884206487617717}
   _bombEffect: {fileID: 2416090528943535579}
   _damageTargetLayer:
