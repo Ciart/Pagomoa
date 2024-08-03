@@ -20,19 +20,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private Item _item
         {
-            get => GameManager.player.inventoryDB.GetQuickSlot(id);
-            set => GameManager.player.inventoryDB.SetQuickSlot(id, value);
+            get => GameManager.player.inventory.GetQuickItem(id);
+            set => GameManager.player.inventory.SetQuickItem(id, value);
         } 
 
         private void SwapSlot(PointerEventData eventData)
         {
-            GameManager.player.inventoryDB.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
+            GameManager.player.inventory.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
         }
         
         public void UpdateSlot()
         {
             itemImage.sprite = _item?.itemImage ?? transparentImage;
-            itemCount.text =  GameManager.player.inventoryDB.GetItemCount(_item).ToString();
+            itemCount.text =  GameManager.player.inventory.GetItemCount(_item).ToString();
         }
 
         public void OnDrop(PointerEventData eventData)

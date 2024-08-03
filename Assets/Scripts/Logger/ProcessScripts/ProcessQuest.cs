@@ -107,7 +107,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
-            var inventoryItems = GameManager.player.inventoryDB.items;
+            var inventoryItems = GameManager.player.inventory.items;
             foreach (var inventoryItem in inventoryItems)
             {
                 if (inventoryItem.item == targetEntity)

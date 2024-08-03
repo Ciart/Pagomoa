@@ -6,16 +6,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] public InventorySlotUI slot;
-        [SerializeField] public InventoryItem item;
+        [SerializeField] public InventorySlot item;
         public void OnBeginDrag(PointerEventData eventData)
         {
             Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
 
             if (slot != null)
             {
-                item = slot.inventoryItem;
-                if(slot.inventoryItem.item != null )
-                    DragItem.Instance.DragSetImage(slot.inventoryItem.item.itemImage);
+                item = slot.slot;
+                if(slot.slot.item != null )
+                    DragItem.Instance.DragSetImage(slot.slot.item.itemImage);
             }
             DragItem.Instance.transform.position = newPosition;
         }

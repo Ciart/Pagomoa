@@ -77,7 +77,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MineralMenu()
         {
-            if (InventoryUI.Instance.choiceSlot.inventoryItem.count >= 10)
+            if (InventoryUI.Instance.choiceSlot.slot.count >= 10)
             {
                 MakeMenu("모두 먹이기");
                 MakeMenu("10개 먹이기");
@@ -85,14 +85,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (InventoryUI.Instance.choiceSlot.inventoryItem.count < 10 && InventoryUI.Instance.choiceSlot.inventoryItem.count > 1)
+            else if (InventoryUI.Instance.choiceSlot.slot.count < 10 && InventoryUI.Instance.choiceSlot.slot.count > 1)
             {
                 MakeMenu("모두 먹이기");
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (InventoryUI.Instance.choiceSlot.inventoryItem.count == 1)
+            else if (InventoryUI.Instance.choiceSlot.slot.count == 1)
             {
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");

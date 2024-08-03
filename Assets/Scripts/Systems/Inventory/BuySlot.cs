@@ -1,13 +1,14 @@
 ﻿using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class BuySlot : MonoBehaviour
     {
-        [SerializeField] public InventoryItem inventoryItem;
+        [FormerlySerializedAs("inventoryItem")] [SerializeField] public InventorySlot slot;
         [SerializeField] public Image image;
         [SerializeField] private CountUI _countUI;
         [SerializeField] public TextMeshProUGUI itemName;
@@ -15,15 +16,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void BuyCheck()
         {
             Buy.Instance.choiceSlot = this;
-            var Shop = Buy.Instance.choiceSlot.inventoryItem.item;
+            var Shop = Buy.Instance.choiceSlot.slot.item;
             _countUI.OnUI(this.gameObject);
             ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
         }
         public void UpdateConsumptionSlot()
         {
-            image.sprite = inventoryItem.item.itemImage;
-            itemName.text = inventoryItem.item.itemName;
-            itemPrice.text = inventoryItem.item.itemPrice.ToString();
+            image.sprite = slot.item.itemImage;
+            itemName.text = slot.item.itemName;
+            itemPrice.text = slot.item.itemPrice.ToString();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnPointerEnter(PointerEventData eventData)
         {
             var slot = eventData.pointerEnter.GetComponent<InventorySlotUI>();
-            if (slot.inventoryItem.item == null)
+            if (slot.slot.item == null)
                 return;
             
             Vector3 newPosition = new Vector3(eventData.position.x + 5, eventData.position.y);

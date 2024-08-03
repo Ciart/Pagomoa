@@ -8,20 +8,20 @@ using UnityEngine;
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     [Serializable]
-    public class InventoryDB
+    public class Inventory
     {
         public int Gold;
         [SerializeField] public int stoneCount;
         [SerializeField] public int maxCount;
         
-        public const int MaxQuickSlot = 6;
-        private InventoryItem[] _quickSlots = new InventoryItem[MaxQuickSlot];
+        public const int MaxQuickItems = 6;
+        private Item[] _quickItems = new Item[MaxQuickItems];
         
         public const int MaxArtifactItems = 4;
-        public InventoryItem[] artifactItems = new InventoryItem[MaxArtifactItems];
+        public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactItems];
         
         public const int MaxItems = 36;
-        public InventoryItem[] items = new InventoryItem[MaxItems];
+        public InventorySlot[] items = new InventorySlot[MaxItems];
         
         private void Start()
         {
@@ -50,12 +50,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (idx != -1)
             {
-                InventoryItem item = items[idx];
+                InventorySlot item = items[idx];
                 
                 if (item.count == 0)
                     DecreaseItemCount(data);
             }
-            InventoryUI.Instance.ResetSlot();
         }
         
         public void AddArtifactData(Item data)
@@ -109,8 +108,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     }
                 }
             }
-            if (InventoryUI.Instance)
-                InventoryUI.Instance.ResetSlot();
         }
         
         public void SellItem(Item data)
@@ -127,7 +124,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (idx != -1)
             {
-                InventoryItem item = items[idx];
+                InventorySlot item = items[idx];
                 
                 if (item.count > 1)
                 {
@@ -167,27 +164,27 @@ namespace Ciart.Pagomoa.Systems.Inventory
             return 0;
         }
         
-        public Item GetQuickSlot(int id)
+        public Item GetQuickItem(int id)
         {
-            return _quickSlots[id].item;
+            return _quickItems[id];
         }
         
-        public void SetQuickSlot(int id, Item item)
+        public void SetQuickItem(int id, Item item)
         {
-            _quickSlots[id].item = item;
-            EventManager.Notify(new QuickSlotChangedEvent(_quickSlots));
+            _quickItems[id] = item;
+            EventManager.Notify(new QuickSlotChangedEvent(_quickItems));
         }
         
         public void SwapQuickSlot(int a, int b)
         {
-            (_quickSlots[a], _quickSlots[b]) = (_quickSlots[b], _quickSlots[a]);
-            EventManager.Notify(new QuickSlotChangedEvent(_quickSlots));
+            (_quickItems[a], _quickItems[b]) = (_quickItems[b], _quickItems[a]);
+            EventManager.Notify(new QuickSlotChangedEvent(_quickItems));
         }
         
         // TODO: GameManager.player.GetComponent<PlayerStatus>() 없애야 합니다. Item.Active()에 왜 stat을 넣어야 하나요?
         public void UseQuickSlotItem(int index)
         {
-            var item = _quickSlots[index].item;
+            var item = _quickItems[index];
             
             switch (item.itemType)
             {

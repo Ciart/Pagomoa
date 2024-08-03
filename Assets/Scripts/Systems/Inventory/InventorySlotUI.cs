@@ -1,13 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
-        public InventoryItem inventoryItem;
+        [FormerlySerializedAs("inventoryItem")] public InventorySlot slot;
         public Image image;
         public TextMeshProUGUI text;
         public int id;
@@ -17,16 +18,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
             InventoryUI.Instance.choiceSlot = this;
             var inventory = InventoryUI.Instance;
 
-            if (inventory.choiceSlot.inventoryItem.item == null)
+            if (inventory.choiceSlot.slot.item == null)
                 return;
             
-            Debug.Log(this.inventoryItem.item);
-            GameManager.player.inventoryDB.Add(this.inventoryItem.item, 0);
-            InventoryUI.Instance.ResetSlot();
-            GameManager.player.inventoryDB.RemoveArtifactData(this.inventoryItem.item);
+            Debug.Log(this.slot.item);
+            GameManager.player.inventory.Add(this.slot.item, 0);
+            InventoryUI.Instance.UpdateSlots();
+            GameManager.player.inventory.RemoveArtifactData(this.slot.item);
             InventoryUI.Instance.SetArtifactSlots();
         }
-        public void SetItem(InventoryItem item)
+        public void SetItem(InventorySlot item)
         {
             if (item.item is null)
             {
@@ -51,15 +52,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnDrop(PointerEventData eventData)
         {
-            Swap(GameManager.player.inventoryDB.items, this.id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
-            Swap(this.inventoryItem, eventData.pointerPress.GetComponent<InventorySlotUI>().inventoryItem);
-            InventoryUI.Instance.ResetSlot();
+            Swap(GameManager.player.inventory.items, this.id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
+            Swap(this.slot, eventData.pointerPress.GetComponent<InventorySlotUI>().slot);
+            InventoryUI.Instance.UpdateSlots();
         }
-        public void Swap(InventoryItem[] list, int i, int j)
+        public void Swap(InventorySlot[] list, int i, int j)
         {
             (list[i], list[j]) = (list[j], list[i]);
         }
-        public void Swap(InventoryItem item1, InventoryItem item2)
+        public void Swap(InventorySlot item1, InventorySlot item2)
         {
             (item1, item2) = (item2, item1);
         }

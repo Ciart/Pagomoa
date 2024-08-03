@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         private int _selectedSlotIndex = 0;
         
-        public QuickSlotUI[] quickSlotUIs = new QuickSlotUI[InventoryDB.MaxQuickSlot];
+        public QuickSlotUI[] quickSlotUIs = new QuickSlotUI[Inventory.MaxQuickItems];
         
         [FormerlySerializedAs("_sellingQuickSlot")] [SerializeField] private QuickSlotUI sellingQuickSlotUI;
 
@@ -96,7 +96,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void UseQuickSlot()
         {
-            GameManager.player.inventoryDB.UseQuickSlotItem(_selectedSlotIndex);
+            GameManager.player.inventory.UseQuickSlotItem(_selectedSlotIndex);
         }
         
         private void UpdateQuickSlot()

@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa
         {
             Sell.Instance.choiceSlot = this;
 
-            var Inventory = Sell.Instance.choiceSlot.inventoryItem.item;
+            var Inventory = Sell.Instance.choiceSlot.slot.item;
             if (Inventory == null)
                 return;
 
@@ -32,13 +32,13 @@ namespace Ciart.Pagomoa
         {
             for (int i = 0; i < _countUI.count; i++)
             {
-                if (Sell.Instance.choiceSlot.inventoryItem.count > 1)
+                if (Sell.Instance.choiceSlot.slot.count > 1)
                 {
-                    GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(Sell.Instance.choiceSlot.slot.item);
                 }
-                else if (Sell.Instance.choiceSlot.inventoryItem.count == 1)
+                else if (Sell.Instance.choiceSlot.slot.count == 1)
                 {
-                    GameManager.player.inventoryDB.SellItem(Sell.Instance.choiceSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(Sell.Instance.choiceSlot.slot.item);
                 }
                 Sell.Instance.DeleteSlot();
                 Sell.Instance.ResetSlot();

@@ -11,12 +11,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (data)
             {
-                GameManager.player.inventoryDB.SetQuickSlot(data.id, null);
+                GameManager.player.inventory.SetQuickItem(data.id, null);
             }
             else if (eventData.pointerPress.GetComponent<InventorySlotUI>())
             {
-                GameManager.player.inventoryDB.RemoveItemData(eventData.pointerDrag.GetComponent<InventorySlotUI>().inventoryItem.item);
-                InventoryUI.Instance.ResetSlot();
+                GameManager.player.inventory.RemoveItemData(eventData.pointerDrag.GetComponent<InventorySlotUI>().slot.item);
+                InventoryUI.Instance.UpdateSlots();
             }
         }
     }

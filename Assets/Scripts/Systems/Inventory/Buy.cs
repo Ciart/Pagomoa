@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.player.inventoryDB.Gold.ToString();
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.player.inventory.Gold.ToString();
         }
         public void MakeSlot()
         {
@@ -66,12 +66,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Equipment)
                 {
-                    _artifactSlots[j].inventoryItem = AuctionDB.Instance.auctionItem[i];
+                    _artifactSlots[j].slot = AuctionDB.Instance.auctionItem[i];
                     j++;
                 }
                 else if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Use)
                 {
-                    _consumptionSlots[z].inventoryItem = AuctionDB.Instance.auctionItem[i];
+                    _consumptionSlots[z].slot = AuctionDB.Instance.auctionItem[i];
                     z++;
                 }
                 else
@@ -124,7 +124,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UpdateCount()
         {
-            choiceSlot.GetComponent<BuyArtifactSlot>().itemNum.text = choiceSlot.inventoryItem.count.ToString();
+            choiceSlot.GetComponent<BuyArtifactSlot>().itemNum.text = choiceSlot.slot.count.ToString();
         }
     }
 }

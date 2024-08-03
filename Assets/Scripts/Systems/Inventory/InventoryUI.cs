@@ -27,43 +27,36 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void Start()
         {
-            MakeSlot();
+            MakeSlots();
             // QuickSlotContainerUI.instance.transform.SetAsLastSibling();
         }
 
         private void OnEnable()
         {
-            DeleteSlot();
-            ResetSlot();
+            UpdateSlots();
         }
-        public void MakeSlot() // slotdatas 갯수만큼 슬롯 만들기
+        
+        public void MakeSlots() // slotdatas 갯수만큼 슬롯 만들기
         {
-            for (int i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
+            for (int i = 0; i < GameManager.player.inventory.items.Length; i++)
             {
                 GameObject spawnedslot = Instantiate(slot, slotParent.transform);
                 slotDatas.Add(spawnedslot.GetComponent<InventorySlotUI>());
                 slotDatas[i].id = i;
                 spawnedslot.SetActive(true);
             }
-            ResetSlot();
+            UpdateSlots();
         }
-        public void ResetSlot() // 각각 슬롯에 item 할당
+
+        public void UpdateSlots() // List안의 Item 전체 인벤토리에 출력
         {
-            int i = 0;
-            for (; i < slotDatas.Count; i++)
+            for (var i = 0; i < slotDatas.Count; i++)
             {
-                slotDatas[i].inventoryItem =GameManager.player.inventoryDB.items[i];
-            }
-            UpdateSlot();
-        }
-        public void UpdateSlot() // List안의 Item 전체 인벤토리에 출력
-        {
-            for (var i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
-            {
-                slotDatas[i].SetItem(GameManager.player.inventoryDB.items[i]);
+                slotDatas[i].SetItem(GameManager.player.inventory.items[i]);
             }
         }
-        public void DeleteSlot() // 인벤토리에 출력된 아이템들 전부 NULL
+        
+        public void ResetSlots() // 인벤토리에 출력된 아이템들 전부 NULL
         {
             foreach (var s in slotDatas)
                 s.ResetItem();
@@ -73,8 +66,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
-                artifactSlotData[i].inventoryItem = GameManager.player.inventoryDB.artifactItems[i];
-                artifactSlotData[i].SetItem(artifactSlotData[i].inventoryItem);
+                artifactSlotData[i].slot = GameManager.player.inventory.artifactItems[i];
+                artifactSlotData[i].SetItem(artifactSlotData[i].slot);
             }
         }
     }
