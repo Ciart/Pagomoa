@@ -8,13 +8,13 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa
 {
-    public class ShopSlot : Slot
+    public class ShopSlot : InventorySlotUI
     {
         public void SellCheck()
         {
             Buy.Instance.choosenSellSlot = this;
 
-            var Inventory = Buy.Instance.choosenSellSlot.inventoryItem.item;
+            var Inventory = Buy.Instance.choosenSellSlot.slot.item;
             if (Inventory == null)
                 return;
 
@@ -32,12 +32,12 @@ namespace Ciart.Pagomoa
             {
                 if (Buy.Instance.choosenSellSlot.slot.count > 1)
                 {
-                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                else if (Buy.Instance.choosenSellSlot.inventoryItem.count == 1)
+                else if (Buy.Instance.choosenSellSlot.slot.count == 1)
                 {
-                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 Buy.Instance.DeleteSellUISlot();

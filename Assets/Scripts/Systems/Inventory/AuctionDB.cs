@@ -6,7 +6,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class AuctionDB : MonoBehaviour
     {
-        public List<InventoryItem> auctionItem = new List<InventoryItem>();
+        public List<InventorySlot> auctionItem = new List<InventorySlot>();
 
         private static AuctionDB instance;
         public static AuctionDB Instance
@@ -22,23 +22,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void Remove(Item data)
         {
-            var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
-            var acutionItem = Buy.Instance.choosenBuySlot.inventoryItem;
-            if (inventoryItem != null)
-            {
-                if (data.itemType == Item.ItemType.Use)
-                    for (int i = 0; i < Buy.Instance.countUINum; i++)
-                    {
-                        GameManager.player.inventoryDB.Gold -= data.itemPrice;
-                    }
-                else if (data.itemType == Item.ItemType.Equipment)
+            // var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
+            var acutionItem = Buy.Instance.choosenBuySlot.slot;
+            
+            if (data.itemType == Item.ItemType.Use)
+                for (int i = 0; i < Buy.Instance.countUINum; i++)
                 {
-                    GameManager.player.inventoryDB.Gold -= data.itemPrice;
-                    acutionItem.count -= 1;
+                    GameManager.player.inventory.Gold -= data.itemPrice;
                 }
+            else if (data.itemType == Item.ItemType.Equipment)
+            {
+                GameManager.player.inventory.Gold -= data.itemPrice;
+                acutionItem.count -= 1;
             }
-            ShopUIManager.Instance.gold[0].text = GameManager.player.inventoryDB.Gold.ToString();
-            ShopUIManager.Instance.gold[1].text = GameManager.player.inventoryDB.Gold.ToString();
+            ShopUIManager.Instance.gold[0].text = GameManager.player.inventory.Gold.ToString();
+            ShopUIManager.Instance.gold[1].text = GameManager.player.inventory.Gold.ToString();
         }
     }
 }

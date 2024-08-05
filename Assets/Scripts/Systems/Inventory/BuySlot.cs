@@ -7,22 +7,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class BuySlot : MonoBehaviour
     {
-        [SerializeField] public InventoryItem inventoryItem;
+        [SerializeField] public InventorySlot slot;
         [SerializeField] public Image image;
         [SerializeField] public TextMeshProUGUI itemName;
         [SerializeField] public TextMeshProUGUI itemPrice;
         public void BuyCheck()
         {
             Buy.Instance.choosenBuySlot = this;
-            var Shop = Buy.Instance.choosenBuySlot.inventoryItem.item;
+            var Shop = Buy.Instance.choosenBuySlot.slot.item;
             Buy.Instance.OnCountUI(this.gameObject);
             ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
         }
         public void UpdateConsumptionSlot()
         {
-            image.sprite = inventoryItem.item.itemImage;
-            itemName.text = inventoryItem.item.itemName;
-            itemPrice.text = inventoryItem.item.itemPrice.ToString();
+            image.sprite = slot.item.itemImage;
+            itemName.text = slot.item.itemName;
+            itemPrice.text = slot.item.itemPrice.ToString();
         }
     }
 }

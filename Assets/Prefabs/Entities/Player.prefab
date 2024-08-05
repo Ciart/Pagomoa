@@ -163,23 +163,10 @@ MonoBehaviour:
   initialStatus: {fileID: 0}
   groundDistance: 1.125
   sideWallDistance: 1.0625
-  inventoryDB:
-    Gold: 0
+  inventory:
+    Gold: 10000
     stoneCount: 0
     maxCount: 0
-    quickSlots:
-    - item: {fileID: 0}
-      count: 0
-    - item: {fileID: 0}
-      count: 0
-    - item: {fileID: 0}
-      count: 0
-    - item: {fileID: 0}
-      count: 0
-    - item: {fileID: 0}
-      count: 0
-    - item: {fileID: 0}
-      count: 0
     artifactItems:
     - item: {fileID: 0}
       count: 0

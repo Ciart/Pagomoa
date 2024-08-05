@@ -12,13 +12,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class Buy : MonoBehaviour
     {
         public BuySlot choosenBuySlot;
-        public Slot choosenSellSlot;
+        public InventorySlotUI choosenSellSlot;
         public TextMeshProUGUI countUIText;
         public int countUINum;
 
         private const int _parentNum = 3;
         private const int _childNum = 3;
-        private List<Slot> _slotDatas = new List<Slot>();
+        private List<InventorySlotUI> _slotDatas = new List<InventorySlotUI>();
 
         [SerializeField] private GameObject[] slotsParent = new GameObject[_parentNum];
         [SerializeField] private GameObject[] slot = new GameObject[_childNum];
@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.player.inventoryDB.Gold.ToString();
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.player.inventory.Gold.ToString();
             DeleteSellUISlot();
             ResetSellUISlot();
         }
@@ -81,12 +81,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Equipment)
                 {
-                    _artifactSlots[j].inventoryItem = AuctionDB.Instance.auctionItem[i];
+                    _artifactSlots[j].slot = AuctionDB.Instance.auctionItem[i];
                     j++;
                 }
                 else if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Use)
                 {
-                    _consumptionSlots[z].inventoryItem = AuctionDB.Instance.auctionItem[i];
+                    _consumptionSlots[z].slot = AuctionDB.Instance.auctionItem[i];
                     z++;
                 }
                 else
@@ -128,10 +128,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MakeSellUISlot()
         {
-            for(int i = 0; i <GameManager.player.inventoryDB.items.Length; i++)
+            for(int i = 0; i <GameManager.player.inventory.items.Length; i++)
             {
                 GameObject SpawnedSlot = Instantiate(slot[2], slotsParent[2].transform);
-                _slotDatas.Add(SpawnedSlot.GetComponent<Slot>());
+                _slotDatas.Add(SpawnedSlot.GetComponent<InventorySlotUI>());
                 _slotDatas[i].id = i;
                 SpawnedSlot.SetActive(true);
             }
@@ -140,30 +140,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void ResetSellUISlot()
         {
             for(int i = 0; i < _slotDatas.Count; i++)
-                _slotDatas[i].inventoryItem = GameManager.player.inventoryDB.items[i];
+                _slotDatas[i].slot = GameManager.player.inventory.items[i];
             UpdateSellUISlot();
         }
         public void UpdateSellUISlot()
         {
-            for (int i = 0; i < GameManager.player.inventoryDB.items.Length; i++)
+            for (int i = 0; i < GameManager.player.inventory.items.Length; i++)
             {
-                string convert = GameManager.player.inventoryDB.items[i].count.ToString();
-                if (GameManager.player.inventoryDB.items[i].count == 0)
-                {
-                    convert = "";
-                }
-                if (GameManager.player.inventoryDB.items[i].item == null)
-                    _slotDatas[i].SetUI(_emptyImage, convert);
-                else
-                    _slotDatas[i].SetUI(GameManager.player.inventoryDB.items[i].item.itemImage, convert);
+                _slotDatas[i].SetItem(GameManager.player.inventory.items[i]);
             }
         }
         public void DeleteSellUISlot()
         {
-            if (GameManager.player.inventoryDB.items.Length >= 0)
+            if (GameManager.player.inventory.items.Length >= 0)
             {
                 for (int i = 0; i < _slotDatas.Count; i++)
-                    _slotDatas[i].SetUI(_emptyImage, "");
+                    _slotDatas[i].ResetItem();
             }
         }
         public void DestroySlot()
@@ -179,7 +171,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UpdateCount()
         {
-            choosenBuySlot.GetComponent<BuyArtifactSlot>().itemNum.text = choosenBuySlot.inventoryItem.count.ToString();
+            choosenBuySlot.GetComponent<BuyArtifactSlot>().itemNum.text = choosenBuySlot.slot.count.ToString();
         }
         public void OnCountUI(GameObject obj)
         {
@@ -226,7 +218,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void BuyPlus()
         {
-            InventoryItem item = Buy.Instance.choosenBuySlot.inventoryItem;
+            InventorySlot item = Buy.Instance.choosenBuySlot.slot;
             if (item.item.itemType == Item.ItemType.Use)
             {
                 countUINum++;
@@ -246,7 +238,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void BuyMinus()
         {
-            InventoryItem item = choosenBuySlot.inventoryItem;
+            InventorySlot item = choosenBuySlot.slot;
             if (countUINum > 1)
             {
                 countUINum--;
@@ -258,15 +250,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void BuySlots()
         {
-            var Shop = choosenBuySlot.inventoryItem;
+            var Shop = choosenBuySlot.slot;
             if (Shop.item.itemType == Item.ItemType.Use)
             {
-                if (GameManager.player.inventoryDB.Gold >= Shop.item.itemPrice * countUINum && countUINum > 0)
+                if (GameManager.player.inventory.Gold >= Shop.item.itemPrice * countUINum && countUINum > 0)
                 {
-                    GameManager.player.inventoryDB.Add(Shop.item, countUINum);
+                    GameManager.player.inventory.Add(Shop.item, countUINum);
                     AuctionDB.Instance.Remove(Shop.item);
                     ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
                     OffCountUI();
+                    Debug.Log("호출");
+
                 }
                 else
                     return;
@@ -276,9 +270,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             else if (Shop.item.itemType == Item.ItemType.Equipment || Shop.item.itemType == Item.ItemType.Inherent)
             {
-                if (GameManager.player.inventoryDB.Gold >= Shop.item.itemPrice && Shop.count == countUINum)
+                if (GameManager.player.inventory.Gold >= Shop.item.itemPrice && Shop.count == countUINum)
                 {
-                    GameManager.player.inventoryDB.Add(Shop.item, 0);
+                    GameManager.player.inventory.Add(Shop.item, 0);
                     AuctionDB.Instance.Remove(Shop.item);
                     UpdateCount();
                     SoldOut();
@@ -292,7 +286,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SellPlus()
         {
-            InventoryItem item = choosenSellSlot.inventoryItem;
+            InventorySlot item = choosenSellSlot.slot;
             if (countUINum < item.count)
             {
                 countUINum++;
@@ -304,7 +298,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SellMinus()
         {
-            InventoryItem item = choosenSellSlot.inventoryItem;
+            InventorySlot item = choosenSellSlot.slot;
             if (countUINum > 1)
             {
                 countUINum--;
@@ -318,13 +312,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < countUINum; i++)
             {
-                if (choosenSellSlot.inventoryItem.count > 1)
+                if (choosenSellSlot.slot.count > 1)
                 {
-                    GameManager.player.inventoryDB.SellItem(choosenSellSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(choosenSellSlot.slot.item);
                 }
-                else if (choosenSellSlot.inventoryItem.count == 1)
+                else if (choosenSellSlot.slot.count == 1)
                 {
-                    GameManager.player.inventoryDB.SellItem(choosenSellSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(choosenSellSlot.slot.item);
                     //QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 DeleteSellUISlot();
