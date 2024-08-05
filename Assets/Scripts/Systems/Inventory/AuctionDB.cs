@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
 
@@ -23,11 +23,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void Remove(Item data)
         {
             var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
-            var acutionItem = Buy.Instance.choiceSlot.inventoryItem;
+            var acutionItem = Buy.Instance.choosenBuySlot.inventoryItem;
             if (inventoryItem != null)
             {
                 if (data.itemType == Item.ItemType.Use)
-                    for (int i = 0; i < CountUI.Instance.count; i++)
+                    for (int i = 0; i < Buy.Instance.countUINum; i++)
                     {
                         GameManager.player.inventoryDB.Gold -= data.itemPrice;
                     }

@@ -164,7 +164,7 @@ MonoBehaviour:
   groundDistance: 1.125
   sideWallDistance: 1.0625
   inventoryDB:
-    Gold: 0
+    Gold: 10000
     stoneCount: 0
     maxCount: 0
     quickSlots:
@@ -190,9 +190,9 @@ MonoBehaviour:
     - item: {fileID: 0}
       count: 0
     items:
-    - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
-      count: 5
-    - item: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+    - item: {fileID: 0}
+      count: 0
+    - item: {fileID: 0}
       count: 0
     - item: {fileID: 0}
       count: 0

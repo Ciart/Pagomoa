@@ -27,6 +27,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _book.SetActive(true);
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
+            Buy.Instance.DeleteSellUISlot();
+            Buy.Instance.ResetSellUISlot();
         }
         public void ClickToBuy()
         {

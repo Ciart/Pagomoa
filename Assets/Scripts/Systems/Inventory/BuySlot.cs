@@ -9,14 +9,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         [SerializeField] public InventoryItem inventoryItem;
         [SerializeField] public Image image;
-        [SerializeField] private CountUI _countUI;
         [SerializeField] public TextMeshProUGUI itemName;
         [SerializeField] public TextMeshProUGUI itemPrice;
         public void BuyCheck()
         {
-            Buy.Instance.choiceSlot = this;
-            var Shop = Buy.Instance.choiceSlot.inventoryItem.item;
-            _countUI.OnUI(this.gameObject);
+            Buy.Instance.choosenBuySlot = this;
+            var Shop = Buy.Instance.choosenBuySlot.inventoryItem.item;
+            Buy.Instance.OnCountUI(this.gameObject);
             ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
         }
         public void UpdateConsumptionSlot()

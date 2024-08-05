@@ -1599,6 +1599,7 @@ MonoBehaviour:
   _buttons: []
   itemCount: {fileID: 718197052}
   count: 0
+  _choiceslot: {fileID: 0}
 --- !u!1 &351452819
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,8 +3023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 16
-  m_RefResolutionX: 480
-  m_RefResolutionY: 272
+  m_RefResolutionX: 640
+  m_RefResolutionY: 360
   m_CropFrame: 0
   m_GridSnapping: 2
   m_FilterMode: 0
@@ -12044,6 +12045,14 @@ PrefabInstance:
       propertyPath: gold.Array.data[1]
       value: 
       objectReference: {fileID: 2137546451}
+    - target: {fileID: 9014749859596801235, guid: 0767d93238e8c1947827e861222c4476, type: 3}
+      propertyPath: _papersSprites.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014749859596801235, guid: 0767d93238e8c1947827e861222c4476, type: 3}
+      propertyPath: _papersSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 1956901844, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
     - target: {fileID: 9047952613806592642, guid: 0767d93238e8c1947827e861222c4476, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
