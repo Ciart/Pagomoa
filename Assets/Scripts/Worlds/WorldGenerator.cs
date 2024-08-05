@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
@@ -138,10 +138,10 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             var powerX = random.NextInt(levelBounds.xMin, levelBounds.xMax);
-            var powerY = random.NextInt(-20, 0);
+            var powerY = random.NextInt(ForestHeight, -20);
             GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), level, powerX, powerY, true);
 
-            // GeneratePiece(database.GetPieceWithTag("Remote"), level, 0, -4, true);
+            //GeneratePiece(database.GetPieceWithTag("YellowDungeon"), level, 0, 0, true);
 
             return level;
         }
@@ -157,9 +157,8 @@ namespace Ciart.Pagomoa.Worlds
             var levelRight = piece.width - piece.pivot.x;
             
             var level = new Level(id, LevelType.YellowDungeon, levelTop, levelBottom, levelLeft, levelRight);
-
+  
             GeneratePiece(piece, level, 0, 0, true);
-            
             return level;
         }
 

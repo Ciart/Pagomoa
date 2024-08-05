@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5380435983743920262}
   - component: {fileID: 3569870271305507208}
   - component: {fileID: 5218344205300298131}
-  - component: {fileID: 7919464146560572227}
   m_Layer: 5
   m_Name: Sell
   m_TagString: Untagged
@@ -77,23 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7919464146560572227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109431093044404444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2289d71bcfc424c46a66f64e5455948e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  choiceSlot: {fileID: 0}
-  hovering: {fileID: 0}
-  _slot: {fileID: 3629512233260826222}
-  _slotParent: {fileID: 5487261432805117796}
-  _image: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
 --- !u!1 &118370814941377683
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,9 +975,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6195420343328347687}
-        m_TargetAssemblyTypeName: BuyCountUI, Assembly-CSharp
-        m_MethodName: OffUI
+      - m_Target: {fileID: 8145865076375343049}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.Buy, Assembly-CSharp
+        m_MethodName: OffCountUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2022,7 +2004,6 @@ GameObject:
   - component: {fileID: 587429650747886364}
   - component: {fileID: 7444223439885983884}
   - component: {fileID: 1984320419410008856}
-  - component: {fileID: 9014749859596801235}
   m_Layer: 5
   m_Name: Buy
   m_TagString: Untagged
@@ -2132,36 +2113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &9014749859596801235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3376514053816164424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0433a50ad3895a4e865fa868ad547c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  choiceSlot: {fileID: 0}
-  _artifactSlotsParent: {fileID: 6170610875190497031}
-  _consumptionSlotsParent: {fileID: 2516595635595951861}
-  _artifactSlot: {fileID: 7081289068220410947}
-  _consumptionSlot: {fileID: 3785268109224392253}
-  _artifactSlots: []
-  _consumptionSlots: []
-  _papers:
-  - {fileID: 1956901844, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: 979964557, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: 225209540, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: 1739432092, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: 954854434, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: -217509975, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  _soldOuts:
-  - {fileID: 403013701, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: -1347286481, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
-  - {fileID: -1966595857, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
 --- !u!1 &3451898154400606347
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,7 +2493,6 @@ MonoBehaviour:
   image: {fileID: 8368318970152401661}
   text: {fileID: 1962316725259311222}
   id: 0
-  _countUI: {fileID: 6195420343328347687}
 --- !u!1 &3654887645574608935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,7 +2875,6 @@ MonoBehaviour:
     item: {fileID: 0}
     count: 0
   image: {fileID: 984292310726876367}
-  _countUI: {fileID: 6195420343328347687}
   itemName: {fileID: 6872987093452209431}
   itemPrice: {fileID: 1824139625429640649}
 --- !u!1 &3807071227044343616
@@ -3060,6 +3009,7 @@ GameObject:
   - component: {fileID: 341625538375823947}
   - component: {fileID: 1082702857734490013}
   - component: {fileID: 6547503550880790284}
+  - component: {fileID: 8145865076375343049}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -3154,6 +3104,52 @@ MonoBehaviour:
   gold:
   - {fileID: 22904848964862137}
   - {fileID: 0}
+--- !u!114 &8145865076375343049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976120265660128691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0433a50ad3895a4e865fa868ad547c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choosenBuySlot: {fileID: 0}
+  choosenSellSlot: {fileID: 0}
+  countUIText: {fileID: 8072500232765421056}
+  countUINum: 0
+  slotsParent:
+  - {fileID: 6170610875190497031}
+  - {fileID: 2516595635595951861}
+  - {fileID: 5487261432805117796}
+  slot:
+  - {fileID: 7081289068220410947}
+  - {fileID: 3785268109224392253}
+  - {fileID: 3629512233260826222}
+  _artifactSlots: []
+  _consumptionSlots: []
+  _papersSprites:
+  - {fileID: 1956901844, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: 979964557, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: 225209540, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: 1739432092, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: 954854434, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: -217509975, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  _soldOutsSprites:
+  - {fileID: 403013701, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: -1347286481, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  - {fileID: -1966595857, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
+  _emptyImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
+  _countUI: {fileID: 5139222257578867006}
+  _countUIBtns:
+  - {fileID: 443564227048828962}
+  - {fileID: 8451450838582536873}
+  - {fileID: 4791140039874068607}
+  - {fileID: 4758394589214199964}
+  - {fileID: 1428127918491525633}
+  - {fileID: 5981602083256992185}
 --- !u!1 &4222321890239417629
 GameObject:
   m_ObjectHideFlags: 0
@@ -3816,7 +3812,6 @@ GameObject:
   - component: {fileID: 5934179901141071639}
   - component: {fileID: 7504154037284972383}
   - component: {fileID: 4822910517796293345}
-  - component: {fileID: 6195420343328347687}
   m_Layer: 11
   m_Name: CountUIBG
   m_TagString: Untagged
@@ -3886,27 +3881,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6195420343328347687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5139222257578867006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46aab3c9dcdee5b4680233e2f1b2a1a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buttons:
-  - {fileID: 443564227048828962}
-  - {fileID: 8451450838582536873}
-  - {fileID: 4791140039874068607}
-  - {fileID: 4758394589214199964}
-  - {fileID: 1428127918491525633}
-  - {fileID: 5981602083256992185}
-  itemCount: {fileID: 8072500232765421056}
-  count: 0
 --- !u!1 &5310973603024847220
 GameObject:
   m_ObjectHideFlags: 0
@@ -5275,7 +5249,6 @@ MonoBehaviour:
     item: {fileID: 0}
     count: 0
   image: {fileID: 8258485725080637097}
-  _countUI: {fileID: 6195420343328347687}
   itemName: {fileID: 7170405263822733479}
   itemPrice: {fileID: 4306292441327341357}
   _soldOut: {fileID: 5006197418272605262}
@@ -5553,8 +5526,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6195420343328347687}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.CountUI, Assembly-CSharp
+      - m_Target: {fileID: 8145865076375343049}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.Buy, Assembly-CSharp
         m_MethodName: BuySlots
         m_Mode: 1
         m_Arguments:
@@ -5705,8 +5678,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6195420343328347687}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.CountUI, Assembly-CSharp
+      - m_Target: {fileID: 8145865076375343049}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.Buy, Assembly-CSharp
         m_MethodName: SellSlots
         m_Mode: 1
         m_Arguments:
@@ -5867,7 +5840,6 @@ GameObject:
   - component: {fileID: 4251138392783619697}
   - component: {fileID: 443564227048828962}
   - component: {fileID: 3379311690724219133}
-  - component: {fileID: 3296585081676082218}
   m_Layer: 11
   m_Name: Up
   m_TagString: Untagged
@@ -6005,18 +5977,6 @@ MonoBehaviour:
   - {fileID: 1111189784, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
   boostImage: {fileID: 4251138392783619697}
   _edgeImage: {fileID: 0}
---- !u!114 &3296585081676082218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7849737509092288779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73af15927383d64eb4ae097efb91e99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7881584335485397814
 GameObject:
   m_ObjectHideFlags: 0
@@ -6380,9 +6340,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6195420343328347687}
-        m_TargetAssemblyTypeName: BuyCountUI, Assembly-CSharp
-        m_MethodName: OffUI
+      - m_Target: {fileID: 8145865076375343049}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.Buy, Assembly-CSharp
+        m_MethodName: OffCountUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6422,7 +6382,6 @@ GameObject:
   - component: {fileID: 6487040031886431426}
   - component: {fileID: 8451450838582536873}
   - component: {fileID: 4959128300782574519}
-  - component: {fileID: 3262774771916057049}
   m_Layer: 11
   m_Name: Down
   m_TagString: Untagged
@@ -6560,18 +6519,6 @@ MonoBehaviour:
   - {fileID: -733496079, guid: 2d9f6256d77789a4d82fd66abd07ab9e, type: 3}
   boostImage: {fileID: 6487040031886431426}
   _edgeImage: {fileID: 0}
---- !u!114 &3262774771916057049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8638515975183514872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73af15927383d64eb4ae097efb91e99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8742304020860818932
 GameObject:
   m_ObjectHideFlags: 0

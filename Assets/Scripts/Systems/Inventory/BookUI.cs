@@ -1,26 +1,19 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Ciart.Pagomoa.UI;
+using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class InventoryUIManager : MonoBehaviour
+    public class BookUI : MonoBehaviour
     {
-        public static InventoryUIManager Instance = null;
-
         [SerializeField] private GameObject _itemsTab;
-        [SerializeField] private Button _itemsTabButton;
+        [SerializeField] private TabSpriteButton _itemsTabButton;
         [SerializeField] private GameObject _infoTab;
-        [SerializeField] private Button _infoTabButton;
+        [SerializeField] private TabSpriteButton _infoTabButton;
         [SerializeField] private GameObject _questTab;
-        [SerializeField] private Button _questTabButton;
+        [SerializeField] private TabSpriteButton _questTabButton;
         [SerializeField] private Sprite[] _tabSprites;
         [SerializeField] public GameObject ItemHoverObject;
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-        }
+        
         public void SetUI()
         {
             bool click = false;
@@ -33,24 +26,27 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _itemsTab.SetActive(true);
             _infoTab.SetActive(false);
             _questTab.SetActive(false);
-            _itemsTabButton.image.sprite = _tabSprites[0];
-            _infoTabButton.image.sprite = _tabSprites[2];
+            _itemsTabButton.isSelected = true;
+            _infoTabButton.isSelected = false;
+            _questTabButton.isSelected = false;
         }
         public void ClickInfoTab()
         {
             _infoTab.SetActive(true);
             _itemsTab.SetActive(false);
             _questTab.SetActive(false);
-            _infoTabButton.image.sprite = _tabSprites[3];
-            _itemsTabButton.image.sprite = _tabSprites[1];
+            _infoTabButton.isSelected = true;
+            _itemsTabButton.isSelected = false;
+            _questTabButton.isSelected = false;
         }
         public void ClickQuestTab()
         {
             _questTab.SetActive(true);
             _itemsTab.SetActive(false);
             _infoTab.SetActive(false);
-            //_infoTabButton.image.sprite = _tabSprites[3];
-            //_itemsTabButton.image.sprite = _tabSprites[1];
+            _questTabButton.isSelected = true;
+            _itemsTabButton.isSelected = false;
+            _infoTabButton.isSelected = false;
         }
     }
 }

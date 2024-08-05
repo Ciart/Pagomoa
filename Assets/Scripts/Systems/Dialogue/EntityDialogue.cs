@@ -105,6 +105,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void OnEnable()
         {
             _entityController = GetComponent<EntityController>();
+            if (_entityController == null) return;
             var origin = _entityController.origin;
             
             if (!QuestManager.instance) return;

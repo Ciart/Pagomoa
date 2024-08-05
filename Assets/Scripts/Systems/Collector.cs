@@ -7,7 +7,6 @@ namespace Ciart.Pagomoa.Systems
 {
     public class Collector : MonoBehaviour
     {
-        public Inventory.Inventory etcInventory;
         public UnityEvent OnCollectEvent;
         private void Awake()
         {
@@ -31,7 +30,7 @@ namespace Ciart.Pagomoa.Systems
             }
 
             OnCollectEvent.Invoke();
-            GameManager.player.inventoryDB.Add(item);
+            GameManager.player.inventory.Add(item);
             Destroy(itemEntity.gameObject);
 
             if (item.name == "PowerGemEarth")

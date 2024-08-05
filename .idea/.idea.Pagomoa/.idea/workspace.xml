@@ -5,25 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Daily/Intro.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Daily/Intro.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.ink" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.ink.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.ink" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Surprise-Sheet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Surprise-Sheet.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayer.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayer.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayerWalk.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayerWalk.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +17,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/CutSceneDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eef08f56e2e042f1b3027eca477293d946ac00/56/209ad3e3/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Events/QuestUIEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Hover.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/QuickSlotUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Terminal/BuiltinCommands.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Terminal/RegisterCommandAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Terminal/Terminal.cs" root0="FORCE_HIGHLIGHTING" />
@@ -63,12 +48,16 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Attach to Unity Editor.Attach to Unity Editor &amp; Play.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Unity 에디터에 연결.Attach to Unity Editor &amp; Play.executor&quot;: &quot;Debug&quot;,
+    &quot;Unity 에디터에 연결.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;Unity 플레이어에 연결.Unity (AssetImportWorker1).executor&quot;: &quot;Debug&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.3527027&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.18380062&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/inventory&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/shop-refactoring&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -139,6 +128,21 @@
       </option>
       <method v="2" />
     </configuration>
+    <configuration name="Unity (AssetImportWorker1)" type="UnityPlayer" factoryName="UnityAttachToPlayer" temporary="true">
+      <option name="host" value="127.0.0.1" />
+      <option name="pid" value="10249" />
+      <option name="playerId" value="EditorHelper(Unity-AssetImportWorker1-Pagomoa)" />
+      <option name="playerInstanceId" value="Pagomoa" />
+      <option name="port" value="56249" />
+      <option name="projectName" value="Pagomoa" />
+      <option name="roleName" value="AssetImportWorker1" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Unity 플레이어에 연결.Unity (AssetImportWorker1)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -194,15 +198,11 @@
       <workItem from="1720872807633" duration="51000" />
       <workItem from="1720872872237" duration="3445000" />
       <workItem from="1721024474963" duration="1471000" />
-      <workItem from="1721905985584" duration="6627000" />
-      <workItem from="1722079574607" duration="13383000" />
-      <workItem from="1722145836477" duration="17218000" />
-      <workItem from="1722173990775" duration="4639000" />
-      <workItem from="1722584996684" duration="5982000" />
-      <workItem from="1722674572202" duration="1096000" />
-      <workItem from="1722690642711" duration="880000" />
-      <workItem from="1722841225387" duration="3450000" />
-      <workItem from="1722855913431" duration="3907000" />
+      <workItem from="1722075617248" duration="10334000" />
+      <workItem from="1722609314662" duration="4025000" />
+      <workItem from="1722642976224" duration="2867000" />
+      <workItem from="1722835927383" duration="209000" />
+      <workItem from="1722836415517" duration="4899000" />
     </task>
     <servers />
   </component>

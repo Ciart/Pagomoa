@@ -45,6 +45,78 @@ MonoBehaviour:
       status:
         health: 0
         maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
+    - x: 2
+      y: 1
+      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+      status:
+        health: 0
+        maxHealth: 0
     _bricks:
     - wall: {fileID: 11400000, guid: b552b7ad910167a4a8f66766efb3cc37, type: 2}
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
@@ -1360,7 +1432,7 @@ MonoBehaviour:
       ground: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
       mineral: {fileID: 0}
       isRock: 0
-  selectIndex: 4
+  selectIndex: 0
   brokenEffectTiles:
   - {fileID: 11400000, guid: cc15b4e5012644df99d607aa7176cd11, type: 2}
   - {fileID: 11400000, guid: 94a7431bd0284473e8e796797a1f6ab9, type: 2}
