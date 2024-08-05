@@ -27,7 +27,7 @@
 *[다음] -> Quest
  
  === Quest
- #talker 농
+#talker 농
 #sprite noungNounsense1
 정말? 혹시 파본 광물이라도 있어? 있으면 두개만 구해와줄래?
 *[수락] -> Accept
