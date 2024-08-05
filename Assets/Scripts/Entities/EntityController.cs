@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities
@@ -24,6 +25,11 @@ namespace Ciart.Pagomoa.Entities
         public DamageFlag flag;
     }
 
+    public class EntityExplodedEventArgs
+    {
+        public float amount;
+    }
+
     public class EntityController : MonoBehaviour
     {
         public EntityOrigin origin;
@@ -33,6 +39,8 @@ namespace Ciart.Pagomoa.Entities
         public EntityController parent;
 
         public event Action<EntityDamagedEventArgs> damaged;
+
+        public event Action<EntityExplodedEventArgs> exploded;
 
         public event Action died;
         
@@ -124,8 +132,16 @@ namespace Ciart.Pagomoa.Entities
             }
 
             damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
-
             StartCoroutine(RunInvincibleTimeFlash());
+        }
+
+        public void TakeExploded(float amount)
+        {
+            if (!isInvincible)
+            {
+                status.health -= amount;
+            }
+            exploded?.Invoke(new EntityExplodedEventArgs { amount = amount });
         }
 
         public void Die()

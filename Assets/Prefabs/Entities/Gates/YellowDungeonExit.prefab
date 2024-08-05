@@ -60,6 +60,30 @@ PrefabInstance:
       propertyPath: destination
       value: 
       objectReference: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
+    - target: {fileID: 7170909304396357665, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: images.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170909304396357665, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: images.Array.data[0]
+      value: 
+      objectReference: {fileID: -1571978534, guid: f2e625cd5091143549484b2747bf1f85, type: 3}
+    - target: {fileID: 7170909304396357665, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: images.Array.data[1]
+      value: 
+      objectReference: {fileID: 1732209633, guid: f2e625cd5091143549484b2747bf1f85, type: 3}
+    - target: {fileID: 7170909304396357665, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: images.Array.data[2]
+      value: 
+      objectReference: {fileID: -1180975801, guid: f2e625cd5091143549484b2747bf1f85, type: 3}
+    - target: {fileID: 7170909304396357665, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: images.Array.data[3]
+      value: 
+      objectReference: {fileID: 1046864707, guid: f2e625cd5091143549484b2747bf1f85, type: 3}
+    - target: {fileID: 8668413455139007437, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1046864707, guid: f2e625cd5091143549484b2747bf1f85, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

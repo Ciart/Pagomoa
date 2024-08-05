@@ -1,4 +1,5 @@
-using Ciart.Pagomoa.Systems.Dialogue;
+﻿using Ciart.Pagomoa.Systems.Dialogue;
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
@@ -18,6 +19,7 @@ namespace Ciart.Pagomoa.Systems
             if (_buyUI.activeSelf == false)
             {
                 _buyUI.SetActive(true);
+                TimeManager.instance.PauseTime();
                 ShopChat.Instance.AwakeChat();
             }
             else
@@ -25,6 +27,7 @@ namespace Ciart.Pagomoa.Systems
         }
         public void OffUI()
         {
+            TimeManager.instance.ResumeTime();
             _buyUI.SetActive(false);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Ciart.Pagomoa.Entities.Monsters;
+using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,10 +35,14 @@ namespace Ciart.Pagomoa.Systems.Time
     
         public bool canSleep = false;
 
+        public bool isTimeStop = false;
+
         private float nextUpdateTime = 0f;
 
         private string season = "";
         private bool eventTakePlace = true;
+
+        private PlayerInput playerInput;
     
         public event Action<int> tickUpdated;
 
@@ -53,6 +58,22 @@ namespace Ciart.Pagomoa.Systems.Time
             MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
             MonsterWakeUp.AddListener(NightMonster.TimeToBye);
             
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        {
+            var player = e.player;
+            playerInput = player.GetComponent<PlayerInput>();
         }
 
         private void Update()
@@ -160,6 +181,20 @@ namespace Ciart.Pagomoa.Systems.Time
         public void AddDay(int day)
         {
             date += day;
+        }
+
+        public void PauseTime()
+        {
+            UnityEngine.Time.timeScale = 0;
+            isTimeStop = true;
+            if(playerInput) playerInput.Actable = false;
+        }
+
+        public void ResumeTime()
+        {
+            UnityEngine.Time.timeScale = 1;
+            isTimeStop = false;
+            if (playerInput) playerInput.Actable = true;
         }
     }
 }

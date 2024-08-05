@@ -114,6 +114,7 @@ namespace Ciart.Pagomoa.Systems
             //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             // }
         }
+
         private void ToggleEscDialogueUI()
         {
             _dialogueUI.SetActive(false);
