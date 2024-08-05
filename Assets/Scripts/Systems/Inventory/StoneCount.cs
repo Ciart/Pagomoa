@@ -25,17 +25,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void WriteStoneCount()
         {
-            _countText.text = $"{GameManager.player.inventoryDB.stoneCount} / {GameManager.player.inventoryDB.maxCount}";
+            _countText.text = $"{GameManager.player.inventory.stoneCount} / {GameManager.player.inventory.maxCount}";
         }
         public void UpCount(int count)
         {
-            GameManager.player.inventoryDB.stoneCount += count;
-            _countText.text = $"{GameManager.player.inventoryDB.stoneCount} / {GameManager.player.inventoryDB.maxCount}";
+            GameManager.player.inventory.stoneCount += count;
+            _countText.text = $"{GameManager.player.inventory.stoneCount} / {GameManager.player.inventory.maxCount}";
             LoadDrillImage();
         }
         private void LoadDrillImage()
         {
-            if (GameManager.player.inventoryDB.maxCount / 2 <= GameManager.player.inventoryDB.stoneCount)
+            if (GameManager.player.inventory.maxCount / 2 <= GameManager.player.inventory.stoneCount)
                 _drillImage.sprite = _drillImages[0];
         }
     }

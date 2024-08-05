@@ -3,6 +3,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
@@ -21,7 +22,7 @@ namespace Ciart.Pagomoa.Entities.Players
         
         public float sideWallDistance = 1.0625f;
         
-        public InventoryDB inventoryDB;
+        [FormerlySerializedAs("inventoryDB")] public Inventory inventory;
 
         private Rigidbody2D _rigidbody;
         

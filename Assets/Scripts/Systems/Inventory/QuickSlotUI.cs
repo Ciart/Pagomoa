@@ -1,131 +1,98 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
-using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class QuickSlotUI : MonoBehaviour
+    public class QuickSlotUI : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
+        [SerializeField] public Image itemImage;
+        [SerializeField] public Sprite transparentImage;
+        [SerializeField] public TextMeshProUGUI itemCount;
 
-        static public QuickSlotUI instance;
+        [SerializeField] public int id;
+        [SerializeField] public Image selectedSlotImage;
         
-        const int QuickSlots = 6;
-        public QuickSlot[] quickSlotsUI = new QuickSlot[QuickSlots];
-        [SerializeField] public QuickSlot selectedSlot;
-        
-        [SerializeField] private QuickSlot _sellingQuickSlot;
-
-        private PlayerInput _playerInput;
-        private QuickSlot _findSlot;
-        private void Awake()
+        private Item _item
         {
-            if (instance == null)
-                instance = this;
-            else
-                Destroy(this.gameObject);
-        }
+            get => GameManager.player.inventory.GetQuickItem(id);
+            set => GameManager.player.inventory.SetQuickItem(id, value);
+        } 
 
-        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        private void SwapSlot(PointerEventData eventData)
         {
-            _playerInput = e.player.GetComponent<PlayerInput>();
-
-            _playerInput.Actions.Slot1.started += context => { ControlQuickSlot(0); };
-            _playerInput.Actions.Slot2.started += context => { ControlQuickSlot(1); };
-            _playerInput.Actions.Slot3.started += context => { ControlQuickSlot(2); };
-            _playerInput.Actions.Slot4.started += context => { ControlQuickSlot(3); };
-            _playerInput.Actions.Slot5.started += context => { ControlQuickSlot(4); };
-            _playerInput.Actions.Slot6.started += context => { ControlQuickSlot(5); };
-
-            _playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
-        }
-
-        private void OnEnable()
-        {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            GameManager.player.inventory.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
         }
         
-        private void OnDisable()
+        public void UpdateSlot()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            if (_item?.itemImage is null)
+            {
+                itemImage.sprite = transparentImage;
+                itemCount.text = "";
+                return;
+            }
+
+            itemImage.sprite = _item.itemImage;
+            itemCount.text =  GameManager.player.inventory.GetItemCount(_item).ToString();
         }
-        
-        public void SetQuickSlotItemCount(Item data)
+
+        public void OnDrop(PointerEventData eventData)
         {
-            int itemsIdx = Array.FindIndex(GameManager.player.inventoryDB.items, element => element.item == data);
-            int quickSlotsIndex = Array.FindIndex(GameManager.player.inventoryDB.quickSlots, element => element.item == data);
+            var dragSlot = eventData.pointerDrag.GetComponent<Drag>();
+
+            if (eventData.pointerDrag.GetComponent<QuickSlotUI>())
+                SwapSlot(eventData);
+            else if (eventData.pointerDrag.GetComponent<InventorySlotUI>())
+                _item = dragSlot.item.item;
+        }
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (_item == null)
+                return;
             
-            if (itemsIdx != -1  && quickSlotsIndex != -1)
-            {
-                InventoryItem item = GameManager.player.inventoryDB.items[itemsIdx];
-                InventoryItem quickSlotItem = GameManager.player.inventoryDB.quickSlots[quickSlotsIndex];
-                
-                for (int i = 0; i < GameManager.player.inventoryDB.quickSlots.Length; i++)
-                {
-                    if (quickSlotsIndex == quickSlotsUI[i].id)
-                    {
-                        _findSlot = quickSlotsUI[i];
-                    }
-                }
-                
-                if (item.count > 1)
-                {
-                    _findSlot.itemCount.text = (item.count - 1).ToString();
-                }
-                else if (item.count == 1)
-                {
-                    quickSlotItem.item = null;
-                    quickSlotItem.count = 0;
-                    _findSlot.itemImage.sprite = _findSlot.transparentImage;
-                    _findSlot.itemCount.text = null;
-                }
-            }
+            var newPosition = new Vector3(eventData.position.x, eventData.position.y);
+            DragItem.Instance.DragSetImage(_item.itemImage);
+            DragItem.Instance.transform.position = newPosition;
         }
-        private void UseQuickSlot()
+        public void OnDrag(PointerEventData eventData)
         {
-            if (selectedSlot == null || selectedSlot.inventoryItem == null || selectedSlot.inventoryItem.item == null)
-                return;
+            DragItem.Instance.transform.position = eventData.position;
+        }
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            DragItem.Instance.SetColor(0);
+        }
 
-            if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Use)
-            {
-                
-                selectedSlot.UseItem();
-                SetQuickSlotItemCount(selectedSlot.inventoryItem.item);
-                
-                GameManager.player.inventoryDB.DecreaseItemCount(selectedSlot.inventoryItem.item);
-                Inventory.Instance.DeleteSlot();
-                Inventory.Instance.UpdateSlot();
-               
-            }
-            else if (selectedSlot.inventoryItem.item.itemType == Item.ItemType.Inherent)
-            {
-                selectedSlot.UseItem();
-            }
-            else
-                return;
-        }
-        public void ControlQuickSlot(int n)
-        {
-            for (int index = 0; index < quickSlotsUI.Length; index++)
-            {
-                if (n == index)
-                {
-                    if (selectedSlot != quickSlotsUI[index])
-                    {
-                        selectedSlot = quickSlotsUI[index];
-                        quickSlotsUI[index].selectedSlotImage.gameObject.SetActive(true);
-                        selectedSlot.transform.SetAsLastSibling();
-                    }
-                    else
-                    {
-                        quickSlotsUI[index].selectedSlotImage.gameObject.SetActive(false);
-                        selectedSlot = null;
-                    }
-                }
-                else
-                    quickSlotsUI[index].selectedSlotImage.gameObject.SetActive(false);
-            }
-        }
+        // public void OnPointerClick(PointerEventData eventData)
+        // {
+        //     Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+        //         Input.mousePosition.y, -Camera.main.transform.position.z));
+        //     for (int i = 0; i < QuickSlotUI.instance.quickSlotsUI.Length; i++)
+        //     {
+        //         QuickSlotUI.instance.quickSlotsUI[i].selectedSlotImage.gameObject.SetActive(false);
+        //     }
+        //
+        //     QuickSlotUI.instance.selectedSlot = eventData.pointerPress.GetComponent<QuickSlot>();
+        //     QuickSlotUI.instance.selectedSlot.selectedSlotImage.gameObject.SetActive(true);
+        //     QuickSlotUI.instance.selectedSlot.transform.SetAsLastSibling();
+        // }
+
+
+
+        ////
+        ///
+        //
+        //
+        // public void UseItem()
+        // {
+        //     PlayerStatus playerPlayerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
+        //     QuickSlotContainerUI.instance.selectedSlot.inventoryItem.item.Active(playerPlayerStatus);
+        // }
     }
 }

@@ -1,15 +1,9 @@
 fileFormatVersion: 2
-guid: 074031ecc58c1d044aab83cdc1ca8456
+guid: ed9fe78d2ab77704cad95cce2b2ac246
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - choiceSlot: {instanceID: 0}
-  - hoverSlot: {instanceID: 0}
-  - slotParent: {instanceID: 0}
-  - slot: {instanceID: 0}
-  - image: {instanceID: 0}
-  - emptyImage: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

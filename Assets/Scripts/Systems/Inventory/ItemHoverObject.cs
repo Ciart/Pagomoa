@@ -22,11 +22,11 @@ namespace Ciart.Pagomoa
             else
                 Destroy(this.gameObject);
         }
-        public void WriteText(Slot slot)
+        public void WriteText(InventorySlotUI slot)
         {
-            _itemName.GetComponent<TextMeshProUGUI>().text = slot.inventoryItem.item.itemName;
-            _itemInfo.GetComponent<TextMeshProUGUI>().text = slot.inventoryItem.item.itemInfo;
-            _itemType.GetComponent<TextMeshProUGUI>().text = slot.inventoryItem.item.itemType.ToString();
+            _itemName.GetComponent<TextMeshProUGUI>().text = slot.slot.item.itemName;
+            _itemInfo.GetComponent<TextMeshProUGUI>().text = slot.slot.item.itemInfo;
+            _itemType.GetComponent<TextMeshProUGUI>().text = slot.slot.item.itemType.ToString();
         }
         public void OffHover()
         {

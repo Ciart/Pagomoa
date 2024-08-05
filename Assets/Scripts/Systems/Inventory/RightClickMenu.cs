@@ -36,31 +36,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void PressedEquipBtn()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipCheck();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipCheck();
         }
         public void PressedEquipYes()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipItem();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipItem();
         }
         public void PressedEatAllBtn()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EatAllMineral();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatAllMineral();
         }
         public void PressedEatBtn()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EatMineral();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatMineral();
         }
         public void PressedTenEatBtn()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().EatTenMineral();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatTenMineral();
         }
         public void PressedUseBtn()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().UseItem();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().UseItem();
         }
         public void PressedThrowAwayBtn()
         {
-            Inventory.Instance.choiceSlot.GetComponent<ClickToSlot>().AbandonItem();
+            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().AbandonItem();
         }
         public void PressedCancleBtn()
         {
@@ -77,7 +77,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MineralMenu()
         {
-            if (Inventory.Instance.choiceSlot.inventoryItem.count >= 10)
+            if (InventoryUI.Instance.choiceSlot.slot.count >= 10)
             {
                 MakeMenu("모두 먹이기");
                 MakeMenu("10개 먹이기");
@@ -85,14 +85,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (Inventory.Instance.choiceSlot.inventoryItem.count < 10 && Inventory.Instance.choiceSlot.inventoryItem.count > 1)
+            else if (InventoryUI.Instance.choiceSlot.slot.count < 10 && InventoryUI.Instance.choiceSlot.slot.count > 1)
             {
                 MakeMenu("모두 먹이기");
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (Inventory.Instance.choiceSlot.inventoryItem.count == 1)
+            else if (InventoryUI.Instance.choiceSlot.slot.count == 1)
             {
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
