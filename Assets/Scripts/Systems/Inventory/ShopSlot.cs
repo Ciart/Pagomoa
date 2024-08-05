@@ -30,15 +30,15 @@ namespace Ciart.Pagomoa
         {
             for (int i = 0; i < Buy.Instance.countUINum; i++)
             {
-                if (Buy.Instance.choosenSellSlot.inventoryItem.count > 1)
+                if (Buy.Instance.choosenSellSlot.slot.count > 1)
                 {
-                    GameManager.player.inventoryDB.SellItem(Buy.Instance.choosenSellSlot.inventoryItem.item);
-                    QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.inventoryItem.item);
+                    // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 else if (Buy.Instance.choosenSellSlot.inventoryItem.count == 1)
                 {
-                    GameManager.player.inventoryDB.SellItem(Buy.Instance.choosenSellSlot.inventoryItem.item);
-                    QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
+                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.inventoryItem.item);
+                    // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 Buy.Instance.DeleteSellUISlot();
                 Buy.Instance.ResetSellUISlot();
