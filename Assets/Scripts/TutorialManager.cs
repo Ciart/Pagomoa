@@ -46,10 +46,10 @@ namespace Ciart.Pagomoa
 
         private bool CheckInventoryUfoRemote()
         {
-            int idx = Array.FindIndex(GameManager.player.inventoryDB.items, element => element.item.itemType == Item.ItemType.Inherent);
+            int idx = Array.FindIndex(GameManager.player.inventory.items, element => element.item.itemType == Item.ItemType.Inherent);
             if (idx != -1)
             {
-                InventoryItem item =  GameManager.player.inventoryDB.items[idx];
+                InventorySlot item =  GameManager.player.inventory.items[idx];
                 if (item.item.itemName == "UFO리모컨")
                 {
                     _director.Play();

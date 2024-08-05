@@ -262,14 +262,14 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             bool upgradable = true;
-            var inventory = GameManager.player.inventoryDB;
+            var inventory = GameManager.player.inventory;
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {
-                if (needs.count > inventory.FindItemCount(needs.mineral))
+                if (needs.count > inventory.GetItemCount(needs.mineral))
                 {
                     upgradable = false;
-                    Debug.Log("업그레이드 실패: " + inventory.FindItemCount(needs.mineral) + "/" + needs.count);
+                    Debug.Log("업그레이드 실패: " + inventory.GetItemCount(needs.mineral) + "/" + needs.count);
                 }
             }
             if (upgradable) {

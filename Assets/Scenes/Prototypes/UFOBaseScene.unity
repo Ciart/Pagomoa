@@ -27084,7 +27084,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1568240190}
         m_TargetAssemblyTypeName: EtcInventory, Assembly-CSharp
-        m_MethodName: MakeSlot
+        m_MethodName: MakeSellUISlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27111,7 +27111,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1568240190}
         m_TargetAssemblyTypeName: EtcInventory, Assembly-CSharp
-        m_MethodName: ResetSlot
+        m_MethodName: ResetSellUISlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

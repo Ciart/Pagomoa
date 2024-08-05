@@ -146,7 +146,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Die()
         {
-            var inventory = GameManager.player.inventoryDB;
+            var inventory = GameManager.player.inventory;
             inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
 
             TimeManager.instance.Sleep();
@@ -168,18 +168,17 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void LoseMoney(float percentage)
         {
-            var inventoryDatabase = GameManager.player.inventoryDB;
+            var inventoryDatabase = GameManager.player.inventory;
             inventoryDatabase.Gold = (int)(inventoryDatabase.Gold * (1 - percentage));
         }
 
         private void LoseItem(Item.ItemType itemType, float probabilty)
         {
-            var inventoryDatabase =GameManager.player.inventoryDB;
+            var inventoryDatabase =GameManager.player.inventory;
 
-            List<InventoryItem> deleteItems = new List<InventoryItem>();
-            foreach (InventoryItem item in inventoryDatabase.items)
+            List<InventorySlot> deleteItems = new List<InventorySlot>();
+            foreach (InventorySlot item in inventoryDatabase.items)
             {
-                if (item == null) continue;
                 if (item.item == null) continue;
 
                 var rand = Random.Range(0, 101) * 0.01f;

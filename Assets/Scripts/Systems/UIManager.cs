@@ -14,6 +14,7 @@ namespace Ciart.Pagomoa.Systems
         public Image hungrybar;
         public GameObject inventoryUIPrefab;
         public GameObject dialogueUIPrefab;
+        public GameObject quickSlotContainerUIPrefab;
         public GameObject escUI;
         public GameObject interactableUI;
         public GameObject questCompleteUI;
@@ -34,10 +35,12 @@ namespace Ciart.Pagomoa.Systems
             Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
             questUI = _inventoryUI.GetComponent<QuestUI>();
-
+            
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
             dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+
+            Instantiate(quickSlotContainerUIPrefab, transform);
         }
         
         private void Start()
@@ -93,23 +96,23 @@ namespace Ciart.Pagomoa.Systems
             _isActiveInventory = !_isActiveInventory;
             _inventoryUI.SetActive(_isActiveInventory);
 
-            if (_isActiveInventory)
-            {
-                inventoryCamera.Priority = 11;
-            }
-            else
-            {
-                inventoryCamera.Priority = 9;
-
-                if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
-                    InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
-
-                if (Inventory.Inventory.Instance.hoverSlot == null)
-                    return;
-
-                Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
-                    Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
-            }
+            // if (_isActiveInventory)
+            // {
+            //     inventoryCamera.Priority = 11;
+            // }
+            // else
+            // {
+            //     inventoryCamera.Priority = 9;
+            //
+            //     // if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
+            //     //     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
+            //
+            //     if (Inventory.Inventory.Instance.hoverSlot == null)
+            //         return;
+            //
+            //     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
+            //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
+            // }
         }
 
         private void ToggleEscDialogueUI()

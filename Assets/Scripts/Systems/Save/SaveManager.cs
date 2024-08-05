@@ -179,8 +179,8 @@ namespace Ciart.Pagomoa.Systems.Save
 
             if (dataManager.data.itemData.itemss != null)
             {
-                GameManager.player.inventoryDB.items = dataManager.data.itemData.itemss;
-                GameManager.player.inventoryDB.Gold = dataManager.data.itemData.gold;
+                GameManager.player.inventory.items = dataManager.data.itemData.itemss;
+                GameManager.player.inventory.Gold = dataManager.data.itemData.gold;
             }
             else
                 Debug.Log("Item Data is Nothing");
@@ -223,7 +223,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadEatenMineralCountData()
         {
             if (DataManager.Instance.data.mineralData != null)
-                GameManager.player.inventoryDB.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
+                GameManager.player.inventory.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
             else
                 Debug.Log("Mineral Data is Nothing");
         }
@@ -255,7 +255,7 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WriteItemData()
         {
             InitData();
-            DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(GameManager.player.inventoryDB);
+            DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(GameManager.player.inventory);
         }
         
         // private void WriteArtifactData()
@@ -280,7 +280,7 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WriteEatenMineralCountData()
         {
             InitData();
-            DataManager.Instance.data.mineralData.SetEatenMineralData(GameManager.player.inventoryDB);
+            DataManager.Instance.data.mineralData.SetEatenMineralData(GameManager.player.inventory);
         }
 
         public void InitData()
