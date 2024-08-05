@@ -5,12 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Daily/Intro.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/Daily/Intro.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.ink.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Intro_Dialogue.json.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral.ink" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/InfiniteScrollBackground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/ScrollBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/ScrollBackground.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Surprise-Sheet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Intro/Player_Robe_Surprise-Sheet.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayer.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayer.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayerWalk.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/Animation/IntroPlayerWalk.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/IntroTimeline/IntroTimeline.playable" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +197,12 @@
       <workItem from="1721905985584" duration="6627000" />
       <workItem from="1722079574607" duration="13383000" />
       <workItem from="1722145836477" duration="17218000" />
-      <workItem from="1722173990775" duration="4406000" />
+      <workItem from="1722173990775" duration="4639000" />
+      <workItem from="1722584996684" duration="5982000" />
+      <workItem from="1722674572202" duration="1096000" />
+      <workItem from="1722690642711" duration="880000" />
+      <workItem from="1722841225387" duration="3450000" />
+      <workItem from="1722855913431" duration="3907000" />
     </task>
     <servers />
   </component>

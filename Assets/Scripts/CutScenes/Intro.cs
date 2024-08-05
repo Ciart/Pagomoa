@@ -21,7 +21,10 @@ namespace Ciart.Pagomoa.CutScenes
             _director.paused += FirstDialogue;
         }
 
-        public void StartIntro() { _director.Play(); }
+        public void PlayIntro() { 
+            _director.Play();
+            isPlayed = true;
+        }
 
         private void FirstDialogue(PlayableDirector aDirector)
         {

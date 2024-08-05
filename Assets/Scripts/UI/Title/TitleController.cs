@@ -6,6 +6,7 @@ using Ciart.Pagomoa.Systems.Save;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.UI.Title
 {
@@ -19,6 +20,8 @@ namespace Ciart.Pagomoa.UI.Title
 
         public Intro intro;
 
+        public GameObject eventManager; 
+        
         private void Start()
         {
             DataManager.Instance.LoadGameData();
@@ -74,8 +77,19 @@ namespace Ciart.Pagomoa.UI.Title
 
         private void FixedUpdate()
         {
+            if (intro.isPlayed) return;
+            
             if (backGrounds[0].startIntro && !intro.isPlayed)
-                intro.StartIntro();
+                intro.PlayIntro();
         }
+
+        public void StartGame()
+        {
+            if (intro.isPlayed) intro.gameObject.SetActive(false); 
+            
+            Destroy(eventManager);
+            
+            SceneManager.LoadScene("Scenes/WorldScene");
+        } 
     }
 }

@@ -126,6 +126,8 @@ namespace Ciart.Pagomoa.UI.Title
 
         private IEnumerator StopScroll()
         {
+            if (increaseDuration == 0) stopScroll = true;
+            
             yield return new WaitForSeconds(increaseDuration);
             
             stopScroll = true;

@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
+using Ciart.Pagomoa.CutScenes;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ink.Runtime;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa
 {
@@ -15,13 +15,15 @@ namespace Ciart.Pagomoa
         private GameObject _dialogueUI;
         public DialogueUI dialogueUI;
 
-        private bool _finishInit;
+        private Intro _intro; 
 
         private void Start()
         {
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
             dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+
+            _intro = gameObject.GetComponent<Intro>();
         }
         
         public void StartCutSceneStory(TextAsset asset)
@@ -31,6 +33,14 @@ namespace Ciart.Pagomoa
 
             dialogueUI.gameObject.SetActive(true);
             EventManager.Notify(new StoryStarted());
+        }
+
+        public void StopStoryAndPlayIntro()
+        {
+            story = null;
+            _dialogueUI.SetActive(false);
+            
+            _intro.PlayIntro();
         }
     }
 }
