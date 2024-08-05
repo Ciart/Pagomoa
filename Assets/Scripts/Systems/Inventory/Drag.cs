@@ -14,8 +14,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (slot != null)
             {
                 item = slot.slot;
-                if(slot.slot.item != null )
-                    DragItem.Instance.DragSetImage(slot.slot.item.itemImage);
+                if(GameManager.player.inventory.items[slot.id].item != null )
+                    DragItem.Instance.DragSetImage(GameManager.player.inventory.items[slot.id].item.itemImage);
             }
             DragItem.Instance.transform.position = newPosition;
         }

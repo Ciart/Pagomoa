@@ -177,8 +177,8 @@ MonoBehaviour:
     - item: {fileID: 0}
       count: 0
     items:
-    - item: {fileID: 0}
-      count: 0
+    - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+      count: 1
     - item: {fileID: 0}
       count: 0
     - item: {fileID: 0}
