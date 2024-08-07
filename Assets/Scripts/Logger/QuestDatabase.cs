@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
@@ -52,7 +53,7 @@ namespace Logger
                 }
             }
 
-            return null;
+            return Array.Empty<Quest>();
         }
     }
 }

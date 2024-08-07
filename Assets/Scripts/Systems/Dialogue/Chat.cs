@@ -11,13 +11,18 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             chatBalloon = GetComponent<ChatBalloon>();
         }
-        // Start is called before the first frame update
+        
         public void Chatting(string content)
         {
             chatBalloon.chatContent.text = content;
             chatBalloon.ReSizeBalloon();
         
             chatBalloon.balloon.SetActive(true);
+        }
+
+        public void EaseChatting()
+        {
+            chatBalloon.balloon.SetActive(false);
         }
     }
 }
