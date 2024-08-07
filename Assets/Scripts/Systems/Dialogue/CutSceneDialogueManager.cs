@@ -9,13 +9,13 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa
 {
-    public class CutSceneDialogueManager : DialogueManager
+    public class CutSceneDialogueManager : DialogueManagement
     {
         public GameObject dialogueUIPrefab;
         private GameObject _dialogueUI;
         public DialogueUI dialogueUI;
 
-        private Intro _intro; 
+        private Intro _intro;
 
         private void Start()
         {
@@ -26,16 +26,15 @@ namespace Ciart.Pagomoa
             _intro = gameObject.GetComponent<Intro>();
         }
         
-        public void StartCutSceneStory(TextAsset asset)
+        public void StartCutSceneStory(TextAsset storyAsset)
         {
-            story = new Story(asset.text);
-            //if (onCreateStory != null) onCreateStory(story);
+            story = new Story(storyAsset.text);
 
             dialogueUI.gameObject.SetActive(true);
-            EventManager.Notify(new StoryStarted());
+            EventManager.Notify(new StoryStarted(this));
         }
 
-        public void StopStoryAndPlayIntro()
+        public override void StopStory()
         {
             story = null;
             _dialogueUI.SetActive(false);

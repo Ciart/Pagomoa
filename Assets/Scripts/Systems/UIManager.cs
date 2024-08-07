@@ -34,8 +34,8 @@ namespace Ciart.Pagomoa.Systems
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
             Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
-            questUI = _inventoryUI.GetComponent<QuestUI>();
-            
+            questUI = _inventoryUI.transform.GetChild(1).GetChild(3).GetComponent<QuestUI>();
+
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
             dialogueUI = _dialogueUI.GetComponent<DialogueUI>();

@@ -5,8 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Entities/Tent.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Entities/Tent.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManagement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManagement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Entities/LegacyNoung.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Entities/LegacyNoung.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BrokenTent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/BrokenTent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/EntityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/EntityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/SpawnPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/SpawnPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/DialogueUIEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/DialogueUIEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/DialogueUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/DialogueUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +32,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eef08f56e2e042f1b3027eca477293d946ac00/56/209ad3e3/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/56073df97ede4f769c2cc45d546d986d172200/f5/3f014d03/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Events/QuestUIEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Hover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventoryUI.cs" root0="FORCE_HIGHLIGHTING" />
@@ -132,7 +147,6 @@
       <option name="host" value="127.0.0.1" />
       <option name="pid" value="10249" />
       <option name="playerId" value="EditorHelper(Unity-AssetImportWorker1-Pagomoa)" />
-      <option name="playerInstanceId" value="Pagomoa" />
       <option name="port" value="56249" />
       <option name="projectName" value="Pagomoa" />
       <option name="roleName" value="AssetImportWorker1" />
@@ -203,6 +217,8 @@
       <workItem from="1722642976224" duration="2867000" />
       <workItem from="1722835927383" duration="209000" />
       <workItem from="1722836415517" duration="4899000" />
+      <workItem from="1722862795392" duration="7624000" />
+      <workItem from="1722955510664" duration="5363000" />
     </task>
     <servers />
   </component>
