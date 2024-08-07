@@ -124,19 +124,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (idx != -1)
             {
-                InventorySlot item = items[idx];
-                
-                if (item.count > 1)
+                if (items[idx].count > 1)
                 {
-                    item.count--;
+                    items[idx].count--;
                 }
-                else if (item.count == 1 || item.count == 0)
+                else if (items[idx].count == 1 || items[idx].count == 0)
                 {
-                    item.item = null;
-                    item.count = 0;
+                    items[idx].item = null;
+                    items[idx].count = 0;
                 }
                 
-                EventManager.Notify(new ItemCountChangedEvent(data, item.count));
+                EventManager.Notify(new ItemCountChangedEvent(data, items[idx].count));
             }
         }
         
@@ -146,12 +144,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (idx == -1) return;
             
-            var item = items[idx];
+            items[idx].item = null;
+            items[idx].count = 0;
             
-            item.item = null;
-            item.count = 0;
-            
-            EventManager.Notify(new ItemCountChangedEvent(item.item, item.count));
+            EventManager.Notify(new ItemCountChangedEvent(items[idx].item, items[idx].count));
         }
 
         public void SwapSlot(int a, int b)
@@ -196,8 +192,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
             switch (item.itemType)
             {
                 case Item.ItemType.Use:
-                    DecreaseItemCount(item);
-                    item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                    if (GameManager.player.inventory.GetItemCount(item) != 0)
+                    {
+                        DecreaseItemCount(item);
+                        item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                    }
                     break;
                 case Item.ItemType.Inherent:
                     item.Active(GameManager.player.GetComponent<PlayerStatus>());

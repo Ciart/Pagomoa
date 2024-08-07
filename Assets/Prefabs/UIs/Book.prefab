@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e664e4d671085a48baa4ffbb99bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 1418422251413915591}
@@ -3125,8 +3125,8 @@ RectTransform:
   - {fileID: 3330327360614869298}
   - {fileID: 3599455707887277204}
   - {fileID: 2921075198212348320}
-  - {fileID: 9126464604016832460}
   - {fileID: 538731747876358504}
+  - {fileID: 9126464604016832460}
   m_Father: {fileID: 4551163896510667529}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

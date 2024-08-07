@@ -18,12 +18,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
             InventoryUI.Instance.choiceSlot = this;
             var inventory = InventoryUI.Instance;
 
-            if (inventory.choiceSlot.slot.item == null)
+            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
             
-            GameManager.player.inventory.Add(this.slot.item, 0);
+            GameManager.player.inventory.Add(GameManager.player.inventory.items[inventory.choiceSlot.id].item, 0);
             InventoryUI.Instance.UpdateSlots();
-            GameManager.player.inventory.RemoveArtifactData(this.slot.item);
+            GameManager.player.inventory.RemoveArtifactData(GameManager.player.inventory.items[inventory.choiceSlot.id].item);
             InventoryUI.Instance.SetArtifactSlots();
         }
         public void SetItem(InventorySlot item)
