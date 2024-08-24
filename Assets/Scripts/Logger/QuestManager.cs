@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Logger
         {
             database ??= GetComponent<QuestDatabase>();
         }
-        
+
         public void RegistrationQuest(Sprite entitySprite, EntityOrigin origin, string id)
         {
             var targetQuests = database.GetEntityQuestsByEntityID(origin);

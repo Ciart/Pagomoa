@@ -5,29 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba06b14f-c3eb-4724-9bcf-96a1d94d3207" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Entities/Tent.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Data/Entities/Tent.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManagement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManagement.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/CutSceneManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent_Complete.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent_Complete.ink.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent_Complete.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent_Complete.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper.ink.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper_Complete.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper_Complete.ink.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper_Complete.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_2_CollectCopper_Complete.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper.ink.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper_Complete.ink" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper_Complete.ink.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper_Complete.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_3_ConsumeCopper_Complete.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Entities/Moa.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Data/Entities/Moa.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/InteractableObject.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/InteractableObject.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/QuestCompleteIcon.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/QuestCompleteIcon.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Events/CutSceneEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Events/CutSceneEvent.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/MainTutorialMoa1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/MainTutorialMoa1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/MainTutorialMoa2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/Quests/MainTutorialMoa2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogue.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogue.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/TimelineCutScene.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/CutScene.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/CutScene.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/ShopkeeperAppear.playable" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Timelines/ShopkeeperAppear.playable.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pagomoa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Entities/LegacyNoung.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Entities/LegacyNoung.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BrokenTent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/BrokenTent.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/Dialogue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CameraShake.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CameraShake.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.ink" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/CollectMineral_Complete.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/tent_start.ink" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/tent_start.ink" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/tent_start.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/tent_start.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Shopkeeper.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Shopkeeper.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/InteractableObject.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/InteractableObject.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Moa.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Moa.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/QuestCompleteIcon.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/QuestCompleteIcon.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Shop.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Shop.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NewTitleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WorldScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/EntityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/EntityController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/SpawnPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/SpawnPoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/DialogueUIEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/DialogueUIEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/DialogueManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dialogues/StoryJson/Tutorial_1_RestoreTent.ink.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutScenes/Intro.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CutSceneManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/QuestEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/EntityEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/EntityEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/ConditionDictionary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ForEditorBaseScripts/ConditionDictionary.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/ProcessScripts/ProcessQuest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Logger/QuestManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/CloverMouseInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/CloverMouseInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Dialogue/CutSceneDialogueManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/FadeSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/FadeSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/DialogueUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/DialogueUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UIs/Book.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UIs/Book.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ClickToSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/ClickToSlot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Drag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/DragTrash.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/DragTrash.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/Inventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventorySlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Systems/Inventory/InventorySlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Title/TitleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +96,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Terminal/BuiltinCommands.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Terminal/RegisterCommandAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Terminal/Terminal.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Timelines/ShopkeeperCutScene.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.7.5/Editor/Signals/SignalReceiverInspector.cs" root0="SKIP_HIGHLIGHTING" />
@@ -101,6 +152,14 @@
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\a9018\Desktop\PagoMoa -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\a9018\Desktop\PagoMoa" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="독립실행형 플레이어" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../PagoMoaEXE\Pagomoa.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\a9018\Desktop\PagoMoaEXE" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
@@ -224,6 +283,23 @@
       <workItem from="1722835927383" duration="209000" />
       <workItem from="1722836415517" duration="4899000" />
       <workItem from="1722858299626" duration="3984000" />
+      <workItem from="1723008659816" duration="589000" />
+      <workItem from="1723090830491" duration="1290000" />
+      <workItem from="1723293377210" duration="6506000" />
+      <workItem from="1723359917682" duration="9582000" />
+      <workItem from="1723381092366" duration="4418000" />
+      <workItem from="1723457746615" duration="1620000" />
+      <workItem from="1723633525894" duration="6196000" />
+      <workItem from="1723712529435" duration="642000" />
+      <workItem from="1723806410409" duration="2246000" />
+      <workItem from="1723879192528" duration="11956000" />
+      <workItem from="1723892180434" duration="8000" />
+      <workItem from="1723960779487" duration="6612000" />
+      <workItem from="1723990007134" duration="177000" />
+      <workItem from="1723990242612" duration="958000" />
+      <workItem from="1724133068073" duration="6057000" />
+      <workItem from="1724150359342" duration="7287000" />
+      <workItem from="1724168403993" duration="3403000" />
     </task>
     <servers />
   </component>

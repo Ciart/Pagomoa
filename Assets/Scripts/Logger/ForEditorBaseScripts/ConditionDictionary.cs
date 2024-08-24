@@ -5,8 +5,8 @@ namespace Logger.ForEditorBaseScripts
 {
     [Serializable]
     public enum QuestType {
-        CollectMineral = 0,
-        ConsumeMineral,
+        CollectItem = 0,
+        ConsumeItem,
         BreakBlock,
         ConversationWithNpc,
         PlayerMoveDistance,
@@ -31,52 +31,52 @@ namespace Logger.ForEditorBaseScripts
     [Serializable]
     public class ConditionDictionary
     {
-        private const string typeInt = "int";
-        private const string typeFloat = "float";
-        private const string typeBool = "bool";
+        private const string TypeInt = "int";
+        private const string TypeFloat = "float";
+        private const string TypeBool = "bool";
         
         public Dictionary<QuestType, ConditionType> typeDictionary = new Dictionary<QuestType, ConditionType>()
         {
-            { QuestType.CollectMineral, new ConditionType
+            { QuestType.CollectItem, new ConditionType
             {
                 target = TargetType.Inventory,
-                typeValue = typeInt
-            }}, { QuestType.ConsumeMineral, new ConditionType
+                typeValue = TypeInt
+            }}, { QuestType.ConsumeItem, new ConditionType
             {
                 target = TargetType.Inventory,
-                typeValue = typeInt
+                typeValue = TypeInt
             }},{ QuestType.BreakBlock, new ConditionType
             {
                 target = TargetType.World,
-                typeValue = typeInt
+                typeValue = TypeInt
             }},{ QuestType.ConversationWithNpc, new ConditionType
             {
                 target = TargetType.Dialogue,
-                typeValue = typeBool
+                typeValue = TypeBool
             }},{ QuestType.PlayerMoveDistance, new ConditionType
             {
                 target = TargetType.Player,
-                typeValue = typeFloat
+                typeValue = TypeFloat
             }},{ QuestType.PlayerMoveDeeply, new ConditionType
             {
                 target = TargetType.Player,
-                typeValue = typeFloat
+                typeValue = TypeFloat
             }}, { QuestType.EnterArea, new ConditionType
             {
                 target = TargetType.Area,
-                typeValue = typeBool
+                typeValue = TypeBool
             }}, { QuestType.KillMonster, new ConditionType
             {
                 target =  TargetType.Entity,
-                typeValue = typeInt
+                typeValue = TypeInt
             }}, { QuestType.EarnGold, new ConditionType
             {
                 target = TargetType.Inventory,
-                typeValue = typeInt
+                typeValue = TypeInt
             }}, { QuestType.ConsumeGold, new ConditionType
             {
                 target = TargetType.Inventory,
-                typeValue = typeInt
+                typeValue = TypeInt
             }}
         };
     }

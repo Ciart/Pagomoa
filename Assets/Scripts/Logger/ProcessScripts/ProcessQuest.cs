@@ -34,9 +34,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             {
                 switch (condition.questType)
                 {
-                    case QuestType.CollectMineral :
-                        var collectMineral = new CollectMineral(condition);
-                        elements.Add(collectMineral);                        
+                    case QuestType.CollectItem :
+                        var collectItem = new CollectItem(condition);
+                        elements.Add(collectItem);                        
+                        break;
+                    case QuestType.ConsumeItem :
+                        var consumeItem = new ConsumeItem(condition);
+                        elements.Add(consumeItem);
                         break;
                     case QuestType.BreakBlock :
                         var breakBlock = new BreakBlock(condition);
@@ -87,7 +91,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region IntQuestElements
     
-    public class CollectMineral : ProcessIntQuestElements, IQuestElements
+    public class CollectItem : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
 
@@ -96,7 +100,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
         }
 
-        public CollectMineral(QuestCondition elements)
+        public CollectItem(QuestCondition elements)
         {
             questType = elements.questType; 
             summary = elements.summary;
@@ -104,7 +108,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             targetEntity = elements.targetEntity;
             valueType = elements.value; 
             compareValue = 0;
-            
+
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
             var inventoryItems = GameManager.player.inventory.items;
@@ -135,8 +139,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             var inventoryItem = (ItemCountChangedEvent)e;
             
             InitQuestValue(value, inventoryItem.count);
-            
-            Debug.Log("mineral :" + compareValue);
         }
 
         private void CountItem(ItemCountChangedEvent e)
@@ -148,13 +150,83 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             CalculationValue(e);
             
             if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
-            if (e.count <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
+            if (e.count <= prevValue)
+                EventManager.Notify(new QuestAccomplishEvent());
         }
 
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
+
+    public class ConsumeItem : ProcessIntQuestElements, IQuestElements
+    {
+        public bool complete { get; set; } = false;
+        private int _initialValue;
+        
+        public void Dispose()
+        {
+            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
+        }
+
+        public ConsumeItem(QuestCondition elements)
+        {
+            questType = elements.questType; 
+            summary = elements.summary;
+            value = int.Parse(elements.value);
+            targetEntity = elements.targetEntity;
+            valueType = elements.value; 
+            compareValue = 0;
+            
+            EventManager.AddListener<ItemCountChangedEvent>(CountItem);
+            
+            var inventoryItems = GameManager.player.inventory.items;
+            foreach (var inventoryItem in inventoryItems)
+            {
+                if (inventoryItem.item == targetEntity)
+                {
+                    _initialValue = inventoryItem.count;
+                    break;
+                }
+            }
+        }
+
+        public bool CheckComplete()
+        {
+            complete = compareValue >= value;
+            return complete;
+        }
+
+        public override bool TypeValidation(ScriptableObject target)
+        {
+            return target == targetEntity;
+        }
+
+        public override void CalculationValue(IEvent e)
+        {
+            var inventoryItem = (ItemCountChangedEvent)e;
+
+            var targetCount = _initialValue - inventoryItem.count;
+            
+            if (targetCount == value)
+            
+            Debug.Log("mineral :" + compareValue);
+        }
+
+        private void CountItem(ItemCountChangedEvent e)
+        {
+            if (!TypeValidation(e.item)) return ;
+
+            CalculationValue(e);
+            
+            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+        }
+
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString(); }
+        public string GetCompareValueToString() { return compareValue.ToString(); }
+    }
+    
     // This quest counts blocks when player dig blocks that same Type.      
     public class BreakBlock : ProcessIntQuestElements, IQuestElements
     {

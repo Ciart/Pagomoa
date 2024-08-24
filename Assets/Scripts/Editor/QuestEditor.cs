@@ -140,14 +140,17 @@ namespace Ciart.Pagomoa.Editor
                 
                 EditorGUILayout.LabelField("퀘스트 타입", newQuest.questList[i].questType.ToString());
 
-                if (newQuest.questList[i].questType == QuestType.CollectMineral)
+                switch (newQuest.questList[i].questType)
                 {
-                    newQuest.questList[i].targetEntity = (MineralItem)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                        ,newQuest.questList[i].targetEntity , typeof(MineralItem), true);
-                } else if (newQuest.questList[i].questType == QuestType.BreakBlock)
-                {
-                    newQuest.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                        ,newQuest.questList[i].targetEntity , typeof(Ground), true);
+                    case QuestType.CollectItem:
+                    case QuestType.ConsumeItem:
+                        newQuest.questList[i].targetEntity = (Item)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
+                            ,newQuest.questList[i].targetEntity , typeof(Item), true);
+                        break;
+                    case QuestType.BreakBlock:
+                        newQuest.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
+                            ,newQuest.questList[i].targetEntity , typeof(Ground), true);
+                        break;
                 }
                 
                 /*newQuest.questList[i].targetEntity = (ScriptableObject)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"

@@ -4,7 +4,6 @@ using Ciart.Pagomoa.CutScenes;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

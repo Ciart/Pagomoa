@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
+  m_Name: MainTutorialMoa2
+  m_EditorClassIdentifier: 
+  questInCharge: {fileID: 0}
+  id: Tutorial_3_ConsumeCopper
+  prevQuestIds:
+  - Tutorial_2_CollectCopper
+  title: "\uBAA8\uC544\uB294 \uADF8\uAC78 \uC6D0\uD574"
+  description: "\uC774\uAC78 \uBA39\uC5B4\u2026? \uAD6C\uB9AC\uB97C \uBAA8\uC544\uC5D0\uAC8C
+    \uBA39\uC5EC\uBCF4\uC790."
+  startPrologue: {fileID: 4900000, guid: 9e0827f7b9556a941a3596d9cf0cac84, type: 3}
+  completePrologue: {fileID: 4900000, guid: f7dd26ae799e3a6499f31fb9eb9f139e, type: 3}
+  reward:
+    gold: 333
+    targetEntity: {fileID: 11400000, guid: d96efe887f7216f4ead0d7819537fd6f, type: 2}
+    targetEntitySprite: {fileID: 1913839440, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    value: 1
+  questList:
+  - questType: 1
+    summary: "\uAD6C\uB9AC \uC544\uC774\uD15C\uC744 \uD035\uC2AC\uB86F\uC5D0 \uB4F1\uB85D\uD558\uAC70\uB098
+      \uC544\uC774\uCF58\uC744 \uC6B0\uD074\uB9AD\uD574 \uC0AC\uC6A9\uD558\uAE30."
+    value: 5
+    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    conditionType:
+      target: 1
+      typeValue: int

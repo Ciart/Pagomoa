@@ -1,21 +1,19 @@
-using System;
-using System.Collections;
-using Ciart.Pagomoa.CutScenes;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ink.Runtime;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace Ciart.Pagomoa
 {
-    public class CutSceneDialogueManager : DialogueManagement
+    public class CutSceneDialogue : DialogueManagement
     {
         public GameObject dialogueUIPrefab;
         private GameObject _dialogueUI;
         public DialogueUI dialogueUI;
 
-        private Intro _intro;
+        private PlayableDirector _director;
 
         private void Start()
         {
@@ -23,7 +21,7 @@ namespace Ciart.Pagomoa
             _dialogueUI.SetActive(false);
             dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            _intro = gameObject.GetComponent<Intro>();
+            _director = gameObject.GetComponent<PlayableDirector>();
         }
         
         public void StartCutSceneStory(TextAsset storyAsset)
@@ -33,13 +31,13 @@ namespace Ciart.Pagomoa
             dialogueUI.gameObject.SetActive(true);
             EventManager.Notify(new StoryStarted(this));
         }
-
+        
         public override void StopStory()
         {
             story = null;
             _dialogueUI.SetActive(false);
             
-            _intro.PlayIntro();
+            _director.Play();
         }
     }
 }

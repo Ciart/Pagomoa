@@ -237,6 +237,23 @@ namespace Ciart.Pagomoa
                 return;
             }
 
+            if (CutSceneManager.instance.CutSceneIsPlayed())
+            {
+                var target = CutSceneManager.instance.GetTargetCutSceneData();
+                
+                foreach (var sprite in target.GetSprites())
+                {
+                    if (sprite.name.Replace(" ", string.Empty) == param)
+                    {
+                        talkImage.sprite = sprite;
+                        talkImage.gameObject.SetActive(true);
+                        return;
+                    }
+                }
+                
+                return;
+            }
+            
             foreach (var sprite in spriteGroup)
             {
                 string spriteName = sprite.name;
