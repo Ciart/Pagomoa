@@ -141,6 +141,8 @@ namespace Ciart.Pagomoa.Worlds
             var powerY = random.NextInt(ForestHeight, -20);
             GeneratePiece(database.GetPieceWithTag("PowerGemEarth"), level, powerX, powerY, true);
 
+            GeneratePiece(database.GetPieceWithTag("Golem"), level, powerX, 0, true);
+
             //GeneratePiece(database.GetPieceWithTag("YellowDungeon"), level, 0, 0, true);
 
             return level;

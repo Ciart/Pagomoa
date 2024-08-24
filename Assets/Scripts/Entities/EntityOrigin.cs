@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities
 {
@@ -13,7 +13,8 @@ namespace Ciart.Pagomoa.Entities
         Snake = 100,
         Mummy,
         Clover,
-        Owl
+        Owl,
+        Golem
     }
 
     [CreateAssetMenu(fileName = "New Entity Definition", menuName = "Pagomoa/Entity")]
