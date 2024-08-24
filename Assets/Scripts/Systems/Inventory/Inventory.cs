@@ -188,22 +188,24 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void UseQuickSlotItem(int index)
         {
             var item = _quickItems[index];
-            
-            switch (item.itemType)
+
+            if (GameManager.player.inventory.GetItemCount(item) != 0)
             {
-                case Item.ItemType.Use:
-                    if (GameManager.player.inventory.GetItemCount(item) != 0)
-                    {
+                switch (item.itemType)
+                {
+                    case Item.ItemType.Use:
                         DecreaseItemCount(item);
                         item.Active(GameManager.player.GetComponent<PlayerStatus>());
-                    }
-                    break;
-                case Item.ItemType.Inherent:
-                    item.Active(GameManager.player.GetComponent<PlayerStatus>());
-                    break;
-                default:
-                    return;
+                        break;
+                    case Item.ItemType.Inherent:
+                        item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                        break;
+                    default:
+                        return;
+                }
             }
+            else
+                return;
         }
     }
 }
