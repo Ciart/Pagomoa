@@ -62,14 +62,14 @@ namespace Ciart.Pagomoa.Logger
         
         public void QuestAccomplishment(SignalToNpc e)
         {
-            EventManager.Notify(new CompleteQuestsUpdated(IsCompleteQuest()));
+            EventManager.Notify(new CompleteQuestsUpdated(GetCompleteQuests()));
         }
         
         public void CompleteQuest(string id)
         {
             GetReward(id);
             
-            EventManager.Notify(new CompleteQuestsUpdated(IsCompleteQuest()));
+            EventManager.Notify(new CompleteQuestsUpdated(GetCompleteQuests()));
         }
         
         private void GetReward(string id)
@@ -147,7 +147,7 @@ namespace Ciart.Pagomoa.Logger
             return true;
         }
 
-        private ProcessQuest[] IsCompleteQuest()
+        private ProcessQuest[] GetCompleteQuests()
         {
             var completeQuest = new List<ProcessQuest>();
 
