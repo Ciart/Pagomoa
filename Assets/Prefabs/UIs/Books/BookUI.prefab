@@ -3700,6 +3700,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5339409206063691019}
   - component: {fileID: 1686462964066188621}
+  - component: {fileID: 226728502204586582}
   m_Layer: 8
   m_Name: QuestTab
   m_TagString: Untagged
@@ -3736,6 +3737,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4899696898204492530}
   m_CullTransparentMesh: 1
+--- !u!114 &226728502204586582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899696898204492530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 519a0fd34f36078458898da606694981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questListParent: {fileID: 0}
+  questListItemUIPrefab: {fileID: 0}
 --- !u!1 &5363615645132384306
 GameObject:
   m_ObjectHideFlags: 0
@@ -6478,6 +6493,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8682215878630469722}
     m_Modifications:
+    - target: {fileID: 469006389048042671, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 469006389048042671, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 491162712, guid: b6402041d5f9748bab3827d1f7873bd8, type: 3}
     - target: {fileID: 7657057256067874349, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
       propertyPath: m_Name
       value: QuestListItem
@@ -6566,8 +6589,33 @@ PrefabInstance:
     - {fileID: 6142317629987417513, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7657057256067874349, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8765217932213594229}
   m_SourcePrefab: {fileID: 100100000, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
+--- !u!1 &7689196213843120178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7657057256067874349, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
+  m_PrefabInstance: {fileID: 69478375087238687}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8765217932213594229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7689196213843120178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1797376e89845bd9c1159b60771ecdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSprite: {fileID: 0}
+  selectedSprite: {fileID: 0}
+  onClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!224 &8533778225754107422 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8545795951039348737, guid: a3d1bde68d5122540b75ff6c2e70d9e0, type: 3}
@@ -6664,6 +6712,10 @@ PrefabInstance:
     - target: {fileID: 4639791755110576381, guid: 9f310fd2963516f4bbb96691c4623b22, type: 3}
       propertyPath: m_Name
       value: QuestCondition
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162112826231604568, guid: 9f310fd2963516f4bbb96691c4623b22, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
