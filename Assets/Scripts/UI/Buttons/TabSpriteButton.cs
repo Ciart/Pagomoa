@@ -31,7 +31,7 @@ namespace Ciart.Pagomoa.UI
         {
             base.Awake();
             
-            _image = GetComponent<Image>();
+        _image = GetComponent<Image>();
         }
 
         public void OnPointerClick(PointerEventData eventData)

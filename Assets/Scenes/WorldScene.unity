@@ -292,14 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f98bd7854ddbdf46bf30fa9fe92791d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemsTab: {fileID: 0}
-  _itemsTabButton: {fileID: 0}
-  _infoTab: {fileID: 0}
-  _infoTabButton: {fileID: 0}
-  _questTab: {fileID: 0}
-  _questTabButton: {fileID: 0}
-  _tabSprites: []
-  ItemHoverObject: {fileID: 0}
+  tabItems: []
 --- !u!114 &41357390 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1687096895612207856, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
@@ -1563,10 +1556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46aab3c9dcdee5b4680233e2f1b2a1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttons: []
-  itemCount: {fileID: 718197052}
-  count: 0
-  _choiceslot: {fileID: 0}
 --- !u!1 &351452819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,14 +1775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f98bd7854ddbdf46bf30fa9fe92791d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemsTab: {fileID: 0}
-  _itemsTabButton: {fileID: 0}
-  _infoTab: {fileID: 0}
-  _infoTabButton: {fileID: 0}
-  _questTab: {fileID: 0}
-  _questTabButton: {fileID: 0}
-  _tabSprites: []
-  ItemHoverObject: {fileID: 0}
+  tabItems: []
 --- !u!1 &405246040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,7 +2567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e664e4d671085a48baa4ffbb99bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 1241472726}
@@ -2944,7 +2926,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9014,7 +8996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e664e4d671085a48baa4ffbb99bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 1642910134}
