@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.Monsters
@@ -31,19 +31,19 @@ namespace Ciart.Pagomoa.Entities.Monsters
             _monster.Die();
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            // if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
-            // {
-            //     _monster.target = touchingTarget = collision.gameObject;
-            //     StateChanged(Monster.MonsterState.Chase);
-            // }
-        }
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            if (collision.gameObject == touchingTarget)
-                touchingTarget = null;
-        }
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        // if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
+        // {
+        //     _monster.target = touchingTarget = collision.gameObject;
+        //     StateChanged(Monster.MonsterState.Chase);
+        // }
+        //}
+        //private void OnCollisionExit2D(Collision2D collision)
+        //{
+        //    if (collision.gameObject == touchingTarget)
+        //        touchingTarget = null;
+        //}
 
     }
 }

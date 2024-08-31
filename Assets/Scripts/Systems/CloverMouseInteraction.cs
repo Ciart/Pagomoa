@@ -23,7 +23,9 @@ namespace Ciart.Pagomoa.Systems
                 ShopChat.Instance.AwakeChat();
             }
             else
-                _buyUI.SetActive(false);
+            {
+                OffUI();
+            }
         }
         public void OffUI()
         {
