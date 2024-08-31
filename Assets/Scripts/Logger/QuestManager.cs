@@ -48,7 +48,7 @@ namespace Ciart.Pagomoa.Logger
                 if (quest.id != id) continue;
                 
                 EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
-
+                
                 var progressQuest = new ProcessQuest(quest);
 
                 progressQuests.Add(progressQuest);

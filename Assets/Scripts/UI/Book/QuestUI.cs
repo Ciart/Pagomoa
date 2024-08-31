@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.Utilities;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.UI.Book
@@ -12,6 +13,8 @@ namespace Ciart.Pagomoa.UI.Book
         private const int MinimumQuestListSize = 8;
 
         public GameObject questListParent;
+        
+        public QuestDetailUI questDetailUI;
 
         public QuestListItemUI questListItemUIPrefab;
 
@@ -31,29 +34,13 @@ namespace Ciart.Pagomoa.UI.Book
 
         private void ResizeQuestList(int count)
         {
-            if (_questListItems.Count < count)
+            PrefabUtility.ResizeParentList(_questListItems, questListParent, questListItemUIPrefab, count, item =>
             {
-                for (var i = _questListItems.Count; i < count; i++)
+                item.onClick += id =>
                 {
-                    var item = Instantiate(questListItemUIPrefab, questListParent.transform);
-                    item.onClick += id =>
-                    {
-                        selectQuestId = id;
-                    };
-                    
-                    _questListItems.Add(item);
-                }
-            }
-            else if (_questListItems.Count > count)
-            {
-                for (var i = _questListItems.Count - 1; i >= count; i--)
-                {
-                    var item = _questListItems[i];
-                    _questListItems.RemoveAt(i);
-
-                    Destroy(item.gameObject);
-                }
-            }
+                    selectQuestId = id;
+                };
+            });
         }
 
         private void UpdateSelectedQuest()
@@ -62,6 +49,8 @@ namespace Ciart.Pagomoa.UI.Book
             {
                 item.isSelected = item.questId == selectQuestId;
             }
+            
+            UpdateQuestDetail(QuestManager.instance.FindQuestById(selectQuestId));
         }
 
         private void UpdateQuestList(List<ProcessQuest> questList)
@@ -75,28 +64,50 @@ namespace Ciart.Pagomoa.UI.Book
                     _questListItems[i].UpdateUI(null);
                     continue;
                 }
+                
+                if (i == 0 && selectQuestId == "")
+                {
+                    selectQuestId = questList[i].id;
+                }
 
                 _questListItems[i].UpdateUI(questList[i]);
             }
 
             UpdateSelectedQuest();
         }
+        
+        private void UpdateQuestDetail(ProcessQuest quest)
+        {
+            if (quest?.id != selectQuestId) return;
+            
+            questDetailUI.UpdateUI(quest);
+        }
 
         private void OnQuestListUpdated(QuestListUpdated e)
         {
             UpdateQuestList(e.questList);
         }
+        
+        private void OnQuestUpdated(QuestUpdated e)
+        {
+            UpdateQuestDetail(e.quest);
+        }
 
         private void OnEnable()
         {
-            UpdateQuestList(QuestManager.instance.progressQuests);
+            var questManager = QuestManager.instance;
+            
+            UpdateQuestList(questManager.progressQuests);
+            UpdateQuestDetail(questManager.FindQuestById(selectQuestId));
 
             EventManager.AddListener<QuestListUpdated>(OnQuestListUpdated);
+            EventManager.AddListener<QuestUpdated>(OnQuestUpdated);
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<QuestListUpdated>(OnQuestListUpdated);
+            EventManager.RemoveListener<QuestUpdated>(OnQuestUpdated);
         }
 
         private void Awake()

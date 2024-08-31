@@ -17,9 +17,23 @@ namespace Ciart.Pagomoa.UI.Book
         
         public Sprite selectedBackgroundSprite;
         
-        public Image progressBar;
+        public Sprite defaultProgressFillSprite;
+        
+        public Sprite selectedProgressFillSprite;
+        
+        public Color defaultTextColor;
+        
+        public Color selectedTextColor;
+        
+        public Slider progressBar;
+        
+        public Image progressBarFill;
         
         public TextMeshProUGUI titleText;
+        
+        public TextMeshProUGUI titleTextShadow;
+        
+        public TextMeshProUGUI progressText;
         
         public Action<string> onClick;
         
@@ -33,7 +47,14 @@ namespace Ciart.Pagomoa.UI.Book
             set
             {
                 _isSelected = value;
+                
+                if (questId == "") return;
+                
                 _image.sprite = _isSelected ? selectedBackgroundSprite : defaultBackgroundSprite;
+                progressBarFill.sprite = _isSelected ? selectedProgressFillSprite : defaultProgressFillSprite;
+                titleText.color = _isSelected ? selectedTextColor : defaultTextColor;
+                titleTextShadow.enabled = !_isSelected;
+                progressText.color = _isSelected ? selectedTextColor : defaultTextColor;
             }
         }
         
@@ -54,6 +75,7 @@ namespace Ciart.Pagomoa.UI.Book
                 
                 progressBar.gameObject.SetActive(false);
                 titleText.gameObject.SetActive(false);
+                progressText.gameObject.SetActive(false);
 
                 return;
             }
@@ -63,9 +85,16 @@ namespace Ciart.Pagomoa.UI.Book
             
             questId = quest.id;
             titleText.text = quest.title;
+            progressText.text = $"{(int) (quest.progress * 100)}%";
 
             progressBar.gameObject.SetActive(true);
             titleText.gameObject.SetActive(true);
+            progressText.gameObject.SetActive(true);
+            
+            progressBar.value = quest.progress;
+            progressBarFill.enabled = quest.progress != 0; // 진행도 0%일 경우 아예 비활성화
+            
+            // TODO: 완료된 퀘스트 표시
         }
 
         protected override void Awake()
@@ -77,11 +106,15 @@ namespace Ciart.Pagomoa.UI.Book
         
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (questId == "") return;
+            
             onClick.Invoke(questId);
         }
 
         public void OnSubmit(BaseEventData eventData)
         {
+            if (questId == "") return;
+            
             onClick.Invoke(questId);
         }
     }

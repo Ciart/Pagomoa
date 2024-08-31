@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Systems.Inventory;
-using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
@@ -19,7 +17,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public Reward reward;
         public List<IQuestElements> elements;
         public bool accomplishment = false;
+        
+        // TODO: 진행률 0.0f ~ 1.0f로 반환하도록 변경해야 합니다.
+        public float progress => Random.value;
 
+        // TODO: npcSprite를 추가해야 합니다.
+        // TODO: QuestAccomplishEvent를 제거하고 IQuestElements에서 ProcessQuest의 함수를 호출하도록 변경해야 합니다.
         public ProcessQuest(Quest quest)
         {
             id = quest.id;
@@ -50,6 +53,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         private void QuestAccomplishment(QuestAccomplishEvent e)
         {
+            // TODO: 정말 자신이 변경되었을때만 발생해야 합니다.
+            EventManager.Notify(new QuestUpdated(this));
+            
             foreach (var element in elements)
             {
                 if (element.complete == false)
@@ -227,7 +233,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             throw new NotImplementedException();
         }
 
-        public PlayerMoveDistance(QuestCondition elements)
+        public PlayerMoveDistance(ProcessQuest quest, QuestCondition elements)
         {
             questType = elements.questType;
             summary = elements.summary;
