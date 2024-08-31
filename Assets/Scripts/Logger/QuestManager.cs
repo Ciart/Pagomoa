@@ -57,7 +57,10 @@ namespace Ciart.Pagomoa.Logger
                 EventManager.Notify(new MakeQuestListEvent());
               
                 EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment));
+                
             }
+            
+            EventManager.Notify(new QuestListUpdated(progressQuests));
         }
         
         public void QuestAccomplishment(SignalToNpc e)

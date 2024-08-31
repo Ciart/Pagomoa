@@ -1,13 +1,15 @@
 ﻿using System;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.UI.Book
 {
-    public class QuestListItemUI: MonoBehaviour
+    public class QuestListItemUI: UIBehaviour, IPointerClickHandler, ISubmitHandler
     {
         public Sprite emptyBackgroundSprite;
         
@@ -19,7 +21,7 @@ namespace Ciart.Pagomoa.UI.Book
         
         public TextMeshProUGUI titleText;
         
-        public UnityEvent onClick;
+        public Action<string> onClick;
         
         private Image _image;
         
@@ -31,7 +33,7 @@ namespace Ciart.Pagomoa.UI.Book
             set
             {
                 _isSelected = value;
-                _image.sprite = _isSelected ? defaultBackgroundSprite : selectedBackgroundSprite;
+                _image.sprite = _isSelected ? selectedBackgroundSprite : defaultBackgroundSprite;
             }
         }
         
@@ -40,17 +42,47 @@ namespace Ciart.Pagomoa.UI.Book
             get;
             private set;
         }
-
-        public void UpdateUI(ProcessQuest quest)
+        
+        public void UpdateUI([CanBeNull] ProcessQuest quest)
         {
-            questId = quest.id;
+            if (quest is null)
+            {
+                _image.sprite = emptyBackgroundSprite;
+                _image.type = Image.Type.Tiled;
+
+                questId = "";
+                
+                progressBar.gameObject.SetActive(false);
+                titleText.gameObject.SetActive(false);
+
+                return;
+            }
+
+            _image.sprite = defaultBackgroundSprite;
+            _image.type = Image.Type.Sliced;
             
+            questId = quest.id;
             titleText.text = quest.title;
+
+            progressBar.gameObject.SetActive(true);
+            titleText.gameObject.SetActive(true);
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            _image = GetComponent<Image>();
         }
         
-        private void Awake()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            _image = GetComponent<Image>();
+            onClick.Invoke(questId);
+        }
+
+        public void OnSubmit(BaseEventData eventData)
+        {
+            onClick.Invoke(questId);
         }
     }
 }
