@@ -48,11 +48,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             Debug.Log("Quest Accept : " + id);
 
-            var entitySprite = transform.GetComponent<SpriteRenderer>().sprite;
+            var npcSprite = transform.GetComponent<SpriteRenderer>().sprite;
 
             var origin = _entityController.origin;
             
-            QuestManager.instance.RegistrationQuest(entitySprite, origin, id);
+            QuestManager.instance.RegistrationQuest(npcSprite, origin, id);
         }
 
         public void QuestComplete(string id)
@@ -72,7 +72,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 {
                     var progressQuest = QuestManager.instance.FindQuestById(quest.id);
                     
-                    if (progressQuest is null || !progressQuest.accomplishment)
+                    if (progressQuest is null || !progressQuest.accomplished)
                     {
                         continue;
                     }
@@ -85,17 +85,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             DialogueManager.instance.StartStory(this, basicDialogue);
         }
 
-        private void OnCompleteQuestsUpdated(CompleteQuestsUpdated e)
+        private void OnCompleteQuestsUpdated(QuestCompleted e)
         {
-            foreach (var completeQuest in e.completeQuests)
+            foreach (var entityQuest in _entityQuests)
             {
-                foreach (var entityQuest in _entityQuests)
+                if (e.quest.id == entityQuest.id)
                 {
-                    if (completeQuest.id == entityQuest.id)
-                    {
-                        _questCompleteUI.SetActive(true);
-                        return;
-                    }
+                    _questCompleteUI.SetActive(true);
+                    return;
                 }
             }
             
@@ -114,12 +111,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             if (_entityQuests == Array.Empty<Quest>()) return; 
             
-            EventManager.AddListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
+            EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<CompleteQuestsUpdated>(OnCompleteQuestsUpdated);
+            EventManager.RemoveListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }
     }
 }

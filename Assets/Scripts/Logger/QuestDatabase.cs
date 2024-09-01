@@ -37,7 +37,7 @@ namespace Logger
         {
             foreach (var quest in progressedQuests)
             {
-                return FindQuestById(id) is not null && quest.accomplishment;
+                return FindQuestById(id) is not null && quest.accomplished;
             }
             
             return false;

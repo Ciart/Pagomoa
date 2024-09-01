@@ -16,42 +16,42 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string title;
         public Reward reward;
         public List<IQuestElements> elements;
-        public bool accomplishment = false;
+        public Sprite mNpcSprite;
+        public bool accomplished;
         
         // TODO: 진행률 0.0f ~ 1.0f로 반환하도록 변경해야 합니다.
         public float progress => Random.value;
 
         // TODO: npcSprite를 추가해야 합니다.
         // TODO: QuestAccomplishEvent를 제거하고 IQuestElements에서 ProcessQuest의 함수를 호출하도록 변경해야 합니다.
-        public ProcessQuest(Quest quest)
+        public ProcessQuest(Quest quest, Sprite npcSprite)
         {
             id = quest.id;
             description = quest.description;
             title = quest.title;
             reward = quest.reward;
             elements = new List<IQuestElements>();
-
-            EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
+            mNpcSprite = npcSprite; 
 
             foreach (var condition in quest.questList)
             {
                 switch (condition.questType)
                 {
                     case QuestType.CollectMineral :
-                        var collectMineral = new CollectMineral(condition);
+                        var collectMineral = new CollectItem(condition);
+                        collectMineral.questFinish = AllElementsFinish;
                         elements.Add(collectMineral);                        
                         break;
                     case QuestType.BreakBlock :
                         var breakBlock = new BreakBlock(condition);
+                        breakBlock.questFinish = AllElementsFinish;
                         elements.Add(breakBlock);                        
                         break;
                 }
             }
-            
-            EventManager.Notify(new QuestAccomplishEvent());
         }
 
-        private void QuestAccomplishment(QuestAccomplishEvent e)
+        private void AllElementsFinish()
         {
             // TODO: 정말 자신이 변경되었을때만 발생해야 합니다.
             EventManager.Notify(new QuestUpdated(this));
@@ -60,20 +60,17 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             {
                 if (element.complete == false)
                 {
-                    accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(id, accomplishment));
+                    accomplished = false;
                     return ;
                 }
             }
-            
-            accomplishment = true;
-            EventManager.Notify(new SignalToNpc(id, accomplishment));
+
+            accomplished = true;
+            EventManager.Notify(new QuestCompleted(this));
         }
 
         public void Dispose()
         {
-            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
-
             foreach (var element in elements)
             {
                 element.Dispose();
@@ -93,16 +90,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region IntQuestElements
     
-    public class CollectMineral : ProcessIntQuestElements, IQuestElements
+    public class CollectItem : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
-
+        private int _prevValue;
+        public Action questFinish;
+        
         public void Dispose()
         {
             EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
         }
 
-        public CollectMineral(QuestCondition elements)
+        public CollectItem(QuestCondition elements)
         {
             questType = elements.questType; 
             summary = elements.summary;
@@ -110,6 +109,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             targetEntity = elements.targetEntity;
             valueType = elements.value; 
             compareValue = 0;
+            _prevValue = 0;
             
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
@@ -118,8 +118,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             {
                 if (inventoryItem.item == targetEntity)
                 {
-                    compareValue = inventoryItem.count;
-                    if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+                    _prevValue = inventoryItem.count;
                     break;
                 }
             }
@@ -139,6 +138,25 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public override void CalculationValue(IEvent e)
         {
             var inventoryItem = (ItemCountChangedEvent)e;
+
+            if (_prevValue > inventoryItem.count)
+            {
+                _prevValue = inventoryItem.count;
+                return;
+            }
+
+            var collectValue = inventoryItem.count - _prevValue;
+            Debug.Log("collectValue :" + collectValue);
+
+            if (compareValue >= collectValue)
+            {
+                compareValue = value;
+            }
+            else
+            {
+                compareValue = collectValue;
+            }
+            
             
             InitQuestValue(value, inventoryItem.count);
             
@@ -148,13 +166,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         private void CountItem(ItemCountChangedEvent e)
         {
             if (!TypeValidation(e.item)) return ;
-
-            var prevValue = compareValue;
+            if (compareValue == value) return;
 
             CalculationValue(e);
             
-            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
-            if (e.count <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
+            if (CheckComplete()) questFinish.Invoke();
         }
 
         public string GetQuestSummary() { return summary; }
@@ -165,6 +181,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public class BreakBlock : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
+        public Action questFinish;
         
         public void Dispose()
         {
@@ -207,7 +224,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             CalculationValue(e);
             
-            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+            if (CheckComplete()) questFinish.Invoke();
         }
         
         public string GetQuestSummary() { return summary; }
@@ -265,8 +282,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             CalculationValue(e);
             
             _previousPos = e.playerPos;
-            
-            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+
+            if (CheckComplete()) ;
         }
         
         public bool CheckComplete()
