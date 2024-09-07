@@ -208,7 +208,7 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 // TODO: attacker 변경해야 함.
                 // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: null, flag: DamageFlag.Melee);
+                enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
             }
         }
         
