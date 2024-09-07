@@ -23,6 +23,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public float sideWallDistance = 1.0625f;
         
         [FormerlySerializedAs("inventoryDB")] public Inventory inventory;
+        
+        public DrillController drill;
 
         private Rigidbody2D _rigidbody;
         
@@ -30,7 +32,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private PlayerMovement _movement;
 
-        private DrillController _digger;
         
         private Camera _camera;
 
@@ -46,8 +47,8 @@ namespace Ciart.Pagomoa.Entities.Players
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
-            _digger = transform.GetChild(0).GetComponent<DrillController>();
-            Debug.Log(_digger);
+            drill = transform.GetChild(0).GetComponent<DrillController>();
+            Debug.Log(drill);
             _camera = Camera.main;
             _world = WorldManager.instance;
         }
@@ -75,17 +76,17 @@ namespace Ciart.Pagomoa.Entities.Players
 
             if (_input.IsDig && state != PlayerState.Climb)
             {
-                _digger.isDig = true;
-                _digger.direction = _direction;
+                drill.isDig = true;
+                drill.direction = _direction;
             }
             else if (_input.DigDirection.magnitude > 0.001f)
             {
-                _digger.isDig = true;
-                _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
+                drill.isDig = true;
+                drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
             }
             else
             {
-                _digger.isDig = false;
+                drill.isDig = false;
             }
 
             TryJump();
