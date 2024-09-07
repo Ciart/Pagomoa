@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.UI.Book
             {
                 titleText.text = "";
                 descriptionText.text = "";
-                // npcImage.sprite = null;
+                npcImage.sprite = null;
                 
                 foreach (var item in _questConditionItems)
                 {
@@ -41,7 +41,7 @@ namespace Ciart.Pagomoa.UI.Book
             
             titleText.text = quest.title;
             descriptionText.text = quest.description;
-            // npcImage.sprite = quest.npcImage;
+            npcImage.sprite = quest.mNpcSprite;
             
             PrefabUtility.ResizeParentList(_questConditionItems, questConditionParent, questConditionUIPrefab, quest.elements.Count);
             

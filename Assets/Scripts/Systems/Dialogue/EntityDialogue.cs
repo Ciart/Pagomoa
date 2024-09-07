@@ -14,6 +14,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public DailyDialogue dailyDialogues;
 
+        public Sprite portrait;
         private EntityController _entityController;
         private Quest[] _entityQuests;
 
@@ -48,11 +49,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             Debug.Log("Quest Accept : " + id);
 
-            var npcSprite = transform.GetComponent<SpriteRenderer>().sprite;
-
             var origin = _entityController.origin;
             
-            QuestManager.instance.RegistrationQuest(npcSprite, origin, id);
+            QuestManager.instance.RegistrationQuest(portrait, origin, id);
         }
 
         public void QuestComplete(string id)
@@ -60,6 +59,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             Debug.Log("Quest Complete : " + id);
 
             QuestManager.instance.CompleteQuest(id);
+            
+            _questCompleteUI.SetActive(false);
         }
 
         public void StartDialogue()

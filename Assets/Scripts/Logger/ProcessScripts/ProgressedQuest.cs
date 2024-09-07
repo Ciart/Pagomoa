@@ -11,6 +11,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             id = quest.id;
             accomplished = quest.accomplished;
-        }
+        } 
     }
 }

@@ -6,6 +6,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public abstract class ProcessQuestElements
     {
+        public float progress;
+        
         public Action questFinished;
         public QuestType questType { get; set; }
         public string summary { get; set; }
