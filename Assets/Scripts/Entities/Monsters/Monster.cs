@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
@@ -27,14 +27,19 @@ namespace Ciart.Pagomoa.Entities.Monsters
             Hit,              // �ǰ�
             Die               // ����
         }
+        private void Awake()
+        {
+            status = GetComponent<MonsterStatus>();    
+        }
+
         void GroundCheck()
         {
             isGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, LayerMask.GetMask("Platform")) ? true : false;
         }
         private void FixedUpdate()
         {
-            if(groundCheck)
-                GroundCheck();
+            //if(groundCheck)
+            //    GroundCheck();
         }
         public void GetDamage(GameObject attacker, float damage)
         {

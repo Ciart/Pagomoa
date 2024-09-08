@@ -1,4 +1,5 @@
-﻿using Ciart.Pagomoa.Entities.Monsters;
+﻿using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Systems.Time;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,15 +27,29 @@ namespace Ciart.Pagomoa
         }
         private void Start()
         {
-            if (TimeManager.GetSeasonForMonster() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
+            //if (TimeManager.GetSeasonForMonster() == "Night")
+            //    StateChanged(Monster.MonsterState.Sleep);
+            //else
+            //    StateChanged(Monster.MonsterState.Active);
+            StateChanged(Monster.MonsterState.Active);
         }
+
+        private void OnEnable()
+        {
+            GetComponent<EntityController>().damaged += OnHit;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<EntityController>().damaged -= OnHit;
+        }
+
         public override void StateChanged(Monster.MonsterState state)
         {
             if (Proceeding != null)
                 StopCoroutine(Proceeding);
+
+            //if (_monster == null) Debug.Log("몬스터_가 없어");
 
             _monster.state = state;
 
@@ -81,10 +96,10 @@ namespace Ciart.Pagomoa
                     yield return new WaitForSeconds(Time.fixedDeltaTime);
                 }
             }
-            if (TimeManager.GetSeasonForMonster() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
+            //if (TimeManager.GetSeasonForMonster() == "Night")
+            //    StateChanged(Monster.MonsterState.Sleep);
+            //else
+            //    StateChanged(Monster.MonsterState.Active);
         }
         protected override IEnumerator Chase()
         {
@@ -114,6 +129,16 @@ namespace Ciart.Pagomoa
             yield return new WaitForSeconds(0.7f);
             StateChanged(Monster.MonsterState.Chase);
         }
+
+        private void OnHit(EntityDamagedEventArgs args)
+        {
+            if (args.attacker == null) return;
+            
+            Debug.Log("현재타겟" + args.attacker.name);
+            _monster.target = args.attacker.gameObject;
+            StateChanged(Monster.MonsterState.Hit);
+        }
+
         //protected override void Die()
         //{
         //    _rigidbody.velocity = Vector3.zero;

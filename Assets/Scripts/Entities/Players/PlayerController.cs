@@ -47,7 +47,6 @@ namespace Ciart.Pagomoa.Entities.Players
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _digger = transform.GetChild(0).GetComponent<DrillController>();
-            Debug.Log(_digger);
             _camera = Camera.main;
             _world = WorldManager.instance;
         }
