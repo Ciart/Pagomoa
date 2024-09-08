@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Events
 {
-    public record QuestAccomplishEvent() : IEvent;
-    public record SignalToNpc(string questID, bool accomplishment) : IEvent;
+    /*public record QuestAccomplishEvent() : IEvent;*/
+    //public record SignalToNpc(string questID, bool accomplishment) : IEvent;
     
     // TODO: QuestCompleted로 대체해야 합니다.
-    [Obsolete("QuestCompleted로 대체 예정입니다.")]
-    public record CompleteQuestsUpdated(ProcessQuest[] completeQuests) : IEvent;
+    /*[Obsolete("QuestCompleted로 대체 예정입니다.")]*/
     
     /// <summary>
     /// 퀘스트 리스트가 업데이트 되었을 때 발생하는 이벤트입니다.
@@ -21,7 +20,7 @@ namespace Ciart.Pagomoa.Events
     
     /// <summary>
     /// 퀘스트가 시작되었을 때 발생하는 이벤트입니다.
-    /// TODO: 미구현입니다.
+    /// 퀘스트 진행전 처리해야할 사항이 있으면 이 이벤트를 사용합니다.
     /// </summary>
     /// <param name="quest">런타임 퀘스트 객체</param>
     public record QuestStarted(ProcessQuest quest) : IEvent;

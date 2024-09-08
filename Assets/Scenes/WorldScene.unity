@@ -10321,6 +10321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicDialogue: {fileID: 4900000, guid: 8d8949ab71db75b478178f614afcf5df, type: 3}
   dailyDialogues: {fileID: 11400000, guid: bd21f2b850652454288c37febf83128d, type: 2}
+  portrait: {fileID: 0}
   uiOffset: {x: 0, y: 3.2, z: 0}
 --- !u!1839735485 &2012602249 stripped
 Tilemap:
@@ -11825,6 +11826,10 @@ PrefabInstance:
       propertyPath: entityID
       value: noung
       objectReference: {fileID: 0}
+    - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 7108361230549680235, guid: 0d794bf00a974b749a94e0dfb55c245a, type: 3}
     - target: {fileID: 2862396688852459538, guid: ce03a834fa5e9944f90ca8f007078697, type: 3}
       propertyPath: entityQuests.Array.size
       value: 2
