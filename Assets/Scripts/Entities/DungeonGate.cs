@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Entities
             var entityController = GetComponent<EntityController>();
             entityController.exploded += BreakDoor;
             GetComponent<SpriteRenderer>().sprite = images[0];
-            Debug.Log("문 이벤트 등록 완료");
+            //Debug.Log("문 이벤트 등록 완료");
         }
 
         private void OnDisable()

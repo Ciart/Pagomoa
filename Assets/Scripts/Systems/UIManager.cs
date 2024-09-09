@@ -2,6 +2,7 @@
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.UI.Book;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,6 @@ namespace Ciart.Pagomoa.Systems
         public GameObject escUI;
         public GameObject interactableUI;
         public GameObject questCompleteUI;
-        public QuestUI questUI;
         public DialogueUI dialogueUI;
         public CinemachineVirtualCamera inventoryCamera;
 
@@ -34,8 +34,7 @@ namespace Ciart.Pagomoa.Systems
             _inventoryUI = Instantiate(inventoryUIPrefab, transform);
             Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
-            questUI = _inventoryUI.transform.GetChild(1).GetChild(3).GetComponent<QuestUI>();
-
+            
             _dialogueUI = Instantiate(dialogueUIPrefab, transform);
             _dialogueUI.SetActive(false);
             dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
@@ -43,12 +42,6 @@ namespace Ciart.Pagomoa.Systems
             Instantiate(quickSlotContainerUIPrefab, transform);
         }
         
-        private void Start()
-        {
-            EventManager.AddListener<AddNpcImageEvent>(questUI.AddNpcImages);
-            EventManager.AddListener<MakeQuestListEvent>(questUI.MakeQuestList);
-        }
-
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);

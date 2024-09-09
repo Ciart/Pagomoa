@@ -32,6 +32,8 @@ namespace Ciart.Pagomoa.Entities
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (!collision.attachedRigidbody) return;
+
             var entity = collision.attachedRigidbody.GetComponent<EntityController>();
 
             if (entity is null || _targets.Contains(entity) || entity.isEnemy)
@@ -44,6 +46,8 @@ namespace Ciart.Pagomoa.Entities
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (!collision.attachedRigidbody) return;
+
             var entity = collision.attachedRigidbody.GetComponent<EntityController>();
 
             if (entity is null || !_targets.Contains(entity))
