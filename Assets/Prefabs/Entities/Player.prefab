@@ -144,7 +144,6 @@ MonoBehaviour:
     health: 1000
     maxHealth: 1000
   parent: {fileID: 0}
-  isDead: 0
 --- !u!114 &2442559022297014597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +248,7 @@ MonoBehaviour:
       count: 0
     - item: {fileID: 0}
       count: 0
+  drill: {fileID: 0}
 --- !u!114 &6532384969457569552
 MonoBehaviour:
   m_ObjectHideFlags: 0
