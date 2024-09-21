@@ -170,7 +170,7 @@ namespace Ciart.Pagomoa.Systems.Time
     
         public void SetTime(int hour, int minute)
         {
-            tick = (hour * HourTick) + (minute * MinuteTick);
+            tick = ((hour - 6) * HourTick) + (minute * MinuteTick);
         }
     
         public void SetDay(int day)
