@@ -1467,7 +1467,7 @@ MonoBehaviour:
   mineralTilemap: {fileID: 9048661551039732287}
   fogTilemap: {fileID: 1642471407930309879}
   overlayTilemap: {fileID: 77888240364814304}
-  fogTile: {fileID: 11400000, guid: d4a9916a2958248229566eb98a281ba4, type: 2}
+  fogTile: {fileID: 11400000, guid: 8d326af4ff44e0f419cf2c4b6c60ba61, type: 2}
   sight: 2
   minimapRenderer: {fileID: 5324834388505541916, guid: 113854981984ec04ab5ef99442043a27, type: 3}
   renderChunkRange: 2
