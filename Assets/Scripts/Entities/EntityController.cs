@@ -146,7 +146,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void Die()
         {
-            isDead = true;
+            status.health = 0;
             gameObject.SetActive(false);
             died?.Invoke();
         }
