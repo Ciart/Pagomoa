@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Editor
 {
-    [CustomEditor(typeof(Quest))]
+    [CustomEditor(typeof(QuestData))]
     [CanEditMultipleObjects]
     public class QuestEditor : UnityEditor.Editor
     {
@@ -22,36 +22,36 @@ namespace Ciart.Pagomoa.Editor
 
         public override void OnInspectorGUI()
         {
-            Quest newQuest = (Quest)target;
+            QuestData newQuestData = (QuestData)target;
             
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            newQuest.id = EditorGUILayout.TextField("Quest ID", newQuest.id);
+            newQuestData.id = EditorGUILayout.TextField("Quest ID", newQuestData.id);
             GUILayout.EndVertical();
             
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("선행 퀘스트 id", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            for (int i = 0; i < newQuest.prevQuestIds.Count; i++)
+            for (int i = 0; i < newQuestData.prevQuestIds.Count; i++)
             {
-                newQuest.prevQuestIds[i] = EditorGUILayout.TextField(i+1 + ". PrevQuest ID", newQuest.prevQuestIds[i]);    
+                newQuestData.prevQuestIds[i] = EditorGUILayout.TextField(i+1 + ". PrevQuest ID", newQuestData.prevQuestIds[i]);    
             }
             
-            if( newQuest.prevQuestIds.Count == 0) 
+            if( newQuestData.prevQuestIds.Count == 0) 
                 EditorGUILayout.LabelField("There is no Prev Quest.");
             
             GUILayout.Space(10);
             
             if (GUILayout.Button("+"))
             {
-                newQuest.prevQuestIds.Add("");
+                newQuestData.prevQuestIds.Add("");
             }
 
             if (GUILayout.Button("-"))
             {
-                if (newQuest.prevQuestIds.Count == 0) return;
-                newQuest.prevQuestIds.RemoveAt(newQuest.prevQuestIds.Count - 1);
+                if (newQuestData.prevQuestIds.Count == 0) return;
+                newQuestData.prevQuestIds.RemoveAt(newQuestData.prevQuestIds.Count - 1);
             }
             GUILayout.EndVertical();
             
@@ -59,28 +59,28 @@ namespace Ciart.Pagomoa.Editor
             
             GUILayout.BeginVertical("퀘스트 설명", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            newQuest.title = EditorGUILayout.TextField("퀘스트 제목", newQuest.title);
-            newQuest.description = EditorGUILayout.TextField("퀘스트 설명", newQuest.description);
+            newQuestData.title = EditorGUILayout.TextField("퀘스트 제목", newQuestData.title);
+            newQuestData.description = EditorGUILayout.TextField("퀘스트 설명", newQuestData.description);
             GUILayout.EndVertical();
 
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            newQuest.reward.gold = EditorGUILayout.IntField("보상 골드", newQuest.reward.gold);
-            newQuest.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(Item), true);
-            newQuest.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuest.reward.targetEntitySprite, typeof(Sprite), true);
-            newQuest.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuest.reward.value);
+            newQuestData.reward.gold = EditorGUILayout.IntField("보상 골드", newQuestData.reward.gold);
+            newQuestData.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuestData.reward.targetEntity, typeof(Item), true);
+            newQuestData.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuestData.reward.targetEntitySprite, typeof(Sprite), true);
+            newQuestData.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuestData.reward.value);
             GUILayout.EndVertical();
             
             GUILayout.Space(20);
             
             GUILayout.BeginVertical("퀘스트 대화", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            newQuest.startPrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Start Dialogue",
-                newQuest.startPrologue, typeof(TextAsset), true);
-            newQuest.completePrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Complete Dialogue",
-                newQuest.completePrologue, typeof(TextAsset), true);
+            newQuestData.startPrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Start Dialogue",
+                newQuestData.startPrologue, typeof(TextAsset), true);
+            newQuestData.completePrologue = (TextAsset)EditorGUILayout.ObjectField("Quest Complete Dialogue",
+                newQuestData.completePrologue, typeof(TextAsset), true);
             GUILayout.EndVertical();
             
             GUILayout.Space(20);
@@ -94,15 +94,15 @@ namespace Ciart.Pagomoa.Editor
             
             if (GUILayout.Button("퀘스트 추가하기"))
             {
-                if (newQuest.questList.Count != 0 && newQuest.questList.Count > 0) _listIndex++;
+                if (newQuestData.questList.Count != 0 && newQuestData.questList.Count > 0) _listIndex++;
 
-                var instanceQuestCondition = new QuestCondition
+                var instanceQuestCondition = new QuestConditionData
                 {
                     value = "",
                     conditionType = new ConditionType()
                 };
 
-                newQuest.questList.Add(instanceQuestCondition);
+                newQuestData.questList.Add(instanceQuestCondition);
 
                 var conTarget = new ConditionType(); 
                 var conTypeValue = new ConditionType(); 
@@ -116,55 +116,52 @@ namespace Ciart.Pagomoa.Editor
                     }
                 }
 
-                newQuest.questList[_listIndex].conditionType.target = conTarget.target;
-                newQuest.questList[_listIndex].conditionType.typeValue = conTypeValue.typeValue; 
+                newQuestData.questList[_listIndex].conditionType.target = conTarget.target;
+                newQuestData.questList[_listIndex].conditionType.typeValue = conTypeValue.typeValue; 
                 QuestType[] questTypes = (QuestType[])Enum.GetValues(typeof(QuestType));
-                newQuest.questList[_listIndex].questType = questTypes[_typeIndex];
+                newQuestData.questList[_listIndex].questType = questTypes[_typeIndex];
             }
             if (GUILayout.Button("퀘스트 제거하기"))
             {
-                if (newQuest.questList.Count == 0) return;
+                if (newQuestData.questList.Count == 0) return;
                 
-                if (newQuest.questList.Count != 1 && newQuest.questList.Count > 0) _listIndex--;
+                if (newQuestData.questList.Count != 1 && newQuestData.questList.Count > 0) _listIndex--;
                 
-                newQuest.questList.RemoveAt(newQuest.questList.Count - 1);
+                newQuestData.questList.RemoveAt(newQuestData.questList.Count - 1);
             }
             
             GUILayout.Space(20);
             
-            if (newQuest.questList == null || newQuest.questList.Count == 0) return;
+            if (newQuestData.questList == null || newQuestData.questList.Count == 0) return;
             
-            for (int i = 0; i < newQuest.questList.Count; i++)
+            for (int i = 0; i < newQuestData.questList.Count; i++)
             {
                 GUILayout.BeginVertical($"{i+1}번째 퀘스트 목록", new GUIStyle(GUI.skin.window));
                 
-                EditorGUILayout.LabelField("퀘스트 타입", newQuest.questList[i].questType.ToString());
+                EditorGUILayout.LabelField("퀘스트 타입", newQuestData.questList[i].questType.ToString());
 
-                switch (newQuest.questList[i].questType)
+                switch (newQuestData.questList[i].questType)
                 {
                     case QuestType.CollectItem:
                     case QuestType.ConsumeItem:
-                        newQuest.questList[i].targetEntity = (Item)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                            ,newQuest.questList[i].targetEntity , typeof(Item), true);
+                        newQuestData.questList[i].targetEntity = (Item)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
+                            ,newQuestData.questList[i].targetEntity , typeof(Item), true);
                         break;
                     case QuestType.BreakBlock:
-                        newQuest.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                            ,newQuest.questList[i].targetEntity , typeof(Ground), true);
+                        newQuestData.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
+                            ,newQuestData.questList[i].targetEntity , typeof(Ground), true);
                         break;
                 }
                 
-                /*newQuest.questList[i].targetEntity = (ScriptableObject)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                    ,newQuest.questList[i].targetEntity , typeof(ScriptableObject), true);*/
-                
-                EditorGUILayout.LabelField("타입 값", newQuest.questList[i].conditionType.typeValue);
+                EditorGUILayout.LabelField("타입 값", newQuestData.questList[i].conditionType.typeValue);
 
-                newQuest.questList[i].summary = EditorGUILayout.TextField("퀘스트 설명", newQuest.questList[i].summary);
+                newQuestData.questList[i].summary = EditorGUILayout.TextField("퀘스트 설명", newQuestData.questList[i].summary);
                 
-                if (newQuest.questList[i].conditionType.typeValue == "int")
+                if (newQuestData.questList[i].conditionType.typeValue == "int")
                 {
-                    newQuest.questList[i].value = EditorGUILayout.TextField("수행할 목표 값", newQuest.questList[i].value);
+                    newQuestData.questList[i].value = EditorGUILayout.TextField("수행할 목표 값", newQuestData.questList[i].value);
                     StringBuilder result = new StringBuilder();
-                    foreach (char c in newQuest.questList[i].value)
+                    foreach (char c in newQuestData.questList[i].value)
                     {
                         if (char.IsDigit(c))
                         {
@@ -172,13 +169,18 @@ namespace Ciart.Pagomoa.Editor
                         }
                     }
                     string extractedNumbers = result.ToString();
-                    newQuest.questList[i].value = extractedNumbers;
-                } else if (newQuest.questList[i].conditionType.typeValue == "float")
+                    newQuestData.questList[i].value = extractedNumbers;
+                } else if (newQuestData.questList[i].conditionType.typeValue == "bool")
                 {
-                    newQuest.questList[i].value = EditorGUILayout.TextField("수행할 목표 값", newQuest.questList[i].value);
+                    var temp = 0;
+                    temp = EditorGUILayout.Popup("목표 달성 조건 설정", newQuestData.questList[i].value == "true" ? 1 : 0, _boolList);
+                    newQuestData.questList[i].value = temp == 1 ? _boolList[1] : _boolList[0];
+                } /*else if (newQuestData.questList[i].conditionType.typeValue == "float")
+                {
+                    newQuestData.questList[i].value = EditorGUILayout.TextField("수행할 목표 값", newQuestData.questList[i].value);
                     StringBuilder result = new StringBuilder();
                     bool foundDot = false;
-                    foreach (char c in newQuest.questList[i].value)
+                    foreach (char c in newQuestData.questList[i].value)
                     {
                         if (char.IsDigit(c) || (c == '.' && !foundDot))
                         {
@@ -190,18 +192,14 @@ namespace Ciart.Pagomoa.Editor
                         }
                     }
                     string extractedNumbers = result.ToString();
-                    newQuest.questList[i].value = extractedNumbers;
-                } else if (newQuest.questList[i].conditionType.typeValue == "bool")
-                {
-                    var temp = 0;
-                    temp = EditorGUILayout.Popup("목표 달성 조건 설정", newQuest.questList[i].value == "true" ? 1 : 0, _boolList);
-                    newQuest.questList[i].value = temp == 1 ? _boolList[1] : _boolList[0];
-                }
+                    newQuestData.questList[i].value = extractedNumbers;
+                } */
+                
                 GUILayout.EndVertical();
                 GUILayout.Space(10);
             }
             
-            EditorUtility.SetDirty(newQuest);
+            EditorUtility.SetDirty(newQuestData);
         }
     }
 }

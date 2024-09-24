@@ -14,11 +14,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public ScriptableObject targetEntity { get; set; }
         public string valueType { get; set; }
 
+        public int value { get; set; }
+        public int compareValue { get; set; }
+        
         public abstract bool TypeValidation(ScriptableObject target);
-    }
-    public interface IProcessQuestValue<T>
-    {
-        public T value { get; set; }
-        public T compareValue { get; set; }
     }
 }

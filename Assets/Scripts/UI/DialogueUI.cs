@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Ciart.Pagomoa.Events;
 using System;
 
 namespace Ciart.Pagomoa

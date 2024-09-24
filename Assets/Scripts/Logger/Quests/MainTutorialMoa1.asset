@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
   m_Name: MainTutorialMoa1
   m_EditorClassIdentifier: 
-  questInCharge: {fileID: 0}
   id: Tutorial_2_CollectCopper
   prevQuestIds: []
   title: "\uBAA8\uC544\uB294 \uBC30\uACE0\uD30C"

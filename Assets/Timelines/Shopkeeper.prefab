@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7798997975774544925}
   - component: {fileID: 7826385793808042442}
   - component: {fileID: 6114851038071244518}
+  - component: {fileID: 5149531803991397113}
   m_Layer: 12
   m_Name: Shopkeeper
   m_TagString: Untagged
@@ -115,3 +116,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ef58fa4dab90a4ea5983e5b99e30ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5149531803991397113
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651167646812918115}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

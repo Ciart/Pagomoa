@@ -14,25 +14,12 @@ namespace Ciart.Pagomoa.Logger
 {
     [Serializable]
     [RequireComponent(typeof(QuestDatabase))]
-    public class QuestManager : MonoBehaviour
+    public class QuestManager : SingletonMonoBehaviour<QuestManager>
     {
         [Header("수행중인 퀘스트")]
-        public List<ProcessQuest> progressQuests = new List<ProcessQuest>();
+        public List<Quest> quests = new List<Quest>();
         
         public QuestDatabase database;
-
-        private static QuestManager _instance;
-        public static QuestManager instance
-        {
-            get
-            {
-                if (_instance is null)
-                {
-                    _instance =  (QuestManager)FindObjectOfType(typeof(QuestManager));
-                }
-                return _instance;
-            }
-        }
 
         private void Start()
         {
@@ -47,25 +34,23 @@ namespace Ciart.Pagomoa.Logger
             {
                 if (quest.id != id) continue;
                 
-                var progressQuest = new ProcessQuest(quest, npcSprite);
+                var progressQuest = new Quest(quest, npcSprite);
 
-                progressQuests.Add(progressQuest);
+                quests.Add(progressQuest);
                 
                 EventManager.Notify(new QuestStarted(progressQuest));
                 EventManager.Notify(new AddNpcImageEvent(npcSprite));
                 EventManager.Notify(new MakeQuestListEvent());
             }
             
-            EventManager.Notify(new QuestListUpdated(progressQuests));
+            EventManager.Notify(new QuestListUpdated(quests));
         }
 
         public void CompleteQuest(string id)
         {
             GetReward(id);
             
-            
-            // Todo : 후처리가 필요하다 1. 느낌표 없애기 2. 리워드 처리
-            /*EventManager.Notify(new CompleteQuestsUpdated(GetCompleteQuests()));*/
+            EventManager.Notify(new QuestCompleted(FindQuestById(id)));
         }
         
         private void GetReward(string id)
@@ -76,15 +61,12 @@ namespace Ciart.Pagomoa.Logger
             EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
             EventManager.Notify(new AddGold(reward.gold));
             
-            database.progressedQuests.Add(new ProgressedQuest(targetQuest));
-            progressQuests.Remove(targetQuest);
-            
             targetQuest.Dispose();
         }
         
-        public ProcessQuest FindQuestById(string id)
+        public Quest FindQuestById(string id)
         {
-            foreach (var quest in progressQuests)
+            foreach (var quest in quests)
             {
                 if (quest.id == id) return quest;
             }
@@ -92,67 +74,32 @@ namespace Ciart.Pagomoa.Logger
             return null;
         }
 
-        public bool CheckQuestValidation(Quest quest)
+        public bool CheckQuestValidation(QuestData questData)
         {
-            if (!IsCompletedQuest(quest.prevQuestIds))
+            if (questData.prevQuestIds.Count != 0)
             {
-                return false;
-            }
+                var prevQuestCount = questData.prevQuestIds.Count;
                 
-            if (IsCompletedQuest(quest.id))
+                foreach (var quest in quests)
+                {
+                    foreach (var questId in questData.prevQuestIds)
+                    {
+                        if (quest.id == questId) prevQuestCount--;
+                        if (quest.id == questId && quest.accomplished == false) return false;
+                    }
+                    
+                    if (prevQuestCount != 0) return false;
+                    if (quest.id == questData.id) return false;
+                }
+            } else if (questData.prevQuestIds.Count == 0)
             {
-                return false;
-            }
-
-            if (IsRegisteredQuest(quest.id))
-            {
-                return false;
+                foreach (var quest in quests)
+                {
+                    if (quest.id == questData.id) return false;
+                }
             }
 
             return true;
-        }
-
-        private bool IsRegisteredQuest(string id)
-        {
-            var check = false;
-            
-            foreach (var quest in progressQuests)
-            {
-                if (quest.id == id) check = true;
-            }
-
-            return check;
-        }
-
-        private bool IsCompletedQuest(string id)
-        {
-            var check = database.CheckQuestCompleteById(id);
-
-            return check;
-        }
-
-        private bool IsCompletedQuest(List<string> ids)
-        {
-            if (ids.Count == 0) return true;
-            
-            foreach (var id in ids)
-            {
-                if (!IsCompletedQuest(id)) return false;
-            }
-                
-            return true;
-        }
-
-        private ProcessQuest[] GetCompleteQuests()
-        {
-            var completeQuest = new List<ProcessQuest>();
-
-            /*foreach (var quest in progressQuests)
-            {
-                if (quest.accomplishment) completeQuest.Add(quest);
-            }*/
-
-            return completeQuest.ToArray();
         }
     }   
 }

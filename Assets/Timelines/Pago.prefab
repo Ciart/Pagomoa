@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7578260024818648229}
   - component: {fileID: 919302761771718684}
   - component: {fileID: 8466450343179427855}
+  - component: {fileID: 3005445508277488909}
   m_Layer: 12
   m_Name: Pago
   m_TagString: Untagged
@@ -115,3 +116,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ef58fa4dab90a4ea5983e5b99e30ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3005445508277488909
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409387768824757805}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

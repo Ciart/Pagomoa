@@ -81,5 +81,7 @@ MonoBehaviour:
   dialogues: []
   mPago: {fileID: 409387768824757805, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
   mShopkeeper: {fileID: 1651167646812918115, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
+  mMoa: {fileID: 258473762284986154, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
   instancePago: {fileID: 0}
   instanceShopkeeper: {fileID: 0}
+  instanceMoa: {fileID: 0}

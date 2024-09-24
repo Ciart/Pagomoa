@@ -5,5 +5,5 @@ namespace Ciart.Pagomoa.Events
 {
     public record StoryStarted(DialogueManagement targetManagement = null) : IEvent;
 
-    public record QuestStoryStarted(Quest[] quests) : IEvent;
+    public record QuestStoryStarted(QuestData[] quests) : IEvent;
 }

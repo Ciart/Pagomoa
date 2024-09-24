@@ -8,20 +8,16 @@ using Ciart.Pagomoa.Timelines;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
-    public enum StreamName
-    {
-        Pago,
-        Moa,
-        Shopkeeper,
-        Carriage,
-        Signal, 
-    }
-    
     public class CutSceneManager : SingletonMonoBehaviour<CutSceneManager>
     {
+        public Camera mainCamera;
+        
         private CinemachineVirtualCamera _focusCamera;
         
         private PlayableDirector _director;
@@ -45,6 +41,7 @@ namespace Ciart.Pagomoa
             if (Input.GetKeyDown(KeyCode.G))
             {
                 EventManager.Notify(new PlayCutScene("ShopkeeperCutScene"));
+                CutSceneCameraSetting();
             }
         }
 
@@ -53,12 +50,25 @@ namespace Ciart.Pagomoa
             _director = GetComponent<PlayableDirector>();
 
             _focusCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+            
+            mainCamera = Camera.main;
         }
         
         private void OnEnable() { EventManager.AddListener<PlayCutScene>(PlayCutScene); }
 
         private void OnDisable() { EventManager.RemoveListener<PlayCutScene>(PlayCutScene); }
 
+
+        public void CutSceneCameraSetting()
+        {
+            mainCamera.cullingMask = LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light");
+        }
+
+        public void DefaultCameraSetting()
+        {
+            mainCamera.cullingMask = LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI");
+        }
+        
         public bool CutSceneIsPlayed()
         {
             return _director.state == PlayState.Playing;
@@ -90,6 +100,8 @@ namespace Ciart.Pagomoa
                     _targetCutScene.SetInstanceCharacter();
 
                     _director.playableAsset = _targetCutScene.GetTimelineClip();
+                    
+                    return;
                 }    
             }
         }
