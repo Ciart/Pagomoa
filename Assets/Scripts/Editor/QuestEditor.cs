@@ -144,6 +144,7 @@ namespace Ciart.Pagomoa.Editor
                 {
                     case QuestType.CollectItem:
                     case QuestType.ConsumeItem:
+                    case QuestType.UseItem:
                         newQuestData.questList[i].targetEntity = (Item)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
                             ,newQuestData.questList[i].targetEntity , typeof(Item), true);
                         break;

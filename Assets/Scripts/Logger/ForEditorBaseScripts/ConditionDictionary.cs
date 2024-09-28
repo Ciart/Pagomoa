@@ -7,6 +7,7 @@ namespace Logger.ForEditorBaseScripts
     public enum QuestType {
         CollectItem = 0,
         ConsumeItem,
+        UseItem,
         BreakBlock,
         ConversationWithNpc,
         PlayerMoveDistance,
@@ -42,6 +43,10 @@ namespace Logger.ForEditorBaseScripts
                 target = TargetType.Inventory,
                 typeValue = TypeInt
             }}, { QuestType.ConsumeItem, new ConditionType
+            {
+                target = TargetType.Inventory,
+                typeValue = TypeInt
+            }}, { QuestType.UseItem, new ConditionType
             {
                 target = TargetType.Inventory,
                 typeValue = TypeInt

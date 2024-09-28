@@ -41,13 +41,13 @@ namespace Ciart.Pagomoa.UI.Book
             
             titleText.text = quest.title;
             descriptionText.text = quest.description;
-            npcImage.sprite = quest.mNpcSprite;
+            npcImage.sprite = quest.npcSprite;
             
-            PrefabUtility.ResizeParentList(_questConditionItems, questConditionParent, questConditionUIPrefab, quest.elements.Count);
+            PrefabUtility.ResizeParentList(_questConditionItems, questConditionParent, questConditionUIPrefab, quest.conditions.Count);
             
             for (var i = 0; i < _questConditionItems.Count; i++)
             {
-                _questConditionItems[i].UpdateUI(quest.elements[i]);
+                _questConditionItems[i].UpdateUI(quest.conditions[i]);
             }
         }
     }

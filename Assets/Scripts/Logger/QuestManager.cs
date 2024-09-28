@@ -60,6 +60,8 @@ namespace Ciart.Pagomoa.Logger
 
             EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
             EventManager.Notify(new AddGold(reward.gold));
+
+            targetQuest.state = QuestState.Finish;
             
             targetQuest.Dispose();
         }
@@ -84,8 +86,10 @@ namespace Ciart.Pagomoa.Logger
                 {
                     foreach (var questId in questData.prevQuestIds)
                     {
-                        if (quest.id == questId) prevQuestCount--;
-                        if (quest.id == questId && quest.accomplished == false) return false;
+                        if (quest.id != questId) continue;
+                        
+                        prevQuestCount--;
+                        if (quest.state != QuestState.Completed || quest.state != QuestState.Finish) return false;
                     }
                     
                     if (prevQuestCount != 0) return false;
@@ -100,6 +104,22 @@ namespace Ciart.Pagomoa.Logger
             }
 
             return true;
+        }
+
+        public bool FindCompletedQuest(QuestData[] questData)
+        {
+            foreach (var data in questData)
+            {
+                foreach (var quest in quests)
+                {
+                    if (quest.id == data.id && quest.state == QuestState.Completed)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }   
 }

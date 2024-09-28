@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
+using Ciart.Pagomoa.Logger.ProcessScripts;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
@@ -73,7 +74,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 {
                     var progressQuest = QuestManager.instance.FindQuestById(quest.id);
                     
-                    if (progressQuest is null || !progressQuest.accomplished)
+                    if (progressQuest is null || progressQuest.state != QuestState.Completed)
                     {
                         continue;
                     }
@@ -111,6 +112,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
 
             if (_entityQuests == Array.Empty<QuestData>()) return; 
+            
+            var hasCompletedQuest = QuestManager.instance.FindCompletedQuest(_entityQuests);
+            if (hasCompletedQuest)
+            {
+                _questCompleteUI.SetActive(true);
+            }
             
             EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }

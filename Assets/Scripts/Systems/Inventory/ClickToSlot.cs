@@ -1,4 +1,6 @@
+using System;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -125,12 +127,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UseItem()
         {
+            var chosenItem = GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
+            
             PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
             GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Active(playerStatus);
-            GameManager.player.inventory.DecreaseItemCount(GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
+            GameManager.player.inventory.DecreaseItemCount(chosenItem);
             InventoryUI.Instance.ResetSlots();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
+            
+            EventManager.Notify(new ItemUsedEvent(chosenItem));
         }
         public void AbandonItem()
         {
@@ -138,5 +144,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }
+        
     }
 }

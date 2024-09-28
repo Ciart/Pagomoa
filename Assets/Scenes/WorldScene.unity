@@ -5908,6 +5908,10 @@ MonoBehaviour:
     entityQuests:
     - {fileID: 11400000, guid: a2f39462e2d640848b4aac8227f844ca, type: 2}
     - {fileID: 11400000, guid: 20465bb09effd0041b82d9eab2dff67f, type: 2}
+  - entity: {fileID: 398867004004853786}
+    entityQuests:
+    - {fileID: 11400000, guid: 4db044733ef049f4e939b7199b0ab234, type: 2}
+    - {fileID: 11400000, guid: 6893e4399027b2743a50622cb33987f8, type: 2}
 --- !u!114 &1232868279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11568,6 +11572,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
+--- !u!114 &398867004004853786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3342775027776304295, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
+  m_PrefabInstance: {fileID: 398867004004853785}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &406246339755954797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11579,6 +11594,10 @@ PrefabInstance:
     - target: {fileID: 258473762284986154, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
       propertyPath: m_Name
       value: Moa (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 258473762284986154, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4819708299386157571, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
       propertyPath: chatBalloonPrefab
@@ -12520,6 +12539,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pago
       objectReference: {fileID: 0}
+    - target: {fileID: 409387768824757805, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8214977256597185486, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.2454195
@@ -12678,6 +12701,10 @@ PrefabInstance:
     - target: {fileID: 1651167646812918115, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
       propertyPath: m_Name
       value: Shopkeeper (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651167646812918115, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5043971153019923530, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
       propertyPath: m_LocalPosition.x
