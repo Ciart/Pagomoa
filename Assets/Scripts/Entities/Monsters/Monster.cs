@@ -25,6 +25,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
             Sleep,            // ��
             Chase,            // �߰�
             Hit,              // �ǰ�
+            Attack,
             Die               // ����
         }
         private void Awake()
