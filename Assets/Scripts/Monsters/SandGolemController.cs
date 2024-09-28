@@ -13,6 +13,8 @@ namespace Ciart.Pagomoa
 
         Coroutine Proceeding;
 
+        public LayerMask enemyLayer;
+
         void FixedUpdate()
         {
             if (touchingTarget)
@@ -65,6 +67,9 @@ namespace Ciart.Pagomoa
                     Proceeding = null;
                     Sleep();
                     break;
+                case Monster.MonsterState.Attack:
+                    Proceeding = StartCoroutine("Attack");
+                    break;
                 case Monster.MonsterState.Hit:
                     Proceeding = StartCoroutine("Hit");
                     break;
@@ -112,6 +117,8 @@ namespace Ciart.Pagomoa
                 _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
                 transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
+                CheckEnemyInAttackRange();
+
                 time -= Time.fixedDeltaTime;
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
@@ -122,6 +129,17 @@ namespace Ciart.Pagomoa
             _rigidbody.velocity = Vector3.zero;
             _animator.SetTrigger("Sleep");
         }
+
+        protected IEnumerator Attack()
+        {
+            _rigidbody.velocity = Vector2.zero;
+            _animator.SetTrigger("Attack");
+            yield return new WaitForSeconds(0.15f);
+            AttackEnemy();
+            yield return new WaitForSeconds(0.45f);
+            StateChanged(Monster.MonsterState.Chase);
+        }
+
         protected override IEnumerator Hit()
         {
             _animator.SetTrigger("Hit");
@@ -139,6 +157,35 @@ namespace Ciart.Pagomoa
             StateChanged(Monster.MonsterState.Hit);
         }
 
+        private void CheckEnemyInAttackRange()
+        {
+            var colliders = Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(_monster.direction, 0.2f), enemyLayer);
+            Debug.Log("현재 위치" + transform.position + "/ 방향 : " + _monster.direction);
+            foreach(var collider in colliders)
+            {
+                var entity = collider.GetComponent<EntityController>();
+                if (entity == GetComponent<EntityController>()) continue;
+
+                if (entity is not null)
+                {
+                    StateChanged(Monster.MonsterState.Attack);
+                    return;
+                }
+            }
+        }
+
+        private void AttackEnemy()
+        {
+            var colliders = Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(_monster.direction, 0.2f), enemyLayer);
+            foreach (var collider in colliders)
+            {
+                var entity = collider.GetComponent<EntityController>();
+                if (entity == GetComponent<EntityController>()) continue;
+                if (entity is null) continue;
+
+                entity.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
+            }
+        }
         //protected override void Die()
         //{
         //    _rigidbody.velocity = Vector3.zero;
