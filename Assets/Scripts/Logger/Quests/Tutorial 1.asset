@@ -34,3 +34,4 @@ MonoBehaviour:
     conditionType:
       target: 1
       typeValue: int
+  prevQuestData: []

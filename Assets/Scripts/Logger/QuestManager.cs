@@ -77,10 +77,12 @@ namespace Ciart.Pagomoa.Logger
         }
 
         public bool CheckQuestValidation(QuestData questData)
-        {
-            if (questData.prevQuestIds.Count != 0)
+        { 
+            var prevQuestCount = questData.prevQuestIds.Count;
+            
+            if (prevQuestCount != 0)
             {
-                var prevQuestCount = questData.prevQuestIds.Count;
+                if (quests.Count == 0) return false;
                 
                 foreach (var quest in quests)
                 {
@@ -88,14 +90,14 @@ namespace Ciart.Pagomoa.Logger
                     {
                         if (quest.id != questId) continue;
                         
+                        if (quest.state != QuestState.Finish) return false;
                         prevQuestCount--;
-                        if (quest.state != QuestState.Completed || quest.state != QuestState.Finish) return false;
                     }
                     
                     if (prevQuestCount != 0) return false;
                     if (quest.id == questData.id) return false;
                 }
-            } else if (questData.prevQuestIds.Count == 0)
+            } else
             {
                 foreach (var quest in quests)
                 {

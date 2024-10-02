@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
@@ -31,11 +32,14 @@ namespace Ciart.Pagomoa.Editor
             
             GUILayout.Space(20);
             
-            GUILayout.BeginVertical("선행 퀘스트 id", new GUIStyle(GUI.skin.window));
+            GUILayout.BeginVertical("선행 퀘스트 등록", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
-            for (int i = 0; i < newQuestData.prevQuestIds.Count; i++)
+            for (int i = 0; i < newQuestData.prevQuestData.Count; i++)
             {
-                newQuestData.prevQuestIds[i] = EditorGUILayout.TextField(i+1 + ". PrevQuest ID", newQuestData.prevQuestIds[i]);    
+                newQuestData.prevQuestData[i] = (QuestData)EditorGUILayout.ObjectField("선행 퀘스트", newQuestData.prevQuestData[i], typeof(QuestData), false);
+                if (!newQuestData.prevQuestData[i]) continue;
+                
+                newQuestData.prevQuestIds.Add(newQuestData.prevQuestData[i].id);
             }
             
             if( newQuestData.prevQuestIds.Count == 0) 
@@ -45,13 +49,14 @@ namespace Ciart.Pagomoa.Editor
             
             if (GUILayout.Button("+"))
             {
-                newQuestData.prevQuestIds.Add("");
+                newQuestData.prevQuestData.Add(null);
             }
 
             if (GUILayout.Button("-"))
             {
                 if (newQuestData.prevQuestIds.Count == 0) return;
                 newQuestData.prevQuestIds.RemoveAt(newQuestData.prevQuestIds.Count - 1);
+                newQuestData.prevQuestData.RemoveAt(newQuestData.prevQuestIds.Count - 1);
             }
             GUILayout.EndVertical();
             
