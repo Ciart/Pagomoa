@@ -161,7 +161,7 @@ MonoBehaviour:
   isGrounded: 0
   status: {fileID: 0}
   initialStatus: {fileID: 0}
-  groundDistance: 1.125
+  groundDistance: 0.125
   sideWallDistance: 1.0625
   inventory:
     Gold: 10000
@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90693324e01c45be849bd36109ee9dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Actable: 0
 --- !u!61 &4194115565561829200
 BoxCollider2D:
   m_ObjectHideFlags: 0
