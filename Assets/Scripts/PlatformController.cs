@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Constants;
-using Entities;
-using Entities.Players;
+using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
 using UnityEngine;
 
 public class PlatformController : MonoBehaviour
@@ -16,15 +13,25 @@ public class PlatformController : MonoBehaviour
 
     private float _enableTime = 0f;
 
+    private void OnPlayerSpawnedEvent(PlayerSpawnedEvent e)
+    {
+        _playerInput = e.player.GetComponent<PlayerInput>();
+        _playerCollider = e.player.GetComponent<BoxCollider2D>();
+    }
+
     private void Awake()
     {
         _collider = GetComponent<EdgeCollider2D>();
+    }
 
-        EntityManager.instance.spawnedPlayer += (player) =>
-        {
-            _playerInput = player.GetComponent<PlayerInput>();
-            _playerCollider = player.GetComponent<BoxCollider2D>();
-        };
+    private void OnEnable()
+    {
+        EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
     }
 
     private void Update()
