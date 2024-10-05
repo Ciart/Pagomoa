@@ -14,13 +14,20 @@ namespace Ciart.Pagomoa.Systems.Time
         public const int HourTick = MinuteTick * 60;
     
         public const int MaxTick = HourTick * 24;
+
+        public const int HourOffset = 6;
     
         /// <summary>
         /// 06:00
         /// </summary>
         public const int Morning = 0;
 
-        public int tick = Morning;
+        private int _tick = 0;
+        
+        public int tick {
+            get => _tick;
+            set => _tick = value % MaxTick;
+        }
     
         /// <summary>
         /// 1초 당 틱 수
@@ -29,7 +36,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public int date = 1;
     
-        public int hour => tick / HourTick + 6;
+        public int hour => tick / HourTick + HourOffset;
 
         public int minute => tick % HourTick / MinuteTick;
     
@@ -131,7 +138,7 @@ namespace Ciart.Pagomoa.Systems.Time
             // FadeEvent.Invoke(FadeState.FadeInOut);
             EventManager.Notify(new FadeEvent(FadeState.FadeInOut));
             AddDay(1);
-            SetTime(6,0);
+            tick = Morning;
 
             NextDaySpawn.Invoke();
             MonsterWakeUp.Invoke();
@@ -170,7 +177,7 @@ namespace Ciart.Pagomoa.Systems.Time
     
         public void SetTime(int hour, int minute)
         {
-            tick = (hour * HourTick) + (minute * MinuteTick);
+            tick = ((hour - HourOffset) * HourTick) + (minute * MinuteTick);
         }
     
         public void SetDay(int day)
