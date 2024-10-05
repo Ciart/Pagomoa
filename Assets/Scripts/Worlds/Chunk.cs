@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
     public class Chunk
@@ -9,17 +10,17 @@ namespace Worlds
         public const int Size = 16;
         
         // TODO: key 대신 다른 단어로 교체해야 함.
-        public Vector2Int key;
+        [FormerlySerializedAs("key")] public ChunkCoords coords;
 
         public Brick[] bricks;
 
         public readonly Rect worldRect;
 
-        public Chunk(Vector2Int key)
+        public Chunk(ChunkCoords coords)
         {
-            this.key = key;
+            this.coords = coords;
             bricks = new Brick[Size * Size];
-            worldRect = new Rect(key.x * Size, key.y * Size, Size, Size);
+            worldRect = new Rect(coords.x * Size, coords.y * Size, Size, Size);
 
             for (var i = 0; i < Size; i++)
             {

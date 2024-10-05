@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerInteractWithObject : MonoBehaviour
     {
@@ -18,7 +19,7 @@ namespace Entities.Players
             GetComponentInParent<PlayerInput>().Actions.Interaction.started += context =>
             {
                 if (!_activatedObject) return;
-                _activatedObject.InteractionEvent.Invoke();
+                _activatedObject.interactionEvent.Invoke();
             };
         }
         void FixedUpdate()
@@ -60,7 +61,7 @@ namespace Entities.Players
             }
             else if (distance < _closestDistance && interactableObjectList.Count > 1)
             {
-                _activatedObject.DisableObject();
+                _activatedObject?.DisableObject();
                 _activatedObject = obj;
                 _closestDistance = distance;
                 obj.ActiveObject();

@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
-using Worlds;
+using Ciart.Pagomoa.Worlds;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Ciart.Pagomoa.Editor
 {
     public class WorldDatabaseEditor : EditorWindow
     {
@@ -29,6 +29,8 @@ namespace Editor
         private int _selectMineral;
 
         private int _selectEntity;
+
+        private Vector2 _workspaceScrollPosition;
 
         [MenuItem("Window/World Database Editor")]
         private static void Init()
@@ -64,54 +66,74 @@ namespace Editor
             Repaint();
         }
 
-        private void OnGUI()
+        private void DrawSideBar()
         {
+            const float width = 300;
+
+            _database = (WorldDatabase)EditorGUILayout.ObjectField(_database, typeof(WorldDatabase), false,
+                GUILayout.Width(width));
+
             if (_database is null)
             {
-                _database = (WorldDatabase)EditorGUILayout.ObjectField(_database, typeof(WorldDatabase), false);
                 return;
             }
 
             var piece = _database.pieces[_database.selectIndex];
 
-            _database.selectIndex =
-                EditorGUILayout.Popup(_database.selectIndex, _database.pieces.Select(piece => piece.name).ToArray());
+            piece.appearanceArea =
+                (WorldAreaFlag)EditorGUILayout.EnumFlagsField(piece.appearanceArea, GUILayout.Width(width));
+            
+            GUILayout.Label($"현재: {piece.width}x{piece.height}");
 
-            piece.appearanceArea = (WorldAreaFlag)EditorGUILayout.EnumFlagsField(piece.appearanceArea);
-
-            EditorGUILayout.BeginHorizontal();
-            _width = Math.Clamp(EditorGUILayout.IntField("Width", _width), 1, 16);
-            _height = Math.Clamp(EditorGUILayout.IntField("Height", _height), 1, 16);
+            _width = Math.Clamp(EditorGUILayout.IntField("Width", _width, GUILayout.Width(width)), 1, 1000);
+            _height = Math.Clamp(EditorGUILayout.IntField("Height", _height, GUILayout.Width(width)), 1, 1000);
 
             if (GUILayout.Button("Resize"))
             {
-                piece.width = _width;
-                piece.height = _height;
-                piece.ResizeBricks();
+                piece.ResizeBricks(_width, _height);
             }
+            
+            GUILayout.Space(8);
 
-            EditorGUILayout.EndHorizontal();
-
-            _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings);
+            _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings, GUILayout.Width(width));
 
             switch (_tabIndex)
             {
                 case 1:
                     _selectWall = EditorGUILayout.Popup(_selectWall,
-                        _database.walls.Select(wall => wall.displayName ?? wall.name).ToArray());
+                        _database.walls.Select(wall => wall.displayName ?? wall.name).ToArray(),
+                        GUILayout.Width(width));
                     break;
                 case 2:
                     _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.displayName ?? ground.name).ToArray());
+                        _database.grounds.Select(ground => ground.displayName ?? ground.name).ToArray(),
+                        GUILayout.Width(width));
                     break;
                 case 3:
                     _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.displayName ?? mineral.name).ToArray());
+                        _database.minerals.Select(mineral => mineral.displayName ?? mineral.name).ToArray(),
+                        GUILayout.Width(width));
                     break;
                 case 4:
                     _selectEntity = EditorGUILayout.Popup(_selectEntity,
-                        _database.entities.Select(entity => entity.displayName ?? entity.name).ToArray());
+                        _database.entities.Select(entity => entity.displayName ?? entity.name).ToArray(),
+                        GUILayout.Width(width));
                     break;
+            }
+            
+            GUILayout.Space(8);
+            
+            _database.selectIndex = GUILayout.SelectionGrid(_database.selectIndex, _database.pieces.Select(p => p.name).ToArray(), 1);
+        }
+
+        private void DrawWorkspace()
+        {
+            var piece = _database.pieces[_database.selectIndex];
+
+            if (!piece.isValid)
+            {
+                GUILayout.Label("크기가 유효하지 않습니다. 재설정 해주세요.");
+                return;
             }
 
             var e = Event.current;
@@ -122,7 +144,7 @@ namespace Editor
                 {
                     var brick = piece.GetBrick(x, y);
                     var xMin = x * 36 + 8;
-                    var yMin = piece.height * 36 - y * 36 + 100;
+                    var yMin = piece.height * 36 - (y + 1) * 36 + 8;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
 
                     EditorGUI.DrawRect(rect, Color.gray);
@@ -177,7 +199,7 @@ namespace Editor
                         }
                     }
 
-                    if (_tabIndex == 0)
+                    if (_tabIndex == 1)
                     {
                         var wall = brick.wall;
                         if (wall)
@@ -204,18 +226,36 @@ namespace Editor
             }
 
             var pivotX = piece.pivot.x * 36 + 8;
-            var pivotY = piece.height * 36 - piece.pivot.y * 36 + 100;
+            var pivotY = piece.height * 36 - (piece.pivot.y + 1) * 36;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
 
             foreach (var prefab in piece.entities)
             {
                 var prefabX = prefab.x * 36 + 8;
-                var prefabY = piece.height * 36 - prefab.y * 36 + 100;
+                var prefabY = piece.height * 36 - (prefab.y + 1) * 36;
                 EditorGUI.DrawRect(Rect.MinMaxRect(prefabX + 12, prefabY + 12, prefabX + 20, prefabY + 20),
                     Color.red);
             }
 
             EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
+        }
+
+        private void OnGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+            _workspaceScrollPosition = EditorGUILayout.BeginScrollView(_workspaceScrollPosition, true, true);
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.Space(1000);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.Space(1000);
+            DrawWorkspace();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
+            EditorGUILayout.BeginVertical(GUILayout.MinWidth(50));
+            DrawSideBar();
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

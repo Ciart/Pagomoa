@@ -1,9 +1,11 @@
-using System.Collections;
-using Constants;
+﻿using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using Worlds;
+using UnityEngine.Serialization;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     [RequireComponent(typeof(PlayerStatus))]
     public partial class PlayerController : MonoBehaviour
@@ -11,16 +13,16 @@ namespace Entities.Players
         public PlayerState state = PlayerState.Idle;
 
         public bool isGrounded = false;
+        
+        public PlayerStatus status;
 
-        public GameObject drill;
-
-        public PlayerStatus _status;
-
-        public PlayerStatus _initialStatus;
+        public PlayerStatus initialStatus;
 
         public float groundDistance = 1.125f;
         
         public float sideWallDistance = 1.0625f;
+        
+        [FormerlySerializedAs("inventoryDB")] public Inventory inventory;
 
         private Rigidbody2D _rigidbody;
         
@@ -28,7 +30,7 @@ namespace Entities.Players
 
         private PlayerMovement _movement;
 
-        private PlayerDigger _digger;
+        private DrillController _digger;
         
         private Camera _camera;
 
@@ -38,14 +40,13 @@ namespace Entities.Players
 
         private void Awake()
         {
-            _status = GetComponent<PlayerStatus>(); // ���� �ʱ�ȭ
-            _initialStatus = _status.copy();  // �⺻ ���� ����
+            status = GetComponent<PlayerStatus>();
+            initialStatus = status.copy();
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
-            _digger = GetComponent<PlayerDigger>();
-
+            _digger = transform.GetChild(0).GetComponent<DrillController>();
             _camera = Camera.main;
             _world = WorldManager.instance;
         }
@@ -64,6 +65,7 @@ namespace Entities.Players
         private void Update()
         {
             UpdateState();
+            UpdateSound();
 
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
@@ -74,21 +76,20 @@ namespace Entities.Players
             {
                 _digger.isDig = true;
                 _digger.direction = _direction;
-                drill.SetActive(true);
             }
             else if (_input.DigDirection.magnitude > 0.001f)
             {
                 _digger.isDig = true;
                 _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
-                drill.SetActive(true);
             }
             else
             {
                 _digger.isDig = false;
-                drill.SetActive(false);
             }
 
             TryJump();
+            
+            EventManager.Notify(new PlayerMove(transform.position));
         }
 
         private void UpdateIsGrounded()
@@ -129,40 +130,12 @@ namespace Entities.Players
 
             _movement.isSideWall = true;
         }
-        public void GetDamage(GameObject attacker, float damage)
-        {
-            _status.oxygen -= damage;
-            HitAction(attacker);
-            if (_status.oxygen <= 0)
-                Die();
-        }
-        public void HitAction(GameObject attacker)
-        {
-            StartCoroutine("CantMoveOn", GetComponent<Hit>().unbeatTime);
-            ParticleManager.Instance.Make(0, gameObject, Vector2.zero, 0.5f);
-
-            float _knockBackForce = 5f;
-            Vector2 knockBackDirection = transform.position - attacker.transform.position;
-            knockBackDirection.Normalize();
-            Vector2 knockBackPosition = new Vector2(_knockBackForce * Mathf.Sign(knockBackDirection.x), 8f);
-
-            _rigidbody.AddForce(knockBackPosition, ForceMode2D.Impulse);
-        }
-        IEnumerator CantMoveOn(float time)
-        {
-            _movement.canMove = false;
-            yield return new WaitForSeconds(time);
-            _movement.canMove = true;
-        }
-        void Die()
-        {
-            Debug.Log("플레이어가 몬스터에게 질식해 죽었습니다. 꺠꼬닥!");
-        }
+        
         public bool Hungry(float value)
         {
-            if (_status.hungry - value < 0) return true;
-            _status.hungry -= value;
-            _status.hungryAlter.Invoke(_status.hungry, _status.maxHungry);
+            if (status.hungry - value < 0) return true;
+            status.hungry -= value;
+            status.hungryAlter.Invoke(status.hungry, status.maxHungry);
             return false;
         }
         

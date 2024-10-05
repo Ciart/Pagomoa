@@ -1,9 +1,9 @@
 using System;
-using Entities;
+using Ciart.Pagomoa.Entities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Worlds
+namespace Ciart.Pagomoa.Worlds
 {
     [CreateAssetMenu(fileName = "World Database", menuName = "World/Database", order = 4)]
     public class WorldDatabase : ScriptableObject
@@ -14,7 +14,7 @@ namespace Worlds
 
         public Mineral[] minerals;
 
-        public Entity[] entities;
+        public EntityOrigin[] entities;
 
         public Piece[] pieces = { new Piece() };
 
@@ -39,7 +39,7 @@ namespace Worlds
             return Array.Find(minerals, mineral => mineral.name == name);
         }
         
-        public Entity GetEntity(string name)
+        public EntityOrigin GetEntity(string name)
         {
             return Array.Find(entities, entity => entity.name == name);
         }

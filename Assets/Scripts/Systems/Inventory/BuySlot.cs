@@ -1,37 +1,28 @@
-using Inventory;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BuySlot : Slot
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    [SerializeField] public GameObject _soldOut;
-
-    [SerializeField] private TextMeshProUGUI _itemName;
-    [SerializeField] private TextMeshProUGUI _itemPrice;
-    [SerializeField] public TextMeshProUGUI itemNum;
-
-    public void BuyCheck()
+    public class BuySlot : MonoBehaviour
     {
-        Buy.Instance.choiceSlot = this;
-
-        var Shop = Buy.Instance.choiceSlot.inventoryItem.item;
-        buyCountUI.OnUI();
-        ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
-    }
-    
-    public void UpdateArtifactSlot()
-    {
-        image.sprite = inventoryItem.item.itemImage;
-        _itemName.text = inventoryItem.item.itemName;
-        _itemPrice.text = inventoryItem.item.itemPrice.ToString();
-        itemNum.text = inventoryItem.count.ToString();
-    }
-    public void UpdateConsumptionSlot()
-    {
-        image.sprite = inventoryItem.item.itemImage;
-        _itemName.text = inventoryItem.item.itemName;
-        _itemPrice.text = inventoryItem.item.itemPrice.ToString();
+        [SerializeField] public InventorySlot slot;
+        [SerializeField] public Image image;
+        [SerializeField] public TextMeshProUGUI itemName;
+        [SerializeField] public TextMeshProUGUI itemPrice;
+        public void BuyCheck()
+        {
+            Buy.Instance.choosenBuySlot = this;
+            var Shop = Buy.Instance.choosenBuySlot.slot.item;
+            Buy.Instance.OnCountUI(this.gameObject);
+            ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
+        }
+        public void UpdateConsumptionSlot()
+        {
+            image.sprite = slot.item.itemImage;
+            itemName.text = slot.item.itemName;
+            itemPrice.text = slot.item.itemPrice.ToString();
+        }
     }
 }

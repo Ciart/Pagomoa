@@ -1,26 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragTrash : MonoBehaviour, IDropHandler
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public void OnDrop(PointerEventData eventData)
+    public class DragTrash : MonoBehaviour, IDropHandler
     {
-        var Data = eventData.pointerDrag.GetComponent<QuickSlot>();
+        public void OnDrop(PointerEventData eventData)
+        {
+            var data = eventData.pointerDrag.GetComponent<QuickSlotUI>();
 
-        if (Data)
-        {
-            QuickSlotItemDB.instance.quickSlotItems.RemoveAt(Data.id);
-            QuickSlotItemDB.instance.quickSlotItems.Insert(Data.id, null);
-            Data.inventoryItem = null;
-            Data.itemImage.sprite = Data.transparentImage;
-            Data.itemCount.text = "";
-        }
-        else if (eventData.pointerPress.GetComponent<Slot>())
-        {
-            InventoryDB.Instance.DeleteItem(eventData.pointerDrag.GetComponent<Slot>().inventoryItem.item);
-            EtcInventory.Instance.ResetSlot();
+            if (data)
+            {
+                GameManager.player.inventory.SetQuickItem(data.id, null);
+            }
+            else if (eventData.pointerPress.GetComponent<InventorySlotUI>())
+            {
+                GameManager.player.inventory.RemoveItemData(GameManager.player.inventory.items[
+                    eventData.pointerDrag.GetComponent<InventorySlotUI>().id].item);
+                InventoryUI.Instance.UpdateSlots();
+            }
         }
     }
 }

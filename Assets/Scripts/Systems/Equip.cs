@@ -1,8 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
 
-public class Equip : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    public List<Item> equipments = new List<Item>();
+    public class Equip : MonoBehaviour
+    {
+        public List<Item> equipments = new List<Item>();
+    }
 }

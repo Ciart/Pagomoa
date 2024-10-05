@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class UFOGateInteraction : MonoBehaviour
     {
@@ -47,8 +45,8 @@ namespace UFO
             _inCollider = _gateIn.GetComponent<CircleCollider2D>();
             _outCollider = GetComponent<CircleCollider2D>();
 
-            _gateIn.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
-            _gateOut.GetComponent<InteractableObject>().InteractionEvent.AddListener(ActiveGravityBeam);
+            _gateIn.GetComponent<InteractableObject>().interactionEvent.AddListener(ActiveGravityBeam);
+            _gateOut.GetComponent<InteractableObject>().interactionEvent.AddListener(ActiveGravityBeam);
 
             _beamBack = GetComponentInChildren<BeamBack>().GetComponent<SpriteRenderer>();
             _beamFront = GetComponentInChildren<BeamFront>().GetComponent<SpriteRenderer>();

@@ -1,8 +1,10 @@
 using System.Collections;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class UFOBedInteraction : MonoBehaviour
     {
@@ -16,7 +18,7 @@ namespace UFO
         {
             _interactable = GetComponent<InteractableObject>();
             
-            _interactable.InteractionEvent.AddListener(GotoBed);
+            _interactable.interactionEvent.AddListener(GotoBed);
             
             _timeManager = FindObjectOfType<TimeManager>();
         }

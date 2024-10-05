@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
-public abstract class ItemEffect : ScriptableObject
+namespace Ciart.Pagomoa.Items
 {
-    public abstract void Effect(ConsumerableItem item, PlayerStatus stat);
+    public abstract class ItemEffect : ScriptableObject
+    {
+        public abstract void Effect(ConsumerableItem item, PlayerStatus stat);
+    }
 }

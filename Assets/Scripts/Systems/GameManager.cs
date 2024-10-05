@@ -1,63 +1,59 @@
 using System;
-using System.Collections.Specialized;
-using System.Drawing;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
-using Worlds;
-using PlayerController = Entities.Players.PlayerController;
 
-public class GameManager : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    public bool isLoadSave;
-
-    public bool hasPowerGemEarth;
-
-    private static GameManager _instance;
-
-    public static GameManager instance
+    public class GameManager : SingletonMonoBehaviour<GameManager>
     {
-        get
-        {
-            if (_instance is null)
-            {
-                _instance = (GameManager)FindObjectOfType(typeof(GameManager));
-            }
+        public bool isLoadSave;
 
-            return _instance;
-        }
-    }
-    
-    private void Awake()
-    {
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        public bool hasPowerGemEarth;
 
-    void Start()
-    {
-        FindObjectOfType<PlayerSpawnPoint>().Spawn();
+        private PlayerController _player;
         
-        SaveManager saveManager = SaveManager.Instance;
-        bool mapLoad = saveManager.LoadMap();
-        if (mapLoad)
+        public static PlayerController player => instance._player;
+        
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
-            saveManager.LoadPosition();
-            saveManager.LoadItem();
-            saveManager.LoadArtifactItem();
-            saveManager.LoadQuickSlot();
-            saveManager.LoadPlayerCurrentStatusData();
-            saveManager.LoadEatenMineralCountData();
+            _player = e.player;
         }
-        else
-            saveManager.TagPosition(saveManager.loadPositionDelayTime);
-    }
 
-
-    private void Update()
-    {
-        if (hasPowerGemEarth)
+        void Start()
         {
-            Debug.Log("데모 종료");
+            var saveManager = SaveManager.Instance;
+            bool mapLoad = saveManager.LoadMap();
+            if (mapLoad)
+            {
+                saveManager.LoadPosition();
+                saveManager.LoadItem();
+                // saveManager.LoadArtifactItem();
+                // saveManager.LoadQuickSlot();
+                saveManager.LoadPlayerCurrentStatusData();
+                saveManager.LoadEatenMineralCountData();
+            }
+            else
+                saveManager.TagPosition(saveManager.loadPositionDelayTime);
+        }
+
+        private void Update()
+        {
+            if (hasPowerGemEarth)
+            {
+                Debug.Log("데모 종료");
+            }
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
     }
 }

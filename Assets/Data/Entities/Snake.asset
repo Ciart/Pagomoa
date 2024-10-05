@@ -16,5 +16,6 @@ MonoBehaviour:
   description: "\uD589\uBCF5\uD589\uBCF5"
   type: 100
   subType: 0
+  isEnemy: 1
   prefab: {fileID: 5833853642368172660, guid: 0d549f2e0369a1844a455a7d7dafe590, type: 3}
   baseHealth: 100

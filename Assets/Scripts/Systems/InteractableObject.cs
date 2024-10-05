@@ -1,35 +1,74 @@
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
-public class InteractableObject : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    private SpriteRenderer _spriteRenderer;
-    private SpriteRenderer _clickRenderer;
+    public class InteractableObject : MonoBehaviour
+    {
+        public Vector3 uiOffset = new Vector3(0f, 2f, 0f);
 
-    private readonly string _outline = "_OutlineColor";
+        // 유니티 이벤트 호출
+        public UnityEvent interactionEvent; 
+
+        private SpriteRenderer _spriteRenderer;
+
+        private GameObject _interactableUI;
+
+        private const string Outline = "_OutlineColor";
+        private static readonly int OutlineColor = Shader.PropertyToID(Outline);
     
-    // 유니티 이벤트 호출
-    public UnityEvent InteractionEvent; 
-    
-    
-    void Start()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _clickRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        _clickRenderer.enabled = false;
-    }
-    public void ActiveObject()
-    {
-        Color a = new Color(0.38f,0.75f, 0.92f, 1f);
+        private void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+
+            _interactableUI = UIManager.CreateInteractableUI(transform);
+            _interactableUI.SetActive(false);
+            _interactableUI.transform.position += uiOffset;
+        }
+
+        public void ActiveObject()
+        {
+            if (interactionEvent.GetPersistentEventCount() == 0) return;
+            if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
+            
+            var color = new Color(0.38f,0.75f, 0.92f, 1f);
         
-        _spriteRenderer.material.SetColor(_outline, a);
-        _clickRenderer.enabled = true;
-    }
+            _spriteRenderer.material.SetColor(OutlineColor, color);
+            _interactableUI.SetActive(true);
+        }
 
-    public void DisableObject()
-    {
-        _spriteRenderer.material.SetColor(_outline, Color.white);
-        _clickRenderer.enabled = false;
+        public void DisableObject()
+        {
+            if (interactionEvent.GetPersistentEventCount() == 0) return;
+            if (interactionEvent.GetPersistentListenerState(0)== UnityEventCallState.Off) return;
+            
+            _spriteRenderer.material.SetColor(OutlineColor, Color.white);
+            _interactableUI.SetActive(false);
+        }
+
+        public void LockInteraction()
+        {
+            _interactableUI.SetActive(false);
+            
+            var eventIndex = interactionEvent.GetPersistentEventCount();
+
+            for (int i = 0; i < eventIndex; i++)
+            {
+                interactionEvent.SetPersistentListenerState(i, UnityEventCallState.Off);
+            }
+        }
+
+        public void UnlockInteraction()
+        {
+            var eventIndex = interactionEvent.GetPersistentEventCount();
+
+            for (int i = 0; i < eventIndex; i++)
+            {
+                interactionEvent.SetPersistentListenerState(i, UnityEventCallState.RuntimeOnly);
+            }
+        }
     }
 }

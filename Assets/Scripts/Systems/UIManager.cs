@@ -1,101 +1,127 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.UI.Book;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using Unity.VisualScripting;
-using System;
-using Cinemachine;
-using Entities;
-using Entities.Players;
 
-public class UIManager : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    [SerializeField] Image oxygenbar;
-    [SerializeField] Image hungrybar;
-    [SerializeField] Image digbar;
-    [SerializeField] public GameObject InventoryUI;
-    [SerializeField] public GameObject EscUI;
-    [SerializeField] private CinemachineVirtualCamera _inventoryCamera;
-
-    private GameObject _UI;
-    private bool _activeInventory = false;
-    private PlayerInput playerInput;
-
-    private void Awake()
+    public class UIManager : SingletonMonoBehaviour<UIManager>
     {
-        _UI = GameObject.Find("UI");
+        public Image oxygenbar;
+        public Image hungrybar;
+        public GameObject inventoryUIPrefab;
+        public GameObject dialogueUIPrefab;
+        public GameObject quickSlotContainerUIPrefab;
+        public GameObject escUI;
+        public GameObject interactableUI;
+        public GameObject questCompleteUI;
+        public DialogueUI dialogueUI;
+        public CinemachineVirtualCamera inventoryCamera;
 
-        EntityManager.instance.spawnedPlayer += player =>
+        private PlayerInput _playerInput;
+        private GameObject _inventoryUI;
+        private GameObject _dialogueUI;
+        private bool _isActiveInventory;
+
+        protected override void Awake()
         {
+            base.Awake();
+            
+            _inventoryUI = Instantiate(inventoryUIPrefab, transform);
+            Debug.Log(_inventoryUI);
+            _inventoryUI.SetActive(false);
+            
+            _dialogueUI = Instantiate(dialogueUIPrefab, transform);
+            _dialogueUI.SetActive(false);
+            dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+
+            Instantiate(quickSlotContainerUIPrefab, transform);
+        }
+        
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        {
+            var player = e.player;
+
             player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(UpdateOxygenBar);
             player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
 
-            playerInput = player.GetComponent<PlayerInput>();
+            _playerInput = player.GetComponent<PlayerInput>();
 
-            playerInput.Actions.SetEscUI.started += context => 
-            {
-                SetEscUI();
-            };
+            _playerInput.Actions.Menu.performed += context => { ToggleEscUI(); };
 
-            playerInput.Actions.SetInventoryUI.started += context =>
-            {
-                CreateInventoryUI();
-            };
-        };
-    }
-    public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
-    {
-        oxygenbar.fillAmount = current_oxygen / max_oxygen;
-    }
+            _playerInput.Actions.Menu.performed += context => { ToggleEscDialogueUI(); };
 
-    public void UpdateHungryBar(float current_hungry, float max_hungry)
-    {
-        hungrybar.fillAmount = current_hungry / max_hungry;
-    }
-    private void SetEscUI()
-    {
-        bool activeEscUI = false;
-        if (EscUI.activeSelf == false)
-            activeEscUI = !activeEscUI;
-        EscUI.SetActive(activeEscUI);
-    }
-    private void SetInventoryUI()
-    {
-        bool OffHoverEvent = false;
-        if (_activeInventory == false)
-        {
-            _activeInventory = !_activeInventory;
-            _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
-            _inventoryCamera.Priority = 11;
+            _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
         }
-        else
-        {
-            _activeInventory = !_activeInventory;
-            HoverEvent.Instance.HoverRenderer.SetActive(OffHoverEvent);
-            _UI.transform.Find("Inventory(Clone)").gameObject.SetActive(_activeInventory);
-            _inventoryCamera.Priority = 9;
-            if (EtcInventory.Instance.hoverSlot != null)
-            {
-                EtcInventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
-                    EtcInventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
-            }
-            else
-                return;
-        }
-    }
-    private void CreateInventoryUI()
-    {
 
-        if (_UI.transform.Find("Inventory(Clone)") == null)
+        public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
         {
-            Instantiate(InventoryUI, transform).SetActive(false);
-            SetInventoryUI();
+            oxygenbar.fillAmount = current_oxygen / max_oxygen;
         }
-        else
-            SetInventoryUI();
-    }
-    //}
 
+        public void UpdateHungryBar(float current_hungry, float max_hungry)
+        {
+            hungrybar.fillAmount = current_hungry / max_hungry;
+        }
+
+        private void ToggleEscUI()
+        {
+            if(!_dialogueUI.activeSelf)
+                escUI.SetActive(!escUI.activeSelf);
+        }
+
+        private void ToggleInventoryUI()
+        {
+            _isActiveInventory = !_isActiveInventory;
+            _inventoryUI.SetActive(_isActiveInventory);
+
+            // if (_isActiveInventory)
+            // {
+            //     inventoryCamera.Priority = 11;
+            // }
+            // else
+            // {
+            //     inventoryCamera.Priority = 9;
+            //
+            //     // if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
+            //     //     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
+            //
+            //     if (Inventory.Inventory.Instance.hoverSlot == null)
+            //         return;
+            //
+            //     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
+            //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
+            // }
+        }
+
+        private void ToggleEscDialogueUI()
+        {
+            _dialogueUI.SetActive(false);
+        }
+
+        public static GameObject CreateInteractableUI(Transform parent)
+        {
+            return Instantiate(instance.interactableUI, parent);
+        }
+
+        public static GameObject CreateQuestCompleteUI(Transform parent)
+        {
+            return Instantiate(instance.questCompleteUI, parent);
+        }
+
+    }
 }
-

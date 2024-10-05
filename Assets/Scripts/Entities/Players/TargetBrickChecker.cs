@@ -1,7 +1,7 @@
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class TargetBrickChecker : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace Entities.Players
 
         private WorldManager _worldManager;
 
-        public void ChangeTarget(Vector2Int position, int width, int length, bool isHorizontal = false)
+        public void ChangeTarget(WorldCoords coords, int width, int length, bool isHorizontal = false)
         {
             Vector3 offset;
 
@@ -31,7 +31,7 @@ namespace Entities.Players
 
             _spriteRenderer.size = isHorizontal ? new Vector2(length, width) : new Vector2(width, length);
 
-            transform.position = WorldManager.ComputePosition(position) + offset;
+            transform.position = WorldManager.ComputePosition(coords) + offset;
             
             // Update targetCoordsList
 
@@ -45,8 +45,8 @@ namespace Entities.Players
                 {
                     for (int j = 0; j < width; j++)
                     {
-                        var coords = WorldManager.ComputeCoords(topLeft + new Vector3(i, j));
-                        _targetCoordsList[i * width + j] = (coords.x, coords.y);
+                        var c = WorldManager.ComputeCoords(topLeft + new Vector3(i, j));
+                        _targetCoordsList[i * width + j] = (c.x, c.y);
                     }
                 }
             }
@@ -58,8 +58,8 @@ namespace Entities.Players
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        var coords = WorldManager.ComputeCoords(topLeft + new Vector3(i, j));
-                        _targetCoordsList[i * length + j] = (coords.x, coords.y);
+                        var c = WorldManager.ComputeCoords(topLeft + new Vector3(i, j));
+                        _targetCoordsList[i * length + j] = (c.x, c.y);
                     }
                 }
             }

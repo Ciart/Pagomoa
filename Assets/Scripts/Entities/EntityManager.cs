@@ -1,65 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using Entities.Players;
+﻿using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
-using Worlds;
+using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
-namespace Entities
+namespace Ciart.Pagomoa.Entities
 {
-    public class EntityManager : MonoBehaviour
+    public class EntityManager : SingletonMonoBehaviour<EntityManager>
     {
-        private PlayerController _player;
-        public PlayerController player => _player;
-
-        /// <summary>
-        /// Player가 생성될 때 호출됩니다.
-        /// Awake에서 구독하기를 권장합니다.
-        /// </summary>
-        public event Action<PlayerController> spawnedPlayer;
-        
         private static EntityManager _instance;
 
         private List<EntityController> _entities = new();
 
-        public static EntityManager instance
+        public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
         {
-            get
+            var entity = Instantiate(origin.prefab, position, Quaternion.identity);
+            _entities.Add(entity);
+
+            entity.Init(new EntityData(position.x, position.y, origin, status));
+            
+            if (origin.type == EntityType.Player)
             {
-                if (_instance is null)
-                {
-                    _instance = (EntityManager)FindObjectOfType(typeof(EntityManager));
-                }
-
-                return _instance;
-            }
-        }
-
-        private void Awake()
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        public EntityController Spawn(Entity entity, Vector3 position, EntityStatus status = null)
-        {
-            var controller = Instantiate(entity.prefab, position, Quaternion.identity);
-            _entities.Add(controller);
-
-            controller.Init(entity, status);
-
-            return controller;
-        }
-        
-        public PlayerController SpawnPlayer(Entity entity, Vector3 position)
-        {
-            if (_player is null)
-            {
-                _player = Spawn(entity, position).GetComponent<PlayerController>();
-                spawnedPlayer?.Invoke(_player);
+                var player = entity.GetComponent<PlayerController>();
+                EventManager.Notify(new PlayerSpawnedEvent(player));
             }
 
-            return _player;
+            return entity;
         }
 
         public void Despawn(EntityController controller)
@@ -70,12 +38,12 @@ namespace Entities
         }
 
         [CanBeNull]
-        public EntityController Find(Entity entity)
+        public EntityController Find(EntityOrigin origin)
         {
-            return _entities.Find(controller => controller.entity == entity);
+            return _entities.Find(controller => controller.origin == origin);
         }
 
-        public List<EntityController> FindAllEntityInChunk(Chunk chunk)
+        public List<EntityController> FindAllEntityInChunk(Chunk chunk) 
         {
             // TODO: Quad-Tree로 최적화 해야 함.
             return _entities.FindAll((entity) => chunk.worldRect.Contains(entity.transform.position));

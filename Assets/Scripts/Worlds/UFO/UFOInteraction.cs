@@ -1,10 +1,10 @@
 using System.Collections;
-using Entities;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
-using PlayerController = Entities.Players.PlayerController;
 
 
-namespace UFO
+namespace Ciart.Pagomoa.Worlds.UFO
 {
     public class UFOInteraction : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace UFO
 
         public IEnumerator MoveToPlayer()
         {
-            var player = EntityManager.instance.player;
+            var player = GameManager.player;
             var startPos = transform.position;
             var targetPos = new Vector3(player.transform.position.x, startPos.y);
             var sqrDistance = (targetPos - startPos).sqrMagnitude;

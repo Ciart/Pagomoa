@@ -123,7 +123,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SetEscUI",
+                    "name": "Menu",
                     "type": "PassThrough",
                     "id": "e264f316-fda0-40e0-ba68-eb9299738437",
                     "expectedControlType": "Button",
@@ -132,7 +132,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SetInventoryUI",
+                    "name": "Inventory",
                     "type": "PassThrough",
                     "id": "0d9775d2-6383-4094-97aa-b49141f1cd91",
                     "expectedControlType": "Button",
@@ -160,12 +160,12 @@
                 },
                 {
                     "name": "DigDirection",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6bed1080-9a66-45bd-a28a-b52c96067e3a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -506,7 +506,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SetEscUI",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -517,7 +517,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SetInventoryUI",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -597,6 +597,17 @@
                     "action": "DigDirection",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7a6690ac-c260-45d1-a556-0026476393d8",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DigDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

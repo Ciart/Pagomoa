@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
+  m_Name: Restore Tent 1
+  m_EditorClassIdentifier: 
+  questInCharge: {fileID: 0}
+  id: tent_1
+  prevQuestIds: []
+  title: "\uD150\uD2B8 \uBCF5\uC6D0 \uC0AC\uC5C5"
+  description: "\uC7AC\uB8CC\uB97C \uAD6C\uD574 \uD150\uD2B8\uB97C \uACE0\uC9C0\uC790!"
+  startPrologue: {fileID: 4900000, guid: b54790df71cfb1549bbec741b263345a, type: 3}
+  completePrologue: {fileID: 4900000, guid: fd8639ae484fca846a192acbcc32a551, type: 3}
+  reward:
+    gold: 1234
+    targetEntity: {fileID: 11400000, guid: 895a181196c1084488e38cd5abdd6977, type: 2}
+    targetEntitySprite: {fileID: -1689485987, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    value: 1
+  questList:
+  - questType: 0
+    summary: temp
+    value: 1
+    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    conditionType:
+      target: 1
+      typeValue: int

@@ -1,69 +1,112 @@
+using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Events;
-using Worlds;
 
-namespace Entities.Players
+namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerStatus : MonoBehaviour
     {
-        [Header("# Oxygen")]
-        public float oxygen = 100f;
+        [Header("# Oxygen")] public float oxygen = 100f;
         public float maxOxygen = 100f;
         public float minOxygen = 0f;
 
         public bool isDie = false;
 
         [SerializeField] protected float _oxygenRecovery = 1;
-        public float oxygenRecovery { get { return _oxygenRecovery; } set { _oxygenRecovery = value; } }
 
-        [SerializeField] protected float _oxygenConsume = 0.001f;
-        public float oxygenConsume { get { return _oxygenConsume; } set { _oxygenConsume = value; } }
+        public float oxygenRecovery
+        {
+            get { return _oxygenRecovery; }
+            set { _oxygenRecovery = value; }
+        }
+
+        [SerializeField] protected float _oxygenConsume = 0.01f;
+
+        public float oxygenConsume
+        {
+            get { return _oxygenConsume; }
+            set { _oxygenConsume = value; }
+        }
 
 
-        [Header("# Hungry")]
-        public float hungry = 100f;
+        [Header("# Hungry")] public float hungry = 100f;
         public float maxHungry = 100f;
         public float minHungry = 0f;
 
 
         [SerializeField] protected float _hungryRecovery = 1;
-        public float hungryRecovery { get { return _hungryRecovery; } set { _hungryRecovery = value; } }
+
+        public float hungryRecovery
+        {
+            get { return _hungryRecovery; }
+            set { _hungryRecovery = value; }
+        }
 
 
         [SerializeField] protected float _hungryConsume = 1;
-        public float hungryConsume { get { return _hungryConsume; } set { _hungryConsume = value; } }
+
+        public float hungryConsume
+        {
+            get { return _hungryConsume; }
+            set { _hungryConsume = value; }
+        }
 
 
-        [Header("# Armor")]
-        [SerializeField] protected float _armor = 0;
-        public float armor { get { return _armor; } set { _armor = value; } }
+        [Header("# Armor")] [SerializeField] protected float _armor = 0;
 
-        [Header("# Attack")]
-        [SerializeField] protected float _attackpower = 100;
-        public float attackpower { get { return _attackpower; } set { _attackpower = value; } }
+        public float armor
+        {
+            get { return _armor; }
+            set { _armor = value; }
+        }
 
+        [Header("# Attack")] [SerializeField] protected float _attackpower = 100;
 
-        [Header("# SIght")]
-        [SerializeField] protected float _sight = 1;
-        public float sight { get { return _sight; } set { _sight = value; } }
-
-
-        [Header("# Speed")]
-        [SerializeField] protected float _speed = 5;
-        public float speed { get { return _speed; } set { _speed = value; } }
-
-        [Header("Dig")]
-
-        [SerializeField] protected float _digSpeed = 10;
-        public float digSpeed { get { return _digSpeed; } set { _digSpeed = value; } }
-
-        
-        [Header("CrawlUp")]
-
-        [SerializeField] protected float _crawlUpSpeed = 100;
-        public float crawlUpSpeed { get { return _crawlUpSpeed; } set { _crawlUpSpeed = value; } }
+        public float attackpower
+        {
+            get { return _attackpower; }
+            set { _attackpower = value; }
+        }
 
 
+        [Header("# SIght")] [SerializeField] protected float _sight = 1;
+
+        public float sight
+        {
+            get { return _sight; }
+            set { _sight = value; }
+        }
+
+
+        [Header("# Speed")] [SerializeField] protected float _speed = 5;
+
+        public float speed
+        {
+            get { return _speed; }
+            set { _speed = value; }
+        }
+
+        [Header("Dig")] [SerializeField] protected float _digSpeed = 10;
+
+        public float digSpeed
+        {
+            get { return _digSpeed; }
+            set { _digSpeed = value; }
+        }
+
+
+        [Header("CrawlUp")] [SerializeField] protected float _crawlUpSpeed = 100;
+
+        public float crawlUpSpeed
+        {
+            get { return _crawlUpSpeed; }
+            set { _crawlUpSpeed = value; }
+        }
 
 
         public UnityEvent<float, float> oxygenAlter;
@@ -78,7 +121,7 @@ namespace Entities.Players
 
         private void UpdateOxygen()
         {
-            float gage = 100;
+            var gage = 100f;
 
             if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
             {
@@ -86,37 +129,96 @@ namespace Entities.Players
                 gage = oxygen;
                 if (oxygen < minOxygen)
                 {
+                    Die();
                     gage = minOxygen;
+                    Debug.Log("0 됐다");
                 }
             }
             else if (oxygen < maxOxygen)
             {
-                oxygen += Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
+                oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
                 gage = oxygen;
+                Debug.Log("올라간다");
             }
 
             oxygenAlter.Invoke(gage, maxOxygen);
         }
-        void Die()
+
+        private void Die()
         {
-            InventoryDB.Instance.Gold = int.Parse((InventoryDB.Instance.Gold * 0.9f).ToString());
-            TimeManager.Instance.SetTime(6,0);
-            TimeManager.Instance.AddDay(1);
-            ReSpawn();
+            var inventory = GameManager.player.inventory;
+            inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
+
+            TimeManager.instance.Sleep();
+
+            LoseMoney(0.1f);
+            LoseItem(Item.ItemType.Mineral, 0.5f);
+            // NextDay();
+
+            Respawn();
         }
-        void ReSpawn()
+
+        private void Respawn()
         {
-            EntityManager.instance.player.transform.position = GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
+            GameManager.player.transform.position =
+                GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
             oxygen = maxOxygen;
             isDie = false;
         }
+
+        private void LoseMoney(float percentage)
+        {
+            var inventoryDatabase = GameManager.player.inventory;
+            inventoryDatabase.Gold = (int)(inventoryDatabase.Gold * (1 - percentage));
+        }
+
+        private void LoseItem(Item.ItemType itemType, float probabilty)
+        {
+            var inventoryDatabase =GameManager.player.inventory;
+
+            List<InventorySlot> deleteItems = new List<InventorySlot>();
+            foreach (InventorySlot item in inventoryDatabase.items)
+            {
+                if (item.item == null) continue;
+
+                var rand = Random.Range(0, 101) * 0.01f;
+                if (probabilty < rand)
+                {
+                    Debug.Log("item not Losted by" + probabilty + "<" + rand);
+                    continue;
+                }
+
+                if (item.item.itemType == itemType)
+                {
+                    for (int i = 0; i < item.count; i++)
+                    {
+                        var entity = Instantiate(WorldManager.instance.itemEntity, transform.position,
+                            Quaternion.identity);
+                        entity.Item = item.item;
+                        entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
+                    }
+
+                    deleteItems.Add(item);
+                }
+            }
+
+            var count = deleteItems.Count;
+            for (int i = 0; i < count; i++)
+                inventoryDatabase.RemoveItemData(deleteItems[i].item);
+        }
+
+        private void NextDay()
+        {
+            TimeManager.instance.SetTime(6, 0);
+            TimeManager.instance.AddDay(1);
+        }
+
         private void FixedUpdate()
         {
             UpdateOxygen();
-            if(oxygen < minOxygen && !isDie) 
+            if (oxygen < minOxygen && !isDie)
             {
-                isDie = true;
-                Die();
+                GetComponent<EntityController>().TakeDamage(10);
             }
         }
 

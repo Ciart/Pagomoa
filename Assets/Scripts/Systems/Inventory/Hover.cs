@@ -1,22 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Ciart.Pagomoa.Systems.Inventory
 {
-    [SerializeField] public Sprite[] hoverImage;
-    [SerializeField] public Image boostImage;
-
-    public virtual void OnPointerEnter(PointerEventData eventData)
+    public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        boostImage.sprite = hoverImage[0];
-        EtcInventory.Instance.hoverSlot = this.gameObject.GetComponent<Slot>();
-    }
-    public virtual void OnPointerExit(PointerEventData eventData)
-    {
-        boostImage.sprite = hoverImage[1];
-        EtcInventory.Instance.hoverSlot = null;
+        [SerializeField] public Sprite[] hoverImage;
+        [SerializeField] public Image boostImage;
+        
+        private void OnEnable()
+        {
+            boostImage.sprite = hoverImage[1];
+            InventoryUI.Instance.hoverSlot = null;
+        }
+        
+        public virtual void OnPointerEnter(PointerEventData eventData)
+        {
+            boostImage.sprite = hoverImage[0];
+            InventoryUI.Instance.hoverSlot = this.gameObject.GetComponent<InventorySlotUI>();
+        }
+        
+        public virtual void OnPointerExit(PointerEventData eventData)
+        {
+            boostImage.sprite = hoverImage[1];
+            InventoryUI.Instance.hoverSlot = null;
+        }
     }
 }

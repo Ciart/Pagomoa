@@ -1,65 +1,89 @@
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Time;
+using Ink.Runtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Playables;
-using Unity.VisualScripting;
 
-public class DialogueManager : MonoBehaviour
+namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public List<Dialogue> dialogues;
-
-    [Space]
-    public GameObject talkPannel;
-    public Image talkImage;
-    public TextMeshProUGUI talkText;
-    public TextMeshProUGUI nameText;
-    [Space]
-    public Dialogue NowScenario;
-    int talkIndex;
-    [Space]
-    private static DialogueManager _instance = null;
-    public static DialogueManager Instance
+    public class DialogueManager : MonoBehaviour
     {
-        get
+        private static DialogueManager _instance;
+
+        public EntityDialogue nowEntityDialogue;
+
+        public static DialogueManager instance
         {
-            if (_instance is null)
+            get
             {
-                _instance = (DialogueManager)FindObjectOfType(typeof(DialogueManager));
+                if (_instance is null)
+                {
+                    _instance = (DialogueManager)FindObjectOfType(typeof(DialogueManager));
+                }
+                return _instance;
             }
-            return _instance;
         }
-    }
-    Dialogue GetDialogueByID(int id)
-    {
-        foreach(Dialogue dialogue in dialogues)
-        {
-            if (dialogue.id == id)
-                return dialogue;
-        }
-        return null;
-    }
-    public bool ConversationProgress(int id)
-    {
-        NowScenario = GetDialogueByID(id);
 
-        if(NowScenario.talk.Count <= talkIndex)
-        {
-            talkIndex = 0;
-            NowScenario = null;
-            talkPannel.SetActive(false);
-            return false;
-        }
-        talkText.text = talkIndex < NowScenario.talk.Count ? NowScenario.talk[talkIndex] : "";
-        talkImage.sprite = talkIndex < NowScenario.sprite.Count ? NowScenario.sprite[talkIndex] : null ;
-        nameText.text = talkIndex < NowScenario.talkerName.Count ? NowScenario.talkerName[talkIndex] : "";
-        talkImage.enabled = talkImage.sprite == null ? false : true;
-        bool visible = nameText.text == "" ? false : true;
-        nameText.transform.parent.gameObject.SetActive(visible);
+        public static event Action<Story> onCreateStory;
 
-        talkPannel.SetActive(true);
-        talkIndex++;
-        return true;
+        public Story story;
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnPlayerSpawned(PlayerSpawnedEvent e) 
+        {
+
+            var player = e.player;
+            var playerInput = player.GetComponent<PlayerInput>();
+
+            playerInput.Actions.Menu.performed += context => { StopStory(); };
+        }
+
+        public void StartStory(TextAsset asset)
+        {
+            StartStory(nowEntityDialogue, asset);
+        }
+
+        public void StartStory(EntityDialogue dialogue, TextAsset asset)
+        {
+            nowEntityDialogue = dialogue;
+            story = new Story(asset.text);
+            if (onCreateStory != null) onCreateStory(story);
+
+            UIManager.instance.dialogueUI.gameObject.SetActive(true);
+            EventManager.Notify(new StoryStarted());
+            TimeManager.instance.PauseTime();
+        }
+
+        public void StopStory()
+        {
+            story = null;
+            UIManager.instance.dialogueUI.gameObject.SetActive(false);
+            TimeManager.instance.ResumeTime();
+        }
+
+        public void StartDailyChat()
+        {
+            StartStory(nowEntityDialogue, nowEntityDialogue.dailyDialogues.GetRandomDialogue());
+        }
+
+        public void StartQuestChat()
+        {
+            var quests = nowEntityDialogue.GetValidationQuests();
+            EventManager.Notify(new QuestStoryStarted(quests));
+        }
     }
 }

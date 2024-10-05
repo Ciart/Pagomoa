@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Entities.Players;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
-public abstract class InherentEffect : ScriptableObject
+namespace Ciart.Pagomoa.Items
 {
-    public abstract void Effect(InherentItem item, PlayerStatus stat);
+    public abstract class InherentEffect : ScriptableObject
+    {
+        public abstract void Effect(InherentItem item, PlayerStatus stat);
+    }
 }
