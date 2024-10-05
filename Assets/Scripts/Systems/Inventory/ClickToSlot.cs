@@ -14,24 +14,25 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (eventData.button == PointerEventData.InputButton.Right)
             {
                 InventoryUI.Instance.choiceSlot = this.gameObject.GetComponent<InventorySlotUI>();
-                var itemtype = GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.itemType;
+                var choiceSlot = GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id];
+                var itemType = choiceSlot.item.itemType;
                 Vector3 mouseposition = new Vector3(eventData.position.x + 5, eventData.position.y);
                 _rightClickMenu.SetUI();
                 _rightClickMenu.gameObject.transform.position = mouseposition;
 
-                if (itemtype == Item.ItemType.Equipment)
+                if (itemType == Item.ItemType.Equipment)
                 {
                     _rightClickMenu.EquipmentMenu();
                 }
-                else if (itemtype == Item.ItemType.Mineral)
+                else if (itemType == Item.ItemType.Mineral)
                 {
-                    _rightClickMenu.MineralMenu();
+                    _rightClickMenu.MineralMenu(choiceSlot.count);
                 }
-                else if (itemtype == Item.ItemType.Use)
+                else if (itemType == Item.ItemType.Use)
                 {
                     _rightClickMenu.UseMenu();
                 }
-                else if (itemtype == Item.ItemType.Inherent)
+                else if (itemType == Item.ItemType.Inherent)
                 {
                     _rightClickMenu.InherentMenu();
                 }
