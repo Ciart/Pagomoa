@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 6354157150825444097}
   - component: {fileID: 1910408219843712697}
   - component: {fileID: 4304559375402350385}
-  - component: {fileID: 2638276540067807887}
   - component: {fileID: 1168310593013737487}
+  - component: {fileID: 4783326222726113408}
+  - component: {fileID: -5617585246590091788}
   m_Layer: 8
   m_Name: SandGolem
   m_TagString: Untagged
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -1753971485631791674, guid: 555d62bcb1947724fbf911d15125957d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.1875, y: 2.5625}
@@ -152,8 +153,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5285714, y: -0.04878049}
-    oldSize: {x: 2.1875, y: 2.5625}
+    pivot: {x: 0.45000002, y: 0}
+    oldSize: {x: 1.875, y: 2.0625}
     newSize: {x: 2.1875, y: 2.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -201,19 +202,6 @@ MonoBehaviour:
     maxHealth: 0
   parent: {fileID: 0}
   isDead: 0
---- !u!114 &2638276540067807887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3944353569815020525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a35baeafff524dfb9e81784b029f7025, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &1168310593013737487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,3 +214,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac849099fcc36148aa557b86d4c5324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &4783326222726113408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944353569815020525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10afb0668164a5143969820466e04427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: {fileID: 0}
+  state: 0
+  isGround: 1
+  groundCheck: {fileID: 0}
+  target: {fileID: 0}
+  direction: 0
+--- !u!114 &-5617585246590091788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944353569815020525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570bddf8872dfe44f9b6dfb16b51db1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  maxHp: 100
+  speed: 2.5
+  basicSpeed: 2.5
+  attackPower: 2

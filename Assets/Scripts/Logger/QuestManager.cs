@@ -39,7 +39,7 @@ namespace Ciart.Pagomoa.Logger
             database ??= GetComponent<QuestDatabase>();
         }
         
-        public void RegistrationQuest(Sprite entitySprite, EntityOrigin origin, string id)
+        public void RegistrationQuest(Sprite npcSprite, EntityOrigin origin, string id)
         {
             var targetQuests = database.GetEntityQuestsByEntityID(origin);
             
@@ -47,29 +47,25 @@ namespace Ciart.Pagomoa.Logger
             {
                 if (quest.id != id) continue;
                 
-                EventManager.AddListener<SignalToNpc>(QuestAccomplishment);
-
-                var progressQuest = new ProcessQuest(quest);
+                var progressQuest = new ProcessQuest(quest, npcSprite);
 
                 progressQuests.Add(progressQuest);
                 
-                EventManager.Notify(new AddNpcImageEvent(entitySprite));
+                EventManager.Notify(new QuestStarted(progressQuest));
+                EventManager.Notify(new AddNpcImageEvent(npcSprite));
                 EventManager.Notify(new MakeQuestListEvent());
-              
-                EventManager.Notify(new SignalToNpc(progressQuest.id, progressQuest.accomplishment));
             }
+            
+            EventManager.Notify(new QuestListUpdated(progressQuests));
         }
-        
-        public void QuestAccomplishment(SignalToNpc e)
-        {
-            EventManager.Notify(new CompleteQuestsUpdated(IsCompleteQuest()));
-        }
-        
+
         public void CompleteQuest(string id)
         {
             GetReward(id);
             
-            EventManager.Notify(new CompleteQuestsUpdated(IsCompleteQuest()));
+            
+            // Todo : 후처리가 필요하다 1. 느낌표 없애기 2. 리워드 처리
+            /*EventManager.Notify(new CompleteQuestsUpdated(GetCompleteQuests()));*/
         }
         
         private void GetReward(string id)
@@ -147,14 +143,14 @@ namespace Ciart.Pagomoa.Logger
             return true;
         }
 
-        private ProcessQuest[] IsCompleteQuest()
+        private ProcessQuest[] GetCompleteQuests()
         {
             var completeQuest = new List<ProcessQuest>();
 
-            foreach (var quest in progressQuests)
+            /*foreach (var quest in progressQuests)
             {
                 if (quest.accomplishment) completeQuest.Add(quest);
-            }
+            }*/
 
             return completeQuest.ToArray();
         }

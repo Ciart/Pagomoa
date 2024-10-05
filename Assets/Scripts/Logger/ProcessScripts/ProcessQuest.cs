@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Systems.Inventory;
-using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
@@ -18,56 +16,72 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string title;
         public Reward reward;
         public List<IQuestElements> elements;
-        public bool accomplishment = false;
+        public Sprite mNpcSprite;
+        public bool accomplished;
+        
+        // TODO: 진행률 0.0f ~ 1.0f로 반환하도록 변경해야 합니다.
+        public float progress;
 
-        public ProcessQuest(Quest quest)
+        // TODO: npcSprite를 추가해야 합니다.
+        // TODO: QuestAccomplishEvent를 제거하고 IQuestElements에서 ProcessQuest의 함수를 호출하도록 변경해야 합니다.
+        public ProcessQuest(Quest quest, Sprite npcSprite)
         {
             id = quest.id;
             description = quest.description;
             title = quest.title;
             reward = quest.reward;
             elements = new List<IQuestElements>();
-
-            EventManager.AddListener<QuestAccomplishEvent>(QuestAccomplishment);
-
+            mNpcSprite = npcSprite;
+            
             foreach (var condition in quest.questList)
             {
                 switch (condition.questType)
                 {
                     case QuestType.CollectMineral :
-                        var collectMineral = new CollectMineral(condition);
+                        var collectMineral = new CollectItem(condition);
+                        collectMineral.questFinished = AllElementsFinish;
                         elements.Add(collectMineral);                        
                         break;
                     case QuestType.BreakBlock :
                         var breakBlock = new BreakBlock(condition);
+                        breakBlock.questFinished = AllElementsFinish;
                         elements.Add(breakBlock);                        
                         break;
                 }
             }
-            
-            EventManager.Notify(new QuestAccomplishEvent());
         }
 
-        private void QuestAccomplishment(QuestAccomplishEvent e)
+        private void AllElementsFinish()
         {
+            progress = 0.0f;
+
+            var allFinish = true;
+            
             foreach (var element in elements)
             {
+                progress += element.GetProgress() / elements.Count;
+                
                 if (element.complete == false)
                 {
-                    accomplishment = false;
-                    EventManager.Notify(new SignalToNpc(id, accomplishment));
-                    return ;
+                    Debug.Log(element.complete);
+                    accomplished = false;
+                    allFinish = false;
                 }
             }
             
-            accomplishment = true;
-            EventManager.Notify(new SignalToNpc(id, accomplishment));
+            if (allFinish) progress = 1.0f;
+            
+            // TODO: 정말 자신이 변경되었을때만 발생해야 합니다.
+            EventManager.Notify(new QuestUpdated(this));
+            
+            if (allFinish == false) return;
+            
+            accomplished = true;
+            EventManager.Notify(new QuestCompleted(this));
         }
 
         public void Dispose()
         {
-            EventManager.RemoveListener<QuestAccomplishEvent>(QuestAccomplishment);
-
             foreach (var element in elements)
             {
                 element.Dispose();
@@ -80,6 +94,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public QuestType questType { get; set; }
         public bool complete { get; set; }
         public bool CheckComplete();
+        public float GetProgress();
         public string GetQuestSummary();
         public string GetValueToString();
         public string GetCompareValueToString();
@@ -87,16 +102,17 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region IntQuestElements
     
-    public class CollectMineral : ProcessIntQuestElements, IQuestElements
+    public class CollectItem : ProcessIntQuestElements, IQuestElements
     {
         public bool complete { get; set; } = false;
-
+        private int _prevValue;
+        
         public void Dispose()
         {
             EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
         }
 
-        public CollectMineral(QuestCondition elements)
+        public CollectItem(QuestCondition elements)
         {
             questType = elements.questType; 
             summary = elements.summary;
@@ -104,6 +120,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             targetEntity = elements.targetEntity;
             valueType = elements.value; 
             compareValue = 0;
+            _prevValue = 0;
             
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
@@ -112,8 +129,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             {
                 if (inventoryItem.item == targetEntity)
                 {
-                    compareValue = inventoryItem.count;
-                    if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+                    _prevValue = inventoryItem.count;
                     break;
                 }
             }
@@ -125,6 +141,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return complete;
         }
 
+        public float GetProgress()
+        {
+            var fCompareValue = (float)compareValue;
+            var fValue = (float)value;
+            
+            progress = fCompareValue / fValue;
+            
+            return progress;
+        }
+
         public override bool TypeValidation(ScriptableObject target)
         {
             return target == targetEntity;
@@ -133,6 +159,25 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public override void CalculationValue(IEvent e)
         {
             var inventoryItem = (ItemCountChangedEvent)e;
+
+            if (_prevValue > inventoryItem.count)
+            {
+                _prevValue = inventoryItem.count;
+                return;
+            }
+
+            var collectValue = inventoryItem.count - _prevValue;
+            Debug.Log("collectValue :" + collectValue);
+
+            if (compareValue >= collectValue)
+            {
+                compareValue = value;
+            }
+            else
+            {
+                compareValue = collectValue;
+            }
+            
             
             InitQuestValue(value, inventoryItem.count);
             
@@ -142,13 +187,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         private void CountItem(ItemCountChangedEvent e)
         {
             if (!TypeValidation(e.item)) return ;
-
-            var prevValue = compareValue;
+            if (CheckComplete()) return;
 
             CalculationValue(e);
-            
-            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
-            if (e.count <= prevValue) EventManager.Notify(new QuestAccomplishEvent());
+
+            CheckComplete();
+            questFinished.Invoke();
         }
 
         public string GetQuestSummary() { return summary; }
@@ -183,6 +227,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return complete;
         }
 
+        public float GetProgress()
+        {
+            var fCompareValue = (float)compareValue;
+            var fValue = (float)value;
+            
+            progress = fCompareValue / fValue;
+            
+            return progress;
+        }
+
         public override bool TypeValidation(ScriptableObject target)
         {
             return target == targetEntity;
@@ -190,6 +244,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public override void CalculationValue(IEvent e)
         {
+            if (compareValue == value) return ;
             compareValue++;
             
             Debug.Log("Block :" + compareValue);
@@ -198,10 +253,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         private void OnGroundBroken(GroundBrokenEvent e)
         {
             if (!TypeValidation(e.brick.ground)) return;
+            if (CheckComplete()) return;
             
             CalculationValue(e);
-            
-            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
+
+            CheckComplete();
+            questFinished.Invoke();
         }
         
         public string GetQuestSummary() { return summary; }
@@ -212,112 +269,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region FloatQuestElements
     
-    
-    public class PlayerMoveDistance : ProcessFloatQuestElements, IQuestElements
-    {
-        public bool complete { get; set; }
-        private Vector3 _previousPos = Vector3.zero;
-
-        ~PlayerMoveDistance() {
-            EventManager.RemoveListener<PlayerMove>(MoveDistance);
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public PlayerMoveDistance(QuestCondition elements)
-        {
-            questType = elements.questType;
-            summary = elements.summary;
-            targetEntity = elements.targetEntity;
-            valueType = elements.value;
-            value = float.Parse(elements.value);
-            compareValue = 0.0f;
-
-            EventManager.AddListener<PlayerMove>(MoveDistance);
-        }
-        
-        public override bool TypeValidation(ScriptableObject target)
-        {
-            return true;
-        }
-
-        public override void CalculationValue(IEvent e)
-        {
-            var playerMove = (PlayerMove)e;
-            var distance = Vector3.Distance(_previousPos, playerMove.playerPos);
-
-            compareValue += distance;
-        }
-
-        private void MoveDistance(PlayerMove e)
-        {
-            if (_previousPos == Vector3.zero) _previousPos = e.playerPos;
-
-            CalculationValue(e);
-            
-            _previousPos = e.playerPos;
-            
-            if (CheckComplete()) EventManager.Notify(new QuestAccomplishEvent());
-        }
-        
-        public bool CheckComplete()
-        {
-            complete = compareValue >= value;
-            return complete;
-        }
-
-        public string GetQuestSummary() { return summary; }
-        public string GetValueToString() { return value.ToString("F1"); }
-        public string GetCompareValueToString() { return compareValue.ToString("F1"); }
-    }
-    
     // How deeply player go down from y : 0. This quest calculate player best deep transform of y. 
-    public class PlayerMoveDeeply : ProcessFloatQuestElements, IQuestElements
-    {
-        public bool complete { get; set; }
-        ~PlayerMoveDeeply()
-        {
-            
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool TypeValidation(ScriptableObject target)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void CalculationValue(IEvent e)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckComplete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetQuestSummary()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetValueToString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetCompareValueToString()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
     #endregion
     
     #region BoolQuestElements

@@ -1,4 +1,5 @@
-﻿using Ciart.Pagomoa.Entities.Monsters;
+﻿using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Systems.Time;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Ciart.Pagomoa
         //private GameObject touchingTarget;
 
         Coroutine Proceeding;
+
+        public LayerMask enemyLayer;
 
         void FixedUpdate()
         {
@@ -26,15 +29,29 @@ namespace Ciart.Pagomoa
         }
         private void Start()
         {
-            if (TimeManager.GetSeasonForMonster() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
+            //if (TimeManager.GetSeasonForMonster() == "Night")
+            //    StateChanged(Monster.MonsterState.Sleep);
+            //else
+            //    StateChanged(Monster.MonsterState.Active);
+            StateChanged(Monster.MonsterState.Active);
         }
+
+        private void OnEnable()
+        {
+            GetComponent<EntityController>().damaged += OnHit;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<EntityController>().damaged -= OnHit;
+        }
+
         public override void StateChanged(Monster.MonsterState state)
         {
             if (Proceeding != null)
                 StopCoroutine(Proceeding);
+
+            //if (_monster == null) Debug.Log("몬스터_가 없어");
 
             _monster.state = state;
 
@@ -49,6 +66,9 @@ namespace Ciart.Pagomoa
                 case Monster.MonsterState.Sleep:
                     Proceeding = null;
                     Sleep();
+                    break;
+                case Monster.MonsterState.Attack:
+                    Proceeding = StartCoroutine("Attack");
                     break;
                 case Monster.MonsterState.Hit:
                     Proceeding = StartCoroutine("Hit");
@@ -81,10 +101,10 @@ namespace Ciart.Pagomoa
                     yield return new WaitForSeconds(Time.fixedDeltaTime);
                 }
             }
-            if (TimeManager.GetSeasonForMonster() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
+            //if (TimeManager.GetSeasonForMonster() == "Night")
+            //    StateChanged(Monster.MonsterState.Sleep);
+            //else
+            //    StateChanged(Monster.MonsterState.Active);
         }
         protected override IEnumerator Chase()
         {
@@ -97,6 +117,8 @@ namespace Ciart.Pagomoa
                 _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
                 transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
+                CheckEnemyInAttackRange();
+
                 time -= Time.fixedDeltaTime;
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
@@ -107,12 +129,62 @@ namespace Ciart.Pagomoa
             _rigidbody.velocity = Vector3.zero;
             _animator.SetTrigger("Sleep");
         }
+
+        protected IEnumerator Attack()
+        {
+            _rigidbody.velocity = Vector2.zero;
+            _animator.SetTrigger("Attack");
+            yield return new WaitForSeconds(0.15f);
+            AttackEnemy();
+            yield return new WaitForSeconds(0.45f);
+            StateChanged(Monster.MonsterState.Chase);
+        }
+
         protected override IEnumerator Hit()
         {
             _animator.SetTrigger("Hit");
 
             yield return new WaitForSeconds(0.7f);
             StateChanged(Monster.MonsterState.Chase);
+        }
+
+        private void OnHit(EntityDamagedEventArgs args)
+        {
+            if (args.attacker == null) return;
+            
+            Debug.Log("현재타겟" + args.attacker.name);
+            _monster.target = args.attacker.gameObject;
+            StateChanged(Monster.MonsterState.Hit);
+        }
+
+        private void CheckEnemyInAttackRange()
+        {
+            var colliders = Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(_monster.direction, 0.2f), enemyLayer);
+            Debug.Log("현재 위치" + transform.position + "/ 방향 : " + _monster.direction);
+            foreach(var collider in colliders)
+            {
+                var entity = collider.GetComponent<EntityController>();
+                if (entity == GetComponent<EntityController>()) continue;
+
+                if (entity is not null)
+                {
+                    StateChanged(Monster.MonsterState.Attack);
+                    return;
+                }
+            }
+        }
+
+        private void AttackEnemy()
+        {
+            var colliders = Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(_monster.direction, 0.2f), enemyLayer);
+            foreach (var collider in colliders)
+            {
+                var entity = collider.GetComponent<EntityController>();
+                if (entity == GetComponent<EntityController>()) continue;
+                if (entity is null) continue;
+
+                entity.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
+            }
         }
         //protected override void Die()
         //{
