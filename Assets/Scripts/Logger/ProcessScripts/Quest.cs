@@ -46,7 +46,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         conditions.Add(collectItem);                        
                         break;
                     case QuestType.UseItem :
-                        var useItem = new CollectItem(condition);
+                        var useItem = new UseItem(condition);
                         useItem.questFinished = AllElementsFinish;
                         conditions.Add(useItem);                        
                         break;
@@ -213,16 +213,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = 0;
             
             EventManager.AddListener<ItemUsedEvent>(HasUsingItem);
-
-            /*var inventoryItems = GameManager.player.inventory.items;
-            foreach (var inventoryItem in inventoryItems)
-            {
-                if (inventoryItem.item == targetEntity)
-                {
-                    _prevValue = inventoryItem.count;
-                    break;
-                }
-            }*/
         }
 
         public void HasUsingItem(ItemUsedEvent e)
@@ -239,7 +229,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public override void CalculationValue(IEvent e)
         {
             if (compareValue == value) return ;
-            compareValue++;
+            var usedItemEvent = (ItemUsedEvent)e;
+            
+            compareValue += usedItemEvent.count;
+            if (compareValue > value) compareValue = value;
         }
 
         public override bool TypeValidation(ScriptableObject target)
