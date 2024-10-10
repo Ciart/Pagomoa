@@ -5911,7 +5911,7 @@ MonoBehaviour:
   - entity: {fileID: 398867004004853786}
     entityQuests:
     - {fileID: 11400000, guid: 4db044733ef049f4e939b7199b0ab234, type: 2}
-    - {fileID: 11400000, guid: 6893e4399027b2743a50622cb33987f8, type: 2}
+    - {fileID: 11400000, guid: 523dfe6de930c5e4eb84d772f02fa525, type: 2}
 --- !u!114 &1232868279
 MonoBehaviour:
   m_ObjectHideFlags: 0
