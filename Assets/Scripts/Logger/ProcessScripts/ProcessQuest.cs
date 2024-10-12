@@ -127,7 +127,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             var inventoryItems = GameManager.player.inventory.items;
             foreach (var inventoryItem in inventoryItems)
             {
-                if (inventoryItem.item == targetEntity)
+                // if (inventoryItem.item == targetEntity)
                 {
                     _prevValue = inventoryItem.count;
                     break;
@@ -186,7 +186,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         private void CountItem(ItemCountChangedEvent e)
         {
-            if (!TypeValidation(e.item)) return ;
+            // if (!TypeValidation(e.item)) return ;
             if (CheckComplete()) return;
 
             CalculationValue(e);

@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
@@ -13,12 +16,49 @@ namespace Ciart.Pagomoa.Systems
         public bool hasPowerGemEarth;
 
         private PlayerController _player;
-        
+
         public static PlayerController player => instance._player;
-        
+
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             _player = e.player;
+        }
+        
+        public Dictionary<string, NewItemEffect> itemEffects = new ();
+        
+        public Dictionary<string, Item> items = new ();
+
+        private void LoadItems()
+        {
+            var text = Resources.Load<TextAsset>("Items");
+
+            foreach (var item in JsonUtility.FromJson<JsonArrayData<Item>>(text.ToString()).data)
+            {
+                items.Add(item.id, item);
+            }
+            
+            foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies().First(a => a.FullName.Contains("Assembly-CSharp")).ExportedTypes)
+            {
+                if (assembly.IsSubclassOf(typeof(NewItemEffect)))
+                {
+                    var effect = Activator.CreateInstance(assembly) as NewItemEffect;
+                    itemEffects.Add(assembly.Name.Replace("Effect", ""), effect);
+                    
+                    Debug.Log(assembly.Name.Replace("Effect", ""));
+                }
+            }
+        }
+
+        public static void UseItem(Item item)
+        {
+            instance.itemEffects[item.id].Effect();
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            LoadItems();
         }
 
         void Start()
@@ -50,7 +90,7 @@ namespace Ciart.Pagomoa.Systems
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
-        
+
         private void OnDisable()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);

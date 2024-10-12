@@ -25,20 +25,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void ChangePrice()
         {
-            findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.itemType == Item.ItemType.Mineral);
+            findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.type == ItemType.Mineral);
             for(int i = 0; i < findallMineral.Count; i++)
             {
-                int save = findallMineral[i].item.itemPrice;
-                random = Random.Range(-findallMineral[i].item.itemPrice, findallMineral[i].item.itemPrice);
-                findallMineral[i].item.itemPrice += random;
+                int save = findallMineral[i].item.price;
+                random = Random.Range(-findallMineral[i].item.price, findallMineral[i].item.price);
+                findallMineral[i].item.price += random;
 
-                marketCondition.contentDatas[i].price.text = findallMineral[i].item.itemPrice.ToString();
+                marketCondition.contentDatas[i].price.text = findallMineral[i].item.price.ToString();
 
 
                 Sprite upordown;
-                if (findallMineral[i].item.itemPrice > save)
+                if (findallMineral[i].item.price > save)
                     upordown = up;
-                else if (findallMineral[i].item.itemPrice < save)
+                else if (findallMineral[i].item.price < save)
                     upordown = down;
                 else
                     return;

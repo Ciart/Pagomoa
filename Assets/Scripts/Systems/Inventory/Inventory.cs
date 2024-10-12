@@ -36,7 +36,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void AddReward(AddReward e)
         {
-            Add(e.item, e.itemCount);
+            // Add(e.item, e.itemCount);
         }
         
         private void AddGold(int gold)
@@ -99,7 +99,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 for (int i = 0; i < items.Length; i++)
                 {
-                    if (items[i].item == null)
+                    if (items[i].item.id == "")
                     {
                         items[i].item = data;
                         items[i].count = count;
@@ -113,7 +113,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void SellItem(Item data)
         {
             DecreaseItemCount(data);
-            Gold += data.itemPrice;
+            Gold += data.price;
             ShopUIManager.Instance.gold[0].text = Gold.ToString();
             ShopUIManager.Instance.gold[1].text = Gold.ToString();
         }
@@ -189,17 +189,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var item = _quickItems[index];
             
-            switch (item.itemType)
+            switch (item.type)
             {
-                case Item.ItemType.Use:
+                case ItemType.Use:
                     if (GameManager.player.inventory.GetItemCount(item) != 0)
                     {
                         DecreaseItemCount(item);
-                        item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                        // item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                        GameManager.UseItem(item);
                     }
                     break;
-                case Item.ItemType.Inherent:
-                    item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                case ItemType.Inherent:
+                    GameManager.UseItem(item);
                     break;
                 default:
                     return;

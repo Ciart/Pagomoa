@@ -1,0 +1,18 @@
+﻿{
+  "data": [
+    {
+      "type": 2,
+      "id": "Copper",
+      "name": "구리",
+      "description": "가장 흔한 광물이야.",
+      "price": 10
+    },
+    {
+      "type": 1,
+      "id": "Bomb",
+      "name": "폭탄",
+      "description": "폭탄 받아라!",
+      "price": 10
+    }
+  ]
+}

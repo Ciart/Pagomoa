@@ -73,7 +73,7 @@ namespace Ciart.Pagomoa.Logger
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
-            EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
+            // EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
             EventManager.Notify(new AddGold(reward.gold));
             
             database.progressedQuests.Add(new ProgressedQuest(targetQuest));

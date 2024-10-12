@@ -152,7 +152,7 @@ namespace Ciart.Pagomoa.Entities.Players
             TimeManager.instance.Sleep();
 
             LoseMoney(0.1f);
-            LoseItem(Item.ItemType.Mineral, 0.5f);
+            LoseItem(ItemType.Mineral, 0.5f);
             // NextDay();
 
             Respawn();
@@ -172,7 +172,7 @@ namespace Ciart.Pagomoa.Entities.Players
             inventoryDatabase.Gold = (int)(inventoryDatabase.Gold * (1 - percentage));
         }
 
-        private void LoseItem(Item.ItemType itemType, float probabilty)
+        private void LoseItem(ItemType itemType, float probabilty)
         {
             var inventoryDatabase =GameManager.player.inventory;
 
@@ -188,7 +188,7 @@ namespace Ciart.Pagomoa.Entities.Players
                     continue;
                 }
 
-                if (item.item.itemType == itemType)
+                if (item.item.type == itemType)
                 {
                     for (int i = 0; i < item.count; i++)
                     {

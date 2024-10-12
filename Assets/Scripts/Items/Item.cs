@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Ciart.Pagomoa.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
-    public class Item : ScriptableObject
+    public class OldItem : ScriptableObject
     {
-        public enum ItemType
+        public enum OldItemType
         {
             Equipment,
             Use,

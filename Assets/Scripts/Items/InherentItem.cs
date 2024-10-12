@@ -6,7 +6,7 @@ namespace Ciart.Pagomoa.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "New Item/Inherent item")]
 
-    public class InherentItem : Item
+    public class InherentItem : OldItem
     {
         public bool Usable;
         public List<InherentEffect> Effects;

@@ -16,13 +16,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             Buy.Instance.choosenBuySlot = this;
             var Shop = Buy.Instance.choosenBuySlot.slot.item;
             Buy.Instance.OnCountUI(this.gameObject);
-            ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
+            ShopChat.Instance.BuyPriceToChat(Shop.price);
         }
         public void UpdateConsumptionSlot()
         {
-            image.sprite = slot.item.itemImage;
-            itemName.text = slot.item.itemName;
-            itemPrice.text = slot.item.itemPrice.ToString();
+            image.sprite = slot.item.sprite;
+            itemName.text = slot.item.name;
+            itemPrice.text = slot.item.price.ToString();
         }
     }
 }

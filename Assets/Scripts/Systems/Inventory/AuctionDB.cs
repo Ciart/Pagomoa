@@ -25,14 +25,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             // var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
             var acutionItem = Buy.Instance.choosenBuySlot.slot;
             
-            if (data.itemType == Item.ItemType.Use)
+            if (data.type == ItemType.Use)
                 for (int i = 0; i < Buy.Instance.countUINum; i++)
                 {
-                    GameManager.player.inventory.Gold -= data.itemPrice;
+                    GameManager.player.inventory.Gold -= data.price;
                 }
-            else if (data.itemType == Item.ItemType.Equipment)
+            else if (data.type == ItemType.Equipment)
             {
-                GameManager.player.inventory.Gold -= data.itemPrice;
+                GameManager.player.inventory.Gold -= data.price;
                 acutionItem.count -= 1;
             }
             ShopUIManager.Instance.gold[0].text = GameManager.player.inventory.Gold.ToString();

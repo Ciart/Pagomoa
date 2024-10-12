@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Ciart.Pagomoa.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "New Item/Equip item")]
-    public class EquipableItem : Item
+    public class EquipableItem : OldItem
     {
         public bool Equipable;
 

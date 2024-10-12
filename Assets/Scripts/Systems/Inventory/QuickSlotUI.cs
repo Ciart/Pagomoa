@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class QuickSlotUI : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField] public Image itemImage;
+        [SerializeField] public Image sprite;
         [SerializeField] public Sprite transparentImage;
         [SerializeField] public TextMeshProUGUI itemCount;
 
@@ -31,14 +31,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void UpdateSlot()
         {
-            if (_item?.itemImage is null)
+            if (_item?.sprite is null)
             {
-                itemImage.sprite = transparentImage;
+                sprite.sprite = transparentImage;
                 itemCount.text = "";
                 return;
             }
 
-            itemImage.sprite = _item.itemImage;
+            sprite.sprite = _item.sprite;
             itemCount.text =  GameManager.player.inventory.GetItemCount(_item).ToString();
         }
 
@@ -57,7 +57,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             
             var newPosition = new Vector3(eventData.position.x, eventData.position.y);
-            DragItem.Instance.DragSetImage(_item.itemImage);
+            DragItem.Instance.DragSetImage(_item.sprite);
             DragItem.Instance.transform.position = newPosition;
         }
         public void OnDrag(PointerEventData eventData)

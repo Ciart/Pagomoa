@@ -68,7 +68,7 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuest.reward.gold = EditorGUILayout.IntField("보상 골드", newQuest.reward.gold);
-            newQuest.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(Item), true);
+            // newQuest.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuest.reward.targetEntity, typeof(Item), true);
             newQuest.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuest.reward.targetEntitySprite, typeof(Sprite), true);
             newQuest.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuest.reward.value);
             GUILayout.EndVertical();
@@ -142,8 +142,8 @@ namespace Ciart.Pagomoa.Editor
 
                 if (newQuest.questList[i].questType == QuestType.CollectMineral)
                 {
-                    newQuest.questList[i].targetEntity = (MineralItem)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
-                        ,newQuest.questList[i].targetEntity , typeof(MineralItem), true);
+                    // newQuest.questList[i].targetEntity = (MineralItem)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"
+                        // ,newQuest.questList[i].targetEntity , typeof(MineralItem), true);
                 } else if (newQuest.questList[i].questType == QuestType.BreakBlock)
                 {
                     newQuest.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuest.questList[i].conditionType.target.ToString()}"

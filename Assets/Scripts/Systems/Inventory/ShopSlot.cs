@@ -18,11 +18,11 @@ namespace Ciart.Pagomoa
             if (Inventory == null)
                 return;
 
-            if (Inventory.itemType == Item.ItemType.Use ||
-                Inventory.itemType == Item.ItemType.Mineral)
+            if (Inventory.type == ItemType.Use ||
+                Inventory.type == ItemType.Mineral)
             {
                 Buy.Instance.OnCountUI(this.gameObject);
-                ShopChat.Instance.SellPriceToChat(Inventory.itemPrice);
+                ShopChat.Instance.SellPriceToChat(Inventory.price);
             }
         }
 
