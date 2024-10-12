@@ -1128,23 +1128,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auctionItem:
-  - item: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 1
-  - item: {fileID: 11400000, guid: b0709cec526a44549848b5ff67ee035c, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 1
-  - item: {fileID: 11400000, guid: 895a181196c1084488e38cd5abdd6977, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 1
-  - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 10
-  - item: {fileID: 11400000, guid: a9e7ecb03f4b1a84d857c1686672e804, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 10
-  - item: {fileID: 11400000, guid: dd76295ef11916845a81bb1434b80ece, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 10
-  - item: {fileID: 11400000, guid: dd76295ef11916845a81bb1434b80ece, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 10
-  - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 10
-  - item: {fileID: 11400000, guid: a9e7ecb03f4b1a84d857c1686672e804, type: 2}
+  - item:
+      type: 2
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 10
 --- !u!114 &306791841
 MonoBehaviour:
@@ -2568,7 +2622,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot:
-    item: {fileID: 0}
+    item:
+      type: 0
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 0
   image: {fileID: 1241472726}
   text: {fileID: 1938210013}
@@ -2926,7 +2986,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 7.546875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5924,6 +5984,41 @@ MonoBehaviour:
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 5
+--- !u!1 &1247945768 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6329546147371843080, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
+  m_PrefabInstance: {fileID: 1480150948}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1247945772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247945768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abd44fa023da4c5eab197de4e11d406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHeight: 0.7
+  SmallTerminalRatio: 0.33
+  ToggleSpeed: 360
+  ToggleHotkey: '`'
+  ToggleFullHotkey: '#`'
+  BufferSize: 512
+  ConsoleFont: {fileID: 12800000, guid: 308b06be73c3b464c8a41bb8c24715ed, type: 3}
+  InputCaret: '>'
+  ShowGUIButtons: 0
+  RightAlignButtons: 0
+  InputContrast: 0
+  InputAlpha: 0.5
+  BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  ForegroundColor: {r: 1, g: 1, b: 1, a: 1}
+  ShellColor: {r: 1, g: 1, b: 1, a: 1}
+  InputColor: {r: 0, g: 1, b: 1, a: 1}
+  WarningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ErrorColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &1270842126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7571,7 +7666,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7036410858450081891, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
       insertIndex: -1
       addedObject: {fileID: 701758799}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6329546147371843080, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1247945772}
   m_SourcePrefab: {fileID: 100100000, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
 --- !u!1 &1481781972
 GameObject:
@@ -8983,7 +9081,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot:
-    item: {fileID: 0}
+    item:
+      type: 0
+      id: 
+      name: 
+      description: 
+      price: 0
+      sprite: {fileID: 0}
     count: 0
   image: {fileID: 1642910134}
   text: {fileID: 1626031842}
