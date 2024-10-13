@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public enum FadeState { FadeIn = 0, FadeOut, FadeInOut, FadeLoop }
+    public enum FadeState { MoonFadeIn = 0, MoonFadeOut, MoonFadeInOut, FadeIn, FadeOut, FadeInOut, FadeLoop }
     public class FadeSystem : MonoBehaviour
     {
         [SerializeField] [Range(0.01f, 10f)] private float fadeTime;
@@ -20,10 +20,7 @@ namespace Ciart.Pagomoa.Systems
         private void Start()
         {
             _image = GetComponent<Image>();
-
-            // TimeManager.instance.FadeEvent.AddListener(OnFade);
             EventManager.AddListener<FadeEvent>(Faded);
-
         }
         
         private void Faded(FadeEvent e)
@@ -33,17 +30,25 @@ namespace Ciart.Pagomoa.Systems
         
         private void OnFade(FadeState state)
         {
+            if (state is FadeState.FadeIn or FadeState.FadeOut or FadeState.FadeInOut)
+            {
+                _image.color = new Color(.0f, .0f,.0f);
+            }
+            
             _fadeState = state;
         
             switch ( _fadeState )
             {
                 case FadeState.FadeIn:
+                case FadeState.MoonFadeIn:
                     StartCoroutine(Fade(0, 1));
                     break;
                 case FadeState.FadeOut:
+                case FadeState.MoonFadeOut:
                     StartCoroutine(Fade(1, 0));
                     break;
                 case FadeState.FadeInOut:
+                case FadeState.MoonFadeInOut:    
                 case FadeState.FadeLoop:
                     StartCoroutine(FadeInOut());
                     break;
@@ -60,7 +65,7 @@ namespace Ciart.Pagomoa.Systems
             
                 yield return StartCoroutine(Fade(1, 0));
 
-                if (_fadeState == FadeState.FadeInOut)
+                if (_fadeState != FadeState.FadeLoop)
                 {
                     break;
                 } 
@@ -74,7 +79,7 @@ namespace Ciart.Pagomoa.Systems
         
             while (percent < 1)
             {
-                currentTime += UnityEngine.Time.deltaTime;
+                currentTime += UnityEngine.Time.fixedDeltaTime;
                 percent = currentTime / fadeTime;
 
                 Color color = _image.color;

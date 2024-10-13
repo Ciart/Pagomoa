@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
+using Ciart.Pagomoa.Logger.ProcessScripts;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
@@ -16,7 +17,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public Sprite portrait;
         private EntityController _entityController;
-        private Quest[] _entityQuests;
+        private QuestData[] _entityQuests;
 
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
         private GameObject _questCompleteUI;
@@ -30,9 +31,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             _questCompleteUI.transform.position += uiOffset;
         }
         
-        public Quest[] GetValidationQuests()
+        public QuestData[] GetValidationQuests()
         {
-           var result = new List<Quest>();
+           var result = new List<QuestData>();
 
            foreach (var quest in _entityQuests)
            {
@@ -73,7 +74,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 {
                     var progressQuest = QuestManager.instance.FindQuestById(quest.id);
                     
-                    if (progressQuest is null || !progressQuest.accomplished)
+                    if (progressQuest is null || progressQuest.state != QuestState.Completed)
                     {
                         continue;
                     }
@@ -110,7 +111,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             
             _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
 
-            if (_entityQuests == Array.Empty<Quest>()) return; 
+            if (_entityQuests == Array.Empty<QuestData>()) return; 
+            
+            var hasCompletedQuest = QuestManager.instance.FindCompletedQuest(_entityQuests);
+            if (hasCompletedQuest)
+            {
+                _questCompleteUI.SetActive(true);
+            }
             
             EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }

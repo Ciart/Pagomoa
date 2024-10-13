@@ -97,10 +97,10 @@ namespace Ciart.Pagomoa.Entities
             return new EntityData(position.x, position.y, origin, status);
         }
 
-        private void OnDrawGizmos()
+        /*private void OnDrawGizmos()
         {
             Handles.Label(transform.position, $"({status.health} / {status.maxHealth})");
-        }
+        }*/
 
         public void TakeKnockback(float force, Vector2 direction)
         {
