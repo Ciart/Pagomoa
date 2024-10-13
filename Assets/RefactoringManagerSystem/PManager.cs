@@ -1,4 +1,4 @@
-class PManager
+internal class PManager
 {
     public virtual void PreAwake() {}
     public virtual void Awake() { }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Logger;
 using UnityEngine;
 
 
@@ -7,6 +8,9 @@ public class PGameInstance : MonoBehaviour
 {
     private static PGameInstance instance = null;
 
+    private static QuestManager _questManagerInstance; 
+    public static QuestManager questManager => questManager;
+    
     private void Awake()
     {
         instance = this;
