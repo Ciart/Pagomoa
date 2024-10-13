@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa.UI.Book
             UpdateQuestDetail(QuestManager.instance.FindQuestById(selectQuestId));
         }
 
-        private void UpdateQuestList(List<ProcessQuest> questList)
+        private void UpdateQuestList(List<Quest> questList)
         {
             ResizeQuestList(Math.Max(questList.Count, MinimumQuestListSize));
 
@@ -76,7 +76,7 @@ namespace Ciart.Pagomoa.UI.Book
             UpdateSelectedQuest();
         }
         
-        private void UpdateQuestDetail(ProcessQuest quest)
+        private void UpdateQuestDetail(Quest quest)
         {
             if (quest?.id != selectQuestId) return;
             
@@ -97,7 +97,7 @@ namespace Ciart.Pagomoa.UI.Book
         {
             var questManager = QuestManager.instance;
             
-            UpdateQuestList(questManager.progressQuests);
+            UpdateQuestList(questManager.quests);
             UpdateQuestDetail(questManager.FindQuestById(selectQuestId));
 
             EventManager.AddListener<QuestListUpdated>(OnQuestListUpdated);

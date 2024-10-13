@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Editor
             
             if (GUILayout.Button("Entity 추가"))
             {
-                _questDatabase.mapEntityQuests.Add(new QuestDatabase.MapEntityQuest { entityQuests = new List<Quest>() });
+                _questDatabase.mapEntityQuests.Add(new QuestDatabase.MapEntityQuest { entityQuests = new List<QuestData>() });
             }
             if (GUILayout.Button("Entity 제거"))
             {
@@ -60,8 +60,8 @@ namespace Ciart.Pagomoa.Editor
                 
                 for (var j = 0; j < _questDatabase.mapEntityQuests[i].entityQuests.Count; j++)
                 {
-                    _questDatabase.mapEntityQuests[i].entityQuests[j] = (Quest)EditorGUILayout
-                        .ObjectField($"{_questDatabase.mapEntityQuests[i].entity.origin.displayName} Quest {j + 1}", _questDatabase.mapEntityQuests[i].entityQuests[j], typeof(Quest), false);
+                    _questDatabase.mapEntityQuests[i].entityQuests[j] = (QuestData)EditorGUILayout
+                        .ObjectField($"{_questDatabase.mapEntityQuests[i].entity.origin.displayName} Quest {j + 1}", _questDatabase.mapEntityQuests[i].entityQuests[j], typeof(QuestData), false);
                 }
                 
                 GUILayout.EndVertical();

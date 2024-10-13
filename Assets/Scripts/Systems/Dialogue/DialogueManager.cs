@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Time;
 using Ink.Runtime;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public class DialogueManager : MonoBehaviour
+    public class DialogueManager : DialogueManagement
     {
         private static DialogueManager _instance;
 
@@ -30,8 +26,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         }
 
         public static event Action<Story> onCreateStory;
-
-        public Story story;
 
         private void OnEnable()
         {
@@ -52,12 +46,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             playerInput.Actions.Menu.performed += context => { StopStory(); };
         }
 
-        public void StartStory(TextAsset asset)
+        public override void StartStory(TextAsset asset)
         {
             StartStory(nowEntityDialogue, asset);
         }
 
-        public void StartStory(EntityDialogue dialogue, TextAsset asset)
+        public override void StartStory(EntityDialogue dialogue, TextAsset asset)
         {
             nowEntityDialogue = dialogue;
             story = new Story(asset.text);
@@ -68,7 +62,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             TimeManager.instance.PauseTime();
         }
 
-        public void StopStory()
+        public override void StopStory()
         {
             story = null;
             UIManager.instance.dialogueUI.gameObject.SetActive(false);
