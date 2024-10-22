@@ -5,13 +5,15 @@ namespace Ciart.Pagomoa.Entities.Players
 {
     public partial class PlayerController
     {
+        private SoundManager soundManager => Game.Get<SoundManager>();
+        
         private void UpdateSound()
         {
             if (state == PlayerState.Walk && isGrounded && MathF.Abs(_rigidbody.velocity.x) > 0.1f)
             {
-                if (!SoundManager.instance.FindAudioSource("TeamEffect").isPlaying)
+                if (!soundManager.FindAudioSource("TeamEffect").isPlaying)
                 {
-                    SoundManager.instance.PlaySfx("FootSteps", true);
+                    soundManager.PlaySfx("FootSteps", true);
                 }
             }
         }

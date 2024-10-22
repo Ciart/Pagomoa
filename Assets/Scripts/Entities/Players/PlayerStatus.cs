@@ -116,7 +116,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Awake()
         {
-            _worldManager = WorldManager.instance;
+            _worldManager = Game.Get<WorldManager>();
         }
 
         private void UpdateOxygen()
@@ -146,10 +146,10 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Die()
         {
-            var inventory = GameManager.player.inventory;
+            var inventory = Game.Get<GameManager>().player.inventory;
             inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
 
-            TimeManager.instance.Sleep();
+            Game.Get<TimeManager>().Sleep();
 
             LoseMoney(0.1f);
             LoseItem(Item.ItemType.Mineral, 0.5f);
@@ -160,21 +160,21 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Respawn()
         {
-            GameManager.player.transform.position =
-                GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
+            Game.Get<GameManager>().player.transform.position = FindObjectOfType<SpawnPoint>().transform.position;
+            
             oxygen = maxOxygen;
             isDie = false;
         }
 
         private void LoseMoney(float percentage)
         {
-            var inventoryDatabase = GameManager.player.inventory;
+            var inventoryDatabase = Game.Get<GameManager>().player.inventory;
             inventoryDatabase.Gold = (int)(inventoryDatabase.Gold * (1 - percentage));
         }
 
         private void LoseItem(Item.ItemType itemType, float probabilty)
         {
-            var inventoryDatabase =GameManager.player.inventory;
+            var inventoryDatabase = Game.Get<GameManager>().player.inventory;
 
             List<InventorySlot> deleteItems = new List<InventorySlot>();
             foreach (InventorySlot item in inventoryDatabase.items)
@@ -192,7 +192,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     for (int i = 0; i < item.count; i++)
                     {
-                        var entity = Instantiate(WorldManager.instance.itemEntity, transform.position,
+                        var entity = Instantiate(Game.Get<WorldManager>().itemEntity, transform.position,
                             Quaternion.identity);
                         entity.Item = item.item;
                         entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
@@ -209,8 +209,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void NextDay()
         {
-            TimeManager.instance.SetTime(6, 0);
-            TimeManager.instance.AddDay(1);
+            Game.Get<TimeManager>().SetTime(6, 0);
+            Game.Get<TimeManager>().AddDay(1);
         }
 
         private void FixedUpdate()

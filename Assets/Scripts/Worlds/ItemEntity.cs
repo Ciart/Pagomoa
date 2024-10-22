@@ -25,6 +25,12 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
 
+        public ItemEntity InstantiateItem(ItemEntity itemEntity, Vector3 position)
+        {
+            var item = Instantiate(itemEntity, position, Quaternion.identity);
+            return item;
+        } 
+
         private IEnumerator ChangeDynamicWithDelay()
         {
             yield return new WaitForSeconds(initDelay);

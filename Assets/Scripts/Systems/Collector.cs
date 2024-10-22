@@ -30,12 +30,12 @@ namespace Ciart.Pagomoa.Systems
             }
 
             OnCollectEvent.Invoke();
-            GameManager.player.inventory.Add(item);
+            Game.Get<GameManager>().player.inventory.Add(item);
             Destroy(itemEntity.gameObject);
 
             if (item.name == "PowerGemEarth")
             {
-                GameManager.instance.hasPowerGemEarth = true;
+                Game.Get<GameManager>().hasPowerGemEarth = true;
             }
         }
     }

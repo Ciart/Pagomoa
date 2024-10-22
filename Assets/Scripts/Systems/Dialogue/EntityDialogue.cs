@@ -5,6 +5,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.RefactoringManagerSystem;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
@@ -22,13 +23,18 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
         private GameObject _questCompleteUI;
         
+        private bool _hasInit; 
+        
         private void Start()
         { 
-            if (!UIManager.instance) return;
+            if (Game.Get<UIManager>() == null) return;
             
-            _questCompleteUI = UIManager.CreateQuestCompleteUI(transform);
+            _questCompleteUI = Game.Get<UIManager>().CreateQuestCompleteUI(transform);
             _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
+            
+            _hasInit = true;
+            OnEnable();
         }
         
         public QuestData[] GetValidationQuests()
@@ -37,7 +43,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
            foreach (var quest in _entityQuests)
            {
-               if (QuestManager.instance.CheckQuestValidation(quest))
+               if (Game.Get<QuestManager>().CheckQuestValidation(quest))
                {
                    result.Add(quest);
                }
@@ -52,14 +58,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             var origin = _entityController.origin;
             
-            QuestManager.instance.RegistrationQuest(portrait, origin, id);
+            Game.Get<QuestManager>().RegistrationQuest(portrait, origin, id);
         }
 
         public void QuestComplete(string id)
         {
             Debug.Log("Quest Complete : " + id);
 
-            QuestManager.instance.CompleteQuest(id);
+            Game.Get<QuestManager>().CompleteQuest(id);
             
             _questCompleteUI.SetActive(false);
         }
@@ -72,19 +78,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             {
                 foreach (var quest in _entityQuests)
                 {
-                    var progressQuest = QuestManager.instance.FindQuestById(quest.id);
+                    var progressQuest = Game.Get<QuestManager>().FindQuestById(quest.id);
                     
                     if (progressQuest is null || progressQuest.state != QuestState.Completed)
                     {
                         continue;
                     }
                     
-                    DialogueManager.instance.StartStory(this, quest.completePrologue);
+                    Game.Get<DialogueManager>().StartStory(this, quest.completePrologue);
                     return;
                 }
             }
 
-            DialogueManager.instance.StartStory(this, basicDialogue);
+            Game.Get<DialogueManager>().StartStory(this, basicDialogue);
         }
 
         private void OnCompleteQuestsUpdated(QuestCompleted e)
@@ -103,23 +109,25 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void OnEnable()
         {
+            if(!_hasInit) return;
+            
+            EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
+            
             _entityController = GetComponent<EntityController>();
             if (_entityController == null) return;
             var origin = _entityController.origin;
             
-            if (!QuestManager.instance) return;
+            if (Game.Get<QuestManager>() is null) return;
             
-            _entityQuests = QuestManager.instance.database.GetEntityQuestsByEntityID(origin);
+            _entityQuests = Game.Get<QuestManager>().database.GetEntityQuestsByEntity(origin);
 
             if (_entityQuests == Array.Empty<QuestData>()) return; 
             
-            var hasCompletedQuest = QuestManager.instance.FindCompletedQuest(_entityQuests);
+            var hasCompletedQuest = Game.Get<QuestManager>().FindCompletedQuest(_entityQuests);
             if (hasCompletedQuest)
             {
                 _questCompleteUI.SetActive(true);
             }
-            
-            EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }
 
         private void OnDisable()

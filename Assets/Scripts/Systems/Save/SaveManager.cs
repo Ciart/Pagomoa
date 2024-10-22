@@ -141,7 +141,7 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             var LoadSuccess = DataManager.Instance.LoadGameData();
 
-            if (!GameManager.instance.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
+            if (!Game.Get<GameManager>().isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
             if (DataManager.Instance.data != null)
             {
                 if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
@@ -152,22 +152,22 @@ namespace Ciart.Pagomoa.Systems.Save
 
             FreezePosition();
 
-            if (GameManager.instance.isLoadSave && LoadSuccess)
+            if (Game.Get<GameManager>().isLoadSave && LoadSuccess)
             {
                 try
                 {
-                    WorldManager.instance.GetComponent<WorldGenerator>().LoadWorld(DataManager.Instance.data.worldData);
+                    Game.Get<WorldManager>().worldGenerator.LoadWorld(DataManager.Instance.data.worldData);
                     return true;
                 }
                 catch
                 {
-                    WorldManager.instance.GetComponent<WorldGenerator>().Generate();
+                    Game.Get<WorldManager>().worldGenerator.Generate();
                     return false;
                 }
             }
             else
             {
-                WorldManager.instance.GetComponent<WorldGenerator>().Generate();
+                Game.Get<WorldManager>().worldGenerator.Generate();
                 return false;
             }
         }
@@ -179,8 +179,8 @@ namespace Ciart.Pagomoa.Systems.Save
 
             if (dataManager.data.itemData.itemss != null)
             {
-                GameManager.player.inventory.items = dataManager.data.itemData.itemss;
-                GameManager.player.inventory.Gold = dataManager.data.itemData.gold;
+                Game.Get<GameManager>().player.inventory.items = dataManager.data.itemData.itemss;
+                Game.Get<GameManager>().player.inventory.Gold = dataManager.data.itemData.gold;
             }
             else
                 Debug.Log("Item Data is Nothing");
@@ -211,9 +211,9 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadPlayerCurrentStatusData()
         {
             if (DataManager.Instance.data.playerStatusData == null) return;
-            if (GameManager.player == null) return;
+            if (Game.Get<GameManager>().player == null) return;
 
-            PlayerStatus playerStatus = GameManager.player.GetComponent<PlayerStatus>();
+            PlayerStatus playerStatus = Game.Get<GameManager>().player.GetComponent<PlayerStatus>();
             playerStatus.oxygen = DataManager.Instance.data.playerStatusData.currentOxygen;
             playerStatus.hungry = DataManager.Instance.data.playerStatusData.currentHungry;
             playerStatus.oxygenAlter.Invoke(playerStatus.oxygen, playerStatus.maxOxygen);
@@ -223,7 +223,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public void LoadEatenMineralCountData()
         {
             if (DataManager.Instance.data.mineralData != null)
-                GameManager.player.inventory.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
+                Game.Get<GameManager>().player.inventory.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
             else
                 Debug.Log("Mineral Data is Nothing");
         }
@@ -255,7 +255,7 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WriteItemData()
         {
             InitData();
-            DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(GameManager.player.inventory);
+            DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(Game.Get<GameManager>().player.inventory);
         }
         
         // private void WriteArtifactData()
@@ -273,14 +273,14 @@ namespace Ciart.Pagomoa.Systems.Save
         private void WritePlayerCurrentStatusData()
         {
             InitData();
-            DataManager.Instance.data.playerStatusData.SetCurrentStatusData(GameManager.player.GetComponent<PlayerStatus>());
+            DataManager.Instance.data.playerStatusData.SetCurrentStatusData(Game.Get<GameManager>().player.GetComponent<PlayerStatus>());
         
         }
 
         private void WriteEatenMineralCountData()
         {
             InitData();
-            DataManager.Instance.data.mineralData.SetEatenMineralData(GameManager.player.inventory);
+            DataManager.Instance.data.mineralData.SetEatenMineralData(Game.Get<GameManager>().player.inventory);
         }
 
         public void InitData()

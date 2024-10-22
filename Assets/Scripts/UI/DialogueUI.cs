@@ -40,7 +40,7 @@ namespace Ciart.Pagomoa
 
         private DialogueUI _dialogueUI = null;
 
-        private DialogueManagement _targetManagement;
+        private DialogueManager _targetManagement;
         
         private bool _changeDialogue;
 
@@ -78,11 +78,11 @@ namespace Ciart.Pagomoa
 
         private void RefreshView(StoryStarted obj)
         {
-            if (obj.targetManagement)
+            if (obj.targetManagement != null)
                 _targetManagement = obj.targetManagement;
             else
             {
-                _targetManagement = DialogueManager.instance;
+                _targetManagement = Game.Get<DialogueManager>();
             }
             
             RefreshView();
@@ -162,20 +162,20 @@ namespace Ciart.Pagomoa
                     case "start":
                         if (param == "dialogue")
                         {
-                            DialogueManager.instance.StartDailyChat();
+                            Game.Get<DialogueManager>().StartDailyChat();
                             _changeDialogue = true;
                         }
                         if (param == "quest")
                         {
-                            DialogueManager.instance.StartQuestChat();
+                            Game.Get<DialogueManager>().StartQuestChat();
                             _changeDialogue = true;
                         }
                         break;
                     case "quest":
-                        DialogueManager.instance.nowEntityDialogue.QuestAccept(param);
+                        Game.Get<DialogueManager>().nowEntityDialogue.QuestAccept(param);
                         break;
                     case "reward":
-                        DialogueManager.instance.nowEntityDialogue.QuestComplete(param);
+                        Game.Get<DialogueManager>().nowEntityDialogue.QuestComplete(param);
                         break;
                 }
             }
@@ -277,7 +277,7 @@ namespace Ciart.Pagomoa
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    DialogueManager.instance.StartStory(quest.startPrologue);
+                    Game.Get<DialogueManager>().StartStory(quest.startPrologue);
                 });
             }
 
@@ -289,7 +289,7 @@ namespace Ciart.Pagomoa
                 Button choice = CreateChoiceView("확인");
                 choice.onClick.AddListener(delegate
                 {
-                    DialogueManager.instance.StopStory();
+                    Game.Get<DialogueManager>().StopStory();
                 });
             }
         }

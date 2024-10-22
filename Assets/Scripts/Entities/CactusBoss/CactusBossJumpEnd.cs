@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         {
             _cactusBoss = animator.GetComponent<CactusBoss>();
 
-            _cactusBoss.rigidbody.velocity = new Vector2(0, -20);
+            _cactusBoss.rigid.velocity = new Vector2(0, -20);
         }
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             
             for (var i = -xSize; i <= xSize; i++) {
                 for (var j = -ySize; j <= ySize; j++) {
-                    WorldManager.instance.BreakGround(position.x + i,position.y + j, 5, true);
+                    Game.Get<WorldManager>().BreakGround(position.x + i,position.y + j, 5, true);
                 }
             }
         }

@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Entities.Players;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,17 +26,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void WriteStoneCount()
         {
-            _countText.text = $"{GameManager.player.inventory.stoneCount} / {GameManager.player.inventory.maxCount}";
+            Inventory playerInventory = Game.Get<GameManager>().player.inventory;
+            _countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";
         }
         public void UpCount(int count)
         {
-            GameManager.player.inventory.stoneCount += count;
-            _countText.text = $"{GameManager.player.inventory.stoneCount} / {GameManager.player.inventory.maxCount}";
+            Inventory playerInventory = Game.Get<GameManager>().player.inventory;
+            
+            playerInventory.stoneCount += count;
+            _countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";
             LoadDrillImage();
         }
         private void LoadDrillImage()
         {
-            if (GameManager.player.inventory.maxCount / 2 <= GameManager.player.inventory.stoneCount)
+            Inventory playerInventory = Game.Get<GameManager>().player.inventory;
+            
+            if (playerInventory.maxCount / 2 <= playerInventory.stoneCount)
                 _drillImage.sprite = _drillImages[0];
         }
     }

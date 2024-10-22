@@ -12,15 +12,11 @@ namespace Ciart.Pagomoa.Worlds.UFO
 
         private InteractableObject _interactable;
         
-        private TimeManager _timeManager;
-        
         void Start()
         {
             _interactable = GetComponent<InteractableObject>();
             
             _interactable.interactionEvent.AddListener(GotoBed);
-            
-            _timeManager = FindObjectOfType<TimeManager>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -30,9 +26,9 @@ namespace Ciart.Pagomoa.Worlds.UFO
         
         public void GotoBed()
         {
-            if (_timeManager.canSleep)
+            if (Game.Get<TimeManager>().canSleep)
             {
-                _timeManager.Sleep();
+                Game.Get<TimeManager>().Sleep();
 
                 StartCoroutine(nameof(Sleeping));
             } else {

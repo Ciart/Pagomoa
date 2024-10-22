@@ -13,7 +13,9 @@ namespace Ciart.Pagomoa.Entities
 
         private void Start()
         {
-            EntityManager.instance.Spawn(entityOrigin, transform.position);
+            EntityController entity = Instantiate(entityOrigin.prefab, transform.position, Quaternion.identity);
+            
+            Game.Get<EntityManager>().Spawn(entity, transform.position);
         }
 
         /*private void OnDrawGizmos()

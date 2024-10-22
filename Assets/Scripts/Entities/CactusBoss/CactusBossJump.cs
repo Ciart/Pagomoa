@@ -14,16 +14,16 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _cactusBoss = animator.GetComponent<CactusBoss>();
-            _targetPosition = GameManager.player.transform.position;
+            _targetPosition = Game.Get<GameManager>().player.transform.position;
 
-            _cactusBoss.rigidbody.AddForce(new Vector2(0, jumpForce));
+            _cactusBoss.rigid.AddForce(new Vector2(0, jumpForce));
         }
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var velocity = new Vector2((_targetPosition.x - animator.transform.position.x) * 80f * Time.deltaTime, _cactusBoss.rigidbody.velocity.y);
+            var velocity = new Vector2((_targetPosition.x - animator.transform.position.x) * 80f * Time.deltaTime, _cactusBoss.rigid.velocity.y);
 
-            _cactusBoss.rigidbody.velocity = velocity;
+            _cactusBoss.rigid.velocity = velocity;
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

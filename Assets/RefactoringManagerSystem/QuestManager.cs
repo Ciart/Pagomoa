@@ -1,140 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-using Ciart.Pagomoa.Systems;
 using Logger;
-using Unity.VisualScripting;
 using UnityEngine;
 
-
-
-[Serializable]
-[RequireComponent(typeof(QuestDatabase))]
-public class QuestManager : SingletonMonoBehaviour<QuestManager>
+namespace Ciart.Pagomoa.RefactoringManagerSystem
 {
-    [Header("수행중인 퀘스트")]
-    public List<ProcessQuest> progressQuests = new List<ProcessQuest>();
     
-    public QuestDatabase database;
-
-    private void Start()
+    public class QuestManager : PManager
     {
-        database ??= GetComponent<QuestDatabase>();
-    }
-    
-    public void RegistrationQuest(Sprite npcSprite, EntityOrigin origin, string id)
-    {
-        var targetQuests = database.GetEntityQuestsByEntityID(origin);
+        public List<Quest> quests = new List<Quest>();
         
-        foreach (var quest in targetQuests)
-        {
-            if (quest.id != id) continue;
-            
-            var progressQuest = new ProcessQuest(quest, npcSprite);
+        public QuestDatabase database;
 
-            progressQuests.Add(progressQuest);
+        public override void Awake()
+        {
+            database = DataBase.data.GetQuestData();
+        }
+
+        public void RegistrationQuest(Sprite npcSprite, EntityOrigin origin, string id)
+        {
+            var targetQuests = database.GetEntityQuestsByEntity(origin);
             
-            EventManager.Notify(new QuestStarted(progressQuest));
-            EventManager.Notify(new AddNpcImageEvent(npcSprite));
-            EventManager.Notify(new MakeQuestListEvent());
+            foreach (var quest in targetQuests)
+            {
+                if (quest.id != id) continue;
+                
+                var progressQuest = new Quest(quest, npcSprite);
+
+                quests.Add(progressQuest);
+                
+                EventManager.Notify(new QuestStarted(progressQuest));
+                EventManager.Notify(new AddNpcImageEvent(npcSprite));
+                EventManager.Notify(new MakeQuestListEvent());
+            }
+            
+            EventManager.Notify(new QuestListUpdated(quests));
+        }
+
+        public void CompleteQuest(string id)
+        {
+            GetReward(id);
+            
+            EventManager.Notify(new QuestCompleted(FindQuestById(id)));
         }
         
-        EventManager.Notify(new QuestListUpdated(progressQuests));
-    }
-
-    public void CompleteQuest(string id)
-    {
-        GetReward(id);
-    }
-    
-    private void GetReward(string id)
-    {
-        var targetQuest = FindQuestById(id);
-        var reward = targetQuest.reward;
-
-        EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
-        EventManager.Notify(new AddGold(reward.gold));
-        
-        database.progressedQuests.Add(new ProgressedQuest(targetQuest));
-        progressQuests.Remove(targetQuest);
-        
-        targetQuest.Dispose();
-    }
-    
-    public ProcessQuest FindQuestById(string id)
-    {
-        foreach (var quest in progressQuests)
+        private void GetReward(string id)
         {
-            if (quest.id == id) return quest;
+            var targetQuest = FindQuestById(id);
+            var reward = targetQuest.reward;
+
+            EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
+            EventManager.Notify(new AddGold(reward.gold));
+
+            targetQuest.state = QuestState.Finish;
+            
+            targetQuest.Dispose();
         }
         
-        return null;
-    }
-
-    public bool CheckQuestValidation(Quest quest)
-    {
-        if (!IsCompletedQuest(quest.prevQuestIds))
+        public Quest FindQuestById(string id)
         {
+            foreach (var quest in quests)
+            {
+                if (quest.id == id) return quest;
+            }
+            
+            return null;
+        }
+
+        public bool CheckQuestValidation(QuestData questData)
+        { 
+            var prevQuestCount = questData.prevQuestIds.Count;
+            
+            if (prevQuestCount != 0)
+            {
+                if (quests.Count == 0) return false;
+                
+                foreach (var quest in quests)
+                {
+                    foreach (var questId in questData.prevQuestIds)
+                    {
+                        if (quest.id != questId) continue;
+                        
+                        if (quest.state != QuestState.Finish) return false;
+                        prevQuestCount--;
+                    }
+                    
+                    if (prevQuestCount != 0) return false;
+                    if (quest.id == questData.id) return false;
+                }
+            } else
+            {
+                foreach (var quest in quests)
+                {
+                    if (quest.id == questData.id) return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool FindCompletedQuest(QuestData[] questData)
+        {
+            foreach (var data in questData)
+            {
+                foreach (var quest in quests)
+                {
+                    if (quest.id == data.id && quest.state == QuestState.Completed)
+                    {
+                        return true;
+                    }
+                }
+            }
+
             return false;
         }
-            
-        if (IsCompletedQuest(quest.id))
-        {
-            return false;
-        }
-
-        if (IsRegisteredQuest(quest.id))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    private bool IsRegisteredQuest(string id)
-    {
-        var check = false;
-        
-        foreach (var quest in progressQuests)
-        {
-            if (quest.id == id) check = true;
-        }
-
-        return check;
-    }
-
-    private bool IsCompletedQuest(string id)
-    {
-        var check = database.CheckQuestCompleteById(id);
-
-        return check;
-    }
-
-    private bool IsCompletedQuest(List<string> ids)
-    {
-        if (ids.Count == 0) return true;
-        
-        foreach (var id in ids)
-        {
-            if (!IsCompletedQuest(id)) return false;
-        }
-            
-        return true;
-    }
-
-    private ProcessQuest[] GetCompleteQuests()
-    {
-        var completeQuest = new List<ProcessQuest>();
-
-        /*foreach (var quest in progressQuests)
-        {
-            if (quest.accomplishment) completeQuest.Add(quest);
-        }*/
-
-        return completeQuest.ToArray();
-    }
-}   
+    }   
+}

@@ -24,8 +24,8 @@ namespace Ciart.Pagomoa.Entities
 
             WorldManager.world.ChangeLevel(levelId);
 
-            var player = GameManager.player;
-            var entityManager = EntityManager.instance;
+            var player = Game.Get<GameManager>().player;
+            var entityManager = Game.Get<EntityManager>();
             var destinationEntity = entityManager.Find(destination);
             
             if (destinationEntity is null)

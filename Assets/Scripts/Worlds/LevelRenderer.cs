@@ -80,13 +80,13 @@ namespace Ciart.Pagomoa.Worlds
             var world = WorldManager.world;
             var chunk = world.currentLevel.GetChunk(coords) ?? new Chunk(coords);
 
-            foreach (var entityController in EntityManager.instance.FindAllEntityInChunk(chunk))
+            foreach (var entityController in Game.Get<EntityManager>().FindAllEntityInChunk(chunk))
             {
                 var position = entityController.transform.position;
 
                 world.currentLevel.AddEntity(position.x, position.y, entityController.origin);
 
-                EntityManager.instance.Despawn(entityController);
+                Game.Get<EntityManager>().Despawn(entityController);
             }
 
             if (_minimapRenderers.TryGetValue(coords, out var value))
@@ -100,7 +100,7 @@ namespace Ciart.Pagomoa.Worlds
         private bool CheckSightBrick(Brick brick)
         {
             return brick.ground is null ||
-                   brick.mineral == WorldManager.instance.database.GetMineral("UFORemote");
+                   brick.mineral == Game.Get<WorldManager>().database.GetMineral("UFORemote");
         }
 
         private bool[,] CreateFogMap(Chunk chunk, World world)
@@ -172,8 +172,7 @@ namespace Ciart.Pagomoa.Worlds
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
                     overlayTilemap.SetTile(position,
                         brick.mineral && !fogMap[i, j]
-                            ? WorldManager
-                                .instance.database.glitterTile
+                            ? Game.Get<WorldManager>().database.glitterTile
                             : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
@@ -248,9 +247,9 @@ namespace Ciart.Pagomoa.Worlds
 
             groundOverlayTilemap.ClearAllTiles();
 
-            var brokenTiles = WorldManager.instance.database.brokenEffectTiles;
+            var brokenTiles = Game.Get<WorldManager>().database.brokenEffectTiles;
 
-            foreach (var (key, value) in WorldManager.instance.brickDamage)
+            foreach (var (key, value) in Game.Get<WorldManager>().brickDamage)
             {
                 var position = new Vector3Int(key.x, key.y, 0);
                 var brokenStep = Mathf.FloorToInt((1 - value.health / value.maxHealth) * (brokenTiles.Length - 1));
@@ -339,7 +338,9 @@ namespace Ciart.Pagomoa.Worlds
                     continue;
                 }
 
-                _entities.Add(EntityManager.instance.Spawn(entityData.origin, position));
+                EntityController entity = Instantiate(entityData.origin.prefab, position, Quaternion.identity);
+
+                _entities.Add(Game.Get<EntityManager>().Spawn(entity, position));
             }
         }
         
@@ -362,7 +363,7 @@ namespace Ciart.Pagomoa.Worlds
                 var data = entityController.GetEntityData();
                 dataList.Add(data);
                 
-                EntityManager.instance.Despawn(entityController);
+                Game.Get<EntityManager>().Despawn(entityController);
             }
             
             level.entityDataList = dataList;

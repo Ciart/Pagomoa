@@ -45,7 +45,7 @@ namespace Ciart.Pagomoa.Entities.Players
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
 
-            _world = WorldManager.instance;
+            _world = Game.Get<WorldManager>();
         }
 
         public void Jump()

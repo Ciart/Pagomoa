@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
         {
             var subCommand = args[0].String;
             
-            var timeManager = TimeManager.instance;
+            var timeManager = Game.Get<TimeManager>();
             
             if (Terminal.IssuedError) return;
             

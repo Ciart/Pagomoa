@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Monsters
 {
@@ -17,13 +18,13 @@ namespace Ciart.Pagomoa.Entities.Monsters
     
         public int maxSearchWidth = 10;
 
-        [SerializeField] private int _maxSpawn = 10;
+        [SerializeField] private int maxSpawn = 10;
     
-        [SerializeField] private float _spawnTerm = 30f;
+        [SerializeField] private float spawnTerm = 30f;
     
-        [SerializeField] private float _spawnCoolTime = 30f;
+        [SerializeField] private float spawnCoolTime = 30f;
 
-        [SerializeField] private GameObject[] _monsterType;
+        [SerializeField] private GameObject[] monsterType;
 
         private GameObject _monsterPrefab;
 
@@ -37,7 +38,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
         private float _forestDepth = -100f;
 
         private int _searchSize = 10;
-        private int _checkVectorX = - 1;
+        //private int _checkVectorX = - 1;
 
         void Start()
         {
@@ -51,17 +52,17 @@ namespace Ciart.Pagomoa.Entities.Monsters
         public void StartNightSpawner()
         {
             ChasePlayer();
-            if (_spawnCoolTime <= 0)
+            if (spawnCoolTime <= 0)
             {
-                _spawnCoolTime = _spawnTerm;
+                spawnCoolTime = spawnTerm;
             }
-            if (_spawnCoolTime == _spawnTerm)
+            if (spawnCoolTime == spawnTerm)
             {
                 StartCoroutine(nameof(SpawnMonsters));
             }
-            if (_spawnCoolTime <= _spawnTerm)
+            if (spawnCoolTime <= spawnTerm)
             {
-                _spawnCoolTime -= 0.05f;
+                spawnCoolTime -= 0.05f;
             }
         }
 
@@ -83,39 +84,39 @@ namespace Ciart.Pagomoa.Entities.Monsters
             {
                 case float yPos when yPos > _desertDepth:
                     land = 1;
-                    _monsterPrefab = _monsterType[land - 1];
+                    _monsterPrefab = monsterType[land - 1];
                     break;
 
                 case float yPos when yPos > _forestDepth:
                     land = 2;
-                    _monsterPrefab = _monsterType[land - 1];
+                    _monsterPrefab = monsterType[land - 1];
                     break;
 
                 case float yPos when yPos > _forestDepth:
                     land = 3;
-                    _monsterPrefab = _monsterType[land - 1];
+                    _monsterPrefab = monsterType[land - 1];
                     break;
 
                 case float yPos when yPos > _forestDepth:
                     land = 4;
-                    _monsterPrefab = _monsterType[land - 1];
+                    _monsterPrefab = monsterType[land - 1];
                     break;
 
                 case float yPos when yPos > _forestDepth:
                     land = 5;
-                    _monsterPrefab = _monsterType[land - 1];
+                    _monsterPrefab = monsterType[land - 1];
                     break;
 
                 case float yPos when yPos > _forestDepth:
                     land = 6;
-                    _monsterPrefab = _monsterType[land - 1];
+                    _monsterPrefab = monsterType[land - 1];
                     break;
             }
         }
     
         private IEnumerator SpawnMonsters()
         {
-            if (_spawnedMonster.Count < _maxSpawn)
+            if (_spawnedMonster.Count < maxSpawn)
             {
                 SetSpawnMonster();
                 CheckSpawnPosition();
@@ -129,7 +130,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 GameObject nightMonster = Instantiate(_monsterPrefab, _spawnPoint, Quaternion.identity);
                 _spawnedMonster.Add(nightMonster);
             
-                yield return new WaitForSeconds(_spawnTerm);
+                yield return new WaitForSeconds(spawnTerm);
             }
             yield return null;
         }

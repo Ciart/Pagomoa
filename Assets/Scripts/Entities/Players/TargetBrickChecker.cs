@@ -69,7 +69,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
 
-            _worldManager = WorldManager.instance;
+            _worldManager = Game.Get<WorldManager>();
         }
     }
 }

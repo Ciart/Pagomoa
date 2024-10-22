@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.UI
         
         private void Update()
         {
-            var position = GameManager.player.transform.position;
+            var position = Game.Get<GameManager>().player.transform.position;
 
             if (Math.Round(position.x) >= 1)
                 coordXText.text = $"{position.x:+0}";

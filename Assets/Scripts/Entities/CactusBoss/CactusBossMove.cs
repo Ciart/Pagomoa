@@ -21,16 +21,16 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                 return;
             }
 
-            var player = GameManager.player;
-            var velocity = new Vector2((player.transform.position.x - animator.transform.position.x) * _cactusBoss.speed * Time.deltaTime, _cactusBoss.rigidbody.velocity.y);
+            var player = Game.Get<GameManager>().player;
+            var velocity = new Vector2((player.transform.position.x - animator.transform.position.x) * _cactusBoss.speed * Time.deltaTime, _cactusBoss.rigid.velocity.y);
 
-            _cactusBoss.rigidbody.velocity = velocity;
+            _cactusBoss.rigid.velocity = velocity;
             _cactusBoss.spriteRenderer.flipX = velocity.x > 0;
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _cactusBoss.rigidbody.velocity = Vector2.zero;
+            _cactusBoss.rigid.velocity = Vector2.zero;
         }
     }
 }

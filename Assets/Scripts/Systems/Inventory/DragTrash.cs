@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,14 +9,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnDrop(PointerEventData eventData)
         {
             var data = eventData.pointerDrag.GetComponent<QuickSlotUI>();
+            PlayerController player = Game.Get<GameManager>().player;
 
             if (data)
             {
-                GameManager.player.inventory.SetQuickItem(data.id, null);
+                player.inventory.SetQuickItem(data.id, null);
             }
             else if (eventData.pointerPress.GetComponent<InventorySlotUI>())
             {
-                GameManager.player.inventory.RemoveItemData(GameManager.player.inventory.items[
+                player.inventory.RemoveItemData(player.inventory.items[
                     eventData.pointerDrag.GetComponent<InventorySlotUI>().id].item);
                 InventoryUI.Instance.UpdateSlots();
             }

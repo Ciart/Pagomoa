@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Systems
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
 
-            _interactableUI = UIManager.CreateInteractableUI(transform);
+            _interactableUI = Game.Get<UIManager>().CreateInteractableUI(transform);
             _interactableUI.SetActive(false);
             _interactableUI.transform.position += uiOffset;
         }

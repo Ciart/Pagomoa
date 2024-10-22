@@ -88,7 +88,7 @@ namespace Ciart.Pagomoa
         {
             StartCoroutine(Fade());
             
-            TimeManager.instance.PauseTime();
+            Game.Get<TimeManager>().PauseTime();
             
             foreach (var cutScene in cutScenes)
             {

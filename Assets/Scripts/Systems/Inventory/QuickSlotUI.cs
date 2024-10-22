@@ -20,13 +20,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private Item _item
         {
-            get => GameManager.player.inventory.GetQuickItem(id);
-            set => GameManager.player.inventory.SetQuickItem(id, value);
+            get => Game.Get<GameManager>().player.inventory.GetQuickItem(id);
+            set => Game.Get<GameManager>().player.inventory.SetQuickItem(id, value);
         } 
 
         private void SwapSlot(PointerEventData eventData)
         {
-            GameManager.player.inventory.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
+            Game.Get<GameManager>().player.inventory.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
         }
         
         public void UpdateSlot()
@@ -39,7 +39,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
 
             itemImage.sprite = _item.itemImage;
-            itemCount.text =  GameManager.player.inventory.GetItemCount(_item).ToString();
+            itemCount.text =  Game.Get<GameManager>().player.inventory.GetItemCount(_item).ToString();
         }
 
         public void OnDrop(PointerEventData eventData)

@@ -3,18 +3,14 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class ParticleManager : SingletonMonoBehaviour<ParticleManager>
+    public class ParticleManager : PManager
     {
-        public List<GameObject> particles = new List<GameObject>();
-
+        public ParticleManager() { }
         public void Make(int id, GameObject parent, Vector3 position, float duration)
         {
-        
-            //Debug.Log("생성됨!" + particles.Count);
-
-            GameObject particle = Instantiate(particles[id], parent.transform);
+            var particle = DataBase.data.InstantiateData(DataBase.data.GetParticles()[id], parent.transform);
             particle.transform.localPosition = position;
-            Destroy(particle, duration);
+            DataBase.data.DestroyData(particle, duration);
         }
     }
 }

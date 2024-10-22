@@ -51,7 +51,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void MakeSlots() // slotdatas 갯수만큼 슬롯 만들기
         {
-            for (int i = 0; i < GameManager.player.inventory.items.Length; i++)
+            for (int i = 0; i < Game.Get<GameManager>().player.inventory.items.Length; i++)
             {
                 GameObject spawnedslot = Instantiate(slot, slotParent.transform);
                 slotDatas.Add(spawnedslot.GetComponent<InventorySlotUI>());
@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (var i = 0; i < slotDatas.Count; i++)
             {
-                slotDatas[i].SetItem(GameManager.player.inventory.items[i]);
+                slotDatas[i].SetItem(Game.Get<GameManager>().player.inventory.items[i]);
             }
         }
         
@@ -79,7 +79,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
-                artifactSlotData[i].slot = GameManager.player.inventory.artifactItems[i];
+                artifactSlotData[i].slot = Game.Get<GameManager>().player.inventory.artifactItems[i];
                 artifactSlotData[i].SetItem(artifactSlotData[i].slot);
             }
         }

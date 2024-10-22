@@ -970,7 +970,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6632102197688724806}
-  - component: {fileID: 8657024929518328842}
   - component: {fileID: 7838139360534063085}
   - component: {fileID: 3669576954988456613}
   m_Layer: 0
@@ -996,22 +995,6 @@ Transform:
   - {fileID: 2692469588520254377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8657024929518328842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823355888482345439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a95264e66514e919dbf6ff08b99522, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  database: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
-  itemEntity: {fileID: 9201767070594165824, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
-  ufo: {fileID: 2692469588520254377}
-  ufoLadder: {fileID: 8300040740934375388}
 --- !u!114 &7838139360534063085
 MonoBehaviour:
   m_ObjectHideFlags: 0

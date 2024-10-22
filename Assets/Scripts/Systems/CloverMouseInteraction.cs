@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems
             if (_buyUI.activeSelf == false)
             {
                 _buyUI.SetActive(true);
-                TimeManager.instance.PauseTime();
+                Game.Get<TimeManager>().PauseTime();
                 ShopChat.Instance.AwakeChat();
             }
             else
@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Systems
         }
         public void OffUI()
         {
-            TimeManager.instance.ResumeTime();
+            Game.Get<TimeManager>().ResumeTime();
             _buyUI.SetActive(false);
         }
     }
