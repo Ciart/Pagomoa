@@ -3,6 +3,7 @@ using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds.UFO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -15,12 +16,10 @@ namespace Ciart.Pagomoa.Worlds
         public WorldManager()
         {
             needToPostUpdate = true;
-            Debug.Log("initialized");
         }
         
         public WorldDatabase database;
         
-        // Todo worldGenrator 선언 여부 원래 X
         public WorldGenerator worldGenerator;
         
         public ItemEntity itemEntity;
@@ -51,10 +50,19 @@ namespace Ciart.Pagomoa.Worlds
 
         private HashSet<Chunk> _expiredChunks = new();
 
+        public override void PostAwake()
+        {
+            
+        }
+
         public override void Start()
         {
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
+            
+            WorldRenderer render = worldGenerator.GetComponent<WorldRenderer>();
+            render.levelRendererPrefab.RenderLevel();
+            render.levelRendererPrefab.SpawnEntities();
             /*_ufoInteraction = ufo.GetComponent<UFOInteraction>();*/
         }
 
@@ -430,6 +438,12 @@ namespace Ciart.Pagomoa.Worlds
             }
             
             return onGroundList;
+        }
+        
+        public override void OnDestroy()
+        {
+            WorldRenderer render = worldGenerator.GetComponent<WorldRenderer>();
+            render.levelRendererPrefab.DespawnEntities();
         }
         
         public void MoveUfoBase()

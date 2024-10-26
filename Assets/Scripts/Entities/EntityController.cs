@@ -203,7 +203,6 @@ namespace Ciart.Pagomoa.Entities
             }
 
             _isGrounded = false;
-            return;
         }
 
         private void OnCollisionExit2D(Collision2D other)
@@ -211,7 +210,6 @@ namespace Ciart.Pagomoa.Entities
             if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
             {
                 _isGrounded = false;
-                return;
             }
         }
     }

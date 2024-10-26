@@ -50,16 +50,18 @@ public class Game : MonoBehaviour
             }
         }
 
+        IsSingleton();
+        
         foreach (PManager mgr in _managers)
         {
             mgr.PreAwake();
         }
-
+        
         foreach (PManager mgr in _managers)
         {
             mgr.Awake();
         }
-
+        
         foreach (PManager mgr in _managers)
         {
             mgr.PostAwake();
@@ -139,18 +141,29 @@ public class Game : MonoBehaviour
              }
         }
     }
-    
-    private static List<PManager> _managers = null;
 
-    public void IsSingleton()
+    private void OnDestroy()
     {
         foreach (PManager manager in _managers)
         {
-            var instance = manager.CheckSingleton(_managers);
-            if (instance != null)
+            manager.OnDestroy();
+        }
+    }
+
+    private static List<PManager> _managers = null;
+
+    private void IsSingleton()
+    {
+
+        for (int i = _managers.Count - 1; i >= 0; i--)
+        {
+            var list = _managers[i].CheckSingleton(_managers);
+            if (list != null)
             {
-                _managers = instance;
+                _managers = list;
             }
         }
+        
+        
     }
 }

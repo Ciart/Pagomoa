@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PManager
 {
+    private int _counter = 0;
     public virtual void PreAwake() {}
     public virtual void Awake() { }
     public virtual void PostAwake() {}
@@ -38,10 +39,14 @@ public class PManager
         {
             if (manager.GetType() == GetType())
             {
-                Debug.LogError(manager.GetType() + " " + GetType());
+                _counter++;
 
-                managers.Remove(this);
-                return managers;
+                if (_counter > 1)
+                {
+                    OnDestroy();
+                    break;    
+                }
+                
             }
         }
         

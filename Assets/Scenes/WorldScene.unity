@@ -8059,7 +8059,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1823355888482345439, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
       propertyPath: m_Name
-      value: WorldRenderSystem
+      value: World
       objectReference: {fileID: 0}
     - target: {fileID: 6632102197688724806, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
       propertyPath: m_LocalPosition.x

@@ -229,16 +229,14 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            
-            RenderLevel();
-            SpawnEntities();
+            /*RenderLevel();
+            SpawnEntities();*/
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
-
-            DespawnEntities();
+            /*DespawnEntities();*/
         }
 
         private void LateUpdate()
@@ -274,7 +272,7 @@ namespace Ciart.Pagomoa.Worlds
             Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
         }
 
-        private void RenderLevel()
+        public void RenderLevel()
         {
             if (level is null)
             {
@@ -321,7 +319,7 @@ namespace Ciart.Pagomoa.Worlds
         
         private List<EntityController> _entities = new();
 
-        private void SpawnEntities()
+        public void SpawnEntities()
         {
             if (level is null)
             {
@@ -344,7 +342,7 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
         
-        private void DespawnEntities()
+        public void DespawnEntities()
         {
             if (level is null)
             {
