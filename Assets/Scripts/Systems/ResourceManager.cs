@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace Ciart.Pagomoa.Systems
                 item.LoadResources();
             }
             
-            foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies().First(a => a.FullName.Contains("Assembly-CSharp")).ExportedTypes)
+            foreach(var assembly in Assembly.GetExecutingAssembly().GetTypes())
             {
                 if (assembly.IsSubclassOf(typeof(NewItemEffect)))
                 {

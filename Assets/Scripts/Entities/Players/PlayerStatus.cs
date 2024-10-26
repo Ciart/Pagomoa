@@ -149,11 +149,10 @@ namespace Ciart.Pagomoa.Entities.Players
             var inventory = GameManager.player.inventory;
             inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
 
-            TimeManager.instance.Sleep();
-
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
-            // NextDay();
+            
+            TimeManager.instance.SkipToNextDay();
 
             Respawn();
         }

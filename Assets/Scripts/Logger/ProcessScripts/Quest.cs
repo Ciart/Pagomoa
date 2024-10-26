@@ -217,7 +217,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public void HasUsingItem(ItemUsedEvent e)
         {
-            if (!TypeValidation(e.item)) return;
+            // TODO: Item 호환 작업
+            // if (!TypeValidation(e.item)) return;
             if (CheckComplete()) return;
             
             CalculationValue(e);

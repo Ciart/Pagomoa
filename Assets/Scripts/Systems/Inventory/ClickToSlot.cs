@@ -86,7 +86,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = InventoryUI.Instance;
             const int mineralCount = 1;
             
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
+            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Mineral)
             {
                 if (GameManager.player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
@@ -107,7 +107,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = InventoryUI.Instance;
             const int mineralCount = 10;
             
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
+            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Mineral)
             {
                 if (GameManager.player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
@@ -141,8 +141,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var chosenItem = GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
             
-            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
-            GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Active(playerStatus);
+            ResourceManager.instance.UseItem(GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
             GameManager.player.inventory.DecreaseItemCount(chosenItem);
             InventoryUI.Instance.ResetSlots();
             _rightClickMenu.SetUI();

@@ -133,7 +133,7 @@ namespace Ciart.Pagomoa.Systems.Time
         //     gameObject.transform.position = returnPosition;
         // }
     
-        public void Sleep()
+        public void SkipToNextDay()
         {
             // FadeEvent.Invoke(FadeState.FadeInOut);
             EventManager.Notify(new FadeEvent(FadeState.FadeInOut));

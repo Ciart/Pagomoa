@@ -2945,7 +2945,7 @@ PlayableDirector:
   m_GameObject: {fileID: 498371700}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: e6306a8744c647a49b34e8ea5fdaf509, type: 2}
+  m_PlayableAsset: {fileID: 0}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -3178,7 +3178,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.40625
+  orthographic size: 7.46875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7858,7 +7858,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7036410858450081891, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
       insertIndex: -1
       addedObject: {fileID: 405246041}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6329546147371843080, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1247945772}
   m_SourcePrefab: {fileID: 100100000, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
 --- !u!1 &1481781972
 GameObject:
@@ -9456,6 +9459,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3425350541753778214, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4500547496182087115, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

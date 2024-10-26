@@ -73,7 +73,8 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuestData.reward.gold = EditorGUILayout.IntField("보상 골드", newQuestData.reward.gold);
-            newQuestData.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuestData.reward.targetEntity, typeof(Item), true);
+            // TODO: 아이템 호환 작업
+            // newQuestData.reward.targetEntity = (Item)EditorGUILayout.ObjectField("보상 엔티티", newQuestData.reward.targetEntity, typeof(Item), true);
             newQuestData.reward.targetEntitySprite = (Sprite)EditorGUILayout.ObjectField("보상 엔티티 sprite", newQuestData.reward.targetEntitySprite, typeof(Sprite), true);
             newQuestData.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuestData.reward.value);
             GUILayout.EndVertical();
@@ -150,8 +151,9 @@ namespace Ciart.Pagomoa.Editor
                     case QuestType.CollectItem:
                     case QuestType.ConsumeItem:
                     case QuestType.UseItem:
-                        newQuestData.questList[i].targetEntity = (Item)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
-                            ,newQuestData.questList[i].targetEntity , typeof(Item), true);
+                        // TODO: 아이템 호환 작업
+                        // newQuestData.questList[i].targetEntity = (Item)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
+                            // ,newQuestData.questList[i].targetEntity , typeof(Item), true);
                         break;
                     case QuestType.BreakBlock:
                         newQuestData.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"

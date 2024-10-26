@@ -34,16 +34,16 @@ namespace Ciart.Pagomoa.UI.Title
                 SceneManager.LoadScene("Scenes/IntroScene");
                 SaveManager.Instance.WriteIntroData(true);
                 DataManager.Instance.SaveGameData();
-            }
-            else
+            }*/
+            // else
             {
                 SceneManager.LoadScene("Scenes/WorldScene");
-            }*/
-            foreach (var backGround in backGrounds)
-            {
-                backGround.needSlowDownScroll = true;
-                titlePanel.SetActive(false);
             }
+            // foreach (var backGround in backGrounds)
+            // {
+            //     backGround.needSlowDownScroll = true;
+            //     titlePanel.SetActive(false);
+            // }
         }
         public void ReStart()
         {

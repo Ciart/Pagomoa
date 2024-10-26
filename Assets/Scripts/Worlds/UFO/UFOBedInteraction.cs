@@ -32,7 +32,7 @@ namespace Ciart.Pagomoa.Worlds.UFO
         {
             if (_timeManager.canSleep)
             {
-                _timeManager.Sleep();
+                _timeManager.SkipToNextDay();
 
                 StartCoroutine(nameof(Sleeping));
             } else {
