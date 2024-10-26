@@ -14,9 +14,9 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             if (Terminal.IssuedError) return;
             
-            Debug.Log($"giving item {GameManager.instance.items[subCommand].name}");
+            Debug.Log($"giving item {ResourceManager.instance.items[subCommand].name}");
             
-            inventory.Add(GameManager.instance.items[subCommand]);
+            inventory.Add(ResourceManager.instance.items[subCommand]);
         }
         
         [RegisterCommand(Help = "", MinArgCount = 1, MaxArgCount = 2)]
@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             if (Terminal.IssuedError) return;
             
-            GameManager.UseItem(GameManager.instance.items[subCommand]);
+            ResourceManager.instance.UseItem(ResourceManager.instance.items[subCommand]);
         }
     }
 }

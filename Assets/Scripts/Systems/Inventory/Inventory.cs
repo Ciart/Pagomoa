@@ -196,11 +196,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         DecreaseItemCount(item);
                         // item.Active(GameManager.player.GetComponent<PlayerStatus>());
-                        GameManager.UseItem(item);
+                        ResourceManager.instance.UseItem(item);
                     }
                     break;
                 case ItemType.Inherent:
-                    GameManager.UseItem(item);
+                    ResourceManager.instance.UseItem(item);
                     break;
                 default:
                     return;

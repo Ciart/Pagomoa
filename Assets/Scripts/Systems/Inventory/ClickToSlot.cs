@@ -128,7 +128,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
             // GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Active(playerStatus);
-            GameManager.UseItem(GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
+            ResourceManager.instance.UseItem(GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
             GameManager.player.inventory.DecreaseItemCount(GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
             InventoryUI.Instance.ResetSlots();
             _rightClickMenu.SetUI();

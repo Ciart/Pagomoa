@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class ResourceManager
+    public class ResourceManager : SingletonMonoBehaviour<ResourceManager>
     {
         public Dictionary<string, NewItemEffect> itemEffects = new ();
         
@@ -38,14 +38,11 @@ namespace Ciart.Pagomoa.Systems
         {
             itemEffects[item.id].Effect();
         }
-        
-        public ResourceManager(Game game)
-        {
-            game.awake += OnAwake;
-        }
 
-        private void OnAwake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             LoadItems();
         }
     }
