@@ -38,10 +38,12 @@ namespace Ciart.Pagomoa.Entities.Players
 
         [SerializeField]
         private List<Drill> _drills;
-
+        
         private int _drillLevel = 0;
 
-        private int width = 2;
+        public Drill nextDrill => _drills[_drillLevel + 1];
+        
+        private int width = 1;
 
         private int length = 1;
 
