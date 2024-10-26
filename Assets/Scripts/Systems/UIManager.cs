@@ -7,6 +7,7 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
 {
@@ -24,15 +25,15 @@ namespace Ciart.Pagomoa.Systems
         {
             _uiContainer = DataBase.data.GetUIData();
             
-            _inventoryUI = DataBase.data.InstantiateData(_uiContainer.inventoryUIPrefab, _uiContainer.transform);
+            _inventoryUI = Object.Instantiate(_uiContainer.inventoryUIPrefab, _uiContainer.transform);
             Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
             
-            _dialogueUI = DataBase.data.InstantiateData(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
+            _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            DataBase.data.InstantiateData(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
+            Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
             
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
@@ -108,12 +109,12 @@ namespace Ciart.Pagomoa.Systems
 
         public GameObject CreateInteractableUI(Transform parent)
         {
-            return DataBase.data.InstantiateData(DataBase.data.GetUIData().interactableUI, parent);
+            return Object.Instantiate(DataBase.data.GetUIData().interactableUI, parent);
         }
 
         public GameObject CreateQuestCompleteUI(Transform parent)
         {
-            return DataBase.data.InstantiateData(DataBase.data.GetUIData().questCompleteUI, parent);
+            return Object.Instantiate(DataBase.data.GetUIData().questCompleteUI, parent);
         }
 
     }

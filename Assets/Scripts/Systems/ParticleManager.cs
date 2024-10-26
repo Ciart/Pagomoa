@@ -5,10 +5,9 @@ namespace Ciart.Pagomoa.Systems
 {
     public class ParticleManager : PManager
     {
-        public ParticleManager() { }
         public void Make(int id, GameObject parent, Vector3 position, float duration)
         {
-            var particle = DataBase.data.InstantiateData(DataBase.data.GetParticles()[id], parent.transform);
+            var particle = Object.Instantiate(DataBase.data.GetParticles()[id], parent.transform);
             particle.transform.localPosition = position;
             DataBase.data.DestroyData(particle, duration);
         }

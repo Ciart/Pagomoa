@@ -20,8 +20,6 @@ namespace Ciart.Pagomoa
         public AudioSource GetAudioSource();
         public AudioSource[] GetSfxSources();
         public UIContainer GetUIData();
-        public T InstantiateData<T>(T target, Vector3 position) where T : Object;
-        public T InstantiateData<T>(T target, Transform targetTransform) where T : Object;
         public void DestroyData<T>(T target, float duration = 0) where T : Object; 
     }
     public class DataBase : MonoBehaviour, IDataBase
@@ -93,16 +91,6 @@ namespace Ciart.Pagomoa
         public UIContainer GetUIData()
         {
             return uiContainer;
-        }
-
-        public T InstantiateData<T>(T target, Vector3 position = default) where T : Object
-        {
-            return Instantiate(target, position, Quaternion.identity);
-        }
-        
-        public T InstantiateData<T>(T target, Transform targetTransform = null) where T : Object
-        {
-            return Instantiate(target, targetTransform);
         }
 
         public void DestroyData<T>(T target, float duration = 0) where T : Object
