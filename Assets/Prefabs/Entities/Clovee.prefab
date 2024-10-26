@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
+  origin: {fileID: 0}
   status:
     health: 0
     maxHealth: 0

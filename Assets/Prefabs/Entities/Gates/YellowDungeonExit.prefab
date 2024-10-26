@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: YellowDungeonExit
       objectReference: {fileID: 0}
+    - target: {fileID: 6280729990877535146, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
+      propertyPath: origin
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7170909304396357665, guid: 5af36355362ea4f2fb333bafb21ea05d, type: 3}
       propertyPath: levelId
       value: Main

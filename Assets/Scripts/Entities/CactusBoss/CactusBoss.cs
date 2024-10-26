@@ -59,7 +59,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             var spawnPosition = new Vector2(player.transform.position.x, 0);
             
             EntityController entity = Instantiate(armOrigin.prefab, spawnPosition, Quaternion.identity);
-            var arm = Game.Get<EntityManager>().Spawn(entity, spawnPosition);
+            var arm = Game.Get<EntityManager>().Spawn(armOrigin, spawnPosition);
             arm.parent = controller;
         }
     }

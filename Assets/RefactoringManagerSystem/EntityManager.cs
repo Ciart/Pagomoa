@@ -14,11 +14,14 @@ namespace Ciart.Pagomoa.Entities
 
         private List<EntityController> _entities = new();
 
-        public EntityController Spawn(EntityController entity, Vector3 position, EntityStatus status = null)
+        public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
         {
+            EntityController entity = Object.Instantiate(origin.prefab, position, Quaternion.identity);
+                //DataBase.data.InstantiateData(origin.prefab, position);
+            
             _entities.Add(entity);
             
-            entity.Init(new EntityData(position.x, position.y, entity.origin, status));
+            entity.Init(new EntityData(position.x, position.y, origin, status));
             
             if (entity.origin.type == EntityType.Player)
             {

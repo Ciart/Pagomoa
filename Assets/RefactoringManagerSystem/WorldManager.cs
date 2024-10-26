@@ -50,19 +50,11 @@ namespace Ciart.Pagomoa.Worlds
 
         private HashSet<Chunk> _expiredChunks = new();
 
-        public override void PostAwake()
-        {
-            
-        }
-
         public override void Start()
         {
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
             
-            WorldRenderer render = worldGenerator.GetComponent<WorldRenderer>();
-            render.levelRendererPrefab.RenderLevel();
-            render.levelRendererPrefab.SpawnEntities();
             /*_ufoInteraction = ufo.GetComponent<UFOInteraction>();*/
         }
 
@@ -439,13 +431,7 @@ namespace Ciart.Pagomoa.Worlds
             
             return onGroundList;
         }
-        
-        public override void OnDestroy()
-        {
-            WorldRenderer render = worldGenerator.GetComponent<WorldRenderer>();
-            render.levelRendererPrefab.DespawnEntities();
-        }
-        
+
         public void MoveUfoBase()
         {
             /*if (_ufoInteraction.canMove)

@@ -229,14 +229,14 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            /*RenderLevel();
-            SpawnEntities();*/
+            RenderLevel();
+            SpawnEntities();
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
-            /*DespawnEntities();*/
+            DespawnEntities();
         }
 
         private void LateUpdate()
@@ -335,10 +335,8 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     continue;
                 }
-
-                EntityController entity = Instantiate(entityData.origin.prefab, position, Quaternion.identity);
-
-                _entities.Add(Game.Get<EntityManager>().Spawn(entity, position));
+                
+                _entities.Add(Game.Get<EntityManager>().Spawn(entityData.origin, position));
             }
         }
         
