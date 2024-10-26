@@ -16,9 +16,9 @@ namespace Ciart.Pagomoa.Entities
             EntityManager.instance.Spawn(entityOrigin, transform.position);
         }
 
-        private void OnDrawGizmos()
+        /*private void OnDrawGizmos()
         {
             Handles.Label(transform.position, $"SpawnPoint: {entityOrigin.displayName ?? "Null"}");
-        }
+        }*/
     }
 }

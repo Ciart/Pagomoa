@@ -23,13 +23,13 @@ namespace Ciart.Pagomoa.UI.Book
         
         private List<QuestConditionUI> _questConditionItems = new();
         
-        public void UpdateUI([CanBeNull] ProcessQuest quest)
+        public void UpdateUI([CanBeNull] Quest quest)
         {
             if (quest is null)
             {
                 titleText.text = "";
                 descriptionText.text = "";
-                // npcImage.sprite = null;
+                npcImage.sprite = null;
                 
                 foreach (var item in _questConditionItems)
                 {
@@ -41,13 +41,13 @@ namespace Ciart.Pagomoa.UI.Book
             
             titleText.text = quest.title;
             descriptionText.text = quest.description;
-            // npcImage.sprite = quest.npcImage;
+            npcImage.sprite = quest.npcSprite;
             
-            PrefabUtility.ResizeParentList(_questConditionItems, questConditionParent, questConditionUIPrefab, quest.elements.Count);
+            PrefabUtility.ResizeParentList(_questConditionItems, questConditionParent, questConditionUIPrefab, quest.conditions.Count);
             
             for (var i = 0; i < _questConditionItems.Count; i++)
             {
-                _questConditionItems[i].UpdateUI(quest.elements[i]);
+                _questConditionItems[i].UpdateUI(quest.conditions[i]);
             }
         }
     }

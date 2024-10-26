@@ -206,11 +206,15 @@ namespace Ciart.Pagomoa.Entities.Players
                         SoundManager.instance.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
                 }
             }
-            foreach (var enemy in _enemies)
+
+            if (isDig)
             {
-                // TODO: attacker 변경해야 함.
-                // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: null, flag: DamageFlag.Melee);
+                foreach (var enemy in _enemies)
+                {
+                    // TODO: attacker 변경해야 함.
+                    // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
+                    enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
+                }
             }
         }
         
