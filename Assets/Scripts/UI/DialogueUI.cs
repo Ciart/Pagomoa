@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Ciart.Pagomoa.Events;
 using System;
 
 namespace Ciart.Pagomoa
@@ -41,6 +40,8 @@ namespace Ciart.Pagomoa
 
         private DialogueUI _dialogueUI = null;
 
+        private DialogueManagement _targetManagement;
+        
         private bool _changeDialogue;
 
         private void Awake()
@@ -75,29 +76,34 @@ namespace Ciart.Pagomoa
             }
         }
 
-        private void RefreshView(StoryStarted n)
+        private void RefreshView(StoryStarted obj)
         {
+            if (obj.targetManagement)
+                _targetManagement = obj.targetManagement;
+            else
+            {
+                _targetManagement = DialogueManager.instance;
+            }
+            
             RefreshView();
         }
 
         private void RefreshView()
         {
-            var dialogueManager = DialogueManager.instance;
-            var story = dialogueManager.story;
+            var story = _targetManagement.story;
 
             RemoveChildren(_dialogueUI.outButtonGroup);
             RemoveChildren(_dialogueUI.inButtonGroup);
             _dialogueUI.talkText.text = "";
             // Read all the content until we can't continue any more
             string text = "";
-            while (dialogueManager.story.canContinue)
+            while (story.canContinue)
             {
                 text += story.Continue();
                 text = text.Trim();
 
                 if (text != "") text += "\n";
-
-
+                
                 ParseTag();
             }
             if (text != "") CreateContentView(text);
@@ -127,14 +133,14 @@ namespace Ciart.Pagomoa
                 Button choice = CreateChoiceView("확인");
                 choice.onClick.AddListener(delegate
                 {
-                    DialogueManager.instance.StopStory();
+                    _targetManagement.StopStory();
                 });
             }
         }
 
         public void ParseTag()
         {
-            List<string> currentTags = DialogueManager.instance.story.currentTags;
+            List<string> currentTags = _targetManagement.story.currentTags;
 
             foreach (var currentTag in currentTags)
             {
@@ -171,7 +177,6 @@ namespace Ciart.Pagomoa
                     case "reward":
                         DialogueManager.instance.nowEntityDialogue.QuestComplete(param);
                         break;
-
                 }
             }
         }
@@ -179,7 +184,8 @@ namespace Ciart.Pagomoa
         // When we click the choice button, tell the story to choose that choice!
         private void OnClickChoiceButton(Choice choice)
         {
-            DialogueManager.instance.story.ChooseChoiceIndex(choice.index);
+            _targetManagement.story.ChooseChoiceIndex(choice.index);
+
             RefreshView();
         }
 
@@ -230,6 +236,23 @@ namespace Ciart.Pagomoa
                 return;
             }
 
+            if (CutSceneManager.instance.CutSceneIsPlayed())
+            {
+                var target = CutSceneManager.instance.GetTargetCutSceneData();
+                
+                foreach (var sprite in target.GetSprites())
+                {
+                    if (sprite.name.Replace(" ", string.Empty) == param)
+                    {
+                        talkImage.sprite = sprite;
+                        talkImage.gameObject.SetActive(true);
+                        return;
+                    }
+                }
+                
+                return;
+            }
+            
             foreach (var sprite in spriteGroup)
             {
                 string spriteName = sprite.name;

@@ -6,9 +6,8 @@ using UnityEngine;
 namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
 {
     [CreateAssetMenu(menuName = "MakeQuest")]
-    public class Quest : ScriptableObject
+    public class QuestData : ScriptableObject
     {
-        [SerializeField] public GameObject questInCharge;
         [SerializeField] public string id;
         [SerializeField] public List<string> prevQuestIds = new();
         [SerializeField] public string title;
@@ -19,7 +18,8 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
         
         [SerializeField] public Reward reward = new();
         
-        public List<QuestCondition> questList;
+        public List<QuestConditionData> questList;
+        public List<QuestData> prevQuestData;
     }
 
     [Serializable]

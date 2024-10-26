@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2822545030780540187}
   - component: {fileID: 7653100202336788416}
   - component: {fileID: 843430805341867469}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OverworldBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5808336620973696661}
   - component: {fileID: 4016906971108360491}
   - component: {fileID: 9193508292780575253}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SkyShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4978667374627335051}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

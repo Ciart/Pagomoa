@@ -5,47 +5,55 @@ using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
-    public class ProcessQuest : IDisposable
+    public enum QuestState
+    {
+        UnRegister,
+        InProgress,
+        Completed,
+        Finish
+    }
+    public class Quest : IDisposable
     {
         public string id;
         public string description;
         public string title;
         public Reward reward;
-        public List<IQuestElements> elements;
-        public Sprite mNpcSprite;
-        public bool accomplished;
-        
-        // TODO: 진행률 0.0f ~ 1.0f로 반환하도록 변경해야 합니다.
+        public List<IQuestElements> conditions;
+        public Sprite npcSprite;
+        public QuestState state;
         public float progress;
-
-        // TODO: npcSprite를 추가해야 합니다.
-        // TODO: QuestAccomplishEvent를 제거하고 IQuestElements에서 ProcessQuest의 함수를 호출하도록 변경해야 합니다.
-        public ProcessQuest(Quest quest, Sprite npcSprite)
+        
+        public Quest(QuestData questData, Sprite npcSprite)
         {
-            id = quest.id;
-            description = quest.description;
-            title = quest.title;
-            reward = quest.reward;
-            elements = new List<IQuestElements>();
-            mNpcSprite = npcSprite;
+            id = questData.id;
+            description = questData.description;
+            title = questData.title;
+            reward = questData.reward;
+            conditions = new List<IQuestElements>();
+            state = QuestState.InProgress;
+            this.npcSprite = npcSprite;
             
-            foreach (var condition in quest.questList)
+            foreach (var condition in questData.questList)
             {
                 switch (condition.questType)
                 {
-                    case QuestType.CollectMineral :
-                        var collectMineral = new CollectItem(condition);
-                        collectMineral.questFinished = AllElementsFinish;
-                        elements.Add(collectMineral);                        
+                    case QuestType.CollectItem :
+                        var collectItem = new CollectItem(condition);
+                        collectItem.questFinished = AllElementsFinish;
+                        conditions.Add(collectItem);                        
+                        break;
+                    case QuestType.UseItem :
+                        var useItem = new UseItem(condition);
+                        useItem.questFinished = AllElementsFinish;
+                        conditions.Add(useItem);                        
                         break;
                     case QuestType.BreakBlock :
                         var breakBlock = new BreakBlock(condition);
                         breakBlock.questFinished = AllElementsFinish;
-                        elements.Add(breakBlock);                        
+                        conditions.Add(breakBlock);                        
                         break;
                 }
             }
@@ -57,32 +65,30 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
             var allFinish = true;
             
-            foreach (var element in elements)
+            foreach (var condition in conditions)
             {
-                progress += element.GetProgress() / elements.Count;
+                progress += condition.GetProgress() / conditions.Count;
                 
-                if (element.complete == false)
+                if (condition.CheckComplete() == false)
                 {
-                    Debug.Log(element.complete);
-                    accomplished = false;
+                    Debug.Log(condition.CheckComplete());
                     allFinish = false;
                 }
             }
             
             if (allFinish) progress = 1.0f;
             
-            // TODO: 정말 자신이 변경되었을때만 발생해야 합니다.
             EventManager.Notify(new QuestUpdated(this));
             
             if (allFinish == false) return;
             
-            accomplished = true;
+            state = QuestState.Completed;
             EventManager.Notify(new QuestCompleted(this));
         }
 
         public void Dispose()
         {
-            foreach (var element in elements)
+            foreach (var element in conditions)
             {
                 element.Dispose();
             }
@@ -92,7 +98,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     public interface IQuestElements : IDisposable
     {
         public QuestType questType { get; set; }
-        public bool complete { get; set; }
         public bool CheckComplete();
         public float GetProgress();
         public string GetQuestSummary();
@@ -102,9 +107,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     
     #region IntQuestElements
     
-    public class CollectItem : ProcessIntQuestElements, IQuestElements
+    public class CollectItem : QuestCondition, IQuestElements
     {
-        public bool complete { get; set; } = false;
         private int _prevValue;
         
         public void Dispose()
@@ -112,7 +116,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
         }
 
-        public CollectItem(QuestCondition elements)
+        public CollectItem(QuestConditionData elements)
         {
             questType = elements.questType; 
             summary = elements.summary;
@@ -178,9 +182,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 compareValue = collectValue;
             }
             
-            
-            InitQuestValue(value, inventoryItem.count);
-            
             Debug.Log("mineral :" + compareValue);
         }
 
@@ -199,17 +200,82 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
-    // This quest counts blocks when player dig blocks that same Type.      
-    public class BreakBlock : ProcessIntQuestElements, IQuestElements
+
+    public class UseItem : QuestCondition, IQuestElements
     {
-        public bool complete { get; set; } = false;
+        public UseItem(QuestConditionData conditions)
+        {
+            questType = conditions.questType; 
+            summary = conditions.summary;
+            value = int.Parse(conditions.value);
+            targetEntity = conditions.targetEntity;
+            valueType = conditions.value; 
+            compareValue = 0;
+            
+            EventManager.AddListener<ItemUsedEvent>(HasUsingItem);
+        }
+
+        public void HasUsingItem(ItemUsedEvent e)
+        {
+            if (!TypeValidation(e.item)) return;
+            if (CheckComplete()) return;
+            
+            CalculationValue(e);
+
+            CheckComplete();
+            questFinished.Invoke();
+        }
         
+        public override void CalculationValue(IEvent e)
+        {
+            if (compareValue == value) return ;
+            var usedItemEvent = (ItemUsedEvent)e;
+            
+            compareValue += usedItemEvent.count;
+            if (compareValue > value) compareValue = value;
+        }
+
+        public override bool TypeValidation(ScriptableObject target)
+        {
+            return target == targetEntity;
+        }
+
+        public void Dispose()
+        {
+            EventManager.RemoveListener<ItemUsedEvent>(HasUsingItem);
+        }
+        
+        public bool CheckComplete()
+        {
+            complete = compareValue >= value;
+            return complete;
+        }
+
+        public float GetProgress()
+        {
+            var fCompareValue = (float)compareValue;
+            var fValue = (float)value;
+            
+            progress = fCompareValue / fValue;
+            
+            return progress;
+        }
+
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString(); }
+        public string GetCompareValueToString() { return compareValue.ToString(); }
+    }
+    
+    
+    // This quest counts blocks when player dig blocks that same Type.      
+    public class BreakBlock : QuestCondition, IQuestElements
+    { 
         public void Dispose()
         {
             EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
         }
 
-        public BreakBlock(QuestCondition elements)
+        public BreakBlock(QuestConditionData elements)
         {
             questType = elements.questType;
             summary = elements.summary;
@@ -265,15 +331,5 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
-    #endregion
-    
-    #region FloatQuestElements
-    
-    // How deeply player go down from y : 0. This quest calculate player best deep transform of y. 
-    
-    #endregion
-    
-    #region BoolQuestElements
-    
     #endregion
 }

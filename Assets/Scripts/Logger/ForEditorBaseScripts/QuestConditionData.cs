@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Logger.ForEditorBaseScripts
 {
     [Serializable] 
-    public class QuestCondition
+    public class QuestConditionData
     {
         public QuestType questType;
         
