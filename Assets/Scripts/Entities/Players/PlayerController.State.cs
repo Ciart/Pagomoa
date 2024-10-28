@@ -13,8 +13,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
     public partial class PlayerController
     {
-        public event Action<PlayerState> changeState;
-        
         private bool CheckClimb()
         {
             return _input.IsClimb && _world.CheckClimbable(transform.position);
@@ -22,7 +20,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private bool CheckFall()
         {
-            return !isGrounded && _rigidbody.velocity.y <= 0;
+            return (!_input.IsJump || _rigidbody.velocity.y <= 0) && !isGrounded;
         }
 
         private bool CheckJump()
@@ -65,7 +63,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             if (prevState != state)
             {
-                changeState?.Invoke(state);
+                OnChangedState(state);
             }
         }
     }

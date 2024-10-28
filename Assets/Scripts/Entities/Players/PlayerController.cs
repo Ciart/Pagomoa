@@ -61,6 +61,14 @@ namespace Ciart.Pagomoa.Entities.Players
             state = PlayerState.Jump;
             _movement.Jump();
         }
+        
+        private void OnChangedState(PlayerState state)
+        {
+            if (state == PlayerState.Fall)
+            {
+                _movement.Fall();
+            }
+        }
 
         private void Update()
         {

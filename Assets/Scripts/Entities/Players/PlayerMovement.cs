@@ -19,6 +19,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public float climbSpeed = 250f;
 
         public float jumpForce = 650f;
+        
+        public float fallForce = 200f;
 
         // TODO: 최대 거리 검사가 필요 함.
         public Vector2 directionVector = Vector2.zero;
@@ -39,6 +41,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private WorldManager _world;
 
         private bool _isJump;
+        
+        private bool _isFall;
 
         private void Awake()
         {
@@ -51,6 +55,11 @@ namespace Ciart.Pagomoa.Entities.Players
         public void Jump()
         {
             _isJump = true;
+        }
+
+        public void Fall()
+        {
+            _isFall = true;
         }
         
         private void UpdateClimb()
@@ -106,6 +115,12 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 _rigidbody.AddForce(new Vector2(0, jumpForce));
                 _isJump = false;
+            }
+
+            if (_isFall)
+            {
+                _rigidbody.AddForce(new Vector2(0, -fallForce));
+                _isFall = false;
             }
 
             if (isClimb)

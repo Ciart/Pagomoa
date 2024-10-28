@@ -168,86 +168,326 @@ MonoBehaviour:
     stoneCount: 0
     maxCount: 0
     artifactItems:
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
     items:
-    - item: {fileID: 11400000, guid: 2b8485d7569d53a41bc48c27f419864e, type: 2}
+    - item:
+        type: 2
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 1
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
-    - item: {fileID: 0}
+    - item:
+        type: 0
+        id: 
+        name: 
+        description: 
+        price: 0
+        sprite: {fileID: 0}
       count: 0
 --- !u!114 &6532384969457569552
 MonoBehaviour:
@@ -268,6 +508,7 @@ MonoBehaviour:
   speed: 250
   climbSpeed: 250
   jumpForce: 650
+  fallForce: 200
   directionVector: {x: 0, y: 0}
 --- !u!114 &1015079352211381871
 MonoBehaviour:
