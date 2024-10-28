@@ -36,8 +36,7 @@ namespace Ciart.Pagomoa.Entities
         {
             _entities.Remove(controller);
             
-            // TODO entityController 쪽에 Destroy() 위임
-            // Destroy(controller.gameObject); TODO 삭제 
+            Object.Destroy(controller.gameObject);
         }
 
         [CanBeNull]

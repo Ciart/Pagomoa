@@ -20,14 +20,15 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void Notify<T>(T args) where T : IEvent
         {
+            var eventManager = Game.Get<EventManager>();
             var type = typeof(T);
             
-            if (!Game.Get<EventManager>()._listeners.ContainsKey(type))
+            if (!eventManager._listeners.ContainsKey(type))
             {
                 return;
             }
 
-            foreach (var listener in Game.Get<EventManager>()._listeners[type])
+            foreach (var listener in eventManager._listeners[type])
             {
                 ((Action<T>) listener)(args);
             }
@@ -40,14 +41,15 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void AddListener<T>(Action<T> listener) where T : IEvent
         {
+            var eventManager = Game.Get<EventManager>();
             var type = typeof(T);
             
-             if (!Game.Get<EventManager>()._listeners.ContainsKey(type))
+             if (!eventManager._listeners.ContainsKey(type))
             {
-                Game.Get<EventManager>()._listeners[type] = new HashSet<Delegate>();
+                eventManager._listeners[type] = new HashSet<Delegate>();
             }
 
-            Game.Get<EventManager>()._listeners[type].Add(listener);
+            eventManager._listeners[type].Add(listener);
         }
         
         /// <summary>
@@ -57,14 +59,15 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void RemoveListener<T>(Action<T> listener) where T : IEvent
         {
+            var eventManager = Game.Get<EventManager>();
             var type = typeof(T);
             
-            if (!Game.Get<EventManager>()._listeners.ContainsKey(type))
+            if (!eventManager._listeners.ContainsKey(type))
             {
                 return;
             }
 
-            Game.Get<EventManager>()._listeners[type].Remove(listener);
+            eventManager._listeners[type].Remove(listener);
         }
     }
 }
