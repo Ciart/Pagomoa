@@ -113,6 +113,8 @@ namespace Ciart.Pagomoa.Entities.Players
                     drillPart.gameObject.SetActive(isDig);
             }
 
+            var soundManager = SoundManager.instance;
+            
             if (!isDig)
             {
                 if (!_fairyMoa.gameObject.activeSelf)
@@ -125,9 +127,9 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             if (isDig)
             {
-                if (!Game.Get<SoundManager>().FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
+                if (!soundManager.FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
                 {
-                    Game.Get<SoundManager>().PlaySfx("DrillSpin", false);
+                    soundManager.PlaySfx("DrillSpin", false);
                     isPlayed = true;
                 }
 
@@ -140,7 +142,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             else
             {
-                Game.Get<SoundManager>().FindAudioSource("DrillSpinEffect").Stop();
+                soundManager.FindAudioSource("DrillSpinEffect").Stop();
                 isPlayed = false;
                 return;
             }
@@ -158,24 +160,24 @@ namespace Ciart.Pagomoa.Entities.Players
 
             foreach (var (x, y) in _target.targetCoordsList)
             {
-                var worldManager = Game.Get<WorldManager>();
+                var worldManager = WorldManager.instance;
                 worldManager.DigGround(new WorldCoords(x, y), _drills[_drillLevel].speed);
             }
         }
 
         private void OnEnable()
         {
-            Game.Get<TimeManager>().tickUpdated += OnTickUpdated;
+            TimeManager.instance.tickUpdated += OnTickUpdated;
         }
 
         private void OnDisable()
         {
-            Game.Get<TimeManager>().tickUpdated -= OnTickUpdated;
+            TimeManager.instance.tickUpdated -= OnTickUpdated;
         }
         
         private void OnTickUpdated(int tick)
         {
-            SoundManager soundManager = Game.Get<SoundManager>();
+            var soundManager = SoundManager.instance;
             
             if (isDig && isGroundHit)
             {
@@ -268,7 +270,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             bool upgradable = true;
-            var inventory = Game.Get<GameManager>().player.inventory;
+            var inventory = GameManager.instance.player.inventory;
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {

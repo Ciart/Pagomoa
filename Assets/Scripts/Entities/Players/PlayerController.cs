@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Entities.Players
         
         public float sideWallDistance = 1.0625f;
         
-        [FormerlySerializedAs("inventoryDB")] public Inventory inventory;
+        public Inventory inventory;
 
         private Rigidbody2D _rigidbody;
         
@@ -48,7 +48,7 @@ namespace Ciart.Pagomoa.Entities.Players
             _movement = GetComponent<PlayerMovement>();
             _digger = GetComponentInChildren<DrillController>();
             _camera = Camera.main;
-            _world = Game.Get<WorldManager>();
+            _world = WorldManager.instance;
         }
 
         private void TryJump()

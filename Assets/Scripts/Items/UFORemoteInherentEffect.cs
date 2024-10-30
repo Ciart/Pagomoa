@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Items
     {
         public override void Effect(InherentItem item, PlayerStatus stat)
         {
-            Game.Get<WorldManager>().MoveUfoBase();
+            /*Game.Get<WorldManager>().MoveUfoBase();*/
         }
     }
 }

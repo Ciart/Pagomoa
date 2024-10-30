@@ -77,16 +77,18 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
+            var entityManager = EntityManager.instance;
+            
             var world = WorldManager.world;
             var chunk = world.currentLevel.GetChunk(coords) ?? new Chunk(coords);
 
-            foreach (var entityController in Game.Get<EntityManager>().FindAllEntityInChunk(chunk))
+            foreach (var entityController in entityManager.FindAllEntityInChunk(chunk))
             {
                 var position = entityController.transform.position;
 
                 world.currentLevel.AddEntity(position.x, position.y, entityController.origin);
 
-                Game.Get<EntityManager>().Despawn(entityController);
+                entityManager.Despawn(entityController);
             }
 
             if (_minimapRenderers.TryGetValue(coords, out var value))
@@ -100,7 +102,7 @@ namespace Ciart.Pagomoa.Worlds
         private bool CheckSightBrick(Brick brick)
         {
             return brick.ground is null ||
-                   brick.mineral == Game.Get<WorldManager>().database.GetMineral("UFORemote");
+                   brick.mineral == WorldManager.instance.database.GetMineral("UFORemote");
         }
 
         private bool[,] CreateFogMap(Chunk chunk, World world)
@@ -172,7 +174,7 @@ namespace Ciart.Pagomoa.Worlds
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
                     overlayTilemap.SetTile(position,
                         brick.mineral && !fogMap[i, j]
-                            ? Game.Get<WorldManager>().database.glitterTile
+                            ? WorldManager.instance.database.glitterTile
                             : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
@@ -243,11 +245,13 @@ namespace Ciart.Pagomoa.Worlds
         {
             // RenderWorld();
 
+            var worldManager = WorldManager.instance;
+            
             groundOverlayTilemap.ClearAllTiles();
 
-            var brokenTiles = Game.Get<WorldManager>().database.brokenEffectTiles;
+            var brokenTiles = worldManager.database.brokenEffectTiles;
 
-            foreach (var (key, value) in Game.Get<WorldManager>().brickDamage)
+            foreach (var (key, value) in worldManager.brickDamage)
             {
                 var position = new Vector3Int(key.x, key.y, 0);
                 var brokenStep = Mathf.FloorToInt((1 - value.health / value.maxHealth) * (brokenTiles.Length - 1));
@@ -325,6 +329,8 @@ namespace Ciart.Pagomoa.Worlds
             {
                 return;
             }
+
+            var entityManager = EntityManager.instance;
             
             foreach (var entityData in level.entityDataList)
             {
@@ -336,7 +342,7 @@ namespace Ciart.Pagomoa.Worlds
                     continue;
                 }
                 
-                _entities.Add(Game.Get<EntityManager>().Spawn(entityData.origin, position));
+                _entities.Add(entityManager.Spawn(entityData.origin, position));
             }
         }
         
@@ -347,6 +353,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
             
+            var entityManager = EntityManager.instance;
             var dataList = new List<EntityData>();
             
             foreach (var entityController in _entities)
@@ -359,7 +366,7 @@ namespace Ciart.Pagomoa.Worlds
                 var data = entityController.GetEntityData();
                 dataList.Add(data);
                 
-                Game.Get<EntityManager>().Despawn(entityController);
+                entityManager.Despawn(entityController);
             }
             
             level.entityDataList = dataList;

@@ -18,7 +18,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             InventoryUI.Instance.choiceSlot = this;
             var inventory = InventoryUI.Instance;
-            PlayerController player = Game.Get<GameManager>().player;
+            var player = GameManager.instance.player;
 
             if (player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
@@ -53,7 +53,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnDrop(PointerEventData eventData)
         {
-            Game.Get<GameManager>().player.inventory.SwapSlot(id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
+            var player = GameManager.instance.player;
+            
+            player.inventory.SwapSlot(id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
             Swap(ref slot, ref eventData.pointerPress.GetComponent<InventorySlotUI>().slot);
         }
 

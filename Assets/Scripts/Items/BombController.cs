@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Items
 
             Boom(_boomRange);
             
-            Game.Get<SoundManager>().PlaySfx("BombEffect", true, this.transform.position);
+            SoundManager.instance.PlaySfx("BombEffect", true, this.transform.position);
         }
 
         private void Boom(int bound)
@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa.Items
                 {
                     digPoint.y = point.y + j;
                     var pointInt = WorldManager.ComputeCoords(digPoint);
-                    Game.Get<WorldManager>().BreakGround(pointInt.x, pointInt.y, 99999, true);
+                    WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, true);
                 }
             }
 

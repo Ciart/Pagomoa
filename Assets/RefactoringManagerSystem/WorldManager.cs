@@ -1,22 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Worlds.UFO;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.RefactoringManagerSystem;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
-using UnityEngine.Tilemaps;
+
 
 namespace Ciart.Pagomoa.Worlds
 {
     public class WorldManager : PManager
     {
-        public WorldManager()
-        {
-            needToPostUpdate = true;
-        }
+        public static WorldManager instance { get; private set; }
+        public WorldManager() { instance ??= this; }
         
         public WorldDatabase database;
         
@@ -24,27 +19,20 @@ namespace Ciart.Pagomoa.Worlds
         
         public ItemEntity itemEntity;
 
-        /*public Transform ufo;
-
-        public Tilemap ufoLadder;
-
-        private UFOInteraction _ufoInteraction;
-        */
-
         private World _world;
 
         public static World world
         {
-            get => Game.Get<WorldManager>()._world;
+            get => instance._world;
             set
             {
-                if (Game.Get<WorldManager>()._world == value)
+                if (instance._world == value)
                 {
                     return;
                 }
 
-                Game.Get<WorldManager>()._world = value;
-                EventManager.Notify(new WorldCreatedEvent(Game.Get<WorldManager>()._world));
+                instance._world = value;
+                EventManager.Notify(new WorldCreatedEvent(instance._world));
             }
         }
 
@@ -54,16 +42,15 @@ namespace Ciart.Pagomoa.Worlds
         {
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
-            
-            /*_ufoInteraction = ufo.GetComponent<UFOInteraction>();*/
         }
 
         public void GetComponent(WorldGenerator generator)
         {
+            //Todo 수정수정 가저오는 방법 
             worldGenerator = generator;
         }
 
-        public override void PostUpdate()
+        public override void LateUpdate()
         {
             UpdateDiggingBrickDamage();
 

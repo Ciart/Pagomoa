@@ -14,6 +14,9 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
     
     public class QuestManager : PManager
     {
+        public static QuestManager instance { get; private set; } 
+        public QuestManager() { instance ??= this; }
+
         public List<Quest> quests = new List<Quest>();
         
         public QuestDatabase database;

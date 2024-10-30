@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _cactusBoss = animator.GetComponent<CactusBoss>();
-            _targetPosition = Game.Get<GameManager>().player.transform.position;
+            _targetPosition = GameManager.instance.player.transform.position;
 
             _cactusBoss.rigid.AddForce(new Vector2(0, jumpForce));
         }

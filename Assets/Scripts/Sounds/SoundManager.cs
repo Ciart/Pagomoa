@@ -6,6 +6,9 @@ namespace Ciart.Pagomoa.Sounds
 {
     public class SoundManager : PManager
     {
+        public static SoundManager instance { get; private set; }
+        public SoundManager() { instance ??= this; }
+        
         public AudioSource musicSource;
         
         private int _loopStartSamples;
@@ -14,7 +17,7 @@ namespace Ciart.Pagomoa.Sounds
         
         public override void Start()
         {
-            Game.Get<SoundManager>().musicSource = DataBase.data.GetAudioSource();
+            instance.musicSource = DataBase.data.GetAudioSource();
             PlayMusic("WorldMusic");
         }
         

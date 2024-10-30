@@ -30,7 +30,7 @@ namespace Ciart.Pagomoa.Worlds
 
         private void Awake()
         {
-            _worldManager = Game.Get<WorldManager>();
+            _worldManager = WorldManager.instance;
             _worldManager.GetComponent(this);
         }
 

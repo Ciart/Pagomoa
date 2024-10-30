@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void Start()
         {
-            Game.Get<EntityManager>().Spawn(entityOrigin, transform.position);
+            EntityManager.instance.Spawn(entityOrigin, transform.position);
         }
 
         /*private void OnDrawGizmos()

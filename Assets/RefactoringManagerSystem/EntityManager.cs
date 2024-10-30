@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.RefactoringManagerSystem;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -10,14 +10,19 @@ namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : PManager
     {
+        public static EntityManager instance { get; private set; } 
+        public EntityManager()
+        {
+            instance ??= this;
+        }
+        
         private static EntityManager _instance;
 
         private List<EntityController> _entities = new();
 
         public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
         {
-            EntityController entity = Object.Instantiate(origin.prefab, position, Quaternion.identity);
-                //DataBase.data.InstantiateData(origin.prefab, position);
+            var entity = Object.Instantiate(origin.prefab, position, Quaternion.identity);
             
             _entities.Add(entity);
             

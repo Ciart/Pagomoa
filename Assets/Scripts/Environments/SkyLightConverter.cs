@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Environments
         [CanBeNull]
         private SkyLight GetNowSkyLight()
         {
-            var time = Game.Get<TimeManager>().tick / (float)TimeManager.HourTick;
+            var time = TimeManager.instance.tick / (float)TimeManager.HourTick;
             var sumLength = 0f;
 
             foreach (var skyLight in skyLights)
@@ -71,7 +71,7 @@ namespace Ciart.Pagomoa.Environments
                     var startTick = (sumLength + value.length) * TimeManager.HourTick;
                     var endTick = sumLength * TimeManager.HourTick;
 
-                    return (Game.Get<TimeManager>().tick - startTick) / (endTick - startTick);
+                    return (TimeManager.instance.tick - startTick) / (endTick - startTick);
                 }
 
                 sumLength += value.length;

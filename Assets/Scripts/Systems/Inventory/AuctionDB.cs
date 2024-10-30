@@ -23,20 +23,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void Remove(Item data)
         {
             // var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
+            var gameManager = GameManager.instance;
             var acutionItem = Buy.Instance.chosenBuySlot.slot;
             
             if (data.itemType == Item.ItemType.Use)
                 for (int i = 0; i < Buy.Instance.countUINum; i++)
                 {
-                    Game.Get<GameManager>().player.inventory.Gold -= data.itemPrice;
+                    gameManager.player.inventory.Gold -= data.itemPrice;
                 }
             else if (data.itemType == Item.ItemType.Equipment)
             {
-                Game.Get<GameManager>().player.inventory.Gold -= data.itemPrice;
+                gameManager.player.inventory.Gold -= data.itemPrice;
                 acutionItem.count -= 1;
             }
-            ShopUIManager.Instance.gold[0].text = Game.Get<GameManager>().player.inventory.Gold.ToString();
-            ShopUIManager.Instance.gold[1].text = Game.Get<GameManager>().player.inventory.Gold.ToString();
+            ShopUIManager.Instance.gold[0].text = gameManager.player.inventory.Gold.ToString();
+            ShopUIManager.Instance.gold[1].text = gameManager.player.inventory.Gold.ToString();
         }
     }
 }

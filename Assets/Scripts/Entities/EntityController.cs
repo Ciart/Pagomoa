@@ -104,7 +104,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void TakeKnockback(float force, Vector2 direction)
         {
-            Game.Get<ParticleManager>().Make(0, gameObject, Vector2.zero, 0.5f);
+            ParticleManager.instance.Make(0, gameObject, Vector2.zero, 0.5f);
 
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
@@ -180,7 +180,7 @@ namespace Ciart.Pagomoa.Entities
         {
             CheckDeath();
 
-            var distance = Vector3.Distance(transform.position, Game.Get<GameManager>().player.transform.position);
+            var distance = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
 
             if (distance > 100f)
             {

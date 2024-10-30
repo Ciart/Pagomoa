@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                 return;
             }
 
-            var player = Game.Get<GameManager>().player;
+            var player = GameManager.instance.player;
             var velocity = new Vector2((player.transform.position.x - animator.transform.position.x) * _cactusBoss.speed * Time.deltaTime, _cactusBoss.rigid.velocity.y);
 
             _cactusBoss.rigid.velocity = velocity;

@@ -14,7 +14,9 @@ namespace Ciart.Pagomoa.UI
         }
         private void SetMoneyUI()
         {
-            _tmpGuiText.text = Game.Get<GameManager>().player.inventory.Gold.ToString();
+            var inventory = GameManager.instance.player.inventory;
+            
+            _tmpGuiText.text = inventory.Gold.ToString();
         }
     }
 }

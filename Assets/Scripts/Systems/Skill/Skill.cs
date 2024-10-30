@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Systems.Skill
         private IEnumerator HelicopterStart()
         {
             var rb = GetComponent<Rigidbody2D>();
-            while (Game.Get<WorldManager>().CheckClimbable(transform.position) && Helicopter)
+            while (WorldManager.instance.CheckClimbable(transform.position) && Helicopter)
             {
                 _player.state = PlayerState.Jump;
                 if(rb.velocity.y >= 0)
@@ -72,7 +72,7 @@ namespace Ciart.Pagomoa.Systems.Skill
                 if (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                     return;
             
-                Game.Get<WorldManager>().BreakGround(pointInt.x, pointInt.y, 99999);
+                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
                 point = point + digVec;
                 pointInt = WorldManager.ComputeCoords(point);
             }
@@ -89,7 +89,7 @@ namespace Ciart.Pagomoa.Systems.Skill
                 if (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                     find = true;
             
-                Game.Get<WorldManager>().BreakGround(pointInt.x, pointInt.y, 99999);
+                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
                 switch(Random.Range(0, 3))
                 {
                     case 0:

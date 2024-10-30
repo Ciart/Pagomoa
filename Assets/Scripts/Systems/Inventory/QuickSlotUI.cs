@@ -11,6 +11,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class QuickSlotUI : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
+        private GameManager _gameManager => GameManager.instance; 
+        
         [SerializeField] public Image itemImage;
         [SerializeField] public Sprite transparentImage;
         [SerializeField] public TextMeshProUGUI itemCount;
@@ -20,13 +22,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private Item _item
         {
-            get => Game.Get<GameManager>().player.inventory.GetQuickItem(id);
-            set => Game.Get<GameManager>().player.inventory.SetQuickItem(id, value);
+            get => _gameManager.player.inventory.GetQuickItem(id);
+            set => _gameManager.player.inventory.SetQuickItem(id, value);
         } 
 
         private void SwapSlot(PointerEventData eventData)
         {
-            Game.Get<GameManager>().player.inventory.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
+            _gameManager.player.inventory.SwapQuickSlot(id,  eventData.pointerDrag.GetComponent<QuickSlotUI>().id);
         }
         
         public void UpdateSlot()
@@ -39,7 +41,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
 
             itemImage.sprite = _item.itemImage;
-            itemCount.text =  Game.Get<GameManager>().player.inventory.GetItemCount(_item).ToString();
+            itemCount.text =  _gameManager.player.inventory.GetItemCount(_item).ToString();
         }
 
         public void OnDrop(PointerEventData eventData)

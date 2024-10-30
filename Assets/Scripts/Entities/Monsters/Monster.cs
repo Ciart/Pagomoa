@@ -60,15 +60,18 @@ namespace Ciart.Pagomoa.Entities.Monsters
             target = attacker;
             direction = target.transform.position.x > transform.position.x ? 1 : -1;
             transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
-            if(attacker.tag == "Player")
-                Game.Get<ParticleManager>().Make(1, gameObject, Vector2.zero, 0.5f);
+
+            var particleManager = ParticleManager.instance;
+            
+            if(attacker.CompareTag("Player"))
+                particleManager.Make(1, gameObject, Vector2.zero, 0.5f);
             else
-                Game.Get<ParticleManager>().Make(0, gameObject, Vector2.zero, 0.5f);
+                particleManager.Make(0, gameObject, Vector2.zero, 0.5f);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            float _knockBackForce2 = 3f;
+            var knockBackForce2 = 3f;
             Vector2 knockBackDirection2 = transform.position - attacker.transform.position;
             knockBackDirection2.Normalize();
-            Vector2 knockBackPosition2 = new Vector2(_knockBackForce2 * Mathf.Sign(knockBackDirection2.x), 2.5f);
+            Vector2 knockBackPosition2 = new Vector2(knockBackForce2 * Mathf.Sign(knockBackDirection2.x), 2.5f);
 
             GetComponent<Rigidbody2D>().AddForce(knockBackPosition2, ForceMode2D.Impulse);
         }

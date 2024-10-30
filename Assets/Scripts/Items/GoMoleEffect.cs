@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Items
                 if (WorldManager.world.currentLevel.GetBrick(pointInt.x, pointInt.y, out _).mineral)
                     find = true;
 
-                Game.Get<WorldManager>().BreakGround(pointInt.x, pointInt.y, 99999);
+                WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999);
                 switch (Random.Range(0, 3))
                 {
                     case 0:

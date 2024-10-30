@@ -1,55 +1,69 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class PManager
 {
-    private int _counter = 0;
-    public virtual void PreAwake() {}
-    public virtual void Awake() { }
-    public virtual void PostAwake() {}
-    public virtual void Start() { }
-
-    protected bool needToPreUpdate = false;
-    protected bool needToUpdate = false;
-    protected bool needToPostUpdate = false;
-
-    protected bool needToPreFixedUpdate = false;
-    protected bool needToFixedUpdate = false;
-    protected bool needToPostFixedUpdate = false;
-
-    public bool GetNeedToPreUpdate() {  return needToPreUpdate; }
-    public bool GetNeedToUpdate() { return needToUpdate; }
-    public bool GetNeedToPostUpdate() { return needToPostUpdate; }
-
-    public bool GetNeedToPreFixedUpdate() {  return needToPreFixedUpdate; }
-    public bool GetNeedToFixedUpdate() { return needToFixedUpdate; }
-    public bool GetNeedToPostFixedUpdate() { return needToPostFixedUpdate; }
-
-    public virtual void PreUpdate() { }
-    public virtual void Update() { }
-    public virtual void PostUpdate() { }
-    public virtual void PreFixedUpdate () { }
-    public virtual void FixedUpdate() { }
-    public virtual void PostFixedUpdate() { }
-    public virtual void OnDestroy() { }
-
-    public List<PManager> CheckSingleton(List<PManager> managers)
+    public void Init(Game game)
     {
-        foreach (var manager in managers)
-        {
-            if (manager.GetType() == GetType())
-            {
-                _counter++;
+        var type = GetType();
+        
+        MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-                if (_counter > 1)
+        foreach (MethodInfo method in methods)
+        {
+            if (method.DeclaringType == type && method.GetBaseDefinition().DeclaringType != type)
+            {
+                var action = (Action)Delegate.CreateDelegate(typeof(Action), this, method);
+                switch (method.Name)
                 {
-                    OnDestroy();
-                    break;    
+                    case NameOfAwake:
+                        game.awake += action;
+                        break;
+                    case NameOfStart:
+                        game.start += action;
+                        break;
+                    case NameOfPreUpdate:
+                        game.preUpdate += action;
+                        break;
+                    case NameOfUpdate:
+                        game.update += action;
+                        break;
+                    case NameOfPreFixedUpdate:
+                        game.preFixedUpdate += action;
+                        break;
+                    case NameOfFixedUpdate:
+                        game.fixedUpdate += action;
+                        break;
+                    case NameOfPreLateUpdate:
+                        game.preLateUpdate += action;
+                        break;
+                    case NameOfLateUpdate:
+                        game.lateUpdate += action;
+                        break;  
                 }
-                
+
+                Debug.Log("Overridden Method: " + method.Name);
             }
         }
-        
-        return null;
     }
+    public virtual void Awake() { }
+    public virtual void Start() { }
+    public virtual void PreUpdate() { }
+    public virtual void Update() { }
+    public virtual void PreFixedUpdate () { }
+    public virtual void FixedUpdate() { }
+    public virtual void PreLateUpdate() { }
+    public virtual void LateUpdate() { }
+    public virtual void OnDestroy() { }
+    
+    private const string NameOfAwake = "Awake";
+    private const string NameOfStart = "Start";
+    private const string NameOfPreUpdate = "PreUpdate";
+    private const string NameOfUpdate = "Update";
+    private const string NameOfPreFixedUpdate = "PreFixedUpdate";
+    private const string NameOfFixedUpdate = "FixedUpdate";
+    private const string NameOfPreLateUpdate = "PreLateUpdate";
+    private const string NameOfLateUpdate = "LateUpdate";
 }

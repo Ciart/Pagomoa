@@ -28,16 +28,18 @@ namespace Ciart.Pagomoa
 
         public void ClickSlot()
         {
+            var inventory = GameManager.instance.player.inventory;
+            
             for (int i = 0; i < Buy.Instance.countUINum; i++)
             {
                 if (Buy.Instance.chosenSellSlot.slot.count > 1)
                 {
-                    Game.Get<GameManager>().player.inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
+                    inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 else if (Buy.Instance.chosenSellSlot.slot.count == 1)
                 {
-                    Game.Get<GameManager>().player.inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
+                    inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 Buy.Instance.DeleteSellUISlot();

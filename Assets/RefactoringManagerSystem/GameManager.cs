@@ -8,6 +8,12 @@ namespace Ciart.Pagomoa.Systems
 {
     public class GameManager : PManager
     {
+        public static GameManager instance { get; private set; }
+        public GameManager() { instance ??= this; }
+        ~GameManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
         public bool isLoadSave = true;
 
         public bool hasPowerGemEarth;
@@ -19,14 +25,9 @@ namespace Ciart.Pagomoa.Systems
             player = e.player;
         }
         
-        public override void PostAwake()
+        public override void Awake()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-
-        public override void OnDestroy()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         public override void Start()

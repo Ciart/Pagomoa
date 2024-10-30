@@ -51,7 +51,7 @@ namespace Ciart.Pagomoa.UI.Book
                 item.isSelected = item.questId == selectQuestId;
             }
             
-            UpdateQuestDetail(Game.Get<QuestManager>().FindQuestById(selectQuestId));
+            UpdateQuestDetail(QuestManager.instance.FindQuestById(selectQuestId));
         }
 
         private void UpdateQuestList(List<Quest> questList)
@@ -96,7 +96,7 @@ namespace Ciart.Pagomoa.UI.Book
 
         private void OnEnable()
         {
-            var questManager = Game.Get<QuestManager>();
+            var questManager = QuestManager.instance;
             
             UpdateQuestList(questManager.quests);
             UpdateQuestDetail(questManager.FindQuestById(selectQuestId));

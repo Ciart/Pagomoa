@@ -6,9 +6,12 @@ namespace Ciart.Pagomoa.Events
 {
     public class EventManager : PManager 
     {
+        public static EventManager instance { get; private set; }
+        public EventManager() { instance ??= this; }
+        
         private Dictionary<Type, HashSet<Delegate>> _listeners = new Dictionary<Type, HashSet<Delegate>>();
 
-        public override void PreAwake()
+        public override void Awake()
         {
             _listeners = new Dictionary<Type, HashSet<Delegate>>();
         }
@@ -20,7 +23,7 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void Notify<T>(T args) where T : IEvent
         {
-            var eventManager = Game.Get<EventManager>();
+            var eventManager = instance;
             var type = typeof(T);
             
             if (!eventManager._listeners.ContainsKey(type))
@@ -41,7 +44,7 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void AddListener<T>(Action<T> listener) where T : IEvent
         {
-            var eventManager = Game.Get<EventManager>();
+            var eventManager = instance;
             var type = typeof(T);
             
              if (!eventManager._listeners.ContainsKey(type))
@@ -59,7 +62,7 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void RemoveListener<T>(Action<T> listener) where T : IEvent
         {
-            var eventManager = Game.Get<EventManager>();
+            var eventManager = instance;
             var type = typeof(T);
             
             if (!eventManager._listeners.ContainsKey(type))

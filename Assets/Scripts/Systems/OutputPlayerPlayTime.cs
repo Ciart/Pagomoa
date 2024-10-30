@@ -14,14 +14,16 @@ namespace Ciart.Pagomoa.Systems {
 
         private void SetPlayerPlayTimeOutput()
         {
+            var timeManager = TimeManager.instance;
+            
             if (gameObject.name == "Day-N")
             {
-                _tmpGuiText.text = Game.Get<TimeManager>().date.ToString();
+                _tmpGuiText.text = timeManager.date.ToString();
             }
             else if (gameObject.name == "Time")
             {
-                var hour = Game.Get<TimeManager>().hour;
-                var minute = Game.Get<TimeManager>().minute;
+                var hour = timeManager.hour;
+                var minute = timeManager.minute;
                 
                 _tmpGuiText.text = $"{hour:D2}:{minute:D2}";
             }

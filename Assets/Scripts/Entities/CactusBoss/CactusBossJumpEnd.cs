@@ -31,11 +31,13 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            var worldManager = WorldManager.instance;
+            
             var position = WorldManager.ComputeCoords(_cactusBoss.transform.position);
             
             for (var i = -xSize; i <= xSize; i++) {
                 for (var j = -ySize; j <= ySize; j++) {
-                    Game.Get<WorldManager>().BreakGround(position.x + i,position.y + j, 5, true);
+                    worldManager.BreakGround(position.x + i,position.y + j, 5, true);
                 }
             }
         }

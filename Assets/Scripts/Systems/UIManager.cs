@@ -13,6 +13,14 @@ namespace Ciart.Pagomoa.Systems
 {
     public class UIManager : PManager
     {
+        public static UIManager instance { get; private set; } 
+        public UIManager() { instance ??= this; }
+
+        ~UIManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
         private UIContainer _uiContainer;
         private PlayerInput _playerInput;
         private GameObject _inventoryUI;
@@ -34,16 +42,11 @@ namespace Ciart.Pagomoa.Systems
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
             Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
-            
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
-        public override void PreAwake()
+        public override void Start()
         {
-        }
-        public override void OnDestroy()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
@@ -62,12 +65,12 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
         }
 
-        public void UpdateOxygenBar(float currentOxygen, float maxOxygen)
+        private void UpdateOxygenBar(float currentOxygen, float maxOxygen)
         {
             _uiContainer.oxygenBar.fillAmount = currentOxygen / maxOxygen;
         }
 
-        public void UpdateHungryBar(float currentHungry, float maxHungry)
+        private void UpdateHungryBar(float currentHungry, float maxHungry)
         {
             _uiContainer.hungryBar.fillAmount = currentHungry / maxHungry;
         }

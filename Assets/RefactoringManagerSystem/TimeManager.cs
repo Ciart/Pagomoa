@@ -9,6 +9,13 @@ namespace Ciart.Pagomoa.Systems.Time
 {
     public class TimeManager : PManager
     {
+        public static TimeManager instance { get; private set; }
+        public TimeManager() { instance ??= this; }
+        ~TimeManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
         public const int MinuteTick = 30;
     
         public const int HourTick = MinuteTick * 60;
@@ -57,11 +64,7 @@ namespace Ciart.Pagomoa.Systems.Time
         [HideInInspector] public UnityEvent MonsterSleep;
         [HideInInspector] public UnityEvent MonsterWakeUp;
         [HideInInspector] public UnityEvent<FadeState> FadeEvent;*/
-
-        public override void PreAwake()
-        {
-            
-        }
+        
         public override void Awake()
         {
             /*base.Awake();
@@ -70,14 +73,9 @@ namespace Ciart.Pagomoa.Systems.Time
             MonsterWakeUp.AddListener(NightMonster.TimeToBye);*/
         }
 
-        public override void PostAwake()
+        public override void Start()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-
-        public override void OnDestroy()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
@@ -149,7 +147,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public static string GetSeasonForMonster()
         {
-            var tick = Game.Get<TimeManager>().tick;
+            var tick = instance.tick;
             
             if (tick >= 0 && tick < 6 * HourTick)
                 return "Night";
@@ -161,7 +159,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public static string GetSeasonForPlayer()
         {
-            var tick = Game.Get<TimeManager>().tick;
+            var tick = instance.tick;
             
             if (6 * HourTick < tick && tick < 12 * HourTick)
                 return "Morning";

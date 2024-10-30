@@ -82,7 +82,9 @@ namespace Ciart.Pagomoa
                 _targetManagement = obj.targetManagement;
             else
             {
-                _targetManagement = Game.Get<DialogueManager>();
+                var dialogueManager = DialogueManager.instance;
+                
+                _targetManagement = dialogueManager;
             }
             
             RefreshView();
@@ -144,8 +146,10 @@ namespace Ciart.Pagomoa
 
             foreach (var currentTag in currentTags)
             {
-                string prefix = currentTag.Split(' ')[0];
-                string param = currentTag.Split(' ')[1];
+                var dialogueManager = DialogueManager.instance;
+                
+                var prefix = currentTag.Split(' ')[0];
+                var param = currentTag.Split(' ')[1];
 
                 switch (prefix.ToLower())
                 {
@@ -162,20 +166,20 @@ namespace Ciart.Pagomoa
                     case "start":
                         if (param == "dialogue")
                         {
-                            Game.Get<DialogueManager>().StartDailyChat();
+                            dialogueManager.StartDailyChat();
                             _changeDialogue = true;
                         }
                         if (param == "quest")
                         {
-                            Game.Get<DialogueManager>().StartQuestChat();
+                            dialogueManager.StartQuestChat();
                             _changeDialogue = true;
                         }
                         break;
                     case "quest":
-                        Game.Get<DialogueManager>().nowEntityDialogue.QuestAccept(param);
+                        dialogueManager.nowEntityDialogue.QuestAccept(param);
                         break;
                     case "reward":
-                        Game.Get<DialogueManager>().nowEntityDialogue.QuestComplete(param);
+                        dialogueManager.nowEntityDialogue.QuestComplete(param);
                         break;
                 }
             }
@@ -277,7 +281,7 @@ namespace Ciart.Pagomoa
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    Game.Get<DialogueManager>().StartStory(quest.startPrologue);
+                    DialogueManager.instance.StartStory(quest.startPrologue);
                 });
             }
 
@@ -289,7 +293,7 @@ namespace Ciart.Pagomoa
                 Button choice = CreateChoiceView("확인");
                 choice.onClick.AddListener(delegate
                 {
-                    Game.Get<DialogueManager>().StopStory();
+                    DialogueManager.instance.StopStory();
                 });
             }
         }

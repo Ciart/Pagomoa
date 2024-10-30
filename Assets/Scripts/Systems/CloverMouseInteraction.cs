@@ -16,10 +16,12 @@ namespace Ciart.Pagomoa.Systems
         }
         private void SetUI()
         {
+            var timeManager = TimeManager.instance;
+            
             if (_buyUI.activeSelf == false)
             {
                 _buyUI.SetActive(true);
-                Game.Get<TimeManager>().PauseTime();
+                timeManager.PauseTime();
                 ShopChat.Instance.AwakeChat();
             }
             else
@@ -29,7 +31,9 @@ namespace Ciart.Pagomoa.Systems
         }
         public void OffUI()
         {
-            Game.Get<TimeManager>().ResumeTime();
+            var timeManager = TimeManager.instance;
+            
+            timeManager.ResumeTime();
             _buyUI.SetActive(false);
         }
     }

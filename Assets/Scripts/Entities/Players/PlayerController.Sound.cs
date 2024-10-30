@@ -5,7 +5,7 @@ namespace Ciart.Pagomoa.Entities.Players
 {
     public partial class PlayerController
     {
-        private SoundManager soundManager => Game.Get<SoundManager>();
+        private SoundManager soundManager => SoundManager.instance;
         
         private void UpdateSound()
         {
