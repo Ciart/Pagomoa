@@ -52,11 +52,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private bool CheckInventoryUfoRemote()
         {
+            var inventory = GameManager.instance.player.inventory;
+            
             // var inherentItem = InventoryDB.Instance.itemss.Find(inventoryItem => inventoryItem.item.itemType == Item.ItemType.Inherent);
-            int idx = Array.FindIndex(GameManager.player.inventory.items, element => element.item.itemType == Item.ItemType.Inherent);
+            int idx = Array.FindIndex(inventory.items, element => element.item.itemType == Item.ItemType.Inherent);
             if (idx != -1)
             {
-                InventorySlot item = GameManager.player.inventory.items[idx];
+                InventorySlot item = inventory.items[idx];
                 if (item.item.itemName == "UFO리모컨") return true;
             }
             return false;

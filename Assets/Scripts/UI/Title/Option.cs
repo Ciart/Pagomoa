@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.UI.Title
 
         [SerializeField] public TMP_Dropdown dropdown;
         [SerializeField] public Canvas canvas;
-        int currentOption = 0;
+        public int currentOption = 0;
    
 
         private void Start()

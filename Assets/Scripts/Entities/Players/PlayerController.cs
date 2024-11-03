@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Entities.Players
         
         public float sideWallDistance = 1.0625f;
         
-        [FormerlySerializedAs("inventoryDB")] public Inventory inventory;
+        public Inventory inventory;
         
         public DrillController drill;
 
@@ -38,13 +38,13 @@ namespace Ciart.Pagomoa.Entities.Players
         private WorldManager _world;
 
         private Direction _direction;
-
+        
         private void Awake()
         {
             status = GetComponent<PlayerStatus>();
-            drill = GetComponentInChildren<DrillController>();
             initialStatus = status.copy();
-
+            drill = GetComponentInChildren<DrillController>();
+            
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();

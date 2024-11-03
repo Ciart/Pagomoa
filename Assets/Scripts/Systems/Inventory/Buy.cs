@@ -11,17 +11,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Buy : MonoBehaviour
     {
-        public BuySlot choosenBuySlot;
-        public InventorySlotUI choosenSellSlot;
+        public BuySlot chosenBuySlot;
+        public InventorySlotUI chosenSellSlot;
         public TextMeshProUGUI countUIText;
         public int countUINum;
 
-        private const int _parentNum = 3;
-        private const int _childNum = 3;
-        private List<InventorySlotUI> _slotDatas = new List<InventorySlotUI>();
+        private const int ParentNum = 3;
+        private const int ChildNum = 3;
+        private List<InventorySlotUI> _slotData = new List<InventorySlotUI>();
 
-        [SerializeField] private GameObject[] slotsParent = new GameObject[_parentNum];
-        [SerializeField] private GameObject[] slot = new GameObject[_childNum];
+        [SerializeField] private GameObject[] slotsParent = new GameObject[ParentNum];
+        [SerializeField] private GameObject[] slot = new GameObject[ChildNum];
         [SerializeField] private List<BuyArtifactSlot> _artifactSlots = new List<BuyArtifactSlot>();
         [SerializeField] private List<BuySlot> _consumptionSlots = new List<BuySlot>();
         [SerializeField] private Sprite[] _papersSprites;
@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (!instance)
                 {
-                    instance = GameObject.FindObjectOfType(typeof(Buy)) as Buy;
+                    instance = FindObjectOfType(typeof(Buy)) as Buy;
                 }
                 return instance;
             }
@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.player.inventory.Gold.ToString();
+            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.instance.player.inventory.Gold.ToString();
             DeleteSellUISlot();
             ResetSellUISlot();
         }
@@ -60,15 +60,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Equipment)
                 {
-                    GameObject SpawnedSlot = Instantiate(slot[0], slotsParent[0].transform);
-                    _artifactSlots.Add(SpawnedSlot.GetComponent<BuyArtifactSlot>());
-                    SpawnedSlot.SetActive(true);
+                    var spawnedSlot = Instantiate(slot[0], slotsParent[0].transform);
+                    _artifactSlots.Add(spawnedSlot.GetComponent<BuyArtifactSlot>());
+                    spawnedSlot.SetActive(true);
                 }
                 else if (AuctionDB.Instance.auctionItem[i].item.itemType == Item.ItemType.Use)
                 {
-                    GameObject SpawnedSlot = Instantiate(slot[1], slotsParent[1].transform);
-                    _consumptionSlots.Add(SpawnedSlot.GetComponent<BuySlot>());
-                    SpawnedSlot.SetActive(true);
+                    var spawnedSlot = Instantiate(slot[1], slotsParent[1].transform);
+                    _consumptionSlots.Add(spawnedSlot.GetComponent<BuySlot>());
+                    spawnedSlot.SetActive(true);
                 }
             }
             ResetBuyUISlot();
@@ -128,34 +128,34 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MakeSellUISlot()
         {
-            for(int i = 0; i <GameManager.player.inventory.items.Length; i++)
+            for(int i = 0; i < GameManager.instance.player.inventory.items.Length; i++)
             {
-                GameObject SpawnedSlot = Instantiate(slot[2], slotsParent[2].transform);
-                _slotDatas.Add(SpawnedSlot.GetComponent<InventorySlotUI>());
-                _slotDatas[i].id = i;
-                SpawnedSlot.SetActive(true);
+                var spawnedSlot = Instantiate(slot[2], slotsParent[2].transform);
+                _slotData.Add(spawnedSlot.GetComponent<InventorySlotUI>());
+                _slotData[i].id = i;
+                spawnedSlot.SetActive(true);
             }
             ResetSellUISlot();
         }
         public void ResetSellUISlot()
         {
-            for(int i = 0; i < _slotDatas.Count; i++)
-                _slotDatas[i].slot = GameManager.player.inventory.items[i];
+            for(int i = 0; i < _slotData.Count; i++)
+                _slotData[i].slot = GameManager.instance.player.inventory.items[i];
             UpdateSellUISlot();
         }
         public void UpdateSellUISlot()
         {
-            for (int i = 0; i < GameManager.player.inventory.items.Length; i++)
+            for (int i = 0; i < GameManager.instance.player.inventory.items.Length; i++)
             {
-                _slotDatas[i].SetItem(GameManager.player.inventory.items[i]);
+                _slotData[i].SetItem(GameManager.instance.player.inventory.items[i]);
             }
         }
         public void DeleteSellUISlot()
         {
-            if (GameManager.player.inventory.items.Length >= 0)
+            if (GameManager.instance.player.inventory.items.Length >= 0)
             {
-                for (int i = 0; i < _slotDatas.Count; i++)
-                    _slotDatas[i].ResetItem();
+                for (int i = 0; i < _slotData.Count; i++)
+                    _slotData[i].ResetItem();
             }
         }
         public void DestroySlot()
@@ -166,12 +166,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SoldOut()
         {
-            choosenBuySlot.GetComponent<BuyArtifactSlot>()._soldOut.SetActive(true);
-            choosenBuySlot.GetComponent<Button>().interactable = false;
+            chosenBuySlot.GetComponent<BuyArtifactSlot>()._soldOut.SetActive(true);
+            chosenBuySlot.GetComponent<Button>().interactable = false;
         }
         public void UpdateCount()
         {
-            choosenBuySlot.GetComponent<BuyArtifactSlot>().itemNum.text = choosenBuySlot.slot.count.ToString();
+            chosenBuySlot.GetComponent<BuyArtifactSlot>().itemNum.text = chosenBuySlot.slot.count.ToString();
         }
         public void OnCountUI(GameObject obj)
         {
@@ -218,7 +218,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void BuyPlus()
         {
-            InventorySlot item = Buy.Instance.choosenBuySlot.slot;
+            InventorySlot item = Buy.Instance.chosenBuySlot.slot;
             if (item.item.itemType == Item.ItemType.Use)
             {
                 countUINum++;
@@ -238,7 +238,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void BuyMinus()
         {
-            InventorySlot item = choosenBuySlot.slot;
+            InventorySlot item = chosenBuySlot.slot;
             if (countUINum > 1)
             {
                 countUINum--;
@@ -250,12 +250,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void BuySlots()
         {
-            var Shop = choosenBuySlot.slot;
+            var Shop = chosenBuySlot.slot;
             if (Shop.item.itemType == Item.ItemType.Use)
             {
-                if (GameManager.player.inventory.Gold >= Shop.item.itemPrice * countUINum && countUINum > 0)
+                if (GameManager.instance.player.inventory.Gold >= Shop.item.itemPrice * countUINum && countUINum > 0)
                 {
-                    GameManager.player.inventory.Add(Shop.item, countUINum);
+                    GameManager.instance.player.inventory.Add(Shop.item, countUINum);
                     AuctionDB.Instance.Remove(Shop.item);
                     ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
                     OffCountUI();
@@ -270,9 +270,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             else if (Shop.item.itemType == Item.ItemType.Equipment || Shop.item.itemType == Item.ItemType.Inherent)
             {
-                if (GameManager.player.inventory.Gold >= Shop.item.itemPrice && Shop.count == countUINum)
+                if (GameManager.instance.player.inventory.Gold >= Shop.item.itemPrice && Shop.count == countUINum)
                 {
-                    GameManager.player.inventory.Add(Shop.item, 0);
+                    GameManager.instance.player.inventory.Add(Shop.item, 0);
                     AuctionDB.Instance.Remove(Shop.item);
                     UpdateCount();
                     SoldOut();
@@ -286,7 +286,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SellPlus()
         {
-            InventorySlot item = choosenSellSlot.slot;
+            InventorySlot item = chosenSellSlot.slot;
             if (countUINum < item.count)
             {
                 countUINum++;
@@ -298,7 +298,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SellMinus()
         {
-            InventorySlot item = choosenSellSlot.slot;
+            InventorySlot item = chosenSellSlot.slot;
             if (countUINum > 1)
             {
                 countUINum--;
@@ -312,13 +312,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < countUINum; i++)
             {
-                if (choosenSellSlot.slot.count > 1)
+                if (chosenSellSlot.slot.count > 1)
                 {
-                    GameManager.player.inventory.SellItem(choosenSellSlot.slot.item);
+                    GameManager.instance.player.inventory.SellItem(chosenSellSlot.slot.item);
                 }
-                else if (choosenSellSlot.slot.count == 1)
+                else if (chosenSellSlot.slot.count == 1)
                 {
-                    GameManager.player.inventory.SellItem(choosenSellSlot.slot.item);
+                    GameManager.instance.player.inventory.SellItem(chosenSellSlot.slot.item);
                     //QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 DeleteSellUISlot();

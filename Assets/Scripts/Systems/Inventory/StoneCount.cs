@@ -1,14 +1,16 @@
+using Ciart.Pagomoa.Entities.Players;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class StoneCount : MonoBehaviour
     {
-        [SerializeField] private Sprite[] _drillImages;
-        [SerializeField] private Image _drillImage;
-        [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private Sprite[] drillImages;
+        [SerializeField] private Image drillImage;
+        [SerializeField] private TextMeshProUGUI countText;
 
         public static StoneCount Instance = null;
         private void Awake()
@@ -25,18 +27,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void WriteStoneCount()
         {
-            _countText.text = $"{GameManager.player.inventory.stoneCount} / {GameManager.player.inventory.maxCount}";
+            var playerInventory = GameManager.instance.player.inventory;
+            countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";
         }
         public void UpCount(int count)
         {
-            GameManager.player.inventory.stoneCount += count;
-            _countText.text = $"{GameManager.player.inventory.stoneCount} / {GameManager.player.inventory.maxCount}";
+            var playerInventory = GameManager.instance.player.inventory;
+            
+            playerInventory.stoneCount += count;
+            countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";
             LoadDrillImage();
         }
         private void LoadDrillImage()
         {
-            if (GameManager.player.inventory.maxCount / 2 <= GameManager.player.inventory.stoneCount)
-                _drillImage.sprite = _drillImages[0];
+            var playerInventory = GameManager.instance.player.inventory;
+            
+            if (playerInventory.maxCount / 2 <= playerInventory.stoneCount)
+                drillImage.sprite = drillImages[0];
         }
     }
 }

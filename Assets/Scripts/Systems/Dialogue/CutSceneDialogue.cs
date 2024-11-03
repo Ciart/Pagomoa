@@ -7,8 +7,10 @@ using UnityEngine.Playables;
 
 namespace Ciart.Pagomoa
 {
-    public class CutSceneDialogue : DialogueManagement
+    public class CutSceneDialogue : MonoBehaviour
     {
+        public Story story;
+        
         public GameObject dialogueUIPrefab;
         private GameObject _dialogueUI;
         public DialogueUI dialogueUI;
@@ -29,10 +31,12 @@ namespace Ciart.Pagomoa
             story = new Story(storyAsset.text);
 
             dialogueUI.gameObject.SetActive(true);
-            EventManager.Notify(new StoryStarted(this));
+            
+            // todo 수정
+            //EventManager.Notify(new StoryStarted(this));
         }
         
-        public override void StopStory()
+        public void StopStory()
         {
             story = null;
             _dialogueUI.SetActive(false);

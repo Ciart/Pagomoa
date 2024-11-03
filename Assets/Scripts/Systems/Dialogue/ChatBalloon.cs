@@ -26,20 +26,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             balloon = Instantiate(chatBalloonPrefab, transform.position + floatingPosition, Quaternion.identity, transform).transform.GetChild(0).gameObject;
             balloon.SetActive(true);
             chatContent = GetComponentInChildren<TextMeshProUGUI>();
-            try
+            
+            /*if (balloon.transform.GetChild(1).name == "Icon")
             {
-                if (balloon.transform.GetChild(1).name == "Icon")
-                {
-                    icon = balloon.transform.GetChild(1).GetComponent<Image>();
-                    balloon.SetActive(false);
-                }
-                else { balloon.SetActive(false); }
+                icon = balloon.transform.GetChild(1).GetComponent<Image>();
+                balloon.SetActive(false);
             }
-            catch (Exception e)
-            {
-                //Debug.Log(e + " 아이콘이 존재하지 않음");
-            }
-
+            else { balloon.SetActive(false); }*/
+            
             _chatBalloonTransform = balloon.transform.GetComponent<RectTransform>();
             if(icon)
                 _chatIconTransform = icon.transform.GetComponent<RectTransform>();

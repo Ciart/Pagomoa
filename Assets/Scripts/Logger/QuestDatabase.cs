@@ -4,6 +4,7 @@ using System.Linq;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.RefactoringManagerSystem;
 using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Logger
 
         public List<MapEntityQuest> mapEntityQuests;
 
-        public QuestData[] GetEntityQuestsByEntityID(EntityOrigin origin)
+        public QuestData[] GetEntityQuestsByEntity(EntityOrigin origin)
         {
             foreach (var mapEntity in mapEntityQuests)
             {

@@ -11,17 +11,19 @@ namespace Ciart.Pagomoa.Systems {
         {
             SetPlayerPlayTimeOutput();
         }
-        
-        public void SetPlayerPlayTimeOutput()
+
+        private void SetPlayerPlayTimeOutput()
         {
+            var timeManager = TimeManager.instance;
+            
             if (gameObject.name == "Day-N")
             {
-                _tmpGuiText.text = TimeManager.instance.date.ToString();
+                _tmpGuiText.text = timeManager.date.ToString();
             }
             else if (gameObject.name == "Time")
             {
-                var hour = TimeManager.instance.hour;
-                var minute = TimeManager.instance.minute;
+                var hour = timeManager.hour;
+                var minute = timeManager.minute;
                 
                 _tmpGuiText.text = $"{hour:D2}:{minute:D2}";
             }

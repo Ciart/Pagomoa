@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Environments
     {
         public List<SkyLight> skyLights;
 
-        public Light2D light;
+        public Light2D light2D;
 
         public SpriteRenderer skyShadow;
 
@@ -92,11 +92,11 @@ namespace Ciart.Pagomoa.Environments
         private void ChangeFloorLight(SkyLight skyLight, float time)
         {
             if (time < skyLight.floorChangeStartTime)
-                light.intensity = skyLight.floorIntensityStart;
+                light2D.intensity = skyLight.floorIntensityStart;
             else if (skyLight.floorChangeEndTime < time)
-                light.intensity = skyLight.floorIntensityEnd;
+                light2D.intensity = skyLight.floorIntensityEnd;
             else
-                light.intensity = skyLight.floorIntensityStart +
+                light2D.intensity = skyLight.floorIntensityStart +
                                   (skyLight.floorIntensityEnd - skyLight.floorIntensityStart) *
                                   (time - skyLight.floorChangeStartTime) /
                                   (skyLight.floorChangeEndTime - skyLight.floorChangeStartTime);

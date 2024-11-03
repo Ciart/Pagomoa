@@ -115,6 +115,8 @@ namespace Ciart.Pagomoa.Entities.Players
                     drillPart.gameObject.SetActive(isDig);
             }
 
+            var soundManager = SoundManager.instance;
+            
             if (!isDig)
             {
                 if (!_fairyMoa.gameObject.activeSelf)
@@ -127,9 +129,9 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             if (isDig)
             {
-                if (!SoundManager.instance.FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
+                if (!soundManager.FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
                 {
-                    SoundManager.instance.PlaySfx("DrillSpin", false);
+                    soundManager.PlaySfx("DrillSpin", false);
                     isPlayed = true;
                 }
 
@@ -142,7 +144,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             else
             {
-                SoundManager.instance.FindAudioSource("DrillSpinEffect").Stop();
+                soundManager.FindAudioSource("DrillSpinEffect").Stop();
                 isPlayed = false;
                 return;
             }
@@ -177,33 +179,35 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private void OnTickUpdated(int tick)
         {
+            var soundManager = SoundManager.instance;
+            
             if (isDig && isGroundHit)
             {
-                if (!SoundManager.instance.FindAudioSource("DrillHitEffect").isPlaying)
+                if (!soundManager.FindAudioSource("DrillHitEffect").isPlaying)
                 {
-                    if (SoundManager.instance.FindAudioSource("DrillHitEffect").clip ==
-                        SoundManager.instance.FindSfxBundle("DrillHitGround").audioClip[0])
+                    if (soundManager.FindAudioSource("DrillHitEffect").clip ==
+                        soundManager.FindSfxBundle("DrillHitGround").audioClip[0])
                     {
-                        SoundManager.instance.FindAudioSource("DrillHitEffect").clip =
-                            SoundManager.instance.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
-                        SoundManager.instance.FindAudioSource("DrillHitEffect").loop = true;
+                        soundManager.FindAudioSource("DrillHitEffect").clip =
+                            soundManager.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
+                        soundManager.FindAudioSource("DrillHitEffect").loop = true;
                     }
                     else
                     {
-                        SoundManager.instance.FindAudioSource("DrillHitEffect").clip =
-                            SoundManager.instance.FindSfxBundle("DrillHitGround").audioClip[0];
-                        SoundManager.instance.FindAudioSource("DrillHitEffect").loop = false;
+                        soundManager.FindAudioSource("DrillHitEffect").clip =
+                            soundManager.FindSfxBundle("DrillHitGround").audioClip[0];
+                        soundManager.FindAudioSource("DrillHitEffect").loop = false;
                     }
-                    SoundManager.instance.FindAudioSource("DrillHitEffect").Play();
+                    soundManager.FindAudioSource("DrillHitEffect").Play();
                 }
             }
             else
             {
-                if (SoundManager.instance.FindAudioSource("DrillHitEffect").isPlaying)
+                if (soundManager.FindAudioSource("DrillHitEffect").isPlaying)
                 {
-                    SoundManager.instance.FindAudioSource("DrillHitEffect").Stop();
-                    SoundManager.instance.FindAudioSource("DrillHitEffect").clip =
-                        SoundManager.instance.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
+                    soundManager.FindAudioSource("DrillHitEffect").Stop();
+                    soundManager.FindAudioSource("DrillHitEffect").clip =
+                        soundManager.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
                 }
             }
 
@@ -268,7 +272,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             bool upgradable = true;
-            var inventory = GameManager.player.inventory;
+            var inventory = GameManager.instance.player.inventory;
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {

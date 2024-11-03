@@ -75,7 +75,7 @@ namespace Ciart.Pagomoa.Entities
         public void Init(EntityData data)
         {
             origin = data.origin;
-
+            
             // if (status is null)
             {
                 status = new EntityStatus
@@ -180,7 +180,7 @@ namespace Ciart.Pagomoa.Entities
         {
             CheckDeath();
 
-            var distance = Vector3.Distance(transform.position, GameManager.player.transform.position);
+            var distance = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
 
             if (distance > 100f)
             {
@@ -203,7 +203,6 @@ namespace Ciart.Pagomoa.Entities
             }
 
             _isGrounded = false;
-            return;
         }
 
         private void OnCollisionExit2D(Collision2D other)
@@ -211,7 +210,6 @@ namespace Ciart.Pagomoa.Entities
             if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
             {
                 _isGrounded = false;
-                return;
             }
         }
     }
