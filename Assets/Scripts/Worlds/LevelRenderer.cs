@@ -17,6 +17,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public Tilemap groundTilemap;
 
+        [Tooltip("땅 파괴 애니메이션을 표현하는 타일맵입니다.")]
         public Tilemap groundOverlayTilemap;
 
         public Tilemap mineralTilemap;

@@ -43,7 +43,7 @@ namespace Ciart.Pagomoa.Entities
 
         public event Action died;
         
-        public bool isDead = false;
+        public bool isDead => status.health <= 0;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -145,7 +145,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void Die()
         {
-            isDead = true;
+            status.health = 0;
             gameObject.SetActive(false);
             died?.Invoke();
         }
