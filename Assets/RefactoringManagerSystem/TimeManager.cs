@@ -1,16 +1,11 @@
 ﻿using System;
-using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
-    public class TimeManager : PManager
+    public class TimeManager : PManager<TimeManager>
     {
-        public static TimeManager instance { get; private set; }
-        public TimeManager() { instance ??= this; }
         ~TimeManager()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);

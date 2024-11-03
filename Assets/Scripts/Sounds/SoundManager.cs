@@ -4,11 +4,8 @@ using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Sounds
 {
-    public class SoundManager : PManager
+    public class SoundManager : PManager<SoundManager>
     {
-        public static SoundManager instance { get; private set; }
-        public SoundManager() { instance ??= this; }
-        
         public AudioSource musicSource;
         
         private int _loopStartSamples;

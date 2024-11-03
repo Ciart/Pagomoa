@@ -4,11 +4,8 @@ using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa.Events
 {
-    public class EventManager : PManager 
+    public class EventManager : PManager<EventManager> 
     {
-        public static EventManager instance { get; private set; }
-        public EventManager() { instance ??= this; }
-        
         private Dictionary<Type, HashSet<Delegate>> _listeners = new Dictionary<Type, HashSet<Delegate>>();
 
         public override void Awake()

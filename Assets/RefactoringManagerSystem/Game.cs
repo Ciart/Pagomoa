@@ -6,7 +6,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     private static Game _instance = null;
-    private static List<PManager> _managers = null;
+    private static List<IPManager> _managers = null;
 
     public Action awake;
     public Action start;
@@ -16,6 +16,20 @@ public class Game : MonoBehaviour
     public Action fixedUpdate;
     public Action preLateUpdate;
     public Action lateUpdate;
+    
+    private static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+    {
+        while (toCheck != null && toCheck != typeof(object))
+        {
+            var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+            if (generic == cur)
+            {
+                return true;
+            }
+            toCheck = toCheck.BaseType;
+        }
+        return false;
+    }
     
     private void Awake()
     {
@@ -31,21 +45,20 @@ public class Game : MonoBehaviour
 
         if(_managers == null)
         {
-            _managers = new List<PManager>();
+            _managers = new List<IPManager>();
             
             foreach(System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    if (type.IsSubclassOf(typeof(PManager)))
+                    if (IsSubclassOfRawGeneric(typeof(PManager<>), type) 
+                        && typeof(IPManager).IsAssignableFrom(type)
+                        && !type.ContainsGenericParameters) // 구체적인 타입만 허용
                     {
-                        PManager manager = Activator.CreateInstance(type) as PManager;
+                        var manager = Activator.CreateInstance(type) as IPManager;
 
-                        if (manager != null)
-                        {
-                            _managers.Add(manager);
-                            manager.Init(this);   
-                        }
+                        _managers.Add(manager);
+                        manager?.Init(this);
                     } 
                 }
             }

@@ -6,10 +6,8 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class GameManager : PManager
+    public class GameManager : PManager<GameManager>
     {
-        public static GameManager instance { get; private set; }
-        public GameManager() { instance ??= this; }
         ~GameManager()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);

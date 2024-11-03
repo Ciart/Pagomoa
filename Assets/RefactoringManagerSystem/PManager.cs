@@ -1,10 +1,20 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 
-public class PManager
+public interface IPManager
 {
+    public void Init(Game game);
+}
+
+public class PManager<T> : IPManager where T : PManager<T> 
+{
+    public static T instance { get; private set; }
+
+    protected PManager()
+    {
+        instance ??= this as T;
+    }
+    
     public void Init(Game game)
     {
         var type = GetType();
@@ -43,8 +53,6 @@ public class PManager
                         game.lateUpdate += action;
                         break;  
                 }
-
-                Debug.Log("Overridden Method: " + method.Name);
             }
         }
     }

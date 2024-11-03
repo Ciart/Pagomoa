@@ -7,10 +7,8 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public class DialogueManager : PManager
+    public class DialogueManager : PManager<DialogueManager>
     {
-        public static DialogueManager instance { get; private set; }
-        public DialogueManager() { instance ??= this; }
         ~DialogueManager()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);

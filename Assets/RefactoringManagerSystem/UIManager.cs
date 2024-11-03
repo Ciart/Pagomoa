@@ -11,11 +11,8 @@ using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class UIManager : PManager
+    public class UIManager : PManager<UIManager>
     {
-        public static UIManager instance { get; private set; } 
-        public UIManager() { instance ??= this; }
-
         ~UIManager()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);

@@ -3,16 +3,14 @@ using System.Linq;
 using System.Reflection;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.RefactoringManagerSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 namespace Ciart.Pagomoa.Worlds
 {
-    public class WorldManager : PManager
+    public class WorldManager : PManager<WorldManager>
     {
-        public static WorldManager instance { get; private set; }
-        public WorldManager() { instance ??= this; }
-        
         public WorldDatabase database;
         
         public WorldGenerator worldGenerator;
