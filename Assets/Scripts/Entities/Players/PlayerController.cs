@@ -42,12 +42,12 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Awake()
         {
             status = GetComponent<PlayerStatus>();
+            drill = GetComponentInChildren<DrillController>();
             initialStatus = status.copy();
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
-            _digger = GetComponentInChildren<DrillController>();
             _camera = Camera.main;
             _world = WorldManager.instance;
         }
