@@ -1,14 +1,16 @@
 ﻿using System;
-using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
-    public class TimeManager : SingletonMonoBehaviour<TimeManager>
+    public class TimeManager : PManager<TimeManager>
     {
+        ~TimeManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
         public const int MinuteTick = 30;
     
         public const int HourTick = MinuteTick * 60;
@@ -44,86 +46,80 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public bool isTimeStop = false;
 
-        private float nextUpdateTime = 0f;
+        private float _nextUpdateTime = 0f;
 
-        private string season = "";
-        private bool eventTakePlace = true;
+        private string _season = "";
+        private bool _eventTakePlace = true;
 
-        private PlayerInput playerInput;
+        private PlayerInput _playerInput;
     
         public event Action<int> tickUpdated;
 
-        [HideInInspector] public UnityEvent NextDaySpawn;
+        /*[HideInInspector] public UnityEvent NextDaySpawn;
         [HideInInspector] public UnityEvent MonsterSleep;
         [HideInInspector] public UnityEvent MonsterWakeUp;
-        [HideInInspector] public UnityEvent<FadeState> FadeEvent;
-
-        protected override void Awake()
+        [HideInInspector] public UnityEvent<FadeState> FadeEvent;*/
+        
+        public override void Awake()
         {
-            base.Awake();
+            /*base.Awake();
             MonsterSleep.AddListener(DayMonster.GetSleep);
             MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
-            MonsterWakeUp.AddListener(NightMonster.TimeToBye);
-            
+            MonsterWakeUp.AddListener(NightMonster.TimeToBye);*/
         }
 
-        private void OnEnable()
+        public override void Start()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-
-        private void OnDisable()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             var player = e.player;
-            playerInput = player.GetComponent<PlayerInput>();
+            _playerInput = player.GetComponent<PlayerInput>();
         }
 
-        private void Update()
+        public override void Update()
         {
-            if (nextUpdateTime <= 0)
+            if (_nextUpdateTime <= 0)
             {
                 tick += 1;
-                nextUpdateTime += 1f / tickSpeed;
+                _nextUpdateTime += 1f / tickSpeed;
                 tickUpdated?.Invoke(tick);
 
                 if (tick >= MaxTick)
                 {
                     tick = 0;
                     date++;
-                    NextDaySpawn.Invoke();
+                    /*NextDaySpawn.Invoke();*/
                 }
 
-                if (season != GetSeasonForPlayer())
+                if (_season != GetSeasonForPlayer())
                 {
-                    season = GetSeasonForPlayer();
+                    _season = GetSeasonForPlayer();
                     EventTime();
                 }
             }
         
-            nextUpdateTime -= UnityEngine.Time.deltaTime;
+            _nextUpdateTime -= UnityEngine.Time.deltaTime;
         }
 
         private void EventTime()
         {
-            if (eventTakePlace == true) return;
+            if (_eventTakePlace == true) return;
 
-            if (season == "MiddleNight")
+            if (_season == "MiddleNight")
             {
                 canSleep = true;
-                eventTakePlace = true;
-                MonsterSleep.Invoke();
+                _eventTakePlace = true;
+                /*MonsterSleep.Invoke();*/
             }
 
-            if (season == "Morning")
+            if (_season == "Morning")
             {
                 canSleep = false;
-                eventTakePlace = true;
-                MonsterWakeUp.Invoke();
+                _eventTakePlace = true;
+                /*MonsterWakeUp.Invoke();*/
             }
         }
     
@@ -140,8 +136,8 @@ namespace Ciart.Pagomoa.Systems.Time
             AddDay(1);
             tick = Morning;
 
-            NextDaySpawn.Invoke();
-            MonsterWakeUp.Invoke();
+            /*NextDaySpawn.Invoke();
+            MonsterWakeUp.Invoke();*/
         }
 
         public static string GetSeasonForMonster()
@@ -170,14 +166,14 @@ namespace Ciart.Pagomoa.Systems.Time
                 return "MiddleNight";
         }
 
-        public void AddTime(int hour, int minute)
+        public void AddTime(int hourToAdd, int minuteToAdd)
         {
-            tick += (hour * HourTick) + (minute * MinuteTick);
+            tick += (hourToAdd * HourTick) + (minuteToAdd * MinuteTick);
         }
     
-        public void SetTime(int hour, int minute)
+        public void SetTime(int hourToAdd, int minuteToAdd)
         {
-            tick = ((hour - HourOffset) * HourTick) + (minute * MinuteTick);
+            tick = ((hourToAdd - HourOffset) * HourTick) + (minuteToAdd * MinuteTick);
         }
     
         public void SetDay(int day)
@@ -194,14 +190,14 @@ namespace Ciart.Pagomoa.Systems.Time
         {
             UnityEngine.Time.timeScale = 0;
             isTimeStop = true;
-            if(playerInput) playerInput.Actable = false;
+            if(_playerInput) _playerInput.Actable = false;
         }
 
         public void ResumeTime()
         {
             UnityEngine.Time.timeScale = 1;
             isTimeStop = false;
-            if (playerInput) playerInput.Actable = true;
+            if (_playerInput) _playerInput.Actable = true;
         }
     }
 }

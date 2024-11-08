@@ -4,14 +4,12 @@ using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa.Events
 {
-    public class EventManager: SingletonMonoBehaviour<EventManager>
+    public class EventManager : PManager<EventManager> 
     {
         private Dictionary<Type, HashSet<Delegate>> _listeners = new Dictionary<Type, HashSet<Delegate>>();
 
-        protected override void Awake()
+        public override void Awake()
         {
-            base.Awake();
-            
             _listeners = new Dictionary<Type, HashSet<Delegate>>();
         }
         
@@ -22,14 +20,15 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void Notify<T>(T args) where T : IEvent
         {
+            var eventManager = instance;
             var type = typeof(T);
             
-            if (!instance._listeners.ContainsKey(type))
+            if (!eventManager._listeners.ContainsKey(type))
             {
                 return;
             }
 
-            foreach (var listener in instance._listeners[type])
+            foreach (var listener in eventManager._listeners[type])
             {
                 ((Action<T>) listener)(args);
             }
@@ -42,14 +41,15 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void AddListener<T>(Action<T> listener) where T : IEvent
         {
+            var eventManager = instance;
             var type = typeof(T);
             
-            if (!instance._listeners.ContainsKey(type))
+             if (!eventManager._listeners.ContainsKey(type))
             {
-                instance._listeners[type] = new HashSet<Delegate>();
+                eventManager._listeners[type] = new HashSet<Delegate>();
             }
 
-            instance._listeners[type].Add(listener);
+            eventManager._listeners[type].Add(listener);
         }
         
         /// <summary>
@@ -59,14 +59,15 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void RemoveListener<T>(Action<T> listener) where T : IEvent
         {
+            var eventManager = instance;
             var type = typeof(T);
             
-            if (!instance._listeners.ContainsKey(type))
+            if (!eventManager._listeners.ContainsKey(type))
             {
                 return;
             }
 
-            instance._listeners[type].Remove(listener);
+            eventManager._listeners[type].Remove(listener);
         }
     }
 }

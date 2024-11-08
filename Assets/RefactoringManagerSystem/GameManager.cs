@@ -9,22 +9,29 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class GameManager : SingletonMonoBehaviour<GameManager>
+    public class GameManager : PManager<GameManager>
     {
-        public bool isLoadSave;
+        ~GameManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        public bool isLoadSave = true;
 
         public bool hasPowerGemEarth;
 
-        private PlayerController _player;
-
-        public static PlayerController player => instance._player;
-
+        public PlayerController player;
+        
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
-            _player = e.player;
+            player = e.player;
+        }
+        
+        public override void Awake()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
-        void Start()
+        public override void Start()
         {
             var saveManager = SaveManager.Instance;
             bool mapLoad = saveManager.LoadMap();
@@ -41,22 +48,12 @@ namespace Ciart.Pagomoa.Systems
                 saveManager.TagPosition(saveManager.loadPositionDelayTime);
         }
 
-        private void Update()
+        public override void Update()
         {
             if (hasPowerGemEarth)
             {
                 Debug.Log("데모 종료");
             }
-        }
-
-        private void OnEnable()
-        {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-
-        private void OnDisable()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
     }
 }

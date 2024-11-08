@@ -139,10 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 0}
+  origin: {fileID: 11400000, guid: 7944684b29568f140bb3c7cc2387443f, type: 2}
   status:
-    health: 0
-    maxHealth: 0
+    health: 1000
+    maxHealth: 1000
   parent: {fileID: 0}
   isDead: 0
 --- !u!114 &2442559022297014597

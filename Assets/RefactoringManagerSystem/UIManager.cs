@@ -4,52 +4,46 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI.Book;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class UIManager : SingletonMonoBehaviour<UIManager>
+    public class UIManager : PManager<UIManager>
     {
-        public Image oxygenbar;
-        public Image hungrybar;
-        public GameObject inventoryUIPrefab;
-        public GameObject dialogueUIPrefab;
-        public GameObject quickSlotContainerUIPrefab;
-        public GameObject escUI;
-        public GameObject interactableUI;
-        public GameObject questCompleteUI;
-        public DialogueUI dialogueUI;
-        public CinemachineVirtualCamera inventoryCamera;
-
+        ~UIManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private UIContainer _uiContainer;
         private PlayerInput _playerInput;
         private GameObject _inventoryUI;
         private GameObject _dialogueUI;
         private bool _isActiveInventory;
 
-        protected override void Awake()
+        public UIContainer GetUIContainer() { return _uiContainer; }
+        
+        public override void Awake()
         {
-            base.Awake();
+            _uiContainer = DataBase.data.GetUIData();
             
-            _inventoryUI = Instantiate(inventoryUIPrefab, transform);
+            _inventoryUI = Object.Instantiate(_uiContainer.inventoryUIPrefab, _uiContainer.transform);
             Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
             
-            _dialogueUI = Instantiate(dialogueUIPrefab, transform);
+            _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
-            dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+            _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            Instantiate(quickSlotContainerUIPrefab, transform);
+            Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
         }
-        
-        private void OnEnable()
+
+        public override void Start()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-
-        private void OnDisable()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
@@ -68,20 +62,20 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
         }
 
-        public void UpdateOxygenBar(float current_oxygen, float max_oxygen)
+        private void UpdateOxygenBar(float currentOxygen, float maxOxygen)
         {
-            oxygenbar.fillAmount = current_oxygen / max_oxygen;
+            _uiContainer.oxygenBar.fillAmount = currentOxygen / maxOxygen;
         }
 
-        public void UpdateHungryBar(float current_hungry, float max_hungry)
+        private void UpdateHungryBar(float currentHungry, float maxHungry)
         {
-            hungrybar.fillAmount = current_hungry / max_hungry;
+            _uiContainer.hungryBar.fillAmount = currentHungry / maxHungry;
         }
 
         private void ToggleEscUI()
         {
             if(!_dialogueUI.activeSelf)
-                escUI.SetActive(!escUI.activeSelf);
+                _uiContainer.escUI.SetActive(!_uiContainer.escUI.activeSelf);
         }
 
         private void ToggleInventoryUI()
@@ -113,14 +107,14 @@ namespace Ciart.Pagomoa.Systems
             _dialogueUI.SetActive(false);
         }
 
-        public static GameObject CreateInteractableUI(Transform parent)
+        public GameObject CreateInteractableUI(Transform parent)
         {
-            return Instantiate(instance.interactableUI, parent);
+            return Object.Instantiate(DataBase.data.GetUIData().interactableUI, parent);
         }
 
-        public static GameObject CreateQuestCompleteUI(Transform parent)
+        public GameObject CreateQuestCompleteUI(Transform parent)
         {
-            return Instantiate(instance.questCompleteUI, parent);
+            return Object.Instantiate(DataBase.data.GetUIData().questCompleteUI, parent);
         }
 
     }

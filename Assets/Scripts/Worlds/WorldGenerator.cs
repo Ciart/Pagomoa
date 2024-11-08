@@ -7,8 +7,7 @@ using Random = Unity.Mathematics.Random;
 namespace Ciart.Pagomoa.Worlds
 {
     using WeightedPieces = List<(float, Piece)>;
-
-    [RequireComponent(typeof(WorldManager))]
+    
     public class WorldGenerator : MonoBehaviour
     {
         public const int ForestHeight = -100;
@@ -31,7 +30,8 @@ namespace Ciart.Pagomoa.Worlds
 
         private void Awake()
         {
-            _worldManager = GetComponent<WorldManager>();
+            _worldManager = WorldManager.instance;
+            _worldManager.GetComponent(this);
         }
 
         private WeightedPieces Preload(IEnumerable<Piece> pieces)

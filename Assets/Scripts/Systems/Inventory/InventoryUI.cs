@@ -7,6 +7,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        private GameManager _gameManager => GameManager.instance;
+        
         [SerializeField] public InventorySlotUI choiceSlot;
         [SerializeField] public InventorySlotUI hoverSlot;
         [SerializeField] private GameObject slotParent;
@@ -51,7 +53,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void MakeSlots() // slotdatas 갯수만큼 슬롯 만들기
         {
-            for (int i = 0; i < GameManager.player.inventory.items.Length; i++)
+            for (int i = 0; i < _gameManager.player.inventory.items.Length; i++)
             {
                 GameObject spawnedslot = Instantiate(slot, slotParent.transform);
                 slotDatas.Add(spawnedslot.GetComponent<InventorySlotUI>());
@@ -65,7 +67,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (var i = 0; i < slotDatas.Count; i++)
             {
-                slotDatas[i].SetItem(GameManager.player.inventory.items[i]);
+                slotDatas[i].SetItem(_gameManager.player.inventory.items[i]);
             }
         }
         
@@ -79,7 +81,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
-                artifactSlotData[i].slot = GameManager.player.inventory.artifactItems[i];
+                artifactSlotData[i].slot = _gameManager.player.inventory.artifactItems[i];
                 artifactSlotData[i].SetItem(artifactSlotData[i].slot);
             }
         }

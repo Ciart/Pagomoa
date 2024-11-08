@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2520906588816333121}
-  - component: {fileID: 1452918760258971659}
   - component: {fileID: 3063220814337312247}
   - component: {fileID: 7715935370156328217}
   - component: {fileID: 4879729061759785164}
   m_Layer: 0
-  m_Name: SoundManager
+  m_Name: SoundSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,25 +39,6 @@ Transform:
   - {fileID: 3780380689648961552}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1452918760258971659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72620862221755432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83cbdb388c187de4c87bb84028043675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSource: {fileID: 4879729061759785164}
-  sfxSources:
-  - {fileID: 8076194479323560619}
-  - {fileID: 7402186613488132280}
-  - {fileID: 9079962053244220695}
-  - {fileID: 5610829422032802557}
-  - {fileID: 9180747622759243202}
 --- !u!114 &3063220814337312247
 MonoBehaviour:
   m_ObjectHideFlags: 0

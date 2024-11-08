@@ -11,35 +11,12 @@ namespace Ciart.Pagomoa.Worlds.UFO
         private Transform _player;
 
         private InteractableObject _interactable;
-        
-        private TimeManager _timeManager;
-        
-        void Start()
-        {
-            _interactable = GetComponent<InteractableObject>();
-            
-            _interactable.interactionEvent.AddListener(GotoBed);
-            
-            _timeManager = FindObjectOfType<TimeManager>();
-        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.name == "Player") _player = collision.transform;
         }
         
-        public void GotoBed()
-        {
-            if (_timeManager.canSleep)
-            {
-                _timeManager.SkipToNextDay();
-
-                StartCoroutine(nameof(Sleeping));
-            } else {
-                Debug.Log("잘 시간이 아닙니다.");
-            }
-        }
-
         private IEnumerator Sleeping()
         {
             _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

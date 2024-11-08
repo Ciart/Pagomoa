@@ -1,27 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Worlds.UFO;
+using Ciart.Pagomoa.RefactoringManagerSystem;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
-using UnityEngine.Tilemaps;
+
 
 namespace Ciart.Pagomoa.Worlds
 {
-    public class WorldManager : SingletonMonoBehaviour<WorldManager>
+    public class WorldManager : PManager<WorldManager>
     {
         public WorldDatabase database;
-
-        [FormerlySerializedAs("mineralEntity")]
+        
+        public WorldGenerator worldGenerator;
+        
         public ItemEntity itemEntity;
-
-        public Transform ufo;
-
-        public Tilemap ufoLadder;
-
-        private UFOInteraction _ufoInteraction;
 
         private World _world;
 
@@ -42,14 +36,19 @@ namespace Ciart.Pagomoa.Worlds
 
         private HashSet<Chunk> _expiredChunks = new();
 
-        protected override void Awake()
+        public override void Start()
         {
-            base.Awake();
-
-            _ufoInteraction = ufo.GetComponent<UFOInteraction>();
+            database = DataBase.data.GetWorldData();
+            itemEntity = DataBase.data.GetItemEntity();
         }
 
-        private void LateUpdate()
+        public void GetComponent(WorldGenerator generator)
+        {
+            //Todo 수정수정 가저오는 방법 
+            worldGenerator = generator;
+        }
+
+        public override void LateUpdate()
         {
             UpdateDiggingBrickDamage();
 
@@ -187,7 +186,7 @@ namespace Ciart.Pagomoa.Worlds
 
                 if (brick.mineral != rock)
                 {
-                    var entity = Instantiate(itemEntity, ComputePosition(x, y), Quaternion.identity);
+                    var entity = itemEntity.InstantiateItem(itemEntity, ComputePosition(x, y));
                     entity.Item = brick.mineral!.item;
                 }
             }
@@ -234,10 +233,10 @@ namespace Ciart.Pagomoa.Worlds
             var coords = ComputeCoords(position);
             var brick = _world.currentLevel.GetBrick(coords.x, coords.y, out _);
 
-            var ladderPos = ufoLadder.WorldToCell(new Vector3(position.x, position.y - 1f));
-            var ladder = ufoLadder.GetTile<TileBase>(ladderPos);
+            /*var ladderPos = ufoLadder.WorldToCell(new Vector3(position.x, position.y - 1f));
+            var ladder = ufoLadder.GetTile<TileBase>(ladderPos);*/
 
-            return (brick?.wall is not null && brick.wall.isClimbable) || ladder is not null;
+            return (brick?.wall is not null && brick.wall.isClimbable); // || ladder is not null;
         }
 
         public bool IsBrickAboveGround(int targetX, int targetY)
@@ -417,14 +416,14 @@ namespace Ciart.Pagomoa.Worlds
             
             return onGroundList;
         }
-        
+
         public void MoveUfoBase()
         {
-            if (_ufoInteraction.canMove)
+            /*if (_ufoInteraction.canMove)
             {
                 _ufoInteraction.canMove = false;
                 StartCoroutine(_ufoInteraction.MoveToPlayer());
-            }
+            }*/
         }
     }
 }

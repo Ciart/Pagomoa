@@ -40,7 +40,7 @@ namespace Ciart.Pagomoa
 
         private DialogueUI _dialogueUI = null;
 
-        private DialogueManagement _targetManagement;
+        private DialogueManager _targetManagement;
         
         private bool _changeDialogue;
 
@@ -78,11 +78,13 @@ namespace Ciart.Pagomoa
 
         private void RefreshView(StoryStarted obj)
         {
-            if (obj.targetManagement)
+            if (obj.targetManagement != null)
                 _targetManagement = obj.targetManagement;
             else
             {
-                _targetManagement = DialogueManager.instance;
+                var dialogueManager = DialogueManager.instance;
+                
+                _targetManagement = dialogueManager;
             }
             
             RefreshView();
@@ -144,8 +146,10 @@ namespace Ciart.Pagomoa
 
             foreach (var currentTag in currentTags)
             {
-                string prefix = currentTag.Split(' ')[0];
-                string param = currentTag.Split(' ')[1];
+                var dialogueManager = DialogueManager.instance;
+                
+                var prefix = currentTag.Split(' ')[0];
+                var param = currentTag.Split(' ')[1];
 
                 switch (prefix.ToLower())
                 {
@@ -162,12 +166,12 @@ namespace Ciart.Pagomoa
                     case "start":
                         if (param == "dialogue")
                         {
-                            DialogueManager.instance.StartDailyChat();
+                            dialogueManager.StartDailyChat();
                             _changeDialogue = true;
                         }
                         else if (param == "quest")
                         {
-                            DialogueManager.instance.StartQuestChat();
+                            dialogueManager.StartQuestChat();
                             _changeDialogue = true;
                         }
                         else
@@ -180,10 +184,10 @@ namespace Ciart.Pagomoa
                         }
                         break;
                     case "quest":
-                        DialogueManager.instance.nowEntityDialogue.QuestAccept(param);
+                        dialogueManager.nowEntityDialogue.QuestAccept(param);
                         break;
                     case "reward":
-                        DialogueManager.instance.nowEntityDialogue.QuestComplete(param);
+                        dialogueManager.nowEntityDialogue.QuestComplete(param);
                         break;
                 }
             }

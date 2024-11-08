@@ -15,9 +15,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
+                var gameManager = GameManager.instance;
+                
                 InventoryUI.Instance.choiceSlot = this.gameObject.GetComponent<InventorySlotUI>();
-                var choiceSlot = GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id];
-                var itemType = choiceSlot.item.type;
+                var choiceSlot = gameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id];
+                var itemType = choiceSlot.item.itemType;
                 Vector3 mouseposition = new Vector3(eventData.position.x + 5, eventData.position.y);
                 _rightClickMenu.SetUI();
                 _rightClickMenu.gameObject.transform.position = mouseposition;
@@ -45,20 +47,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void EquipCheck()
         {
             var inventory = InventoryUI.Instance;
+            PlayerController player = GameManager.instance.player;
 
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item == null)
+            if (player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
 
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Equipment)
+            if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Equipment)
                 EquipItem();
 
-            else if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Use)
+            else if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Use)
             {
-                GameManager.player.inventory.items[inventory.choiceSlot.id].count -= 1;
+                player.inventory.items[inventory.choiceSlot.id].count -= 1;
                 UseItem();
-                if (GameManager.player.inventory.items[inventory.choiceSlot.id].count == 0)
+                if (player.inventory.items[inventory.choiceSlot.id].count == 0)
                 {
-                    GameManager.player.inventory.SellItem(GameManager.player.inventory.items[inventory.choiceSlot.id].item);
+                    player.inventory.SellItem(player.inventory.items[inventory.choiceSlot.id].item);
                 }
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
@@ -68,11 +71,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipItem()
         {
-            if (GameManager.player.inventory.artifactItems.Length < 4)
+            PlayerController player = GameManager.instance.player;
+            
+            if (player.inventory.artifactItems.Length < 4)
             {
                 InventoryUI.Instance.ResetSlots();
-                GameManager.player.inventory.AddArtifactData(InventoryUI.Instance.choiceSlot.slot.item);
-                GameManager.player.inventory.Equip(InventoryUI.Instance.choiceSlot.slot.item);
+                player.inventory.AddArtifactData(InventoryUI.Instance.choiceSlot.slot.item);
+                player.inventory.Equip(InventoryUI.Instance.choiceSlot.slot.item);
                 InventoryUI.Instance.UpdateSlots();
                 InventoryUI.Instance.SetArtifactSlots();
             }
@@ -83,18 +88,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatMineral()
         {
+            PlayerController player = GameManager.instance.player;
             var inventory = InventoryUI.Instance;
             const int mineralCount = 1;
             
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Mineral)
+            if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
             {
-                if (GameManager.player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
+                if (player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
-                    GameManager.player.inventory.items[inventory.choiceSlot.id].count -= mineralCount;
-                    EventManager.Notify(new ItemUsedEvent(GameManager.player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
+                    player.inventory.items[inventory.choiceSlot.id].count -= mineralCount;
+                    EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
                 }
-                else if(GameManager.player.inventory.items[inventory.choiceSlot.id].count == mineralCount)
-                    GameManager.player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
+                else if(player.inventory.items[inventory.choiceSlot.id].count == mineralCount)
+                    player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
                 _stoneCount.UpCount(mineralCount);
@@ -104,18 +110,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatTenMineral()
         {
+            PlayerController player = GameManager.instance.player;
             var inventory = InventoryUI.Instance;
             const int mineralCount = 10;
             
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Mineral)
+            if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
             {
-                if (GameManager.player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
+                if (player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
-                    GameManager.player.inventory.items[inventory.choiceSlot.id].count -= mineralCount;
-                    EventManager.Notify(new ItemUsedEvent(GameManager.player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
+                    player.inventory.items[inventory.choiceSlot.id].count -= mineralCount;
+                    EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
                 }
-                else if (GameManager.player.inventory.items[inventory.choiceSlot.id].count == mineralCount)
-                    GameManager.player.inventory.RemoveItemData(GameManager.player.inventory.items[inventory.choiceSlot.id].item);
+                else if (player.inventory.items[inventory.choiceSlot.id].count == mineralCount)
+                    player.inventory.RemoveItemData(player.inventory.items[inventory.choiceSlot.id].item);
                 
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
@@ -126,12 +133,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatAllMineral()
         {
+            PlayerController player = GameManager.instance.player;
             var inventory = InventoryUI.Instance;
-            int count = GameManager.player.inventory.items[inventory.choiceSlot.id].count;
-            GameManager.player.inventory.items[inventory.choiceSlot.id].count -= count;
-            EventManager.Notify(new ItemUsedEvent(GameManager.player.inventory.items[inventory.choiceSlot.id].item, count));
+            int count = player.inventory.items[inventory.choiceSlot.id].count;
+            
+            player.inventory.items[inventory.choiceSlot.id].count -= count;
+            EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, count));
             _stoneCount.UpCount(count);
-            GameManager.player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
+            player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
             inventory.ResetSlots();
             inventory.UpdateSlots();
             _rightClickMenu.SetUI();
@@ -139,17 +148,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UseItem()
         {
-            var chosenItem = GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
+            PlayerController player = GameManager.instance.player;
+            var chosenItem = player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
             
-            ResourceManager.instance.UseItem(GameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
-            GameManager.player.inventory.DecreaseItemCount(chosenItem);
+            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
+            player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Active(playerStatus);
+            player.inventory.DecreaseItemCount(chosenItem);
             InventoryUI.Instance.ResetSlots();
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }
         public void AbandonItem()
         {
-            GameManager.player.inventory.RemoveItemData(InventoryUI.Instance.choiceSlot.slot.item);
+            GameManager.instance.player.inventory.RemoveItemData(InventoryUI.Instance.choiceSlot.slot.item);
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }

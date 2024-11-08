@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.RefactoringManagerSystem;
 using Ciart.Pagomoa.Utilities;
 using UnityEngine;
 

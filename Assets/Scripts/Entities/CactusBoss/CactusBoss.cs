@@ -20,7 +20,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         [HideInInspector]
         [NonSerialized]
-        public Rigidbody2D rigidbody;
+        public Rigidbody2D rigid;
 
         [HideInInspector]
         [NonSerialized]
@@ -30,14 +30,14 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         private float _nextAttack;
 
-        public bool CheckPlayerInRange() => Vector3.Distance(GameManager.player.transform.position, transform.position) <= attackRange;
+        public bool CheckPlayerInRange() => Vector3.Distance(GameManager.instance.player.transform.position, transform.position) <= attackRange;
 
         public bool CheckAttackAble() => Time.time > _nextAttack;
 
         private void Awake()
         {
             controller = GetComponent<EntityController>();
-            rigidbody = GetComponent<Rigidbody2D>();
+            rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
         }
@@ -55,9 +55,10 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         private void OnSpawnArm()
         {
-            var player = GameManager.player;
+            var player = GameManager.instance.player;
             var spawnPosition = new Vector2(player.transform.position.x, 0);
-
+            
+            EntityController entity = Instantiate(armOrigin.prefab, spawnPosition, Quaternion.identity);
             var arm = EntityManager.instance.Spawn(armOrigin, spawnPosition);
             arm.parent = controller;
         }

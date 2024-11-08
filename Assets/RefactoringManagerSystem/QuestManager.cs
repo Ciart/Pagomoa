@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Systems.Dialogue;
 using Logger;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Logger
+namespace Ciart.Pagomoa.RefactoringManagerSystem
 {
-    [Serializable]
-    [RequireComponent(typeof(QuestDatabase))]
-    public class QuestManager : SingletonMonoBehaviour<QuestManager>
+    
+    public class QuestManager : PManager<QuestManager>
     {
-        [Header("수행중인 퀘스트")]
         public List<Quest> quests = new List<Quest>();
         
         public QuestDatabase database;
 
-        private void Start()
+        public override void Awake()
         {
-            database ??= GetComponent<QuestDatabase>();
+            database = DataBase.data.GetQuestData();
         }
-        
+
         public void RegistrationQuest(Sprite npcSprite, EntityOrigin origin, string id)
         {
-            var targetQuests = database.GetEntityQuestsByEntityID(origin);
+            var targetQuests = database.GetEntityQuestsByEntity(origin);
             
             foreach (var quest in targetQuests)
             {

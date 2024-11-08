@@ -14,10 +14,12 @@ namespace Ciart.Pagomoa.Entities.Monsters
         void Start()
         {
             _nightSpawner = FindObjectOfType<NightMonsterSpawner>().GetComponent<NightMonsterSpawner>();
-            _timeManager = FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
+            
+            //ToDo 수정 or 제거
+            /*_timeManager = FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
         
             _timeManager.MonsterSleep.AddListener(SleepTime);
-            _timeManager.MonsterWakeUp.AddListener(AwakeTime);
+            _timeManager.MonsterWakeUp.AddListener(AwakeTime);*/
         }
         void FixedUpdate()
         {

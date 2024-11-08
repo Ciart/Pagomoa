@@ -177,7 +177,7 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
   parent: {fileID: 0}
-  isEnemy: 0
+  isDead: 0
 --- !u!114 &377619212974230273
 MonoBehaviour:
   m_ObjectHideFlags: 0

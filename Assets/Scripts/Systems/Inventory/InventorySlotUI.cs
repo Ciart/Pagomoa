@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Entities.Players;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,13 +18,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             InventoryUI.Instance.choiceSlot = this;
             var inventory = InventoryUI.Instance;
+            var player = GameManager.instance.player;
 
-            if (GameManager.player.inventory.items[inventory.choiceSlot.id].item == null)
+            if (player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
             
-            GameManager.player.inventory.Add(GameManager.player.inventory.items[inventory.choiceSlot.id].item, 0);
+            player.inventory.Add(player.inventory.items[inventory.choiceSlot.id].item, 0);
             InventoryUI.Instance.UpdateSlots();
-            GameManager.player.inventory.RemoveArtifactData(GameManager.player.inventory.items[inventory.choiceSlot.id].item);
+            player.inventory.RemoveArtifactData(player.inventory.items[inventory.choiceSlot.id].item);
             InventoryUI.Instance.SetArtifactSlots();
         }
         public void SetItem(InventorySlot item)
@@ -51,7 +53,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnDrop(PointerEventData eventData)
         {
-            GameManager.player.inventory.SwapSlot(id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
+            var player = GameManager.instance.player;
+            
+            player.inventory.SwapSlot(id, eventData.pointerPress.GetComponent<InventorySlotUI>().id);
             Swap(ref slot, ref eventData.pointerPress.GetComponent<InventorySlotUI>().slot);
         }
 
