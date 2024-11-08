@@ -192,15 +192,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             switch (item.type)
             {
-                case Item.ItemType.Use:
+                case ItemType.Use:
                     if (player.inventory.GetItemCount(item) != 0)
                     {
                         DecreaseItemCount(item);
-                        item.Active(player.GetComponent<PlayerStatus>());
+                        ResourceManager.instance.UseItem(item);
                     }
                     break;
-                case Item.ItemType.Inherent:
-                    item.Active(player.GetComponent<PlayerStatus>());
+                case ItemType.Inherent:
+                    ResourceManager.instance.UseItem(item);
                     break;
                 default:
                     return;

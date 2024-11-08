@@ -1,7 +1,9 @@
 ﻿using System;
+using MemoryPack;
 
 namespace Ciart.Pagomoa.Worlds
 {
+    [MemoryPackable]
     public struct ChunkCoords
     {
         public int x;

@@ -219,7 +219,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void BuyPlus()
         {
             InventorySlot item = Buy.Instance.chosenBuySlot.slot;
-            if (item.item.itemType == Item.ItemType.Use)
+            if (item.item.type == ItemType.Use)
             {
                 countUINum++;
                 ShopChat.Instance.TotalPriceToChat(countUINum * item.item.price);
@@ -251,9 +251,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void BuySlots()
         {
             var Shop = chosenBuySlot.slot;
-            if (Shop.item.itemType == Item.ItemType.Use)
+            if (Shop.item.type == ItemType.Use)
             {
-                if (GameManager.instance.player.inventory.Gold >= Shop.item.itemPrice * countUINum && countUINum > 0)
+                if (GameManager.instance.player.inventory.Gold >= Shop.item.price * countUINum && countUINum > 0)
                 {
                     GameManager.instance.player.inventory.Add(Shop.item, countUINum);
                     AuctionDB.Instance.Remove(Shop.item);
@@ -270,7 +270,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             else if (Shop.item.type == ItemType.Equipment || Shop.item.type == ItemType.Inherent)
             {
-                if (GameManager.instance.player.inventory.Gold >= Shop.item.itemPrice && Shop.count == countUINum)
+                if (GameManager.instance.player.inventory.Gold >= Shop.item.price && Shop.count == countUINum)
                 {
                     GameManager.instance.player.inventory.Add(Shop.item, 0);
                     AuctionDB.Instance.Remove(Shop.item);

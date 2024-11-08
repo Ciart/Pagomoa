@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
         {
             var subCommand = args[0].String;
 
-            var inventory = GameManager.player.inventory;
+            var inventory = GameManager.instance.player.inventory;
             
             if (Terminal.IssuedError) return;
             

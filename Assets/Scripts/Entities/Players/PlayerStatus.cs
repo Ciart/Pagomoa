@@ -148,10 +148,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             var inventory = GameManager.instance.player.inventory;
             inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
-                
-            var timeManager = TimeManager.instance;
-            timeManager.Sleep();
-
+            
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
             

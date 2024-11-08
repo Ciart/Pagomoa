@@ -29,11 +29,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (data.type == ItemType.Use)
                 for (int i = 0; i < Buy.Instance.countUINum; i++)
                 {
-                    gameManager.player.inventory.Gold -= data.itemPrice;
+                    gameManager.player.inventory.Gold -= data.price;
                 }
             else if (data.type == ItemType.Equipment)
             {
-                gameManager.player.inventory.Gold -= data.itemPrice;
+                gameManager.player.inventory.Gold -= data.price;
                 acutionItem.count -= 1;
             }
             ShopUIManager.Instance.gold[0].text = gameManager.player.inventory.Gold.ToString();

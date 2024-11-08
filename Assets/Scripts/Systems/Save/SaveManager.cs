@@ -10,10 +10,9 @@ using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
-    public class SaveManager : MonoBehaviour
+    public class SaveManager : PManager<SaveManager>
     {
         static private GameObject container;
-        static private SaveManager instance;
 
         public float loadPositionDelayTime = 1.5f;
         public bool LoadComplete = false;
@@ -22,32 +21,11 @@ namespace Ciart.Pagomoa.Systems.Save
 
         private WorldGenerator _worldGenerator;
 
-        public static SaveManager Instance
-        {
-            get
-            {
-                if (!instance)
-                {
-                    container = new GameObject();
-                    container.name = "Save Manager";
-                    instance = container.AddComponent(typeof(SaveManager)) as SaveManager;
-                    DontDestroyOnLoad(container);
-                }
-                return instance;
-            }
-        }
         List<GameObject> ManagingTargets = new List<GameObject>();
 
         private void Awake()
         {
             if (SceneManager.GetActiveScene().name == "Title") return;
-
-            if (!container)
-            {
-                container = gameObject;
-                instance = this;
-                DontDestroyOnLoad(container);
-            }
 
             //DataManager.Instance.LoadGameData();
 
@@ -98,7 +76,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void TagPosition(float time = 0)
         {
-            Invoke("_TagPosition", time);
+            // Invoke("_TagPosition", time);
         }
 
         private void _TagPosition()
@@ -113,7 +91,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void LoadPosition()
         {
-            Invoke("_LoadPosition", loadPositionDelayTime);
+            // Invoke("_LoadPosition", loadPositionDelayTime);
         }
 
         private void _LoadPosition()

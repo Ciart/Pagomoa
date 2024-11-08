@@ -35,12 +35,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (_item?.sprite is null)
             {
-                sprite.sprite = transparentImage;
+                itemImage.sprite = transparentImage;
                 itemCount.text = "";
                 return;
             }
 
-            itemImage.sprite = _item.itemImage;
+            itemImage.sprite = _item.sprite;
             itemCount.text =  _gameManager.player.inventory.GetItemCount(_item).ToString();
         }
 
