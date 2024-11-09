@@ -146,10 +146,11 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Die()
         {
-            var inventory = GameManager.player.inventory;
+            var inventory = GameManager.instance.player.inventory;
             inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
-
-            TimeManager.instance.Sleep();
+                
+            var timeManager = TimeManager.instance;
+            timeManager.Sleep();
 
             LoseMoney(0.1f);
             LoseItem(Item.ItemType.Mineral, 0.5f);
@@ -160,24 +161,24 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Respawn()
         {
-            GameManager.player.transform.position =
-                GameManager.instance.transform.Find("PlayerSpawnPoint").transform.position;
+            GameManager.instance.player.transform.position = FindObjectOfType<SpawnPoint>().transform.position;
+            
             oxygen = maxOxygen;
             isDie = false;
         }
 
         private void LoseMoney(float percentage)
         {
-            var inventoryDatabase = GameManager.player.inventory;
-            inventoryDatabase.Gold = (int)(inventoryDatabase.Gold * (1 - percentage));
+            var inventory = GameManager.instance.player.inventory;
+            inventory.Gold = (int)(inventory.Gold * (1 - percentage));
         }
 
         private void LoseItem(Item.ItemType itemType, float probabilty)
         {
-            var inventoryDatabase =GameManager.player.inventory;
+            var inventory = GameManager.instance.player.inventory;
 
             List<InventorySlot> deleteItems = new List<InventorySlot>();
-            foreach (InventorySlot item in inventoryDatabase.items)
+            foreach (InventorySlot item in inventory.items)
             {
                 if (item.item == null) continue;
 
@@ -204,13 +205,15 @@ namespace Ciart.Pagomoa.Entities.Players
 
             var count = deleteItems.Count;
             for (int i = 0; i < count; i++)
-                inventoryDatabase.RemoveItemData(deleteItems[i].item);
+                inventory.RemoveItemData(deleteItems[i].item);
         }
 
         private void NextDay()
         {
-            TimeManager.instance.SetTime(6, 0);
-            TimeManager.instance.AddDay(1);
+            var timeManager = TimeManager.instance;
+            
+            timeManager.SetTime(6, 0);
+            timeManager.AddDay(1);
         }
 
         private void FixedUpdate()

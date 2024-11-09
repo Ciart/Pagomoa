@@ -1,25 +1,24 @@
 ﻿using System;
-using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Sounds
 {
-    public class SoundManager : SingletonMonoBehaviour<SoundManager>
+    public class SoundManager : PManager<SoundManager>
     {
         public AudioSource musicSource;
-        public AudioSource[] sfxSources;
         
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
         
-        private void Start()
+        public override void Start()
         {
+            instance.musicSource = DataBase.data.GetAudioSource();
             PlayMusic("WorldMusic");
         }
         
-        private void Update() // BGM Loop 시점 감지
+        public override void Update() // BGM Loop 시점 감지
         {
             if (musicSource.timeSamples >= _loopEndSamples)
             {
@@ -110,7 +109,7 @@ namespace Ciart.Pagomoa.Sounds
         }
         public AudioSource FindAudioSource(string audioSourceName)
         {
-            AudioSource sfxSource = Array.Find(sfxSources, source => source.gameObject.name == $"{audioSourceName}");
+            AudioSource sfxSource = Array.Find(DataBase.data.GetSfxSources(), source => source.gameObject.name == $"{audioSourceName}");
             return sfxSource;
         }
         private MusicBundle FindMusicBundle(string bundleName)

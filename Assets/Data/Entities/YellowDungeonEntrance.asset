@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uAD00\uBB38 1"
   description: 
-  type: 0
+  type: 2
   subType: 0
   isEnemy: 0
   isInvincible: 1

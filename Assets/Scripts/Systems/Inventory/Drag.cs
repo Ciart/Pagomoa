@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,12 +11,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
+            PlayerController player = GameManager.instance.player;
 
             if (slot != null)
             {
-                item = GameManager.player.inventory.items[slot.id];
-                if(GameManager.player.inventory.items[slot.id].item != null )
-                    DragItem.Instance.DragSetImage(GameManager.player.inventory.items[slot.id].item.itemImage);
+                item = player.inventory.items[slot.id];
+                if(player.inventory.items[slot.id].item != null )
+                    DragItem.Instance.DragSetImage(player.inventory.items[slot.id].item.itemImage);
             }
             DragItem.Instance.transform.position = newPosition;
         }

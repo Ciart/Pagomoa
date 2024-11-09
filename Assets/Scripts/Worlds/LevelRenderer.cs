@@ -17,6 +17,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public Tilemap groundTilemap;
 
+        [Tooltip("땅 파괴 애니메이션을 표현하는 타일맵입니다.")]
         public Tilemap groundOverlayTilemap;
 
         public Tilemap mineralTilemap;
@@ -77,16 +78,18 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
+            var entityManager = EntityManager.instance;
+            
             var world = WorldManager.world;
             var chunk = world.currentLevel.GetChunk(coords) ?? new Chunk(coords);
 
-            foreach (var entityController in EntityManager.instance.FindAllEntityInChunk(chunk))
+            foreach (var entityController in entityManager.FindAllEntityInChunk(chunk))
             {
                 var position = entityController.transform.position;
 
                 world.currentLevel.AddEntity(position.x, position.y, entityController.origin);
 
-                EntityManager.instance.Despawn(entityController);
+                entityManager.Despawn(entityController);
             }
 
             if (_minimapRenderers.TryGetValue(coords, out var value))
@@ -172,8 +175,7 @@ namespace Ciart.Pagomoa.Worlds
                     fogTilemap.SetTile(position, fogMap[i, j] ? null : fogTile);
                     overlayTilemap.SetTile(position,
                         brick.mineral && !fogMap[i, j]
-                            ? WorldManager
-                                .instance.database.glitterTile
+                            ? WorldManager.instance.database.glitterTile
                             : null);
 
                     texture.SetPixel(i, j, brick.ground ? brick.ground.color : Color.clear);
@@ -230,7 +232,6 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            
             RenderLevel();
             SpawnEntities();
         }
@@ -238,7 +239,6 @@ namespace Ciart.Pagomoa.Worlds
         private void OnDisable()
         {
             EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
-
             DespawnEntities();
         }
 
@@ -246,11 +246,13 @@ namespace Ciart.Pagomoa.Worlds
         {
             // RenderWorld();
 
+            var worldManager = WorldManager.instance;
+            
             groundOverlayTilemap.ClearAllTiles();
 
-            var brokenTiles = WorldManager.instance.database.brokenEffectTiles;
+            var brokenTiles = worldManager.database.brokenEffectTiles;
 
-            foreach (var (key, value) in WorldManager.instance.brickDamage)
+            foreach (var (key, value) in worldManager.brickDamage)
             {
                 var position = new Vector3Int(key.x, key.y, 0);
                 var brokenStep = Mathf.FloorToInt((1 - value.health / value.maxHealth) * (brokenTiles.Length - 1));
@@ -275,7 +277,7 @@ namespace Ciart.Pagomoa.Worlds
             Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
         }
 
-        private void RenderLevel()
+        public void RenderLevel()
         {
             if (level is null)
             {
@@ -322,12 +324,14 @@ namespace Ciart.Pagomoa.Worlds
         
         private List<EntityController> _entities = new();
 
-        private void SpawnEntities()
+        public void SpawnEntities()
         {
             if (level is null)
             {
                 return;
             }
+
+            var entityManager = EntityManager.instance;
             
             foreach (var entityData in level.entityDataList)
             {
@@ -338,18 +342,19 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     continue;
                 }
-
-                _entities.Add(EntityManager.instance.Spawn(entityData.origin, position));
+                
+                _entities.Add(entityManager.Spawn(entityData.origin, position));
             }
         }
         
-        private void DespawnEntities()
+        public void DespawnEntities()
         {
             if (level is null)
             {
                 return;
             }
             
+            var entityManager = EntityManager.instance;
             var dataList = new List<EntityData>();
             
             foreach (var entityController in _entities)
@@ -362,7 +367,7 @@ namespace Ciart.Pagomoa.Worlds
                 var data = entityController.GetEntityData();
                 dataList.Add(data);
                 
-                EntityManager.instance.Despawn(entityController);
+                entityManager.Despawn(entityController);
             }
             
             level.entityDataList = dataList;

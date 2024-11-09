@@ -1,6 +1,6 @@
--> CollectMineral_Complete
+-> Tutorial_1_RestoreTent_Complete
 
-=== CollectMineral_Complete
+=== Tutorial_1_RestoreTent_Complete
 #talker 농
 #sprite noungNounsense1
 #UIMode Out
