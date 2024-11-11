@@ -4212,6 +4212,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &724909060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4478846320521862820, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+  m_PrefabInstance: {fileID: 1878383777}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &724909061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8007347994331867935, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+  m_PrefabInstance: {fileID: 1878383777}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724909060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5aaa7558fea1841b0bfdcfdc96de55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786962764
 GameObject:
   m_ObjectHideFlags: 0
@@ -9531,6 +9547,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopkeeperAppear
       objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 724909061}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 724909060}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartCutSceneDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ciart.Pagomoa.Timelines.CutScene, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524561347714108053, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.TextAsset, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007347994331867935, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+      propertyPath: dialogues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9120939151518682894, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.505001
@@ -11420,7 +11476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 258473762284986154, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4819708299386157571, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
       propertyPath: chatBalloonPrefab
@@ -12364,7 +12420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409387768824757805, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8214977256597185486, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12527,7 +12583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1651167646812918115, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5043971153019923530, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
       propertyPath: m_LocalPosition.x

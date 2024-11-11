@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
@@ -8,9 +7,6 @@ using Ciart.Pagomoa.Timelines;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -28,7 +24,6 @@ namespace Ciart.Pagomoa
         [SerializeField] private float fadeDelay; 
         
         // UIManager에 스킵 UI 생성
-        
         
         // Fadeout 이후 director Play
         // 카메라 초기 위치 설정

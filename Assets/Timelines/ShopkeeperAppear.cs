@@ -23,13 +23,6 @@ namespace Ciart.Pagomoa
         public GameObject instanceShopkeeper;
         public GameObject instanceMoa;
 
-        private SignalReceiver _signalReceiver;
-        
-        void Start()
-        {
-            _signalReceiver = GetComponent<SignalReceiver>();
-        }
-
         public override void SetInstanceCharacter()
         {
             instancePago.transform.position = new Vector2(-1, 0);
