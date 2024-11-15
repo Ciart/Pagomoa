@@ -46,7 +46,7 @@ namespace Ciart.Pagomoa.Systems.Save
             }
             else
             {
-                SaveManager.instance.InitData();
+                OldSaveManager.instance.InitData();
                 return false;
             }
         }

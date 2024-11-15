@@ -33,7 +33,7 @@ namespace Ciart.Pagomoa.Systems
 
         public override void Start()
         {
-            var saveManager = SaveManager.instance;
+            var saveManager = OldSaveManager.instance;
             bool mapLoad = saveManager.LoadMap();
             if (mapLoad)
             {

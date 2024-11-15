@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
-    public class SaveManager : PManager<SaveManager>
+    public class OldSaveManager : PManager<OldSaveManager>
     {
         static private GameObject container;
 
@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         List<GameObject> ManagingTargets = new List<GameObject>();
 
-        private void Awake()
+        public override void Awake()
         {
             if (SceneManager.GetActiveScene().name == "Title") return;
 
@@ -76,6 +76,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void TagPosition(float time = 0)
         {
+            
             // Invoke("_TagPosition", time);
         }
 

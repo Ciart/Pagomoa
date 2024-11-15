@@ -34,6 +34,9 @@ public class PManager<T> : IPManager where T : PManager<T>
                     case NameOfStart:
                         game.start += action;
                         break;
+                    case NameOfQuit:
+                        game.quit += action;
+                        break;
                     case NameOfPreUpdate:
                         game.preUpdate += action;
                         break;
@@ -58,6 +61,7 @@ public class PManager<T> : IPManager where T : PManager<T>
     }
     public virtual void Awake() { }
     public virtual void Start() { }
+    public virtual void Quit() { }
     public virtual void PreUpdate() { }
     public virtual void Update() { }
     public virtual void PreFixedUpdate () { }
@@ -68,6 +72,7 @@ public class PManager<T> : IPManager where T : PManager<T>
     
     private const string NameOfAwake = "Awake";
     private const string NameOfStart = "Start";
+    private const string NameOfQuit = "Quit";
     private const string NameOfPreUpdate = "PreUpdate";
     private const string NameOfUpdate = "Update";
     private const string NameOfPreFixedUpdate = "PreFixedUpdate";

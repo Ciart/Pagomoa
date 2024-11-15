@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
 
     public Action awake;
     public Action start;
+    public Action quit;
     public Action preUpdate;
     public Action update;
     public Action preFixedUpdate;
@@ -93,5 +94,10 @@ public class Game : MonoBehaviour
         preLateUpdate?.Invoke();
         
         lateUpdate?.Invoke();
+    }
+
+    private void OnApplicationQuit()
+    {
+        quit?.Invoke();
     }
 }
