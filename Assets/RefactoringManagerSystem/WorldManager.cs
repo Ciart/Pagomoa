@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.RefactoringManagerSystem;
+using Ciart.Pagomoa.Systems.Save;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,9 +13,9 @@ namespace Ciart.Pagomoa.Worlds
     public class WorldManager : PManager<WorldManager>
     {
         public WorldDatabase database;
-        
+
         public WorldGenerator worldGenerator;
-        
+
         public ItemEntity itemEntity;
 
         private World _world;
@@ -35,6 +36,28 @@ namespace Ciart.Pagomoa.Worlds
         }
 
         private HashSet<Chunk> _expiredChunks = new();
+        
+        public void OnDataSaveEvent(DataSaveEvent e)
+        {
+            e.saveData.world = world.CreateSaveData();
+        }
+
+        public void OnDataLoadedEvent(DataLoadedEvent e)
+        {
+            world = new World(e.saveData.world);
+        }
+
+        public override void Awake()
+        {
+            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
+        }
+
+        public override void OnDestroy()
+        {
+            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
+        }
 
         public override void Start()
         {
@@ -192,7 +215,7 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             var prevBrick = (Brick)brick.Clone();
-            
+
             brick.ground = null;
             brick.mineral = null;
 
@@ -249,11 +272,12 @@ namespace Ciart.Pagomoa.Worlds
 
             return targetGroundBrick.ground;
         }
-        
-        public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY, int searchRange, int minSearchRange = 0)
+
+        public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY, int searchRange,
+            int minSearchRange = 0)
         {
             var closeBricks = new List<Vector2Int>();
-            
+
             var searchCount = 0;
 
             var x = Mathf.FloorToInt(basePosX);
@@ -266,12 +290,12 @@ namespace Ciart.Pagomoa.Worlds
             var xMinusCount = -2 - 2 * minSearchRange;
             var yPlusCount = 2 + 2 * minSearchRange;
             var yMinusCount = -2 - 2 * minSearchRange;
-            
+
             var startPos = intPos + initVector * minSearchRange;
 
             while (searchCount < searchRange - minSearchRange)
             {
-                startPos += initVector ;
+                startPos += initVector;
 
                 var targetVector = startPos;
 
@@ -307,7 +331,7 @@ namespace Ciart.Pagomoa.Worlds
                         closeBricks.Add(targetBrick);
                     }
                 }
-                
+
                 for (int yp = 0; yp < yPlusCount; yp++)
                 {
                     targetVector += new Vector2Int(0, 1);
@@ -318,42 +342,43 @@ namespace Ciart.Pagomoa.Worlds
                         closeBricks.Add(targetBrick);
                     }
                 }
-                
+
                 if (closeBricks.Count > 0)
                 {
                     var targetPos = new Vector2(basePosX, basePosY);
-                    var distances = new Dictionary<float, Vector2Int>(); 
-                    
+                    var distances = new Dictionary<float, Vector2Int>();
+
                     foreach (var vector in closeBricks)
                     {
                         var distance = Vector2.Distance(targetPos, vector);
                         distances.Add(distance, vector);
                     }
-                    
+
                     var minDistance = distances.Keys.Min();
 
                     return distances[minDistance];
                 }
 
                 searchCount++;
-                
+
                 xPlusCount += 2;
                 xMinusCount -= 2;
                 yPlusCount += 2;
                 yMinusCount -= 2;
             }
-            
+
             // 주변에 가까운 블럭이 없으면 매개변수를 다시 반환
             return new Vector2Int((int)basePosX, (int)basePosY);
         }
-        
-        public List<Vector2Int> GetAboveEmptyGroundVectors(int basePosX, int basePosY, int searchRange, int minSearchRange = 0)
+
+        public List<Vector2Int> GetAboveEmptyGroundVectors(int basePosX, int basePosY, int searchRange,
+            int minSearchRange = 0)
         {
             var onGroundList = new List<Vector2Int>();
 
             var xRange = 0;
             var yRange = 0;
-            
+
             xRange = basePosX + searchRange;
             yRange = basePosY - searchRange;
 
@@ -363,22 +388,22 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     if (x <= basePosX + minSearchRange && y >= basePosY - minSearchRange) continue;
                     if (!IsBrickAboveGround(x, y)) continue;
-                    
+
                     var targetIntPos = new Vector2Int(x, y);
                     onGroundList.Add(targetIntPos);
                 }
             }
-            
+
             xRange = basePosX - searchRange;
             yRange = basePosY + searchRange;
-            
+
             for (var x = basePosX - 1; x > xRange; x--)
             {
                 for (var y = basePosY; y < yRange; y++)
                 {
                     if (x >= basePosX - minSearchRange && y <= basePosY + minSearchRange) continue;
                     if (!IsBrickAboveGround(x, y)) continue;
-                    
+
                     var targetIntPos = new Vector2Int(x, y);
                     onGroundList.Add(targetIntPos);
                 }
@@ -386,34 +411,34 @@ namespace Ciart.Pagomoa.Worlds
 
             xRange = basePosX + searchRange;
             yRange = basePosY + searchRange;
-            
+
             for (var y = basePosY + 1; y < yRange; y++)
             {
                 for (var x = basePosX; x < xRange; x++)
                 {
                     if (x <= basePosX + minSearchRange && y <= basePosY + minSearchRange) continue;
                     if (!IsBrickAboveGround(x, y)) continue;
-                    
+
                     var targetIntPos = new Vector2Int(x, y);
                     onGroundList.Add(targetIntPos);
                 }
             }
-            
+
             xRange = basePosX - searchRange;
             yRange = basePosY - searchRange;
-            
+
             for (var y = basePosY - 1; y > yRange; y--)
             {
                 for (var x = basePosX; x > xRange; x--)
                 {
                     if (x >= basePosX - minSearchRange && y >= basePosY - minSearchRange) continue;
                     if (!IsBrickAboveGround(x, y)) continue;
-                    
+
                     var targetIntPos = new Vector2Int(x, y);
                     onGroundList.Add(targetIntPos);
                 }
             }
-            
+
             return onGroundList;
         }
 

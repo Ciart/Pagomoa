@@ -63,7 +63,7 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             var saveData = new SaveData()
             {
-                worldSaveData = new WorldSaveData()
+                world = new WorldSaveData()
                 {
                     
                 }

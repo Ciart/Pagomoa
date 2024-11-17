@@ -44,18 +44,28 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
 
-        public Level(LevelData levelData)
+        public Level(LevelSaveData saveData)
         {
-            top = levelData.top;
-            bottom = levelData.bottom;
-            left = levelData.left;
-            right = levelData.right;
+            top = saveData.top;
+            bottom = saveData.bottom;
+            left = saveData.left;
+            right = saveData.right;
 
             // entityDataList = levelData.entityDataList;
             
             entityDataList = new List<EntityData>();
+            
+            _chunks = new Dictionary<ChunkCoords, Chunk>();
 
-            _chunks = ListDictionaryConverter.ToDictionary(levelData._chunks);
+            foreach (var chunkData in saveData.chunks)
+            {
+                _chunks.Add(chunkData.coords, new Chunk(chunkData));
+            }
+        }
+        
+        public LevelSaveData CreateSaveData()
+        {
+            return new LevelSaveData();
         }
 
         public Chunk GetChunk(ChunkCoords coords)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +28,26 @@ namespace Ciart.Pagomoa.Worlds
                 for (var j = 0; j < Size; j++)
                 {
                     bricks[i + j * Size] = new Brick();
+                }
+            }
+        }
+
+        public Chunk(ChunkSaveData saveData)
+        {
+            coords = saveData.coords;
+            bricks = new Brick[Size * Size];
+            worldRect = new Rect(coords.x * Size, coords.y * Size, Size, Size);
+
+            for (var i = 0; i < Size; i++)
+            {
+                for (var j = 0; j < Size; j++)
+                {
+                    var index = i + j * Size;
+                    
+                    bricks[i + j * Size] = new Brick()
+                    {
+                        wall = saveData.walls[index],
+                    };
                 }
             }
         }

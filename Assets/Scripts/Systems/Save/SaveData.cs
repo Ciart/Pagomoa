@@ -5,19 +5,19 @@ using MemoryPack;
 namespace Ciart.Pagomoa.Systems.Save
 {
     [MemoryPackable]
-    public partial record SaveData
+    public partial class SaveData
     {
-        public WorldSaveData worldSaveData;
+        public WorldSaveData world;
     }
 
     [MemoryPackable]
-    public partial record WorldSaveData
+    public partial class WorldSaveData
     {
         public LevelSaveData[] levels;
     }
 
     [MemoryPackable]
-    public partial record LevelSaveData
+    public partial class LevelSaveData
     {
         public string id;
         
@@ -31,13 +31,23 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public int right;
         
-        // public List<EntityData> entityDataList;
+        public EntitySaveData[] entities;
         
         public ChunkSaveData[] chunks;
     }
+    
+    [MemoryPackable]
+    public partial class EntitySaveData
+    {
+        public string id;
+
+        public int x;
+        
+        public int y;
+    }
 
     [MemoryPackable]
-    public partial record ChunkSaveData
+    public partial class ChunkSaveData
     {
         public ChunkCoords coords;
 
