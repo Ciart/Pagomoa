@@ -30,8 +30,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 206f7c13e238042159da1b6852c67b66, type: 2}
   - {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
   - {fileID: 11400000, guid: aa131d5f5546741efac36639927c9410, type: 2}
-  - {fileID: 11400000, guid: aa131d5f5546741efac36639927c9410, type: 2}
-  - {fileID: 11400000, guid: cea96b79b11de15428e08581d0e028bc, type: 2}
   pieces:
   - name: "\uB178\uB791 \uB358\uC804 \uC785\uAD6C"
     appearanceArea: 0

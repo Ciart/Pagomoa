@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
+  m_Name: Tutorial 1
+  m_EditorClassIdentifier: 
+  id: tutorial_1
+  prevQuestIds: []
+  title: "\uBAA8\uC544\uB294 \uBC30\uACE0\uD30C"
+  description: "\uBAA8\uC544\uB294 \uBA3C \uAE38\uC744 \uC624\uB290\uB77C \uB9E4\uC6B0
+    \uBC30\uACE0\uD508 \uC0C1\uD0DC\uB2E4. \uBB54\uAC00 \uBA39\uC744 \uAC83\uC744
+    \uC8FC\uC790. \uADFC\uB370... \uBC18\uC9DD\uBC18\uC9DD \uAC70\uB9AC\uB294 \uAC8C
+    \uBB50\uC9C0?  "
+  startPrologue: {fileID: 4900000, guid: cb527a5d8cc8e024e8ba5f4b5ce77fcc, type: 3}
+  completePrologue: {fileID: 4900000, guid: 8988b43cc3ba08d408868b937ceda7e7, type: 3}
+  reward:
+    gold: 101
+    targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
+    targetEntitySprite: {fileID: 402394799, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    value: 1
+  questList:
+  - questType: 0
+    summary: "\uBAA8\uC544\uAC00 \uBA39\uC744\uB9CC\uD55C \uAC83\uC744 \uCC3E\uC544\uBCF4\uC790."
+    value: 5
+    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    conditionType:
+      target: 1
+      typeValue: int
+  prevQuestData: []

@@ -20,11 +20,11 @@ namespace Ciart.Pagomoa.Systems
         private const string Outline = "_OutlineColor";
         private static readonly int OutlineColor = Shader.PropertyToID(Outline);
     
-        private void Awake()
+        private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
 
-            _interactableUI = UIManager.CreateInteractableUI(transform);
+            _interactableUI = UIManager.instance.CreateInteractableUI(transform);
             _interactableUI.SetActive(false);
             _interactableUI.transform.position += uiOffset;
         }

@@ -12,9 +12,9 @@ namespace Ciart.Pagomoa
     {
         public void SellCheck()
         {
-            Buy.Instance.choosenSellSlot = this;
+            Buy.Instance.chosenSellSlot = this;
 
-            var Inventory = Buy.Instance.choosenSellSlot.slot.item;
+            var Inventory = Buy.Instance.chosenSellSlot.slot.item;
             if (Inventory == null)
                 return;
 
@@ -28,16 +28,18 @@ namespace Ciart.Pagomoa
 
         public void ClickSlot()
         {
+            var inventory = GameManager.instance.player.inventory;
+            
             for (int i = 0; i < Buy.Instance.countUINum; i++)
             {
-                if (Buy.Instance.choosenSellSlot.slot.count > 1)
+                if (Buy.Instance.chosenSellSlot.slot.count > 1)
                 {
-                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.slot.item);
+                    inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                else if (Buy.Instance.choosenSellSlot.slot.count == 1)
+                else if (Buy.Instance.chosenSellSlot.slot.count == 1)
                 {
-                    GameManager.player.inventory.SellItem(Buy.Instance.choosenSellSlot.slot.item);
+                    inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 Buy.Instance.DeleteSellUISlot();

@@ -13,8 +13,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public TextMeshProUGUI itemPrice;
         public void BuyCheck()
         {
-            Buy.Instance.choosenBuySlot = this;
-            var Shop = Buy.Instance.choosenBuySlot.slot.item;
+            Buy.Instance.chosenBuySlot = this;
+            var Shop = Buy.Instance.chosenBuySlot.slot.item;
             Buy.Instance.OnCountUI(this.gameObject);
             ShopChat.Instance.BuyPriceToChat(Shop.itemPrice);
         }

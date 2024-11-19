@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
   m_Name: Restore Tent 1
   m_EditorClassIdentifier: 
-  questInCharge: {fileID: 0}
   id: tent_1
   prevQuestIds: []
   title: "\uD150\uD2B8 \uBCF5\uC6D0 \uC0AC\uC5C5"

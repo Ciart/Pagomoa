@@ -3,55 +3,58 @@ using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using UnityEngine;
 
-public class PlatformController : MonoBehaviour
+namespace Ciart.Pagomoa
 {
-    private EdgeCollider2D _collider;
-
-    private PlayerInput _playerInput;
-
-    private BoxCollider2D _playerCollider;
-
-    private float _enableTime = 0f;
-
-    private void OnPlayerSpawnedEvent(PlayerSpawnedEvent e)
+    public class PlatformController : MonoBehaviour
     {
-        _playerInput = e.player.GetComponent<PlayerInput>();
-        _playerCollider = e.player.GetComponent<BoxCollider2D>();
-    }
+        private CompositeCollider2D _collider;
 
-    private void Awake()
-    {
-        _collider = GetComponent<EdgeCollider2D>();
-    }
+        private PlayerInput _playerInput;
 
-    private void OnEnable()
-    {
-        EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
-    }
+        private BoxCollider2D _playerCollider;
 
-    private void OnDisable()
-    {
-        EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
-    }
+        private float _enableTime = 0f;
 
-    private void Update()
-    {
-        if (_playerInput && DirectionUtility.ToDirection(_playerInput.Move) == Direction.Down)
+        private void OnPlayerSpawnedEvent(PlayerSpawnedEvent e)
         {
-            _enableTime = 0.5f;
-        }
-        else
-        {
-            _enableTime -= Time.deltaTime;
+            _playerInput = e.player.GetComponent<PlayerInput>();
+            _playerCollider = e.player.GetComponent<BoxCollider2D>();
         }
 
-        if (_enableTime >= 0f)
+        private void Awake()
         {
-            Physics2D.IgnoreCollision(_playerCollider, _collider);
+            _collider = GetComponent<CompositeCollider2D>();
         }
-        else
+
+        private void OnEnable()
         {
-            Physics2D.IgnoreCollision(_playerCollider, _collider, false);
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
+        }
+
+        private void Update()
+        {
+            if (_playerInput && DirectionUtility.ToDirection(_playerInput.Move) == Direction.Down)
+            {
+                _enableTime = 0.5f;
+            }
+            else
+            {
+                _enableTime -= Time.deltaTime;
+            }
+
+            if (_enableTime >= 0f)
+            {
+                Physics2D.IgnoreCollision(_playerCollider, _collider);
+            }
+            else
+            {
+                Physics2D.IgnoreCollision(_playerCollider, _collider, false);
+            }
         }
     }
 }

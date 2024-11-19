@@ -18,11 +18,13 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public PlayerStatus initialStatus;
 
-        public float groundDistance = 1.125f;
+        public float groundDistance = 0.125f;
         
         public float sideWallDistance = 1.0625f;
         
-        [FormerlySerializedAs("inventoryDB")] public Inventory inventory;
+        public Inventory inventory;
+        
+        public DrillController drill;
 
         private Rigidbody2D _rigidbody;
         
@@ -30,23 +32,22 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private PlayerMovement _movement;
 
-        private DrillController _digger;
         
         private Camera _camera;
 
         private WorldManager _world;
 
         private Direction _direction;
-
+        
         private void Awake()
         {
             status = GetComponent<PlayerStatus>();
             initialStatus = status.copy();
-
+            drill = GetComponentInChildren<DrillController>();
+            
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
-            _digger = transform.GetChild(0).GetComponent<DrillController>();
             _camera = Camera.main;
             _world = WorldManager.instance;
         }
@@ -74,17 +75,17 @@ namespace Ciart.Pagomoa.Entities.Players
 
             if (_input.IsDig && state != PlayerState.Climb)
             {
-                _digger.isDig = true;
-                _digger.direction = _direction;
+                drill.isDig = true;
+                drill.direction = _direction;
             }
             else if (_input.DigDirection.magnitude > 0.001f)
             {
-                _digger.isDig = true;
-                _digger.direction = DirectionUtility.ToDirection(_input.DigDirection);
+                drill.isDig = true;
+                drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
             }
             else
             {
-                _digger.isDig = false;
+                drill.isDig = false;
             }
 
             TryJump();
@@ -95,6 +96,7 @@ namespace Ciart.Pagomoa.Entities.Players
         private void UpdateIsGrounded()
         {
             var position = transform.position;
+            position.y -= 1f; // TODO: 플레이어 영점 변경하면서 수정해야 함.
             var hit = Physics2D.Raycast(position, Vector2.down, groundDistance, LayerMask.GetMask("Platform"));
             Debug.DrawRay(position, Vector2.down * groundDistance, Color.green);
 

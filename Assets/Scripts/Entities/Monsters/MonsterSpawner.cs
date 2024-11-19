@@ -1,15 +1,14 @@
 using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Monsters
 {
     public class MonsterSpawner : MonoBehaviour
     {
-        [SerializeField] private float hp = 100f;
-    
         public int land;
 
-        [SerializeField] private GameObject[] _monsterType;
+        [SerializeField] private GameObject[] monsterType;
 
         private GameObject _oneByOneMonster;
     
@@ -21,10 +20,11 @@ namespace Ciart.Pagomoa.Entities.Monsters
         void Start()
         {
             _landMonster = land - 1;
-            _monsterPrefab = _monsterType[_landMonster];
+            _monsterPrefab = monsterType[_landMonster];
 
-            _timeManager = FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
-            _timeManager.NextDaySpawn.AddListener(SpawnMonster);
+            // ToDo 수정 or 삭제
+            /*_timeManager = FindObjectOfType<TimeManager>().GetComponent<TimeManager>();
+            _timeManager.NextDaySpawn.AddListener(SpawnMonster);*/
         }
 
         public void SpawnMonster()

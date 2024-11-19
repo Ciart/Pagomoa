@@ -187,19 +187,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
         // TODO: GameManager.player.GetComponent<PlayerStatus>() 없애야 합니다. Item.Active()에 왜 stat을 넣어야 하나요?
         public void UseQuickSlotItem(int index)
         {
+            var player = GameManager.instance.player;
             var item = _quickItems[index];
             
             switch (item.itemType)
             {
                 case Item.ItemType.Use:
-                    if (GameManager.player.inventory.GetItemCount(item) != 0)
+                    if (player.inventory.GetItemCount(item) != 0)
                     {
                         DecreaseItemCount(item);
-                        item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                        item.Active(player.GetComponent<PlayerStatus>());
                     }
                     break;
                 case Item.ItemType.Inherent:
-                    item.Active(GameManager.player.GetComponent<PlayerStatus>());
+                    item.Active(player.GetComponent<PlayerStatus>());
                     break;
                 default:
                     return;

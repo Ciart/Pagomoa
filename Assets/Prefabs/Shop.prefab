@@ -581,7 +581,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6547503550880790284}
-        m_TargetAssemblyTypeName: ShopUIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.ShopUIManager,
+          Assembly-CSharp
         m_MethodName: SetUI
         m_Mode: 1
         m_Arguments:
@@ -2487,7 +2488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d931ae9eb0216f545a9158321e24571c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 8368318970152401661}
@@ -2871,7 +2872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6475329a5e0d94b99a044fc9e9f99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 984292310726876367}
@@ -5245,7 +5246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458c48e6ff97e2f499d434bc3b9b0372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 8258485725080637097}

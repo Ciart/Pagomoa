@@ -64,7 +64,7 @@ namespace Ciart.Pagomoa.UI.Book
             private set;
         }
         
-        public void UpdateUI([CanBeNull] ProcessQuest quest)
+        public void UpdateUI([CanBeNull] Quest quest)
         {
             if (quest is null)
             {
