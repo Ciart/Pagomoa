@@ -4680,6 +4680,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825911376}
   m_CullTransparentMesh: 1
+--- !u!1 &830394421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 830394422}
+  - component: {fileID: 830394423}
+  m_Layer: 0
+  m_Name: CactusBossSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &830394422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830394421}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.4, y: 3.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 359751763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &830394423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830394421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a2ad41452348abb4baccdc61afacd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityOrigin: {fileID: 11400000, guid: cea96b79b11de15428e08581d0e028bc, type: 2}
 --- !u!1 &847928625
 GameObject:
   m_ObjectHideFlags: 0
@@ -7571,6 +7616,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7036410858450081891, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
       insertIndex: -1
       addedObject: {fileID: 701758799}
+    - targetCorrespondingSourceObject: {fileID: 7036410858450081891, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 830394422}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 044ae246d8df84a4f9b32fe2f21f7f77, type: 3}
 --- !u!1 &1481781972
