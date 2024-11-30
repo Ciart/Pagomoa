@@ -156,8 +156,9 @@ namespace Ciart.Pagomoa.Editor
                             // ,newQuestData.questList[i].targetEntity , typeof(Item), true);
                         break;
                     case QuestType.BreakBlock:
-                        newQuestData.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
-                            ,newQuestData.questList[i].targetEntity , typeof(Ground), true);
+                        // TODO: 브릭 호환 작업
+                        // newQuestData.questList[i].targetEntity = (Ground)EditorGUILayout.ObjectField($"타겟 엔티티 {newQuestData.questList[i].conditionType.target.ToString()}"
+                            // ,newQuestData.questList[i].targetEntity , typeof(Ground), true);
                         break;
                 }
                 

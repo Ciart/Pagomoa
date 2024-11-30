@@ -29,10 +29,10 @@ namespace Ciart.Pagomoa.Systems.Save
             EventManager.Notify(new DataLoadedEvent(data));
         }
 
-        public override void Awake()
-        {
-            Load();
-        }
+        // public override void Awake()
+        // {
+        //     Load();
+        // }
 
         public override void Quit()
         {

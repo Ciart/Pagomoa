@@ -101,17 +101,17 @@ namespace Ciart.Pagomoa.Editor
             {
                 case 1:
                     _selectWall = EditorGUILayout.Popup(_selectWall,
-                        _database.walls.Select(wall => wall.displayName ?? wall.name).ToArray(),
+                        _database.walls.Select(wall => wall.name ?? wall.name).ToArray(),
                         GUILayout.Width(width));
                     break;
                 case 2:
                     _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.displayName ?? ground.name).ToArray(),
+                        _database.grounds.Select(ground => ground.name ?? ground.name).ToArray(),
                         GUILayout.Width(width));
                     break;
                 case 3:
                     _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.displayName ?? mineral.name).ToArray(),
+                        _database.minerals.Select(mineral => mineral.name ?? mineral.name).ToArray(),
                         GUILayout.Width(width));
                     break;
                 case 4:
@@ -159,13 +159,13 @@ namespace Ciart.Pagomoa.Editor
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.wall = _database.walls[_selectWall];
+                                    brick.wallId = _database.walls[_selectWall].id;
                                     break;
                                 case 2:
-                                    brick.ground = _database.grounds[_selectGround];
+                                    brick.groundId = _database.grounds[_selectGround].id;
                                     break;
                                 case 3:
-                                    brick.mineral = _database.minerals[_selectMineral];
+                                    brick.mineralId = _database.minerals[_selectMineral].id;
                                     break;
                                 case 4:
                                     // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
@@ -184,13 +184,13 @@ namespace Ciart.Pagomoa.Editor
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.wall = null;
+                                    brick.wallId = null;
                                     break;
                                 case 2:
-                                    brick.ground = null;
+                                    brick.groundId = null;
                                     break;
                                 case 3:
-                                    brick.mineral = null;
+                                    brick.mineralId = null;
                                     break;
                             }
 
@@ -202,7 +202,7 @@ namespace Ciart.Pagomoa.Editor
                     if (_tabIndex == 1)
                     {
                         var wall = brick.wall;
-                        if (wall)
+                        if (wall != null)
                         {
                             GUI.DrawTextureWithTexCoords(rect, wall.sprite.texture, ComputeTexCoords(wall.sprite));
                         }
@@ -210,13 +210,13 @@ namespace Ciart.Pagomoa.Editor
                     else
                     {
                         var ground = brick.ground;
-                        if (ground)
+                        if (ground != null)
                         {
                             GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
                         }
 
                         var mineral = brick.mineral;
-                        if (mineral)
+                        if (mineral != null)
                         {
                             GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture,
                                 ComputeTexCoords(mineral.sprite));

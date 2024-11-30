@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
-    public class OldSaveManager : PManager<OldSaveManager>
+    public class OldSaveManager
     {
         static private GameObject container;
 
@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         List<GameObject> ManagingTargets = new List<GameObject>();
 
-        public override void Awake()
+        public void Awake()
         {
             if (SceneManager.GetActiveScene().name == "Title") return;
 

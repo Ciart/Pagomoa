@@ -10,7 +10,6 @@ namespace Ciart.Pagomoa.Worlds
     {
         public const int Size = 16;
         
-        // TODO: key 대신 다른 단어로 교체해야 함.
         [FormerlySerializedAs("key")] public ChunkCoords coords;
 
         public Brick[] bricks;
@@ -46,10 +45,42 @@ namespace Ciart.Pagomoa.Worlds
                     
                     bricks[i + j * Size] = new Brick()
                     {
-                        wall = saveData.walls[index],
+                        wallId = saveData.walls[index],
+                        groundId = saveData.grounds[index],
+                        mineralId = saveData.minerals[index],
+                        isRock = saveData.isRocks[index]
                     };
                 }
             }
+        }
+        
+        public ChunkSaveData CreateSaveData()
+        {
+            const int arraySize = Size * Size;
+            
+            var walls = new string[arraySize];
+            var grounds = new string[arraySize];
+            var minerals = new string[arraySize];
+            var isRooks = new bool[arraySize];
+
+            for (var i = 0; i < arraySize; i++)
+            {
+                var brick = bricks[i];
+                
+                walls[i] = brick.wallId;
+                grounds[i] = brick.groundId;
+                minerals[i] = brick.mineralId;
+                isRooks[i] = brick.isRock;
+            }
+            
+            return new ChunkSaveData()
+            {
+                coords = coords,
+                walls = walls,
+                grounds = grounds,
+                minerals = minerals,
+                isRocks = isRooks
+            };
         }
         
         private bool CheckRange(float x, float y)

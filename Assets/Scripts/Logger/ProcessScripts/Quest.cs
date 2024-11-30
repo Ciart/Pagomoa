@@ -319,7 +319,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         private void OnGroundBroken(GroundBrokenEvent e)
         {
-            if (!TypeValidation(e.brick.ground)) return;
+            // TODO: !!! 수정 급하게 해야 함
+            // if (!TypeValidation(e.brick.ground)) return;
             if (CheckComplete()) return;
             
             CalculationValue(e);

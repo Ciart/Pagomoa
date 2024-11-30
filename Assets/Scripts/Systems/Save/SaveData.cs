@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Worlds;
 using MemoryPack;
 
@@ -8,6 +10,18 @@ namespace Ciart.Pagomoa.Systems.Save
     public partial class SaveData
     {
         public WorldSaveData world;
+        public PlayerSaveData player;
+    }
+
+    [MemoryPackable]
+    public partial class PlayerSaveData
+    {
+        public PlayerStatusSaveData status;
+    }
+
+    [MemoryPackable]
+    public partial class PlayerStatusSaveData
+    {
     }
 
     [MemoryPackable]

@@ -46,7 +46,7 @@ namespace Ciart.Pagomoa.Systems.Save
             }
             else
             {
-                OldSaveManager.instance.InitData();
+                // OldSaveManager.instance.InitData();
                 return false;
             }
         }
@@ -61,18 +61,18 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void SaveGameData()
         {
-            var saveData = new SaveData()
-            {
-                world = new WorldSaveData()
-                {
-                    
-                }
-            };
-            
-            var filePath = Application.persistentDataPath + "/" + GameDataFileName;
-            var raw = MemoryPackSerializer.Serialize(saveData);
-            File.WriteAllBytes(filePath, raw);
-            Debug.Log("Data Saved");
+            // var saveData = new SaveData()
+            // {
+            //     world = new WorldSaveData()
+            //     {
+            //         
+            //     }
+            // };
+            //
+            // var filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            // var raw = MemoryPackSerializer.Serialize(saveData);
+            // File.WriteAllBytes(filePath, raw);
+            // Debug.Log("Data Saved");
         }
     }
 }

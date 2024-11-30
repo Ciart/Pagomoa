@@ -1,17 +1,26 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Ciart.Pagomoa.Worlds
 {
-    [CreateAssetMenu(fileName = "Wall", menuName = "World/Wall", order = 2)]
-    public class Wall: ScriptableObject
+    [Serializable]
+    public class Wall
     {
-        public string displayName;
+        public string id;
+        
+        public string name;
 
         public bool isClimbable;
         
         public Sprite sprite;
 
         public TileBase tile;
+        
+        public void LoadResources()
+        {
+            sprite = Resources.Load<Sprite>($"Walls/{id}");
+            tile = Resources.Load<TileBase>($"Walls/{id}");
+        }
     }
 }

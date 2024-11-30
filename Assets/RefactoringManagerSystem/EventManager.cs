@@ -4,17 +4,12 @@ using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa.Events
 {
-    public class EventManager : PManager<EventManager> 
+    public class EventManager : PManager<EventManager>
     {
-        private Dictionary<Type, HashSet<Delegate>> _listeners = new Dictionary<Type, HashSet<Delegate>>();
+        private Dictionary<Type, HashSet<Delegate>> _listeners = new();
 
-        public override void Awake()
-        {
-            _listeners = new Dictionary<Type, HashSet<Delegate>>();
-        }
-        
         /// <summary>
-        /// 이벤트를 발생시킵니다.
+        /// 이벤트를 발생시킵니다.ZF
         /// </summary>
         /// <param name="args">전달할 데이터</param>
         /// <typeparam name="T">이벤트 타입</typeparam>
@@ -22,7 +17,7 @@ namespace Ciart.Pagomoa.Events
         {
             var eventManager = instance;
             var type = typeof(T);
-            
+
             if (!eventManager._listeners.ContainsKey(type))
             {
                 return;
@@ -30,7 +25,7 @@ namespace Ciart.Pagomoa.Events
 
             foreach (var listener in eventManager._listeners[type])
             {
-                ((Action<T>) listener)(args);
+                ((Action<T>)listener)(args);
             }
         }
 
@@ -43,15 +38,15 @@ namespace Ciart.Pagomoa.Events
         {
             var eventManager = instance;
             var type = typeof(T);
-            
-             if (!eventManager._listeners.ContainsKey(type))
+
+            if (!eventManager._listeners.ContainsKey(type))
             {
                 eventManager._listeners[type] = new HashSet<Delegate>();
             }
 
             eventManager._listeners[type].Add(listener);
         }
-        
+
         /// <summary>
         /// 등록된 리스너를 제거합니다.
         /// </summary>
@@ -61,7 +56,7 @@ namespace Ciart.Pagomoa.Events
         {
             var eventManager = instance;
             var type = typeof(T);
-            
+
             if (!eventManager._listeners.ContainsKey(type))
             {
                 return;

@@ -6,9 +6,20 @@ using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
+[Serializable]
+public class BrickJsonData
+{
+    public Wall[] walls;
+    
+    public Ground[] grounds;
+    
+    public Mineral[] minerals;
+}
+
+
 namespace Ciart.Pagomoa.Systems
 {
-    public class ResourceManager : SingletonMonoBehaviour<ResourceManager>
+    public class ResourceManager : PManager<ResourceManager>
     {
         public Dictionary<string, NewItemEffect> itemEffects = new();
 
@@ -24,7 +35,7 @@ namespace Ciart.Pagomoa.Systems
         {
             var text = Resources.Load<TextAsset>("Items");
 
-            foreach (var item in JsonUtility.FromJson<JsonArrayData<Item>>(text.ToString()).data)
+            foreach (var item in JsonUtility.FromJson<ItemJsonData>(text.ToString()).data)
             {
                 items.Add(item.id, item);
                 item.LoadResources();
@@ -42,14 +53,28 @@ namespace Ciart.Pagomoa.Systems
             }
         }
         
-        private void LoadWalls()
+        private void LoadBricks()
         {
-            var text = Resources.Load<TextAsset>("Walls");
+            var text = Resources.Load<TextAsset>("Bricks");
+            var data = JsonUtility.FromJson<BrickJsonData>(text.ToString());
 
-            foreach (var wall in JsonUtility.FromJson<JsonArrayData<Wall>>(text.ToString()).data)
+            foreach (var wall in data.walls)
             {
                 walls.Add(wall.id, wall);
                 wall.LoadResources();
+            }
+
+            foreach (var ground in data.grounds)
+            {
+                grounds.Add(ground.id, ground);
+                ground.LoadResources();
+            }
+
+            foreach (var mineral in data.minerals)
+            {
+                minerals.Add(mineral.id, mineral);
+                mineral.LoadResources();
+                Debug.Log(new PropertyName(mineral.id));
             }
         }
 
@@ -58,11 +83,10 @@ namespace Ciart.Pagomoa.Systems
             itemEffects[item.id].Effect();
         }
 
-        protected override void Awake()
+        public override void Awake()
         {
-            base.Awake();
-
             LoadItems();
+            LoadBricks();
         }
     }
 }

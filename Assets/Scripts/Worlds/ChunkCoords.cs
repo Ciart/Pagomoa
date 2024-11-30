@@ -4,7 +4,7 @@ using MemoryPack;
 namespace Ciart.Pagomoa.Worlds
 {
     [MemoryPackable]
-    public struct ChunkCoords
+    public partial struct ChunkCoords
     {
         public int x;
         public int y;

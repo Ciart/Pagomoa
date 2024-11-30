@@ -55,11 +55,11 @@ namespace Ciart.Pagomoa
             
             var targetBrick = lev.GetBrick(targetX, targetY, out var notUseChunk1);
 
-            if (targetBrick.ground) return false;
+            if (targetBrick.ground != null) return false;
 
             var targetGroundBrick = lev.GetBrick(targetX, targetY - 1, out var notUseChunk2);
 
-            return targetGroundBrick.ground;
+            return targetGroundBrick.ground != null;
         }
 
         public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY)

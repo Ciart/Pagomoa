@@ -172,12 +172,12 @@ namespace Ciart.Pagomoa.Entities.Monsters
                     var tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
                     var tile = WorldManager.world.currentLevel.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
 
-                    if (!tile)
+                    if (tile == null)
                     {
                         var isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
                         var tileCheck = WorldManager.world.currentLevel.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
 
-                        if (tileCheck)
+                        if (tileCheck != null)
                         {
                             _canSpawnPoints.Add(tilePosition);
                         }

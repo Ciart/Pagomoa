@@ -89,7 +89,7 @@ namespace Ciart.Pagomoa.Worlds.UFO
             {
                 if (hit.collider)
                 {
-                    hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0, direction * floatSpeed);
+                    hit.collider.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, direction * floatSpeed);
                 }
                 
                 timer += Time.deltaTime;

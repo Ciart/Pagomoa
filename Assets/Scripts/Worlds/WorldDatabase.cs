@@ -23,22 +23,6 @@ namespace Ciart.Pagomoa.Worlds
         public TileBase[] brokenEffectTiles;
 
         public TileBase glitterTile;
-
-        public Wall GetWall(string name)
-        {
-            return Array.Find(walls, wall => wall.name == name);
-        }
-
-        public Ground GetGround(string name)
-        {
-            return Array.Find(grounds, ground => ground.name == name);
-        }
-
-        public Mineral GetMineral(string name)
-        {
-            return Array.Find(minerals, mineral => mineral.name == name);
-        }
-        
         public EntityOrigin GetEntity(string name)
         {
             return Array.Find(entities, entity => entity.name == name);

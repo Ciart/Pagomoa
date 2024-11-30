@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
@@ -8,8 +9,12 @@ namespace Ciart.Pagomoa.Worlds
 {
     using WeightedPieces = List<(float, Piece)>;
     
-    public class WorldGenerator : MonoBehaviour
+    public class WorldGenerator
     {
+        const string wall = "SandWall";
+        const string sand = "Sand";
+        const string grass = "Grass";
+        
         public const int ForestHeight = -100;
 
         public uint seed = 1234;
@@ -24,14 +29,11 @@ namespace Ciart.Pagomoa.Worlds
 
         public int right = 64;
 
-        public Wall wall;
+        private WorldDatabase database;
 
-        private WorldManager _worldManager;
-
-        private void Awake()
+        public WorldGenerator()
         {
-            _worldManager = WorldManager.instance;
-            _worldManager.GetComponent(this);
+            database = DataBase.data.GetWorldData();
         }
 
         private WeightedPieces Preload(IEnumerable<Piece> pieces)
@@ -72,17 +74,13 @@ namespace Ciart.Pagomoa.Worlds
         public Level GenerateMainLevel()
         {
             var level = new Level("Main", LevelType.Overworld, top, bottom, left, right);
-
-            var database = _worldManager.database;
+            
             var random = new Random(seed);
 
             var desertPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Desert)));
             var forestPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Forest)));
-
-            var sand = database.GetGround("Sand");
-            var grass = database.GetGround("Grass");
             
             var levelBounds = level.bounds;
 
@@ -98,15 +96,15 @@ namespace Ciart.Pagomoa.Worlds
 
                 if (worldBrick is not null)
                 {
-                    worldBrick.wall = wall;
+                    worldBrick.wallId = wall;
 
                     if (coords.y > ForestHeight)
                     {
-                        worldBrick.ground = sand;
+                        worldBrick.groundId = sand;
                     }
                     else
                     {
-                        worldBrick.ground = grass;
+                        worldBrick.groundId = grass;
                     }
                 }
             }
@@ -150,7 +148,6 @@ namespace Ciart.Pagomoa.Worlds
 
         public Level GenerateDungeonLevel(string id, string pieceTag)
         {
-            var database = _worldManager.database;
             var piece = database.GetPieceWithTag(pieceTag);
             
             var levelTop = piece.height - piece.pivot.y;
@@ -164,14 +161,14 @@ namespace Ciart.Pagomoa.Worlds
             return level;
         }
 
-        public void Generate()
+        public World Generate()
         {
             var world = new World();
 
             world.levels.Add(GenerateMainLevel());
             world.levels.Add(GenerateDungeonLevel("YellowDungeon", "YellowDungeon"));
 
-            WorldManager.world = world;
+            return world;
         }
 
         public void LoadWorld(WorldData worldData)
@@ -197,7 +194,7 @@ namespace Ciart.Pagomoa.Worlds
                     }
 
                     piece.GetBrick(x, y).CopyTo(worldBrick);
-                    worldBrick.wall = wall;
+                    worldBrick.wallId = wall;
                 }
             }
 

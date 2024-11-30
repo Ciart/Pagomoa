@@ -33,19 +33,19 @@ namespace Ciart.Pagomoa.Systems
 
         public override void Start()
         {
-            var saveManager = OldSaveManager.instance;
-            bool mapLoad = saveManager.LoadMap();
-            if (mapLoad)
-            {
-                saveManager.LoadPosition();
-                saveManager.LoadItem();
-                // saveManager.LoadArtifactItem();
-                // saveManager.LoadQuickSlot();
-                saveManager.LoadPlayerCurrentStatusData();
-                saveManager.LoadEatenMineralCountData();
-            }
-            else
-                saveManager.TagPosition(saveManager.loadPositionDelayTime);
+            // var saveManager = OldSaveManager.instance;
+            // bool mapLoad = saveManager.LoadMap();
+            // if (mapLoad)
+            // {
+            //     saveManager.LoadPosition();
+            //     saveManager.LoadItem();
+            //     // saveManager.LoadArtifactItem();
+            //     // saveManager.LoadQuickSlot();
+            //     saveManager.LoadPlayerCurrentStatusData();
+            //     saveManager.LoadEatenMineralCountData();
+            // }
+            // else
+            //     saveManager.TagPosition(saveManager.loadPositionDelayTime);
         }
 
         public override void Update()

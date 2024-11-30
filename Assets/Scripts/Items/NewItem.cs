@@ -12,9 +12,9 @@ namespace Ciart.Pagomoa.Items
         Inherent
     }
 
-    public class JsonArrayData<T>
+    public class ItemJsonData
     {
-        public T[] data;
+        public Item[] data;
     }
     
     [Serializable]

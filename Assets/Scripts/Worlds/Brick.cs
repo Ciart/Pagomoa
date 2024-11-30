@@ -1,4 +1,5 @@
 using System;
+using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa.Worlds
 {
@@ -30,17 +31,21 @@ namespace Ciart.Pagomoa.Worlds
     [Serializable]
     public class Brick : ICloneable
     {
-        public Wall wall;
-        public Ground ground;
-        public Mineral mineral;
+        public string wallId;
+        public string groundId;
+        public string mineralId;
+
+        public Wall wall => string.IsNullOrEmpty(wallId) ? null : ResourceManager.instance.walls[wallId];
+        public Ground ground => string.IsNullOrEmpty(groundId) ? null : ResourceManager.instance.grounds[groundId];
+        public Mineral mineral => string.IsNullOrEmpty(mineralId) ? null : ResourceManager.instance.minerals[mineralId];
 
         public bool isRock;
 
         public void CopyTo(Brick brick)
         {
-            brick.wall = wall;
-            brick.ground = ground;
-            brick.mineral = mineral;
+            brick.wallId = wallId;
+            brick.groundId = groundId;
+            brick.mineralId = mineralId;
             brick.isRock = isRock;
         }
         
@@ -54,5 +59,9 @@ namespace Ciart.Pagomoa.Worlds
             lhs.mineral == rhs.mineral;
 
         public static bool operator !=(Brick lhs, Brick rhs) => !(lhs == rhs);
+
+        public override bool Equals(object obj) => obj is Brick other && this == other;
+
+        public override int GetHashCode() => HashCode.Combine(wall, ground, mineral, isRock);
     }
 }

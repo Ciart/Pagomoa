@@ -46,23 +46,23 @@ namespace Ciart.Pagomoa.Worlds
         {
             world = new World(e.saveData.world);
         }
-
-        public override void Awake()
+        
+        public override void Start()
         {
             EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
             EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
-        }
+            
+            database = DataBase.data.GetWorldData();
+            itemEntity = DataBase.data.GetItemEntity();
+            worldGenerator = new WorldGenerator();
 
+            world = worldGenerator.Generate();
+        }
+        
         public override void OnDestroy()
         {
             EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
             EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
-        }
-
-        public override void Start()
-        {
-            database = DataBase.data.GetWorldData();
-            itemEntity = DataBase.data.GetItemEntity();
         }
 
         public void GetComponent(WorldGenerator generator)
@@ -195,19 +195,18 @@ namespace Ciart.Pagomoa.Worlds
         public void BreakGround(int x, int y, int tier, bool isForceBreak = false)
         {
             var brick = _world.currentLevel.GetBrick(x, y, out var chunk);
-            var rock = database.GetMineral("Rock");
 
             if (chunk is null)
                 return;
 
             if (brick.mineral is not null && brick.mineral.tier <= tier)
             {
-                if (!isForceBreak && brick.mineral == rock)
+                if (!isForceBreak && brick.isRock)
                 {
                     return;
                 }
 
-                if (brick.mineral != rock)
+                if (!brick.isRock)
                 {
                     var entity = itemEntity.InstantiateItem(itemEntity, ComputePosition(x, y));
                     entity.Item = brick.mineral!.item;
@@ -216,8 +215,8 @@ namespace Ciart.Pagomoa.Worlds
 
             var prevBrick = (Brick)brick.Clone();
 
-            brick.ground = null;
-            brick.mineral = null;
+            brick.groundId = null;
+            brick.mineralId = null;
 
             foreach (var c in _world.currentLevel.GetNeighborChunks(chunk.coords))
             {
@@ -233,15 +232,15 @@ namespace Ciart.Pagomoa.Worlds
             if (item == "item")
             {
                 if (chunk is null) return false;
-                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.displayName != "돌")
+                if (brick.mineral is not null && brick.mineral.tier <= tier && brick.mineral?.name != "돌")
                     return true;
             }
             else
             {
-                if (chunk is null || brick.mineral?.displayName == "돌")
+                if (chunk is null || brick.mineral?.name == "돌")
                 {
                     if (chunk is null) return false;
-                    if (brick.mineral?.displayName == "돌") return false;
+                    if (brick.mineral?.name == "돌") return false;
                 }
 
                 if (brick.mineral is not null && brick.mineral.tier <= tier)
@@ -266,11 +265,11 @@ namespace Ciart.Pagomoa.Worlds
         {
             var targetBrick = _world.currentLevel.GetBrick(targetX, targetY, out var notUseChunk1);
 
-            if (targetBrick.ground) return false;
+            if (targetBrick.ground != null) return false;
 
             var targetGroundBrick = _world.currentLevel.GetBrick(targetX, targetY - 1, out var notUseChunk2);
 
-            return targetGroundBrick.ground;
+            return targetGroundBrick.ground != null;
         }
 
         public Vector2Int GetClosestAboveEmptyGroundVector(float basePosX, float basePosY, int searchRange,
