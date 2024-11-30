@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Ciart.Pagomoa.Items;
@@ -19,7 +20,8 @@ public class BrickJsonData
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class ResourceManager : PManager<ResourceManager>
+    [ExecuteInEditMode]
+    public class ResourceSystem : SingletonMonoBehaviour<ResourceSystem>
     {
         public Dictionary<string, NewItemEffect> itemEffects = new();
 
@@ -83,10 +85,12 @@ namespace Ciart.Pagomoa.Systems
             itemEffects[item.id].Effect();
         }
 
-        public override void Awake()
+        private void Awake()
         {
             LoadItems();
             LoadBricks();
+                        
+            Debug.Log("Awake");
         }
     }
 }

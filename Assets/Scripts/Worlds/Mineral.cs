@@ -1,9 +1,9 @@
 using System;
 using System.Resources;
 using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using ResourceManager = Ciart.Pagomoa.Systems.ResourceManager;
 
 namespace Ciart.Pagomoa.Worlds
 {
@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Worlds
         
         public TileBase tile;
 
-        public Item item => ResourceManager.instance.items[itemId];
+        public Item item => ResourceSystem.instance.items[itemId];
         
         public void LoadResources()
         {

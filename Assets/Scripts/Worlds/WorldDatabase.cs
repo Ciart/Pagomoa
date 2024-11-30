@@ -8,12 +8,6 @@ namespace Ciart.Pagomoa.Worlds
     [CreateAssetMenu(fileName = "World Database", menuName = "World/Database", order = 4)]
     public class WorldDatabase : ScriptableObject
     {
-        public Wall[] walls;
-
-        public Ground[] grounds;
-
-        public Mineral[] minerals;
-
         public EntityOrigin[] entities;
 
         public Piece[] pieces = { new Piece() };

@@ -35,9 +35,9 @@ namespace Ciart.Pagomoa.Worlds
         public string groundId;
         public string mineralId;
 
-        public Wall wall => string.IsNullOrEmpty(wallId) ? null : ResourceManager.instance.walls[wallId];
-        public Ground ground => string.IsNullOrEmpty(groundId) ? null : ResourceManager.instance.grounds[groundId];
-        public Mineral mineral => string.IsNullOrEmpty(mineralId) ? null : ResourceManager.instance.minerals[mineralId];
+        public Wall wall => string.IsNullOrEmpty(wallId) ? null : ResourceSystem.instance.walls[wallId];
+        public Ground ground => string.IsNullOrEmpty(groundId) ? null : ResourceSystem.instance.grounds[groundId];
+        public Mineral mineral => string.IsNullOrEmpty(mineralId) ? null : ResourceSystem.instance.minerals[mineralId];
 
         public bool isRock;
 

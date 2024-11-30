@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -22,11 +23,11 @@ namespace Ciart.Pagomoa.Editor
 
         private int _height = 2;
 
-        private int _selectWall;
+        private string _selectWallId;
 
-        private int _selectGround;
+        private string _selectGroundId;
 
-        private int _selectMineral;
+        private string _selectMineralId;
 
         private int _selectEntity;
 
@@ -82,7 +83,7 @@ namespace Ciart.Pagomoa.Editor
 
             piece.appearanceArea =
                 (WorldAreaFlag)EditorGUILayout.EnumFlagsField(piece.appearanceArea, GUILayout.Width(width));
-            
+
             GUILayout.Label($"현재: {piece.width}x{piece.height}");
 
             _width = Math.Clamp(EditorGUILayout.IntField("Width", _width, GUILayout.Width(width)), 1, 1000);
@@ -92,27 +93,37 @@ namespace Ciart.Pagomoa.Editor
             {
                 piece.ResizeBricks(_width, _height);
             }
-            
+
             GUILayout.Space(8);
 
             _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings, GUILayout.Width(width));
 
+            var resourceManager = ResourceSystem.instance;
+
+            var walls = resourceManager.walls.Values.ToList();
+            var grounds = resourceManager.grounds.Values.ToList();
+            var minerals = resourceManager.minerals.Values.ToList();
+
             switch (_tabIndex)
             {
                 case 1:
-                    _selectWall = EditorGUILayout.Popup(_selectWall,
-                        _database.walls.Select(wall => wall.name ?? wall.name).ToArray(),
+                    var wallIndex = EditorGUILayout.Popup(walls.FindIndex((wall) => wall.id == _selectWallId),
+                        walls.Select(wall => wall.name ?? wall.name).ToArray(),
                         GUILayout.Width(width));
+                    _selectWallId = walls[wallIndex].id;
                     break;
                 case 2:
-                    _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.name ?? ground.name).ToArray(),
+                    var groundIndex = EditorGUILayout.Popup(grounds.FindIndex((ground) => ground.id == _selectGroundId),
+                        grounds.Select(ground => ground.name ?? ground.name).ToArray(),
                         GUILayout.Width(width));
+                    _selectGroundId = grounds[groundIndex].id;
                     break;
                 case 3:
-                    _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.name ?? mineral.name).ToArray(),
+                    var mineralIndex = EditorGUILayout.Popup(
+                        minerals.FindIndex((mineral) => mineral.id == _selectMineralId),
+                        minerals.Select(mineral => mineral.name ?? mineral.name).ToArray(),
                         GUILayout.Width(width));
+                    _selectMineralId = minerals[mineralIndex].id;
                     break;
                 case 4:
                     _selectEntity = EditorGUILayout.Popup(_selectEntity,
@@ -120,10 +131,11 @@ namespace Ciart.Pagomoa.Editor
                         GUILayout.Width(width));
                     break;
             }
-            
+
             GUILayout.Space(8);
-            
-            _database.selectIndex = GUILayout.SelectionGrid(_database.selectIndex, _database.pieces.Select(p => p.name).ToArray(), 1);
+
+            _database.selectIndex =
+                GUILayout.SelectionGrid(_database.selectIndex, _database.pieces.Select(p => p.name).ToArray(), 1);
         }
 
         private void DrawWorkspace()
@@ -159,13 +171,13 @@ namespace Ciart.Pagomoa.Editor
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.wallId = _database.walls[_selectWall].id;
+                                    brick.wallId = _selectWallId;
                                     break;
                                 case 2:
-                                    brick.groundId = _database.grounds[_selectGround].id;
+                                    brick.groundId = _selectWallId;
                                     break;
                                 case 3:
-                                    brick.mineralId = _database.minerals[_selectMineral].id;
+                                    brick.mineralId = _selectWallId;
                                     break;
                                 case 4:
                                     // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
