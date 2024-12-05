@@ -58,7 +58,7 @@
 #talker 모아
 #sprite 모아
 질문은 한 번에 하나만!
-그나저나 흐음... 너희는 전부 나를 아는 거 아니었어?
+그나저나 흐음... 너희는 전부 우리를 아는 거 아니었어?
 *[다음] -> Conversation9
 
 === Conversation9
@@ -75,15 +75,15 @@
 *[다음] -> Conversation11
 
 === Conversation11
-#talker 모아
-#sprite 모아
-뭐라더라... 우리를 구원하소서?
+#talker 파고
+#sprite 파고
+..?
 *[다음] -> Conversation12
 
 === Conversation12
 #talker 파고
 #sprite 파고
-응? 우리를 구원 하소서???
+너를 귀찮게 했다고?
 *[다음] -> Conversation13
 
 === Conversation13
@@ -124,97 +124,49 @@
 #talker 모아
 #sprite 모아
 어때어때 대단하지?
-빨리 내 이름을 연호하며 찬양하렴!
 *[다음] -> Conversation19
 
 === Conversation19
 #talker 파고
 #sprite 파고
 어... 그래. 모아 엄청 대단해
-근데... 연호가 뭐야?
 *[다음] -> Conversation20
 
 === Conversation20
 #talker 모아
 #sprite 모아
-연호?
-몰라! 그냥 어른들이 그렇게 말하랬어!
+그치그치? 나도 그렇게 생각해!
+그럼 어서 뭔가 먹을 것을 나에게 바치지 않을래?
 *[다음] -> Conversation21
 
 === Conversation21
 #talker 파고
 #sprite 파고
-그... 그렇구나..
-그럼 저기... 이 옷은 뭐야?
+먹을 거? 저기... 다른 질문은?
 *[다음] -> Conversation22
 
 === Conversation22
 #talker 모아
 #sprite 모아
-그 질문은 나중이야! 
-지금은 우선 뭐 좀 먹어야겠어! 
+나 여기까지 오느라 엄청 힘들었단 말이야!
+지금은 우선 뭐든 먹어야겠어!
 *[다음] -> Conversation23
 
 === Conversation23
-#talker 모아
-#sprite 모아
-나 여기까지 날아오느라 엄청 힘들었단 말이야!
-*[다음] -> Conversation24
-
-=== Conversation24
 #talker 파고
 #sprite 파고
 아... 알았어
-먹을걸 주면 질문 대답해줄 거지?
-*[다음] -> Conversation25
+먹을 거 주면 질문 대답해줄 거지?
+*[다음] -> Conversation24
 
-=== Conversation25
+=== Conversation24
 #talker 모아
 #sprite 모아
 응!
-*[다음] -> Conversation26
-
-=== Conversation26
-#talker 파고
-#sprite 파고
-근데... 넌 뭘 먹어?
-*[다음] -> Conversation27
-
-=== Conversation27
-#talker 모아
-#sprite 모아
-그야 먹을 수 있는 걸 먹지? 
-당연한 거 아니야?
-*[다음] -> Conversation28
-
-=== Conversation28
-#talker 파고
-#sprite 파고
-아니... 당연하지 않다구...
-너는 나랑 먹는 게 다를 수도 있잖아
-*[다음] -> Conversation29
-
-=== Conversation29
-#talker 모아
-#sprite 모아
-음... 응! 너 말이 맞아.
-*[다음] -> Conversation30
-
-=== Conversation30
-#talker 모아
-#sprite 모아
-내가 먹을 수 있는 거라...
-반짝반짝 거리는 거!
-*[다음] -> Conversation31
-
-=== Conversation31
-#talker 파고
-#sprite 파고
-반짝반짝... 그래! 답변 고마워
 *[수락] -> Accept
 
 === Accept
 #quest tutorial_1
-(모아가 먹을만한 것을 찾아봐야겠다.)
-
+모아는 먼 길을 오느라 매우 배고픈 상태다.
+뭔가 먹을 것을 주자. 근데... 모아는 뭘 먹지?
     -> END

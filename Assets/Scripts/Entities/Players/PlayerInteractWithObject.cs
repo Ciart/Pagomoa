@@ -37,21 +37,27 @@ namespace Ciart.Pagomoa.Entities.Players
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!collision.GetComponent<InteractableObject>()) return;
+            var interactableObject = collision.GetComponent<InteractableObject>();
+            
+            if (!interactableObject) return;
 
-            if (!interactableObjectList.Contains(collision.GetComponent<InteractableObject>()))
-                interactableObjectList.Add(collision.GetComponent<InteractableObject>());
+            if (!interactableObjectList.Contains(interactableObject))
+                interactableObjectList.Add(interactableObject);
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.GetComponent<InteractableObject>())
+            var interactableObject = collision.GetComponent<InteractableObject>();
+            
+            if (interactableObject)
             {
-                collision.GetComponent<InteractableObject>().DisableObject();
-                interactableObjectList.Remove(collision.GetComponent<InteractableObject>());
+                interactableObject.DisableObject();
+                interactableObjectList.Remove(interactableObject);
             }
         }
         private void CheckInteractable(InteractableObject obj)
         {
+            if (obj.enabled == false) return;
+            
             float distance = Vector2.Distance(transform.position, obj.transform.position);
             if (_closestDistance == 0.0f || interactableObjectList.Count == 1)
             {

@@ -1,3 +1,6 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
+using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
@@ -18,6 +21,19 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             chatBalloon.ReSizeBalloon();
         
             chatBalloon.balloon.SetActive(true);
+        }
+        
+        [SuppressMessage("ReSharper", "IteratorMethodResultIsIgnored")]
+        public void Chatting(string content, float duration)
+        {
+            chatBalloon.chatContent.text = content;
+            chatBalloon.ReSizeBalloon();
+        
+            chatBalloon.balloon.SetActive(true);
+
+            Action easeChat = EaseChatting;
+
+            TimeManager.instance.SetTimer(duration, easeChat);
         }
 
         public void EaseChatting()

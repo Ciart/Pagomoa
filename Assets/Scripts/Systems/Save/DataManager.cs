@@ -61,8 +61,8 @@ namespace Ciart.Pagomoa.Systems.Save
         public void SaveGameData()
         {
             var filePath = Application.persistentDataPath + "/" + GameDataFileName;
-            var ToJasonData = JsonUtility.ToJson(data, true);
-            File.WriteAllText(filePath, ToJasonData);
+            var ToJsonData = JsonUtility.ToJson(data, true);
+            File.WriteAllText(filePath, ToJsonData);
             Debug.Log("Data Saved");
         }
     }

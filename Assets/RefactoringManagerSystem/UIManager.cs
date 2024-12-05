@@ -22,8 +22,10 @@ namespace Ciart.Pagomoa.Systems
         private PlayerInput _playerInput;
         private GameObject _inventoryUI;
         private GameObject _dialogueUI;
+        private GameObject _quickSlot;
         private bool _isActiveInventory;
 
+        public FadeUI fadeUI;
         public UIContainer GetUIContainer() { return _uiContainer; }
         
         public override void Awake()
@@ -38,7 +40,9 @@ namespace Ciart.Pagomoa.Systems
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
+            fadeUI = _uiContainer.fadeUI.GetComponent<FadeUI>();
+            
+            _quickSlot = Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
         }
 
         public override void Start()
@@ -102,6 +106,22 @@ namespace Ciart.Pagomoa.Systems
             // }
         }
 
+        public void DeActiveUI()
+        {
+            _uiContainer.miniMap.SetActive(false);
+            _uiContainer.statePanel.SetActive(false);
+            _uiContainer.oxygenBar.gameObject.SetActive(false);
+            _quickSlot.SetActive(false);
+        }
+
+        public void ActiveUI()
+        {
+            _uiContainer.miniMap.SetActive(true);
+            _uiContainer.statePanel.SetActive(true);
+            _uiContainer.oxygenBar.gameObject.SetActive(true);
+            _quickSlot.SetActive(true);
+        }
+        
         private void ToggleEscDialogueUI()
         {
             _dialogueUI.SetActive(false);

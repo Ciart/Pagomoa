@@ -1,0 +1,38 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Timelines;
+using Unity.VisualScripting;
+using UnityEngine;
+
+namespace Ciart.Pagomoa
+{
+    public class CutSceneTrigger : MonoBehaviour
+    {
+        public CutScene playableCutScene;
+        
+        private BoxCollider2D _boxCollider;
+
+        private const string TargetTag = "Player"; 
+        
+        void Start()
+        {
+            _boxCollider = GetComponent<BoxCollider2D>();
+            _boxCollider.isTrigger = true;
+        }
+
+        private void OnTriggerEnter2D(Collider2D targetObject)
+        {
+            if (targetObject.CompareTag(TargetTag))
+                StartCutScene();
+        }
+
+        private void StartCutScene()
+        {
+            DataBase.data.GetCutSceneController().StartCutScene(playableCutScene);
+            
+            Destroy(this.gameObject);
+        }
+    }
+}

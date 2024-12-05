@@ -1,1 +1,0 @@
-﻿{"inkVersion":21,"root":[[{"->":"startTalk"},["done",{"#f":5,"#n":"g-0"}],null],"done",{"startTalk":[["#","^talker 부서진텐트","/#","#","^sprite Normal","/#","#","^UIMode In","/#","ev","str","^수행 가능한 퀘스트 보기","/str","/ev",{"*":".^.c-0","flg":20},{"c-0":["^ ",{"->":"quest"},"\n",{"#f":5}]}],{"#f":1}],"quest":["#","^start quest","/#","end",{"#f":1}],"#f":1}],"listDefs":{}}
