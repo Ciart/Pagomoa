@@ -1,9 +1,9 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class ShopUIManager : MonoBehaviour
+    public class ShopUI : MonoBehaviour
     {
         [SerializeField] private GameObject _scrollView;
         [SerializeField] private GameObject _book;
@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public ShopHover hovering;
         [SerializeField] public TextMeshProUGUI[] gold;
 
-        public static ShopUIManager Instance = null;
+        public static ShopUI Instance = null;
 
         private void Awake()
         {
@@ -27,8 +27,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _book.SetActive(true);
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
-            Buy.Instance.DeleteSellUISlot();
-            Buy.Instance.ResetSellUISlot();
+            var buy = GetComponent<Buy>();
+            buy.DeleteSellUISlot();
+            buy.ResetSellUISlot();
         }
         public void ClickToBuy()
         {
