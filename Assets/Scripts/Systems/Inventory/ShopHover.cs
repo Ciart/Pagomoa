@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Systems.Dialogue;
+﻿using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 ShopChat.Instance.chatting.text = ItemName;
             }
 
-            ShopUIManager.Instance.hovering = this;
+            ShopUI.Instance.hovering = this;
 
             boostImage.sprite = hoverImage[0];
             if (_edgeImage != null)
@@ -27,7 +27,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public override void OnPointerExit(PointerEventData eventData)
         {
-            ShopUIManager.Instance.hovering = null;
+            ShopUI.Instance.hovering = null;
             boostImage.sprite = hoverImage[1];
             if (_edgeImage != null)
                 _edgeImage.gameObject.SetActive(false);

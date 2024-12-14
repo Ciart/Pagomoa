@@ -114,8 +114,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             DecreaseItemCount(data);
             Gold += data.itemPrice;
-            ShopUIManager.Instance.gold[0].text = Gold.ToString();
-            ShopUIManager.Instance.gold[1].text = Gold.ToString();
+            ShopUI.Instance.gold[0].text = Gold.ToString();
+            ShopUI.Instance.gold[1].text = Gold.ToString();
         }
         
         public void DecreaseItemCount(Item data)
