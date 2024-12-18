@@ -12,16 +12,16 @@ namespace Ciart.Pagomoa
     {
         public void SellCheck()
         {
-            Buy.Instance.chosenSellSlot = this;
+            buy.chosenSellSlot = this;
 
-            var Inventory = Buy.Instance.chosenSellSlot.slot.item;
+            var Inventory = buy.chosenSellSlot.slot.item;
             if (Inventory == null)
                 return;
 
             if (Inventory.type == ItemType.Use ||
                 Inventory.type == ItemType.Mineral)
             {
-                Buy.Instance.OnCountUI(this.gameObject);
+                buy.OnCountUI(this.gameObject);
                 ShopChat.Instance.SellPriceToChat(Inventory.price);
             }
         }
@@ -30,24 +30,24 @@ namespace Ciart.Pagomoa
         {
             var inventory = GameManager.instance.player.inventory;
             
-            for (int i = 0; i < Buy.Instance.countUINum; i++)
+            for (int i = 0; i < buy.countUINum; i++)
             {
-                if (Buy.Instance.chosenSellSlot.slot.count > 1)
+                if (buy.chosenSellSlot.slot.count > 1)
                 {
-                    inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
+                    inventory.SellItem(buy.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                else if (Buy.Instance.chosenSellSlot.slot.count == 1)
+                else if (buy.chosenSellSlot.slot.count == 1)
                 {
-                    inventory.SellItem(Buy.Instance.chosenSellSlot.slot.item);
+                    inventory.SellItem(buy.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                Buy.Instance.DeleteSellUISlot();
-                Buy.Instance.ResetSellUISlot();
+                buy.DeleteSellUISlot();
+                buy.ResetSellUISlot();
             }
-            Buy.Instance.countUINum = 0;
-            Buy.Instance.countUIText.text = Buy.Instance.countUINum.ToString();
-            Buy.Instance.OffCountUI();
+            buy.countUINum = 0;
+            buy.countUIText.text = buy.countUINum.ToString();
+            buy.OffCountUI();
         }
     }
 }

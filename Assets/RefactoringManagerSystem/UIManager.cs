@@ -31,7 +31,6 @@ namespace Ciart.Pagomoa.Systems
             _uiContainer = DataBase.data.GetUIData();
             
             _inventoryUI = Object.Instantiate(_uiContainer.inventoryUIPrefab, _uiContainer.transform);
-            Debug.Log(_inventoryUI);
             _inventoryUI.SetActive(false);
             
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
