@@ -30,19 +30,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private GameObject _countUI;
         [SerializeField] private Button[] _countUIBtns;
         private GameObject _choiceSlot;
+        [SerializeField] private ShopChat shopChat;
 
-        private static Buy instance;
-        public static Buy Instance
-        {
-            get
-            {
-                if (!instance)
-                {
-                    instance = FindObjectOfType(typeof(Buy)) as Buy;
-                }
-                return instance;
-            }
-        }
+
         private void Awake()
         {
             MakeBuyUISlot();
@@ -50,7 +40,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            transform.GetComponentInParent<ShopUIManager>().gold[0].text = GameManager.instance.player.inventory.Gold.ToString();
+            transform.GetComponentInParent<ShopUI>().gold[0].text = GameManager.instance.player.inventory.Gold.ToString();
             DeleteSellUISlot();
             ResetSellUISlot();
         }
@@ -198,8 +188,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OffCountUI()
         {
-            ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
-            ShopChat.Instance.CancleChat();
+            ShopUI.Instance.hovering.boostImage.sprite = ShopUI.Instance.hovering.hoverImage[1];
+            shopChat.CancleChat();
             if (_choiceSlot.GetComponent<BuySlot>())
             {
                 _countUIBtns[0].onClick.RemoveAllListeners();
@@ -218,7 +208,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void BuyPlus()
         {
-            InventorySlot item = Buy.Instance.chosenBuySlot.slot;
+            InventorySlot item = chosenBuySlot.slot;
             if (item.item.itemType == Item.ItemType.Use)
             {
                 countUINum++;
@@ -257,7 +247,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 {
                     GameManager.instance.player.inventory.Add(Shop.item, countUINum);
                     AuctionDB.Instance.Remove(Shop.item);
-                    ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
+                    ShopUI.Instance.hovering.boostImage.sprite = ShopUI.Instance.hovering.hoverImage[1];
                     OffCountUI();
                     Debug.Log("호출");
 
@@ -276,7 +266,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     AuctionDB.Instance.Remove(Shop.item);
                     UpdateCount();
                     SoldOut();
-                    ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
+                    ShopUI.Instance.hovering.boostImage.sprite = ShopUI.Instance.hovering.hoverImage[1];
                     OffCountUI();
                 }
                 else
@@ -326,7 +316,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             countUINum = 1;
             countUIText.text = countUINum.ToString();
-            ShopUIManager.Instance.hovering.boostImage.sprite = ShopUIManager.Instance.hovering.hoverImage[1];
+            ShopUI.Instance.hovering.boostImage.sprite = ShopUI.Instance.hovering.hoverImage[1];
             OffCountUI();
             ShopChat.Instance.ThankChat();
         }

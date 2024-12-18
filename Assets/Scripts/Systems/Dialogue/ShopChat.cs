@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
@@ -11,7 +11,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         [SerializeField] private string[] _cancleChats;
 
         public static ShopChat Instance = null;
-
         private void Awake()
         {
             if (Instance == null)
