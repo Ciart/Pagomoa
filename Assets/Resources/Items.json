@@ -8,6 +8,13 @@
       "price": 10
     },
     {
+      "type": 2,
+      "id": "Quartz",
+      "name": "석영",
+      "description": "조금 달콤해.",
+      "price": 20
+    },
+    {
       "type": 1,
       "id": "Bomb",
       "name": "폭탄",

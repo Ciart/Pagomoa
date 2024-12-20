@@ -3231,7 +3231,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 9.84375
+  orthographic size: 7.3125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7953,7 +7953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 16
-  m_ScaleFactor: 3
+  m_ScaleFactor: 1
   m_ReferenceResolution: {x: 480, y: 272}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -8377,6 +8377,7 @@ PolygonCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595614274}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -8400,7 +8401,8 @@ PolygonCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -10689,6 +10691,7 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 1595614275}
   m_Damping: 0.5
   m_MaxWindowSize: -1
+  m_Padding: 0
 --- !u!1 &1981675335 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5206691075486585182, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
