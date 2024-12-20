@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
+
+[Serializable]
+public class JsonData<T>
+{
+    public T[] data;
+}
 
 [Serializable]
 public class BrickJsonData
@@ -33,13 +40,15 @@ namespace Ciart.Pagomoa.Systems
         
         public Dictionary<string, Mineral> minerals = new();
         
+        public Dictionary<string, Entity> entities = new();
+        
         public static ResourceSystem instance { get; private set; }
 
         private void LoadItems()
         {
             var text = Resources.Load<TextAsset>("Items");
 
-            foreach (var item in JsonUtility.FromJson<ItemJsonData>(text.ToString()).data)
+            foreach (var item in JsonUtility.FromJson<JsonData<Item>>(text.ToString()).data)
             {
                 items.Add(item.id, item);
                 item.LoadResources();
@@ -82,6 +91,17 @@ namespace Ciart.Pagomoa.Systems
             }
         }
 
+        private void LoadEntities()
+        {
+            var text = Resources.Load<TextAsset>("Entities");
+            
+            foreach (var entity in JsonUtility.FromJson<JsonData<Entity>>(text.ToString()).data)
+            {
+                entities.Add(entity.id, entity);
+                entity.LoadResources();
+            }
+        }
+
         public void UseItem(Item item)
         {
             itemEffects[item.id].Effect();
@@ -91,6 +111,7 @@ namespace Ciart.Pagomoa.Systems
         {
             LoadItems();
             LoadBricks();
+            LoadEntities();
             
             instance = this;
         }

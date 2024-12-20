@@ -2,13 +2,14 @@ using System;
 using Ciart.Pagomoa.Entities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Worlds
 {
     [CreateAssetMenu(fileName = "World Database", menuName = "World/Database", order = 4)]
     public class WorldDatabase : ScriptableObject
     {
-        public EntityOrigin[] entities;
+        public Entity[] entities;
 
         public Piece[] pieces = { new Piece() };
 
@@ -17,10 +18,6 @@ namespace Ciart.Pagomoa.Worlds
         public TileBase[] brokenEffectTiles;
 
         public TileBase glitterTile;
-        public EntityOrigin GetEntity(string name)
-        {
-            return Array.Find(entities, entity => entity.name == name);
-        }
 
         public Piece GetPieceWithTag(string tag)
         {

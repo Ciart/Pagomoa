@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities
 {
@@ -9,11 +10,11 @@ namespace Ciart.Pagomoa.Entities
     /// </summary>
     public class SpawnPoint : MonoBehaviour
     {
-        public EntityOrigin entityOrigin;
+        public string entityId;
 
         private void Start()
         {
-            EntityManager.instance.Spawn(entityOrigin, transform.position);
+            EntityManager.instance.Spawn(entityId, transform.position);
         }
 
         /*private void OnDrawGizmos()

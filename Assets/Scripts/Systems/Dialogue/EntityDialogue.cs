@@ -57,9 +57,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             var questManager = QuestManager.instance;
 
-            var origin = _entityController.origin;
+            var entityId = _entityController.entityId;
             
-            questManager.RegistrationQuest(portrait, origin, id);
+            questManager.RegistrationQuest(portrait, entityId, id);
         }
 
         public void QuestComplete(string id)
@@ -120,11 +120,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             
             _entityController = GetComponent<EntityController>();
             if (_entityController == null) return;
-            var origin = _entityController.origin;
+            var entityId = _entityController.entityId;
             
             if (questManager is null) return;
             
-            _entityQuests = questManager.database.GetEntityQuestsByEntity(origin);
+            _entityQuests = questManager.database.GetEntityQuestsByEntity(entityId);
 
             if (_entityQuests == Array.Empty<QuestData>()) return; 
             

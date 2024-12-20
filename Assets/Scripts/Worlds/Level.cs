@@ -118,9 +118,9 @@ namespace Ciart.Pagomoa.Worlds
             return chunk.bricks[brinkX + brinkY * Chunk.Size];
         }
 
-        public void AddEntity(float x, float y, EntityOrigin origin, EntityStatus status = null)
+        public void AddEntity(float x, float y, string entityId, EntityStatus status = null)
         {
-            entityDataList.Add(new EntityData(x, y, origin, status));
+            entityDataList.Add(new EntityData(entityId, x, y, status));
         }
 
         public void AddEntity(EntityData entityData)

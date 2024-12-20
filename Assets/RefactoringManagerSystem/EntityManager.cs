@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.RefactoringManagerSystem;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -14,21 +15,28 @@ namespace Ciart.Pagomoa.Entities
 
         private List<EntityController> _entities = new();
 
-        public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
+        public EntityController Spawn(string id, Vector3 position, EntityStatus status = null)
         {
-            var entity = Object.Instantiate(origin.prefab, position, Quaternion.identity);
-            
-            _entities.Add(entity);
-            
-            entity.Init(new EntityData(position.x, position.y, origin, status));
-            
-            if (entity.origin.type == EntityType.Player)
+            ResourceSystem.instance.entities.TryGetValue(id, out var entity);
+
+            if (entity == null)
             {
-                var player = entity.GetComponent<PlayerController>();
+                Debug.LogError($"EntityManager: {id}는 존재하지 않습니다.");
+            }
+            
+            var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
+            
+            _entities.Add(controller);
+            
+            controller.Init(new EntityData(id, position.x, position.y, status));
+            
+            if (entity.tags == "Player")
+            {
+                var player = controller.GetComponent<PlayerController>();
                 EventManager.Notify(new PlayerSpawnedEvent(player));
             }
             
-            return entity;
+            return controller;
         }
 
         public void Despawn(EntityController controller)
@@ -39,9 +47,9 @@ namespace Ciart.Pagomoa.Entities
         }
 
         [CanBeNull]
-        public EntityController Find(EntityOrigin origin)
+        public EntityController Find(string id)
         {
-            return _entities.Find(controller => controller.origin == origin);
+            return _entities.Find(controller => controller.entityId == id);
         }
 
         public List<EntityController> FindAllEntityInChunk(Chunk chunk) 

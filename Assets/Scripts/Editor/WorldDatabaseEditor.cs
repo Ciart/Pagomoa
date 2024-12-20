@@ -5,6 +5,7 @@ using Ciart.Pagomoa.Worlds;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Editor
 {
@@ -130,11 +131,11 @@ namespace Ciart.Pagomoa.Editor
                         GUILayout.Width(width));
                     _selectMineralId = mineralIndex != -1 ? minerals[mineralIndex].id : "";
                     break;
-                case 4:
-                    _selectEntity = EditorGUILayout.Popup(_selectEntity,
-                        _database.entities.Select(entity => entity.displayName ?? entity.name).ToArray(),
-                        GUILayout.Width(width));
-                    break;
+                // case 4:
+                //     _selectEntity = EditorGUILayout.Popup(_selectEntity,
+                //         _database.entities.Select(entity => entity.name ?? ((Object)entity).name).ToArray(),
+                //         GUILayout.Width(width));
+                //     break;
             }
 
             GUILayout.Space(8);
@@ -184,10 +185,10 @@ namespace Ciart.Pagomoa.Editor
                                 case 3:
                                     brick.mineralId = _selectMineralId;
                                     break;
-                                case 4:
-                                    // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
-                                    piece.AddEntity(x, y, _database.entities[_selectEntity]);
-                                    break;
+                                // case 4:
+                                //     // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
+                                //     piece.AddEntity(x, y, _database.entities[_selectEntity]);
+                                //     break;
                             }
 
                             EditorUtility.SetDirty(_database);

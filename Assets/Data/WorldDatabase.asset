@@ -13,11 +13,46 @@ MonoBehaviour:
   m_Name: WorldDatabase
   m_EditorClassIdentifier: 
   entities:
-  - {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
-  - {fileID: 11400000, guid: a4dcc391f75d4ba4eb19176cdd668c2c, type: 2}
-  - {fileID: 11400000, guid: 206f7c13e238042159da1b6852c67b66, type: 2}
-  - {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
-  - {fileID: 11400000, guid: aa131d5f5546741efac36639927c9410, type: 2}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
   pieces:
   - name: "\uB178\uB791 \uB358\uC804 \uC785\uAD6C"
     appearanceArea: 0
@@ -28,9 +63,9 @@ MonoBehaviour:
     pivot: {x: 0, y: 0}
     weight: 0
     entities:
-    - x: 2
+    - id: YellowDungeonEntrance
+      x: 2
       y: 1
-      origin: {fileID: 11400000, guid: a08904256f84b4882987d0ac8476cdd7, type: 2}
       status:
         health: 0
         maxHealth: 0
@@ -196,15 +231,15 @@ MonoBehaviour:
     pivot: {x: 7, y: 6}
     weight: 1
     entities:
-    - x: 1
+    - id: YellowDungeonExit
+      x: 1
       y: 6
-      origin: {fileID: 11400000, guid: aa131d5f5546741efac36639927c9410, type: 2}
       status:
         health: 0
         maxHealth: 0
-    - x: 12
+    - id: CactusBoss
+      x: 12
       y: 6
-      origin: {fileID: 11400000, guid: 206f7c13e238042159da1b6852c67b66, type: 2}
       status:
         health: 0
         maxHealth: 0
@@ -1242,9 +1277,9 @@ MonoBehaviour:
     pivot: {x: 7, y: 6}
     weight: 0.1
     entities:
-    - x: 2
+    - id: Clovee
+      x: 2
       y: 1
-      origin: {fileID: 11400000, guid: cf49fcc4e72bd41809a8a621fc81eb33, type: 2}
       status:
         health: 0
         maxHealth: 0
@@ -1358,9 +1393,9 @@ MonoBehaviour:
     pivot: {x: 7, y: 6}
     weight: 0.1
     entities:
-    - x: 2
+    - id: SandGolem
+      x: 2
       y: 1
-      origin: {fileID: 11400000, guid: a4dcc391f75d4ba4eb19176cdd668c2c, type: 2}
       status:
         health: 0
         maxHealth: 0

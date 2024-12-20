@@ -1967,7 +1967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a2ad41452348abb4baccdc61afacd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityOrigin: {fileID: 11400000, guid: 7944684b29568f140bb3c7cc2387443f, type: 2}
+  entityId: Player
 --- !u!1001 &407164513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3231,7 +3231,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.3125
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -10183,7 +10183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 11400000, guid: 2aef8740a135cc4499e388581c90dbf1, type: 2}
+  entityId: 
   status:
     health: 100
     maxHealth: 100

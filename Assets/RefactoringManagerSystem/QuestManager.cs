@@ -23,13 +23,13 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             database = DataBase.data.GetQuestData();
         }
 
-        public void RegistrationQuest(Sprite npcSprite, EntityOrigin origin, string id)
+        public void RegistrationQuest(Sprite npcSprite, string entityId, string questId)
         {
-            var targetQuests = database.GetEntityQuestsByEntity(origin);
+            var targetQuests = database.GetEntityQuestsByEntity(entityId);
             
             foreach (var quest in targetQuests)
             {
-                if (quest.id != id) continue;
+                if (quest.id != questId) continue;
                 
                 var progressQuest = new Quest(quest, npcSprite);
 

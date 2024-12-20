@@ -198,10 +198,10 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
-            foreach (var prefab in piece.entities)
+            foreach (var entityData in piece.entities)
             {
-                world.AddEntity(worldX - piece.pivot.x + prefab.x + 0.5f, worldY - piece.pivot.y + prefab.y + 0.5f,
-                    prefab.origin);
+                world.AddEntity(worldX - piece.pivot.x + entityData.x + 0.5f, worldY - piece.pivot.y + entityData.y + 0.5f,
+                    entityData.id);
             }
         }
     }

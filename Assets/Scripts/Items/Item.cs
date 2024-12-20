@@ -1,25 +1,35 @@
-using Ciart.Pagomoa.Entities.Players;
+﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Items
 {
-    [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
-    public class OldItem : ScriptableObject
+    public enum ItemType
     {
-        public enum OldItemType
-        {
-            Equipment,
-            Use,
-            Mineral,
-            Inherent
-        }
-        public string itemName;
-        public ItemType itemType;
-        public Sprite itemImage;
-        public string itemInfo;
-        public int itemPrice;
+        Equipment,
+        Use,
+        Mineral,
+        Inherent
+    }
+    
+    [Serializable]
+    public class Item
+    {
+        public ItemType type;
+        
+        public string id;
+        
+        public string name;
+        
+        public string description;
 
-        // TODO: stat 삭제하거나 구조를 변경해야 합니다.
-        public virtual void Active(PlayerStatus stat) { }
+        public int price;
+
+        public Sprite sprite;
+
+        public void LoadResources()
+        {
+            sprite = Resources.Load<Sprite>($"Items/{id}");
+        }
     }
 }

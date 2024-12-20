@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Logger;
 using UnityEditor;
@@ -43,13 +44,15 @@ namespace Ciart.Pagomoa.Editor
                     .ObjectField($"엔티티 {i + 1}", _questDatabase.mapEntityQuests[i].entity, typeof(EntityController), true);
 
                 if (_questDatabase.mapEntityQuests[i].entity is null) continue;
+                
+                var entity = ResourceSystem.instance.entities[_questDatabase.mapEntityQuests[i].entity.entityId];
 
                 GUILayout.BeginVertical(new GUIStyle(GUI.skin.window));
-                if (GUILayout.Button($"{_questDatabase.mapEntityQuests[i].entity.origin.displayName} Quest 추가", GUILayout.MaxWidth(200)))
+                if (GUILayout.Button($"{entity.name} Quest 추가", GUILayout.MaxWidth(200)))
                 {
                     _questDatabase.mapEntityQuests[i].entityQuests.Add(null);
                 }
-                if (GUILayout.Button($"{_questDatabase.mapEntityQuests[i].entity.origin.displayName} Quest 제거", GUILayout.MaxWidth(200)))
+                if (GUILayout.Button($"{entity.name} Quest 제거", GUILayout.MaxWidth(200)))
                 {
                     if (_questDatabase.mapEntityQuests[i].entityQuests.Count == 0) return;
 
@@ -61,7 +64,7 @@ namespace Ciart.Pagomoa.Editor
                 for (var j = 0; j < _questDatabase.mapEntityQuests[i].entityQuests.Count; j++)
                 {
                     _questDatabase.mapEntityQuests[i].entityQuests[j] = (QuestData)EditorGUILayout
-                        .ObjectField($"{_questDatabase.mapEntityQuests[i].entity.origin.displayName} Quest {j + 1}", _questDatabase.mapEntityQuests[i].entityQuests[j], typeof(QuestData), false);
+                        .ObjectField($"{entity.name} Quest {j + 1}", _questDatabase.mapEntityQuests[i].entityQuests[j], typeof(QuestData), false);
                 }
                 
                 GUILayout.EndVertical();
