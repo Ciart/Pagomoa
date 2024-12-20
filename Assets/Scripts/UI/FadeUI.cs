@@ -27,6 +27,7 @@ namespace Ciart.Pagomoa
         {
             _animator = GetComponent<Animator>();
             
+            gameObject.SetActive(false);
             moon.SetActive(false);
         }
     
@@ -35,24 +36,32 @@ namespace Ciart.Pagomoa
             if (flag <= FadeFlag.FadeInOut) moon.SetActive(false);
             else moon.SetActive(true);
             
+            Action fadeOut = FadeOut;
+            Action standby = StandByFadeUI;
+            
             switch (flag)
             {
                 case FadeFlag.FadeIn : case FadeFlag.MoonFadeIn:
+                    _animator.speed = duration;
+                    
                     FadeIn();
                     break;
                 case FadeFlag.FadeOut: case FadeFlag.MoonFadeOut:
+                    _animator.speed = duration;
+                    
                     FadeOut();
+                    TimeManager.instance.SetTimer(duration, standby);
                     break;
                 case FadeFlag.FadeInOut: case FadeFlag.MoonFadeInOut:
-                    _animator.SetTrigger(FadeFlag.FadeIn.ToString());
-                    Action fadeOut = FadeOut;
-                    
+                    _animator.speed = duration;
+                    FadeIn();
                     TimeManager.instance.SetTimer(duration, fadeOut);
+                    TimeManager.instance.SetTimer(duration * 2, standby);
                     break;
             }
         }
 
-        public void InActiveFadeUI() { _animator.SetTrigger(_animatorInActive); }
+        public void StandByFadeUI() { _animator.SetTrigger(_animatorInActive); gameObject.SetActive(false); }
         public void FadeIn() { _animator.SetTrigger(FadeFlag.FadeIn.ToString()); }
         public void FadeOut() { _animator.SetTrigger(FadeFlag.FadeOut.ToString()); }
     }

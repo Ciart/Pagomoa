@@ -25,7 +25,7 @@ namespace Ciart.Pagomoa
         private void OnTriggerEnter2D(Collider2D targetObject)
         {
             if (targetObject.CompareTag(TargetTag))
-                StartCutScene();
+                StartCoroutine(StartFade());
         }
 
         private void StartCutScene()
@@ -33,6 +33,15 @@ namespace Ciart.Pagomoa
             DataBase.data.GetCutSceneController().StartCutScene(playableCutScene);
             
             Destroy(this.gameObject);
+        }
+
+        private IEnumerator StartFade()
+        {
+            UIManager.instance.PlayFadeAnimation(FadeFlag.FadeIn, 1.0f);
+
+            yield return new WaitForSeconds(1.0f);
+            
+            StartCutScene();
         }
     }
 }

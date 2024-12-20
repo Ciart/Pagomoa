@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
+using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Timelines;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -32,10 +33,16 @@ namespace Ciart.Pagomoa
         private LayerMask cutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
         private LayerMask inGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
-        // UIManager에 스킵 UI 생성
-        // Fadeout 이후 director Play
-        // 카메라 초기 위치 설정
-
+        private void Start()
+        {
+            _director = GetComponent<PlayableDirector>();
+            _signalReceiver = GetComponent<SignalReceiver>();
+            
+            mainCamera = Camera.main;
+            
+            _director.stopped += EndCutScene;
+        }
+        
         public CutScene GetOnPlayingCutScene()
         {
             return _targetCutScene;
@@ -43,7 +50,7 @@ namespace Ciart.Pagomoa
         
         public void StartCutScene(CutScene cutScene)
         {
-            UIManager.instance.fadeUI.Fade(FadeFlag.FadeIn);
+            UIManager.instance.DeActiveUI();
             
             var player = GameManager.instance.player;
             for (int i = 0; i < player.transform.childCount; i++)
@@ -52,19 +59,19 @@ namespace Ciart.Pagomoa
             }
             player.gameObject.SetActive(false);
             
-            
             CutSceneCameraSetting();
-
+            
             _targetCutScene = cutScene;
             PlayCutScene();
         }
         
-        public void EndCutScene()
+        private void EndCutScene(PlayableDirector director)
         {
             _targetCutScene.ClearActors();
-            _director.Stop();
+            UIManager.instance.PlayFadeAnimation(FadeFlag.FadeOut, fadeDelay);
             DefaultCameraSetting();
             
+            UIManager.instance.ActiveUI();
             var player = GameManager.instance.player;
             player.gameObject.SetActive(true);
             
@@ -73,15 +80,6 @@ namespace Ciart.Pagomoa
                 player.transform.GetChild(i).gameObject.SetActive(true);    
             }
             
-            UIManager.instance.fadeUI.Fade(FadeFlag.FadeOut);
-        }
-        
-        private void Start()
-        {
-            _director = GetComponent<PlayableDirector>();
-            _signalReceiver = GetComponent<SignalReceiver>();
-            
-            mainCamera = Camera.main;
         }
         
         public SignalReceiver GetSignalReceiver()
@@ -99,9 +97,6 @@ namespace Ciart.Pagomoa
         
         private void PlayCutScene()
         {
-            UIManager.instance.fadeUI.Fade(FadeFlag.FadeInOut);
-            UIManager.instance.DeActiveUI();
-               
             foreach (var cutScene in cutScenes)
             {
                 if (cutScene.name.Trim() == _targetCutScene.name.Trim())
@@ -152,7 +147,8 @@ namespace Ciart.Pagomoa
                         var target = actor.GetComponent<Chat>();
                         
                         target.Chatting(_targetCutScene.GetMiniChat(), chat.duration);
-                        _targetCutScene.IncreaseChatIndex();
+                        _targetCutScene.IncreaseMiniChatIndex();
+
                         return;
                     }
                     else if (chat.content.Trim() != "") 

@@ -20,7 +20,7 @@ namespace Ciart.Pagomoa
         [HideInInspector] public GameObject instanceShopkeeper;
         [HideInInspector] public GameObject instanceMoa;
         
-        public override void SetInstanceCharacter()
+        public override void SetInstanceCharacter() 
         {
             instancePago.transform.position = Vector3.zero;
             instanceMoa.transform.position = Vector3.zero;

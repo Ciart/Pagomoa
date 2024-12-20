@@ -24,8 +24,7 @@ namespace Ciart.Pagomoa.Systems
         private GameObject _dialogueUI;
         private GameObject _quickSlot;
         private bool _isActiveInventory;
-
-        public FadeUI fadeUI;
+        private FadeUI _fadeUI;
         public UIContainer GetUIContainer() { return _uiContainer; }
         
         public override void Awake()
@@ -40,7 +39,7 @@ namespace Ciart.Pagomoa.Systems
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            fadeUI = _uiContainer.fadeUI.GetComponent<FadeUI>();
+            _fadeUI = _uiContainer.fadeUI.GetComponent<FadeUI>();
             
             _quickSlot = Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
         }
@@ -127,6 +126,12 @@ namespace Ciart.Pagomoa.Systems
             _dialogueUI.SetActive(false);
         }
 
+        public void PlayFadeAnimation(FadeFlag flag, float duration)
+        {
+            _fadeUI.gameObject.SetActive(true);
+            _fadeUI.Fade(flag, duration);
+        }
+        
         public GameObject CreateInteractableUI(Transform parent)
         {
             return Object.Instantiate(DataBase.data.GetUIData().interactableUI, parent);

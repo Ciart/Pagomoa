@@ -3298,42 +3298,13 @@ GameObject:
   - component: {fileID: 596654834}
   - component: {fileID: 596654832}
   - component: {fileID: 596654831}
-  - component: {fileID: 596654830}
   m_Layer: 0
   m_Name: CutSceneTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &596654830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596654829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fbf4aee7a5eff14f9b8f81f302e1552, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiOffset: {x: 0, y: 2, z: 0}
-  interactionEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 596654831}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.CutSceneTrigger, Assembly-CSharp
-        m_MethodName: HasInteract
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_IsActive: 1
 --- !u!114 &596654831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3553,7 +3524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6843392044339612283, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8441710931689863229, guid: c9ba4068d28cd3b46a83d03488199f17, type: 3}
       propertyPath: m_Sprite
@@ -7616,7 +7587,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483392656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11623,6 +11594,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7444223439885983884, guid: 0767d93238e8c1947827e861222c4476, type: 3}
+      propertyPath: m_VerticalScrollbarVisibility
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9014749859596801235, guid: 0767d93238e8c1947827e861222c4476, type: 3}
       propertyPath: _papersSprites.Array.size
       value: 6
@@ -12125,23 +12100,79 @@ PrefabInstance:
     - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_PlayableAsset
       value: 
+      objectReference: {fileID: 11400000, guid: e6306a8744c647a49b34e8ea5fdaf509, type: 2}
+    - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_SceneBindings.Array.data[8].key
+      value: 
+      objectReference: {fileID: 4181815871767657080, guid: e6306a8744c647a49b34e8ea5fdaf509, type: 2}
+    - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_SceneBindings.Array.data[9].key
+      value: 
+      objectReference: {fileID: 3973909336483018379, guid: e6306a8744c647a49b34e8ea5fdaf509, type: 2}
     - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_SceneBindings.Array.data[0].value
       value: 
       objectReference: {fileID: 519420034}
+    - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_SceneBindings.Array.data[8].value
+      value: 
+      objectReference: {fileID: 1483392660}
+    - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_SceneBindings.Array.data[9].value
+      value: 
+      objectReference: {fileID: 1483392656}
     - target: {fileID: 2247904523322223008, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_Name
       value: CutSceneController
       objectReference: {fileID: 0}
     - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Events.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Signals.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Signals.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f04fbb35d6ae8548ab56355cc086128, type: 2}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Signals.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f04fbb35d6ae8548ab56355cc086128, type: 2}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1483392661}
+      objectReference: {fileID: 2044082866}
     - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1483392661}
+      objectReference: {fileID: 2044082866}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndCutScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndCutScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ciart.Pagomoa.CutSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965834635163241490, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ciart.Pagomoa.CutSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

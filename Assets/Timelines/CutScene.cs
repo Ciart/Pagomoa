@@ -18,17 +18,30 @@ namespace Ciart.Pagomoa.Timelines
 
         [HideInInspector] public List<GameObject> actors;
         
-        public string[] miniChats;
+        public List<string> miniChats = new List<string>();
         private int _index = 0;
+        private bool _isFirst = true;
         
         public string GetMiniChat()
         {
-            Debug.Log(miniChats.Length);
-            Debug.Log(_index);
-            Debug.Log(miniChats[_index] + ", " + _index);
-            return miniChats[_index];
+            if (_isFirst)
+            {
+                _index = 0;
+                _isFirst = false;
+            }
+
+            if (_index == miniChats.Count)
+            {
+                _index = 0;
+                _isFirst = true;
+            }
+   
+            var chat = miniChats[_index];
+            
+            return chat;
         }
-        public void IncreaseChatIndex() { _index++; }
+        public void IncreaseMiniChatIndex() { _index++; }
+        
         public void ClearActors() {
             for (var i = actors.Count - 1; i > 0; i--)
             {
