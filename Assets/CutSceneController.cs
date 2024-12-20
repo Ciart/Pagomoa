@@ -79,7 +79,6 @@ namespace Ciart.Pagomoa
             {
                 player.transform.GetChild(i).gameObject.SetActive(true);    
             }
-            
         }
         
         public SignalReceiver GetSignalReceiver()

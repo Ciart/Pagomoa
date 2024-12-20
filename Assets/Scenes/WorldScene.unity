@@ -3306,7 +3306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &596654831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7735,7 +7735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 16
-  m_ScaleFactor: 3
+  m_ScaleFactor: 1
   m_ReferenceResolution: {x: 480, y: 272}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -8167,7 +8167,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 498371703}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1604580619
 Animator:
@@ -10123,7 +10123,6 @@ GameObject:
   - component: {fileID: 1979542733}
   - component: {fileID: 1979542732}
   - component: {fileID: 1979542734}
-  - component: {fileID: 1979542735}
   m_Layer: 0
   m_Name: VirtualCamera
   m_TagString: Untagged
@@ -10198,54 +10197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1981675335 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5206691075486585182, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
-  m_PrefabInstance: {fileID: 1830094619}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1981675340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981675335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460fe55a96245c54994795816d33e40b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicDialogue: {fileID: 4900000, guid: 8d8949ab71db75b478178f614afcf5df, type: 3}
-  dailyDialogues: {fileID: 11400000, guid: bd21f2b850652454288c37febf83128d, type: 2}
-  portrait: {fileID: 0}
-  uiOffset: {x: 0, y: 3.2, z: 0}
---- !u!50 &1981675347
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981675335}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1839735485 &2012602249 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 6180679446835050106, guid: a3aa8548fe0884d4ba019cc380c6bf84, type: 3}
@@ -12737,7 +12688,6 @@ SceneRoots:
   - {fileID: 407164513}
   - {fileID: 1332227802}
   - {fileID: 1793737718}
-  - {fileID: 1595614276}
   - {fileID: 519420032}
   - {fileID: 1979542733}
   - {fileID: 1469825037}
@@ -12759,3 +12709,4 @@ SceneRoots:
   - {fileID: 5787187148874216554}
   - {fileID: 596654833}
   - {fileID: 7878045993923659085}
+  - {fileID: 1604580618}
