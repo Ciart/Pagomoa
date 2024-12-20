@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using UnityEngine;
+using Object = System.Object;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
@@ -132,7 +136,7 @@ namespace Ciart.Pagomoa.Systems.Time
         public void Sleep()
         {
             // FadeEvent.Invoke(FadeState.FadeInOut);
-            EventManager.Notify(new FadeEvent(FadeState.FadeInOut));
+            //EventManager.Notify(new FadeEvent(FadeState.FadeInOut));
             AddDay(1);
             tick = Morning;
 
@@ -185,7 +189,7 @@ namespace Ciart.Pagomoa.Systems.Time
         {
             date += day;
         }
-
+        
         public void PauseTime()
         {
             UnityEngine.Time.timeScale = 0;
@@ -198,6 +202,14 @@ namespace Ciart.Pagomoa.Systems.Time
             UnityEngine.Time.timeScale = 1;
             isTimeStop = false;
             if (_playerInput) _playerInput.Actable = true;
+        }
+        
+        public async void SetTimer(float seconds, Action callback)
+        {
+            var milliSeconds = (int)(seconds * 1000);
+            await Task.Delay(milliSeconds);
+            
+            callback.Invoke();
         }
     }
 }

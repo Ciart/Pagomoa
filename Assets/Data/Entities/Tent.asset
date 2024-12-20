@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dedc33b253a4ca68b9317bab92a33d3, type: 3}
   m_Name: Tent
   m_EditorClassIdentifier: 
-  displayName: Tent
-  description: "\uD50C\uB808\uC774\uC5B4 \uD0E0\uD2B8"
+  displayName: 
+  description: 
   type: 2
   subType: 0
   isEnemy: 0
   isInvincible: 0
-  prefab: {fileID: 3425350541753778214, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+  prefab: {fileID: 0}
   baseHealth: 100

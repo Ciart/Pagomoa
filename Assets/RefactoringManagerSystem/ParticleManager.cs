@@ -9,7 +9,8 @@ namespace Ciart.Pagomoa.Systems
         {
             var particle = Object.Instantiate(DataBase.data.GetParticles()[id], parent.transform);
             particle.transform.localPosition = position;
-            DataBase.data.DestroyData(particle, duration);
+            Object.Destroy(particle);
+            //DataBase.data.DestroyData(, duration);
         }
     }
 }

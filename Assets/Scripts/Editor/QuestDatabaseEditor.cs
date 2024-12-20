@@ -41,9 +41,16 @@ namespace Ciart.Pagomoa.Editor
                 
                 _questDatabase.mapEntityQuests[i].entity = (EntityController)EditorGUILayout
                     .ObjectField($"엔티티 {i + 1}", _questDatabase.mapEntityQuests[i].entity, typeof(EntityController), true);
+                
+                if (!_questDatabase.mapEntityQuests[i].entity) continue;
 
-                if (_questDatabase.mapEntityQuests[i].entity is null) continue;
-
+                if (!_questDatabase.mapEntityQuests[i].entity.origin)
+                {
+                    _questDatabase.mapEntityQuests.RemoveAt(i);
+                    return;
+                }
+                    
+                
                 GUILayout.BeginVertical(new GUIStyle(GUI.skin.window));
                 if (GUILayout.Button($"{_questDatabase.mapEntityQuests[i].entity.origin.displayName} Quest 추가", GUILayout.MaxWidth(200)))
                 {
