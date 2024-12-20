@@ -7,8 +7,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class AuctionDB : MonoBehaviour
     {
         public List<InventorySlot> auctionItem = new List<InventorySlot>();
+        [SerializeField] private Buy buy;
 
         private static AuctionDB instance;
+
         public static AuctionDB Instance
         {
             get
@@ -24,10 +26,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             // var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
             var gameManager = GameManager.instance;
-            var acutionItem = Buy.Instance.chosenBuySlot.slot;
+            var acutionItem = buy.chosenBuySlot.slot;
             
             if (data.itemType == Item.ItemType.Use)
-                for (int i = 0; i < Buy.Instance.countUINum; i++)
+                for (int i = 0; i < buy.countUINum; i++)
                 {
                     gameManager.player.inventory.Gold -= data.itemPrice;
                 }
@@ -36,8 +38,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 gameManager.player.inventory.Gold -= data.itemPrice;
                 acutionItem.count -= 1;
             }
-            ShopUIManager.Instance.gold[0].text = gameManager.player.inventory.Gold.ToString();
-            ShopUIManager.Instance.gold[1].text = gameManager.player.inventory.Gold.ToString();
+            ShopUI.Instance.gold[0].text = gameManager.player.inventory.Gold.ToString();
+            ShopUI.Instance.gold[1].text = gameManager.player.inventory.Gold.ToString();
         }
     }
 }
