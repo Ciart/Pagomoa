@@ -100,6 +100,11 @@ namespace Ciart.Pagomoa.Editor
 
             var resourceManager = ResourceSystem.instance;
 
+            if (resourceManager is null)
+            {
+                return;
+            }
+
             var walls = resourceManager.walls.Values.ToList();
             var grounds = resourceManager.grounds.Values.ToList();
             var minerals = resourceManager.minerals.Values.ToList();
@@ -110,20 +115,20 @@ namespace Ciart.Pagomoa.Editor
                     var wallIndex = EditorGUILayout.Popup(walls.FindIndex((wall) => wall.id == _selectWallId),
                         walls.Select(wall => wall.name ?? wall.name).ToArray(),
                         GUILayout.Width(width));
-                    _selectWallId = walls[wallIndex].id;
+                    _selectWallId = wallIndex != -1 ? walls[wallIndex].id : "";
                     break;
                 case 2:
                     var groundIndex = EditorGUILayout.Popup(grounds.FindIndex((ground) => ground.id == _selectGroundId),
                         grounds.Select(ground => ground.name ?? ground.name).ToArray(),
                         GUILayout.Width(width));
-                    _selectGroundId = grounds[groundIndex].id;
+                    _selectGroundId = groundIndex != -1 ? grounds[groundIndex].id : "";
                     break;
                 case 3:
                     var mineralIndex = EditorGUILayout.Popup(
                         minerals.FindIndex((mineral) => mineral.id == _selectMineralId),
                         minerals.Select(mineral => mineral.name ?? mineral.name).ToArray(),
                         GUILayout.Width(width));
-                    _selectMineralId = minerals[mineralIndex].id;
+                    _selectMineralId = mineralIndex != -1 ? minerals[mineralIndex].id : "";
                     break;
                 case 4:
                     _selectEntity = EditorGUILayout.Popup(_selectEntity,
@@ -174,10 +179,10 @@ namespace Ciart.Pagomoa.Editor
                                     brick.wallId = _selectWallId;
                                     break;
                                 case 2:
-                                    brick.groundId = _selectWallId;
+                                    brick.groundId = _selectGroundId;
                                     break;
                                 case 3:
-                                    brick.mineralId = _selectWallId;
+                                    brick.mineralId = _selectMineralId;
                                     break;
                                 case 4:
                                     // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
@@ -216,7 +221,8 @@ namespace Ciart.Pagomoa.Editor
                         var wall = brick.wall;
                         if (wall != null)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, wall.sprite.texture, ComputeTexCoords(wall.sprite));
+                            var sprite = wall.sprite;
+                            GUI.DrawTextureWithTexCoords(rect, sprite.texture, ComputeTexCoords(sprite));
                         }
                     }
                     else
@@ -224,14 +230,15 @@ namespace Ciart.Pagomoa.Editor
                         var ground = brick.ground;
                         if (ground != null)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
+                            var sprite = ground.sprite;
+                            GUI.DrawTextureWithTexCoords(rect, sprite.texture, ComputeTexCoords(sprite));
                         }
 
                         var mineral = brick.mineral;
                         if (mineral != null)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture,
-                                ComputeTexCoords(mineral.sprite));
+                            var sprite = mineral.sprite;
+                            GUI.DrawTextureWithTexCoords(rect, sprite.texture, ComputeTexCoords(sprite));
                         }
                     }
                 }

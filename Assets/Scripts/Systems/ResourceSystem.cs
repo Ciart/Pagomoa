@@ -20,8 +20,8 @@ public class BrickJsonData
 
 namespace Ciart.Pagomoa.Systems
 {
-    [ExecuteInEditMode]
-    public class ResourceSystem : SingletonMonoBehaviour<ResourceSystem>
+    // [ExecuteInEditMode]
+    public class ResourceSystem : MonoBehaviour
     {
         public Dictionary<string, NewItemEffect> itemEffects = new();
 
@@ -32,6 +32,8 @@ namespace Ciart.Pagomoa.Systems
         public Dictionary<string, Ground> grounds = new();
         
         public Dictionary<string, Mineral> minerals = new();
+        
+        public static ResourceSystem instance { get; private set; }
 
         private void LoadItems()
         {
@@ -84,13 +86,13 @@ namespace Ciart.Pagomoa.Systems
         {
             itemEffects[item.id].Effect();
         }
-
+        
         private void Awake()
         {
             LoadItems();
             LoadBricks();
-                        
-            Debug.Log("Awake");
+            
+            instance = this;
         }
     }
 }

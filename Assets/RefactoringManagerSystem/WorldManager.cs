@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa.Worlds
         public static World world
         {
             get => instance._world;
-            set
+            private set
             {
                 if (instance._world == value)
                 {

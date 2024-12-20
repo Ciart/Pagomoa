@@ -8,13 +8,13 @@ using Random = Unity.Mathematics.Random;
 namespace Ciart.Pagomoa.Worlds
 {
     using WeightedPieces = List<(float, Piece)>;
-    
+
     public class WorldGenerator
     {
         const string wall = "SandWall";
         const string sand = "Sand";
         const string grass = "Grass";
-        
+
         public const int ForestHeight = -100;
 
         public uint seed = 1234;
@@ -74,14 +74,14 @@ namespace Ciart.Pagomoa.Worlds
         public Level GenerateMainLevel()
         {
             var level = new Level("Main", LevelType.Overworld, top, bottom, left, right);
-            
+
             var random = new Random(seed);
 
             var desertPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Desert)));
             var forestPieces =
                 Preload(database.pieces.Where((piece) => piece.appearanceArea.HasFlag(WorldAreaFlag.Forest)));
-            
+
             var levelBounds = level.bounds;
 
             foreach (var coords in levelBounds.GetWorldCoords())
@@ -115,7 +115,7 @@ namespace Ciart.Pagomoa.Worlds
                 {
                     continue;
                 }
-                
+
                 if (coords.y >= World.GroundHeight)
                 {
                     continue;
@@ -149,14 +149,14 @@ namespace Ciart.Pagomoa.Worlds
         public Level GenerateDungeonLevel(string id, string pieceTag)
         {
             var piece = database.GetPieceWithTag(pieceTag);
-            
+
             var levelTop = piece.height - piece.pivot.y;
             var levelBottom = piece.pivot.y;
             var levelLeft = piece.pivot.x;
             var levelRight = piece.width - piece.pivot.x;
-            
+
             var level = new Level(id, LevelType.YellowDungeon, levelTop, levelBottom, levelLeft, levelRight);
-  
+
             GeneratePiece(piece, level, 0, 0, true);
             return level;
         }
