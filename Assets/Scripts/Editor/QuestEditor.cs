@@ -34,6 +34,7 @@ namespace Ciart.Pagomoa.Editor
 
             GUILayout.BeginVertical("선행 퀘스트 등록", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
+            
             for (int i = 0; i < newQuestData.prevQuestData.Count; i++)
             {
                 newQuestData.prevQuestData[i] = (QuestData)EditorGUILayout.ObjectField("선행 퀘스트", newQuestData.prevQuestData[i], typeof(QuestData), false);

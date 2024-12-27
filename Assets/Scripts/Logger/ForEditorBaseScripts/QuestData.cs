@@ -18,8 +18,8 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
         
         [SerializeField] public Reward reward = new();
         
-        public List<QuestConditionData> questList;
-        public List<QuestData> prevQuestData;
+        public List<QuestConditionData> questList = new List<QuestConditionData>();
+        public List<QuestData> prevQuestData = new List<QuestData>();
     }
 
     [Serializable]

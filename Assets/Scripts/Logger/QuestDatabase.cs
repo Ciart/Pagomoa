@@ -20,7 +20,7 @@ namespace Logger
             public List<QuestData> entityQuests = new List<QuestData>();
         }
 
-        public List<MapEntityQuest> mapEntityQuests;
+        public List<MapEntityQuest> mapEntityQuests = new List<MapEntityQuest>();
 
         public QuestData[] GetEntityQuestsByEntity(string entityId)
         {

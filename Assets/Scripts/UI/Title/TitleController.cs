@@ -3,6 +3,7 @@ using System.Collections;
 using Ciart.Pagomoa.CutScenes;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
+using Ciart.Pagomoa.Timelines;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,8 +19,6 @@ namespace Ciart.Pagomoa.UI.Title
         public GameObject titlePanel;
 
         public Intro intro;
-
-        public GameObject eventManager; 
         
         private void Start()
         {
@@ -39,6 +38,12 @@ namespace Ciart.Pagomoa.UI.Title
             {
                 SceneManager.LoadScene("Scenes/WorldScene");
             }
+            
+            foreach (var backGround in backGrounds)
+            {
+                backGround.needScrollDown = true;
+                titlePanel.SetActive(false);
+            }
             // foreach (var backGround in backGrounds)
             // {
             //     backGround.needSlowDownScroll = true;
@@ -47,10 +52,10 @@ namespace Ciart.Pagomoa.UI.Title
         }
         public void ReStart()
         {
-            bool restart = true;
             DataManager.Instance.DeleteGameData();
             DataManager.Instance.LoadGameData();
-            StartGame(restart);
+            
+            StartGame(true);
         }
         public void PressStartButton()
         {
@@ -85,8 +90,6 @@ namespace Ciart.Pagomoa.UI.Title
         public void StartGame()
         {
             if (intro.isPlayed) intro.gameObject.SetActive(false); 
-            
-            Destroy(eventManager);
             
             SceneManager.LoadScene("Scenes/WorldScene");
         } 

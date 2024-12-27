@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6098535879605920140}
   - component: {fileID: 2104607855505044773}
   - component: {fileID: 6794588131574133073}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: chatCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

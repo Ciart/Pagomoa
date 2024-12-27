@@ -9,7 +9,9 @@ namespace Ciart.Pagomoa
 {
     public class UIContainer : MonoBehaviour
     {
-        [Header("UI Data")]
+        [Header("UI Data")] 
+        public GameObject miniMap;
+        public GameObject statePanel;
         public Image oxygenBar;
         public Image hungryBar;
         public GameObject inventoryUIPrefab;
@@ -19,6 +21,7 @@ namespace Ciart.Pagomoa
         public GameObject interactableUI;
         public GameObject questCompleteUI;
         [CanBeNull] public DialogueUI dialogueUI;
+        public GameObject fadeUI;
         public CinemachineVirtualCamera inventoryCamera;
     }
 }

@@ -188,6 +188,7 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
+
             texture.Apply();
             texture.filterMode = FilterMode.Point;
 
@@ -210,6 +211,30 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             spriteRenderer.sprite = sprite;
+        }
+
+        // // // 
+        private void RenderEdgeFog()
+        {
+            var top = level.top;
+            var bottom = -level.bottom;
+            var left = -level.left - 1;
+            var right = level.right;
+            for (int i = left; i <= right; i++)
+            {
+                fogTilemap.SetTile(new Vector3Int(i, top), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, top - 1), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, bottom), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, bottom + 1), fogTile);
+            }
+
+            for (int i = bottom; i <= top; i++)
+            {
+                fogTilemap.SetTile(new Vector3Int(left, i), fogTile);
+                fogTilemap.SetTile(new Vector3Int(left + 1, i), fogTile);
+                fogTilemap.SetTile(new Vector3Int(right, i), fogTile);
+                fogTilemap.SetTile(new Vector3Int(right - 1, i), fogTile);
+            }
         }
 
         private IEnumerator RunActionWithChunks(IEnumerable<Vector2Int> keys, Action<Vector2Int> action)
@@ -327,6 +352,9 @@ namespace Ciart.Pagomoa.Worlds
             {
                 RenderChunk(chunkCoords);
             }
+
+            RenderEdgeFog();
+
         }
 
         private List<EntityController> _entities = new();

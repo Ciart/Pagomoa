@@ -67,12 +67,17 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var questManager = QuestManager.instance;
 
             questManager.CompleteQuest(id);
+
+            var questEvent = _entityController.GetComponent<IQuestEvent>();
+
+            questEvent?.CompleteEvent();
             
             _questCompleteUI.SetActive(false);
         }
 
         public void StartDialogue()
         {
+            Debug.Log(_entityQuests.Length);
             var questManager = QuestManager.instance;
             var dialogueManager = DialogueManager.instance;
             var icon = transform.GetComponentInChildren<QuestCompleteIcon>();
@@ -92,7 +97,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     return;
                 }
             }
-
+            
             dialogueManager.StartStory(this, basicDialogue);
         }
 

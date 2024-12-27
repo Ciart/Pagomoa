@@ -10,6 +10,12 @@ using System;
 
 namespace Ciart.Pagomoa
 {
+    public enum UISelectMode
+    {
+        In,
+        Out
+    }
+    
     public class DialogueUI : MonoBehaviour
     {
         public GameObject outButtonGroup;
@@ -30,17 +36,11 @@ namespace Ciart.Pagomoa
 
         public List<Sprite> spriteGroup;
 
-        public enum UISelectMode
-        {
-            In,
-            Out
-        }
-
         public UISelectMode uiMode = UISelectMode.Out;
 
         private DialogueUI _dialogueUI = null;
 
-        private DialogueManager _targetManagement;
+        private DialogueManager _targetManager;
         
         private bool _changeDialogue;
 
@@ -79,12 +79,12 @@ namespace Ciart.Pagomoa
         private void RefreshView(StoryStarted obj)
         {
             if (obj.targetManagement != null)
-                _targetManagement = obj.targetManagement;
+                _targetManager = obj.targetManagement;
             else
             {
                 var dialogueManager = DialogueManager.instance;
                 
-                _targetManagement = dialogueManager;
+                _targetManager = dialogueManager;
             }
             
             RefreshView();
@@ -92,7 +92,7 @@ namespace Ciart.Pagomoa
 
         private void RefreshView()
         {
-            var story = _targetManagement.story;
+            var story = _targetManager.story;
 
             RemoveChildren(_dialogueUI.outButtonGroup);
             RemoveChildren(_dialogueUI.inButtonGroup);
@@ -135,14 +135,14 @@ namespace Ciart.Pagomoa
                 Button choice = CreateChoiceView("확인");
                 choice.onClick.AddListener(delegate
                 {
-                    _targetManagement.StopStory();
+                    _targetManager.StopStory();
                 });
             }
         }
 
         public void ParseTag()
         {
-            List<string> currentTags = _targetManagement.story.currentTags;
+            List<string> currentTags = _targetManager.story.currentTags;
 
             foreach (var currentTag in currentTags)
             {
@@ -196,7 +196,7 @@ namespace Ciart.Pagomoa
         // When we click the choice button, tell the story to choose that choice!
         private void OnClickChoiceButton(Choice choice)
         {
-            _targetManagement.story.ChooseChoiceIndex(choice.index);
+            _targetManager.story.ChooseChoiceIndex(choice.index);
 
             RefreshView();
         }
@@ -248,9 +248,11 @@ namespace Ciart.Pagomoa
                 return;
             }
 
-            if (CutSceneManager.instance.CutSceneIsPlayed())
+            var cutSceneController = DataBase.data.GetCutSceneController();
+
+            if (cutSceneController.CutSceneIsPlayed())
             {
-                var target = CutSceneManager.instance.GetTargetCutSceneData();
+                var target = cutSceneController.GetOnPlayingCutScene();
                 
                 foreach (var sprite in target.GetSprites())
                 {

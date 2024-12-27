@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
-
+        
         private void OnPlayerSpawned(PlayerSpawnedEvent e) 
         {
             var player = e.player;
