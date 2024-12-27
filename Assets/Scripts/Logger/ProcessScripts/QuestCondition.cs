@@ -12,20 +12,20 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public Action questFinished;
         public QuestType questType { get; set; }
         public string summary { get; set; }
-        public ScriptableObject targetEntity { get; set; }
+        public string targetId { get; set; }
         public string valueType { get; set; }
 
         public int value { get; set; }
         public int compareValue { get; set; }
         
         public void InitQuest(QuestType initQuestType, string initSummary, int initValue, int initCompareValue,
-            ScriptableObject initTargetEntity)
+            string initTargetId)
         {
             questType = initQuestType;
             summary = initSummary;
             value = initValue;
             compareValue = initCompareValue;
-            targetEntity = initTargetEntity;
+            targetId = initTargetId;
         }
 
         public void InitQuestValue(int initValue, int initCompareValue)
@@ -34,14 +34,14 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = initCompareValue;
         }
 
-        public void InitQuestValueWithTarget(int initValue, int initCompareValue, ScriptableObject initTargetEntity)
+        public void InitQuestValueWithTarget(int initValue, int initCompareValue, string initTargetId)
         {
             value = initValue;
             compareValue = initCompareValue;
-            targetEntity = initTargetEntity;
+            targetId = initTargetId;
         }
 
         public abstract void CalculationValue(IEvent e);
-        public abstract bool TypeValidation(ScriptableObject target);
+        public abstract bool TypeValidation(string target);
     }
 }

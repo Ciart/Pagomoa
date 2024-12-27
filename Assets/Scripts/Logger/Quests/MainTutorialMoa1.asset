@@ -30,7 +30,8 @@ MonoBehaviour:
   - questType: 0
     summary: "\uAD6C\uB9AC 5\uAC1C \uBAA8\uC73C\uAE30"
     value: 5
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: Copper
     conditionType:
       target: 1
       typeValue: int
+  prevQuestData: []

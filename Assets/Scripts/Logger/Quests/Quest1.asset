@@ -27,21 +27,22 @@ MonoBehaviour:
   - questType: 0
     summary: "\uAD6C\uB9AC \uD68D\uB4DD"
     value: 2
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: Copper
     conditionType:
       target: 1
       typeValue: int
   - questType: 2
     summary: "\uBAA8\uB798 \uD30C\uAD34"
     value: 2
-    targetEntity: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
+    targetId: 
     conditionType:
       target: 2
       typeValue: int
   - questType: 2
     summary: "\uC794\uB514 \uD30C\uAD34"
     value: 2
-    targetEntity: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
+    targetId: 
     conditionType:
       target: 2
       typeValue: int
+  prevQuestData: []

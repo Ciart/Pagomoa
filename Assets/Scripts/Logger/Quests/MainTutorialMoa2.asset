@@ -30,7 +30,8 @@ MonoBehaviour:
     summary: "\uAD6C\uB9AC \uC544\uC774\uD15C\uC744 \uD035\uC2AC\uB86F\uC5D0 \uB4F1\uB85D\uD558\uAC70\uB098
       \uC544\uC774\uCF58\uC744 \uC6B0\uD074\uB9AD\uD574 \uC0AC\uC6A9\uD558\uAE30."
     value: 5
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: 
     conditionType:
       target: 1
       typeValue: int
+  prevQuestData: []

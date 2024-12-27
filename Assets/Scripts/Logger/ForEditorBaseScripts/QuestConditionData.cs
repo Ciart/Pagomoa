@@ -12,7 +12,7 @@ namespace Logger.ForEditorBaseScripts
         
         public string value;
 
-        public ScriptableObject targetEntity;
+        public String targetId;
 
         public ConditionType conditionType;
     }

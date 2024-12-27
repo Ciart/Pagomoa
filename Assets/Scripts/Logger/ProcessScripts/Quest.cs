@@ -121,7 +121,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             questType = elements.questType; 
             summary = elements.summary;
             value = int.Parse(elements.value);
-            targetEntity = elements.targetEntity;
+            targetId = elements.targetId;
             valueType = elements.value; 
             compareValue = 0;
             _prevValue = 0;
@@ -131,7 +131,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             var inventoryItems = GameManager.instance.player.inventory.items;
             foreach (var inventoryItem in inventoryItems)
             {
-                // if (inventoryItem.item == targetEntity)
+                if (inventoryItem.item.id == targetId)
                 {
                     _prevValue = inventoryItem.count;
                     break;
@@ -155,9 +155,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return progress;
         }
 
-        public override bool TypeValidation(ScriptableObject target)
+        public override bool TypeValidation(string target)
         {
-            return target == targetEntity;
+            return target == targetId;
         }
 
         public override void CalculationValue(IEvent e)
@@ -208,7 +208,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             questType = conditions.questType; 
             summary = conditions.summary;
             value = int.Parse(conditions.value);
-            targetEntity = conditions.targetEntity;
+            targetId = conditions.targetId;
             valueType = conditions.value; 
             compareValue = 0;
             
@@ -217,8 +217,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public void HasUsingItem(ItemUsedEvent e)
         {
-            // TODO: Item 호환 작업
-            // if (!TypeValidation(e.item)) return;
+            if (!TypeValidation(e.item.id)) return;
             if (CheckComplete()) return;
             
             CalculationValue(e);
@@ -236,9 +235,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (compareValue > value) compareValue = value;
         }
 
-        public override bool TypeValidation(ScriptableObject target)
+        public override bool TypeValidation(string target)
         {
-            return target == targetEntity;
+            return target == targetId;
         }
 
         public void Dispose()
@@ -280,7 +279,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             questType = elements.questType;
             summary = elements.summary;
-            targetEntity = elements.targetEntity;
+            targetId = elements.targetId;
             valueType = elements.value;
             value = int.Parse(elements.value);
             compareValue = 0;
@@ -304,9 +303,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return progress;
         }
 
-        public override bool TypeValidation(ScriptableObject target)
+        public override bool TypeValidation(string target)
         {
-            return target == targetEntity;
+            return target == targetId;
         }
 
         public override void CalculationValue(IEvent e)
@@ -319,8 +318,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         private void OnGroundBroken(GroundBrokenEvent e)
         {
-            // TODO: !!! 수정 급하게 해야 함
-            // if (!TypeValidation(e.brick.ground)) return;
+            if (!TypeValidation(e.brick.groundId)) return;
             if (CheckComplete()) return;
             
             CalculationValue(e);

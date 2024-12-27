@@ -6,6 +6,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.Systems;
 using Logger;
 using UnityEngine;
 
@@ -55,7 +56,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
-            // EventManager.Notify(new AddReward((Item)reward.targetEntity, reward.value));
+            EventManager.Notify(new AddReward(ResourceSystem.instance.items[reward.itemId], reward.value));
             EventManager.Notify(new AddGold(reward.gold));
 
             targetQuest.state = QuestState.Finish;
