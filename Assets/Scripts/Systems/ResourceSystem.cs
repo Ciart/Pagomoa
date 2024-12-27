@@ -14,58 +14,77 @@ public class JsonData<T>
     public T[] data;
 }
 
+// TODO: JsonData<T>로 통합해야 함
 [Serializable]
 public class BrickJsonData
 {
     public Wall[] walls;
-    
+
     public Ground[] grounds;
-    
+
     public Mineral[] minerals;
 }
 
+// TODO: Json 파싱 방식을 변경하고 아래 record를 사용하도록 해야 함함
+public record ItemId(string id);
+public record WallId(string id);
+public record GroundId(string id);
+public record MineralId(string id);
+public record EntityId(string id);
 
 namespace Ciart.Pagomoa.Systems
 {
-    // [ExecuteInEditMode]
+    [ExecuteInEditMode]
     public class ResourceSystem : MonoBehaviour
     {
-        public Dictionary<string, NewItemEffect> itemEffects = new();
+        private Dictionary<string, Item> items = new();
 
-        public Dictionary<string, Item> items = new();
+        private Dictionary<string, Wall> walls = new();
 
-        public Dictionary<string, Wall> walls = new();
-        
-        public Dictionary<string, Ground> grounds = new();
-        
-        public Dictionary<string, Mineral> minerals = new();
-        
-        public Dictionary<string, Entity> entities = new();
-        
+        private Dictionary<string, Ground> grounds = new();
+
+        private Dictionary<string, Mineral> minerals = new();
+
+        private Dictionary<string, Entity> entities = new();
+
         public static ResourceSystem instance { get; private set; }
 
-        private void LoadItems()
+        private Dictionary<string, NewItemEffect> LoadItemEffects()
         {
-            var text = Resources.Load<TextAsset>("Items");
-
-            foreach (var item in JsonUtility.FromJson<JsonData<Item>>(text.ToString()).data)
-            {
-                items.Add(item.id, item);
-                item.LoadResources();
-            }
+            var result = new Dictionary<string, NewItemEffect>();
 
             foreach (var assembly in Assembly.GetExecutingAssembly().GetTypes())
             {
                 if (assembly.IsSubclassOf(typeof(NewItemEffect)))
                 {
-                    var effect = Activator.CreateInstance(assembly) as NewItemEffect;
-                    itemEffects.Add(assembly.Name.Replace("Effect", ""), effect);
+                    if (Activator.CreateInstance(assembly) is not NewItemEffect effect) continue;
 
-                    Debug.Log(assembly.Name.Replace("Effect", ""));
+                    result.Add(assembly.Name.Replace("Effect", ""), effect);
                 }
             }
+
+            return result;
         }
-        
+
+        private void LoadItems()
+        {
+            var text = Resources.Load<TextAsset>("Items");
+            var itemEffects = LoadItemEffects();
+
+            foreach (var item in JsonUtility.FromJson<JsonData<Item>>(text.ToString()).data)
+            {
+                items.Add(item.id, item);
+
+                if (itemEffects.TryGetValue(item.id, out var effect))
+                {
+                    item.Init(effect);
+                    continue;
+                }
+
+                item.Init();
+            }
+        }
+
         private void LoadBricks()
         {
             var text = Resources.Load<TextAsset>("Bricks");
@@ -74,46 +93,159 @@ namespace Ciart.Pagomoa.Systems
             foreach (var wall in data.walls)
             {
                 walls.Add(wall.id, wall);
-                wall.LoadResources();
+                wall.Init();
             }
 
             foreach (var ground in data.grounds)
             {
                 grounds.Add(ground.id, ground);
-                ground.LoadResources();
+                ground.Init();
             }
 
             foreach (var mineral in data.minerals)
             {
                 minerals.Add(mineral.id, mineral);
-                mineral.LoadResources();
-                Debug.Log(new PropertyName(mineral.id));
+                mineral.Init();
             }
         }
 
         private void LoadEntities()
         {
             var text = Resources.Load<TextAsset>("Entities");
-            
+
             foreach (var entity in JsonUtility.FromJson<JsonData<Entity>>(text.ToString()).data)
             {
                 entities.Add(entity.id, entity);
-                entity.LoadResources();
+                entity.Init();
             }
         }
 
-        public void UseItem(Item item)
+        public List<string> GetItemIds()
         {
-            itemEffects[item.id].Effect();
+            return items.Keys.ToList();
         }
-        
-        private void Awake()
+
+        public List<string> GetWallIds()
         {
+            return walls.Keys.ToList();
+        }
+
+        public List<string> GetGroundIds()
+        {
+            return grounds.Keys.ToList();
+        }
+
+        public List<string> GetMineralIds()
+        {
+            return minerals.Keys.ToList();
+        }
+
+        public List<string> GetEntityIds()
+        {
+            return entities.Keys.ToList();
+        }
+
+        public List<Item> GetItems()
+        {
+            return items.Values.ToList();
+        }
+
+        public List<Wall> GetWalls()
+        {
+            return walls.Values.ToList();
+        }
+
+        public List<Ground> GetGrounds()
+        {
+            return grounds.Values.ToList();
+        }
+
+        public List<Mineral> GetMinerals()
+        {
+            return minerals.Values.ToList();
+        }
+
+        public List<Entity> GetEntities()
+        {
+            return entities.Values.ToList();
+        }
+
+        public Item GetItem(string id)
+        {
+            if (items.TryGetValue(id, out var item))
+            {
+                return item;
+            }
+
+            throw new Exception($"ResourceSystem: GetItem - '{id}' is not found");
+        }
+
+        public Wall GetWall(string id)
+        {
+            if (walls.TryGetValue(id, out var wall))
+            {
+                return wall;
+            }
+
+            throw new Exception($"ResourceSystem: GetWall - '{id}' is not found");
+        }
+
+        public Ground GetGround(string id)
+        {
+            if (grounds.TryGetValue(id, out var ground))
+            {
+                return ground;
+            }
+
+            throw new Exception($"ResourceSystem: GetGround - '{id}' is not found");
+        }
+
+        public Mineral GetMineral(string id)
+        {
+            if (minerals.TryGetValue(id, out var mineral))
+            {
+                return mineral;
+            }
+
+            throw new Exception($"ResourceSystem: GetMineral - '{id}' is not found");
+        }
+
+        public Entity GetEntity(string id)
+        {
+            if (entities.TryGetValue(id, out var entity))
+            {
+                return entity;
+            }
+
+            throw new Exception($"ResourceSystem: GetEntity - '{id}' is not found");
+        }
+
+        private void Init()
+        {
+            items = new Dictionary<string, Item>();
+            walls = new Dictionary<string, Wall>();
+            grounds = new Dictionary<string, Ground>();
+            minerals = new Dictionary<string, Mineral>();
+            entities = new Dictionary<string, Entity>();
+
             LoadItems();
             LoadBricks();
             LoadEntities();
-            
-            instance = this;
+        }
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+
+            if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+
+            Init();
         }
     }
 }

@@ -1,6 +1,4 @@
 using System;
-using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,11 +13,11 @@ namespace Ciart.Pagomoa.Worlds
 
         public bool isClimbable;
         
-        [CanBeNull] public Sprite sprite;
+        public Sprite? sprite;
 
         public TileBase tile;
         
-        public void LoadResources()
+        private void LoadResources()
         {
             tile = Resources.Load<TileBase>($"Walls/{id}");
             sprite = tile switch
@@ -29,6 +27,11 @@ namespace Ciart.Pagomoa.Worlds
                 RuleOverrideTile t => t.m_Sprites[0].m_OverrideSprite,
                 _ => sprite
             };
+        }
+
+        public void Init()
+        {
+            LoadResources();
         }
     }
 }

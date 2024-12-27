@@ -45,7 +45,7 @@ namespace Ciart.Pagomoa.Editor
 
                 if (_questDatabase.mapEntityQuests[i].entity is null) continue;
                 
-                var entity = ResourceSystem.instance.entities[_questDatabase.mapEntityQuests[i].entity.entityId];
+                var entity = ResourceSystem.instance.GetEntity(_questDatabase.mapEntityQuests[i].entity.entityId);
 
                 GUILayout.BeginVertical(new GUIStyle(GUI.skin.window));
                 if (GUILayout.Button($"{entity.name} Quest 추가", GUILayout.MaxWidth(200)))

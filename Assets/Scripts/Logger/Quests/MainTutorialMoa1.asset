@@ -23,8 +23,8 @@ MonoBehaviour:
   completePrologue: {fileID: 4900000, guid: a19bd7970942c5d439586b28d807518f, type: 3}
   reward:
     gold: 222
-    targetEntity: {fileID: 11400000, guid: b7691e55ffcb52d4ab1c97e775961f4c, type: 2}
-    targetEntitySprite: {fileID: -558227242, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    itemId: 
+    itemSprite: {fileID: 0}
     value: 1
   questList:
   - questType: 0

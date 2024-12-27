@@ -151,7 +151,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             PlayerController player = GameManager.instance.player;
             var chosenItem = player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
             
-            ResourceSystem.instance.UseItem(player.inventory.items[InventoryUI.Instance.choiceSlot.id].item);
+            player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Use();
             player.inventory.DecreaseItemCount(chosenItem);
             InventoryUI.Instance.ResetSlots();
             _rightClickMenu.SetUI();

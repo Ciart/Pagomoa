@@ -30,7 +30,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 int save = findallMineral[i].item.price;
                 random = Random.Range(-findallMineral[i].item.price, findallMineral[i].item.price);
-                findallMineral[i].item.price += random;
+                
+                // NOTE: 
+                // findallMineral[i].item.price += random;
 
                 marketCondition.contentDatas[i].price.text = findallMineral[i].item.price.ToString();
 

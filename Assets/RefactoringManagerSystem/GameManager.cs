@@ -1,31 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Items;
-using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
     public class GameManager : PManager<GameManager>
     {
-        ~GameManager()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
         public bool isLoadSave = true;
 
         public bool hasPowerGemEarth;
 
-        public PlayerController player;
-        
+        public PlayerController? player;
+
+        ~GameManager()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             player = e.player;
         }
-        
+
         public override void Awake()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);

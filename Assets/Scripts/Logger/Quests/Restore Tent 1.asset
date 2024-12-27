@@ -20,14 +20,15 @@ MonoBehaviour:
   completePrologue: {fileID: 4900000, guid: fd8639ae484fca846a192acbcc32a551, type: 3}
   reward:
     gold: 1234
-    targetEntity: {fileID: 11400000, guid: 895a181196c1084488e38cd5abdd6977, type: 2}
-    targetEntitySprite: {fileID: -1689485987, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    itemId: 
+    itemSprite: {fileID: 0}
     value: 1
   questList:
   - questType: 0
     summary: temp
     value: 1
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: 
     conditionType:
       target: 1
       typeValue: int
+  prevQuestData: []

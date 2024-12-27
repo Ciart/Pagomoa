@@ -36,7 +36,11 @@ namespace Ciart.Pagomoa
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
-            SetPlayerComponent(GameManager.instance.player);
+
+            if (GameManager.instance.player != null)
+            {
+                SetPlayerComponent(GameManager.instance.player);
+            }
         }
 
         private void OnDisable()

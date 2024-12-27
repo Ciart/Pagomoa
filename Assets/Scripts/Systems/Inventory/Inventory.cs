@@ -196,11 +196,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     if (player.inventory.GetItemCount(item) != 0)
                     {
                         DecreaseItemCount(item);
-                        ResourceSystem.instance.UseItem(item);
+                        item.Use();
                     }
                     break;
                 case ItemType.Inherent:
-                    ResourceSystem.instance.UseItem(item);
+                    item.Use();
                     break;
                 default:
                     return;

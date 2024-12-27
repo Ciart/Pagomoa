@@ -35,39 +35,36 @@ namespace Ciart.Pagomoa.Worlds
         public string groundId;
         public string mineralId;
 
-        public Wall wall
+        public Wall? wall
         {
             get
             {
                 if (string.IsNullOrEmpty(wallId))
                     return null;
                 
-                ResourceSystem.instance.walls.TryGetValue(wallId, out var result);
-                return result;
+                return ResourceSystem.instance.GetWall(wallId);
             }
         }
 
-        public Ground ground
+        public Ground? ground
         {
             get
             {
                 if (string.IsNullOrEmpty(groundId))
                     return null;
 
-                ResourceSystem.instance.grounds.TryGetValue(groundId, out var result);
-                return result;
+                return ResourceSystem.instance.GetGround(groundId);
             }
         }
 
-        public Mineral mineral
+        public Mineral? mineral
         {
             get
             {
                 if (string.IsNullOrEmpty(mineralId))
                     return null;
                 
-                ResourceSystem.instance.minerals.TryGetValue(mineralId, out var result);
-                return result;
+                return ResourceSystem.instance.GetMineral(mineralId);
             }
         }
 

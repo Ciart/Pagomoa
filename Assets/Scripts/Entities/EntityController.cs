@@ -83,7 +83,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void Init(EntityData data)
         {
-            var entity = ResourceSystem.instance.entities[data.id];
+            var entity = ResourceSystem.instance.GetEntity(data.id);
             entityId = entity.id;
             isEnemy = entity.isEnemy;
             isInvincible = entity.isInvincible;

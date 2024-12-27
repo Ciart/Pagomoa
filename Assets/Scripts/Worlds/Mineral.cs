@@ -1,9 +1,6 @@
 using System;
-using System.Resources;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems;
-using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -20,13 +17,13 @@ namespace Ciart.Pagomoa.Worlds
 
         public string itemId;
 
-        [CanBeNull] public Sprite sprite;
+        public Sprite? sprite;
         
         public TileBase tile;
 
-        public Item item => ResourceSystem.instance.items[itemId];
+        public Item item => ResourceSystem.instance.GetItem(itemId);
         
-        public void LoadResources()
+        private void LoadResources()
         {
             tile = Resources.Load<TileBase>($"Minerals/{id}");
             sprite = tile switch
@@ -36,6 +33,11 @@ namespace Ciart.Pagomoa.Worlds
                 RuleOverrideTile t => t.m_Sprites[0].m_OverrideSprite,
                 _ => sprite
             };
+        }
+
+        public void Init()
+        {
+            LoadResources();
         }
     }
 }

@@ -6,6 +6,7 @@ using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Entities
@@ -16,13 +17,7 @@ namespace Ciart.Pagomoa.Entities
 
         public EntityController? Spawn(string id, Vector3 position, EntityStatus status = null)
         {
-            ResourceSystem.instance.entities.TryGetValue(id, out var entity);
-
-            if (entity == null)
-            {
-                Debug.LogError($"EntityManager: {id}는 존재하지 않습니다.");
-                return null;
-            }
+            var entity = ResourceSystem.instance.GetEntity(id);
 
             if (entity.prefab == null)
             {

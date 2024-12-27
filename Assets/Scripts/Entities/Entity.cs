@@ -1,8 +1,5 @@
 ﻿using System;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.Tilemaps;
 
 namespace Ciart.Pagomoa.Entities
 {
@@ -23,12 +20,16 @@ namespace Ciart.Pagomoa.Entities
         
         public float baseHealth;
 
-        [CanBeNull]
-        public EntityController prefab;
+        public EntityController? prefab;
         
-        public void LoadResources()
+        private void LoadResources()
         {
             prefab = Resources.Load<EntityController>($"Entities/{id}");
+        }
+
+        public void Init()
+        {
+            LoadResources();
         }
     }
 }

@@ -106,9 +106,9 @@ namespace Ciart.Pagomoa.Editor
                 return;
             }
 
-            var walls = resourceManager.walls.Values.ToList();
-            var grounds = resourceManager.grounds.Values.ToList();
-            var minerals = resourceManager.minerals.Values.ToList();
+            var walls = resourceManager.GetWalls();
+            var grounds = resourceManager.GetGrounds();
+            var minerals = resourceManager.GetMinerals();
 
             switch (_tabIndex)
             {
