@@ -2,9 +2,7 @@
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory

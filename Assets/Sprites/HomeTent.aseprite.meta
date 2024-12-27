@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -124,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Broken
     originalName: 
-    pivot: {x: 0.4835165, y: 0}
+    pivot: {x: 0.49450552, y: 0.023255816}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -145,7 +146,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Normal
     originalName: 
-    pivot: {x: 0.4835165, y: 0}
+    pivot: {x: 0.49450552, y: 0.050000004}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -167,7 +168,7 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1711510949
+    guid: -1940832889
     name: Broken
     layerFlags: 3
     layerType: 0
@@ -185,7 +186,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 1
-    guid: 1102682338
+    guid: 1690472495
     name: Normal
     layerFlags: 3
     layerType: 0
@@ -243,3 +244,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 96, y: 48}
+  previousTextureSize: {x: 128, y: 128}

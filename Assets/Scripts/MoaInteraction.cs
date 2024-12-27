@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
