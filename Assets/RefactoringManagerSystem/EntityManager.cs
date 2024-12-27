@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.RefactoringManagerSystem;
 using Ciart.Pagomoa.Systems;
@@ -11,17 +12,22 @@ namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : PManager<EntityManager>
     {
-        private static EntityManager _instance;
-
         private List<EntityController> _entities = new();
 
-        public EntityController Spawn(string id, Vector3 position, EntityStatus status = null)
+        public EntityController? Spawn(string id, Vector3 position, EntityStatus status = null)
         {
             ResourceSystem.instance.entities.TryGetValue(id, out var entity);
 
             if (entity == null)
             {
                 Debug.LogError($"EntityManager: {id}는 존재하지 않습니다.");
+                return null;
+            }
+
+            if (entity.prefab == null)
+            {
+                Debug.LogError($"EntityManager: {id}의 프리팹이 존재하지 않습니다.");
+                return null;
             }
             
             var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
@@ -30,7 +36,7 @@ namespace Ciart.Pagomoa.Entities
             
             controller.Init(new EntityData(id, position.x, position.y, status));
             
-            if (entity.tags == "Player")
+            if (entity.tags.Contains("Player"))
             {
                 var player = controller.GetComponent<PlayerController>();
                 EventManager.Notify(new PlayerSpawnedEvent(player));

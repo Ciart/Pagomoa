@@ -56,6 +56,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public override void Start()
         {
+            Debug.Log("DialogueManager::Start()");
             _dialogueUI = UIManager.instance.GetUIContainer().dialogueUI;
             if (_dialogueUI == null)
             {

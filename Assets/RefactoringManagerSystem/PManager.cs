@@ -3,7 +3,7 @@ using System.Reflection;
 
 public interface IPManager
 {
-    public void Init(Game game);
+    public void Init(GameSystem game);
 }
 
 public class PManager<T> : IPManager where T : PManager<T> 
@@ -15,7 +15,7 @@ public class PManager<T> : IPManager where T : PManager<T>
         instance ??= this as T;
     }
     
-    public void Init(Game game)
+    public void Init(GameSystem game)
     {
         var type = GetType();
         

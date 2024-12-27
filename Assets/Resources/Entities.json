@@ -42,7 +42,7 @@
     },
     {
       "id": "Player",
-      "tags": "Player",
+      "tags": ["Player"],
       "name": "플레이어",
       "description": "",
       "isEnemy": false,

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class GameSystem : MonoBehaviour
 {
-    private static Game _instance = null;
+    private static GameSystem _instance = null;
     private static List<IPManager> _managers = null;
 
     public Action awake;
@@ -70,7 +70,8 @@ public class Game : MonoBehaviour
 
    private void Start()
    {
-       start?.Invoke();
+       start.Invoke();
+       Debug.Log("Game::Start()");
     }
 
    // Update is called once per frame

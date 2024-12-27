@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -10,7 +11,7 @@ namespace Ciart.Pagomoa.Entities
     {
         public string id;
 
-        public string tags;
+        public string[] tags = new string[0];
         
         public string name;
 
@@ -22,6 +23,7 @@ namespace Ciart.Pagomoa.Entities
         
         public float baseHealth;
 
+        [CanBeNull]
         public EntityController prefab;
         
         public void LoadResources()
