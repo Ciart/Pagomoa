@@ -44,13 +44,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < AuctionDB.Instance.auctionItems.Count; i++)
             {
-                if (AuctionDB.Instance.auctionItems[i].item.itemType == Item.ItemType.Equipment)
+                if (AuctionDB.Instance.auctionItems[i].item.type == ItemType.Equipment)
                 {
                     var spawnedSlot = Instantiate(slot[0], slotsParent[0].transform);
                     artifactSlots.Add(spawnedSlot.GetComponent<BuyArtifactSlot>());
                     spawnedSlot.SetActive(true);
                 }
-                else if (AuctionDB.Instance.auctionItems[i].item.itemType == Item.ItemType.Use)
+                else if (AuctionDB.Instance.auctionItems[i].item.type == ItemType.Use)
                 {
                     var spawnedSlot = Instantiate(slot[1], slotsParent[1].transform);
                     consumptionSlots.Add(spawnedSlot.GetComponent<BuySlot>());
@@ -65,12 +65,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
             int z = 0;
             for (int i = 0; i < AuctionDB.Instance.auctionItems.Count; i++)
             {
-                if (AuctionDB.Instance.auctionItems[i].item.itemType == Item.ItemType.Equipment)
+                if (AuctionDB.Instance.auctionItems[i].item.type == ItemType.Equipment)
                 {
                     artifactSlots[j].slot = AuctionDB.Instance.auctionItems[i];
                     j++;
                 }
-                else if (AuctionDB.Instance.auctionItems[i].item.itemType == Item.ItemType.Use)
+                else if (AuctionDB.Instance.auctionItems[i].item.type == ItemType.Use)
                 {
                     consumptionSlots[z].slot = AuctionDB.Instance.auctionItems[i];
                     z++;
@@ -86,14 +86,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             int z = 0;
             for (int i = 0; i < AuctionDB.Instance.auctionItems.Count; i++)
             {
-                if (AuctionDB.Instance.auctionItems[i].item.itemType == Item.ItemType.Equipment)
+                if (AuctionDB.Instance.auctionItems[i].item.type == ItemType.Equipment)
                 {
                     artifactSlots[j].UpdateArtifactSlot();
                     artifactSlots[j].GetComponent<Image>().sprite = _papersSprites[j];
                     artifactSlots[j].soldOut.GetComponent<Image>().sprite = _soldOutsSprites[j];
                     j++;
                 }
-                else if (AuctionDB.Instance.auctionItems[i].item.itemType == Item.ItemType.Use)
+                else if (AuctionDB.Instance.auctionItems[i].item.type == ItemType.Use)
                 {
                     consumptionSlots[z].UpdateConsumptionSlot();
                     if (z < 3)

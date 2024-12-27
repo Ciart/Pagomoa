@@ -84,13 +84,13 @@ namespace Ciart.Pagomoa
             var shopUI = UIManager.instance.shopUI;
             var buySlot = shopUI.GetBuyUI().chosenBuySlot.slot;
             
-            if (buySlot.item.itemType == Item.ItemType.Use)
+            if (buySlot.item.type == ItemType.Use)
             {
                 inputCount++;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.item.itemPrice);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.item.price);
             }
 
-            else if (buySlot.item.itemType == Item.ItemType.Equipment || buySlot.item.itemType == Item.ItemType.Inherent)
+            else if (buySlot.item.type == ItemType.Equipment || buySlot.item.type == ItemType.Inherent)
             {
                 if (inputCount < buySlot.count)
                     inputCount++;
@@ -107,7 +107,7 @@ namespace Ciart.Pagomoa
             if (inputCount > 1)
             {
                 inputCount--;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.item.itemPrice);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.item.price);
             }
             
             countUIText.text = inputCount.ToString();
@@ -118,9 +118,9 @@ namespace Ciart.Pagomoa
             var shopUI = UIManager.instance.shopUI;
             var buySlot = shopUI.GetBuyUI().chosenBuySlot.slot;
             
-            if (buySlot.item.itemType == Item.ItemType.Use)
+            if (buySlot.item.type == ItemType.Use)
             {
-                if (inventory.Gold >= buySlot.item.itemPrice * inputCount && inputCount > 0)
+                if (inventory.Gold >= buySlot.item.price * inputCount && inputCount > 0)
                 {
                     inventory.Add(buySlot.item, inputCount);
                     AuctionDB.Instance.Remove(buySlot.item);
@@ -132,9 +132,9 @@ namespace Ciart.Pagomoa
 
                 shopUI.GetShopChat().ThankChat();
             }
-            else if (buySlot.item.itemType == Item.ItemType.Equipment || buySlot.item.itemType == Item.ItemType.Inherent)
+            else if (buySlot.item.type == ItemType.Equipment || buySlot.item.type == ItemType.Inherent)
             {
-                if (inventory.Gold >= buySlot.item.itemPrice && buySlot.count == inputCount)
+                if (inventory.Gold >= buySlot.item.price && buySlot.count == inputCount)
                 {
                     inventory.Add(buySlot.item, 0);
                     AuctionDB.Instance.Remove(buySlot.item);
@@ -159,7 +159,7 @@ namespace Ciart.Pagomoa
             if (inputCount < sellSlot.count)
             {
                 inputCount++;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * sellSlot.item.itemPrice);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * sellSlot.item.price);
             }
             else
                 return;
@@ -173,7 +173,7 @@ namespace Ciart.Pagomoa
             if (inputCount > 1)
             {
                 inputCount--;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * sellSlot.item.itemPrice);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * sellSlot.item.price);
             }
             else
                 return;
