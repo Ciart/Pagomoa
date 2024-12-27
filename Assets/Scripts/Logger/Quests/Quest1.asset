@@ -20,28 +20,15 @@ MonoBehaviour:
   completePrologue: {fileID: 4900000, guid: 6c2568e690b1126468b17c6601901280, type: 3}
   reward:
     gold: 10000
-    targetEntity: {fileID: 11400000, guid: 4c89984e52a573449969698c0ad3210d, type: 2}
-    targetEntitySprite: {fileID: 402394799, guid: 2068cac7f16858647a2e072231c7864c, type: 3}
+    itemId: 
+    itemSprite: {fileID: 0}
     value: 1
   questList:
   - questType: 0
     summary: "\uAD6C\uB9AC \uD68D\uB4DD"
     value: 2
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: Copper
     conditionType:
       target: 1
       typeValue: int
-  - questType: 2
-    summary: "\uBAA8\uB798 \uD30C\uAD34"
-    value: 2
-    targetEntity: {fileID: 11400000, guid: 226c220a1115242c4976d062c55b492d, type: 2}
-    conditionType:
-      target: 2
-      typeValue: int
-  - questType: 2
-    summary: "\uC794\uB514 \uD30C\uAD34"
-    value: 2
-    targetEntity: {fileID: 11400000, guid: f2a43c0ab119641fc825865df69e18f1, type: 2}
-    conditionType:
-      target: 2
-      typeValue: int
+  prevQuestData: []

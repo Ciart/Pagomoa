@@ -24,9 +24,9 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
             Vector2 direction = (Target.transform.position - transform.position).normalized;
             if (canAttack)
-                m_rigidbody.velocity = direction * speed;
+                m_rigidbody.linearVelocity = direction * speed;
             else
-                m_rigidbody.velocity = Vector3.zero;
+                m_rigidbody.linearVelocity = Vector3.zero;
             float see = direction.x > 0 ? 1 : -1;
         
             transform.localScale = new Vector3(see * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
@@ -62,7 +62,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
             if (collision.gameObject == Target)
             {
                 Target = null;
-                m_rigidbody.velocity = Vector3.zero;
+                m_rigidbody.linearVelocity = Vector3.zero;
             }
         }
     }

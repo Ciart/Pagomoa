@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             }
             
-            SetSprite(item.item.itemImage);
+            SetSprite(item.item.sprite);
             text.text = item.count == 0 ? "" : item.count.ToString();
         }
         

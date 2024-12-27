@@ -169,9 +169,17 @@ namespace Ciart.Pagomoa
                             dialogueManager.StartDailyChat();
                             _changeDialogue = true;
                         }
-                        if (param == "quest")
+                        else if (param == "quest")
                         {
                             dialogueManager.StartQuestChat();
+                            _changeDialogue = true;
+                        }
+                        else
+                        {
+                            if (!DialogueManager.instance.ExecuteCommand(param))
+                            {
+                                Debug.LogError("Dialogue command not found : " + param);
+                            }
                             _changeDialogue = true;
                         }
                         break;

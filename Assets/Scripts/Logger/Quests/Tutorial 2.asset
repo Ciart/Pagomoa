@@ -5919,7 +5919,7 @@ MonoBehaviour:
   - questType: 2
     summary: "useItem \uD14C\uC2A4\uD2B8"
     value: 10
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: 
     conditionType:
       target: 1
       typeValue: int

@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Editor
 {
@@ -22,11 +24,11 @@ namespace Ciart.Pagomoa.Editor
 
         private int _height = 2;
 
-        private int _selectWall;
+        private string _selectWallId;
 
-        private int _selectGround;
+        private string _selectGroundId;
 
-        private int _selectMineral;
+        private string _selectMineralId;
 
         private int _selectEntity;
 
@@ -82,7 +84,7 @@ namespace Ciart.Pagomoa.Editor
 
             piece.appearanceArea =
                 (WorldAreaFlag)EditorGUILayout.EnumFlagsField(piece.appearanceArea, GUILayout.Width(width));
-            
+
             GUILayout.Label($"현재: {piece.width}x{piece.height}");
 
             _width = Math.Clamp(EditorGUILayout.IntField("Width", _width, GUILayout.Width(width)), 1, 1000);
@@ -92,38 +94,54 @@ namespace Ciart.Pagomoa.Editor
             {
                 piece.ResizeBricks(_width, _height);
             }
-            
+
             GUILayout.Space(8);
 
             _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings, GUILayout.Width(width));
 
+            var resourceManager = ResourceSystem.instance;
+
+            if (resourceManager is null)
+            {
+                return;
+            }
+
+            var walls = resourceManager.GetWalls();
+            var grounds = resourceManager.GetGrounds();
+            var minerals = resourceManager.GetMinerals();
+
             switch (_tabIndex)
             {
                 case 1:
-                    _selectWall = EditorGUILayout.Popup(_selectWall,
-                        _database.walls.Select(wall => wall.displayName ?? wall.name).ToArray(),
+                    var wallIndex = EditorGUILayout.Popup(walls.FindIndex((wall) => wall.id == _selectWallId),
+                        walls.Select(wall => wall.name ?? wall.name).ToArray(),
                         GUILayout.Width(width));
+                    _selectWallId = wallIndex != -1 ? walls[wallIndex].id : "";
                     break;
                 case 2:
-                    _selectGround = EditorGUILayout.Popup(_selectGround,
-                        _database.grounds.Select(ground => ground.displayName ?? ground.name).ToArray(),
+                    var groundIndex = EditorGUILayout.Popup(grounds.FindIndex((ground) => ground.id == _selectGroundId),
+                        grounds.Select(ground => ground.name ?? ground.name).ToArray(),
                         GUILayout.Width(width));
+                    _selectGroundId = groundIndex != -1 ? grounds[groundIndex].id : "";
                     break;
                 case 3:
-                    _selectMineral = EditorGUILayout.Popup(_selectMineral,
-                        _database.minerals.Select(mineral => mineral.displayName ?? mineral.name).ToArray(),
+                    var mineralIndex = EditorGUILayout.Popup(
+                        minerals.FindIndex((mineral) => mineral.id == _selectMineralId),
+                        minerals.Select(mineral => mineral.name ?? mineral.name).ToArray(),
                         GUILayout.Width(width));
+                    _selectMineralId = mineralIndex != -1 ? minerals[mineralIndex].id : "";
                     break;
-                case 4:
-                    _selectEntity = EditorGUILayout.Popup(_selectEntity,
-                        _database.entities.Select(entity => entity.displayName ?? entity.name).ToArray(),
-                        GUILayout.Width(width));
-                    break;
+                // case 4:
+                //     _selectEntity = EditorGUILayout.Popup(_selectEntity,
+                //         _database.entities.Select(entity => entity.name ?? ((Object)entity).name).ToArray(),
+                //         GUILayout.Width(width));
+                //     break;
             }
-            
+
             GUILayout.Space(8);
-            
-            _database.selectIndex = GUILayout.SelectionGrid(_database.selectIndex, _database.pieces.Select(p => p.name).ToArray(), 1);
+
+            _database.selectIndex =
+                GUILayout.SelectionGrid(_database.selectIndex, _database.pieces.Select(p => p.name).ToArray(), 1);
         }
 
         private void DrawWorkspace()
@@ -159,18 +177,18 @@ namespace Ciart.Pagomoa.Editor
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.wall = _database.walls[_selectWall];
+                                    brick.wallId = _selectWallId;
                                     break;
                                 case 2:
-                                    brick.ground = _database.grounds[_selectGround];
+                                    brick.groundId = _selectGroundId;
                                     break;
                                 case 3:
-                                    brick.mineral = _database.minerals[_selectMineral];
+                                    brick.mineralId = _selectMineralId;
                                     break;
-                                case 4:
-                                    // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
-                                    piece.AddEntity(x, y, _database.entities[_selectEntity]);
-                                    break;
+                                // case 4:
+                                //     // TODO: Piece에서는 int 좌표를 사용하는게 좋을 듯 합니다.
+                                //     piece.AddEntity(x, y, _database.entities[_selectEntity]);
+                                //     break;
                             }
 
                             EditorUtility.SetDirty(_database);
@@ -184,13 +202,13 @@ namespace Ciart.Pagomoa.Editor
                                     piece.pivot = new Vector2Int(x, y);
                                     break;
                                 case 1:
-                                    brick.wall = null;
+                                    brick.wallId = null;
                                     break;
                                 case 2:
-                                    brick.ground = null;
+                                    brick.groundId = null;
                                     break;
                                 case 3:
-                                    brick.mineral = null;
+                                    brick.mineralId = null;
                                     break;
                             }
 
@@ -202,24 +220,26 @@ namespace Ciart.Pagomoa.Editor
                     if (_tabIndex == 1)
                     {
                         var wall = brick.wall;
-                        if (wall)
+                        if (wall != null)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, wall.sprite.texture, ComputeTexCoords(wall.sprite));
+                            var sprite = wall.sprite;
+                            GUI.DrawTextureWithTexCoords(rect, sprite.texture, ComputeTexCoords(sprite));
                         }
                     }
                     else
                     {
                         var ground = brick.ground;
-                        if (ground)
+                        if (ground != null)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, ground.sprite.texture, ComputeTexCoords(ground.sprite));
+                            var sprite = ground.sprite;
+                            GUI.DrawTextureWithTexCoords(rect, sprite.texture, ComputeTexCoords(sprite));
                         }
 
                         var mineral = brick.mineral;
-                        if (mineral)
+                        if (mineral != null)
                         {
-                            GUI.DrawTextureWithTexCoords(rect, mineral.sprite.texture,
-                                ComputeTexCoords(mineral.sprite));
+                            var sprite = mineral.sprite;
+                            GUI.DrawTextureWithTexCoords(rect, sprite.texture, ComputeTexCoords(sprite));
                         }
                     }
                 }

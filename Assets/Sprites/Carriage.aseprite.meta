@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 2
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 2
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -103,6 +105,7 @@ ScriptedImporter:
     pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 0
@@ -124,6 +127,7 @@ ScriptedImporter:
     pivot: {x: 0.16129033, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 137
@@ -144,6 +148,7 @@ ScriptedImporter:
     pivot: {x: 0.32, y: -0.15789473}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -164,6 +169,7 @@ ScriptedImporter:
     pivot: {x: 0.7941177, y: 0.05263158}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 137
@@ -184,6 +190,7 @@ ScriptedImporter:
     pivot: {x: -0.45161298, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -210,6 +217,7 @@ ScriptedImporter:
     cells:
     - name: BackWheel
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
@@ -227,6 +235,7 @@ ScriptedImporter:
     cells:
     - name: Layer 3
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 9
@@ -244,6 +253,7 @@ ScriptedImporter:
     cells:
     - name: Layer 4
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: -3
@@ -261,6 +271,7 @@ ScriptedImporter:
     cells:
     - name: FrontWheel
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 116
         y: 0
@@ -306,6 +317,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 176, y: 96}

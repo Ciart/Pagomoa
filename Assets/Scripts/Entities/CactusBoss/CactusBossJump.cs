@@ -21,9 +21,9 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var velocity = new Vector2((_targetPosition.x - animator.transform.position.x) * 80f * Time.deltaTime, _cactusBoss.rigid.velocity.y);
+            var velocity = new Vector2((_targetPosition.x - animator.transform.position.x) * 80f * Time.deltaTime, _cactusBoss.rigid.linearVelocity.y);
 
-            _cactusBoss.rigid.velocity = velocity;
+            _cactusBoss.rigid.linearVelocity = velocity;
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

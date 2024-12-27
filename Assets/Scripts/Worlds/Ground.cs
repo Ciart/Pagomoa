@@ -1,19 +1,39 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Ciart.Pagomoa.Worlds
 {
-    [CreateAssetMenu(fileName = "Ground", menuName = "World/Ground", order = 2)]
-    public class Ground: ScriptableObject
+    [Serializable]
+    public class Ground
     {
-        public string displayName;
+        public string id;
+        
+        public string name;
         
         public float strength;
         
-        public Sprite sprite;
+        public string color;
+        
+        public Sprite? sprite;
 
         public TileBase tile;
         
-        public Color color;
+        private void LoadResources()
+        {
+            tile = Resources.Load<TileBase>($"Grounds/{id}");
+            sprite = tile switch
+            {
+                Tile t => t.sprite,
+                RuleTile t => t.m_DefaultSprite,
+                RuleOverrideTile t => t.m_Sprites[0].m_OverrideSprite,
+                _ => null
+            };
+        }
+
+        public void Init()
+        {
+            LoadResources();
+        }
     }
 }

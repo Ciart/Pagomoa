@@ -21,6 +21,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public float climbSpeed = 250f;
 
         public float jumpForce = 650f;
+        
+        public float fallForce = 200f;
 
         // TODO: 최대 거리 검사가 필요 함.
         public Vector2 directionVector = Vector2.zero;
@@ -41,6 +43,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private WorldManager _world;
 
         private bool _isJump;
+        
+        private bool _isFall;
 
         private Vector2 _playerMoveMinArea = Vector2.zero;
         private Vector2 _playerMoveMaxArea = Vector2.zero;
@@ -103,6 +107,11 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             _isJump = true;
         }
+
+        public void Fall()
+        {
+            _isFall = true;
+        }
         
         private void UpdateClimb()
         {
@@ -120,7 +129,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 if (isSideWall && !_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
                     _animator.SetBool(AnimatorEndClimb, true);
             }
-            _rigidbody.velocity = velocity;
+            _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = 0;
         }
 
@@ -142,9 +151,9 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             if (_animator.GetBool(AnimatorEndClimb)) return;
 
-            var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.velocity.y);
+            var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.linearVelocity.y);
 
-            _rigidbody.velocity = velocity;
+            _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = gravityScale;
 
             _moveDelta.x = Mathf.Clamp(transform.position.x, _playerMoveMinArea.x, _playerMoveMaxArea.x);
@@ -168,6 +177,12 @@ namespace Ciart.Pagomoa.Entities.Players
                 _isJump = false;
             }
 
+            if (_isFall)
+            {
+                _rigidbody.AddForce(new Vector2(0, -fallForce));
+                _isFall = false;
+            }
+
             if (isClimb)
             {
                 UpdateClimb();
@@ -184,9 +199,9 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             _animator.SetFloat(AnimatorDirectionX, directionVector.x);
             _animator.SetFloat(AnimatorDirectionY, directionVector.y);
-            _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.velocity.x));
-            _animator.SetFloat(AnimatorVelocityY, _rigidbody.velocity.y);
-            _animator.SetFloat(AnimatorSpeed, _rigidbody.velocity.magnitude / 5f);
+            _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.linearVelocity.x));
+            _animator.SetFloat(AnimatorVelocityY, _rigidbody.linearVelocity.y);
+            _animator.SetFloat(AnimatorSpeed, _rigidbody.linearVelocity.magnitude / 5f);
             _animator.SetBool(AnimatorIsClimb, isClimb);
             _animator.SetBool(AnimatorIsSideWall, isSideWall);
         }

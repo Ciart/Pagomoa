@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Time;
@@ -21,9 +23,40 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public static event Action<Story> onCreateStory;
         
         private DialogueUI _dialogueUI;
+        
+        Dictionary<string, IDialogueCommand> _commands = new ();
+
+        private void RegisterCommands()
+        {
+            foreach(var assembly in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (!typeof(IDialogueCommand).IsAssignableFrom(assembly) || assembly.IsInterface) continue;
+                
+                var command = Activator.CreateInstance(assembly) as IDialogueCommand;
+                Debug.Log(assembly.Name.Replace("DialogueCommand", "").ToLower());
+                _commands.Add(assembly.Name.Replace("DialogueCommand", "").ToLower(), command);
+            }
+        }
+        
+        public bool ExecuteCommand(string command)
+        {
+            if (_commands.ContainsKey(command.ToLower()))
+            {
+                _commands[command].Execute();
+                return true;
+            }
+            
+            return false;
+        }
+
+        public override void Awake()
+        {
+            RegisterCommands();
+        }
 
         public override void Start()
         {
+            Debug.Log("DialogueManager::Start()");
             _dialogueUI = UIManager.instance.GetUIContainer().dialogueUI;
             if (_dialogueUI == null)
             {

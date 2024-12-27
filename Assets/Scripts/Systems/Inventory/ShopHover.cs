@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (this.GetComponent<BuyArtifactSlot>())
             {
-                var ItemName = this.GetComponent<BuyArtifactSlot>().slot.item.itemName;
+                var ItemName = this.GetComponent<BuyArtifactSlot>().slot.item.name;
                 ShopChat.Instance.chatting.text = ItemName;
             }
 

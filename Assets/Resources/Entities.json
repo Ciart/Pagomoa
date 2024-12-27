@@ -1,0 +1,101 @@
+{
+  "data": [
+    {
+      "id": "Clovee",
+      "name": "클로비",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "CactusBoss",
+      "name": "선인장 보스",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": false,
+      "baseHealth": 1000
+    },
+    {
+      "id": "CactusBossArm",
+      "name": "선인장 보스 팔",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": false,
+      "baseHealth": 1000
+    },
+    {
+      "id": "LegacyNoung",
+      "name": "농",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "Moa",
+      "name": "모아",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "Player",
+      "tags": ["Player"],
+      "name": "플레이어",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "SandGolem",
+      "name": "모래 골렘",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "Shopkeeper",
+      "name": "상점 주인",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": true,
+      "baseHealth": 100
+    },
+    {
+      "id": "Snake",
+      "name": "뱀",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "Tent",
+      "name": "텐트",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": false,
+      "baseHealth": 100
+    },
+    {
+      "id": "YellowDungeonEntrance",
+      "name": "노랑 던전 입구",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": true,
+      "baseHealth": 3
+    },
+    {
+      "id": "YellowDungeonExit",
+      "name": "노랑 던전 출구",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": true,
+      "baseHealth": 100
+    }
+  ]
+}

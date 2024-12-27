@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Worlds.UFO
         
         private IEnumerator Sleeping()
         {
-            _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
             _player.GetComponent<PlayerMovement>().canMove = false;
             _player.GetComponent<SpriteRenderer>().enabled = false;
             

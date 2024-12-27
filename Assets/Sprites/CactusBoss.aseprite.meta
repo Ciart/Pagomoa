@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 2
     generateModelPrefab: 0
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 2
     generateModelPrefab: 0
     generateAnimationClips: 1
@@ -103,6 +105,7 @@ ScriptedImporter:
     pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 0
@@ -124,6 +127,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 222
@@ -144,6 +148,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 441
@@ -164,6 +169,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 222
@@ -184,6 +190,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 222
@@ -204,6 +211,7 @@ ScriptedImporter:
     pivot: {x: 0.3716216, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 441
@@ -224,6 +232,7 @@ ScriptedImporter:
     pivot: {x: 0.5592417, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 222
@@ -244,6 +253,7 @@ ScriptedImporter:
     pivot: {x: 0.53431374, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -264,6 +274,7 @@ ScriptedImporter:
     pivot: {x: 0.5095238, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -284,6 +295,7 @@ ScriptedImporter:
     pivot: {x: 0.48333332, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -304,6 +316,7 @@ ScriptedImporter:
     pivot: {x: 0.47457626, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -324,6 +337,7 @@ ScriptedImporter:
     pivot: {x: 0.43636364, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 441
@@ -344,6 +358,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -364,6 +379,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 222
@@ -384,6 +400,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 441
@@ -404,6 +421,7 @@ ScriptedImporter:
     pivot: {x: 0.46857142, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 441
@@ -428,120 +446,135 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: CactusBoss_Frame_0
+    - name: Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 201
       spriteId: 64903ebf45d1243798211d37c5043664
-    - name: CactusBoss_Frame_1
+    - name: Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 195
       spriteId: d70672d78b9104aa3a85e8e406094e0a
-    - name: CactusBoss_Frame_2
+    - name: Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 201
       spriteId: bfdfd0c10d37d4209b783a16f1f53299
-    - name: CactusBoss_Frame_3
+    - name: Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 201
       spriteId: 25721ec16825b4ca58e8a0aa31c5acab
-    - name: CactusBoss_Frame_4
+    - name: Frame_4
       frameIndex: 4
+      additiveSortOrder: 0
       cellRect:
         x: 105
         y: 0
         width: 146
         height: 201
       spriteId: f231cd4c88f934260b7893c18f6d0f31
-    - name: CactusBoss_Frame_5
+    - name: Frame_5
       frameIndex: 5
+      additiveSortOrder: 0
       cellRect:
         x: 42
         y: 0
         width: 209
         height: 201
       spriteId: eb0b3a88f2b374f53b3f97aa01ac8aa8
-    - name: CactusBoss_Frame_6
+    - name: Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 51
         y: 0
         width: 202
         height: 202
       spriteId: 94a54b6ad6c0f4809a6375292763dd9d
-    - name: CactusBoss_Frame_7
+    - name: Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 53
         y: 0
         width: 208
         height: 206
       spriteId: 0985b0af8f7484464ae16335e83be3e5
-    - name: CactusBoss_Frame_8
+    - name: Frame_8
       frameIndex: 8
+      additiveSortOrder: 0
       cellRect:
         x: 73
         y: 0
         width: 178
         height: 201
       spriteId: d3fa93140d93c47558cda9ec773bc551
-    - name: CactusBoss_Frame_9
+    - name: Frame_9
       frameIndex: 9
+      additiveSortOrder: 0
       cellRect:
         x: 76
         y: 0
         width: 175
         height: 201
       spriteId: d260c0e149375484c9c2b40953646b0f
-    - name: CactusBoss_Frame_10
+    - name: Frame_10
       frameIndex: 10
+      additiveSortOrder: 0
       cellRect:
         x: 88
         y: 0
         width: 163
         height: 201
       spriteId: 8e0835825e9564a36a03da4e0f9147d0
-    - name: CactusBoss_Frame_11
+    - name: Frame_11
       frameIndex: 11
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 112
       spriteId: a5c03be80f53042d193848ce5f46e787
-    - name: CactusBoss_Frame_12
+    - name: Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 112
       spriteId: c66eadff5fdd54edb91496bc83b487cb
-    - name: CactusBoss_Frame_13
+    - name: Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
         width: 173
         height: 112
       spriteId: a4e236a76ad48452398ba4c667ed2629
-    - name: CactusBoss_Frame_14
+    - name: Frame_14
       frameIndex: 14
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
@@ -599,6 +632,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 320, y: 224}

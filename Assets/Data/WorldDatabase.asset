@@ -1,0 +1,1511 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b92c27587934fbc8b44e89a3c528570, type: 3}
+  m_Name: WorldDatabase
+  m_EditorClassIdentifier: 
+  entities:
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  - id: 
+    tags: 
+    name: 
+    description: 
+    isEnemy: 0
+    isInvincible: 0
+    baseHealth: 0
+    prefab: {fileID: 0}
+  pieces:
+  - name: "\uB178\uB791 \uB358\uC804 \uC785\uAD6C"
+    appearanceArea: 0
+    tags:
+    - PowerGemEarth
+    <width>k__BackingField: 5
+    <height>k__BackingField: 5
+    pivot: {x: 0, y: 0}
+    weight: 0
+    entities:
+    - id: YellowDungeonEntrance
+      x: 2
+      y: 1
+      status:
+        health: 0
+        maxHealth: 0
+    _bricks:
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+  - name: "\uAD6C\uB9AC"
+    appearanceArea: 1
+    tags:
+    - PowerGemEarth
+    <width>k__BackingField: 2
+    <height>k__BackingField: 2
+    pivot: {x: 1, y: 1}
+    weight: 1
+    entities: []
+    _bricks:
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+  - name: "\uCCA0"
+    appearanceArea: 2
+    tags:
+    - PowerGemEarth
+    <width>k__BackingField: 2
+    <height>k__BackingField: 2
+    pivot: {x: 1, y: 1}
+    weight: 1
+    entities: []
+    _bricks:
+    - wallId: SandWall
+      groundId: Grass
+      mineralId: Iron
+      isRock: 0
+    - wallId: SandWall
+      groundId: Grass
+      mineralId: Iron
+      isRock: 0
+    - wallId: SandWall
+      groundId: Grass
+      mineralId: Iron
+      isRock: 0
+    - wallId: SandWall
+      groundId: Grass
+      mineralId: Iron
+      isRock: 0
+  - name: "\uB178\uB791 \uB358\uC804"
+    appearanceArea: 0
+    tags:
+    - YellowDungeon
+    <width>k__BackingField: 16
+    <height>k__BackingField: 16
+    pivot: {x: 7, y: 6}
+    weight: 1
+    entities:
+    - id: YellowDungeonExit
+      x: 1
+      y: 6
+      status:
+        health: 0
+        maxHealth: 0
+    - id: CactusBoss
+      x: 12
+      y: 6
+      status:
+        health: 0
+        maxHealth: 0
+    _bricks:
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: 
+      groundId: 
+      mineralId: 
+      isRock: 0
+  - name: "\uD074\uB85C\uBE44"
+    appearanceArea: 1
+    tags:
+    - YellowDungeon
+    <width>k__BackingField: 5
+    <height>k__BackingField: 5
+    pivot: {x: 7, y: 6}
+    weight: 0.1
+    entities:
+    - id: Clovee
+      x: 2
+      y: 1
+      status:
+        health: 0
+        maxHealth: 0
+    _bricks:
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Copper
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+  - name: "\uACE8\uB818 \uD14C\uC2A4\uD2B8"
+    appearanceArea: 0
+    tags:
+    - Golem
+    <width>k__BackingField: 5
+    <height>k__BackingField: 5
+    pivot: {x: 7, y: 6}
+    weight: 0.1
+    entities:
+    - id: SandGolem
+      x: 2
+      y: 1
+      status:
+        health: 0
+        maxHealth: 0
+    _bricks:
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Quartz
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Quartz
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: Quartz
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+  selectIndex: 0
+  brokenEffectTiles:
+  - {fileID: 11400000, guid: cc15b4e5012644df99d607aa7176cd11, type: 2}
+  - {fileID: 11400000, guid: 94a7431bd0284473e8e796797a1f6ab9, type: 2}
+  - {fileID: 11400000, guid: 5476864f897564c9cbb3674f5007a984, type: 2}
+  - {fileID: 11400000, guid: 8d8672d3fee9f426da07b794c71451b8, type: 2}
+  - {fileID: 11400000, guid: a9412082f255e4fa2adb10130494f9fe, type: 2}
+  - {fileID: 11400000, guid: 4e06434e1a8fb4db8a0a407c3c1b8804, type: 2}
+  glitterTile: {fileID: 11400000, guid: d325564aa313b4d7aa4ff32d2b53e5a9, type: 2}
