@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class AuctionDB : MonoBehaviour
     {
-        public List<InventorySlot> auctionItem = new List<InventorySlot>();
-        [SerializeField] private Buy buy;
+        public List<InventorySlot> auctionItems = new List<InventorySlot>();
 
         private static AuctionDB instance;
 
@@ -26,20 +26,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             // var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
             var gameManager = GameManager.instance;
-            var acutionItem = buy.chosenBuySlot.slot;
+            var countUI = UIManager.instance.shopUI.GetCountUI();
+            var auctionItem =UIManager.instance.shopUI.GetBuyUI().chosenBuySlot.slot;
             
             if (data.itemType == Item.ItemType.Use)
-                for (int i = 0; i < buy.countUINum; i++)
+                for (int i = 0; i < countUI.inputCount; i++)
                 {
                     gameManager.player.inventory.Gold -= data.itemPrice;
                 }
             else if (data.itemType == Item.ItemType.Equipment)
             {
                 gameManager.player.inventory.Gold -= data.itemPrice;
-                acutionItem.count -= 1;
+                auctionItem.count -= 1;
             }
-            ShopUI.Instance.gold[0].text = gameManager.player.inventory.Gold.ToString();
-            ShopUI.Instance.gold[1].text = gameManager.player.inventory.Gold.ToString();
+            UIManager.instance.shopUI.playerGold[0].text = gameManager.player.inventory.Gold.ToString();
+            UIManager.instance.shopUI.playerGold[1].text = gameManager.player.inventory.Gold.ToString();
         }
     }
 }

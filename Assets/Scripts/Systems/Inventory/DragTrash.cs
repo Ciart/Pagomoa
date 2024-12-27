@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 player.inventory.RemoveItemData(player.inventory.items[
                     eventData.pointerDrag.GetComponent<InventorySlotUI>().id].item);
-                InventoryUI.Instance.UpdateSlots();
+                UIManager.instance.bookUI.inventoryUI.UpdateSlots();
             }
         }
     }

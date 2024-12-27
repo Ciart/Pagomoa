@@ -5,11 +5,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class DragItem : MonoBehaviour
     {
-        static public DragItem Instance;
+        public static DragItem instance;
 
         void Start()
         {
-            Instance = this;
+            instance = this;
         }
         public void DragSetImage(Sprite image)
         {

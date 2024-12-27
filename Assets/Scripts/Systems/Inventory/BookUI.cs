@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public BookTabItem[] tabItems;
         
-        // [SerializeField] public GameObject ItemHoverObject;
+        public InventoryUI inventoryUI;
         
         private void OnClickTab(int index)
         {
@@ -34,8 +34,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 tabItem.tabButton.onClick.AddListener(() => OnClickTab(i));
             }
-            
-            //OnClickTab(0);
         }
         
         [Obsolete("프로토타입에서 사용하는 함수 입니다.")]

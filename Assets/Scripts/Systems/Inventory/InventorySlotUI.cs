@@ -7,28 +7,37 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
+    public enum SlotType
+    {
+        Default = 0,
+        Inventory,
+        Shop,
+        Buy,
+    }
+    
     public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
-        public Buy buy;
+        public SlotType slotType = SlotType.Default; 
 
         public InventorySlot slot;
         public Image image;
-        public TextMeshProUGUI text;
+        public TextMeshProUGUI count;
         public int id;
 
         public void ReleaseItem()
         {
-            InventoryUI.Instance.choiceSlot = this;
-            var inventory = InventoryUI.Instance;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
+            
+            inventory.choiceSlot = this;
             var player = GameManager.instance.player;
 
             if (player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
             
             player.inventory.Add(player.inventory.items[inventory.choiceSlot.id].item, 0);
-            InventoryUI.Instance.UpdateSlots();
+            inventory.UpdateSlots();
             player.inventory.RemoveArtifactData(player.inventory.items[inventory.choiceSlot.id].item);
-            InventoryUI.Instance.SetArtifactSlots();
+            inventory.SetArtifactSlots();
         }
         public void SetItem(InventorySlot item)
         {
@@ -39,13 +48,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             
             SetSprite(item.item.itemImage);
-            text.text = item.count == 0 ? "" : item.count.ToString();
+            count.text = item.count == 0 ? "" : item.count.ToString();
         }
         
         public void ResetItem()
         {
             SetSprite(null);
-            text.text = "";
+            count.text = "";
         }
         
         private void SetSprite(Sprite sprite)
@@ -61,7 +70,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             Swap(ref slot, ref eventData.pointerPress.GetComponent<InventorySlotUI>().slot);
         }
 
-        public void Swap(ref InventorySlot a, ref InventorySlot b)
+        private void Swap(ref InventorySlot a, ref InventorySlot b)
         {
             (a, b) = (b, a);
         }

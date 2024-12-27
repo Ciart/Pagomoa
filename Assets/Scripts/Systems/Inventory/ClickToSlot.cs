@@ -4,41 +4,46 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class ClickToSlot : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private RightClickMenu _rightClickMenu;
-        [SerializeField] private StoneCount _stoneCount;
+        [SerializeField] private RightClickMenu rightClickMenu;
+        [SerializeField] private StoneCount stoneCount;
+
+        private InventorySlotUI slot => GetComponent<InventorySlotUI>();
+        
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
                 var gameManager = GameManager.instance;
+                var uiManager = UIManager.instance; 
                 
-                InventoryUI.Instance.choiceSlot = this.gameObject.GetComponent<InventorySlotUI>();
-                var choiceSlot = gameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id];
+                uiManager.bookUI.inventoryUI.choiceSlot = slot;
+                var choiceSlot = gameManager.player.inventory.items[uiManager.bookUI.inventoryUI.choiceSlot.id];
                 var itemType = choiceSlot.item.itemType;
-                Vector3 mouseposition = new Vector3(eventData.position.x + 5, eventData.position.y);
-                _rightClickMenu.SetUI();
-                _rightClickMenu.gameObject.transform.position = mouseposition;
+                Vector3 mousePosition = new Vector3(eventData.position.x + 5, eventData.position.y);
+                rightClickMenu.SetUI();
+                rightClickMenu.gameObject.transform.position = mousePosition;
 
                 if (itemType == Item.ItemType.Equipment)
                 {
-                    _rightClickMenu.EquipmentMenu();
+                    rightClickMenu.EquipmentMenu();
                 }
                 else if (itemType == Item.ItemType.Mineral)
                 {
-                    _rightClickMenu.MineralMenu(choiceSlot.count);
+                    rightClickMenu.MineralMenu(choiceSlot.count);
                 }
                 else if (itemType == Item.ItemType.Use)
                 {
-                    _rightClickMenu.UseMenu();
+                    rightClickMenu.UseMenu();
                 }
                 else if (itemType == Item.ItemType.Inherent)
                 {
-                    _rightClickMenu.InherentMenu();
+                    rightClickMenu.InherentMenu();
                 }
             }
             else
@@ -46,7 +51,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipCheck()
         {
-            var inventory = InventoryUI.Instance;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
             PlayerController player = GameManager.instance.player;
 
             if (player.inventory.items[inventory.choiceSlot.id].item == null)
@@ -66,30 +71,29 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
             }
-            else
-                return;
         }
         public void EquipItem()
         {
-            PlayerController player = GameManager.instance.player;
+            var player = GameManager.instance.player;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
             
             if (player.inventory.artifactItems.Length < 4)
             {
-                InventoryUI.Instance.ResetSlots();
-                player.inventory.AddArtifactData(InventoryUI.Instance.choiceSlot.slot.item);
-                player.inventory.Equip(InventoryUI.Instance.choiceSlot.slot.item);
-                InventoryUI.Instance.UpdateSlots();
-                InventoryUI.Instance.SetArtifactSlots();
+                inventory.ResetSlots();
+                player.inventory.AddArtifactData(inventory.choiceSlot.slot.item);
+                player.inventory.Equip(inventory.choiceSlot.slot.item);
+                inventory.UpdateSlots();
+                inventory.SetArtifactSlots();
             }
-            else
-                return;
-            _rightClickMenu.SetUI();
-            _rightClickMenu.DeleteMenu();
+            else return;
+            
+            rightClickMenu.SetUI();
+            rightClickMenu.DeleteMenu();
         }
         public void EatMineral()
         {
             PlayerController player = GameManager.instance.player;
-            var inventory = InventoryUI.Instance;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
             const int mineralCount = 1;
             
             if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
@@ -103,15 +107,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
-                _stoneCount.UpCount(mineralCount);
+                stoneCount.UpCount(mineralCount);
             }
-            _rightClickMenu.SetUI();
-            _rightClickMenu.DeleteMenu();
+            rightClickMenu.SetUI();
+            rightClickMenu.DeleteMenu();
         }
         public void EatTenMineral()
         {
-            PlayerController player = GameManager.instance.player;
-            var inventory = InventoryUI.Instance;
+            var player = GameManager.instance.player;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
             const int mineralCount = 10;
             
             if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
@@ -126,43 +130,46 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
-                _stoneCount.UpCount(mineralCount);
+                stoneCount.UpCount(mineralCount);
             }
-            _rightClickMenu.SetUI();
-            _rightClickMenu.DeleteMenu();
+            rightClickMenu.SetUI();
+            rightClickMenu.DeleteMenu();
         }
         public void EatAllMineral()
         {
-            PlayerController player = GameManager.instance.player;
-            var inventory = InventoryUI.Instance;
+            var player = GameManager.instance.player;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
             int count = player.inventory.items[inventory.choiceSlot.id].count;
             
             player.inventory.items[inventory.choiceSlot.id].count -= count;
             EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, count));
-            _stoneCount.UpCount(count);
+            stoneCount.UpCount(count);
             player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
             inventory.ResetSlots();
             inventory.UpdateSlots();
-            _rightClickMenu.SetUI();
-            _rightClickMenu.DeleteMenu();
+            rightClickMenu.SetUI();
+            rightClickMenu.DeleteMenu();
         }
         public void UseItem()
         {
-            PlayerController player = GameManager.instance.player;
-            var chosenItem = player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
+            var player = GameManager.instance.player;
+            var inventory = UIManager.instance.bookUI.inventoryUI;
+            var chosenItem = player.inventory.items[inventory.choiceSlot.id].item;
             
             PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
-            player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Active(playerStatus);
+            player.inventory.items[inventory.choiceSlot.id].item.Active(playerStatus);
             player.inventory.DecreaseItemCount(chosenItem);
-            InventoryUI.Instance.ResetSlots();
-            _rightClickMenu.SetUI();
-            _rightClickMenu.DeleteMenu();
+            inventory.ResetSlots();
+            rightClickMenu.SetUI();
+            rightClickMenu.DeleteMenu();
         }
         public void AbandonItem()
         {
-            GameManager.instance.player.inventory.RemoveItemData(InventoryUI.Instance.choiceSlot.slot.item);
-            _rightClickMenu.SetUI();
-            _rightClickMenu.DeleteMenu();
+            var inventory = UIManager.instance.bookUI.inventoryUI;
+            
+            GameManager.instance.player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
+            rightClickMenu.SetUI();
+            rightClickMenu.DeleteMenu();
         }
         
     }

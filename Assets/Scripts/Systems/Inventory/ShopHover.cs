@@ -1,38 +1,43 @@
 ﻿using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class ShopHover : Hover
     {
-        [SerializeField] private Image _edgeImage;
+        [SerializeField] private Image edgeImage;
+        private BuySlot _buySlot;
 
+        private void Start()
+        {
+            _buySlot = GetComponent<BuySlot>();
+        }
+        
         public override void OnPointerEnter(PointerEventData eventData)
         {
-            if (this.GetComponent<BuyArtifactSlot>())
+            var shopUI = UIManager.instance.shopUI;
+            
+            if (_buySlot)
             {
-                var ItemName = this.GetComponent<BuyArtifactSlot>().slot.item.itemName;
-                ShopChat.Instance.chatting.text = ItemName;
+                var itemName = _buySlot.slot.item.itemName;
+                shopUI.GetShopChat().chatting.text = itemName;
             }
-
-            ShopUI.Instance.hovering = this;
+            
+            shopUI.hovering = this;
 
             boostImage.sprite = hoverImage[0];
-            if (_edgeImage != null)
-                _edgeImage.gameObject.SetActive(true);
-            else
-                return;
+            if (edgeImage != null)
+                edgeImage.gameObject.SetActive(true);
         }
         public override void OnPointerExit(PointerEventData eventData)
         {
-            ShopUI.Instance.hovering = null;
+            UIManager.instance.shopUI.hovering = null;
             boostImage.sprite = hoverImage[1];
-            if (_edgeImage != null)
-                _edgeImage.gameObject.SetActive(false);
-            else
-                return;
+            if (edgeImage != null)
+                edgeImage.gameObject.SetActive(false);
         }
     }
 }

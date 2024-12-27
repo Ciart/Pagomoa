@@ -2,6 +2,7 @@ using System;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
+using TMPro;
 using UnityEngine;
 
 
@@ -29,20 +30,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.AddListener<AddGold>(ChangeGold);
         }
         
-        private void ChangeGold(AddGold e)
-        {
-            AddGold(e.gold);
-        }
-        
-        private void AddReward(AddReward e)
-        {
-            Add(e.item, e.itemCount);
-        }
-        
-        private void AddGold(int gold)
-        {
-            this.Gold += gold;
-        }
+        private void ChangeGold(AddGold e) { AddGold(e.gold); }
+        private void AddReward(AddReward e) { Add(e.item, e.itemCount); }
+        private void AddGold(int gold) { Gold += gold; }
         
         public void Equip(Item data)
         {
@@ -112,10 +102,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SellItem(Item data)
         {
+            var playerGold = UIManager.instance.shopUI.playerGold;
+            
             DecreaseItemCount(data);
             Gold += data.itemPrice;
-            ShopUI.Instance.gold[0].text = Gold.ToString();
-            ShopUI.Instance.gold[1].text = Gold.ToString();
+
+            foreach (var target in playerGold)
+            {
+                target.text = Gold.ToString();
+            }
         }
         
         public void DecreaseItemCount(Item data)

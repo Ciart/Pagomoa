@@ -1,53 +1,57 @@
 ﻿using Ciart.Pagomoa.Items;
-using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Inventory;
-using System.Collections;
-using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
-using UnityEngine;
+
 
 namespace Ciart.Pagomoa
 {
     public class ShopSlot : InventorySlotUI
     {
+        private void Start() { slotType = SlotType.Shop; }
+
         public void SellCheck()
         {
-            buy.chosenSellSlot = this;
+            var buyUI = UIManager.instance.shopUI.GetBuyUI();
+            
+            buyUI.chosenSellSlot = this;
 
-            var Inventory = buy.chosenSellSlot.slot.item;
-            if (Inventory == null)
+            var inventory = buyUI.chosenSellSlot.slot.item;
+            if (inventory == null)
                 return;
 
-            if (Inventory.itemType == Item.ItemType.Use ||
-                Inventory.itemType == Item.ItemType.Mineral)
+            if (inventory.itemType == Item.ItemType.Use ||
+                inventory.itemType == Item.ItemType.Mineral)
             {
-                buy.OnCountUI(this.gameObject);
-                ShopChat.Instance.SellPriceToChat(Inventory.itemPrice);
+                UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
+                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(slotType);
+                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(inventory.itemPrice);
             }
         }
 
         public void ClickSlot()
         {
             var inventory = GameManager.instance.player.inventory;
+            var countUI = UIManager.instance.shopUI.GetCountUI();
+            var buyUI = UIManager.instance.shopUI.GetBuyUI();
             
-            for (int i = 0; i < buy.countUINum; i++)
+            for (int i = 0; i < countUI.inputCount; i++)
             {
-                if (buy.chosenSellSlot.slot.count > 1)
+                if (buyUI.chosenSellSlot.slot.count > 1)
                 {
-                    inventory.SellItem(buy.chosenSellSlot.slot.item);
+                    inventory.SellItem(buyUI.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                else if (buy.chosenSellSlot.slot.count == 1)
+                else if (buyUI.chosenSellSlot.slot.count == 1)
                 {
-                    inventory.SellItem(buy.chosenSellSlot.slot.item);
+                    inventory.SellItem(buyUI.chosenSellSlot.slot.item);
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                buy.DeleteSellUISlot();
-                buy.ResetSellUISlot();
+                buyUI.DeleteSellUISlot();
+                buyUI.ResetSellUISlot();
             }
-            buy.countUINum = 0;
-            buy.countUIText.text = buy.countUINum.ToString();
-            buy.OffCountUI();
+            countUI.inputCount = 0;
+            countUI.countUIText.text = countUI.inputCount.ToString();
+            countUI.DisableCountUI();
         }
     }
 }

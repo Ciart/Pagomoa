@@ -7,34 +7,28 @@ namespace Ciart.Pagomoa.Systems
     public class CloverMouseInteraction : MonoBehaviour
     {
         private InteractableObject _interactable;
-        [SerializeField] private GameObject _buyUI;
 
         private void Start()
         {
             _interactable = GetComponent<InteractableObject>();
             _interactable.interactionEvent.AddListener(SetUI);
         }
-        private void SetUI()
+        public void SetUI()
         {
             var timeManager = TimeManager.instance;
+            var shopUI = UIManager.instance.shopUI;
             
-            if (_buyUI.activeSelf == false)
-            {
-                _buyUI.SetActive(true);
-                timeManager.PauseTime();
-                ShopChat.Instance.AwakeChat();
-            }
-            else
-            {
-                OffUI();
-            }
+            shopUI.gameObject.SetActive(true);
+            timeManager.PauseTime();
+            shopUI.GetShopChat().AwakeChat();
         }
         public void OffUI()
         {
             var timeManager = TimeManager.instance;
+            var shopUI = UIManager.instance.shopUI;
             
             timeManager.ResumeTime();
-            _buyUI.SetActive(false);
+            shopUI.gameObject.SetActive(false);
         }
     }
 }

@@ -2,31 +2,21 @@ using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
-        private GameManager _gameManager => GameManager.instance;
-        
         [SerializeField] public InventorySlotUI choiceSlot;
         [SerializeField] public InventorySlotUI hoverSlot;
         [SerializeField] private GameObject slotParent;
         [SerializeField] private GameObject slot;
         [SerializeField] private Sprite emptyImage;
-        public List<InventorySlotUI> slotDatas = new List<InventorySlotUI>();
+        public List<InventorySlotUI> slotData = new List<InventorySlotUI>();
         
         private const int MaxArtifactSlotData = 4;
         public InventorySlotUI[] artifactSlotData = new InventorySlotUI[MaxArtifactSlotData];
-        
-        public static InventoryUI Instance = null;
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-        }
 
         private void Start()
         {
@@ -53,35 +43,41 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void MakeSlots() // slotdatas 갯수만큼 슬롯 만들기
         {
-            for (int i = 0; i < _gameManager.player.inventory.items.Length; i++)
+            var gameManager = GameManager.instance;
+            
+            for (int i = 0; i < gameManager.player.inventory.items.Length; i++)
             {
-                GameObject spawnedslot = Instantiate(slot, slotParent.transform);
-                slotDatas.Add(spawnedslot.GetComponent<InventorySlotUI>());
-                slotDatas[i].id = i;
-                spawnedslot.SetActive(true);
+                GameObject spawnedSlot = Instantiate(slot, slotParent.transform);
+                slotData.Add(spawnedSlot.GetComponent<InventorySlotUI>());
+                slotData[i].id = i;
+                spawnedSlot.SetActive(true);
             }
             UpdateSlots();
         }
         
         public void UpdateSlots() // List안의 Item 전체 인벤토리에 출력
         {
-            for (var i = 0; i < slotDatas.Count; i++)
+            var gameManager = GameManager.instance;
+            
+            for (var i = 0; i < slotData.Count; i++)
             {
-                slotDatas[i].SetItem(_gameManager.player.inventory.items[i]);
+                slotData[i].SetItem(gameManager.player.inventory.items[i]);
             }
         }
         
         public void ResetSlots() // 인벤토리에 출력된 아이템들 전부 NULL
         {
-            foreach (var s in slotDatas)
+            foreach (var s in slotData)
                 s.ResetItem();
         }
         
         public void SetArtifactSlots()
         {
+            var gameManager = GameManager.instance;
+            
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
-                artifactSlotData[i].slot = _gameManager.player.inventory.artifactItems[i];
+                artifactSlotData[i].slot = gameManager.player.inventory.artifactItems[i];
                 artifactSlotData[i].SetItem(artifactSlotData[i].slot);
             }
         }

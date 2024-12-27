@@ -36,31 +36,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void PressedEquipBtn()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipCheck();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().EquipCheck();
         }
         public void PressedEquipYes()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipItem();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().EquipItem();
         }
         public void PressedEatAllBtn()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatAllMineral();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().EatAllMineral();
         }
         public void PressedEatBtn()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatMineral();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().EatMineral();
         }
         public void PressedTenEatBtn()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatTenMineral();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().EatTenMineral();
         }
         public void PressedUseBtn()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().UseItem();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().UseItem();
         }
         public void PressedThrowAwayBtn()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().AbandonItem();
+            UIManager.instance.bookUI.inventoryUI.choiceSlot.GetComponent<ClickToSlot>().AbandonItem();
         }
         public void PressedCancleBtn()
         {

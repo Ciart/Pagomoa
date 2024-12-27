@@ -1401,7 +1401,7 @@ GameObject:
   - component: {fileID: 5868628844591284558}
   - component: {fileID: 3226700232577691091}
   m_Layer: 8
-  m_Name: Panel
+  m_Name: TabPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2323,7 +2323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 26, y: -18}
+  m_AnchoredPosition: {x: 26, y: -25}
   m_SizeDelta: {x: 52, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9182305711186271377
@@ -2850,11 +2850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e664e4d671085a48baa4ffbb99bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buy: {fileID: 0}
   slot:
     item: {fileID: 0}
     count: 0
   image: {fileID: 1418422251413915591}
-  text: {fileID: 1081141854518020}
+  count: {fileID: 1081141854518020}
   id: 0
 --- !u!114 &5465644564026055332
 MonoBehaviour:
@@ -2884,8 +2885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f8b57295eadf54eb796471b1a162dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rightClickMenu: {fileID: 831037294264593848}
-  _stoneCount: {fileID: 6438063100087412957}
+  rightClickMenu: {fileID: 0}
+  stoneCount: {fileID: 0}
 --- !u!114 &693537683783421748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3125,10 +3126,8 @@ GameObject:
   - component: {fileID: 538731747876358504}
   - component: {fileID: 3110499143891502465}
   - component: {fileID: 671921168924152565}
-  - component: {fileID: 4660612153344353494}
-  - component: {fileID: 7751761218789975039}
   m_Layer: 8
-  m_Name: Items
+  m_Name: InventoryPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3192,42 +3191,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4660612153344353494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3589638474183010800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
---- !u!114 &7751761218789975039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3589638474183010800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9360f100a6931d45b0ab6714a7a79f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  choiceSlot: {fileID: 0}
-  hoverSlot: {fileID: 0}
-  slotParent: {fileID: 3113030703805146762}
-  slot: {fileID: 3263452210508130985}
-  emptyImage: {fileID: 0}
-  slotDatas: []
-  artifactSlotData:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &3781376172644519659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3376,7 +3339,7 @@ GameObject:
   - component: {fileID: 7399573092468639459}
   - component: {fileID: 8150801408411844250}
   m_Layer: 8
-  m_Name: Image (1)
+  m_Name: CharacterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3449,8 +3412,9 @@ GameObject:
   m_Component:
   - component: {fileID: 274113331656353198}
   - component: {fileID: 7177455475070677784}
+  - component: {fileID: 1545274618577576545}
   m_Layer: 8
-  m_Name: InventoryTab
+  m_Name: InventoryUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3488,6 +3452,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3954413302791451115}
   m_CullTransparentMesh: 1
+--- !u!114 &1545274618577576545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954413302791451115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9360f100a6931d45b0ab6714a7a79f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choiceSlot: {fileID: 0}
+  hoverSlot: {fileID: 0}
+  slotParent: {fileID: 3113030703805146762}
+  slot: {fileID: 3263452210508130985}
+  emptyImage: {fileID: 0}
+  slotData: []
+  artifactSlotData:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &4198018022174365902
 GameObject:
   m_ObjectHideFlags: 0
@@ -3797,7 +3784,7 @@ GameObject:
   - component: {fileID: 8926412004964317606}
   - component: {fileID: 3108203863500018515}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: StatusGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5291,10 +5278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dda8467db5875642b9e89a9f578a45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _drillImages:
-  - {fileID: 2107387948, guid: 3c74ed9e126e2c34085375fef4793da0, type: 3}
-  _drillImage: {fileID: 7754280390210190275}
-  _countText: {fileID: 3928649241067371162}
+  drillImages: []
+  drillImage: {fileID: 0}
+  countText: {fileID: 0}
 --- !u!1 &6039002407566784383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5429,7 +5415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 26, y: -26}
+  m_AnchoredPosition: {x: 26, y: -25}
   m_SizeDelta: {x: 52, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8703289639278678691
@@ -6174,6 +6160,7 @@ MonoBehaviour:
     content: {fileID: 3781376172644519659}
   - tabButton: {fileID: 5421600445005855358}
     content: {fileID: 4899696898204492530}
+  inventoryUI: {fileID: 1545274618577576545}
 --- !u!1 &6928720373015905099
 GameObject:
   m_ObjectHideFlags: 0
@@ -6289,7 +6276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 26, y: -19}
+  m_AnchoredPosition: {x: 26, y: -25}
   m_SizeDelta: {x: 52, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7873046517162758930
@@ -6343,7 +6330,7 @@ GameObject:
   - component: {fileID: 7687336258212543767}
   - component: {fileID: 2915523007892584742}
   m_Layer: 8
-  m_Name: Image
+  m_Name: BookBackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7736,6 +7723,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: SightIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7818,12 +7809,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (6)
+      value: SightStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -352009941, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: SightBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7842,6 +7837,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: HungerIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7924,12 +7923,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (4)
+      value: HungerStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1058816377, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: HungerBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7948,6 +7951,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: OxygenIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8030,12 +8037,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (2)
+      value: OxygenStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1969380170, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: OxygenBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8054,6 +8065,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: DamageIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8136,12 +8151,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (1)
+      value: DamageStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1790917007, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: DamageBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8466,6 +8485,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: MoveSpeedIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8548,12 +8571,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (5)
+      value: MoveSpeedStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -592130245, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: MoveSpeedBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8572,6 +8599,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: DigIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8654,12 +8685,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (7)
+      value: DigStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -742813449, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: DigBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8678,6 +8713,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: HpIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8760,7 +8799,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status
+      value: HpStatus
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: HpBackground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8780,6 +8823,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2921075198212348320}
     m_Modifications:
+    - target: {fileID: 2506230071698217893, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: DefenseIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 3242937769087398410, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8862,12 +8909,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718235307677462869, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Name
-      value: Status (3)
+      value: DefenseStatus
       objectReference: {fileID: 0}
     - target: {fileID: 5364371239169178426, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 380423763, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+    - target: {fileID: 5795875110742803995, guid: 728655ec6951943f0af2d8add3616f1b, type: 3}
+      propertyPath: m_Name
+      value: DefenseStatusBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

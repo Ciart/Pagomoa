@@ -10,16 +10,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] public InventorySlot item;
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
-            PlayerController player = GameManager.instance.player;
+            var newPosition = new Vector3(eventData.position.x, eventData.position.y);
+            var player = GameManager.instance.player;
 
             if (slot != null)
             {
                 item = player.inventory.items[slot.id];
                 if(player.inventory.items[slot.id].item != null )
-                    DragItem.Instance.DragSetImage(player.inventory.items[slot.id].item.itemImage);
+                    DragItem.instance.DragSetImage(player.inventory.items[slot.id].item.itemImage);
             }
-            DragItem.Instance.transform.position = newPosition;
+            DragItem.instance.transform.position = newPosition;
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -29,13 +29,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             else
             {
                 // ItemHoverObject.Instance.OffHover();
-                DragItem.Instance.transform.position = eventData.position;
+                DragItem.instance.transform.position = eventData.position;
             }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            DragItem.Instance.SetColor(0);
+            DragItem.instance.SetColor(0);
         }
     }
 }

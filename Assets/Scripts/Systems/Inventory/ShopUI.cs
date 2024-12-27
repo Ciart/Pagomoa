@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using Ciart.Pagomoa.Systems.Dialogue;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
@@ -10,24 +12,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private GameObject _toSell;
         [SerializeField] private GameObject _toBuy;
         [SerializeField] public ShopHover hovering;
-        [SerializeField] public TextMeshProUGUI[] gold;
-
-        public static ShopUI Instance = null;
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(this);
-        }
+        public TextMeshProUGUI[] playerGold;
+        
+        [SerializeField] private ShopChat shopChat;
+        public ShopChat GetShopChat() => shopChat;
+        [SerializeField] private CountUI countUI;
+        public CountUI GetCountUI() => countUI;
+        [SerializeField] private BuyUI buyUI;
+        public BuyUI GetBuyUI() => buyUI;
+        
         public void ClickToSell()
         {
             _scrollView.SetActive(false);
             _book.SetActive(true);
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
-            var buy = GetComponent<Buy>();
+            
+            var buy = UIManager.instance.shopUI.GetBuyUI();
             buy.DeleteSellUISlot();
             buy.ResetSellUISlot();
         }
@@ -40,10 +41,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void SetUI()
         {
-            bool click = false;
             if (gameObject.activeSelf == false)
-                click = !click;
-            gameObject.SetActive(click);
+                gameObject.SetActive(true);
         }
     }
 }

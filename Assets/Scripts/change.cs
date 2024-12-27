@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa
             uiCanvas.scaleFactor = i;
         }
         
-        public void Cancel()
+        public void CancelOption()
         {
             AudioMixerController.instance.masterSlider.value = OptionDB.instance.masterMixerValue;
             AudioMixerController.instance.musicSlider.value = OptionDB.instance.musicMixerValue;
@@ -49,7 +49,7 @@ namespace Ciart.Pagomoa
             gameObject.SetActive(false);
         }
         
-        public void Confirm()
+        public void ConfirmOption()
         {
             OptionDB.instance.masterMixerValue = AudioMixerController.instance.masterSlider.value;
             OptionDB.instance.musicMixerValue = AudioMixerController.instance.musicSlider.value;

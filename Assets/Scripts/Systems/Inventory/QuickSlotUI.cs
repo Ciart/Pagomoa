@@ -59,16 +59,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             
             var newPosition = new Vector3(eventData.position.x, eventData.position.y);
-            DragItem.Instance.DragSetImage(_item.itemImage);
-            DragItem.Instance.transform.position = newPosition;
+            DragItem.instance.DragSetImage(_item.itemImage);
+            DragItem.instance.transform.position = newPosition;
         }
         public void OnDrag(PointerEventData eventData)
         {
-            DragItem.Instance.transform.position = eventData.position;
+            DragItem.instance.transform.position = eventData.position;
         }
         public void OnEndDrag(PointerEventData eventData)
         {
-            DragItem.Instance.SetColor(0);
+            DragItem.instance.SetColor(0);
         }
 
         // public void OnPointerClick(PointerEventData eventData)
@@ -84,13 +84,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         //     QuickSlotUI.instance.selectedSlot.selectedSlotImage.gameObject.SetActive(true);
         //     QuickSlotUI.instance.selectedSlot.transform.SetAsLastSibling();
         // }
-
-
-
-        ////
-        ///
-        //
-        //
+        
         // public void UseItem()
         // {
         //     PlayerStatus playerPlayerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
