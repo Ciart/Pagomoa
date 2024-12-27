@@ -1,24 +1,26 @@
 using System;
 using Ciart.Pagomoa.Entities;
+using JetBrains.Annotations;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Worlds
 {
     [Serializable]
     public class EntityData
     {
+        public string id;
+
         public float x;
 
         public float y;
 
-        public EntityOrigin origin;
+        [CanBeNull] public EntityStatus status;
 
-        public EntityStatus status;
-
-        public EntityData(float x, float y, EntityOrigin origin, EntityStatus status = null)
+        public EntityData(string id, float x, float y, EntityStatus status = null)
         {
+            this.id = id;
             this.x = x;
             this.y = y;
-            this.origin = origin;
             this.status = status;
         }
     }

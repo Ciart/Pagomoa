@@ -33,14 +33,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void UpdateSlot()
         {
-            if (_item?.itemImage is null)
+            if (_item?.sprite is null)
             {
                 itemImage.sprite = transparentImage;
                 itemCount.text = "";
                 return;
             }
 
-            itemImage.sprite = _item.itemImage;
+            itemImage.sprite = _item.sprite;
             itemCount.text =  _gameManager.player.inventory.GetItemCount(_item).ToString();
         }
 
@@ -59,7 +59,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             
             var newPosition = new Vector3(eventData.position.x, eventData.position.y);
-            DragItem.instance.DragSetImage(_item.itemImage);
+            DragItem.instance.DragSetImage(_item.sprite);
             DragItem.instance.transform.position = newPosition;
         }
         public void OnDrag(PointerEventData eventData)

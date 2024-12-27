@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         {
             _cactusBoss = animator.GetComponent<CactusBoss>();
 
-            _cactusBoss.rigid.velocity = new Vector2(0, -20);
+            _cactusBoss.rigid.linearVelocity = new Vector2(0, -20);
         }
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

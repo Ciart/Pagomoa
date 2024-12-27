@@ -69,7 +69,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 _monster.direction = _monster.target.transform.position.x > transform.position.x ? 1 : -1;
                 Vector3 moveDir = (_monster.target.transform.position - transform.position + Vector3.up * 0.5f).normalized;
 
-                _rigidbody.velocity = moveDir * _monster.status.speed;
+                _rigidbody.linearVelocity = moveDir * _monster.status.speed;
                 transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
                 time -= Time.fixedDeltaTime;

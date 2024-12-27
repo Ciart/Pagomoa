@@ -24,9 +24,9 @@ namespace Ciart.Pagomoa
         }
         public void WriteText(InventorySlotUI slot)
         {
-            _itemName.GetComponent<TextMeshProUGUI>().text = slot.slot.item.itemName;
-            _itemInfo.GetComponent<TextMeshProUGUI>().text = slot.slot.item.itemInfo;
-            _itemType.GetComponent<TextMeshProUGUI>().text = slot.slot.item.itemType.ToString();
+            _itemName.GetComponent<TextMeshProUGUI>().text = slot.slot.item.name;
+            _itemInfo.GetComponent<TextMeshProUGUI>().text = slot.slot.item.description;
+            _itemType.GetComponent<TextMeshProUGUI>().text = slot.slot.item.type.ToString();
         }
         public void OffHover()
         {

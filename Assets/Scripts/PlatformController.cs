@@ -1,6 +1,8 @@
 using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 namespace Ciart.Pagomoa
@@ -14,11 +16,16 @@ namespace Ciart.Pagomoa
         private BoxCollider2D _playerCollider;
 
         private float _enableTime = 0f;
-
+        
+        private void SetPlayerComponent(PlayerController player)
+        {
+            _playerInput = player.GetComponent<PlayerInput>();
+            _playerCollider = player.GetComponent<BoxCollider2D>();
+        }
+        
         private void OnPlayerSpawnedEvent(PlayerSpawnedEvent e)
         {
-            _playerInput = e.player.GetComponent<PlayerInput>();
-            _playerCollider = e.player.GetComponent<BoxCollider2D>();
+            SetPlayerComponent(e.player);
         }
 
         private void Awake()
@@ -29,6 +36,11 @@ namespace Ciart.Pagomoa
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
+
+            if (GameManager.instance.player != null)
+            {
+                SetPlayerComponent(GameManager.instance.player);
+            }
         }
 
         private void OnDisable()

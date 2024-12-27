@@ -35,8 +35,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < contentDatas.Count; i++)
             {
-                contentDatas[i].SetUI(Achievements.Instance.AchieveMinerals[i].item.itemImage, 
-                    Achievements.Instance.AchieveMinerals[i].item.itemPrice);
+                contentDatas[i].SetUI(Achievements.Instance.AchieveMinerals[i].item.sprite, 
+                    Achievements.Instance.AchieveMinerals[i].item.price);
             }
         }
     }

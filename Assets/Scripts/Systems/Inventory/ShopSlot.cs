@@ -19,12 +19,12 @@ namespace Ciart.Pagomoa
             if (inventory == null)
                 return;
 
-            if (inventory.itemType == Item.ItemType.Use ||
-                inventory.itemType == Item.ItemType.Mineral)
+            if (inventory.type == ItemType.Use ||
+                inventory.type == ItemType.Mineral)
             {
                 UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
                 UIManager.instance.shopUI.GetCountUI().ActiveCountUI(slotType);
-                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(inventory.itemPrice);
+                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(inventory.price);
             }
         }
 

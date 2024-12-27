@@ -24,24 +24,24 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 
                 uiManager.bookUI.inventoryUI.choiceSlot = slot;
                 var choiceSlot = gameManager.player.inventory.items[uiManager.bookUI.inventoryUI.choiceSlot.id];
-                var itemType = choiceSlot.item.itemType;
+                var itemType = choiceSlot.item.type;
                 Vector3 mousePosition = new Vector3(eventData.position.x + 5, eventData.position.y);
                 rightClickMenu.SetUI();
                 rightClickMenu.gameObject.transform.position = mousePosition;
 
-                if (itemType == Item.ItemType.Equipment)
+                if (itemType == ItemType.Equipment)
                 {
                     rightClickMenu.EquipmentMenu();
                 }
-                else if (itemType == Item.ItemType.Mineral)
+                else if (itemType == ItemType.Mineral)
                 {
                     rightClickMenu.MineralMenu(choiceSlot.count);
                 }
-                else if (itemType == Item.ItemType.Use)
+                else if (itemType == ItemType.Use)
                 {
                     rightClickMenu.UseMenu();
                 }
-                else if (itemType == Item.ItemType.Inherent)
+                else if (itemType == ItemType.Inherent)
                 {
                     rightClickMenu.InherentMenu();
                 }
@@ -57,10 +57,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
 
-            if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Equipment)
+            if (player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Equipment)
                 EquipItem();
 
-            else if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Use)
+            else if (player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Use)
             {
                 player.inventory.items[inventory.choiceSlot.id].count -= 1;
                 UseItem();
@@ -71,6 +71,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 inventory.ResetSlots();
                 inventory.UpdateSlots();
             }
+            else
+                return;
         }
         public void EquipItem()
         {
@@ -96,7 +98,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = UIManager.instance.bookUI.inventoryUI;
             const int mineralCount = 1;
             
-            if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
+            if (player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Mineral)
             {
                 if (player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
@@ -118,7 +120,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = UIManager.instance.bookUI.inventoryUI;
             const int mineralCount = 10;
             
-            if (player.inventory.items[inventory.choiceSlot.id].item.itemType == Item.ItemType.Mineral)
+            if (player.inventory.items[inventory.choiceSlot.id].item.type == ItemType.Mineral)
             {
                 if (player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
@@ -156,8 +158,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = UIManager.instance.bookUI.inventoryUI;
             var chosenItem = player.inventory.items[inventory.choiceSlot.id].item;
             
-            PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
-            player.inventory.items[inventory.choiceSlot.id].item.Active(playerStatus);
+            player.inventory.items[inventory.choiceSlot.id].item.Use();
             player.inventory.DecreaseItemCount(chosenItem);
             inventory.ResetSlots();
             rightClickMenu.SetUI();
@@ -166,8 +167,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void AbandonItem()
         {
             var inventory = UIManager.instance.bookUI.inventoryUI;
+            var player = GameManager.instance.player;
             
-            GameManager.instance.player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
+            player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
             rightClickMenu.SetUI();
             rightClickMenu.DeleteMenu();
         }

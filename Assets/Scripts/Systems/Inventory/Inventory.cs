@@ -2,7 +2,6 @@ using System;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
-using TMPro;
 using UnityEngine;
 
 
@@ -105,7 +104,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var playerGold = UIManager.instance.shopUI.playerGold;
             
             DecreaseItemCount(data);
-            Gold += data.itemPrice;
+            Gold += data.price;
 
             foreach (var target in playerGold)
             {
@@ -185,17 +184,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var player = GameManager.instance.player;
             var item = _quickItems[index];
             
-            switch (item.itemType)
+            switch (item.type)
             {
-                case Item.ItemType.Use:
+                case ItemType.Use:
                     if (player.inventory.GetItemCount(item) != 0)
                     {
                         DecreaseItemCount(item);
-                        item.Active(player.GetComponent<PlayerStatus>());
+                        item.Use();
                     }
                     break;
-                case Item.ItemType.Inherent:
-                    item.Active(player.GetComponent<PlayerStatus>());
+                case ItemType.Inherent:
+                    item.Use();
                     break;
                 default:
                     return;

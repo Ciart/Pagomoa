@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
         protected virtual void Sleep() { }
         protected abstract IEnumerator Hit();
         protected virtual void Die() {
-            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.linearVelocity = Vector3.zero;
             _rigidbody.gravityScale = 0;
             GetComponent<Collider2D>().enabled = false;
             _animator.SetTrigger("Hit");

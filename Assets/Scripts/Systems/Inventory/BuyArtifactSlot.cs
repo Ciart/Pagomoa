@@ -12,9 +12,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
     
         public void UpdateArtifactSlot()
         {
-            image.sprite = slot.item.itemImage;
-            itemName.text = slot.item.itemName;
-            itemPrice.text = slot.item.itemPrice.ToString();
+            image.sprite = slot.item.sprite;
+            itemName.text = slot.item.name;
+            itemPrice.text = slot.item.price.ToString();
             itemNum.text = slot.count.ToString();
         }
     }

@@ -26,8 +26,8 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     public class Reward
     {
         public int gold;
-        public ScriptableObject targetEntity;
-        public Sprite targetEntitySprite;
+        public string itemId;
+        public Sprite itemSprite;
         public int value;
     }
 }

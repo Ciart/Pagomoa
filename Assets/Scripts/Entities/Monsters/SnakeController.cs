@@ -71,7 +71,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                     _animator.SetTrigger("Idle");
                 while (time >= 3 * changeDir)
                 {
-                    _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
+                    _rigidbody.linearVelocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.linearVelocity.y);
                     if (_monster.direction != 0)
                         transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
@@ -92,7 +92,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
             {
                 _monster.direction = _monster.target.transform.position.x > transform.position.x ? 1 : -1;
 
-                _rigidbody.velocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.velocity.y);
+                _rigidbody.linearVelocity = new Vector2(_monster.direction * _monster.status.speed, _rigidbody.linearVelocity.y);
                 transform.localScale = new Vector3(_monster.direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
 
                 time -= Time.fixedDeltaTime;
@@ -102,7 +102,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
         }
         protected override void Sleep()
         {
-            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.linearVelocity = Vector3.zero;
             _animator.SetTrigger("Sleep");
         }
         protected override IEnumerator Hit()

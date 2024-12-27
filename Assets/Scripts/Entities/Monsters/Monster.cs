@@ -67,7 +67,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 particleManager.Make(1, gameObject, Vector2.zero, 0.5f);
             else
                 particleManager.Make(0, gameObject, Vector2.zero, 0.5f);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
             var knockBackForce2 = 3f;
             Vector2 knockBackDirection2 = transform.position - attacker.transform.position;
             knockBackDirection2.Normalize();

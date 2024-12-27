@@ -1,34 +1,43 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.RefactoringManagerSystem;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : PManager<EntityManager>
     {
-        private static EntityManager _instance;
-
         private List<EntityController> _entities = new();
 
-        public EntityController Spawn(EntityOrigin origin, Vector3 position, EntityStatus status = null)
+        public EntityController? Spawn(string id, Vector3 position, EntityStatus status = null)
         {
-            var entity = Object.Instantiate(origin.prefab, position, Quaternion.identity);
-            
-            _entities.Add(entity);
-            
-            entity.Init(new EntityData(position.x, position.y, origin, status));
-            
-            if (entity.origin.type == EntityType.Player)
+            var entity = ResourceSystem.instance.GetEntity(id);
+
+            if (entity.prefab == null)
             {
-                var player = entity.GetComponent<PlayerController>();
+                Debug.LogError($"EntityManager: {id}의 프리팹이 존재하지 않습니다.");
+                return null;
+            }
+            
+            var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
+            
+            _entities.Add(controller);
+            
+            controller.Init(new EntityData(id, position.x, position.y, status));
+            
+            if (entity.tags.Contains("Player"))
+            {
+                var player = controller.GetComponent<PlayerController>();
                 EventManager.Notify(new PlayerSpawnedEvent(player));
             }
             
-            return entity;
+            return controller;
         }
 
         public void Despawn(EntityController controller)
@@ -39,9 +48,9 @@ namespace Ciart.Pagomoa.Entities
         }
 
         [CanBeNull]
-        public EntityController Find(EntityOrigin origin)
+        public EntityController Find(string id)
         {
-            return _entities.Find(controller => controller.origin == origin);
+            return _entities.Find(controller => controller.entityId == id);
         }
 
         public List<EntityController> FindAllEntityInChunk(Chunk chunk) 
