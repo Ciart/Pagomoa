@@ -1,18 +1,24 @@
 ﻿using Ciart.Pagomoa.Events;
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Ciart.Pagomoa
 {
-    public class CameraBorderSetter : MonoBehaviour
+    [RequireComponent(typeof(PolygonCollider2D))]
+    public class CameraConfiner : MonoBehaviour
     {
         private PolygonCollider2D cameraBorderCollider;
 
         private void Awake()
         {
-            TryGetComponent<PolygonCollider2D>(out cameraBorderCollider);
+            if (!TryGetComponent<PolygonCollider2D>(out cameraBorderCollider)) 
+            {
+                cameraBorderCollider = gameObject.AddComponent<PolygonCollider2D>();
+            }
         }
 
         private void OnEnable()
@@ -48,8 +54,12 @@ namespace Ciart.Pagomoa
             paths[1] = new Vector2(right, top);
             paths[2] = new Vector2(right, -bottom);
             paths[3] = new Vector2(-left, -bottom);
-            
+
+            cameraBorderCollider.isTrigger = true;
             cameraBorderCollider.points = paths;
+
+            GameObject.Find("VirtualCamera").AddComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraBorderCollider;
+
         }
     }
 }
