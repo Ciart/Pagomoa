@@ -1,12 +1,6 @@
-﻿using System;
-using Ciart.Pagomoa.Entities.Players;
+﻿using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Systems.Inventory;
-using Ciart.Pagomoa.UI.Book;
-using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
