@@ -24,7 +24,6 @@ namespace Ciart.Pagomoa
         public GameObject fadeUI;
         public CinemachineVirtualCamera inventoryCamera;
         
-        [Header("For Run Tine Can be None")]
-        [CanBeNull] public DialogueUI dialogueUI;
+        [Header("For Run Tine Can be None")] public DialogueUI? dialogueUI;
     }
 }

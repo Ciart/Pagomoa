@@ -1,5 +1,6 @@
 ﻿using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Inventory;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
