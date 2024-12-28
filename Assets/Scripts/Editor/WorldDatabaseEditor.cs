@@ -2,10 +2,8 @@ using System;
 using System.Linq;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Editor
 {
@@ -257,7 +255,10 @@ namespace Ciart.Pagomoa.Editor
                     Color.red);
             }
 
-            EditorGUI.DrawRect(pivotRect, Color.blue.WithAlpha(0.1f));
+            var color = Color.blue;
+            color.a = 0.1f;
+
+            EditorGUI.DrawRect(pivotRect, color);
         }
 
         private void OnGUI()

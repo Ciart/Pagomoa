@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -124,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: CactusBossArm_Frame_0
     originalName: 
-    pivot: {x: 0.47619048, y: 0}
+    pivot: {x: 0.49999997, y: 0.07692308}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -145,7 +146,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 229}
   - name: CactusBossArm_Frame_1
     originalName: 
-    pivot: {x: 0.49999997, y: 0}
+    pivot: {x: 0.5178572, y: 0.04}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -166,7 +167,7 @@ ScriptedImporter:
     uvTransform: {x: 83, y: 91}
   - name: CactusBossArm_Frame_2
     originalName: 
-    pivot: {x: 0.5342466, y: 0}
+    pivot: {x: 0.5479452, y: 0.012658227}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -187,7 +188,7 @@ ScriptedImporter:
     uvTransform: {x: 83, y: 4}
   - name: CactusBossArm_Frame_3
     originalName: 
-    pivot: {x: 0.52112675, y: 0}
+    pivot: {x: 0.5352112, y: 0.007751938}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -208,7 +209,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: CactusBossArm_Frame_4
     originalName: 
-    pivot: {x: 0.52112675, y: 0}
+    pivot: {x: 0.5352112, y: 0.012500001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -229,7 +230,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 141}
   - name: CactusBossArm_Frame_5
     originalName: 
-    pivot: {x: 0.49999997, y: 0}
+    pivot: {x: 0.5178572, y: 0.04}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -250,7 +251,7 @@ ScriptedImporter:
     uvTransform: {x: 83, y: 124}
   - name: CactusBossArm_Frame_6
     originalName: 
-    pivot: {x: 0.47619048, y: 0}
+    pivot: {x: 0.49999997, y: 0.07692308}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -272,7 +273,7 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -483761322
+    guid: -120222674
     name: CactusBossArm
     layerFlags: 0
     layerType: 0
@@ -396,3 +397,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 164, y: 192}
+  previousTextureSize: {x: 256, y: 256}

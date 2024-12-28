@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using Ciart.Pagomoa.Systems.Dialogue;
 using Ink.Runtime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa

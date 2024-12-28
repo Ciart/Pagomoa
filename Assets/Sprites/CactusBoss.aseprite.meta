@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -124,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: CactusBoss_Frame_0
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -145,7 +146,7 @@ ScriptedImporter:
     uvTransform: {x: 222, y: 215}
   - name: CactusBoss_Frame_1
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.0050761425}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -166,7 +167,7 @@ ScriptedImporter:
     uvTransform: {x: 441, y: 4}
   - name: CactusBoss_Frame_2
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -187,7 +188,7 @@ ScriptedImporter:
     uvTransform: {x: 222, y: 426}
   - name: CactusBoss_Frame_3
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -208,7 +209,7 @@ ScriptedImporter:
     uvTransform: {x: 222, y: 637}
   - name: CactusBoss_Frame_4
     originalName: 
-    pivot: {x: 0.3716216, y: 0}
+    pivot: {x: 0.3783784, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -229,7 +230,7 @@ ScriptedImporter:
     uvTransform: {x: 441, y: 420}
   - name: CactusBoss_Frame_5
     originalName: 
-    pivot: {x: 0.5592417, y: 0}
+    pivot: {x: 0.56398106, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -250,7 +251,7 @@ ScriptedImporter:
     uvTransform: {x: 222, y: 4}
   - name: CactusBoss_Frame_6
     originalName: 
-    pivot: {x: 0.53431374, y: 0}
+    pivot: {x: 0.5392157, y: 0.0049019614}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -271,7 +272,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 220}
   - name: CactusBoss_Frame_7
     originalName: 
-    pivot: {x: 0.5095238, y: 0}
+    pivot: {x: 0.51428574, y: 0.004807693}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -292,7 +293,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: CactusBoss_Frame_8
     originalName: 
-    pivot: {x: 0.48333332, y: 0}
+    pivot: {x: 0.4888889, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -313,7 +314,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 432}
   - name: CactusBoss_Frame_9
     originalName: 
-    pivot: {x: 0.47457626, y: 0}
+    pivot: {x: 0.48022598, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -334,7 +335,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 643}
   - name: CactusBoss_Frame_10
     originalName: 
-    pivot: {x: 0.43636364, y: 0}
+    pivot: {x: 0.44242427, y: 0.0049261088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -355,7 +356,7 @@ ScriptedImporter:
     uvTransform: {x: 441, y: 209}
   - name: CactusBoss_Frame_11
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.00877193}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -376,7 +377,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 854}
   - name: CactusBoss_Frame_12
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.00877193}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -397,7 +398,7 @@ ScriptedImporter:
     uvTransform: {x: 222, y: 848}
   - name: CactusBoss_Frame_13
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.00877193}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -418,7 +419,7 @@ ScriptedImporter:
     uvTransform: {x: 441, y: 631}
   - name: CactusBoss_Frame_14
     originalName: 
-    pivot: {x: 0.46857142, y: 0}
+    pivot: {x: 0.47428572, y: 0.00877193}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -440,7 +441,7 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -144401780
+    guid: -606202948
     name: CactusBoss
     layerFlags: 0
     layerType: 0
@@ -636,3 +637,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 320, y: 224}
+  previousTextureSize: {x: 1024, y: 1024}

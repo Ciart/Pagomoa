@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Ciart.Pagomoa.Timelines;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
 using Vector3 = UnityEngine.Vector3;
 
 namespace Ciart.Pagomoa
