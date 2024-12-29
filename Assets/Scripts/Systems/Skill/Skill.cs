@@ -40,7 +40,7 @@ namespace Ciart.Pagomoa.Systems.Skill
             while (WorldManager.instance.CheckClimbable(transform.position) && Helicopter)
             {
                 _player.state = PlayerState.Jump;
-                if(rb.velocity.y >= 0)
+                if(rb.linearVelocity.y >= 0)
                     rb.AddForce(new Vector2(0, 30), ForceMode2D.Force);
                 else
                     rb.AddForce(new Vector2(0, 60), ForceMode2D.Force);

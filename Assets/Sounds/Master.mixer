@@ -93,7 +93,7 @@ AudioMixerGroupController:
   m_Effects:
   - {fileID: 24400004}
   m_UserColorIndex: 0
-  m_Mute: 0
+  m_Mute: 1
   m_Solo: 0
   m_BypassEffects: 0
 --- !u!244 &24400004
@@ -120,6 +120,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 1733abbc23bb7394d8888c0b8b9d3334
   m_FloatValues:
+    c7430f5403527c04c835438a10d90b12: -0.27209902
     6859931eea95fe842b012a39029736c6: 0
     59e623ffc58e0b349bbf3403f0feb1f3: 0
   m_TransitionOverrides: {}

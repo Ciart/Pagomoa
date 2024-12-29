@@ -22,12 +22,12 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private bool CheckFall()
         {
-            return !isGrounded && _rigidbody.velocity.y <= 0;
+            return !isGrounded && _rigidbody.linearVelocity.y <= 0;
         }
 
         private bool CheckJump()
         {
-            return state == PlayerState.Jump && _rigidbody.velocity.y > 0;
+            return state == PlayerState.Jump && _rigidbody.linearVelocity.y > 0;
         }
 
         private bool CheckWalk()

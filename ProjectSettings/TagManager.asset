@@ -9,6 +9,7 @@ TagManager:
   - Monster
   - NPC
   - ItemEntityTrigger
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -7,55 +7,59 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 {
     public class RenewCactusBoss : MonoBehaviour
     {
-
         public float dir;
-        public GameObject[] arms;
-        public GameObject[] points;
-        public GameObject missile;
-        public Transform missileSpawnPoint;
-        public GameObject footHold;
+        public GameObject[] hammers;
+        public Transform[] initialPos = new Transform[2];
 
-        public List<GameObject> upHammers;
-        
         public float attackRange;
         public float attackRate = 1f;
-        public float surgingSpeed;
+
+        public float hammerDownSpeed;
+
+        // public enum State
+        // {
+        //     Hammer,
+        //     Spin,
+        //     Smash
+        // }
+        //
+        // public State state;
         
-        // [NonSerialized]
-        public bool surgePoint = false;
         [NonSerialized]
         public EntityController controller;
 
         [NonSerialized]
         public Rigidbody2D rigid;
        
-        private float _nextAttack;
+        private SpriteRenderer _spriteRenderer;
         private void Awake()
         {
             controller = GetComponent<EntityController>();
             rigid = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
-
         private void Start()
         {
+            InstantiateHammer();
             CheckPlayerDir();
         }
-
         private void Update()
         {
             CheckPlayerDir();
         }
-
         private void CheckPlayerDir()
         {
-            Vector3 playPos = new Vector3(GameManager.player.transform.position.x, GameManager.player.transform.position.y, 
-                GameManager.player.transform.position.z);
+            Vector3 playPos = new Vector3(GameManager.instance.player.transform.position.x, GameManager.instance.player.transform.position.y, 
+                GameManager.instance.player.transform.position.z);
             Vector3 bossPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector3 distance = playPos - bossPos;
-
+        
             dir = distance.x;
+            if(dir > 0)
+                _spriteRenderer.flipX = true;
+            else if(dir < 0)
+                _spriteRenderer.flipX = false;
         }
-
         public bool CheckPlayerInRange()
         {
             if (dir > -attackRange && dir < attackRange)
@@ -63,11 +67,10 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
             return false;
         }
-        public bool CheckAttackAble() => Time.time > _nextAttack;
-        
-        public void ApplyAttackRate()
+        private void InstantiateHammer()
         {
-            _nextAttack = Time.time + attackRate;
+            hammers[0] = Instantiate(hammers[0], initialPos[0].position, Quaternion.identity, transform);
+            hammers[1] = Instantiate(hammers[1], initialPos[1].position, Quaternion.identity, transform);
         }
     }
 }

@@ -69,7 +69,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 if (isSideWall && !_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
                     _animator.SetBool(AnimatorEndClimb, true);
             }
-            _rigidbody.velocity = velocity;
+            _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = 0;
         }
         void EndClimbLeft()
@@ -88,9 +88,9 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             if (_animator.GetBool(AnimatorEndClimb)) return;
 
-            var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.velocity.y);
+            var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.linearVelocity.y);
 
-            _rigidbody.velocity = velocity;
+            _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = gravityScale;
         }
 
@@ -124,9 +124,9 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             _animator.SetFloat(AnimatorDirectionX, directionVector.x);
             _animator.SetFloat(AnimatorDirectionY, directionVector.y);
-            _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.velocity.x));
-            _animator.SetFloat(AnimatorVelocityY, _rigidbody.velocity.y);
-            _animator.SetFloat(AnimatorSpeed, _rigidbody.velocity.magnitude / 5f);
+            _animator.SetFloat(AnimatorVelocityX, Mathf.Abs(_rigidbody.linearVelocity.x));
+            _animator.SetFloat(AnimatorVelocityY, _rigidbody.linearVelocity.y);
+            _animator.SetFloat(AnimatorSpeed, _rigidbody.linearVelocity.magnitude / 5f);
             _animator.SetBool(AnimatorIsClimb, isClimb);
             _animator.SetBool(AnimatorIsSideWall, isSideWall);
         }

@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -77,6 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 2
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +91,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 2
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -103,6 +106,7 @@ ScriptedImporter:
     pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 0
@@ -121,9 +125,10 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: BackWheel
     originalName: 
-    pivot: {x: 0.16129033, y: 0}
+    pivot: {x: 0.17741935, y: 0.035714287}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 137
@@ -141,9 +146,10 @@ ScriptedImporter:
     uvTransform: {x: 137, y: 69}
   - name: Layer 3
     originalName: 
-    pivot: {x: 0.32, y: -0.15789473}
+    pivot: {x: 0.32799998, y: -0.14035088}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -161,9 +167,10 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Layer 4
     originalName: 
-    pivot: {x: 0.7941177, y: 0.05263158}
+    pivot: {x: 0.8088236, y: 0.07017544}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 137
@@ -181,9 +188,10 @@ ScriptedImporter:
     uvTransform: {x: 137, y: 4}
   - name: FrontWheel
     originalName: 
-    pivot: {x: -0.45161298, y: 0}
+    pivot: {x: -0.43548378, y: 0.035714287}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -202,7 +210,7 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1441386676
+    guid: 2037519492
     name: BackWheel
     layerFlags: 3
     layerType: 0
@@ -210,6 +218,7 @@ ScriptedImporter:
     cells:
     - name: BackWheel
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 78
         y: 0
@@ -219,7 +228,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 1
-    guid: 1317221951
+    guid: -7500618
     name: Layer 3
     layerFlags: 3
     layerType: 0
@@ -227,6 +236,7 @@ ScriptedImporter:
     cells:
     - name: Layer 3
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 9
@@ -236,7 +246,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 2
-    guid: 1317223933
+    guid: -7500613
     name: Layer 4
     layerFlags: 3
     layerType: 0
@@ -244,6 +254,7 @@ ScriptedImporter:
     cells:
     - name: Layer 4
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: -3
@@ -253,7 +264,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 3
-    guid: 336872891
+    guid: 44122776
     name: FrontWheel
     layerFlags: 3
     layerType: 0
@@ -261,6 +272,7 @@ ScriptedImporter:
     cells:
     - name: FrontWheel
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 116
         y: 0
@@ -306,6 +318,8 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 176, y: 96}
+  previousTextureSize: {x: 256, y: 128}

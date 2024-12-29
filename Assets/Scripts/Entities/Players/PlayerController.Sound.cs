@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private void UpdateSound()
         {
-            if (state == PlayerState.Walk && isGrounded && MathF.Abs(_rigidbody.velocity.x) > 0.1f)
+            if (state == PlayerState.Walk && isGrounded && MathF.Abs(_rigidbody.linearVelocity.x) > 0.1f)
             {
                 if (!soundManager.FindAudioSource("TeamEffect").isPlaying)
                 {
