@@ -5,9 +5,6 @@ using Ciart.Pagomoa.Worlds;
 using Cinemachine;
 using Logger;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa
 {
@@ -20,7 +17,7 @@ namespace Ciart.Pagomoa
         public AudioSource GetAudioSource();
         public AudioSource[] GetSfxSources();
         public UIContainer GetUIData();
-        public void DestroyData<T>(T target, float duration = 0) where T : Object; 
+        public CutSceneController GetCutSceneController();
     }
     public class DataBase : MonoBehaviour, IDataBase
     {
@@ -43,6 +40,9 @@ namespace Ciart.Pagomoa
         [Header("UI Data")]
         [SerializeField] private UIContainer uiContainer;
         
+        [Header("CutSceneController")]
+        [SerializeField] private CutSceneController cutSceneController;
+        
         public static IDataBase data { get; private set; }
 
         protected void Awake()
@@ -58,51 +58,13 @@ namespace Ciart.Pagomoa
             }
         }
         
-        public WorldDatabase GetWorldData()
-        {
-            return worldDatabase;
-        }
-
-        public ItemEntity GetItemEntity()
-        {
-            return itemEntity;
-        }
-
-        public QuestDatabase GetQuestData()
-        {
-            return questDatabase;
-        }
-
-        public List<ParticleSystem> GetParticles()
-        {
-            return particles;
-        }
-
-        public AudioSource GetAudioSource()
-        {
-            return musicSource;
-        }
-        
-        public AudioSource[] GetSfxSources()
-        {
-            return sfxSources;
-        }
-
-        public UIContainer GetUIData()
-        {
-            return uiContainer;
-        }
-
-        public void DestroyData<T>(T target, float duration = 0) where T : Object
-        {
-            if (duration == 0)
-            {
-                Destroy(target);
-            }
-            else
-            {
-                Destroy(target, duration);    
-            }
-        }
+        public WorldDatabase GetWorldData() { return worldDatabase; }
+        public ItemEntity GetItemEntity() { return itemEntity; }
+        public QuestDatabase GetQuestData() { return questDatabase; }
+        public List<ParticleSystem> GetParticles() { return particles; }
+        public AudioSource GetAudioSource() { return musicSource; }
+        public AudioSource[] GetSfxSources() { return sfxSources; }
+        public UIContainer GetUIData() { return uiContainer; }
+        public CutSceneController GetCutSceneController() { return cutSceneController; }
     }
 }

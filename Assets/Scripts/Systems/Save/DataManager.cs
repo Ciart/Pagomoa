@@ -1,4 +1,5 @@
 using System.IO;
+using MemoryPack;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Save
@@ -45,7 +46,7 @@ namespace Ciart.Pagomoa.Systems.Save
             }
             else
             {
-                SaveManager.Instance.InitData();
+                // OldSaveManager.instance.InitData();
                 return false;
             }
         }
@@ -60,10 +61,18 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void SaveGameData()
         {
-            var filePath = Application.persistentDataPath + "/" + GameDataFileName;
-            var ToJasonData = JsonUtility.ToJson(data, true);
-            File.WriteAllText(filePath, ToJasonData);
-            Debug.Log("Data Saved");
+            // var saveData = new SaveData()
+            // {
+            //     world = new WorldSaveData()
+            //     {
+            //         
+            //     }
+            // };
+            //
+            // var filePath = Application.persistentDataPath + "/" + GameDataFileName;
+            // var raw = MemoryPackSerializer.Serialize(saveData);
+            // File.WriteAllBytes(filePath, raw);
+            // Debug.Log("Data Saved");
         }
     }
 }

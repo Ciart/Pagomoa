@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Entities.Players;
+﻿using Ciart.Pagomoa.Entities.Players;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +9,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
+        public Buy buy;
+
         public InventorySlot slot;
         public Image image;
         public TextMeshProUGUI text;
@@ -36,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             }
             
-            SetSprite(item.item.itemImage);
+            SetSprite(item.item.sprite);
             text.text = item.count == 0 ? "" : item.count.ToString();
         }
         

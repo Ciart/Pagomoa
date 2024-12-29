@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class GameSystem : MonoBehaviour
 {
-    private static Game _instance = null;
+    private static GameSystem _instance = null;
     private static List<IPManager> _managers = null;
 
     public Action awake;
     public Action start;
+    public Action quit;
     public Action preUpdate;
     public Action update;
     public Action preFixedUpdate;
@@ -70,7 +70,8 @@ public class Game : MonoBehaviour
 
    private void Start()
    {
-       start?.Invoke();
+       start.Invoke();
+       Debug.Log("Game::Start()");
     }
 
    // Update is called once per frame
@@ -93,5 +94,10 @@ public class Game : MonoBehaviour
         preLateUpdate?.Invoke();
         
         lateUpdate?.Invoke();
+    }
+
+    private void OnApplicationQuit()
+    {
+        quit?.Invoke();
     }
 }

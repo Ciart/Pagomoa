@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -29,7 +28,7 @@ namespace Ciart.Pagomoa.Utilities
                     var item = list[i];
                     list.RemoveAt(i);
                     
-                    Object.Destroy(item.GameObject());
+                    Object.Destroy(item);
                 }
             }
         }

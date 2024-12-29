@@ -1,0 +1,43 @@
+﻿{
+  "walls": [
+    {
+      "id": "SandWall",
+      "name": "모래 벽",
+      "isClimbable": true
+    }
+  ],
+  "grounds": [
+    {
+      "id": "Sand",
+      "name": "모래",
+      "strength": 10,
+      "color": "#E6904E"
+    },
+    {
+      "id": "Grass",
+      "name": "잔디",
+      "strength": 20,
+      "color": "#7F708A"
+    }
+  ],
+  "minerals": [
+    {
+      "id": "Copper",
+      "name": "구리",
+      "tier": 0,
+      "itemId": "Copper"
+    },
+    {
+      "id": "Quartz",
+      "name": "석영",
+      "tier": 0,
+      "itemId": "Quartz"
+    },
+    {
+      "id": "Iron",
+      "name": "철",
+      "tier": 1,
+      "itemId": "Iron"
+    }
+  ]
+}

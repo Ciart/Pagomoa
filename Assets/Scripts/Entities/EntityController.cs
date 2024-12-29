@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities
 {
@@ -31,7 +32,7 @@ namespace Ciart.Pagomoa.Entities
 
     public class EntityController : MonoBehaviour
     {
-        public EntityOrigin origin;
+        public string entityId;
 
         public EntityStatus status;
 
@@ -51,9 +52,17 @@ namespace Ciart.Pagomoa.Entities
 
         private float _invincibleTime;
 
-        public bool isEnemy => origin.isEnemy;
+        public bool isEnemy
+        {
+            get;
+            private set;
+        }
 
-        public bool isInvincible => _invincibleTime > 0 || origin.isInvincible;
+        public bool isInvincible
+        {
+            get;
+            private set;
+        }
 
         // https://discussions.unity.com/t/how-do-i-check-if-my-rigidbody-player-is-grounded/33250/11
         private bool _isGrounded;
@@ -74,27 +83,29 @@ namespace Ciart.Pagomoa.Entities
 
         public void Init(EntityData data)
         {
-            origin = data.origin;
-            
-            // if (status is null)
+            var entity = ResourceSystem.instance.GetEntity(data.id);
+            entityId = entity.id;
+            isEnemy = entity.isEnemy;
+            isInvincible = entity.isInvincible;
+
+            if (data.status != null)
             {
-                status = new EntityStatus
-                {
-                    health = origin.baseHealth,
-                    maxHealth = origin.baseHealth
-                };
+                status = data.status;
+                return;
             }
-            // else
-            // {
-            //     status = data.status;
-            // }
+            
+            status = new EntityStatus
+            {
+                health = entity.baseHealth,
+                maxHealth = entity.baseHealth
+            };
         }
         
         public EntityData GetEntityData()
         {
             var position = transform.position;
             
-            return new EntityData(position.x, position.y, origin, status);
+            return new EntityData(entityId, position.x, position.y, status);
         }
 
         /*private void OnDrawGizmos()

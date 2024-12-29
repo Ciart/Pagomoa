@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Entities
     {
         public string levelId;
 
-        public EntityOrigin destination;
+        public string destinationId;
 
         public Sprite[] images;
 
@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Entities
 
             var player = GameManager.instance.player;
             var entityManager = EntityManager.instance;
-            var destinationEntity = entityManager.Find(destination);
+            var destinationEntity = entityManager.Find(destinationId);
             
             if (destinationEntity is null)
             {

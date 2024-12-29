@@ -44,18 +44,28 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
 
-        public Level(LevelData levelData)
+        public Level(LevelSaveData saveData)
         {
-            top = levelData.top;
-            bottom = levelData.bottom;
-            left = levelData.left;
-            right = levelData.right;
+            top = saveData.top;
+            bottom = saveData.bottom;
+            left = saveData.left;
+            right = saveData.right;
 
             // entityDataList = levelData.entityDataList;
             
             entityDataList = new List<EntityData>();
+            
+            _chunks = new Dictionary<ChunkCoords, Chunk>();
 
-            _chunks = ListDictionaryConverter.ToDictionary(levelData._chunks);
+            foreach (var chunkData in saveData.chunks)
+            {
+                _chunks.Add(chunkData.coords, new Chunk(chunkData));
+            }
+        }
+        
+        public LevelSaveData CreateSaveData()
+        {
+            return new LevelSaveData();
         }
 
         public Chunk GetChunk(ChunkCoords coords)
@@ -108,9 +118,9 @@ namespace Ciart.Pagomoa.Worlds
             return chunk.bricks[brinkX + brinkY * Chunk.Size];
         }
 
-        public void AddEntity(float x, float y, EntityOrigin origin, EntityStatus status = null)
+        public void AddEntity(float x, float y, string entityId, EntityStatus status = null)
         {
-            entityDataList.Add(new EntityData(x, y, origin, status));
+            entityDataList.Add(new EntityData(entityId, x, y, status));
         }
 
         public void AddEntity(EntityData entityData)

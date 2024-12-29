@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -38,7 +36,17 @@ namespace Ciart.Pagomoa
         
         void Update()
         {
-            if(!target) return;
+            if (!target)
+            {
+                StopAllCoroutines();
+                return;
+            }
+
+            if (!target.gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+                return;
+            }
 
             if (_targetMovement) _targetDirectionVector = _targetMovement.directionVector;
             
@@ -165,6 +173,11 @@ namespace Ciart.Pagomoa
             
             _floatingEnd = true;
             _floatingNormalized = -1;
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
         }
     }
 }

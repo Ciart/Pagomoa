@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.UI.Title
         public bool stopScroll;
         public bool startIntro;
 
-        public bool needSlowDownScroll;
+        [FormerlySerializedAs("needSlowDownScroll")] public bool needScrollDown;
         public bool needSpeedUpScroll;
         private float _speedDecreaseRate;
         private float _speedIncreaseRate;
@@ -86,7 +86,7 @@ namespace Ciart.Pagomoa.UI.Title
             
             if (speed <= minSpeed)
             {
-                needSlowDownScroll = false;
+                needScrollDown = false;
                 needSpeedUpScroll = true;
                     
                 startIntro = true;
@@ -100,11 +100,11 @@ namespace Ciart.Pagomoa.UI.Title
         
         private void DecreaseSpeed()
         {
-            if (!needSlowDownScroll) return;
+            if (!needScrollDown) return;
 
             if (speed <= minSpeed)
             {
-                needSlowDownScroll = false;
+                needScrollDown = false;
             }
             
             speed -= _speedDecreaseRate * Time.deltaTime;

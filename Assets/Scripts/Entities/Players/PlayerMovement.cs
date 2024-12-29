@@ -1,4 +1,6 @@
+﻿using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Worlds;
+using System;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.Players
@@ -19,6 +21,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public float climbSpeed = 250f;
 
         public float jumpForce = 650f;
+        
+        public float fallForce = 200f;
 
         // TODO: 최대 거리 검사가 필요 함.
         public Vector2 directionVector = Vector2.zero;
@@ -39,6 +43,13 @@ namespace Ciart.Pagomoa.Entities.Players
         private WorldManager _world;
 
         private bool _isJump;
+        
+        private bool _isFall;
+
+        private Vector2 _playerMoveMinArea = Vector2.zero;
+        private Vector2 _playerMoveMaxArea = Vector2.zero;
+
+        private Vector3 _moveDelta;
 
         private void Awake()
         {
@@ -46,11 +57,60 @@ namespace Ciart.Pagomoa.Entities.Players
             _animator = GetComponent<Animator>();
 
             _world = WorldManager.instance;
+
+            Init();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<LevelChangedEvent>(OnLevelChanged);
+            EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<LevelChangedEvent>(OnLevelChanged);
+            EventManager.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
+        }
+
+        private void Init()
+        {
+            var currentLevel = _world.worldGenerator;
+
+            SetMoveArea(currentLevel.left, currentLevel.right, currentLevel.bottom, currentLevel.top);
+        }
+
+        private void OnWorldCreated(WorldCreatedEvent e)
+        {
+            var currentLevel = e.world.currentLevel;
+
+            SetMoveArea(currentLevel.left, currentLevel.right, currentLevel.bottom, currentLevel.top);
+        }
+
+        private void OnLevelChanged(LevelChangedEvent e)
+        {
+            var currentLevel = e.level;
+
+            SetMoveArea(currentLevel.left, currentLevel.right, currentLevel.bottom, currentLevel.top);
+        }
+
+        private void SetMoveArea(int left, int right, int bottom, int top)
+        {
+            _playerMoveMinArea.x = -left;
+            _playerMoveMaxArea.x = right;
+
+            _playerMoveMinArea.y = -bottom;
+            _playerMoveMaxArea.y = top;
         }
 
         public void Jump()
         {
             _isJump = true;
+        }
+
+        public void Fall()
+        {
+            _isFall = true;
         }
         
         private void UpdateClimb()
@@ -72,18 +132,21 @@ namespace Ciart.Pagomoa.Entities.Players
             _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = 0;
         }
-        void EndClimbLeft()
+
+        private void EndClimbLeft()
         {
             Vector3 movePos = new Vector3(-0.4f, 1.04f);
             transform.position += movePos;
             _animator.SetBool(AnimatorEndClimb, false);
         }
-        void EndClimbRight()
+
+        private void EndClimbRight()
         {
             Vector3 movePos = new Vector3(0.4f, 1.04f);
             transform.position += movePos;
             _animator.SetBool(AnimatorEndClimb, false);
         }
+
         private void UpdateWalk()
         {
             if (_animator.GetBool(AnimatorEndClimb)) return;
@@ -92,6 +155,12 @@ namespace Ciart.Pagomoa.Entities.Players
 
             _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = gravityScale;
+
+            _moveDelta.x = Mathf.Clamp(transform.position.x, _playerMoveMinArea.x, _playerMoveMaxArea.x);
+            _moveDelta.y = Mathf.Clamp(transform.position.y, _playerMoveMinArea.y, _playerMoveMaxArea.y);
+
+            transform.position = _moveDelta;
+
         }
 
         private void FixedUpdate()
@@ -106,6 +175,12 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 _rigidbody.AddForce(new Vector2(0, jumpForce));
                 _isJump = false;
+            }
+
+            if (_isFall)
+            {
+                _rigidbody.AddForce(new Vector2(0, -fallForce));
+                _isFall = false;
             }
 
             if (isClimb)
@@ -130,7 +205,7 @@ namespace Ciart.Pagomoa.Entities.Players
             _animator.SetBool(AnimatorIsClimb, isClimb);
             _animator.SetBool(AnimatorIsSideWall, isSideWall);
         }
-        bool CheckClimbEnable()
+        private bool CheckClimbEnable()
         {
             // only for ClimbUp At Up 
             //float fixYPos = -0.5f;

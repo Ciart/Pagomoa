@@ -4,7 +4,8 @@
 #talker 모아
 #sprite 모아
 #UIMode Out
-이 녀석아 언제까지 기다리게 할거야!
+이 녀석아!
+언제까지 기다리게 할거야!
 *[다음] -> Conversation1
 
 === Conversation1
@@ -24,5 +25,4 @@
 # quest tutorial_2
 (슬롯에 등록하거나 
 아이콘을 우 클릭해 먹일 수 있어)
-
     -> END

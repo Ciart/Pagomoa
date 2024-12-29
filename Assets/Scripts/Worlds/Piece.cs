@@ -77,14 +77,14 @@ namespace Ciart.Pagomoa.Worlds
             return 0 <= x && x < width && 0 <= y && y < height;
         }
 
-        public void AddEntity(int x, int y, EntityOrigin origin)
+        public void AddEntity(int x, int y, string entityId)
         {
             if (!CheckRange(x, y))
             {
                 return;
             }
 
-            var entityData = new EntityData(x, y, origin);
+            var entityData = new EntityData(entityId, x, y);
 
             if (entities.Exists(data => data == entityData))
             {

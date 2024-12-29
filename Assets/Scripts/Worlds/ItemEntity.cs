@@ -33,7 +33,7 @@ namespace Ciart.Pagomoa.Worlds
             set
             {
                 _item = value;
-                spriteRenderer.sprite = _item.itemImage;
+                spriteRenderer.sprite = _item.sprite;
             }
         }
 

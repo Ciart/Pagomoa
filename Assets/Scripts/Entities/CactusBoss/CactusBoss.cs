@@ -1,12 +1,13 @@
 using System;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.CactusBoss
 {
     public class CactusBoss : MonoBehaviour
     {
-        public EntityOrigin armOrigin;
+        public string armId;
 
         public float speed = 20f;
 
@@ -58,8 +59,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             var player = GameManager.instance.player;
             var spawnPosition = new Vector2(player.transform.position.x, 0);
             
-            EntityController entity = Instantiate(armOrigin.prefab, spawnPosition, Quaternion.identity);
-            var arm = EntityManager.instance.Spawn(armOrigin, spawnPosition);
+            var arm = EntityManager.instance.Spawn(armId, spawnPosition);
             arm.parent = controller;
         }
     }

@@ -20,13 +20,13 @@ namespace Logger
             public List<QuestData> entityQuests = new List<QuestData>();
         }
 
-        public List<MapEntityQuest> mapEntityQuests;
+        public List<MapEntityQuest> mapEntityQuests = new List<MapEntityQuest>();
 
-        public QuestData[] GetEntityQuestsByEntity(EntityOrigin origin)
+        public QuestData[] GetEntityQuestsByEntity(string entityId)
         {
             foreach (var mapEntity in mapEntityQuests)
             {
-                if (mapEntity.entity.origin == origin)
+                if (mapEntity.entity.entityId == entityId)
                 {
                     return mapEntity.entityQuests.ToArray();
                 }
