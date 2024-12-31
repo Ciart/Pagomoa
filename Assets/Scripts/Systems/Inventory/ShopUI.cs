@@ -1,4 +1,7 @@
-﻿using Ciart.Pagomoa.Systems.Dialogue;
+﻿using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems.Dialogue;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,6 +23,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public CountUI GetCountUI() => countUI;
         [SerializeField] private BuyUI buyUI;
         public BuyUI GetBuyUI() => buyUI;
+        [SerializeField] private SellUI sellUI;
+        public SellUI GetSellUI() => sellUI;
+        private List<Item> _items;
+        public List<Item> GetShopItems() => _items;
+        public void SetShopItems(List<Item> shopItems) => _items = shopItems;
+
+        public Slot chosenSlot;
         
         public void ClickToSell()
         {
@@ -28,9 +38,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
             
-            var buy = UIManager.instance.shopUI.GetBuyUI();
-            buy.DeleteSellUISlot();
-            buy.ResetSellUISlot();
+            sellUI.DeleteSellUISlot();
+            sellUI.ResetSellUISlot();
         }
         public void ClickToBuy()
         {

@@ -1,4 +1,5 @@
-﻿using Ciart.Pagomoa.Systems.Dialogue;
+﻿using System;
+using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -6,31 +7,42 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class BuySlot : MonoBehaviour
+    public class BuySlot : Slot
     {
-        [SerializeField] private ShopChat shopChat;
+        public Image itemImage;
+        public TextMeshProUGUI itemNameText;
+        public TextMeshProUGUI itemPriceText;
 
-        [SerializeField] public InventorySlot slot;
-        [SerializeField] public Image image;
-        [SerializeField] public TextMeshProUGUI itemName;
-        [SerializeField] public TextMeshProUGUI itemPrice;
+        private void Awake()
+        {
+            SetSlotType(SlotType.Buy);
+            SetCountBuySlot();
+        }
 
-        public SlotType slotType = SlotType.Buy;
-        
         public void BuyCheck()
         {
-            UIManager.instance.shopUI.GetBuyUI().chosenBuySlot = this;
-            var chosenItem = UIManager.instance.shopUI.GetBuyUI().chosenBuySlot.slot.item;
+            var shopUI = UIManager.instance.shopUI;
             
-            UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
-            UIManager.instance.shopUI.GetCountUI().ActiveCountUI(slotType);
-            UIManager.instance.shopUI.GetShopChat().BuyPriceToChat(chosenItem.price);
+            shopUI.chosenSlot = this;
+            var chosenItem = shopUI.chosenSlot.GetSlotItem();
+            
+            shopUI.GetCountUI().gameObject.SetActive(true);
+            shopUI.GetCountUI().ActiveCountUI(GetSlotType());
+            shopUI.GetShopChat().BuyPriceToChat(chosenItem.price);
         }
-        public void UpdateConsumptionSlot()
+        public virtual void UpdateBuySlot()
         {
-            image.sprite = slot.item.sprite;
-            itemName.text = slot.item.name;
-            itemPrice.text = slot.item.price.ToString();
+            itemImage.sprite = GetSlotItem().sprite;
+            itemNameText.text = GetSlotItem().name;
+            itemPriceText.text = GetSlotItem().price.ToString();
+        }
+
+        protected void SetCountBuySlot()
+        {
+            if (GetSlotType() == SlotType.Buy)
+                SetSlotItemCount(100000);
+            else if (GetSlotType() == SlotType.BuyArtifact)
+                SetSlotItemCount(1);
         }
     }
 }

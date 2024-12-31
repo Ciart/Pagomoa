@@ -1,25 +1,67 @@
 ﻿{
   "data": [
     {
-      "type": 2,
+      "type": 3,
       "id": "Copper",
       "name": "구리",
       "description": "가장 흔한 광물이야.",
       "price": 10
     },
     {
-      "type": 2,
+      "type": 3,
       "id": "Quartz",
       "name": "석영",
       "description": "조금 달콤해.",
       "price": 20
     },
     {
-      "type": 1,
+      "type": 2,
       "id": "Bomb",
       "name": "폭탄",
       "description": "폭탄 받아라!",
       "price": 10
+    },
+    {
+      "type": 2,
+      "id": "Burble",
+      "name": "공기 방울",
+      "description": "들이 마시면 시원한 느낌이 든다.",
+      "price": 30
+    },
+    {
+      "type": 2,
+      "id": "Bandage",
+      "name": "붕대",
+      "description": "아픈건 딱 질색 이니까.",
+      "price": 50
+    },
+    {
+      "type": 2,
+      "id": "Cookie",
+      "name": "구리 과자",
+      "description": "이빨로는 절대 부술수 없다.",
+      "price": 20
+    },
+    {
+      "type": 1,
+      "id": "AbyssLantern",
+      "name": "심연의 랜턴",
+      "description": "차가운 기운이 감돈다.\n 앞을 조금이나마 밝게 비춰준다.",
+      "price": 1000
+    },
+    {
+      "type": 1,
+      "id": "HourGlassOfNight",
+      "name": "밤의 모래시계",
+      "description": "모래알이 미묘한 빛을 내뿜는다.",
+      "price": 1000
+    },
+    {
+      "type": 1,
+      "id": "MoleGloves",
+      "name": "두더지 장갑",
+      "description": "빨간 코가 움찔 거린다.",
+      "price": 1000
     }
   ]
 }

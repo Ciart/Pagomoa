@@ -178,7 +178,7 @@ namespace Ciart.Pagomoa.Entities.Players
             List<InventorySlot> deleteItems = new List<InventorySlot>();
             foreach (InventorySlot item in inventory.items)
             {
-                if (item.item == null) continue;
+                if (item.GetSlotItem() == null) continue;
 
                 var rand = Random.Range(0, 101) * 0.01f;
                 if (probabilty < rand)
@@ -187,13 +187,13 @@ namespace Ciart.Pagomoa.Entities.Players
                     continue;
                 }
 
-                if (item.item.type == itemType)
+                if (item.GetSlotItem().type == itemType)
                 {
-                    for (int i = 0; i < item.count; i++)
+                    for (int i = 0; i < item.GetSlotItemCount(); i++)
                     {
                         var entity = Instantiate(WorldManager.instance.itemEntity, transform.position,
                             Quaternion.identity);
-                        entity.Item = item.item;
+                        entity.Item = item.GetSlotItem();
                         entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
                     }
 
@@ -203,7 +203,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             var count = deleteItems.Count;
             for (int i = 0; i < count; i++)
-                inventory.RemoveItemData(deleteItems[i].item);
+                inventory.RemoveItemData(deleteItems[i].GetSlotItem());
         }
 
         private void NextDay()

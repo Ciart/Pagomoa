@@ -50,8 +50,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (eventData.pointerDrag.GetComponent<QuickSlotUI>())
                 SwapSlot(eventData);
-            else if (eventData.pointerDrag.GetComponent<InventorySlotUI>())
-                _item = dragSlot.item.item;
+            else if (eventData.pointerDrag.GetComponent<InventorySlot>())
+                _item = dragSlot.item.GetSlotItem();
         }
         public void OnBeginDrag(PointerEventData eventData)
         {

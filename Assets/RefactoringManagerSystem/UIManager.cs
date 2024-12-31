@@ -30,10 +30,7 @@ namespace Ciart.Pagomoa.Systems
         {
             _uiContainer = DataBase.data.GetUIData();
 
-            var book = Object.Instantiate(_uiContainer.inventoryUIPrefab, _uiContainer.transform);
-            bookUI = book.GetComponent<BookUI>();
-            bookUI.gameObject.SetActive(false);
-
+            bookUI = _uiContainer.inventoryUI;
             shopUI = _uiContainer.shopUI;
             
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
@@ -68,6 +65,7 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
             
             _uiContainer.statePanel.SetMoneyUI();
+            bookUI.inventoryUI.MakeSlots();
         }
 
         private void ToggleEscUI()

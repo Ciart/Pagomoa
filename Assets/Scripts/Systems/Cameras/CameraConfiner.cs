@@ -58,7 +58,7 @@ namespace Ciart.Pagomoa
             cameraBorderCollider.isTrigger = true;
             cameraBorderCollider.points = paths;
 
-            GameObject.Find("VirtualCamera").AddComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraBorderCollider;
+            //GameObject.Find("VirtualCamera").AddComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraBorderCollider;
 
         }
     }
