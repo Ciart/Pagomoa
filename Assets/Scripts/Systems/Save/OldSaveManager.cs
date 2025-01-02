@@ -163,7 +163,7 @@ namespace Ciart.Pagomoa.Systems.Save
             {
                 var player = GameManager.instance.player;
                 
-                player.inventory.items = dataManager.data.itemData.itemss;
+                player.inventory.inventorySlots = dataManager.data.itemData.itemss;
                 player.inventory.Gold = dataManager.data.itemData.gold;
             }
             else

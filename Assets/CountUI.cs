@@ -31,6 +31,8 @@ namespace Ciart.Pagomoa
             
             countUpButton.gameObject.SetActive(true);
             countDownButton.gameObject.SetActive(true);
+            countUpButton.onClick.RemoveAllListeners();
+            countDownButton.onClick.RemoveAllListeners();
             
             if (type == SlotType.Buy || type == SlotType.BuyArtifact)
             {
@@ -89,7 +91,6 @@ namespace Ciart.Pagomoa
                 inputCount++;
                 shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.GetSlotItem().price);
             }
-
             else if (buySlot.GetSlotItem().type == ItemType.Equipment || buySlot.GetSlotItem().type == ItemType.Inherent)
             {
                 if (inputCount < buySlot.GetSlotItemCount())
@@ -180,6 +181,7 @@ namespace Ciart.Pagomoa
         }
         public void SellSlots()
         {
+            var inventory = GameManager.instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
             var sellSlot = UIManager.instance.shopUI.chosenSlot;
             
@@ -187,16 +189,16 @@ namespace Ciart.Pagomoa
             {
                 if (sellSlot.GetSlotItemCount() > 1)
                 {
-                    GameManager.instance.player.inventory.SellItem(sellSlot.GetSlotItem());
+                    inventory.SellItem(sellSlot.GetSlotItem());
                 }
                 else if (sellSlot.GetSlotItemCount() == 1)
                 {
-                    GameManager.instance.player.inventory.SellItem(sellSlot.GetSlotItem());
+                    inventory.SellItem(sellSlot.GetSlotItem());
                     //QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 
                 UIManager.instance.shopUI.GetSellUI().DeleteSellUISlot();
-                UIManager.instance.shopUI.GetSellUI().ResetSellUISlot();
+                UIManager.instance.shopUI.GetSellUI().UpdateSellUISlot();
             }
             inputCount = 1;
             countUIText.text = inputCount.ToString();

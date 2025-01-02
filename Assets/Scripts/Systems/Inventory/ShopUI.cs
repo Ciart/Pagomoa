@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Dialogue;
+using Ciart.Pagomoa.Systems.Time;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
@@ -39,7 +40,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _toBuy.SetActive(true);
             
             sellUI.DeleteSellUISlot();
-            sellUI.ResetSellUISlot();
+            sellUI.UpdateSellUISlot();
         }
         public void ClickToBuy()
         {
@@ -48,10 +49,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _toSell.SetActive(true);
             _toBuy.SetActive(false);
         }
-        public void SetUI()
+        public void ActiveShop()
         {
-            if (gameObject.activeSelf == false)
-                gameObject.SetActive(true);
+            if (gameObject.activeSelf) return;
+                
+            gameObject.SetActive(true);
+            TimeManager.instance.PauseTime();
+        }
+
+        public void DeActiveShop()
+        {
+            if (!gameObject.activeSelf) return;
+            
+            gameObject.SetActive(false);
+            TimeManager.instance.ResumeTime();
         }
     }
 }

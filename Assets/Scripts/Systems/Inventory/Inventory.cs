@@ -3,6 +3,7 @@ using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -21,7 +22,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactItems];
         
         public const int MaxItems = 36;
-        public InventorySlot[] items = new InventorySlot[MaxItems];
+        public InventorySlot[] inventorySlots = new InventorySlot[MaxItems];
         
         private void Start()
         {
@@ -35,11 +36,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void Equip(Item data)
         {
-            int idx = Array.FindIndex(items, element => element.GetSlotItem() == data);
+            int idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem() == data);
             
             if (idx != -1)
             {
-                InventorySlot item = items[idx];
+                InventorySlot item = inventorySlots[idx];
                 
                 if (item.GetSlotItemCount() == 0)
                     DecreaseItemCount(data);
@@ -50,53 +51,46 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             for (int i = 0; i < artifactItems.Length; i++)
             {
-                if (artifactItems[i].GetSlotItem() == null)
+                if (artifactItems[i].GetSlotItem().type == ItemType.None)
                 {
                     artifactItems[i].SetSlotItem(data);
                     break;
                 }
-                // else if(artifactItems[artifactItems.Length].item != null)
-                // {
-                //     Debug.Log("꽉참");
-                //     return;
-                // } 수정 필요
             }
         }
         
         public void RemoveArtifactData(Item data)
         {
-            int idx = Array.FindIndex(artifactItems, element => element.GetSlotItem() == data);
+            int idx = Array.FindIndex(artifactItems, element => element.GetSlotItem().id == data.id);
             
             if (idx != -1)
             {
-                artifactItems[idx].SetSlotItem(null);
+                artifactItems[idx].GetSlotItem().ClearItemProperty();
             }
         }
         
-        public void Add(Item data, int count = 1) // Item data
+        public void Add(Item data, int count = 1)
         {
-            int idx = Array.FindIndex(items, element => element.GetSlotItem() == data);
-
-            if (idx != -1)
+            int index = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
+        
+            if (index < 0) // 아이템이 인벤토리에 존재하지 않을때
             {
-                ref var item = ref items[idx];
-                var addCount = item.GetSlotItemCount() + count; 
-                item.SetSlotItemCount(addCount);
-                
-                EventManager.Notify(new ItemCountChangedEvent(item.GetSlotItem(), item.GetSlotItemCount()));
-            }
-            else
-            {
-                for (int i = 0; i < items.Length; i++)
+                for (int i = 0; i < MaxItems; i++)
                 {
-                    if (items[i].GetSlotItem() == null)
-                    {
-                        items[i].SetSlotItem(data);
-                        items[i].SetSlotItemCount(count);
-                        EventManager.Notify(new ItemCountChangedEvent(items[i].GetSlotItem(), items[i].GetSlotItemCount()));
-                        break;
-                    }
+                    if (inventorySlots[i].GetSlotItem().id != "") continue;
+                    
+                    inventorySlots[i].SetSlotItem(data);
+                    inventorySlots[i].SetSlotItemCount(count);
+                    EventManager.Notify(new ItemCountChangedEvent(inventorySlots[i].GetSlotItem(), inventorySlots[i].GetSlotItemCount()));
+                    break;
                 }
+            }
+            else // 아이템이 인벤토리에 존재할때
+            {
+                var itemCount = inventorySlots[index].GetSlotItemCount() + count;
+                inventorySlots[index].SetSlotItemCount(itemCount);
+                
+                EventManager.Notify(new ItemCountChangedEvent(inventorySlots[index].GetSlotItem(), inventorySlots[index].GetSlotItemCount()));
             }
         }
         
@@ -115,51 +109,51 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void DecreaseItemCount(Item data)
         {
-            var idx = Array.FindIndex(items, element => element.GetSlotItem() == data);
-            var count = items[idx].GetSlotItemCount();
+            var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
+            var count = inventorySlots[idx].GetSlotItemCount();
             
             
             if (idx != -1)
             {
                 if (count > 1)
                 {
-                    items[idx].SetSlotItemCount(count - 1);
+                    inventorySlots[idx].SetSlotItemCount(count - 1);
                 }
                 else if (count >= 0)
                 {
-                    items[idx].SetSlotItem(null);
-                    items[idx].SetSlotItemCount(0);
+                    inventorySlots[idx].GetSlotItem().ClearItemProperty();
+                    inventorySlots[idx].SetSlotItemCount(0);
                 }
                 
-                EventManager.Notify(new ItemCountChangedEvent(data, items[idx].GetSlotItemCount()));
+                EventManager.Notify(new ItemCountChangedEvent(data, inventorySlots[idx].GetSlotItemCount()));
             }
         }
         
         public void RemoveItemData(Item data)
         {
-            var idx = Array.FindIndex(items, element => element.GetSlotItem() == data);
+            var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
             
             if (idx == -1) return;
             
-            items[idx].SetSlotItem(null);
-            items[idx].SetSlotItemCount(0);
+            inventorySlots[idx].GetSlotItem().ClearItemProperty();
+            inventorySlots[idx].SetSlotItemCount(0);
             
-            EventManager.Notify(new ItemCountChangedEvent(items[idx].GetSlotItem(), items[idx].GetSlotItemCount()));
+            EventManager.Notify(new ItemCountChangedEvent(inventorySlots[idx].GetSlotItem(), inventorySlots[idx].GetSlotItemCount()));
         }
 
         public void SwapSlot(int a, int b)
         {
-            (items[a], items[b]) = (items[b], items[a]);
-            EventManager.Notify(new ItemCountChangedEvent(items[a].GetSlotItem(), items[a].GetSlotItemCount()));
-            EventManager.Notify(new ItemCountChangedEvent(items[b].GetSlotItem(), items[b].GetSlotItemCount()));
+            (inventorySlots[a], inventorySlots[b]) = (inventorySlots[b], inventorySlots[a]);
+            EventManager.Notify(new ItemCountChangedEvent(inventorySlots[a].GetSlotItem(), inventorySlots[a].GetSlotItemCount()));
+            EventManager.Notify(new ItemCountChangedEvent(inventorySlots[b].GetSlotItem(), inventorySlots[b].GetSlotItemCount()));
         }
         
         public int GetItemCount(Item data)
         {
-            var idx = Array.FindIndex(items, element => element.GetSlotItem() == data);
+            var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem() == data);
 
             if (idx != -1)
-                return items[idx].GetSlotItemCount();
+                return inventorySlots[idx].GetSlotItemCount();
             
             return 0;
         }

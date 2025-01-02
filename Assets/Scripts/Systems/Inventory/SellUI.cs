@@ -7,7 +7,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class SellUI : MonoBehaviour
     {
         [SerializeField] private SellSlot _instanceSlot;
-        private List<InventorySlot> _sellSlots = new List<InventorySlot>();
+        private List<SellSlot> _sellSlots = new List<SellSlot>();
 
         private void Awake()
         {
@@ -17,46 +17,37 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnEnable()
         {
             DeleteSellUISlot();
-            ResetSellUISlot();
+            UpdateSellUISlot();
         }
         
         public void MakeSellUISlot()
         {
             var inventory = GameManager.instance.player.inventory;
             
-            for(int i = 0; i < inventory.items.Length; i++)
+            for(int i = 0; i < inventory.inventorySlots.Length; i++)
             {
                 var spawnedSlot = Instantiate(_instanceSlot, transform);
-                _sellSlots.Add(spawnedSlot.GetComponent<InventorySlot>());
+                _sellSlots.Add(spawnedSlot);
                 _sellSlots[i].id = i;
                 spawnedSlot.gameObject.SetActive(true);
             }
-            ResetSellUISlot();
-        }
-        public void ResetSellUISlot()
-        {
-            var inventory = GameManager.instance.player.inventory;
-            
-            for(int i = 0; i < _sellSlots.Count; i++)
-                _sellSlots[i] = inventory.items[i];
             UpdateSellUISlot();
         }
         public void UpdateSellUISlot()
         {
             var inventory = GameManager.instance.player.inventory;
-            
-            for (int i = 0; i < inventory.items.Length; i++)
+
+            for (int i = 0; i < _sellSlots.Count; i++)
             {
-                _sellSlots[i].SetSlot(inventory.items[i].GetSlotItem());
+                _sellSlots[i].SetSlot(inventory.inventorySlots[i].GetSlotItem());
+                _sellSlots[i].SetSlotItem(inventory.inventorySlots[i].GetSlotItem());
+                _sellSlots[i].SetSlotItemCount(inventory.inventorySlots[i].GetSlotItemCount());
             }
         }
         public void DeleteSellUISlot()
         {
-            if (GameManager.instance.player.inventory.items.Length >= 0)
-            {
-                for (int i = 0; i < _sellSlots.Count; i++)
-                    _sellSlots[i].ResetSlot();
-            }
+            foreach (var slot in _sellSlots)
+                slot.ResetSlot();
         }
     }
 }

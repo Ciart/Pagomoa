@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
@@ -17,7 +18,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public BookTabItem[] tabItems;
         
-        public InventoryUI inventoryUI;
+        [SerializeField] private InventoryUI _inventoryUI;
+        public InventoryUI GetInventoryUI() => _inventoryUI;
+        
+        [SerializeField] private RightClickMenu _rightClickMenu;
+        public RightClickMenu GetRightClickMenu() => _rightClickMenu;
+        [SerializeField] private  HoverItemInfo _hoverItemInfo;
+        public HoverItemInfo GetHoverItemInfo() => _hoverItemInfo;
         
         private void OnClickTab(int index)
         {

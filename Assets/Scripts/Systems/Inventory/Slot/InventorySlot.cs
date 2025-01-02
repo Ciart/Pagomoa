@@ -13,23 +13,26 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public Image itemImage;
         public TextMeshProUGUI countText;
         public int id;
+        
+        public ClickToSlot clickToSlot { get; private set; }
 
         private void Awake()
         {
             SetSlotType(SlotType.Inventory);
+            clickToSlot = GetComponent<ClickToSlot>();
         }
 
         public void ReleaseItem()
         {
-            var inventoryUI = UIManager.instance.bookUI.inventoryUI;
+            var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             var inventory = GameManager.instance.player.inventory;
             
             inventoryUI.choiceSlot = this;
 
-            if (inventory.items[inventoryUI.choiceSlot.id] == null)
+            if (inventory.inventorySlots[inventoryUI.choiceSlot.id] == null)
                 return;
 
-            var item = inventory.items[inventoryUI.choiceSlot.id].GetSlotItem();
+            var item = inventory.inventorySlots[inventoryUI.choiceSlot.id].GetSlotItem();
                 
             inventory.Add(item, 0);
             inventoryUI.UpdateSlots();
@@ -38,9 +41,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         
         // summary : SetItem 기능을 이어 받아 아이템 세팅에 이용되는 함수
-        public override void SetSlot(Item? setItem)
+        public override void SetSlot(Item setItem)
         {
-            if (setItem != null)
+            if (setItem.id != "")
             {
                 itemImage.sprite = setItem.sprite;
                 countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();

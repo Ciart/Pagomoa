@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
             
             _uiContainer.statePanel.SetMoneyUI();
-            bookUI.inventoryUI.MakeSlots();
+            bookUI.GetInventoryUI().MakeSlots();
         }
 
         private void ToggleEscUI()

@@ -2543,11 +2543,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 399664168514712139}
-  m_Father: {fileID: 538731747876358504}
+  m_Father: {fileID: 274113331656353198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -66, y: 80}
+  m_AnchoredPosition: {x: 12, y: 72}
   m_SizeDelta: {x: 132, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4323905816101616786
@@ -2864,6 +2864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e664e4d671085a48baa4ffbb99bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotType: 0
   _item:
     type: 0
     id: 
@@ -3159,8 +3160,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1015752994666567696}
+  m_Children: []
   m_Father: {fileID: 274113331656353198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3450,6 +3450,7 @@ RectTransform:
   - {fileID: 3330327360614869298}
   - {fileID: 3599455707887277204}
   - {fileID: 2921075198212348320}
+  - {fileID: 1015752994666567696}
   - {fileID: 538731747876358504}
   - {fileID: 9126464604016832460}
   m_Father: {fileID: 4551163896510667529}
@@ -3481,10 +3482,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choiceSlot: {fileID: 0}
   hoverSlot: {fileID: 0}
-  slotParent: {fileID: 3113030703805146762}
-  slot: {fileID: 3263452210508130985}
+  inventorySlotParent: {fileID: 0}
+  inventorySlot: {fileID: 0}
   emptyImage: {fileID: 0}
-  inventorySlots: []
   artifactSlotData:
   - {fileID: 0}
   - {fileID: 0}

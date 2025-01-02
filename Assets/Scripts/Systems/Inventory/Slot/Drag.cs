@@ -15,9 +15,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (slot != null)
             {
-                item = player.inventory.items[slot.id];
-                if(player.inventory.items[slot.id].GetSlotItem() != null)
-                    DragItem.instance.DragSetImage(player.inventory.items[slot.id].GetSlotItem().sprite);
+                item = player.inventory.inventorySlots[slot.id];
+                if(player.inventory.inventorySlots[slot.id].GetSlotItem() != null)
+                    DragItem.instance.DragSetImage(player.inventory.inventorySlots[slot.id].GetSlotItem().sprite);
             }
             DragItem.instance.transform.position = newPosition;
         }

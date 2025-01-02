@@ -176,7 +176,7 @@ namespace Ciart.Pagomoa.Entities.Players
             var inventory = GameManager.instance.player.inventory;
 
             List<InventorySlot> deleteItems = new List<InventorySlot>();
-            foreach (InventorySlot item in inventory.items)
+            foreach (InventorySlot item in inventory.inventorySlots)
             {
                 if (item.GetSlotItem() == null) continue;
 

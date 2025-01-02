@@ -17,9 +17,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             else if (eventData.pointerPress.GetComponent<InventorySlot>())
             {
-                player.inventory.RemoveItemData(player.inventory.items[
+                player.inventory.RemoveItemData(player.inventory.inventorySlots[
                     eventData.pointerDrag.GetComponent<InventorySlot>().id].GetSlotItem());
-                UIManager.instance.bookUI.inventoryUI.UpdateSlots();
+                UIManager.instance.bookUI.GetInventoryUI().UpdateSlots();
             }
         }
     }

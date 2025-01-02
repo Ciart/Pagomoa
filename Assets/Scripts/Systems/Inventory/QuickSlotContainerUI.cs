@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             _playerInput = e.player.GetComponent<PlayerInput>();
-
+                
             _playerInput.Actions.Slot1.started += context => { SelectQuickSlot(0); };
             _playerInput.Actions.Slot2.started += context => { SelectQuickSlot(1); };
             _playerInput.Actions.Slot3.started += context => { SelectQuickSlot(2); };

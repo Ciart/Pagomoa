@@ -13,19 +13,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnEnable()
         {
             boostImage.sprite = hoverImage[1];
-            UIManager.instance.bookUI.inventoryUI.hoverSlot = null;
+            UIManager.instance.bookUI.GetInventoryUI().hoverSlot = null;
         }
         
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             boostImage.sprite = hoverImage[0];
-            UIManager.instance.bookUI.inventoryUI.hoverSlot = gameObject.GetComponent<InventorySlot>();
+            UIManager.instance.bookUI.GetInventoryUI().hoverSlot = gameObject.GetComponent<InventorySlot>();
         }
         
         public virtual void OnPointerExit(PointerEventData eventData)
         {
             boostImage.sprite = hoverImage[1];
-            UIManager.instance.bookUI.inventoryUI.hoverSlot = null;
+            UIManager.instance.bookUI.GetInventoryUI().hoverSlot = null;
         }
     }
 }
