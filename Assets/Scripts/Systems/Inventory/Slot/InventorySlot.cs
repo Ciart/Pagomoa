@@ -27,12 +27,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             var inventory = GameManager.instance.player.inventory;
             
-            inventoryUI.choiceSlot = this;
+            inventoryUI.chosenSlot = this;
 
-            if (inventory.inventorySlots[inventoryUI.choiceSlot.id] == null)
+            if (inventory.inventorySlots[inventoryUI.chosenSlot.id] == null)
                 return;
 
-            var item = inventory.inventorySlots[inventoryUI.choiceSlot.id].GetSlotItem();
+            var item = inventory.inventorySlots[inventoryUI.chosenSlot.id].GetSlotItem();
                 
             inventory.Add(item, 0);
             inventoryUI.UpdateSlots();
@@ -41,17 +41,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         
         // summary : SetItem 기능을 이어 받아 아이템 세팅에 이용되는 함수
-        public override void SetSlot(Item setItem)
+        public override void SetSlot(Slot slot)
         {
-            if (setItem.id != "")
+            if (slot.GetSlotItem().id != "")
             {
-                itemImage.sprite = setItem.sprite;
+                SetSlotItem(slot.GetSlotItem());
+                SetSlotItemCount(slot.GetSlotItemCount());
+                itemImage.sprite = slot.GetSlotItem().sprite;
                 countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();
             }
             else
             {
                 itemImage.sprite = null;
                 countText.text = "";
+                GetSlotItem().ClearItemProperty();
+                SetSlotItemCount(0);
             } 
         }
 
@@ -61,19 +65,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
             countText.text = "";
         }
         
-        private void Swap(ref InventorySlot a, ref InventorySlot b)
-        {
-            (a, b) = (b, a);
-        }
-        
         public void OnDrop(PointerEventData eventData)
         {
-            var inventorySlot = this;
-            var targetSlot = eventData.pointerPress.GetComponent<InventorySlot>();
-            var player = GameManager.instance.player;
+            var inventory = GameManager.instance.player.inventory;
+            var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
+            eventData.pointerPress.TryGetComponent<InventorySlot>(out var targetSlot);
             
-            player.inventory.SwapSlot(id, targetSlot.id);
-            Swap(ref inventorySlot, ref targetSlot);
+            if (id == targetSlot.id || !targetSlot) return;
+            
+            inventoryUI.SwapUISlot(id, targetSlot.id);
+            inventory.SwapSlot(id, targetSlot.id);
         }
     }
 }

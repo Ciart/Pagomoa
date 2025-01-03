@@ -18,11 +18,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public const int MaxQuickItems = 6;
         private Item[] _quickItems = new Item[MaxQuickItems];
         
-        public const int MaxArtifactItems = 4;
-        public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactItems];
+        public const int MaxArtifactSlots = 4;
+        public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactSlots];
         
-        public const int MaxItems = 36;
-        public InventorySlot[] inventorySlots = new InventorySlot[MaxItems];
+        public const int MaxSlots = 36;
+        public InventorySlot[] inventorySlots = new InventorySlot[MaxSlots];
         
         private void Start()
         {
@@ -75,7 +75,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
             if (index < 0) // 아이템이 인벤토리에 존재하지 않을때
             {
-                for (int i = 0; i < MaxItems; i++)
+                for (int i = 0; i < MaxSlots; i++)
                 {
                     if (inventorySlots[i].GetSlotItem().id != "") continue;
                     
@@ -96,15 +96,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SellItem(Item data)
         {
-            var playerGold = UIManager.instance.shopUI.playerGold;
-            
             DecreaseItemCount(data);
-            Gold += data.price;
-
-            foreach (var target in playerGold)
-            {
-                target.text = Gold.ToString();
-            }
+            
+            GameManager.instance.player.inventory.Gold += data.price;
+            UIManager.instance.UpdateGoldUI();
         }
         
         public void DecreaseItemCount(Item data)
@@ -112,21 +107,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
             var count = inventorySlots[idx].GetSlotItemCount();
             
+            if (idx == -1) return;
             
-            if (idx != -1)
+            if (count >= 1)
             {
-                if (count > 1)
-                {
-                    inventorySlots[idx].SetSlotItemCount(count - 1);
-                }
-                else if (count >= 0)
-                {
-                    inventorySlots[idx].GetSlotItem().ClearItemProperty();
-                    inventorySlots[idx].SetSlotItemCount(0);
-                }
-                
-                EventManager.Notify(new ItemCountChangedEvent(data, inventorySlots[idx].GetSlotItemCount()));
+                inventorySlots[idx].SetSlotItemCount(count - 1);
             }
+
+            if (count == 0)
+            {
+                inventorySlots[idx].GetSlotItem().ClearItemProperty();
+                inventorySlots[idx].ResetSlot();
+            }
+                
+            EventManager.Notify(new ItemCountChangedEvent(data, inventorySlots[idx].GetSlotItemCount()));
         }
         
         public void RemoveItemData(Item data)
@@ -141,11 +135,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.Notify(new ItemCountChangedEvent(inventorySlots[idx].GetSlotItem(), inventorySlots[idx].GetSlotItemCount()));
         }
 
-        public void SwapSlot(int a, int b)
+        public void SwapSlot(int dropID, int targetID)
         {
-            (inventorySlots[a], inventorySlots[b]) = (inventorySlots[b], inventorySlots[a]);
-            EventManager.Notify(new ItemCountChangedEvent(inventorySlots[a].GetSlotItem(), inventorySlots[a].GetSlotItemCount()));
-            EventManager.Notify(new ItemCountChangedEvent(inventorySlots[b].GetSlotItem(), inventorySlots[b].GetSlotItemCount()));
+            var toTargetSlot = dropID;
+            var toDropSlot = targetID;
+            (inventorySlots[dropID], inventorySlots[targetID]) = (inventorySlots[targetID], inventorySlots[dropID]);
+            inventorySlots[dropID].id = toTargetSlot;
+            ;inventorySlots[targetID].id = toDropSlot;
         }
         
         public int GetItemCount(Item data)
@@ -186,11 +182,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     if (player.inventory.GetItemCount(item) != 0)
                     {
                         DecreaseItemCount(item);
-                        item.Use();
+                        item.DisplayUseEffect();
                     }
                     break;
                 case ItemType.Inherent:
-                    item.Use();
+                    item.DisplayUseEffect();
                     break;
                 default:
                     return;

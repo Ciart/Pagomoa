@@ -20,17 +20,21 @@ namespace Ciart.Pagomoa
             SetSlotType(SlotType.Sell);
         }
         
-        public override void SetSlot(Item setItem)
+        public override void SetSlot(Slot slot)
         {
-            if (setItem.id != "")
+            if (slot.GetSlotItem().id != "")
             {
-                itemImage.sprite = setItem.sprite;
+                SetSlotItem(slot.GetSlotItem());
+                SetSlotItemCount(slot.GetSlotItemCount());
+                itemImage.sprite = slot.GetSlotItem().sprite;
                 countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();
             }
             else
             {
                 itemImage.sprite = null;
                 countText.text = "";
+                GetSlotItem().ClearItemProperty();
+                SetSlotItemCount(0);
             } 
         }
 

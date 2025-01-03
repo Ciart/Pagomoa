@@ -64,10 +64,18 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Menu.performed += context => { ToggleEscDialogueUI(); };
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
             
-            _uiContainer.statePanel.SetMoneyUI();
+            UpdateGoldUI();
             bookUI.GetInventoryUI().MakeSlots();
         }
 
+        public void UpdateGoldUI()
+        {
+            var playerGold = GameManager.instance.player.inventory.Gold;
+
+            shopUI.shopGoldUI.text = playerGold.ToString();
+            _uiContainer.statePanel.playerGoldUI.text = playerGold.ToString();         
+        }
+        
         private void ToggleEscUI()
         {
             if(!_dialogueUI.activeSelf)

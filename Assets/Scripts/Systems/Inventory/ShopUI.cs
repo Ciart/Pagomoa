@@ -15,9 +15,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private GameObject _book;
         [SerializeField] private GameObject _toSell;
         [SerializeField] private GameObject _toBuy;
-        [SerializeField] public ShopHover hovering;
-        public TextMeshProUGUI[] playerGold;
-        
+        public ShopHover hovering;
+        public TextMeshProUGUI shopGoldUI;
+
         [SerializeField] private ShopChat shopChat;
         public ShopChat GetShopChat() => shopChat;
         [SerializeField] private CountUI countUI;

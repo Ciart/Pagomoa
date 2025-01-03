@@ -17,16 +17,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private Image _instanceUnderLine;
         public Image underLine;
 
-        private SwapImage _refMenu;
+        private UpdateItemImageSelection _refMenu;
 
         private void Awake()
         {
-            _refMenu = _instanceMenu.GetComponent<SwapImage>();
+            _refMenu = _instanceMenu.GetComponent<UpdateItemImageSelection>();
             gameObject.SetActive(true);
         }
         
         
-        private InventorySlot targetSlot => UIManager.instance.bookUI.GetInventoryUI().choiceSlot;
+        private InventorySlot targetSlot => UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
         
         public void PressedEquipButton() { targetSlot.clickToSlot.EquipCheck(); }
         public void PressedEquipYesButton() { targetSlot.clickToSlot.EquipItem(); }
@@ -39,6 +39,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             DeleteMenu();
         }
+        
         public void EquipmentMenu()
         {
             MakeMenu("착용하기");

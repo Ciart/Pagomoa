@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Entities.Players;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,26 +6,25 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField] public InventorySlot slot;
-        [SerializeField] public InventorySlot item;
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var newPosition = new Vector3(eventData.position.x, eventData.position.y);
-            var player = GameManager.instance.player;
+            var dragSlot = UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
 
-            if (slot != null)
+            if (dragSlot != null)
             {
-                item = player.inventory.inventorySlots[slot.id];
-                if(player.inventory.inventorySlots[slot.id].GetSlotItem() != null)
-                    DragItem.instance.DragSetImage(player.inventory.inventorySlots[slot.id].GetSlotItem().sprite);
+                if(dragSlot.GetSlotItem().id != string.Empty)
+                    DragItem.instance.DragSetImage(dragSlot.GetSlotItem().sprite);
+                
+                DragItem.instance.transform.position = eventData.position;
             }
-            DragItem.instance.transform.position = newPosition;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (eventData.pointerDrag.GetComponent<QuickSlotUI>())
-                return;
+            {
+                
+            }
             else
             {
                 // ItemHoverObject.Instance.OffHover();
@@ -36,6 +35,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnEndDrag(PointerEventData eventData)
         {
             DragItem.instance.SetColor(0);
+            UIManager.instance.bookUI.GetInventoryUI().chosenSlot = null;
         }
     }
 }

@@ -32,6 +32,6 @@ namespace Ciart.Pagomoa
         public int GetSlotItemCount() => _itemCount;
         public void SetSlotItemCount(int count) => _itemCount = count;
 
-        public virtual void SetSlot(Item? setItem) { }
+        public virtual void SetSlot(Slot slot) { }
     }
 }

@@ -121,27 +121,35 @@ namespace Ciart.Pagomoa
             
             if (buySlot.GetSlotItem().type == ItemType.Use)
             {
-                if (inventory.Gold >= buySlot.GetSlotItem().price * inputCount && inputCount > 0)
+                var totalPrice = buySlot.GetSlotItem().price * inputCount;
+                
+                if (inventory.Gold >= totalPrice && inputCount > 0)
                 {
                     inventory.Add(buySlot.GetSlotItem(), inputCount);
                     shopUI.GetShopItems().Remove(buySlot.GetSlotItem());
                     shopUI.hovering.boostImage.sprite = shopUI.hovering.hoverImage[1];
                     DisableCountUI();
+                    
+                    inventory.Gold -= totalPrice;
+                    UIManager.instance.UpdateGoldUI();
                 }
-                else
-                    return;
+                else return;
                 
                 shopUI.GetShopChat().ThankChat();
             }
             else if (buySlot.GetSlotItem().type == ItemType.Equipment || buySlot.GetSlotItem().type == ItemType.Inherent)
             {
-                if (inventory.Gold >= buySlot.GetSlotItem().price && buySlot.GetSlotItemCount() == inputCount)
+                var totalPrice = buySlot.GetSlotItem().price * inputCount;
+                
+                if (inventory.Gold >= totalPrice && buySlot.GetSlotItemCount() == inputCount)
                 {
                     inventory.Add(buySlot.GetSlotItem(), 0);
                     shopUI.GetShopItems().Remove(buySlot.GetSlotItem());
                     shopUI.hovering.boostImage.sprite = shopUI.hovering.hoverImage[1];
                     DisableCountUI();
                     
+                    inventory.Gold -= totalPrice;
+                    UIManager.instance.UpdateGoldUI();
                     UIManager.instance.shopUI.GetBuyUI().SoldOut();
                 }
                 else

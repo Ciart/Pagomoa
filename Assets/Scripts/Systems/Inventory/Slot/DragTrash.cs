@@ -9,15 +9,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnDrop(PointerEventData eventData)
         {
             var data = eventData.pointerDrag.GetComponent<QuickSlotUI>();
-            PlayerController player = GameManager.instance.player;
-
+            var inventory = GameManager.instance.player.inventory;
+            
             if (data)
             {
-                player.inventory.SetQuickItem(data.id, null);
+                inventory.SetQuickItem(data.id, null);
             }
             else if (eventData.pointerPress.GetComponent<InventorySlot>())
             {
-                player.inventory.RemoveItemData(player.inventory.inventorySlots[
+                inventory.RemoveItemData(inventory.inventorySlots[
                     eventData.pointerDrag.GetComponent<InventorySlot>().id].GetSlotItem());
                 UIManager.instance.bookUI.GetInventoryUI().UpdateSlots();
             }

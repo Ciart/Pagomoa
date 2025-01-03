@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,21 +8,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public static DragItem instance;
 
-        void Start()
+        [SerializeField] private Image _image;
+
+        private void Start()
         {
-            instance = this;
+            _image = GetComponent<Image>();
+        }
+
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(gameObject);
         }
         public void DragSetImage(Sprite image)
         {
-            this.transform.SetAsLastSibling();
-            gameObject.GetComponent<Image>().sprite = image;
-            SetColor(230);
+            transform.SetAsLastSibling();
+            _image.sprite = image;
+            SetColor(200);
         }    
         public void SetColor(float a)
         {
-            Color color = gameObject.GetComponent<Image>().color;
+            Color color = _image.color;
             color.a = a;
-            gameObject.GetComponent<Image>().color = color;
+            _image.color = color;
         }
     }
 }

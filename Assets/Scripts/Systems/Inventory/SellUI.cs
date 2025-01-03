@@ -39,9 +39,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             for (int i = 0; i < _sellSlots.Count; i++)
             {
-                _sellSlots[i].SetSlot(inventory.inventorySlots[i].GetSlotItem());
-                _sellSlots[i].SetSlotItem(inventory.inventorySlots[i].GetSlotItem());
-                _sellSlots[i].SetSlotItemCount(inventory.inventorySlots[i].GetSlotItemCount());
+                _sellSlots[i].SetSlot(inventory.inventorySlots[i]);
             }
         }
         public void DeleteSellUISlot()

@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class SwapImage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class UpdateItemImageSelection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     [SerializeField] private Image _buttonimage;
     private void Start() => _buttonimage = GetComponent<Image>();
@@ -41,11 +41,11 @@ public class SwapImage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        var rightClickMenu = UIManager.instance.bookUI.GetRightClickMenu();
+        var menu = UIManager.instance.bookUI.GetRightClickMenu().menu;
         
-        for (int i = 0; i < rightClickMenu.menu.Count; i++)
+        for (int i = 0; i < menu.Count; i++)
         {
-            if (eventData.pointerEnter.gameObject == rightClickMenu.menu[i].gameObject)
+            if (eventData.pointerEnter.gameObject == menu[i].gameObject)
             {
                 HoverOff(i);
             }

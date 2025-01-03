@@ -10,6 +10,7 @@ namespace Ciart.Pagomoa
         [SerializeField] private TextMeshProUGUI _itemName;
         [SerializeField] private TextMeshProUGUI _itemType;
         [SerializeField] private TextMeshProUGUI _itemInfo;
+        [SerializeField] private TextMeshProUGUI _itemCount;
         
         private RectTransform _rectTransform;
         
@@ -18,6 +19,7 @@ namespace Ciart.Pagomoa
             _itemName.text = slot.GetSlotItem().name;
             _itemInfo.text = slot.GetSlotItem().description;
             _itemType.text = slot.GetSlotItem().type.ToString();
+            _itemCount.text = $"보유량 : {slot.GetSlotItemCount().ToString()}";
         }
 
         public Vector2 GetPositionOffSet()

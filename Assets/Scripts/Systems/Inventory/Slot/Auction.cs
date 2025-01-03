@@ -39,8 +39,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 player.inventory.Gold -= data.price;
                 auctionItem.SetSlotItemCount(minusCount);
             }
-            UIManager.instance.shopUI.playerGold[0].text = player.inventory.Gold.ToString();
-            UIManager.instance.shopUI.playerGold[1].text = player.inventory.Gold.ToString();
         }
     }
 }

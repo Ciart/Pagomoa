@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Items
             LoadResources();
         }
 
-        public void Use()
+        public void DisplayUseEffect()
         {
             if (type != ItemType.Use) return;
 
