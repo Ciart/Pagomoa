@@ -174,6 +174,5 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }
-        
     }
 }

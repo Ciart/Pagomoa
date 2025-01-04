@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {

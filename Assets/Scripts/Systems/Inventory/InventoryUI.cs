@@ -10,10 +10,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class InventoryUI : MonoBehaviour
     {
         public InventorySlot chosenSlot;
-        public InventorySlot hoverSlot;
+        
         [SerializeField] private RectTransform inventorySlotParent;
         [SerializeField] private InventorySlot inventorySlot;
-        [SerializeField] private Sprite emptyImage;
         private List<InventorySlot> _inventoryUISlots = new List<InventorySlot>();
         
         private const int MaxArtifactSlotData = 4;
@@ -66,12 +65,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     _inventoryUISlots[i].SetSlot(inventory.inventorySlots[i]);
                 }
             }
-        }
-        
-        public void ResetInventoryUI() // 인벤토리에 출력된 아이템들 전부 NULL
-        {
-            foreach (var slot in _inventoryUISlots)
-                slot.ResetSlot();
         }
         
         public void SetArtifactSlots()

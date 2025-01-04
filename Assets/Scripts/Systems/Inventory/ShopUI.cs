@@ -11,12 +11,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class ShopUI : MonoBehaviour
     {
-        [SerializeField] private GameObject _scrollView;
-        [SerializeField] private GameObject _book;
+        public TextMeshProUGUI shopGoldUI;
+        
+        [SerializeField] private GameObject _buyPanel;
+        [SerializeField] private GameObject _sellPanel;
         [SerializeField] private GameObject _toSell;
         [SerializeField] private GameObject _toBuy;
-        public ShopHover hovering;
-        public TextMeshProUGUI shopGoldUI;
 
         [SerializeField] private ShopChat shopChat;
         public ShopChat GetShopChat() => shopChat;
@@ -29,13 +29,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private List<Item> _items;
         public List<Item> GetShopItems() => _items;
         public void SetShopItems(List<Item> shopItems) => _items = shopItems;
-
-        public Slot chosenSlot;
+        
+        public Slot? chosenSlot;
         
         public void ClickToSell()
         {
-            _scrollView.SetActive(false);
-            _book.SetActive(true);
+            _buyPanel.SetActive(false);
+            _sellPanel.SetActive(true);
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
             
@@ -44,8 +44,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void ClickToBuy()
         {
-            _scrollView.SetActive(true);
-            _book.SetActive(false);
+            _buyPanel.SetActive(true);
+            _sellPanel.SetActive(false);
             _toSell.SetActive(true);
             _toBuy.SetActive(false);
         }

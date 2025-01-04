@@ -22,6 +22,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             else
                 Destroy(gameObject);
         }
+        
         public void DragSetImage(Sprite image)
         {
             transform.SetAsLastSibling();

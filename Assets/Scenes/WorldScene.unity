@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3164,6 +3164,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6632102197688724806, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
   m_PrefabInstance: {fileID: 1517881707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1007447611 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3376514053816164424, guid: c7cbaca20386c9941b21d988dea3a3eb, type: 3}
+  m_PrefabInstance: {fileID: 3504981351771164511}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1009402063 stripped
 GameObject:
@@ -5946,6 +5951,14 @@ PrefabInstance:
       propertyPath: sellUI
       value: 
       objectReference: {fileID: 3504981351771164516}
+    - target: {fileID: 6547503550880790284, guid: c7cbaca20386c9941b21d988dea3a3eb, type: 3}
+      propertyPath: _buyPanel
+      value: 
+      objectReference: {fileID: 1007447611}
+    - target: {fileID: 6547503550880790284, guid: c7cbaca20386c9941b21d988dea3a3eb, type: 3}
+      propertyPath: _sellPanel
+      value: 
+      objectReference: {fileID: 3504981351771164512}
     - target: {fileID: 6547503550880790284, guid: c7cbaca20386c9941b21d988dea3a3eb, type: 3}
       propertyPath: shopGoldUI
       value: 

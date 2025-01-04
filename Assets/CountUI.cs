@@ -57,7 +57,6 @@ namespace Ciart.Pagomoa
         public void DisableCountUI()
         {
             var shopUI = UIManager.instance.shopUI;
-            shopUI.hovering.boostImage.sprite = shopUI.hovering.hoverImage[1];
             shopUI.GetShopChat().CancelChat();
             
             if (_chosenSlotType == SlotType.Buy)
@@ -127,7 +126,6 @@ namespace Ciart.Pagomoa
                 {
                     inventory.Add(buySlot.GetSlotItem(), inputCount);
                     shopUI.GetShopItems().Remove(buySlot.GetSlotItem());
-                    shopUI.hovering.boostImage.sprite = shopUI.hovering.hoverImage[1];
                     DisableCountUI();
                     
                     inventory.Gold -= totalPrice;
@@ -145,7 +143,6 @@ namespace Ciart.Pagomoa
                 {
                     inventory.Add(buySlot.GetSlotItem(), 0);
                     shopUI.GetShopItems().Remove(buySlot.GetSlotItem());
-                    shopUI.hovering.boostImage.sprite = shopUI.hovering.hoverImage[1];
                     DisableCountUI();
                     
                     inventory.Gold -= totalPrice;
@@ -211,7 +208,6 @@ namespace Ciart.Pagomoa
             inputCount = 1;
             countUIText.text = inputCount.ToString();
             
-            shopUI.hovering.boostImage.sprite = shopUI.hovering.hoverImage[1];
             DisableCountUI();
             shopUI.GetShopChat().ThankChat();
         }

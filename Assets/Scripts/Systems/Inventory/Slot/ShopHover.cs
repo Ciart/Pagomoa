@@ -11,10 +11,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private Image edgeImage;
         private BuySlot _buySlot;
 
-        private void Start()
-        {
-            _buySlot = GetComponent<BuySlot>();
-        }
+        private void Start() { _buySlot = GetComponent<BuySlot>(); }
         
         public override void OnPointerEnter(PointerEventData eventData)
         {
@@ -25,8 +22,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 var itemName = _buySlot.GetSlotItem().name;
                 shopUI.GetShopChat().chatting.text = itemName;
             }
-            
-            shopUI.hovering = this;
 
             boostImage.sprite = hoverImage[0];
             if (edgeImage != null)
@@ -34,7 +29,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public override void OnPointerExit(PointerEventData eventData)
         {
-            UIManager.instance.shopUI.hovering = null;
             boostImage.sprite = hoverImage[1];
             if (edgeImage != null)
                 edgeImage.gameObject.SetActive(false);
