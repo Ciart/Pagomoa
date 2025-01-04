@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             var dragSlot = UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
-
+            
             if (dragSlot != null)
             {
                 if(dragSlot.GetSlotItem().id != string.Empty)

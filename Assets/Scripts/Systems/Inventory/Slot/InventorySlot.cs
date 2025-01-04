@@ -69,12 +69,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventory = GameManager.instance.player.inventory;
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
-            eventData.pointerPress.TryGetComponent<InventorySlot>(out var targetSlot);
+            eventData.pointerPress.TryGetComponent<InventorySlot>(out var dragSlot);
             
-            if (id == targetSlot.id || !targetSlot) return;
+            if (id == dragSlot.id || !dragSlot) return;
             
-            inventoryUI.SwapUISlot(id, targetSlot.id);
-            inventory.SwapSlot(id, targetSlot.id);
+            inventoryUI.SwapUISlot(id, dragSlot.id);
+            inventory.SwapSlot(dragSlot.id, id);
         }
     }
 }

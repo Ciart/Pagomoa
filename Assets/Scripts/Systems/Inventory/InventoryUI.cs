@@ -84,10 +84,33 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
         }
 
-        public void SwapUISlot(int dropID, int targetID)
+        public void SwapUISlot(int targetID, int dragID)
         {
-            _inventoryUISlots[targetID].transform.SetSiblingIndex(dropID + 1); 
-            _inventoryUISlots[dropID].transform.SetSiblingIndex(targetID + 1);
+            var targetIndex = _inventoryUISlots[targetID].transform.GetSiblingIndex();
+            var dragIndex = _inventoryUISlots[dragID].transform.GetSiblingIndex();
+            
+            Debug.Log("Want to drop in  " + targetIndex);
+            if (targetIndex == Inventory.MaxSlots)
+            {
+                Debug.Log("You drop in Last Sibling");
+                _inventoryUISlots[dragID].transform.SetAsLastSibling();
+                _inventoryUISlots[targetID].transform.SetSiblingIndex(dragID + 1);
+            }
+            else if (dragIndex == Inventory.MaxSlots)
+            {
+                Debug.Log("You hold Last Sibling");
+                _inventoryUISlots[dragID].transform.SetSiblingIndex(targetID + 1);
+                _inventoryUISlots[targetID].transform.SetAsLastSibling();
+            }
+            else
+            {
+                Debug.Log("Normal Swap");
+                _inventoryUISlots[dragID].transform.SetSiblingIndex(targetID + 1); 
+                _inventoryUISlots[targetID].transform.SetSiblingIndex(dragID + 1);   
+            }
+
+            (_inventoryUISlots[dragID], _inventoryUISlots[targetID]) =
+                (_inventoryUISlots[targetID], _inventoryUISlots[dragID]);  
         }
     }
 }
