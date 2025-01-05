@@ -78,7 +78,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public void SetItemDataFromInventoryDB(Inventory.Inventory inventory)
         {
             itemss = inventory.inventorySlots;
-            gold = inventory.Gold;
+            gold = inventory.gold;
         }
     }
 

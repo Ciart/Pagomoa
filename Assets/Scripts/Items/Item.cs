@@ -12,7 +12,9 @@ namespace Ciart.Pagomoa.Items
         Mineral,
         Inherent
     }
-
+    
+    
+    
     [Serializable]
     public class Item
     {

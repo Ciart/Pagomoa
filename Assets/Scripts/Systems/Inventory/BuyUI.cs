@@ -15,7 +15,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         [SerializeField] private Sprite[] _papersSprites;
         [SerializeField] private Sprite[] _soldOutsSprites;
-        [SerializeField] private Sprite _emptyImage;
         
         [Header("Run Time UI Can Be None")]
         [SerializeField] private List<BuyArtifactSlot> artifactSlots = new List<BuyArtifactSlot>();
@@ -27,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            UIManager.instance.shopUI.shopGoldUI.text = GameManager.instance.player.inventory.Gold.ToString();
+            UIManager.instance.shopUI.shopGoldUI.text = GameManager.instance.player.inventory.gold.ToString();
         }
         public void MakeBuyUISlot()
         {

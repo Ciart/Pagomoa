@@ -9,14 +9,14 @@ using UnityEngine.Serialization;
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     [Serializable]
-    public class Inventory
+    public partial class Inventory
     {
-        public int Gold;
-        [SerializeField] public int stoneCount;
-        [SerializeField] public int maxCount;
+        public int gold;
+        public int stoneCount;
+        public int maxCount;
         
-        public const int MaxQuickItems = 6;
-        private Item[] _quickItems = new Item[MaxQuickItems];
+        public const int MaxQuickSlots = 6;
+        public QuickSlot[] quickItems = new QuickSlot[MaxQuickSlots];
         
         public const int MaxArtifactSlots = 4;
         public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactSlots];
@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public const int MaxSlots = 36;
         public InventorySlot[] inventorySlots = new InventorySlot[MaxSlots];
         
-        private void Start()
+        private void Awake()
         {
             EventManager.AddListener<AddReward>(AddReward);
             EventManager.AddListener<AddGold>(ChangeGold);
@@ -32,8 +32,33 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
         private void AddReward(AddReward e) { Add(e.item, e.itemCount); }
-        private void AddGold(int gold) { Gold += gold; }
+        private void AddGold(int gold) { this.gold += gold; }
         
+
+        public void UseQuickSlotItem(int index)
+        {
+            var item = quickItems[index];
+            
+            /*switch (item.type)
+            {
+                case ItemType.Use:
+                    if (GetItemCount(item) != 0)
+                    {
+                        DecreaseItemCount(item);
+                        item.DisplayUseEffect();
+                    }
+                    break;
+                case ItemType.Inherent:
+                    item.DisplayUseEffect();
+                    break;
+                default:
+                    return;
+            }*/
+        }
+    }
+
+    public partial class Inventory
+    {
         public void Equip(Item data)
         {
             int idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem() == data);
@@ -98,7 +123,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             DecreaseItemCount(data);
             
-            GameManager.instance.player.inventory.Gold += data.price;
+            GameManager.instance.player.inventory.gold += data.price;
             UIManager.instance.UpdateGoldUI();
         }
         
@@ -152,45 +177,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return inventorySlots[idx].GetSlotItemCount();
             
             return 0;
-        }
-        
-        public Item GetQuickItem(int id)
-        {
-            return _quickItems[id];
-        }
-        
-        public void SetQuickItem(int id, Item item)
-        {
-            _quickItems[id] = item;
-            EventManager.Notify(new QuickSlotChangedEvent(_quickItems));
-        }
-        
-        public void SwapQuickSlot(int a, int b)
-        {
-            (_quickItems[a], _quickItems[b]) = (_quickItems[b], _quickItems[a]);
-            EventManager.Notify(new QuickSlotChangedEvent(_quickItems));
-        }
-
-        public void UseQuickSlotItem(int index)
-        {
-            var player = GameManager.instance.player;
-            var item = _quickItems[index];
-            
-            switch (item.type)
-            {
-                case ItemType.Use:
-                    if (player.inventory.GetItemCount(item) != 0)
-                    {
-                        DecreaseItemCount(item);
-                        item.DisplayUseEffect();
-                    }
-                    break;
-                case ItemType.Inherent:
-                    item.DisplayUseEffect();
-                    break;
-                default:
-                    return;
-            }
         }
     }
 }

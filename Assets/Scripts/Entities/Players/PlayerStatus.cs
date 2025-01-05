@@ -147,7 +147,7 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Die()
         {
             var inventory = GameManager.instance.player.inventory;
-            inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
+            inventory.gold = Mathf.FloorToInt(inventory.gold * 0.9f);
             
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
@@ -168,7 +168,7 @@ namespace Ciart.Pagomoa.Entities.Players
         private void LoseMoney(float percentage)
         {
             var inventory = GameManager.instance.player.inventory;
-            inventory.Gold = (int)(inventory.Gold * (1 - percentage));
+            inventory.gold = (int)(inventory.gold * (1 - percentage));
         }
 
         private void LoseItem(ItemType itemType, float probabilty)

@@ -583,6 +583,10 @@ PrefabInstance:
       propertyPath: inventorySlotParent
       value: 
       objectReference: {fileID: 1630139277}
+    - target: {fileID: 1545274618577576545, guid: a610056d81c9441f08a624e1a202883e, type: 3}
+      propertyPath: InstanceInventorySlot
+      value: 
+      objectReference: {fileID: 1156663755}
     - target: {fileID: 1797059878505875340, guid: a610056d81c9441f08a624e1a202883e, type: 3}
       propertyPath: _hoverLineSprite
       value: 
@@ -4423,8 +4427,8 @@ MonoBehaviour:
   statePanel: {fileID: 847928629}
   shopUI: {fileID: 1904715673}
   inventoryUI: {fileID: 805048682}
+  quickSlotUIPrefab: {fileID: 5669934315126194384, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
   dialogueUIPrefab: {fileID: 3394228335729607216, guid: d46ea0b7a9cfe6946ab08fe9688ea49b, type: 3}
-  quickSlotContainerUIPrefab: {fileID: 242406844832204414, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
   escUI: {fileID: 7640810986153796479, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
   interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
   questCompleteUI: {fileID: 8066941655077391920, guid: abf165692bd09d344b428f7840bb9e8d, type: 3}

@@ -16,8 +16,8 @@ namespace Ciart.Pagomoa
         public StateUI statePanel;
         public ShopUI shopUI;
         public BookUI inventoryUI;
+        public QuickSlotUI quickSlotUIPrefab;
         public GameObject dialogueUIPrefab;
-        public GameObject quickSlotContainerUIPrefab;
         public GameObject escUI;
         public GameObject interactableUI;
         public GameObject questCompleteUI;

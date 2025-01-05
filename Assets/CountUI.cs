@@ -122,13 +122,13 @@ namespace Ciart.Pagomoa
             {
                 var totalPrice = buySlot.GetSlotItem().price * inputCount;
                 
-                if (inventory.Gold >= totalPrice && inputCount > 0)
+                if (inventory.gold >= totalPrice && inputCount > 0)
                 {
                     inventory.Add(buySlot.GetSlotItem(), inputCount);
                     shopUI.GetShopItems().Remove(buySlot.GetSlotItem());
                     DisableCountUI();
                     
-                    inventory.Gold -= totalPrice;
+                    inventory.gold -= totalPrice;
                     UIManager.instance.UpdateGoldUI();
                 }
                 else return;
@@ -139,13 +139,13 @@ namespace Ciart.Pagomoa
             {
                 var totalPrice = buySlot.GetSlotItem().price * inputCount;
                 
-                if (inventory.Gold >= totalPrice && buySlot.GetSlotItemCount() == inputCount)
+                if (inventory.gold >= totalPrice && buySlot.GetSlotItemCount() == inputCount)
                 {
-                    inventory.Add(buySlot.GetSlotItem(), 0);
+                    inventory.Add(buySlot.GetSlotItem());
                     shopUI.GetShopItems().Remove(buySlot.GetSlotItem());
                     DisableCountUI();
                     
-                    inventory.Gold -= totalPrice;
+                    inventory.gold -= totalPrice;
                     UIManager.instance.UpdateGoldUI();
                     UIManager.instance.shopUI.GetBuyUI().SoldOut();
                 }
