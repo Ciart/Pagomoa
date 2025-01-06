@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public int maxCount;
         
         public const int MaxQuickSlots = 6;
-        public QuickSlot[] quickItems = new QuickSlot[MaxQuickSlots];
+        public QuickSlot[] quickSlots = new QuickSlot[MaxQuickSlots];
         
         public const int MaxArtifactSlots = 4;
         public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactSlots];
@@ -32,28 +32,28 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
         private void AddReward(AddReward e) { Add(e.item, e.itemCount); }
-        private void AddGold(int gold) { this.gold += gold; }
+        private void AddGold(int addGold) { gold += addGold; }
         
 
         public void UseQuickSlotItem(int index)
         {
-            var item = quickItems[index];
+            var slot = quickSlots[index];
             
-            /*switch (item.type)
+            if (slot.GetSlotItem().id == "") return;
+            
+            switch (slot.GetSlotItem().type)
             {
                 case ItemType.Use:
-                    if (GetItemCount(item) != 0)
+                    if (slot.GetSlotItemCount() != 0)
                     {
-                        DecreaseItemCount(item);
-                        item.DisplayUseEffect();
+                        DecreaseItemCount(slot.GetSlotItem());
+                        slot.GetSlotItem().DisplayUseEffect();
                     }
                     break;
                 case ItemType.Inherent:
-                    item.DisplayUseEffect();
+                    slot.GetSlotItem().DisplayUseEffect();
                     break;
-                default:
-                    return;
-            }*/
+            }
         }
     }
 
@@ -144,7 +144,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 inventorySlots[idx].GetSlotItem().ClearItemProperty();
                 inventorySlots[idx].ResetSlot();
             }
-                
+            
+            // Todo : 퀵슬롯 검색해서 인벤토리 슬롯과 동기화
+            
             EventManager.Notify(new ItemCountChangedEvent(data, inventorySlots[idx].GetSlotItemCount()));
         }
         

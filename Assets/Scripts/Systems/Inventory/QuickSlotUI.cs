@@ -34,9 +34,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 transform.GetChild(i).TryGetComponent<QuickSlot>(out var quickSlot);
                 if (!quickSlot) continue;
                 
-                inventory.quickItems[index] = quickSlot;
-                inventory.quickItems[index].id = index;
-                _quickSlots.Add(inventory.quickItems[index]);
+                inventory.quickSlots[index] = quickSlot;
+                inventory.quickSlots[index].id = index;
+                _quickSlots.Add(inventory.quickSlots[index]);
                 index++;
                 
                 if (index == Inventory.MaxQuickSlots) break;
@@ -64,19 +64,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             for (int i = 0; i < Inventory.MaxQuickSlots; i++)
             {
-                _quickSlots[i].SetSlot(inventory.quickItems[i]);
+                _quickSlots[i].SetSlot(inventory.quickSlots[i]);
             }
 
             if (e.dependentID is -1 || e.quickSlotID is -1) return;
             
             foreach (var slot in _quickSlots)
             {
-                if (slot.dependentID == e.dependentID)
+                if (!slot.referenceSlot) continue;
+                if (slot.referenceSlot.id == e.dependentID)
                 {
                     if (slot.id == e.quickSlotID) continue;
                     
                     slot.ResetSlot();
-                    slot.dependentID = -1;
                 }
             }
         }
@@ -106,41 +106,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
         
-        // public void SetQuickSlotItemCount(Item data)
-        // {
-        //     int itemsIdx = Array.FindIndex(GameManager.player.inventoryDB.items, element => element.item == data);
-        //     int quickSlotsIndex = Array.FindIndex(GameManager.player.inventoryDB.quickSlots, element => element.item == data);
-        //     
-        //     if (itemsIdx != -1  && quickSlotsIndex != -1)
-        //     {
-        //         InventoryItem item = GameManager.player.inventoryDB.items[itemsIdx];
-        //         InventoryItem quickSlotItem = GameManager.player.inventoryDB.quickSlots[quickSlotsIndex];
-        //         
-        //         for (int i = 0; i < GameManager.player.inventoryDB.quickSlots.Length; i++)
-        //         {
-        //             if (quickSlotsIndex == _quickSlotUIs[i].id)
-        //             {
-        //                 _findSlotUI = _quickSlotUIs[i];
-        //             }
-        //         }
-        //         
-        //         if (item.count > 1)
-        //         {
-        //             _findSlotUI.itemCount.text = (item.count - 1).ToString();
-        //         }
-        //         else if (item.count == 1)
-        //         {
-        //             quickSlotItem.item = null;
-        //             quickSlotItem.count = 0;
-        //             _findSlotUI.itemImage.sprite = _findSlotUI.transparentImage;
-        //             _findSlotUI.itemCount.text = null;
-        //         }
-        //     }
-        // }
-        
         private void UseQuickSlot()
         {
-            GameManager.instance.player.inventory.UseQuickSlotItem(_selectedSlotIndex);
+            GameManager.instance.player.inventory.UseQuickSlotItem(_selectedSlotIndex - 1);
         }
         
         private void UpdateQuickSlot()

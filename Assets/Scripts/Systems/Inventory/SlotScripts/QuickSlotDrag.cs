@@ -47,31 +47,44 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (inventorySlot)
             {
                 // eventData 가 InventorySlot 이면 QuickSlot 할당, player 것도 동기화
-                ThatDropIsInventorySlot(inventorySlot);
+                ThatDropIsInventorySlot(ref inventorySlot);
                 return;
             }
             
             eventData.pointerDrag.TryGetComponent<QuickSlot>(out var quickSlot);
-            if (inventorySlot)
-            {
-                // eventData 가 QuickSlot 이면 swap   
-                
-            }
+            if (!quickSlot) return;
+            if (quickSlot.GetSlotItem().id == "") return;
+            
+            // eventData 가 QuickSlot 이면 swap 
+            ThatDropIsQuickSlot(quickSlot);
         }
 
-        private void ThatDropIsInventorySlot(InventorySlot inventorySlot)
+        private void ThatDropIsInventorySlot(ref InventorySlot inventorySlot)
         {
             if (inventorySlot.GetSlotItem().id == "") return;
             
             slot.SetSlot(inventorySlot);
-            slot.dependentID = inventorySlot.id;
-            // 슬롯 바꿔도 괜찮은가?
-            EventManager.Notify(new QuickSlotChangedEvent(slot.id, slot.dependentID));
+            slot.referenceSlot = inventorySlot;
+            
+            EventManager.Notify(new QuickSlotChangedEvent(slot.id, slot.referenceSlot.id));
         }
 
-        private void ThatDropIsQuickSlot()
+        private void ThatDropIsQuickSlot(QuickSlot quickSlot)
         {
+            if (slot.GetSlotItem().id == "")
+            {
+                slot.referenceSlot = quickSlot.referenceSlot;
+                slot.SetSlot(quickSlot);
             
+                quickSlot.ResetSlot();    
+            }
+            else if (slot.GetSlotItem().id != "")
+            {
+                (slot.referenceSlot, quickSlot.referenceSlot) = (quickSlot.referenceSlot, slot.referenceSlot);
+                
+                slot.SetSlot(slot.referenceSlot);
+                quickSlot.SetSlot(quickSlot.referenceSlot);
+            }
         }
     }
 }
