@@ -8,7 +8,6 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
-  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -135,7 +134,7 @@ ScriptedImporter:
       y: 69
       width: 62
       height: 28
-    spriteID: 338db8ec3246fc245948c0472c1c7b4e
+    spriteID: aa8e2b093fc1a0546ae396e685413ea5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -156,7 +155,7 @@ ScriptedImporter:
       y: 4
       width: 125
       height: 57
-    spriteID: 10adb1e6a76749142a770cc6d70f063d
+    spriteID: 9dff37344e139064e912e3b83ba5e7ac
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,7 +176,7 @@ ScriptedImporter:
       y: 4
       width: 68
       height: 57
-    spriteID: f796cd46ce073924f88277ed5044321e
+    spriteID: c2c202c8e9fb8724a8edf12a6c29bfc7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -198,7 +197,7 @@ ScriptedImporter:
       y: 69
       width: 62
       height: 28
-    spriteID: 768a9beaf46f2694db02f7e62093e9cc
+    spriteID: a00c10aa1d4f2bf48b482cb1396bda30
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -210,7 +209,7 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 2037519492
+    guid: 1441386676
     name: BackWheel
     layerFlags: 3
     layerType: 0
@@ -224,11 +223,11 @@ ScriptedImporter:
         y: 0
         width: 60
         height: 26
-      spriteId: 338db8ec3246fc245948c0472c1c7b4e
+      spriteId: aa8e2b093fc1a0546ae396e685413ea5
     linkedCells: []
     parentIndex: -1
   - layerIndex: 1
-    guid: -7500618
+    guid: 1317221951
     name: Layer 3
     layerFlags: 3
     layerType: 0
@@ -242,11 +241,11 @@ ScriptedImporter:
         y: 9
         width: 123
         height: 55
-      spriteId: 10adb1e6a76749142a770cc6d70f063d
+      spriteId: 9dff37344e139064e912e3b83ba5e7ac
     linkedCells: []
     parentIndex: -1
   - layerIndex: 2
-    guid: -7500613
+    guid: 1317223933
     name: Layer 4
     layerFlags: 3
     layerType: 0
@@ -260,11 +259,11 @@ ScriptedImporter:
         y: -3
         width: 66
         height: 55
-      spriteId: f796cd46ce073924f88277ed5044321e
+      spriteId: c2c202c8e9fb8724a8edf12a6c29bfc7
     linkedCells: []
     parentIndex: -1
   - layerIndex: 3
-    guid: 44122776
+    guid: 336872891
     name: FrontWheel
     layerFlags: 3
     layerType: 0
@@ -278,7 +277,7 @@ ScriptedImporter:
         y: 0
         width: 60
         height: 26
-      spriteId: 768a9beaf46f2694db02f7e62093e9cc
+      spriteId: a00c10aa1d4f2bf48b482cb1396bda30
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -322,4 +321,3 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 176, y: 96}
-  previousTextureSize: {x: 256, y: 128}

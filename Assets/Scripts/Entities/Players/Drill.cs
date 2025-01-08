@@ -3,6 +3,7 @@ using Ciart.Pagomoa.Worlds;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
 
 namespace Ciart.Pagomoa
@@ -19,7 +20,7 @@ namespace Ciart.Pagomoa
     [Serializable]
     public class DrillUpgradeNeeds
     {
-        public MineralItem mineral;
+        public Item mineral;
         public int count;
     }
 }

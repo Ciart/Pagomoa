@@ -11,5 +11,5 @@ namespace Ciart.Pagomoa.Events
     
     public record AddGold(int gold) : IEvent;
     
-    public record QuickSlotChangedEvent(Item[] quickItems) : IEvent;
+    public record QuickSlotChangedEvent(int quickSlotID = -1, int dependentID = -1) : IEvent;
 }

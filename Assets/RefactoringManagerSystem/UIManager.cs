@@ -1,5 +1,8 @@
 ﻿using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.UI;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,27 +17,36 @@ namespace Ciart.Pagomoa.Systems
         
         private UIContainer _uiContainer;
         private PlayerInput _playerInput;
-        private GameObject _inventoryUI;
         private GameObject _dialogueUI;
-        private GameObject _quickSlot;
-        private bool _isActiveInventory;
+        
+        public MinimapUI minimapUI { get; private set; }
+        public StateUI stateUI { get; private set; }
+        
+        public BookUI bookUI {get; private set;}
+        public ShopUI shopUI {get; private set;}
+        public QuickSlotUI quickSlotUI {get; private set;}
         private FadeUI _fadeUI;
+        
         public UIContainer GetUIContainer() { return _uiContainer; }
+        
+        private bool _isActiveInventory;
         
         public override void Awake()
         {
             _uiContainer = DataBase.data.GetUIData();
+
+            minimapUI = Object.Instantiate(_uiContainer.miniMapPanelPrefab, _uiContainer.transform);
+            stateUI = Object.Instantiate(_uiContainer.statePanelPrefab, _uiContainer.transform);
             
-            _inventoryUI = Object.Instantiate(_uiContainer.inventoryUIPrefab, _uiContainer.transform);
-            _inventoryUI.SetActive(false);
+            bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
+            shopUI = Object.Instantiate(_uiContainer.shopUIPrefab, _uiContainer.transform);
+            quickSlotUI = Object.Instantiate(_uiContainer.quickSlotUIPrefab, _uiContainer.transform);
             
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            _fadeUI = _uiContainer.fadeUI.GetComponent<FadeUI>();
-            
-            _quickSlot = Object.Instantiate(_uiContainer.quickSlotContainerUIPrefab, _uiContainer.transform);
+            _fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
         }
 
         public override void Start()
@@ -42,32 +54,36 @@ namespace Ciart.Pagomoa.Systems
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
+        public override void FixedUpdate()
+        {
+            minimapUI.UpdateMinimap();
+        }
+
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             var player = e.player;
-
-            player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(UpdateOxygenBar);
-            player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
+            
+            player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(stateUI.UpdateOxygenBar);
+            //player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
 
             _playerInput = player.GetComponent<PlayerInput>();
-
             _playerInput.Actions.Menu.performed += context => { ToggleEscUI(); };
-
             _playerInput.Actions.Menu.performed += context => { ToggleEscDialogueUI(); };
-
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
+            
+            UpdateGoldUI();
+            bookUI.GetInventoryUI().InitInventorySlots();
+            quickSlotUI.InitQuickSlots();
         }
 
-        private void UpdateOxygenBar(float currentOxygen, float maxOxygen)
+        public void UpdateGoldUI()
         {
-            _uiContainer.oxygenBar.fillAmount = currentOxygen / maxOxygen;
-        }
+            var playerGold = GameManager.instance.player.inventory.gold;
 
-        private void UpdateHungryBar(float currentHungry, float maxHungry)
-        {
-            _uiContainer.hungryBar.fillAmount = currentHungry / maxHungry;
+            shopUI.shopGoldUI.text = playerGold.ToString();
+            stateUI.playerGoldUI.text = playerGold.ToString();         
         }
-
+        
         private void ToggleEscUI()
         {
             if(!_dialogueUI.activeSelf)
@@ -77,7 +93,7 @@ namespace Ciart.Pagomoa.Systems
         private void ToggleInventoryUI()
         {
             _isActiveInventory = !_isActiveInventory;
-            _inventoryUI.SetActive(_isActiveInventory);
+            bookUI.gameObject.SetActive(_isActiveInventory);
 
             // if (_isActiveInventory)
             // {
@@ -100,18 +116,16 @@ namespace Ciart.Pagomoa.Systems
 
         public void DeActiveUI()
         {
-            _uiContainer.miniMap.SetActive(false);
-            _uiContainer.statePanel.SetActive(false);
-            _uiContainer.oxygenBar.gameObject.SetActive(false);
-            _quickSlot.SetActive(false);
+            minimapUI.gameObject.SetActive(false);
+            stateUI.gameObject.SetActive(false);
+            quickSlotUI.gameObject.SetActive(false);
         }
 
         public void ActiveUI()
         {
-            _uiContainer.miniMap.SetActive(true);
-            _uiContainer.statePanel.SetActive(true);
-            _uiContainer.oxygenBar.gameObject.SetActive(true);
-            _quickSlot.SetActive(true);
+            minimapUI.gameObject.SetActive(true);
+            stateUI.gameObject.SetActive(true);
+            quickSlotUI.gameObject.SetActive(true);
         }
         
         private void ToggleEscDialogueUI()

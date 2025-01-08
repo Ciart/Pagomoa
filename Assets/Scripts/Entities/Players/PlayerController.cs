@@ -58,7 +58,7 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 return;
             }
-
+            
             state = PlayerState.Jump;
             _movement.Jump();
         }
