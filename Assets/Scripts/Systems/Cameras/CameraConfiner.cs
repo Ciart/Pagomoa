@@ -3,6 +3,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -58,8 +59,12 @@ namespace Ciart.Pagomoa
             cameraBorderCollider.isTrigger = true;
             cameraBorderCollider.points = paths;
 
-            //GameObject.Find("VirtualCamera").AddComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraBorderCollider;
+            var virtualCamera = GameObject.Find("VirtualCamera");
 
+            if(virtualCamera.TryGetComponent<CinemachineConfiner2D>(out CinemachineConfiner2D confiner))
+                confiner.m_BoundingShape2D = cameraBorderCollider;
+            else
+                virtualCamera.AddComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraBorderCollider;
         }
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -131,16 +131,13 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     Die();
                     gage = minOxygen;
-                    Debug.Log("0 됐다");
                 }
             }
             else if (oxygen < maxOxygen)
             {
                 oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
                 gage = oxygen;
-                Debug.Log("올라간다");
             }
-
             oxygenAlter.Invoke(gage, maxOxygen);
         }
 

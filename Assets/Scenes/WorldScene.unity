@@ -264,7 +264,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 192797270}
+  m_ComponentOwner: {fileID: 0}
 --- !u!114 &120692004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,7 +1209,6 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596654829}
   m_Enabled: 1
-  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -3943,5 +3942,6 @@ SceneRoots:
   - {fileID: 5787187148874216554}
   - {fileID: 596654833}
   - {fileID: 7878045993923659085}
-  - {fileID: 120692002}
+  - {fileID: 162412287}
+  - {fileID: 498371703}
   - {fileID: 1595614276}

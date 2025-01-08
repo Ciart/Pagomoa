@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Entities.Players
     {
         private bool CheckClimb()
         {
-            return _input.IsClimb && _world.CheckClimbable(transform.position);
+            return ((_input.IsClimb && _world.CheckClimbable(transform.position)) || _movement.isStepUp);
         }
 
         private bool CheckFall()

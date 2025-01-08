@@ -27,6 +27,8 @@ namespace Ciart.Pagomoa.Entities.Players
         // TODO: 최대 거리 검사가 필요 함.
         public Vector2 directionVector = Vector2.zero;
 
+        public bool isStepUp => _animator.GetBool(AnimatorEndClimb);
+
         private static readonly int AnimatorDirectionX = Animator.StringToHash("directionX");
         private static readonly int AnimatorDirectionY = Animator.StringToHash("directionY");
         private static readonly int AnimatorVelocityX = Animator.StringToHash("velocityX");
@@ -96,8 +98,10 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void SetMoveArea(int left, int right, int bottom, int top)
         {
-            _playerMoveMinArea.x = -left;
-            _playerMoveMaxArea.x = right;
+            float sideFlex = 0.3f;
+
+            _playerMoveMinArea.x = -left + sideFlex;
+            _playerMoveMaxArea.x = right - sideFlex;
 
             _playerMoveMinArea.y = -bottom;
             _playerMoveMaxArea.y = top;
@@ -119,7 +123,9 @@ namespace Ciart.Pagomoa.Entities.Players
 
             var velocity = directionVector * (climbSpeed * Time.deltaTime);
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
+            {
                 _animator.SetBool(AnimatorEndClimb, false);
+            }
 
             
             if(velocity.y > 0 && CheckClimbEnable())
@@ -127,7 +133,9 @@ namespace Ciart.Pagomoa.Entities.Players
                 velocity.y = 0;
 
                 if (isSideWall && !_animator.GetCurrentAnimatorStateInfo(0).IsName("endClimb"))
+                {
                     _animator.SetBool(AnimatorEndClimb, true);
+                }
             }
             _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = 0;
@@ -136,14 +144,16 @@ namespace Ciart.Pagomoa.Entities.Players
         private void EndClimbLeft()
         {
             Vector3 movePos = new Vector3(-0.4f, 1.04f);
-            transform.position += movePos;
+            if (isClimb)
+                transform.position += movePos;
             _animator.SetBool(AnimatorEndClimb, false);
         }
 
         private void EndClimbRight()
         {
             Vector3 movePos = new Vector3(0.4f, 1.04f);
-            transform.position += movePos;
+            if (isClimb)
+                transform.position += movePos;
             _animator.SetBool(AnimatorEndClimb, false);
         }
 
@@ -156,12 +166,16 @@ namespace Ciart.Pagomoa.Entities.Players
             _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = gravityScale;
 
+        }
+
+        private void CheckDomain()
+        {
             _moveDelta.x = Mathf.Clamp(transform.position.x, _playerMoveMinArea.x, _playerMoveMaxArea.x);
             _moveDelta.y = Mathf.Clamp(transform.position.y, _playerMoveMinArea.y, _playerMoveMaxArea.y);
 
             transform.position = _moveDelta;
-
         }
+
 
         private void FixedUpdate()
         {
@@ -191,6 +205,8 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 UpdateWalk();
             }
+
+            CheckDomain();
 
             UpdateAnimation();
         }

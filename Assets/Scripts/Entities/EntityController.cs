@@ -103,6 +103,8 @@ namespace Ciart.Pagomoa.Entities
         
         public EntityData GetEntityData()
         {
+            if (this == null) return null;
+
             var position = transform.position;
             
             return new EntityData(entityId, position.x, position.y, status);
