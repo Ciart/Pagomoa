@@ -117,7 +117,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void TakeKnockback(float force, Vector2 direction)
         {
-            ParticleManager.instance.Make(0, gameObject, Vector2.zero, 0.5f);
+            // ParticleManager.instance.Make(0, gameObject, Vector2.zero, 0.5f);
 
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
@@ -125,7 +125,7 @@ namespace Ciart.Pagomoa.Entities
         public void TakeDamage(float amount, float invincibleTime = 0f, EntityController attacker = null,
             DamageFlag flag = DamageFlag.None)
         {
-            if (isInvincible)
+            if (isInvincible || isDead)
             {
                 return;
             }
@@ -133,9 +133,15 @@ namespace Ciart.Pagomoa.Entities
             _invincibleTime = invincibleTime;
 
             status.health -= amount;
+            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
+
             if (status.health <= 0)
             {
                 status.health = 0;
+
+                // TODO: preDied 이벤트 추가
+                Die();
+                return;
             }
 
             if (attacker is not null)
@@ -143,7 +149,6 @@ namespace Ciart.Pagomoa.Entities
                 TakeKnockback(5f, transform.position - attacker.transform.position);
             }
 
-            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
             StartCoroutine(RunInvincibleTimeFlash());
         }
 
@@ -159,8 +164,9 @@ namespace Ciart.Pagomoa.Entities
         public void Die()
         {
             status.health = 0;
-            gameObject.SetActive(false);
             died?.Invoke();
+            
+            _spriteRenderer.enabled = false;
         }
 
         private IEnumerator RunInvincibleTimeFlash()

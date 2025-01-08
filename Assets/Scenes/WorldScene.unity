@@ -2264,9 +2264,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1500683812}
     m_Modifications:
+    - target: {fileID: 1151628799051955033, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664687260922162278, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 3242452182850783278, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
       propertyPath: m_Name
       value: MinimapPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398731879842764279, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6201800308963581311, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
       propertyPath: m_Pivot.x
@@ -2347,6 +2359,14 @@ PrefabInstance:
     - target: {fileID: 6201800308963581311, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066801892433052710, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674239584210445239, guid: 321e049f125e5e74dad625c702b9d780, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8217,6 +8237,7 @@ MonoBehaviour:
   inventoryUIPrefab: {fileID: 6869503557337763794, guid: a610056d81c9441f08a624e1a202883e, type: 3}
   dialogueUIPrefab: {fileID: 3394228335729607216, guid: d46ea0b7a9cfe6946ab08fe9688ea49b, type: 3}
   quickSlotContainerUIPrefab: {fileID: 242406844832204414, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
+  daySummaryUIPrefab: {fileID: 8641994485999273961, guid: 89f0b6e87c7d1804ebb86f958dd87dda, type: 3}
   escUI: {fileID: 7640810986153796479, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
   interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
   questCompleteUI: {fileID: 8066941655077391920, guid: abf165692bd09d344b428f7840bb9e8d, type: 3}
