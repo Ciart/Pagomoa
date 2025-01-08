@@ -96,7 +96,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void UseQuickSlot()
         {
-            GameManager.instance.player.inventory.UseQuickSlotItem(_selectedSlotIndex);
+            Game.instance.player.inventory.UseQuickSlotItem(_selectedSlotIndex);
         }
         
         private void UpdateQuickSlot()

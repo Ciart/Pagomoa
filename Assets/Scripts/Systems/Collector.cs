@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems
     
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var gameManager = GameManager.instance;
+            var gameManager = Game.instance;
             
             if (!other.CompareTag("ItemEntityTrigger"))
             {

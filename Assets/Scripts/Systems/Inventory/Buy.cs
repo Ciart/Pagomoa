@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            transform.GetComponentInParent<ShopUI>().gold[0].text = GameManager.instance.player.inventory.Gold.ToString();
+            transform.GetComponentInParent<ShopUI>().gold[0].text = Game.instance.player.inventory.Gold.ToString();
             DeleteSellUISlot();
             ResetSellUISlot();
         }
@@ -116,7 +116,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MakeSellUISlot()
         {
-            for(int i = 0; i < GameManager.instance.player.inventory.items.Length; i++)
+            for(int i = 0; i < Game.instance.player.inventory.items.Length; i++)
             {
                 var spawnedSlot = Instantiate(slot[2], slotsParent[2].transform);
                 _slotData.Add(spawnedSlot.GetComponent<InventorySlotUI>());
@@ -128,19 +128,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void ResetSellUISlot()
         {
             for(int i = 0; i < _slotData.Count; i++)
-                _slotData[i].slot = GameManager.instance.player.inventory.items[i];
+                _slotData[i].slot = Game.instance.player.inventory.items[i];
             UpdateSellUISlot();
         }
         public void UpdateSellUISlot()
         {
-            for (int i = 0; i < GameManager.instance.player.inventory.items.Length; i++)
+            for (int i = 0; i < Game.instance.player.inventory.items.Length; i++)
             {
-                _slotData[i].SetItem(GameManager.instance.player.inventory.items[i]);
+                _slotData[i].SetItem(Game.instance.player.inventory.items[i]);
             }
         }
         public void DeleteSellUISlot()
         {
-            if (GameManager.instance.player.inventory.items.Length >= 0)
+            if (Game.instance.player.inventory.items.Length >= 0)
             {
                 for (int i = 0; i < _slotData.Count; i++)
                     _slotData[i].ResetItem();
@@ -241,9 +241,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var Shop = chosenBuySlot.slot;
             if (Shop.item.type == ItemType.Use)
             {
-                if (GameManager.instance.player.inventory.Gold >= Shop.item.price * countUINum && countUINum > 0)
+                if (Game.instance.player.inventory.Gold >= Shop.item.price * countUINum && countUINum > 0)
                 {
-                    GameManager.instance.player.inventory.Add(Shop.item, countUINum);
+                    Game.instance.player.inventory.Add(Shop.item, countUINum);
                     AuctionDB.Instance.Remove(Shop.item);
                     ShopUI.Instance.hovering.boostImage.sprite = ShopUI.Instance.hovering.hoverImage[1];
                     OffCountUI();
@@ -258,9 +258,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             else if (Shop.item.type == ItemType.Equipment || Shop.item.type == ItemType.Inherent)
             {
-                if (GameManager.instance.player.inventory.Gold >= Shop.item.price && Shop.count == countUINum)
+                if (Game.instance.player.inventory.Gold >= Shop.item.price && Shop.count == countUINum)
                 {
-                    GameManager.instance.player.inventory.Add(Shop.item, 0);
+                    Game.instance.player.inventory.Add(Shop.item, 0);
                     AuctionDB.Instance.Remove(Shop.item);
                     UpdateCount();
                     SoldOut();
@@ -302,11 +302,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (chosenSellSlot.slot.count > 1)
                 {
-                    GameManager.instance.player.inventory.SellItem(chosenSellSlot.slot.item);
+                    Game.instance.player.inventory.SellItem(chosenSellSlot.slot.item);
                 }
                 else if (chosenSellSlot.slot.count == 1)
                 {
-                    GameManager.instance.player.inventory.SellItem(chosenSellSlot.slot.item);
+                    Game.instance.player.inventory.SellItem(chosenSellSlot.slot.item);
                     //QuickSlotItemDB.instance.CleanSlot(Sell.Instance.choiceSlot.inventoryItem.item);
                 }
                 DeleteSellUISlot();

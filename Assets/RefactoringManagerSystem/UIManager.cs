@@ -17,6 +17,7 @@ namespace Ciart.Pagomoa.Systems
         private GameObject _inventoryUI;
         private GameObject _dialogueUI;
         private GameObject _quickSlot;
+        private DaySummaryUI _daySummaryUI;
         private bool _isActiveInventory;
         private FadeUI _fadeUI;
         public UIContainer GetUIContainer() { return _uiContainer; }
@@ -31,6 +32,9 @@ namespace Ciart.Pagomoa.Systems
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+
+            _daySummaryUI = Object.Instantiate(_uiContainer.daySummaryUIPrefab, _uiContainer.transform);
+            _daySummaryUI.gameObject.SetActive(false);
 
             _fadeUI = _uiContainer.fadeUI.GetComponent<FadeUI>();
             
@@ -96,6 +100,11 @@ namespace Ciart.Pagomoa.Systems
             //     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
             //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             // }
+        }
+
+        public void ShowDaySummaryUI()
+        {
+            _daySummaryUI.gameObject.SetActive(true);
         }
 
         public void DeActiveUI()

@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnDrop(PointerEventData eventData)
         {
             var data = eventData.pointerDrag.GetComponent<QuickSlotUI>();
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
 
             if (data)
             {

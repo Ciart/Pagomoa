@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.UI.Book
         
         private void OnItemCountChangedEvent(ItemCountChangedEvent e)
         {
-            var nextDrill = GameManager.instance.player.drill.nextDrill;
+            var nextDrill = Game.instance.player.drill.nextDrill;
             
             for (var i = 0; i < nextDrill.upgradeNeeds.Length; i++)
             {
@@ -26,13 +26,13 @@ namespace Ciart.Pagomoa.UI.Book
 
         private void Upgrade()
         {
-            var nextDrill = GameManager.instance.player.drill.nextDrill;
+            var nextDrill = Game.instance.player.drill.nextDrill;
             
             for (var i = 0; i < nextDrill.upgradeNeeds.Length; i++)
             {
                 var need = nextDrill.upgradeNeeds[i];
                 
-                texts[i].text = $"{need.mineral.name} ({GameManager.instance.player.inventory.GetItemCount(need.mineral)} / {need.count})";
+                texts[i].text = $"{need.mineral.name} ({Game.instance.player.inventory.GetItemCount(need.mineral)} / {need.count})";
             }
         }
         
@@ -52,7 +52,7 @@ namespace Ciart.Pagomoa.UI.Book
 
         public void OnDrillUpgrade()
         {
-            GameManager.instance.player.drill.DrillUpgrade();
+            Game.instance.player.drill.DrillUpgrade();
             Upgrade();
         }
     }

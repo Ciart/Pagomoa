@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y);
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
 
             if (slot != null)
             {

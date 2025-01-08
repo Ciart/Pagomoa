@@ -7,7 +7,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
-        private GameManager _gameManager => GameManager.instance;
+        private Game _gameManager => Game.instance;
         
         [SerializeField] public InventorySlotUI choiceSlot;
         [SerializeField] public InventorySlotUI hoverSlot;

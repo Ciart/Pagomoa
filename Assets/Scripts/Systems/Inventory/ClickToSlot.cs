@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                var gameManager = GameManager.instance;
+                var gameManager = Game.instance;
                 
                 InventoryUI.Instance.choiceSlot = this.gameObject.GetComponent<InventorySlotUI>();
                 var choiceSlot = gameManager.player.inventory.items[InventoryUI.Instance.choiceSlot.id];
@@ -47,7 +47,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void EquipCheck()
         {
             var inventory = InventoryUI.Instance;
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
 
             if (player.inventory.items[inventory.choiceSlot.id].item == null)
                 return;
@@ -71,7 +71,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipItem()
         {
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
             
             if (player.inventory.artifactItems.Length < 4)
             {
@@ -88,7 +88,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatMineral()
         {
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
             var inventory = InventoryUI.Instance;
             const int mineralCount = 1;
             
@@ -110,7 +110,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatTenMineral()
         {
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
             var inventory = InventoryUI.Instance;
             const int mineralCount = 10;
             
@@ -133,7 +133,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EatAllMineral()
         {
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
             var inventory = InventoryUI.Instance;
             int count = player.inventory.items[inventory.choiceSlot.id].count;
             
@@ -148,7 +148,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UseItem()
         {
-            PlayerController player = GameManager.instance.player;
+            PlayerController player = Game.instance.player;
             var chosenItem = player.inventory.items[InventoryUI.Instance.choiceSlot.id].item;
             
             player.inventory.items[InventoryUI.Instance.choiceSlot.id].item.Use();
@@ -159,7 +159,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void AbandonItem()
         {
-            GameManager.instance.player.inventory.RemoveItemData(InventoryUI.Instance.choiceSlot.slot.item);
+            Game.instance.player.inventory.RemoveItemData(InventoryUI.Instance.choiceSlot.slot.item);
             _rightClickMenu.SetUI();
             _rightClickMenu.DeleteMenu();
         }

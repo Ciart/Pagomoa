@@ -52,7 +52,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private bool CheckInventoryUfoRemote()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             // var inherentItem = InventoryDB.Instance.itemss.Find(inventoryItem => inventoryItem.item.itemType == Item.ItemType.Inherent);
             int idx = Array.FindIndex(inventory.items, element => element.item.type == ItemType.Inherent);

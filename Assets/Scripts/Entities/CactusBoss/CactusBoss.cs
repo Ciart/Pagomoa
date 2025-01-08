@@ -31,7 +31,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         private float _nextAttack;
 
-        public bool CheckPlayerInRange() => Vector3.Distance(GameManager.instance.player.transform.position, transform.position) <= attackRange;
+        public bool CheckPlayerInRange() => Vector3.Distance(Game.instance.player.transform.position, transform.position) <= attackRange;
 
         public bool CheckAttackAble() => Time.time > _nextAttack;
 
@@ -56,7 +56,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
         private void OnSpawnArm()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             var spawnPosition = new Vector2(player.transform.position.x, 0);
             
             var arm = EntityManager.instance.Spawn(armId, spawnPosition);

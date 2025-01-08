@@ -25,7 +25,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void Remove(Item data)
         {
             // var inventoryItem = auctionItem.Find(inventoryItem => inventoryItem.item == data);
-            var gameManager = GameManager.instance;
+            var gameManager = Game.instance;
             var acutionItem = buy.chosenBuySlot.slot;
             
             if (data.type == ItemType.Use)

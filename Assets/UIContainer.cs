@@ -17,10 +17,11 @@ namespace Ciart.Pagomoa
         public GameObject inventoryUIPrefab;
         public GameObject dialogueUIPrefab;
         public GameObject quickSlotContainerUIPrefab;
+        public DaySummaryUI daySummaryUIPrefab;
         public GameObject escUI;
         public GameObject interactableUI;
         public GameObject questCompleteUI;
-        [CanBeNull] public DialogueUI dialogueUI;
+        public DialogueUI dialogueUI;
         public GameObject fadeUI;
         public CinemachineVirtualCamera inventoryCamera;
     }

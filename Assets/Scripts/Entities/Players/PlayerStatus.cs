@@ -143,20 +143,19 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Die()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
             
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
             
-            TimeManager.instance.SkipToNextDay();
-
+            UIManager.instance.ShowDaySummaryUI();
             Respawn();
         }
 
         private void Respawn()
         {
-            GameManager.instance.player.transform.position = FindObjectOfType<SpawnPoint>().transform.position;
+            Game.instance.player.transform.position = FindObjectOfType<SpawnPoint>().transform.position;
             
             oxygen = maxOxygen;
             isDie = false;
@@ -164,13 +163,13 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void LoseMoney(float percentage)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             inventory.Gold = (int)(inventory.Gold * (1 - percentage));
         }
 
         private void LoseItem(ItemType itemType, float probabilty)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
 
             List<InventorySlot> deleteItems = new List<InventorySlot>();
             foreach (InventorySlot item in inventory.items)

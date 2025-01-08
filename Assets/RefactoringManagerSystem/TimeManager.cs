@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Threading.Tasks;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
-using UnityEngine;
-using Object = System.Object;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
@@ -144,10 +141,8 @@ namespace Ciart.Pagomoa.Systems.Time
             MonsterWakeUp.Invoke();*/
         }
 
-        public static string GetSeasonForMonster()
-        {
-            var tick = instance.tick;
-            
+        public string GetSeasonForMonster()
+        {       
             if (tick >= 0 && tick < 6 * HourTick)
                 return "Night";
             else if (tick < 22 * HourTick)
@@ -156,10 +151,8 @@ namespace Ciart.Pagomoa.Systems.Time
                 return "Night";
         }
 
-        public static string GetSeasonForPlayer()
-        {
-            var tick = instance.tick;
-            
+        public string GetSeasonForPlayer()
+        {           
             if (6 * HourTick < tick && tick < 12 * HourTick)
                 return "Morning";
             else if (tick < 18 * HourTick)

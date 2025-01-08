@@ -28,7 +28,7 @@ namespace Ciart.Pagomoa
 
         public void ClickSlot()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             for (int i = 0; i < buy.countUINum; i++)
             {

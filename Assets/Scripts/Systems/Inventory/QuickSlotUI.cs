@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class QuickSlotUI : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        private GameManager _gameManager => GameManager.instance; 
+        private Game _gameManager => Game.instance; 
         
         [SerializeField] public Image itemImage;
         [SerializeField] public Sprite transparentImage;

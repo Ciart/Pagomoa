@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-public class GameSystem : MonoBehaviour
+public class ManagerSystem : SingletonMonoBehaviour<ManagerSystem>
 {
-    private static GameSystem _instance = null;
-    private static List<IPManager> _managers = null;
-
     public Action awake;
     public Action start;
     public Action quit;
@@ -16,71 +14,25 @@ public class GameSystem : MonoBehaviour
     public Action fixedUpdate;
     public Action preLateUpdate;
     public Action lateUpdate;
-    
-    private static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
-    {
-        while (toCheck != null && toCheck != typeof(object))
-        {
-            var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
-            if (generic == cur)
-            {
-                return true;
-            }
-            toCheck = toCheck.BaseType;
-        }
-        return false;
-    }
-    
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
 
-        if(_managers == null)
-        {
-            _managers = new List<IPManager>();
-            
-            foreach(System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type type in assembly.GetTypes())
-                {
-                    if (IsSubclassOfRawGeneric(typeof(PManager<>), type) 
-                        && typeof(IPManager).IsAssignableFrom(type)
-                        && !type.ContainsGenericParameters) // 구체적인 타입만 허용
-                    {
-                        var manager = Activator.CreateInstance(type) as IPManager;
-
-                        _managers.Add(manager);
-                        manager?.Init(this);
-                    } 
-                }
-            }
-        }
-        
+    protected override void Awake()
+    {
         awake?.Invoke();
     }
 
-
-   private void Start()
-   {
+    private void Start()
+    {
        start.Invoke();
        Debug.Log("Game::Start()");
     }
 
-   // Update is called once per frame
-   private void Update()
-   { 
-       preUpdate?.Invoke();
-       
-       update?.Invoke();
-   }
+    // Update is called once per frame
+    private void Update()
+    { 
+        preUpdate?.Invoke();
+        
+        update?.Invoke();
+    }
 
     private void FixedUpdate()
     {

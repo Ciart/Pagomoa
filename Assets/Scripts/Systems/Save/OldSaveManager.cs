@@ -119,7 +119,7 @@ namespace Ciart.Pagomoa.Systems.Save
         public bool LoadMap()
         {
             var LoadSuccess = DataManager.Instance.LoadGameData();
-            var gameManager = GameManager.instance;
+            var gameManager = Game.instance;
             
             if (!gameManager.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
             if (DataManager.Instance.data != null)
@@ -161,7 +161,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
             if (dataManager.data.itemData.itemss != null)
             {
-                var player = GameManager.instance.player;
+                var player = Game.instance.player;
                 
                 player.inventory.items = dataManager.data.itemData.itemss;
                 player.inventory.Gold = dataManager.data.itemData.gold;
@@ -194,7 +194,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void LoadPlayerCurrentStatusData()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             
             if (DataManager.Instance.data.playerStatusData == null) return;
             if (player == null) return;
@@ -210,7 +210,7 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             if (DataManager.Instance.data.mineralData != null)
             {
-                var player = GameManager.instance.player;
+                var player = Game.instance.player;
                 player.inventory.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
             }
                 
@@ -244,7 +244,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         private void WriteItemData()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             
             InitData();
             DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(player.inventory);
@@ -264,7 +264,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         private void WritePlayerCurrentStatusData()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             
             InitData();
             DataManager.Instance.data.playerStatusData.SetCurrentStatusData(player.GetComponent<PlayerStatus>());
@@ -272,7 +272,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         private void WriteEatenMineralCountData()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             
             InitData();
             DataManager.Instance.data.mineralData.SetEatenMineralData(player.inventory);
