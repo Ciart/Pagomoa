@@ -180,7 +180,7 @@ MonoBehaviour:
   _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 8077026720076916315}
   id: 1
-  dependentID: 0
+  referenceSlot: {fileID: 0}
 --- !u!114 &5135149023827150496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 5669934315126194384}
   - component: {fileID: 7848904687106535545}
   m_Layer: 5
-  m_Name: QuickSlot
+  m_Name: QuickSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,7 +394,7 @@ MonoBehaviour:
   _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 8984337216803139819}
   id: 0
-  dependentID: 0
+  referenceSlot: {fileID: 0}
 --- !u!114 &2672741182806204378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,7 +723,7 @@ MonoBehaviour:
   _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 3292071901457368265}
   id: 2
-  dependentID: 0
+  referenceSlot: {fileID: 0}
 --- !u!114 &2575209391711617745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 1834242887781354899}
   id: 4
-  dependentID: 0
+  referenceSlot: {fileID: 0}
 --- !u!114 &7214945656902927746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1728,7 +1728,7 @@ MonoBehaviour:
   _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 8180031767357594120}
   id: 3
-  dependentID: 0
+  referenceSlot: {fileID: 0}
 --- !u!114 &8786293797546169538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,7 +2071,7 @@ MonoBehaviour:
   _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 6980203172247210648}
   id: 5
-  dependentID: 0
+  referenceSlot: {fileID: 0}
 --- !u!114 &2239428508179027805
 MonoBehaviour:
   m_ObjectHideFlags: 0

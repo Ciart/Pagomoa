@@ -11,10 +11,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            var dragSlot = UIManager.instance.quickSlotUI.chosenSlot;
-            if (dragSlot) return;
+            if (slot.GetSlotItem().id == "") return;
             
-            UIManager.instance.quickSlotUI.chosenSlot = slot;
+            UIManager.instance.quickSlotUI.SelectQuickSlot(slot.transform.GetSiblingIndex());;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -36,6 +35,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             DragItem.instance.SetColor(0);
             UIManager.instance.quickSlotUI.chosenSlot = null;
+            
+            if (eventData.pointerCurrentRaycast.gameObject.layer == LayerMask.NameToLayer("UI")) return;
+            
+            slot.ResetSlot();
         }
 
         public void OnDrop(PointerEventData eventData)

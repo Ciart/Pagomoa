@@ -35,19 +35,36 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void AddGold(int addGold) { gold += addGold; }
         
 
-        public void UseQuickSlotItem(int index)
+        public void UseQuickSlotItem(int slotIndex)
         {
-            var slot = quickSlots[index];
+            var slot = quickSlots[slotIndex];
             
             if (slot.GetSlotItem().id == "") return;
+            Debug.Log("in2");
+            var count = slot.GetSlotItemCount() - 1;
             
             switch (slot.GetSlotItem().type)
             {
                 case ItemType.Use:
-                    if (slot.GetSlotItemCount() != 0)
+                    if (count > 0)
                     {
-                        DecreaseItemCount(slot.GetSlotItem());
+                        Debug.Log("in3");
                         slot.GetSlotItem().DisplayUseEffect();
+                        
+                        slot.SetSlotItemCount(count);
+                        
+                        slot.referenceSlot.SetSlot(slot);
+                        slot.SetSlot(slot.referenceSlot);
+                    }
+                    else
+                    {
+                        slot.GetSlotItem().DisplayUseEffect();                        
+                        
+                        slot.referenceSlot.ResetSlot();
+                        slot.referenceSlot.GetSlotItem().ClearItemProperty();
+                        
+                        slot.ResetSlot();
+                        slot.GetSlotItem().ClearItemProperty();
                     }
                     break;
                 case ItemType.Inherent:

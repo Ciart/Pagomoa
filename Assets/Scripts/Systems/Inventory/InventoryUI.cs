@@ -53,8 +53,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (var i = 0; i < Inventory.MaxSlots; i++)
             {
-                Debug.Log(inventory.inventorySlots[i]);
-                Debug.Log(inventory.inventorySlots[i].GetSlotItem());
                 if (inventory.inventorySlots[i].GetSlotItem().id == "")
                     _inventoryUISlots[i].GetSlotItem().ClearItemProperty();
                 else

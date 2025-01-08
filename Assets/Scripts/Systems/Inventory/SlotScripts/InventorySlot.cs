@@ -69,7 +69,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             eventData.pointerPress.TryGetComponent<InventorySlot>(out var dragSlot);
             
-            if (id == dragSlot.id || !dragSlot) return;
+            if (!dragSlot || id == dragSlot.id) return;
             
             inventoryUI.SwapUISlot(id, dragSlot.id);
             inventory.SwapSlot(dragSlot.id, id);

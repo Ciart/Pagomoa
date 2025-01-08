@@ -58,7 +58,5 @@ namespace Ciart.Pagomoa.Systems.Inventory
             itemImage.sprite = _emptySprite;
             countText.text = "";
         }
-        
-        
     }
 }
