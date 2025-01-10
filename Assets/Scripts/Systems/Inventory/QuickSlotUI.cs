@@ -20,29 +20,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private PlayerInput _playerInput;
 
-        public void InitQuickSlots()
-        {
-            var index = 0;
-            var inventory = GameManager.instance.player.inventory;
-
-            _quickSlots = new List<QuickSlot>(Inventory.MaxQuickSlots);
-            
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).TryGetComponent<QuickSlot>(out var quickSlot);
-                if (!quickSlot) continue;
-                
-                inventory.quickSlots[index] = quickSlot;
-                inventory.quickSlots[index].id = index;
-                _quickSlots.Add(inventory.quickSlots[index]);
-                index++;
-
-                if (index == Inventory.MaxQuickSlots) break;
-            }
-            
-            Debug.Log(_quickSlots.Count);
-        }
-
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             _playerInput = e.player.GetComponent<PlayerInput>();
@@ -57,45 +34,36 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
         }
         
-        private void OnQuickSlotChanged(QuickSlotChangedEvent e)
+        public void CheckDuplication(int changedSlotID, int referenceID)
+        {
+            var inventory = GameManager.instance.player.inventory;
+            
+            foreach (var slot in _quickSlots)
+            {
+                if (!slot.referenceSlot) continue;
+                if (slot.referenceSlot.id != referenceID) continue;
+
+                if (slot.id != changedSlotID)
+                {
+                    inventory.quickItems[slot.id].SetSlotItemID("");
+                    inventory.quickItems[slot.id].SetSlotItemCount(0);
+                    slot.ResetSlot();
+                }
+            }
+        }
+        
+        private void UpdateQuickSlot(ItemCountChangedEvent e)
         {
             var inventory = GameManager.instance.player.inventory;
             
             for (int i = 0; i < Inventory.MaxQuickSlots; i++)
             {
-                _quickSlots[i].SetSlot(inventory.quickSlots[i]);
-            }
+                _quickSlots[i].SetSlot(inventory.quickItems[i]);
 
-            Debug.Log(_quickSlots.Count);
-            
-            if (e.dependentID is -1 || e.quickSlotID is -1) return;
-            
-            foreach (var slot in _quickSlots)
-            {
-                if (!slot.referenceSlot) continue;
-                if (slot.referenceSlot.id == e.dependentID)
-                {
-                    if (slot.id == e.quickSlotID) continue;
-                    
-                    slot.ResetSlot();
-                }
+                if (!_quickSlots[i].referenceSlot) continue;
+                if (_quickSlots[i].referenceSlot.slot.GetSlotItemID() == "")
+                    _quickSlots[i].ResetSlot();
             }
-            
-            Debug.Log(_quickSlots.Count);
-        }
-        
-        private void OnItemCountChanged(ItemCountChangedEvent e)
-        {
-            var inventoryItem = e;
-            
-            Debug.Log(_quickSlots.Count);
-
-            foreach (var slot in _quickSlots)
-            {
-                if (inventoryItem.item.id == slot.GetSlotItem().id)
-                    slot.SetSlotItemCount(inventoryItem.count);
-            }
-            Debug.Log(_quickSlots.Count);
         }
         
         private void UseQuickSlot()
@@ -109,18 +77,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var index = chosenSlot.id + 1;
             var playerInput = _playerInput.Actions.UseQuickSlot;
             
+            var inventory = GameManager.instance.player.inventory;
+            
             foreach (var input in playerInput.controls)
             {
                 if (!input.IsPressed()) continue;
 
-                if (input.displayName == displayInput || input.name == nameInput)
+                if (input.displayName == displayInput 
+                    || input.name == nameInput 
+                    || input.displayName == index.ToString())
                 {
-                    GameManager.instance.player.inventory.UseQuickSlotItem(chosenSlot.id);
-                } 
-                if (input.displayName == index.ToString())
-                {
-                    GameManager.instance.player.inventory.UseQuickSlotItem(chosenSlot.id);
+                    
+                    inventory.UseQuickSlotItem(chosenSlot.id);
+                    break;
                 }
+            }
+            
+            if (!_quickSlots[chosenSlot.id].referenceSlot) return;
+            _quickSlots[chosenSlot.id].referenceSlot.SetSlot(inventory.quickItems[chosenSlot.id]);
+            _quickSlots[chosenSlot.id].SetSlot(inventory.quickItems[chosenSlot.id]);
+            
+            if (_quickSlots[chosenSlot.id].slot.GetSlotItemID() == "")
+            {
+                _quickSlots[chosenSlot.id].ResetSlot();
+                _quickSlots[chosenSlot.id].referenceSlot = null;
             }
         }
         
@@ -148,18 +128,37 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
         }
         
+        public void InitQuickSlots()
+        {
+            var index = 0;
+            var inventory = GameManager.instance.player.inventory;
+
+            _quickSlots = new List<QuickSlot>(Inventory.MaxQuickSlots);
+            
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).TryGetComponent<QuickSlot>(out var quickSlot);
+                if (!quickSlot) continue;
+                
+                quickSlot.id = index; 
+                quickSlot.SetSlot(inventory.quickItems[index]);
+                _quickSlots.Add(quickSlot);
+                index++;
+
+                if (index == Inventory.MaxQuickSlots) break;
+            }
+        }
+        
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.AddListener<QuickSlotChangedEvent>(OnQuickSlotChanged);
-            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventManager.AddListener<ItemCountChangedEvent>(UpdateQuickSlot);
         }
         
         private void OnDisable()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.RemoveListener<QuickSlotChangedEvent>(OnQuickSlotChanged);
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventManager.RemoveListener<ItemCountChangedEvent>(UpdateQuickSlot);
         }
     }
 }

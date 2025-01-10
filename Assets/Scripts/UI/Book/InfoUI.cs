@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.UI.Book
             {
                 var need = nextDrill.upgradeNeeds[i];
 
-                if (e.item == need.mineral)
+                if (e.itemID == need.mineral.id)
                 {
                     texts[i].text = $"{need.mineral.name} ({e.count} / {need.count})";
                 }

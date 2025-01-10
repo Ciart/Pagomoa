@@ -16,10 +16,10 @@ namespace Ciart.Pagomoa
         
         public void UpdateItemInfo(InventorySlot slot)
         {
-            _itemName.text = slot.GetSlotItem().name;
-            _itemInfo.text = slot.GetSlotItem().description;
-            _itemType.text = slot.GetSlotItem().type.ToString();
-            _itemCount.text = $"보유량 : {slot.GetSlotItemCount().ToString()}";
+            _itemName.text = slot.slot.GetSlotItem().name;
+            _itemInfo.text = slot.slot.GetSlotItem().description;
+            _itemType.text = slot.slot.GetSlotItem().type.ToString();
+            _itemCount.text = $"보유량 : {slot.slot.GetSlotItemCount().ToString()}";
         }
 
         public Vector2 GetPositionOffSet()

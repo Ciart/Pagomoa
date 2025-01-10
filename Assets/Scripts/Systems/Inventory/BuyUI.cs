@@ -37,15 +37,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (shopUI.GetShopItems()[i].type == ItemType.Equipment)
                 {
                     var spawnedSlot = Instantiate(instanceArtifactSlot, artifactPanel.transform);
-                    spawnedSlot.GetSlotItem().type = ItemType.Equipment;
-                    artifactSlots.Add(spawnedSlot);
+                    
                     spawnedSlot.gameObject.SetActive(true);
+                    artifactSlots.Add(spawnedSlot);
                 }
                 else if (shopUI.GetShopItems()[i].type == ItemType.Use)
                 {
                     var spawnedSlot = Instantiate(instanceBuySlot, consumableItemsPanel.transform);
-                    consumptionSlots.Add(spawnedSlot);
+                    
                     spawnedSlot.gameObject.SetActive(true);
+                    consumptionSlots.Add(spawnedSlot);
                 }
             }
             SetItemToBuySlot();
@@ -61,12 +62,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (shopItem.type == ItemType.Equipment)
                 {
-                    artifactSlots[equipIndex].SetSlotItem(shopItem);
+                    artifactSlots[equipIndex].buySlot.SetSlotItemID(shopItem.id);
+                    artifactSlots[equipIndex].buySlot.GetSlotItem().type = ItemType.Equipment;
+                    
                     equipIndex++;
                 }
                 else if (shopItem.type == ItemType.Use)
                 {
-                    consumptionSlots[useIndex].SetSlotItem(shopItem);
+                    consumptionSlots[useIndex].buySlot.SetSlotItemID(shopItem.id);
                     
                     useIndex++;
                 }
@@ -111,12 +114,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SoldOut()
         {
-            var artifactSlot = UIManager.instance.shopUI.chosenSlot as BuyArtifactSlot;
-            
-            artifactSlot.artifactCount.text = artifactSlot.GetSlotItemCount().ToString();
-            
-            artifactSlot.soldOut.SetActive(true);
-            artifactSlot.artifactSlotButton.interactable = false;
+            var chosenSlot = UIManager.instance.shopUI.chosenSlot;
+
+            foreach (var artifact in artifactSlots)
+            {
+                if (artifact.buySlot.GetSlotItem().id == chosenSlot.GetSlotItem().id)
+                {
+                    artifact.artifactCount.text = chosenSlot.GetSlotItemCount().ToString();
+                    
+                    artifact.soldOut.SetActive(true);
+                    artifact.artifactSlotButton.interactable = false;
+                }
+            }
         }
     }
 }

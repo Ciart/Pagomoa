@@ -5,18 +5,23 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class InventorySlot : Slot, IDropHandler
+    public class InventorySlot : MonoBehaviour, IDropHandler
     {
+        public Slot slot { get; private set; }
+
+        public void InitSlot() { slot = new Slot(); }
+        
         [Header("인벤토리 슬롯 변수")]
         public Image itemImage;
         public TextMeshProUGUI countText;
-        public int id;
+        public int id = 0;
+        public int referenceSlotID = 0;
         
         public ClickToSlot clickToSlot { get; private set; }
 
         private void Awake()
         {
-            SetSlotType(SlotType.Inventory);
+            slot.SetSlotType(SlotType.Inventory);
             clickToSlot = GetComponent<ClickToSlot>();
         }
 
@@ -27,10 +32,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             inventoryUI.chosenSlot = this;
 
-            if (inventory.inventorySlots[inventoryUI.chosenSlot.id] == null)
-                return;
+            if (inventory.inventoryItems[inventoryUI.chosenSlot.id] == null) return;
 
-            var item = inventory.inventorySlots[inventoryUI.chosenSlot.id].GetSlotItem();
+            var item = inventory.inventoryItems[inventoryUI.chosenSlot.id].GetSlotItem();
                 
             inventory.Add(item, 0);
             inventoryUI.UpdateSlots();
@@ -39,22 +43,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         
         // summary : SetItem 기능을 이어 받아 아이템 세팅에 이용되는 함수
-        public override void SetSlot(Slot slot)
+        public void SetSlot(Slot targetSlot)
         {
-            if (slot.GetSlotItem().id != "")
+            if (targetSlot.GetSlotItemID() == "")
             {
-                SetSlotItem(slot.GetSlotItem());
-                SetSlotItemCount(slot.GetSlotItemCount());
-                itemImage.sprite = slot.GetSlotItem().sprite;
-                countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();
-            }
-            else
-            {
-                itemImage.sprite = null;
-                countText.text = "";
-                GetSlotItem().ClearItemProperty();
-                SetSlotItemCount(0);
+                ResetSlot();
+                slot.SetSlotItemID("");
+                slot.SetSlotItemCount(0);
             } 
+            else if (targetSlot.GetSlotItemID() != "")
+            {
+                slot.SetSlotItemID(targetSlot.GetSlotItemID());
+                slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
+                
+                itemImage.sprite = targetSlot.GetSlotItem().sprite;
+                countText.text = targetSlot.GetSlotItemCount() == 0 ? "" : targetSlot.GetSlotItemCount().ToString();
+            }
         }
 
         public void ResetSlot()
@@ -73,6 +77,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             inventoryUI.SwapUISlot(id, dragSlot.id);
             inventory.SwapSlot(dragSlot.id, id);
+            
+            Debug.Log(inventory.inventoryItems[dragSlot.id].GetSlotItem() + " " + dragSlot.id);
         }
     }
 }

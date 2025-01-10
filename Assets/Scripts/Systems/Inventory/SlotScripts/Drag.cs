@@ -20,13 +20,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var dragSlot = UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
 
-            if (dragSlot.GetSlotItem().id == "")
+            if (dragSlot.slot.GetSlotItemID() == "")
             {
                 UIManager.instance.bookUI.GetInventoryUI().chosenSlot = null;
                 return;
             }
             
-            DragItem.instance.DragSetImage(dragSlot.GetSlotItem().sprite);
+            DragItem.instance.DragSetImage(dragSlot.slot.GetSlotItem().sprite);
             DragItem.instance.transform.position = eventData.position;
         }
 

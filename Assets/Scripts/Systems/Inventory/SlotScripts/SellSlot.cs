@@ -8,8 +8,10 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class SellSlot : Slot
+    public class SellSlot : MonoBehaviour
     {
+        public Slot sellSlot { get; private set; }
+        
         [Header("판매 슬롯 변수")]
         public Image itemImage;
         public TextMeshProUGUI countText;
@@ -17,25 +19,25 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Awake()
         {
-            SetSlotType(SlotType.Sell);
+            sellSlot = new Slot();
+            sellSlot.SetSlotType(SlotType.Sell);
         }
         
-        public override void SetSlot(Slot slot)
+        public void SetSlot(Slot? slot)
         {
-            if (slot.GetSlotItem().id != "")
+            if (slot == null)
             {
-                SetSlotItem(slot.GetSlotItem());
-                SetSlotItemCount(slot.GetSlotItemCount());
-                itemImage.sprite = slot.GetSlotItem().sprite;
-                countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();
+                ResetSlot();
+                sellSlot.SetSlotItemID("");
+                sellSlot.SetSlotItemCount(0);   
             }
-            else
+            else if (slot.GetSlotItem().id != "")
             {
-                itemImage.sprite = null;
-                countText.text = "";
-                GetSlotItem().ClearItemProperty();
-                SetSlotItemCount(0);
-            } 
+                sellSlot.SetSlotItemID(slot.GetSlotItem().id);
+                sellSlot.SetSlotItemCount(slot.GetSlotItemCount());
+                itemImage.sprite = slot.GetSlotItem().sprite;
+                countText.text = sellSlot.GetSlotItemCount() == 0 ? "" : sellSlot.GetSlotItemCount().ToString();
+            }
         }
 
         public void ResetSlot()
@@ -48,7 +50,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var shopUI = UIManager.instance.shopUI;
             
-            shopUI.chosenSlot = this;
+            shopUI.chosenSlot = sellSlot;
 
             var inventoryItem = shopUI.chosenSlot.GetSlotItem();
             if (inventoryItem.id == "")
@@ -58,7 +60,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 inventoryItem.type == ItemType.Mineral)
             {
                 UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
-                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(GetSlotType());
+                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(sellSlot.GetSlotType());
                 UIManager.instance.shopUI.GetShopChat().SellPriceToChat(inventoryItem.price);
             }
         }

@@ -14,36 +14,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private RectTransform inventorySlotParent;
         [SerializeField] private InventorySlot InstanceInventorySlot;
         private List<InventorySlot> _inventoryUISlots = new List<InventorySlot>();
-        
-        private const int MaxArtifactSlotData = 4;
-        public InventorySlot[] artifactSlotData = new InventorySlot[MaxArtifactSlotData];
+        public InventorySlot[] artifactSlotData = new InventorySlot[Inventory.MaxArtifactSlots];
         
         private void OnItemCountChanged(ItemCountChangedEvent e) { UpdateSlots(); }
 
-        private void OnEnable()
-        {
-            UpdateSlots();
-            
-            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
-        }
-
-        private void OnDisable()
-        {
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
-        }
-
         public void InitInventorySlots() // slotData 갯수만큼 슬롯 만들기
         {
-            var inventory = GameManager.instance.player.inventory;
-            
             for (int i = 0; i < Inventory.MaxSlots; i++)
             {
                 var spawnedSlot = Instantiate(InstanceInventorySlot, inventorySlotParent.transform);
-                inventory.inventorySlots[i] = spawnedSlot.GetComponent<InventorySlot>();
-                _inventoryUISlots.Add(inventory.inventorySlots[i]);
+                spawnedSlot.InitSlot();
+                _inventoryUISlots.Add(spawnedSlot);
                 _inventoryUISlots[i].id = i;
                 spawnedSlot.gameObject.SetActive(true);
             }
+            GameManager.instance.player.inventory.InitSlots();
             UpdateSlots();
         }
         
@@ -53,12 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (var i = 0; i < Inventory.MaxSlots; i++)
             {
-                if (inventory.inventorySlots[i].GetSlotItem().id == "")
-                    _inventoryUISlots[i].GetSlotItem().ClearItemProperty();
-                else
-                {
-                    _inventoryUISlots[i].SetSlot(inventory.inventorySlots[i]);
-                }
+                _inventoryUISlots[i].SetSlot(inventory.inventoryItems[i]);
             }
         }
         
@@ -68,7 +48,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
-                artifactSlotData[i].SetSlot(inventory.artifactItems[i]);
+                //artifactSlotData[i].SetSlot(inventory.artifactItems[i].s);
             }
         }
 
@@ -98,7 +78,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
 
             (_inventoryUISlots[dragID], _inventoryUISlots[targetID]) =
-                (_inventoryUISlots[targetID], _inventoryUISlots[dragID]);  
+                (_inventoryUISlots[targetID], _inventoryUISlots[dragID]);
+
+            for (int i = 0; i < Inventory.MaxSlots; i++)
+            {
+                _inventoryUISlots[i].id = i;
+            }
+        }
+        
+        private void OnEnable()
+        {
+            UpdateSlots();
+            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
     }
 }

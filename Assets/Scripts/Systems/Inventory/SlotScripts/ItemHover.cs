@@ -10,19 +10,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (eventData.pointerEnter.TryGetComponent(out InventorySlot slot))
+            if (eventData.pointerEnter.TryGetComponent(out InventorySlot inventorySlot))
             {
-                if (slot.GetSlotItem().id == "") return;
+                if (inventorySlot.slot.GetSlotItemID() == "") return;
                 
                 var hover = UIManager.instance.bookUI.GetHoverItemInfo();
                 
                 var newPosition = new Vector2(
-                    slot.transform.position.x + hover.GetPositionOffSet().x
-                    , slot.transform.position.y - hover.GetPositionOffSet().y);
+                    inventorySlot.transform.position.x + hover.GetPositionOffSet().x
+                    , inventorySlot.transform.position.y - hover.GetPositionOffSet().y);
                 
                 hover.gameObject.SetActive(true);
                 hover.transform.position = newPosition;
-                hover.UpdateItemInfo(slot);
+                hover.UpdateItemInfo(inventorySlot);
             }
         }
         public void OnPointerExit(PointerEventData eventData)

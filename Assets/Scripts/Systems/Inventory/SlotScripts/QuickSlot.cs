@@ -11,48 +11,49 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class QuickSlot : Slot
+    public class QuickSlot : MonoBehaviour
     {
+        public Slot slot { get; private set; }
         [Header("퀵슬롯 변수")]
         public Image slotImage;
         [SerializeField] public Image itemImage;
         
         [SerializeField] private Sprite _emptySprite;
         [SerializeField] private TextMeshProUGUI countText;
-        
+
         public int id;
         public InventorySlot? referenceSlot; 
 
         private void Awake()
         {
-            SetSlotType(SlotType.Quick);
+            slot = new Slot(); 
+            slot.SetSlotType(SlotType.Quick);
             slotImage = GetComponent<Image>();
             countText.color = new Color(1, 1, 1, 255);
         }
         
-        public override void SetSlot(Slot slot)
+        public void SetSlot(Slot targetSlot)
         {
-            if (slot.GetSlotItem().id != "")
+            if (targetSlot.GetSlotItemID() == "")
             {
-                SetSlotItem(slot.GetSlotItem());
-                SetSlotItemCount(slot.GetSlotItemCount());
-                itemImage.sprite = slot.GetSlotItem().sprite;
-                countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();
-            }
-            else
-            {
-                itemImage.sprite = _emptySprite;
-                countText.text = "";
-                GetSlotItem().ClearItemProperty();
-                SetSlotItemCount(0);
+                ResetSlot();
             } 
+            else if (targetSlot.GetSlotItemID() != "")
+            {
+                slot.SetSlotItemID(targetSlot.GetSlotItem().id);
+                slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
+                referenceSlot.slot.SetSlotItemID(targetSlot.GetSlotItemID());
+                referenceSlot.slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
+                
+                itemImage.sprite = targetSlot.GetSlotItem().sprite;
+                countText.text = targetSlot.GetSlotItemCount() == 0 ? "" : targetSlot.GetSlotItemCount().ToString();
+            }
         }
         
         public void ResetSlot()
         {
-            var emptyItem = new Item();
-            SetSlotItem(emptyItem);
-            SetSlotItemCount(0);
+            slot.SetSlotItemID("");
+            slot.SetSlotItemCount(0);
             referenceSlot = null;
             
             itemImage.sprite = _emptySprite;

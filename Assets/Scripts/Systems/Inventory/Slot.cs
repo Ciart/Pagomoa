@@ -14,20 +14,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         Sell,
     }
     
-    public class Slot : MonoBehaviour
+    public class Slot
     {
-        [SerializeField] private SlotType _type;
+        private SlotType _type = SlotType.None;
         public SlotType GetSlotType() => _type;
-        protected void SetSlotType(SlotType type) => _type = type;
+        public void SetSlotType(SlotType type) => _type = type;
 
-        [SerializeField] private Item? _item;
-        public Item GetSlotItem() { return _item; }
-        public void SetSlotItem(Item item) => _item = item;
+        private string _itemID = "";
+        public string GetSlotItemID() => _itemID;
+        public void SetSlotItemID(string itemID) => _itemID = itemID;
+        public Item GetSlotItem() { return ResourceSystem.instance.GetItem(_itemID); }
         
-        [SerializeField] private int _itemCount;
+        private int _itemCount = 0;
         public int GetSlotItemCount() { return _itemCount; }
         public void SetSlotItemCount(int itemCount) => _itemCount = itemCount;
-
-        public virtual void SetSlot(Slot slot) { }
     }
 }

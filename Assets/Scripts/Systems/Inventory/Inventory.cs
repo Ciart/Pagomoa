@@ -16,13 +16,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public int maxCount;
         
         public const int MaxQuickSlots = 6;
-        public QuickSlot[] quickSlots = new QuickSlot[MaxQuickSlots];
+        public Slot[] quickItems = new Slot[MaxQuickSlots];
         
         public const int MaxArtifactSlots = 4;
         public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactSlots];
         
         public const int MaxSlots = 36;
-        public InventorySlot[] inventorySlots = new InventorySlot[MaxSlots];
+        public Slot[] inventoryItems = new Slot[MaxSlots];
         
         private void Awake()
         {
@@ -30,17 +30,36 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.AddListener<AddGold>(ChangeGold);
         }
         
+        // 초기 인벤토리 초기화
+        public void InitSlots()
+        {
+            for (int i = 0; i < MaxQuickSlots; i++)
+            {
+                quickItems[i] = new Slot();
+                quickItems[i].SetSlotType(SlotType.Quick);
+            } 
+            
+            for(int i = 0; i < MaxArtifactSlots; i++) {}
+
+            for (int i = 0; i < MaxSlots; i++)
+            {
+                inventoryItems[i] = new Slot();
+                inventoryItems[i].SetSlotType(SlotType.Inventory);
+            }
+                
+        }
+        
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
         private void AddReward(AddReward e) { Add(e.item, e.itemCount); }
         private void AddGold(int addGold) { gold += addGold; }
         
 
-        public void UseQuickSlotItem(int slotIndex)
+        public void UseQuickSlotItem(int slotID)
         {
-            var slot = quickSlots[slotIndex];
+            var slot = quickItems[slotID];
             
-            if (slot.GetSlotItem().id == "") return;
-            Debug.Log("in2");
+            if (slot.GetSlotItemID() == "") return;
+            
             var count = slot.GetSlotItemCount() - 1;
             
             switch (slot.GetSlotItem().type)
@@ -48,23 +67,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 case ItemType.Use:
                     if (count > 0)
                     {
-                        Debug.Log("in3");
                         slot.GetSlotItem().DisplayUseEffect();
-                        
                         slot.SetSlotItemCount(count);
-                        
-                        slot.referenceSlot.SetSlot(slot);
-                        slot.SetSlot(slot.referenceSlot);
+                        Debug.Log(slot.GetSlotItemCount());
                     }
                     else
                     {
                         slot.GetSlotItem().DisplayUseEffect();                        
-                        
-                        slot.referenceSlot.ResetSlot();
-                        slot.referenceSlot.GetSlotItem().ClearItemProperty();
-                        
-                        slot.ResetSlot();
-                        slot.GetSlotItem().ClearItemProperty();
+                        slot.SetSlotItemID("");
+                        slot.SetSlotItemCount(0);
                     }
                     break;
                 case ItemType.Inherent:
@@ -78,61 +89,43 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public void Equip(Item data)
         {
-            int idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem() == data);
+            int idx = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
             
             if (idx != -1)
             {
-                InventorySlot item = inventorySlots[idx];
+                var item = inventoryItems[idx];
                 
                 if (item.GetSlotItemCount() == 0)
                     DecreaseItemCount(data);
             }
         }
         
-        public void AddArtifactData(Item data)
-        {
-            for (int i = 0; i < artifactItems.Length; i++)
-            {
-                if (artifactItems[i].GetSlotItem().type == ItemType.None)
-                {
-                    artifactItems[i].SetSlotItem(data);
-                    break;
-                }
-            }
-        }
+        public void AddArtifactData(Item data) { }
         
-        public void RemoveArtifactData(Item data)
-        {
-            int idx = Array.FindIndex(artifactItems, element => element.GetSlotItem().id == data.id);
-            
-            if (idx != -1)
-            {
-                artifactItems[idx].GetSlotItem().ClearItemProperty();
-            }
-        }
+        public void RemoveArtifactData(Item data) { }
         
         public void Add(Item data, int count = 1)
         {
-            int index = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
+            int index = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
         
             if (index < 0) // 아이템이 인벤토리에 존재하지 않을때
             {
                 for (int i = 0; i < MaxSlots; i++)
                 {
-                    if (inventorySlots[i].GetSlotItem().id != "") continue;
+                    if (inventoryItems[i].GetSlotItemID() != "") continue;
                     
-                    inventorySlots[i].SetSlotItem(data);
-                    inventorySlots[i].SetSlotItemCount(count);
-                    EventManager.Notify(new ItemCountChangedEvent(inventorySlots[i].GetSlotItem(), inventorySlots[i].GetSlotItemCount()));
+                    inventoryItems[i].SetSlotItemID(data.id);
+                    inventoryItems[i].SetSlotItemCount(count);
+                    EventManager.Notify(new ItemCountChangedEvent(inventoryItems[i].GetSlotItemID(), inventoryItems[i].GetSlotItemCount()));
                     break;
                 }
             }
             else // 아이템이 인벤토리에 존재할때
             {
-                var itemCount = inventorySlots[index].GetSlotItemCount() + count;
-                inventorySlots[index].SetSlotItemCount(itemCount);
+                var itemCount = inventoryItems[index].GetSlotItemCount() + count;
+                inventoryItems[index].SetSlotItemCount(itemCount);
                 
-                EventManager.Notify(new ItemCountChangedEvent(inventorySlots[index].GetSlotItem(), inventorySlots[index].GetSlotItemCount()));
+                EventManager.Notify(new ItemCountChangedEvent(inventoryItems[index].GetSlotItemID(), inventoryItems[index].GetSlotItemCount()));
             }
         }
         
@@ -146,54 +139,50 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void DecreaseItemCount(Item data)
         {
-            var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
-            var count = inventorySlots[idx].GetSlotItemCount();
+            var idx = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
+            var count = inventoryItems[idx].GetSlotItemCount();
             
             if (idx == -1) return;
             
             if (count >= 1)
             {
-                inventorySlots[idx].SetSlotItemCount(count - 1);
+                inventoryItems[idx].SetSlotItemCount(count - 1);
             }
 
             if (count == 0)
             {
-                inventorySlots[idx].GetSlotItem().ClearItemProperty();
-                inventorySlots[idx].ResetSlot();
+                inventoryItems[idx].SetSlotItemID("");
+                inventoryItems[idx].SetSlotItemCount(0);
             }
             
             // Todo : 퀵슬롯 검색해서 인벤토리 슬롯과 동기화
             
-            EventManager.Notify(new ItemCountChangedEvent(data, inventorySlots[idx].GetSlotItemCount()));
+            EventManager.Notify(new ItemCountChangedEvent(data.id, inventoryItems[idx].GetSlotItemCount()));
         }
         
         public void RemoveItemData(Item data)
         {
-            var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem().id == data.id);
+            var idx = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
             
             if (idx == -1) return;
             
-            inventorySlots[idx].GetSlotItem().ClearItemProperty();
-            inventorySlots[idx].SetSlotItemCount(0);
+            inventoryItems[idx].GetSlotItem().ClearItemProperty();
+            inventoryItems[idx].SetSlotItemCount(0);
             
-            EventManager.Notify(new ItemCountChangedEvent(inventorySlots[idx].GetSlotItem(), inventorySlots[idx].GetSlotItemCount()));
+            EventManager.Notify(new ItemCountChangedEvent(inventoryItems[idx].GetSlotItemID(), inventoryItems[idx].GetSlotItemCount()));
         }
 
         public void SwapSlot(int dropID, int targetID)
         {
-            var toTargetSlot = dropID;
-            var toDropSlot = targetID;
-            (inventorySlots[dropID], inventorySlots[targetID]) = (inventorySlots[targetID], inventorySlots[dropID]);
-            inventorySlots[dropID].id = toTargetSlot;
-            ;inventorySlots[targetID].id = toDropSlot;
+            (inventoryItems[dropID], inventoryItems[targetID]) = (inventoryItems[targetID], inventoryItems[dropID]);
         }
         
         public int GetItemCount(Item data)
         {
-            var idx = Array.FindIndex(inventorySlots, element => element.GetSlotItem() == data);
+            var idx = Array.FindIndex(inventoryItems, element => element.GetSlotItem() == data);
 
             if (idx != -1)
-                return inventorySlots[idx].GetSlotItemCount();
+                return inventoryItems[idx].GetSlotItemCount();
             
             return 0;
         }

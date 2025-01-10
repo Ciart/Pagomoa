@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI;
 using Cinemachine;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 namespace Ciart.Pagomoa
 {
