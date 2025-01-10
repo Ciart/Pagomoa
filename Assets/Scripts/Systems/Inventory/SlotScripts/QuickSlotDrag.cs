@@ -63,16 +63,24 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void ThatDropIsInventorySlot(ref InventorySlot droppedInventorySlot)
         {
-            if (droppedInventorySlot.slot.GetSlotItem().id == "") return;
-
+            if (droppedInventorySlot.slot.GetSlotItemID() == "") return;
+            
             var inventory = GameManager.instance.player.inventory;
+            
             inventory.quickItems[quickSlot.id].SetSlotItemID(droppedInventorySlot.slot.GetSlotItemID());
             inventory.quickItems[quickSlot.id].SetSlotItemCount(droppedInventorySlot.slot.GetSlotItemCount());
+
+            var beforeRefID = droppedInventorySlot.referenceSlotID; 
             
-            quickSlot.referenceSlot = droppedInventorySlot;
+            if (beforeRefID >= 0)
+            {
+                inventory.quickItems[beforeRefID].SetSlotItemID("");
+                inventory.quickItems[beforeRefID].SetSlotItemCount(0);
+            }
+            
             quickSlot.SetSlot(droppedInventorySlot.slot);
-            
-            UIManager.instance.quickSlotUI.CheckDuplication(quickSlot.id, quickSlot.referenceSlot.id);
+            droppedInventorySlot.referenceSlotID = quickSlot.id;
+            UIManager.instance.quickSlotUI.UpdateQuickSlot();
         }
 
         private void ThatDropIsQuickSlot(QuickSlot droppedQuickSlot)
@@ -81,19 +89,21 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (quickSlot.slot.GetSlotItemID() == "")
             {
-                quickSlot.referenceSlot = droppedQuickSlot.referenceSlot;
                 quickSlot.SetSlot(droppedQuickSlot.slot);
             
                 droppedQuickSlot.ResetSlot();    
             }
             else if (quickSlot.slot.GetSlotItemID() != "")
             {
-                (quickSlot.referenceSlot, droppedQuickSlot.referenceSlot) 
-                    = (droppedQuickSlot.referenceSlot, quickSlot.referenceSlot);
+                var tempSlot = new Slot();
+                tempSlot = quickSlot.slot;
                 
-                quickSlot.SetSlot(quickSlot.referenceSlot.slot);
-                droppedQuickSlot.SetSlot(droppedQuickSlot.referenceSlot.slot);
+                quickSlot.SetSlot(droppedQuickSlot.slot);
+                droppedQuickSlot.SetSlot(tempSlot);
             }
+            
+            UIManager.instance.bookUI.GetInventoryUI().ChangeReferenceSlotID(quickSlot.id, droppedQuickSlot.id);
+            UIManager.instance.bookUI.GetInventoryUI().ChangeReferenceSlotID(droppedQuickSlot.id, quickSlot.id);
             
             (inventory.quickItems[quickSlot.id], inventory.quickItems[droppedQuickSlot.id])
                 = (inventory.quickItems[droppedQuickSlot.id], inventory.quickItems[quickSlot.id]);

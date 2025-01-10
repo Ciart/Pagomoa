@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private List<InventorySlot> _inventoryUISlots = new List<InventorySlot>();
         public InventorySlot[] artifactSlotData = new InventorySlot[Inventory.MaxArtifactSlots];
         
-        private void OnItemCountChanged(ItemCountChangedEvent e) { UpdateSlots(); }
+        private void OnItemCountChanged(ItemCountChangedEvent e) { UpdateInventorySlot(); }
 
         public void InitInventorySlots() // slotData 갯수만큼 슬롯 만들기
         {
@@ -29,17 +29,26 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 spawnedSlot.gameObject.SetActive(true);
             }
             GameManager.instance.player.inventory.InitSlots();
-            UpdateSlots();
+            UpdateInventorySlot();
         }
         
-        public void UpdateSlots() // List안의 Item 전체 인벤토리에 출력
+        public void UpdateInventorySlot() // List안의 Item 전체 인벤토리에 출력
         {
             var inventory = GameManager.instance.player.inventory;
+            var quickSlotUI = UIManager.instance.quickSlotUI;
+            
+            var hasQuickSlot = false;
             
             for (var i = 0; i < Inventory.MaxSlots; i++)
             {
                 _inventoryUISlots[i].SetSlot(inventory.inventoryItems[i]);
+                if (_inventoryUISlots[i].referenceSlotID != -1)
+                {
+                    hasQuickSlot = true;   
+                }
             }
+            
+            if (hasQuickSlot) quickSlotUI.UpdateQuickSlot();
         }
         
         public void SetArtifactSlots()
@@ -49,6 +58,33 @@ namespace Ciart.Pagomoa.Systems.Inventory
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
                 //artifactSlotData[i].SetSlot(inventory.artifactItems[i].s);
+            }
+        }
+
+        public void UpdateInventorySlotByQuickSlotID(int quickSlotID)
+        {
+            var inventoryItems = GameManager.instance.player.inventory.inventoryItems;
+            
+            foreach (var slotUI in _inventoryUISlots)
+            {
+                if (slotUI.referenceSlotID != quickSlotID) continue;
+                
+                var itemCount = inventoryItems[slotUI.id].GetSlotItemCount() - 1;
+                inventoryItems[slotUI.id].SetSlotItemCount(itemCount);
+                
+                if (itemCount == 0)
+                    inventoryItems[slotUI.id].SetSlotItemID("");
+            }
+            
+            UpdateInventorySlot();
+        }
+        
+        public void ChangeReferenceSlotID(int beforeID, int toChangeID = 0)
+        {
+            foreach (var slot in _inventoryUISlots)
+            {
+                if (slot.id == beforeID) 
+                    slot.id = toChangeID;
             }
         }
 
@@ -79,7 +115,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             (_inventoryUISlots[dragID], _inventoryUISlots[targetID]) =
                 (_inventoryUISlots[targetID], _inventoryUISlots[dragID]);
-
+            
             for (int i = 0; i < Inventory.MaxSlots; i++)
             {
                 _inventoryUISlots[i].id = i;
@@ -88,7 +124,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void OnEnable()
         {
-            UpdateSlots();
+            UpdateInventorySlot();
             EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
 

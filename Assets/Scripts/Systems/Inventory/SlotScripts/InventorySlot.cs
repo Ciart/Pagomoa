@@ -14,8 +14,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [Header("인벤토리 슬롯 변수")]
         public Image itemImage;
         public TextMeshProUGUI countText;
-        public int id = 0;
-        public int referenceSlotID = 0;
+        public int id;
+        public int referenceSlotID = -1;
         
         public ClickToSlot clickToSlot { get; private set; }
 
@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var item = inventory.inventoryItems[inventoryUI.chosenSlot.id].GetSlotItem();
                 
             inventory.Add(item, 0);
-            inventoryUI.UpdateSlots();
+            inventoryUI.UpdateInventorySlot();
             inventory.RemoveArtifactData(item);
             inventoryUI.SetArtifactSlots();
         }
@@ -65,6 +65,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             itemImage.sprite = null;
             countText.text = "";
+            referenceSlotID = -1;
         }
         
         public void OnDrop(PointerEventData eventData)

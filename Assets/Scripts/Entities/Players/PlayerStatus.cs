@@ -201,7 +201,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             var count = deleteItems.Count;
             for (int i = 0; i < count; i++)
-                inventory.RemoveItemData(ResourceSystem.instance.GetItem(deleteItems[i]));
+                inventory.RemoveInventoryItem(ResourceSystem.instance.GetItem(deleteItems[i]));
         }
 
         private void NextDay()

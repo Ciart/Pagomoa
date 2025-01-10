@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         [SerializeField] private StoneCount stoneCount;
 
-        private InventorySlot slot => GetComponent<InventorySlot>();
+        private InventorySlot inventorySlot => GetComponent<InventorySlot>();
         
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -26,9 +26,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             var rightClickMenu = UIManager.instance.bookUI.GetRightClickMenu();
             rightClickMenu.DeleteMenu();
-            rightClickMenu.transform.position = slot.transform.position;
+            rightClickMenu.transform.position = inventorySlot.transform.position;
             
-            inventoryUI.chosenSlot = slot;
+            inventoryUI.chosenSlot = inventorySlot;
             var choiceSlot = inventory.inventoryItems[inventoryUI.chosenSlot.id];
             var itemType = choiceSlot.GetSlotItem().type;
             
@@ -68,7 +68,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 {
                     inventory.SellItem(inventory.inventoryItems[targetID].GetSlotItem());
                 }
-                UIManager.instance.bookUI.GetInventoryUI().UpdateSlots();
+                UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
             }
         }
         public void EquipItem()
@@ -81,7 +81,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 /*inventoryUI.ResetInventoryUI();*/
                 inventory.AddArtifactData(inventoryUI.chosenSlot.slot.GetSlotItem());
                 inventory.Equip(inventoryUI.chosenSlot.slot.GetSlotItem());
-                inventoryUI.UpdateSlots();
+                inventoryUI.UpdateInventorySlot();
                 inventoryUI.SetArtifactSlots();
             }
             
@@ -103,9 +103,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     EventManager.Notify(new ItemUsedEvent(inventory.inventoryItems[targetID].GetSlotItem(), mineralCount));
                 }
                 else if(inventory.inventoryItems[targetID].GetSlotItemCount() == mineralCount)
-                    inventory.RemoveItemData(UIManager.instance.bookUI.GetInventoryUI().chosenSlot.slot.GetSlotItem());
+                    inventory.RemoveInventoryItem(UIManager.instance.bookUI.GetInventoryUI().chosenSlot.slot.GetSlotItem());
                 /*UIManager.instance.bookUI.GetInventoryUI().ResetInventoryUI();*/
-                UIManager.instance.bookUI.GetInventoryUI().UpdateSlots();
+                UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
                 stoneCount.UpCount(mineralCount);
             }
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
@@ -126,10 +126,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     EventManager.Notify(new ItemUsedEvent(inventory.inventoryItems[targetID].GetSlotItem(), mineralCount));
                 }
                 else if (inventory.inventoryItems[targetID].GetSlotItemCount() == mineralCount)
-                    inventory.RemoveItemData(inventory.inventoryItems[targetID].GetSlotItem());
+                    inventory.RemoveInventoryItem(inventory.inventoryItems[targetID].GetSlotItem());
                 
                 /*UIManager.instance.bookUI.GetInventoryUI().ResetInventoryUI();*/
-                UIManager.instance.bookUI.GetInventoryUI().UpdateSlots();
+                UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
                 stoneCount.UpCount(mineralCount);
             }
             
@@ -145,8 +145,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.Notify(
                 new ItemUsedEvent(inventory.inventoryItems[inventoryUI.chosenSlot.id].GetSlotItem(), count));
             stoneCount.UpCount(count);
-            inventory.RemoveItemData(inventoryUI.chosenSlot.slot.GetSlotItem());
-            inventoryUI.UpdateSlots();
+            inventory.RemoveInventoryItem(inventoryUI.chosenSlot.slot.GetSlotItem());
+            inventoryUI.UpdateInventorySlot();
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }
@@ -154,27 +154,38 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventory = GameManager.instance.player.inventory;
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
-            var chosenItem = inventoryUI.chosenSlot.slot.GetSlotItem();
+            var targetSlot = inventory.inventoryItems[inventoryUI.chosenSlot.id];
             
-            inventory.inventoryItems[inventoryUI.chosenSlot.id].GetSlotItem().DisplayUseEffect();
-            inventory.DecreaseItemCount(chosenItem);
+            targetSlot.GetSlotItem().DisplayUseEffect();
+            inventory.DecreaseInventoryItem(inventoryUI.chosenSlot);
+            inventoryUI.UpdateInventorySlot();
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }
+        
         public void AbandonItem()
         {
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
-            var playerSlot = GameManager.instance.player.inventory.inventoryItems[inventoryUI.chosenSlot.id];
+            var inventory = GameManager.instance.player.inventory;
             
             if (inventoryUI.chosenSlot.slot.GetSlotItem().type != ItemType.Equipment ||
                 inventoryUI.chosenSlot.slot.GetSlotItem().type != ItemType.Inherent)
             {
-                playerSlot.SetSlotItemID("");
-                playerSlot.SetSlotItemCount(0);
+                inventory.inventoryItems[inventoryUI.chosenSlot.id].SetSlotItemID("");
+                inventory.inventoryItems[inventoryUI.chosenSlot.id].SetSlotItemCount(0);
+            }
+
+            if (inventoryUI.chosenSlot.referenceSlotID != -1)
+            {
+                inventory.quickItems[inventoryUI.chosenSlot.referenceSlotID].SetSlotItemID("");
+                inventory.quickItems[inventoryUI.chosenSlot.referenceSlotID].SetSlotItemCount(0);
+                inventoryUI.chosenSlot.referenceSlotID = -1;
             }
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
-            EventManager.Notify(new ItemCountChangedEvent(playerSlot.GetSlotItemID(), playerSlot.GetSlotItemCount()));
+            UIManager.instance.quickSlotUI.UpdateQuickSlot();
+            EventManager.Notify(new ItemCountChangedEvent(inventory.inventoryItems[inventoryUI.chosenSlot.id].GetSlotItemID()
+                , inventory.inventoryItems[inventoryUI.chosenSlot.id].GetSlotItemCount()));
         }
     }
 }

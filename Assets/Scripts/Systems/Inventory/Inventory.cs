@@ -59,7 +59,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var slot = quickItems[slotID];
             
             if (slot.GetSlotItemID() == "") return;
-            
+
+            var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
+            var quickSlotUI = UIManager.instance.quickSlotUI;
             var count = slot.GetSlotItemCount() - 1;
             
             switch (slot.GetSlotItem().type)
@@ -69,7 +71,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         slot.GetSlotItem().DisplayUseEffect();
                         slot.SetSlotItemCount(count);
-                        Debug.Log(slot.GetSlotItemCount());
                     }
                     else
                     {
@@ -77,6 +78,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         slot.SetSlotItemID("");
                         slot.SetSlotItemCount(0);
                     }
+                    quickSlotUI.UpdateQuickSlot();
+                    inventoryUI.UpdateInventorySlotByQuickSlotID(slotID);
                     break;
                 case ItemType.Inherent:
                     slot.GetSlotItem().DisplayUseEffect();
@@ -87,18 +90,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
     public partial class Inventory
     {
-        public void Equip(Item data)
-        {
-            int idx = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
-            
-            if (idx != -1)
-            {
-                var item = inventoryItems[idx];
-                
-                if (item.GetSlotItemCount() == 0)
-                    DecreaseItemCount(data);
-            }
-        }
+        public void Equip(Item data) { }
         
         public void AddArtifactData(Item data) { }
         
@@ -131,36 +123,40 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SellItem(Item data)
         {
-            DecreaseItemCount(data);
+            //DecreaseInventoryItem(data);
             
-            GameManager.instance.player.inventory.gold += data.price;
+            gold += data.price;
             UIManager.instance.UpdateGoldUI();
         }
         
-        public void DecreaseItemCount(Item data)
+        public void DecreaseInventoryItem(InventorySlot targetSlot)
         {
-            var idx = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
-            var count = inventoryItems[idx].GetSlotItemCount();
-            
-            if (idx == -1) return;
+            var count = inventoryItems[targetSlot.id].GetSlotItemCount() - 1;
             
             if (count >= 1)
             {
-                inventoryItems[idx].SetSlotItemCount(count - 1);
+                inventoryItems[targetSlot.id].SetSlotItemCount(count);
+            }
+            else if (count == 0)
+            {
+                inventoryItems[targetSlot.id].SetSlotItemID("");
+                inventoryItems[targetSlot.id].SetSlotItemCount(0);
             }
 
-            if (count == 0)
+            if (targetSlot.referenceSlotID != -1)
             {
-                inventoryItems[idx].SetSlotItemID("");
-                inventoryItems[idx].SetSlotItemCount(0);
+                quickItems[targetSlot.referenceSlotID].SetSlotItemCount(count);
+            }
+            if (quickItems[targetSlot.referenceSlotID].GetSlotItemCount() == 0)
+            {
+                quickItems[targetSlot.referenceSlotID].SetSlotItemID("");
+                quickItems[targetSlot.referenceSlotID].SetSlotItemCount(0);
             }
             
-            // Todo : 퀵슬롯 검색해서 인벤토리 슬롯과 동기화
-            
-            EventManager.Notify(new ItemCountChangedEvent(data.id, inventoryItems[idx].GetSlotItemCount()));
+            EventManager.Notify(new ItemCountChangedEvent(inventoryItems[targetSlot.id].GetSlotItemID(), inventoryItems[targetSlot.id].GetSlotItemCount()));
         }
         
-        public void RemoveItemData(Item data)
+        public void RemoveInventoryItem(Item data)
         {
             var idx = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
             

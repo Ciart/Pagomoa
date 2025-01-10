@@ -34,35 +34,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
         }
         
-        public void CheckDuplication(int changedSlotID, int referenceID)
+        // <Summary> 인벤토리 아이템 퀵슬롯 등록 시 중복 아이템 체크 <Summary>
+        private void OnUpdateQuickSlot(ItemCountChangedEvent e)
         {
-            var inventory = GameManager.instance.player.inventory;
-            
-            foreach (var slot in _quickSlots)
-            {
-                if (!slot.referenceSlot) continue;
-                if (slot.referenceSlot.id != referenceID) continue;
-
-                if (slot.id != changedSlotID)
-                {
-                    inventory.quickItems[slot.id].SetSlotItemID("");
-                    inventory.quickItems[slot.id].SetSlotItemCount(0);
-                    slot.ResetSlot();
-                }
-            }
+            UpdateQuickSlot();
         }
-        
-        private void UpdateQuickSlot(ItemCountChangedEvent e)
+
+        public void UpdateQuickSlot()
         {
             var inventory = GameManager.instance.player.inventory;
             
             for (int i = 0; i < Inventory.MaxQuickSlots; i++)
             {
                 _quickSlots[i].SetSlot(inventory.quickItems[i]);
-
-                if (!_quickSlots[i].referenceSlot) continue;
-                if (_quickSlots[i].referenceSlot.slot.GetSlotItemID() == "")
-                    _quickSlots[i].ResetSlot();
             }
         }
         
@@ -92,25 +76,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     break;
                 }
             }
-            
-            if (!_quickSlots[chosenSlot.id].referenceSlot) return;
-            _quickSlots[chosenSlot.id].referenceSlot.SetSlot(inventory.quickItems[chosenSlot.id]);
-            _quickSlots[chosenSlot.id].SetSlot(inventory.quickItems[chosenSlot.id]);
-            
-            if (_quickSlots[chosenSlot.id].slot.GetSlotItemID() == "")
-            {
-                _quickSlots[chosenSlot.id].ResetSlot();
-                _quickSlots[chosenSlot.id].referenceSlot = null;
-            }
         }
         
         public void SelectQuickSlot(int index)
         {
             chosenSlot = _quickSlots[index - 1];
-            UpdateQuickSlot();
+            UpdateSlotImage();
         }
         
-        private void UpdateQuickSlot()
+        private void UpdateSlotImage()
         {
             for (var i = 0; i < _quickSlots.Count; i++)
             {
@@ -118,13 +92,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 var index = i;
                 
                 if (index == chosenSlot.id)
-                {
                     slot.slotImage.sprite = _selectedQuickSlotSprite;
-                }
                 else
-                {
                     slot.slotImage.sprite = _normalQuickSlotSprite;
-                }
             }
         }
         
@@ -152,13 +122,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.AddListener<ItemCountChangedEvent>(UpdateQuickSlot);
+            EventManager.AddListener<ItemCountChangedEvent>(OnUpdateQuickSlot);
         }
         
         private void OnDisable()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.RemoveListener<ItemCountChangedEvent>(UpdateQuickSlot);
+            EventManager.RemoveListener<ItemCountChangedEvent>(OnUpdateQuickSlot);
         }
     }
 }

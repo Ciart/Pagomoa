@@ -21,8 +21,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private Sprite _emptySprite;
         [SerializeField] private TextMeshProUGUI countText;
 
-        public int id;
-        public InventorySlot? referenceSlot; 
+        public int id = 0;
+         
 
         private void Awake()
         {
@@ -42,8 +42,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 slot.SetSlotItemID(targetSlot.GetSlotItem().id);
                 slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
-                referenceSlot.slot.SetSlotItemID(targetSlot.GetSlotItemID());
-                referenceSlot.slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
                 
                 itemImage.sprite = targetSlot.GetSlotItem().sprite;
                 countText.text = targetSlot.GetSlotItemCount() == 0 ? "" : targetSlot.GetSlotItemCount().ToString();
@@ -54,7 +52,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             slot.SetSlotItemID("");
             slot.SetSlotItemCount(0);
-            referenceSlot = null;
             
             itemImage.sprite = _emptySprite;
             countText.text = "";
