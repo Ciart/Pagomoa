@@ -2,7 +2,6 @@
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -21,7 +20,6 @@ namespace Ciart.Pagomoa.Systems
         
         public MinimapUI minimapUI { get; private set; }
         public StateUI stateUI { get; private set; }
-        
         public BookUI bookUI {get; private set;}
         public ShopUI shopUI {get; private set;}
         public QuickSlotUI quickSlotUI {get; private set;}

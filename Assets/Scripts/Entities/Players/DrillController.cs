@@ -288,7 +288,7 @@ namespace Ciart.Pagomoa.Entities.Players
                     int used = 0;
                     while (used < needs.count)
                     {
-                        inventory.RemoveItemData(needs.mineral);
+                        inventory.RemoveItemByItemID(needs.mineral.id);
                         used++;
                     }
                 }

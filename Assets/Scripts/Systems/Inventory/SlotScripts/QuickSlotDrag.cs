@@ -7,13 +7,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class QuickSlotDrag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
     {
-        private QuickSlot slot => GetComponent<QuickSlot>();
+        private QuickSlot quickSlot => GetComponent<QuickSlot>();
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (slot.GetSlotItem().id == "") return;
+            if (quickSlot.slot.GetSlotItemID() == "") return;
             
-            UIManager.instance.quickSlotUI.SelectQuickSlot(slot.transform.GetSiblingIndex());;
+            UIManager.instance.quickSlotUI.SelectQuickSlot(quickSlot.transform.GetSiblingIndex());;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (!dragSlot) return;
             
-            DragItem.instance.DragSetImage(dragSlot.GetSlotItem().sprite);
+            DragItem.instance.DragSetImage(dragSlot.slot.GetSlotItem().sprite);
             DragItem.instance.transform.position = eventData.position;
         }
 
@@ -36,15 +36,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             DragItem.instance.SetColor(0);
             UIManager.instance.quickSlotUI.chosenSlot = null;
             
-            if (eventData.pointerCurrentRaycast.gameObject.layer == LayerMask.NameToLayer("UI")) return;
-            
-            slot.ResetSlot();
+            if (eventData.pointerCurrentRaycast.gameObject.layer != LayerMask.NameToLayer("UI"))
+                quickSlot.ResetSlot();
         }
 
         public void OnDrop(PointerEventData eventData)
         {
             DragItem.instance.SetColor(0);
-            UIManager.instance.bookUI.GetInventoryUI().chosenSlot = null;
+            UIManager.instance.GetUIContainer().SetChosenSlot(null);
             
             eventData.pointerDrag.TryGetComponent<InventorySlot>(out var inventorySlot);
             if (inventorySlot)
@@ -56,38 +55,61 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             eventData.pointerDrag.TryGetComponent<QuickSlot>(out var quickSlot);
             if (!quickSlot) return;
-            if (quickSlot.GetSlotItem().id == "") return;
+            if (quickSlot.slot.GetSlotItemID() == "") return;
             
             // eventData 가 QuickSlot 이면 swap 
             ThatDropIsQuickSlot(quickSlot);
         }
 
-        private void ThatDropIsInventorySlot(ref InventorySlot inventorySlot)
+        private void ThatDropIsInventorySlot(ref InventorySlot droppedInventorySlot)
         {
-            if (inventorySlot.GetSlotItem().id == "") return;
+            if (droppedInventorySlot.slot.GetSlotItemID() == "") return;
             
-            slot.SetSlot(inventorySlot);
-            slot.referenceSlot = inventorySlot;
+            var inventory = GameManager.instance.player.inventory;
             
-            EventManager.Notify(new QuickSlotChangedEvent(slot.id, slot.referenceSlot.id));
+            inventory.quickItems[quickSlot.id].SetSlotItemID(droppedInventorySlot.slot.GetSlotItemID());
+            inventory.quickItems[quickSlot.id].SetSlotItemCount(droppedInventorySlot.slot.GetSlotItemCount());
+
+            var beforeRefID = droppedInventorySlot.referenceSlotID; 
+            
+            if (beforeRefID >= 0)
+            {
+                inventory.quickItems[beforeRefID].SetSlotItemID("");
+                inventory.quickItems[beforeRefID].SetSlotItemCount(0);
+            }
+            
+            quickSlot.SetSlot(droppedInventorySlot.slot);
+            droppedInventorySlot.referenceSlotID = quickSlot.id;
+            UIManager.instance.quickSlotUI.UpdateQuickSlot();
         }
 
-        private void ThatDropIsQuickSlot(QuickSlot quickSlot)
+        private void ThatDropIsQuickSlot(QuickSlot droppedQuickSlot)
         {
-            if (slot.GetSlotItem().id == "")
-            {
-                slot.referenceSlot = quickSlot.referenceSlot;
-                slot.SetSlot(quickSlot);
+            var inventory = GameManager.instance.player.inventory;
             
-                quickSlot.ResetSlot();    
-            }
-            else if (slot.GetSlotItem().id != "")
+            if (quickSlot.slot.GetSlotItemID() == "")
             {
-                (slot.referenceSlot, quickSlot.referenceSlot) = (quickSlot.referenceSlot, slot.referenceSlot);
+                quickSlot.SetSlot(droppedQuickSlot.slot);
+                droppedQuickSlot.ResetSlot();
                 
-                slot.SetSlot(slot.referenceSlot);
-                quickSlot.SetSlot(quickSlot.referenceSlot);
+                UIManager.instance.bookUI.GetInventoryUI().
+                    SwapReferenceSlotID(quickSlot.id, droppedQuickSlot.id, true);
             }
+            else if (quickSlot.slot.GetSlotItemID() != "")
+            {
+                var tempSlot = new Slot();
+                tempSlot.SetSlotItemID(quickSlot.slot.GetSlotItemID());
+                tempSlot.SetSlotItemCount(quickSlot.slot.GetSlotItemCount());
+                
+                quickSlot.SetSlot(droppedQuickSlot.slot);
+                droppedQuickSlot.SetSlot(tempSlot);
+                
+                UIManager.instance.bookUI.GetInventoryUI().
+                    SwapReferenceSlotID(quickSlot.id, droppedQuickSlot.id);
+            }
+            
+            (inventory.quickItems[quickSlot.id], inventory.quickItems[droppedQuickSlot.id])
+                = (inventory.quickItems[droppedQuickSlot.id], inventory.quickItems[quickSlot.id]);
         }
     }
 }

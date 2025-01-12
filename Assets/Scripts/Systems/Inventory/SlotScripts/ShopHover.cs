@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (_buySlot)
             {
-                var itemName = _buySlot.GetSlotItem().name;
+                var itemName = _buySlot.buySlot.GetSlotItem().name;
                 shopUI.GetShopChat().chatting.text = itemName;
             }
 

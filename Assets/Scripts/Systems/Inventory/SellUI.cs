@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventory = GameManager.instance.player.inventory;
             
-            for(int i = 0; i < inventory.inventorySlots.Length; i++)
+            for(int i = 0; i < inventory.inventoryItems.Length; i++)
             {
                 var spawnedSlot = Instantiate(_instanceSlot, transform);
                 _sellSlots.Add(spawnedSlot);
@@ -39,7 +39,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             for (int i = 0; i < _sellSlots.Count; i++)
             {
-                _sellSlots[i].SetSlot(inventory.inventorySlots[i]);
+                _sellSlots[i].SetSlot(inventory.inventoryItems[i]);
             }
         }
         public void DeleteSellUISlot()

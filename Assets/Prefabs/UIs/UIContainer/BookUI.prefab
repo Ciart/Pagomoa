@@ -6588,7 +6588,6 @@ GameObject:
   - component: {fileID: 6531915568932740368}
   - component: {fileID: 5105830903944889767}
   - component: {fileID: 3035595405947284857}
-  - component: {fileID: 2845067982613818100}
   - component: {fileID: 1137519736574774473}
   m_Layer: 5
   m_Name: InventorySlot
@@ -6723,18 +6722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e664e4d671085a48baa4ffbb99bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
   itemImage: {fileID: 7219367453889326565}
   countText: {fileID: 5550860370641400611}
   id: 0
+  referenceSlotID: -1
 --- !u!114 &5105830903944889767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6760,22 +6751,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoneCount: {fileID: 0}
---- !u!114 &2845067982613818100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8327566609420330252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61ac54f041ed13d48a5f47139b7f144e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverImage:
-  - {fileID: 261145277, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
-  - {fileID: -1285284151, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
-  boostImage: {fileID: 3520895522929317203}
 --- !u!114 &1137519736574774473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6788,6 +6763,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eabb93b6de2b140b0e42ce3a899fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverImage:
+  - {fileID: 261145277, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+  - {fileID: -1285284151, guid: 97ae88799f54a42c3813b2b67df54db8, type: 3}
+  boostImage: {fileID: 3520895522929317203}
 --- !u!1 &8377059665767570698
 GameObject:
   m_ObjectHideFlags: 0

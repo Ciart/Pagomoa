@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,27 +7,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
     {
-        private InventorySlot slot => GetComponent<InventorySlot>(); 
+        private InventorySlot inventorySlot => GetComponent<InventorySlot>(); 
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            var dragSlot = UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
-            if (dragSlot) return;
+            if (inventorySlot.slot.GetSlotItemID() == "") return;
             
-            UIManager.instance.bookUI.GetInventoryUI().chosenSlot = slot;
+            UIManager.instance.GetUIContainer().SetChosenSlot(inventorySlot);
         }
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var dragSlot = UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
-
-            if (dragSlot.GetSlotItem().id == "")
+            var inventory = GameManager.instance.player.inventory;
+            var dragSlot = UIManager.instance.GetUIContainer().chosenSlot;
+            
+            if (dragSlot.IsUnityNull()) return;
+            
+            var targetSlot = inventory.FindInventorySlotByID(dragSlot); 
+            
+            if (targetSlot.GetSlotItemID() == "")
             {
-                UIManager.instance.bookUI.GetInventoryUI().chosenSlot = null;
+                UIManager.instance.GetUIContainer().SetChosenSlot(null);
                 return;
             }
             
-            DragItem.instance.DragSetImage(dragSlot.GetSlotItem().sprite);
+            DragItem.instance.DragSetImage(targetSlot.GetSlotItem().sprite);
             DragItem.instance.transform.position = eventData.position;
         }
 
@@ -38,7 +43,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnEndDrag(PointerEventData eventData)
         {
             DragItem.instance.SetColor(0);
-            UIManager.instance.bookUI.GetInventoryUI().chosenSlot = null;
+            UIManager.instance.GetUIContainer().SetChosenSlot(null);
         }
     }
 }

@@ -159,11 +159,11 @@ namespace Ciart.Pagomoa.Systems.Save
             var dataManager = DataManager.Instance;
             if (dataManager.data.itemData == null) return;
 
-            if (dataManager.data.itemData.itemss != null)
+            if (dataManager.data.itemData.items != null)
             {
                 var player = GameManager.instance.player;
                 
-                player.inventory.inventorySlots = dataManager.data.itemData.itemss;
+                player.inventory.inventoryItems = dataManager.data.itemData.items;
                 player.inventory.gold = dataManager.data.itemData.gold;
             }
             else
