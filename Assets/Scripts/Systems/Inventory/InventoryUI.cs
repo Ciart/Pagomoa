@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,8 +10,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
-        public InventorySlot chosenSlot;
-        
         [SerializeField] private RectTransform inventorySlotParent;
         [SerializeField] private InventorySlot InstanceInventorySlot;
         private List<InventorySlot> _inventoryUISlots = new List<InventorySlot>();
@@ -32,6 +31,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
             UpdateInventorySlot();
         }
         
+        public void SetArtifactSlots()
+        {
+            var inventory = GameManager.instance.player.inventory;
+            
+            for (int i = 0; i < artifactSlotData.Length; i++)
+            {
+                //artifactSlotData[i].SetSlot(inventory.artifactItems[i].s);
+            }
+        }
+        
         public void UpdateInventorySlot() // List안의 Item 전체 인벤토리에 출력
         {
             var inventory = GameManager.instance.player.inventory;
@@ -49,16 +58,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             
             if (hasQuickSlot) quickSlotUI.UpdateQuickSlot();
-        }
-        
-        public void SetArtifactSlots()
-        {
-            var inventory = GameManager.instance.player.inventory;
-            
-            for (int i = 0; i < artifactSlotData.Length; i++)
-            {
-                //artifactSlotData[i].SetSlot(inventory.artifactItems[i].s);
-            }
         }
 
         public void UpdateInventorySlotByQuickSlotID(int quickSlotID)
@@ -79,13 +78,33 @@ namespace Ciart.Pagomoa.Systems.Inventory
             UpdateInventorySlot();
         }
         
-        public void ChangeReferenceSlotID(int beforeID, int toChangeID = 0)
+        public void SwapReferenceSlotID(int toChangeID, int beforeID, bool notSwap = false)
         {
+            InventorySlot? beforeSlot = null;
+            InventorySlot? toChangeSlot = null;
+            
             foreach (var slot in _inventoryUISlots)
             {
-                if (slot.id == beforeID) 
-                    slot.id = toChangeID;
+                if (slot.referenceSlotID == toChangeID)
+                    toChangeSlot = slot;
             }
+            foreach (var slot in _inventoryUISlots)
+            {
+                if (slot.referenceSlotID == beforeID) 
+                    beforeSlot = slot;
+            }
+            
+            if (!beforeSlot) return;
+            
+            if (notSwap)
+            {
+                beforeSlot.referenceSlotID = toChangeID;
+                return;
+            }
+            
+            if (!toChangeSlot) return;
+
+            (beforeSlot.referenceSlotID, toChangeSlot.referenceSlotID) = (toChangeID, beforeID);
         }
 
         public void SwapUISlot(int targetID, int dragID)

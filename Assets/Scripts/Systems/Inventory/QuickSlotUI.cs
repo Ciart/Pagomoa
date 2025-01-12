@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [Header("퀵 슬롯 스프라이트")]
         [SerializeField] private Sprite _selectedQuickSlotSprite;
         [SerializeField] private Sprite _normalQuickSlotSprite;
-
+        
         private PlayerInput _playerInput;
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
+    public interface ISlot
+    {
+        public SlotType GetSlotType();
+        public int GetSlotID();
+        public void SetSlot(Slot targetSlot);
+        public void ResetSlot();
+    }
+    
     public enum SlotType
     {
         None,

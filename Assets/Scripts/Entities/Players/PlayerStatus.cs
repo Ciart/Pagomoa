@@ -168,11 +168,12 @@ namespace Ciart.Pagomoa.Entities.Players
             inventory.gold = (int)(inventory.gold * (1 - percentage));
         }
 
+        // TODO : 사망 시 아이템 제거 기능 잠금 
         private void LoseItem(ItemType itemType, float probabilty)
         {
             var inventory = GameManager.instance.player.inventory;
 
-            List<string> deleteItems = new List<string>();
+            /*List<string> deleteItems = new List<string>();*/
             
             foreach (var item in inventory.inventoryItems)
             {
@@ -195,13 +196,13 @@ namespace Ciart.Pagomoa.Entities.Players
                         entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
                     }
 
-                    deleteItems.Add(item.GetSlotItem().id);
+                    /*deleteItems.Add(item.GetSlotItem().id);*/
                 }
             }
 
-            var count = deleteItems.Count;
+            /*var count = deleteItems.Count;
             for (int i = 0; i < count; i++)
-                inventory.RemoveInventoryItem(ResourceSystem.instance.GetItem(deleteItems[i]));
+                inventory.RemoveInventoryItem(ResourceSystem.instance.GetItem(deleteItems[i]));*/
         }
 
         private void NextDay()

@@ -8,8 +8,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class ItemHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        [SerializeField] private Sprite[] hoverImage;
+        [SerializeField] private Image boostImage;
+        
         public void OnPointerEnter(PointerEventData eventData)
         {
+            boostImage.sprite = hoverImage[0];
+            
             if (eventData.pointerEnter.TryGetComponent(out InventorySlot inventorySlot))
             {
                 if (inventorySlot.slot.GetSlotItemID() == "") return;
@@ -27,9 +32,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnPointerExit(PointerEventData eventData)
         {
+            boostImage.sprite = hoverImage[1];
+            
             var hover = UIManager.instance.bookUI.GetHoverItemInfo();
             
             hover.OffItemInfo();
+        }
+        
+        private void OnEnable()
+        {
+            boostImage.sprite = hoverImage[1];
         }
     }
 }

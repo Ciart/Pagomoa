@@ -43,7 +43,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnDrop(PointerEventData eventData)
         {
             DragItem.instance.SetColor(0);
-            UIManager.instance.bookUI.GetInventoryUI().chosenSlot = null;
+            UIManager.instance.GetUIContainer().SetChosenSlot(null);
             
             eventData.pointerDrag.TryGetComponent<InventorySlot>(out var inventorySlot);
             if (inventorySlot)
@@ -55,7 +55,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             eventData.pointerDrag.TryGetComponent<QuickSlot>(out var quickSlot);
             if (!quickSlot) return;
-            if (quickSlot.slot.GetSlotItem().id == "") return;
+            if (quickSlot.slot.GetSlotItemID() == "") return;
             
             // eventData 가 QuickSlot 이면 swap 
             ThatDropIsQuickSlot(quickSlot);
@@ -90,20 +90,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (quickSlot.slot.GetSlotItemID() == "")
             {
                 quickSlot.SetSlot(droppedQuickSlot.slot);
-            
-                droppedQuickSlot.ResetSlot();    
+                droppedQuickSlot.ResetSlot();
+                
+                UIManager.instance.bookUI.GetInventoryUI().
+                    SwapReferenceSlotID(quickSlot.id, droppedQuickSlot.id, true);
             }
             else if (quickSlot.slot.GetSlotItemID() != "")
             {
                 var tempSlot = new Slot();
-                tempSlot = quickSlot.slot;
+                tempSlot.SetSlotItemID(quickSlot.slot.GetSlotItemID());
+                tempSlot.SetSlotItemCount(quickSlot.slot.GetSlotItemCount());
                 
                 quickSlot.SetSlot(droppedQuickSlot.slot);
                 droppedQuickSlot.SetSlot(tempSlot);
+                
+                UIManager.instance.bookUI.GetInventoryUI().
+                    SwapReferenceSlotID(quickSlot.id, droppedQuickSlot.id);
             }
-            
-            UIManager.instance.bookUI.GetInventoryUI().ChangeReferenceSlotID(quickSlot.id, droppedQuickSlot.id);
-            UIManager.instance.bookUI.GetInventoryUI().ChangeReferenceSlotID(droppedQuickSlot.id, quickSlot.id);
             
             (inventory.quickItems[quickSlot.id], inventory.quickItems[droppedQuickSlot.id])
                 = (inventory.quickItems[droppedQuickSlot.id], inventory.quickItems[quickSlot.id]);
