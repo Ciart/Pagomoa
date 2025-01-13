@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class BuySlot : MonoBehaviour
+    public class BuySlot : MonoBehaviour, ISlot
     {
-        public Slot buySlot { get; private set; } = new Slot();
+        public Slot slot { get; private set; } = new Slot();
         
         [Header("구매 슬롯 변수")]
         public Image itemImage;
@@ -18,34 +18,28 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void Awake()
         {
-            buySlot.SetSlotType(SlotType.Buy);
+            slot.SetSlotType(SlotType.Buy);
             SetCountBuySlot();
         }
-
-        public void BuyCheck()
+        
+        public virtual void SetSlot(Slot targetSlot)
         {
-            var shopUI = UIManager.instance.shopUI;
-            
-            shopUI.chosenSlot = buySlot;
-            var chosenItem = shopUI.chosenSlot.GetSlotItem();
-            
-            shopUI.GetCountUI().gameObject.SetActive(true);
-            shopUI.GetCountUI().ActiveCountUI(buySlot.GetSlotType());
-            shopUI.GetShopChat().BuyPriceToChat(chosenItem.price);
+            itemImage.sprite = slot.GetSlotItem().sprite;
+            itemNameText.text = slot.GetSlotItem().name;
+            itemPriceText.text = slot.GetSlotItem().price.ToString();
         }
-        public virtual void UpdateBuySlot()
-        {
-            itemImage.sprite = buySlot.GetSlotItem().sprite;
-            itemNameText.text = buySlot.GetSlotItem().name;
-            itemPriceText.text = buySlot.GetSlotItem().price.ToString();
-        }
-
         protected void SetCountBuySlot()
         {
-            if (buySlot.GetSlotType() == SlotType.Buy)
-                buySlot.SetSlotItemCount(100000);
-            else if (buySlot.GetSlotType() == SlotType.BuyArtifact)
-                buySlot.SetSlotItemCount(1);
+            if (slot.GetSlotType() == SlotType.Buy)
+                slot.SetSlotItemCount(100000);
+            else if (slot.GetSlotType() == SlotType.BuyArtifact)
+                slot.SetSlotItemCount(1);
         }
+
+        public SlotType GetSlotType() { return slot.GetSlotType(); }
+
+        public int GetSlotID() { throw new NotImplementedException(); }
+
+        public void ResetSlot() { throw new NotImplementedException(); }
     }
 }

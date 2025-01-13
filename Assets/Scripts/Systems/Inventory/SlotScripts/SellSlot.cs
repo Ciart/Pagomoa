@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class SellSlot : MonoBehaviour
+    public class SellSlot : MonoBehaviour, ISlot
     {
-        public Slot sellSlot { get; private set; }
+        public Slot slot { get; private set; }
         
         [Header("판매 슬롯 변수")]
         public Image itemImage;
@@ -19,53 +19,37 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Awake()
         {
-            sellSlot = new Slot();
-            sellSlot.SetSlotType(SlotType.Sell);
+            slot = new Slot();
+            slot.SetSlotType(SlotType.Sell);
         }
-        
-        public void SetSlot(Slot? slot)
+
+        public SlotType GetSlotType() { return slot.GetSlotType(); }
+        public int GetSlotID() { return id; }
+
+        public void SetSlot(Slot targetSlot)
         {
-            if (slot == null)
+            if (targetSlot.GetSlotItemID() == "")
             {
                 ResetSlot();
-                sellSlot.SetSlotItemID("");
-                sellSlot.SetSlotItemCount(0);   
             }
-            else if (slot.GetSlotItem().id != "")
+            else if (targetSlot.GetSlotItem().id != "")
             {
-                sellSlot.SetSlotItemID(slot.GetSlotItem().id);
-                sellSlot.SetSlotItemCount(slot.GetSlotItemCount());
-                itemImage.sprite = slot.GetSlotItem().sprite;
-                countText.text = sellSlot.GetSlotItemCount() == 0 ? "" : sellSlot.GetSlotItemCount().ToString();
+                slot.SetSlotItemID(targetSlot.GetSlotItem().id);
+                slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
+                itemImage.sprite = targetSlot.GetSlotItem().sprite;
+                countText.text = slot.GetSlotItemCount() == 0 ? "" : slot.GetSlotItemCount().ToString();
             }
         }
 
         public void ResetSlot()
         {
+            slot.SetSlotItemID("");
+            slot.SetSlotItemCount(0);   
             itemImage.sprite = null;
             countText.text = "";
         }
-        
-        public void SellCheck()
-        {
-            var shopUI = UIManager.instance.shopUI;
-            
-            shopUI.chosenSlot = sellSlot;
 
-            var inventoryItem = shopUI.chosenSlot.GetSlotItem();
-            if (inventoryItem.id == "")
-                return;
-
-            if (inventoryItem.type == ItemType.Use ||
-                inventoryItem.type == ItemType.Mineral)
-            {
-                UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
-                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(sellSlot.GetSlotType());
-                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(inventoryItem.price);
-            }
-        }
-
-        public void ClickSlot()
+        /*public void ClickSlot()
         {
             var inventory = GameManager.instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
@@ -73,14 +57,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (int i = 0; i < countUI.inputCount; i++)
             {
-                if (shopUI.chosenSlot.GetSlotItemCount() > 1)
+                if (slot.GetSlotItemCount() > 1)
                 {
-                    inventory.SellItem(shopUI.chosenSlot.GetSlotItem());
+                    inventory.SellItem(slot.GetSlotItem());
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
-                else if (shopUI.chosenSlot.GetSlotItemCount() == 1)
+                else if (slot.GetSlotItemCount() == 1)
                 {
-                    inventory.SellItem(shopUI.chosenSlot.GetSlotItem());
+                    inventory.SellItem(slot.GetSlotItem());
                     // QuickSlotUI.instance.SetQuickSlotItemCount(Buy.Instance.choosenSellSlot.inventoryItem.item);
                 }
                 shopUI.GetSellUI().DeleteSellUISlot();
@@ -90,6 +74,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             countUI.inputCount = 0;
             countUI.countUIText.text = countUI.inputCount.ToString();
             countUI.DisableCountUI();
-        }
+        }*/
     }
 }

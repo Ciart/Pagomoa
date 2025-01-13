@@ -101,7 +101,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (inventorySlot.GetSlotType() == SlotType.Inventory)
                 {
-                    inventory.RemoveItemBySlotID(inventorySlot);    
+                    inventory.RemoveItem(inventorySlot);    
                 }
             }
             

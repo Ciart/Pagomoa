@@ -9,9 +9,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class ShopHover : Hover
     {
         [SerializeField] private Image edgeImage;
-        private BuySlot _buySlot;
-
-        private void Start() { _buySlot = GetComponent<BuySlot>(); }
+        private BuySlot _buySlot =>  GetComponent<BuySlot>();
         
         public override void OnPointerEnter(PointerEventData eventData)
         {
@@ -19,7 +17,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (_buySlot)
             {
-                var itemName = _buySlot.buySlot.GetSlotItem().name;
+                var itemName = _buySlot.slot.GetSlotItem().name;
                 shopUI.GetShopChat().chatting.text = itemName;
             }
 

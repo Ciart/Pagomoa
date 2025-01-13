@@ -49,7 +49,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (inventorySlot)
             {
                 // eventData 가 InventorySlot 이면 QuickSlot 할당, player 것도 동기화
-                ThatDropIsInventorySlot(ref inventorySlot);
+                ThatDropIsInventorySlot(inventorySlot);
                 return;
             }
             
@@ -61,22 +61,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
             ThatDropIsQuickSlot(quickSlot);
         }
 
-        private void ThatDropIsInventorySlot(ref InventorySlot droppedInventorySlot)
+        private void ThatDropIsInventorySlot(InventorySlot droppedInventorySlot)
         {
             if (droppedInventorySlot.slot.GetSlotItemID() == "") return;
             
             var inventory = GameManager.instance.player.inventory;
+            var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
+            
+            if (inventory.quickItems[quickSlot.id].GetSlotItemID() != "")
+                inventoryUI.SwapReferenceSlotID(-1, quickSlot.id, true);
             
             inventory.quickItems[quickSlot.id].SetSlotItemID(droppedInventorySlot.slot.GetSlotItemID());
             inventory.quickItems[quickSlot.id].SetSlotItemCount(droppedInventorySlot.slot.GetSlotItemCount());
-
-            var beforeRefID = droppedInventorySlot.referenceSlotID; 
-            
-            if (beforeRefID >= 0)
-            {
-                inventory.quickItems[beforeRefID].SetSlotItemID("");
-                inventory.quickItems[beforeRefID].SetSlotItemCount(0);
-            }
             
             quickSlot.SetSlot(droppedInventorySlot.slot);
             droppedInventorySlot.referenceSlotID = quickSlot.id;

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
+    public class InventoryDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
     {
         private InventorySlot inventorySlot => GetComponent<InventorySlot>(); 
         

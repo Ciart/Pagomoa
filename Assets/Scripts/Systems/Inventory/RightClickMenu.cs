@@ -77,14 +77,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (itemCount > 1)
-            {
-                MakeMenu("모두 먹이기");
-                MakeMenu("1개 먹이기");
-                MakeMenu("버리기");
-                MakeMenu("그만두기");
-            }
-            else if (itemCount == 1)
+            else if (itemCount >= 1)
             {
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");

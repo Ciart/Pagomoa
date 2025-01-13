@@ -30,8 +30,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public List<Item> GetShopItems() => _items;
         public void SetShopItems(List<Item> shopItems) => _items = shopItems;
         
-        public Slot? chosenSlot;
-        
         public void ClickToSell()
         {
             _buyPanel.SetActive(false);
@@ -63,6 +61,32 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             gameObject.SetActive(false);
             TimeManager.instance.ResumeTime();
+        }
+        
+        public void BuyCheck(BuySlot buySlot)
+        {
+            UIManager.instance.GetUIContainer().SetChosenSlot(buySlot);
+            var chosenItem = buySlot.slot.GetSlotItem();
+            
+            countUI.gameObject.SetActive(true);
+            countUI.ActiveCountUI(buySlot.slot.GetSlotType());
+            shopChat.BuyPriceToChat(chosenItem.price);
+        }
+        
+        public void SellCheck(SellSlot sellSlot)
+        {
+            if (sellSlot.slot.GetSlotItemID() == "")
+                return;
+
+            UIManager.instance.GetUIContainer().SetChosenSlot(sellSlot);
+
+            if (sellSlot.slot.GetSlotItem().type == ItemType.Use ||
+                sellSlot.slot.GetSlotItem().type == ItemType.Mineral)
+            {
+                UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
+                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(sellSlot.slot.GetSlotType());
+                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(sellSlot.slot.GetSlotItem().price);
+            }
         }
     }
 }

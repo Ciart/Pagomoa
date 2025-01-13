@@ -77,6 +77,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             UpdateInventorySlot();
         }
+
+        public ISlot GetInventorySlot(int slotID)
+        {
+            foreach (var slot in _inventoryUISlots)
+            {
+                if (slot.id == slotID)
+                    return slot;
+            }
+
+            return null!;
+        }
         
         public void SwapReferenceSlotID(int toChangeID, int beforeID, bool notSwap = false)
         {

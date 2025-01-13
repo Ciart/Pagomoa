@@ -120,87 +120,112 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 EventManager.Notify(new ItemCountChangedEvent(inventoryItems[index].GetSlotItemID(), inventoryItems[index].GetSlotItemCount()));
             }
         }
-        
-        public void SellItem(Item data) { }
-        
-        public void DecreaseItemBySlotID(InventorySlot targetSlot)
+
+        public void SellItem(ISlot targetSlot)
         {
-            var count = inventoryItems[targetSlot.id].GetSlotItemCount() - 1;
+            var inventorySlot =
+                UIManager.instance.bookUI.GetInventoryUI().GetInventorySlot(targetSlot.GetSlotID());
+
+            gold += inventoryItems[targetSlot.GetSlotID()].GetSlotItem().price;
+            DecreaseItemBySlotID(inventorySlot);
+            
+            UIManager.instance.UpdateGoldUI();
+        }
+        
+        public void DecreaseItemBySlotID(ISlot targetSlot)
+        {
+            var count = inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount() - 1;
             
             if (count >= 1)
             {
-                inventoryItems[targetSlot.id].SetSlotItemCount(count);
+                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(count);
             }
             else if (count == 0)
             {
-                inventoryItems[targetSlot.id].SetSlotItemID("");
-                inventoryItems[targetSlot.id].SetSlotItemCount(0);
+                inventoryItems[targetSlot.GetSlotID()].SetSlotItemID("");
+                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(0);
             }
 
-            if (targetSlot.referenceSlotID != -1)
+            if (targetSlot.GetSlotType() == SlotType.Inventory)
             {
-                quickItems[targetSlot.referenceSlotID].SetSlotItemCount(count);
-                
-                if (quickItems[targetSlot.referenceSlotID].GetSlotItemCount() == 0)
+                var inventorySlot = (InventorySlot)targetSlot;
+
+                if (inventorySlot.referenceSlotID != -1)
                 {
-                    quickItems[targetSlot.referenceSlotID].SetSlotItemID("");
-                    quickItems[targetSlot.referenceSlotID].SetSlotItemCount(0);
+                    quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(count);
+            
+                    if (quickItems[inventorySlot.referenceSlotID].GetSlotItemCount() == 0)
+                    {
+                        quickItems[inventorySlot.referenceSlotID].SetSlotItemID("");
+                        quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(0);
+                    }      
                 }
             }
             
             EventManager.Notify(new ItemCountChangedEvent(
-                inventoryItems[targetSlot.id].GetSlotItemID(), 
-                inventoryItems[targetSlot.id].GetSlotItemCount()));
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
         }
         
-        public void DecreaseItemBySlotID(InventorySlot targetSlot, int mineralCount)
+        public void DecreaseItemBySlotID(ISlot targetSlot, int mineralCount)
         {
-            if (inventoryItems[targetSlot.id].GetSlotItem().type != ItemType.Mineral) return;
-            var count = inventoryItems[targetSlot.id].GetSlotItemCount() - mineralCount;
+            if (inventoryItems[targetSlot.GetSlotID()].GetSlotItem().type != ItemType.Mineral) return;
+            var count = inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount() - mineralCount;
+            
+            EventManager.Notify(new ItemUsedEvent(
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItem(),
+                mineralCount));
             
             if (count >= 1)
             {
-                inventoryItems[targetSlot.id].SetSlotItemCount(count);
+                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(count);
             }
             else if (count == 0)
             {
-                inventoryItems[targetSlot.id].SetSlotItemID("");
-                inventoryItems[targetSlot.id].SetSlotItemCount(0);
+                inventoryItems[targetSlot.GetSlotID()].SetSlotItemID("");
+                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(0);
             }
+            
+            if (targetSlot.GetSlotType() == SlotType.Inventory)
+            {
+                var inventorySlot = (InventorySlot)targetSlot;
+                if (inventorySlot.referenceSlotID != -1)
+                {
+                    quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(count);
 
-            if (targetSlot.referenceSlotID != -1)
-            {
-                quickItems[targetSlot.referenceSlotID].SetSlotItemCount(count);
+                    if (quickItems[inventorySlot.referenceSlotID].GetSlotItemCount() == 0)
+                    {
+                        quickItems[inventorySlot.referenceSlotID].SetSlotItemID("");
+                        quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(0);
+                    }
+                }
             }
-            if (quickItems[targetSlot.referenceSlotID].GetSlotItemCount() == 0)
-            {
-                quickItems[targetSlot.referenceSlotID].SetSlotItemID("");
-                quickItems[targetSlot.referenceSlotID].SetSlotItemCount(0);
-            }
-            EventManager.Notify(new ItemUsedEvent(
-                inventoryItems[targetSlot.id].GetSlotItem(),
-                mineralCount));
             
             EventManager.Notify(new ItemCountChangedEvent(
-                inventoryItems[targetSlot.id].GetSlotItemID(), 
-                inventoryItems[targetSlot.id].GetSlotItemCount()));
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
         }
         
-        public void RemoveItemBySlotID(InventorySlot targetSlot)
+        public void RemoveItem(ISlot targetSlot)
         {
-            inventoryItems[targetSlot.id].SetSlotItemID("");
-            inventoryItems[targetSlot.id].SetSlotItemCount(0);
+            inventoryItems[targetSlot.GetSlotID()].SetSlotItemID("");
+            inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(0);
 
-            if (targetSlot.referenceSlotID != -1)
+            if (targetSlot.GetSlotType() == SlotType.Inventory)
             {
-                quickItems[targetSlot.referenceSlotID].SetSlotItemID("");
-                quickItems[targetSlot.referenceSlotID].SetSlotItemCount(0);
-                targetSlot.referenceSlotID = -1;
+                var inventorySlot = (InventorySlot)targetSlot;
+                
+                if (inventorySlot.referenceSlotID != -1)
+                {
+                    quickItems[inventorySlot.referenceSlotID].SetSlotItemID("");
+                    quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(0);
+                    inventorySlot.referenceSlotID = -1;
+                }   
             }
             
             EventManager.Notify(new ItemCountChangedEvent(
-                inventoryItems[targetSlot.id].GetSlotItemID(), 
-                inventoryItems[targetSlot.id].GetSlotItemCount()));
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
+                inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
         }
 
         public void RemoveItemByItemID(string itemID)

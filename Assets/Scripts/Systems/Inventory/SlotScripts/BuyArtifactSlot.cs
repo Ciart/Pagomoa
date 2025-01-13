@@ -15,17 +15,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Awake()
         {
-            buySlot.SetSlotType(SlotType.BuyArtifact);
+            slot.SetSlotType(SlotType.BuyArtifact);
             artifactSlotButton = GetComponent<Button>();
             SetCountBuySlot();
         }
         
-        public override void UpdateBuySlot()
+        public override void SetSlot(Slot targetSlot)
         {
-            itemImage.sprite = buySlot.GetSlotItem().sprite;
-            itemNameText.text = buySlot.GetSlotItem().name;
-            itemPriceText.text = buySlot.GetSlotItem().price.ToString();
-            artifactCount.text = buySlot.GetSlotItemCount().ToString();
+            itemImage.sprite = slot.GetSlotItem().sprite;
+            itemNameText.text = slot.GetSlotItem().name;
+            itemPriceText.text = slot.GetSlotItem().price.ToString();
+            artifactCount.text = slot.GetSlotItemCount().ToString();
         }
     }
 }
