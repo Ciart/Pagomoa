@@ -1,4 +1,3 @@
-using Ciart.Pagomoa.Systems.Dialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +7,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     [RequireComponent(typeof(Button))]
     public class BuyArtifactSlot : BuySlot
     {
+        [Header("아티팩트 슬롯 변수")]
         public TextMeshProUGUI artifactCount;
         public Button artifactSlotButton;
         
@@ -15,17 +15,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Awake()
         {
-            SetSlotType(SlotType.BuyArtifact);
+            slot.SetSlotType(SlotType.BuyArtifact);
             artifactSlotButton = GetComponent<Button>();
             SetCountBuySlot();
         }
         
-        public override void UpdateBuySlot()
+        public override void SetSlot(Slot targetSlot)
         {
-            itemImage.sprite = GetSlotItem().sprite;
-            itemNameText.text = GetSlotItem().name;
-            itemPriceText.text = GetSlotItem().price.ToString();
-            artifactCount.text = GetSlotItemCount().ToString();
+            itemImage.sprite = slot.GetSlotItem().sprite;
+            itemNameText.text = slot.GetSlotItem().name;
+            itemPriceText.text = slot.GetSlotItem().price.ToString();
+            artifactCount.text = slot.GetSlotItemCount().ToString();
         }
     }
 }

@@ -37,15 +37,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (shopUI.GetShopItems()[i].type == ItemType.Equipment)
                 {
                     var spawnedSlot = Instantiate(instanceArtifactSlot, artifactPanel.transform);
-                    spawnedSlot.GetSlotItem().type = ItemType.Equipment;
-                    artifactSlots.Add(spawnedSlot);
+                    
                     spawnedSlot.gameObject.SetActive(true);
+                    artifactSlots.Add(spawnedSlot);
                 }
                 else if (shopUI.GetShopItems()[i].type == ItemType.Use)
                 {
                     var spawnedSlot = Instantiate(instanceBuySlot, consumableItemsPanel.transform);
-                    consumptionSlots.Add(spawnedSlot);
+                    
                     spawnedSlot.gameObject.SetActive(true);
+                    consumptionSlots.Add(spawnedSlot);
                 }
             }
             SetItemToBuySlot();
@@ -61,12 +62,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 if (shopItem.type == ItemType.Equipment)
                 {
-                    artifactSlots[equipIndex].SetSlotItem(shopItem);
+                    artifactSlots[equipIndex].slot.SetSlotItemID(shopItem.id);
+                    artifactSlots[equipIndex].slot.GetSlotItem().type = ItemType.Equipment;
+                    
                     equipIndex++;
                 }
                 else if (shopItem.type == ItemType.Use)
                 {
-                    consumptionSlots[useIndex].SetSlotItem(shopItem);
+                    consumptionSlots[useIndex].slot.SetSlotItemID(shopItem.id);
                     
                     useIndex++;
                 }
@@ -86,7 +89,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 {
                     artifactSlots[equipIndex].GetComponent<Image>().sprite = _papersSprites[equipIndex];
                     artifactSlots[equipIndex].soldOut.GetComponent<Image>().sprite = _soldOutsSprites[equipIndex];
-                    artifactSlots[equipIndex].UpdateBuySlot();
+                    artifactSlots[equipIndex].SetSlot(new Slot());
                     equipIndex++;
                 }
                 else if (shopItem.type == ItemType.Use)
@@ -103,7 +106,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         consumptionSlots[useIndex].GetComponent<Image>().sprite = _papersSprites[useIndex - 3];
                     }
-                    consumptionSlots[useIndex].UpdateBuySlot();
+                    consumptionSlots[useIndex].SetSlot(new Slot());
                     useIndex++;
                 }
             }
@@ -111,12 +114,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SoldOut()
         {
-            var artifactSlot = UIManager.instance.shopUI.chosenSlot as BuyArtifactSlot;
+            var chosenSlot = (BuyArtifactSlot)UIManager.instance.GetUIContainer().chosenSlot;
+
+            if (chosenSlot.GetSlotType() != SlotType.BuyArtifact) return;
             
-            artifactSlot.artifactCount.text = artifactSlot.GetSlotItemCount().ToString();
-            
-            artifactSlot.soldOut.SetActive(true);
-            artifactSlot.artifactSlotButton.interactable = false;
+            foreach (var artifact in artifactSlots)
+            {
+                if (artifact.slot.GetSlotItem().id == chosenSlot.slot.GetSlotItemID())
+                {
+                    artifact.artifactCount.text = chosenSlot.slot.GetSlotItemCount().ToString();
+                    
+                    artifact.soldOut.SetActive(true);
+                    artifact.artifactSlotButton.interactable = false;
+                }
+            }
         }
     }
 }

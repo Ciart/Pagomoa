@@ -25,7 +25,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void ChangePrice()
         {
-            findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.GetSlotItem().type == ItemType.Mineral);
+            /*findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.GetSlotItem().type == ItemType.Mineral);
             for(int i = 0; i < findallMineral.Count; i++)
             {
                 int save = findallMineral[i].GetSlotItem().price;
@@ -46,7 +46,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     return;
 
                 marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = upordown;
-            }
+            }*/
         }
     }
 }

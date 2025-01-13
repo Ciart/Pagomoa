@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI.Title;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
@@ -73,11 +74,17 @@ namespace Ciart.Pagomoa.Systems.Save
     public class ItemData
     {
         const int MaxItems = 30;
-        public InventorySlot[] itemss = new InventorySlot[MaxItems];
+        public Slot[] items = new Slot[MaxItems];
         public int gold;
         public void SetItemDataFromInventoryDB(Inventory.Inventory inventory)
         {
-            itemss = inventory.inventorySlots;
+            var index = 0;
+            foreach (var item in inventory.inventoryItems)
+            {
+                items[index] = inventory.inventoryItems[index];
+                index++;
+            }
+            
             gold = inventory.gold;
         }
     }

@@ -24,21 +24,33 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _refMenu = _instanceMenu.GetComponent<UpdateItemImageSelection>();
             gameObject.SetActive(true);
         }
-        
-        
-        private InventorySlot targetSlot => UIManager.instance.bookUI.GetInventoryUI().chosenSlot;
+
+
+        private InventorySlot targetSlot => (InventorySlot)UIManager.instance.GetUIContainer().chosenSlot;
         
         public void PressedEquipButton() { targetSlot.clickToSlot.EquipCheck(); }
         public void PressedEquipYesButton() { targetSlot.clickToSlot.EquipItem(); }
-        public void PressedEatAllButton() { targetSlot.clickToSlot.EatAllMineral(); }
-        public void PressedEatButton() { targetSlot.clickToSlot.EatMineral(); }
-        public void PressedEatTenButton() { targetSlot.clickToSlot.EatTenMineral(); }
+
+        public void PressedEatButton()
+        {
+            const int mineralCount = 1; 
+            targetSlot.clickToSlot.EatMineral(mineralCount);
+        }
+
+        public void PressedEatTenButton()
+        {
+            const int mineralCount = 10; 
+            targetSlot.clickToSlot.EatMineral(mineralCount);
+        }
+
+        public void PressedEatFiftyButton()
+        {
+            const int mineralCount = 50;
+            targetSlot.clickToSlot.EatMineral(mineralCount);
+        }
         public void PressedUseButton() { targetSlot.clickToSlot.UseItem(); }
         public void PressedThrowAwayButton() { targetSlot.clickToSlot.AbandonItem(); }
-        public void PressedCancelButton()
-        {
-            DeleteMenu();
-        }
+        public void PressedCancelButton() { DeleteMenu(); }
         
         public void EquipmentMenu()
         {
@@ -50,22 +62,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MineralMenu(int itemCount)
         {
-            if (itemCount >= 10)
+            if (itemCount >= 50)
             {
-                MakeMenu("모두 먹이기");
+                MakeMenu("50개 먹이기");
                 MakeMenu("10개 먹이기");
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (itemCount > 1)
+            else if (itemCount >= 10)
             {
-                MakeMenu("모두 먹이기");
+                MakeMenu("10개 먹이기");
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (itemCount == 1)
+            else if (itemCount >= 1)
             {
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
@@ -108,12 +120,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedCancelButton);
             else if (text == "사용하기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedUseButton);
-            else if (text == "10개 먹이기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatTenButton);
-            else if (text == "모두 먹이기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatAllButton);
             else if (text == "1개 먹이기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedEatButton);
+            else if (text == "10개 먹이기")
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatTenButton);
+            else if (text == "50개 먹이기")
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatFiftyButton);
         }
         private void MakeUnderLine()
         {

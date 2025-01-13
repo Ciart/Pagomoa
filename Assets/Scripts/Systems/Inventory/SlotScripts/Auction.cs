@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
         }
         
-        public void Remove(Item data)
+        /*public void Remove(Item data)
         {
             var player = GameManager.instance.player;
             var countUI = UIManager.instance.shopUI.GetCountUI();
@@ -39,6 +39,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 player.inventory.gold -= data.price;
                 auctionItem.SetSlotItemCount(minusCount);
             }
-        }
+        }*/
     }
 }

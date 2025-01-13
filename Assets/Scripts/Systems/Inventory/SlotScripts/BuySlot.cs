@@ -7,42 +7,39 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class BuySlot : Slot
+    public class BuySlot : MonoBehaviour, ISlot
     {
+        public Slot slot { get; private set; } = new Slot();
+        
+        [Header("구매 슬롯 변수")]
         public Image itemImage;
         public TextMeshProUGUI itemNameText;
         public TextMeshProUGUI itemPriceText;
 
         private void Awake()
         {
-            SetSlotType(SlotType.Buy);
+            slot.SetSlotType(SlotType.Buy);
             SetCountBuySlot();
         }
-
-        public void BuyCheck()
+        
+        public virtual void SetSlot(Slot targetSlot)
         {
-            var shopUI = UIManager.instance.shopUI;
-            
-            shopUI.chosenSlot = this;
-            var chosenItem = shopUI.chosenSlot.GetSlotItem();
-            
-            shopUI.GetCountUI().gameObject.SetActive(true);
-            shopUI.GetCountUI().ActiveCountUI(GetSlotType());
-            shopUI.GetShopChat().BuyPriceToChat(chosenItem.price);
+            itemImage.sprite = slot.GetSlotItem().sprite;
+            itemNameText.text = slot.GetSlotItem().name;
+            itemPriceText.text = slot.GetSlotItem().price.ToString();
         }
-        public virtual void UpdateBuySlot()
-        {
-            itemImage.sprite = GetSlotItem().sprite;
-            itemNameText.text = GetSlotItem().name;
-            itemPriceText.text = GetSlotItem().price.ToString();
-        }
-
         protected void SetCountBuySlot()
         {
-            if (GetSlotType() == SlotType.Buy)
-                SetSlotItemCount(100000);
-            else if (GetSlotType() == SlotType.BuyArtifact)
-                SetSlotItemCount(1);
+            if (slot.GetSlotType() == SlotType.Buy)
+                slot.SetSlotItemCount(100000);
+            else if (slot.GetSlotType() == SlotType.BuyArtifact)
+                slot.SetSlotItemCount(1);
         }
+
+        public SlotType GetSlotType() { return slot.GetSlotType(); }
+
+        public int GetSlotID() { throw new NotImplementedException(); }
+
+        public void ResetSlot() { throw new NotImplementedException(); }
     }
 }

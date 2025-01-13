@@ -596,13 +596,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2663883495414985704}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.BuySlot, Assembly-CSharp
+      - m_Target: {fileID: 1356624431031133237}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.ShopUI, Assembly-CSharp
         m_MethodName: BuyCheck
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2663883495414985704}
+          m_ObjectArgumentAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.BuySlot,
+            Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -637,15 +638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458c48e6ff97e2f499d434bc3b9b0372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
   itemImage: {fileID: 8527797886426780375}
   itemNameText: {fileID: 3760543308239304978}
   itemPriceText: {fileID: 6909714887787036798}
@@ -1102,13 +1094,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5888348394101768944}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.BuySlot, Assembly-CSharp
+      - m_Target: {fileID: 1356624431031133237}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.ShopUI, Assembly-CSharp
         m_MethodName: BuyCheck
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5888348394101768944}
+          m_ObjectArgumentAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.BuySlot,
+            Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1143,15 +1136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6475329a5e0d94b99a044fc9e9f99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
   itemImage: {fileID: 2541798942623928629}
   itemNameText: {fileID: 292311400937154506}
   itemPriceText: {fileID: 8814548477815169089}
@@ -2930,7 +2914,6 @@ MonoBehaviour:
   countUI: {fileID: 6506065875277051743}
   buyUI: {fileID: 8400131792757442200}
   sellUI: {fileID: 4139239377351003745}
-  chosenSlot: {fileID: 0}
 --- !u!1 &3041347574587895122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,13 +3113,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1504135715664673214}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.ShopSlot, Assembly-CSharp
+      - m_Target: {fileID: 1356624431031133237}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.ShopUI, Assembly-CSharp
         m_MethodName: SellCheck
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1504135715664673214}
+          m_ObjectArgumentAssemblyTypeName: Ciart.Pagomoa.Systems.Inventory.SellSlot,
+            Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3171,15 +3155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d931ae9eb0216f545a9158321e24571c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
   itemImage: {fileID: 3507147516554798873}
   countText: {fileID: 5818144005351812412}
   id: 0

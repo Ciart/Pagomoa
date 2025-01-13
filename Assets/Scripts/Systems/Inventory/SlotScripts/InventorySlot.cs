@@ -5,62 +5,71 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class InventorySlot : Slot, IDropHandler
+    public class InventorySlot : MonoBehaviour, IDropHandler, ISlot
     {
+        public Slot slot { get; private set; }
+
+        public void InitSlot() { slot = new Slot(); }
+        
         [Header("인벤토리 슬롯 변수")]
         public Image itemImage;
         public TextMeshProUGUI countText;
         public int id;
+        public int referenceSlotID = -1;
         
         public ClickToSlot clickToSlot { get; private set; }
 
         private void Awake()
         {
-            SetSlotType(SlotType.Inventory);
+            slot.SetSlotType(SlotType.Inventory);
             clickToSlot = GetComponent<ClickToSlot>();
         }
 
-        public void ReleaseItem()
+        /*public void ReleaseItem()
         {
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             var inventory = GameManager.instance.player.inventory;
             
             inventoryUI.chosenSlot = this;
 
-            if (inventory.inventorySlots[inventoryUI.chosenSlot.id] == null)
-                return;
+            if (inventory.inventoryItems[inventoryUI.chosenSlot.GetSlotID()] == null) return;
 
-            var item = inventory.inventorySlots[inventoryUI.chosenSlot.id].GetSlotItem();
+            var item = inventory.inventoryItems[inventoryUI.chosenSlot.GetSlotID()].GetSlotItem();
                 
             inventory.Add(item, 0);
-            inventoryUI.UpdateSlots();
+            inventoryUI.UpdateInventorySlot();
             inventory.RemoveArtifactData(item);
             inventoryUI.SetArtifactSlots();
-        }
+        }*/
         
         // summary : SetItem 기능을 이어 받아 아이템 세팅에 이용되는 함수
-        public override void SetSlot(Slot slot)
+        public SlotType GetSlotType() { return slot.GetSlotType(); }
+
+        public int GetSlotID() { return id; }
+
+        public void SetSlot(Slot targetSlot)
         {
-            if (slot.GetSlotItem().id != "")
+            if (targetSlot.GetSlotItemID() == "")
             {
-                SetSlotItem(slot.GetSlotItem());
-                SetSlotItemCount(slot.GetSlotItemCount());
-                itemImage.sprite = slot.GetSlotItem().sprite;
-                countText.text = GetSlotItemCount() == 0 ? "" : GetSlotItemCount().ToString();
-            }
-            else
-            {
-                itemImage.sprite = null;
-                countText.text = "";
-                GetSlotItem().ClearItemProperty();
-                SetSlotItemCount(0);
+                ResetSlot();
+                slot.SetSlotItemID("");
+                slot.SetSlotItemCount(0);
             } 
+            else if (targetSlot.GetSlotItemID() != "")
+            {
+                slot.SetSlotItemID(targetSlot.GetSlotItemID());
+                slot.SetSlotItemCount(targetSlot.GetSlotItemCount());
+                
+                itemImage.sprite = targetSlot.GetSlotItem().sprite;
+                countText.text = targetSlot.GetSlotItemCount() == 0 ? "" : targetSlot.GetSlotItemCount().ToString();
+            }
         }
 
         public void ResetSlot()
         {
             itemImage.sprite = null;
             countText.text = "";
+            referenceSlotID = -1;
         }
         
         public void OnDrop(PointerEventData eventData)
