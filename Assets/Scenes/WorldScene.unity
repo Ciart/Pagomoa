@@ -264,7 +264,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 0}
+  m_ComponentOwner: {fileID: 192797270}
 --- !u!114 &120692004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,6 +1209,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596654829}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1681,6 +1682,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &816190133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 816190135}
+  - component: {fileID: 816190134}
+  m_Layer: 0
+  m_Name: NightMonsterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &816190134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816190133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a21d1f55df393946b6b50d3e26d30da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 3944353569815020525, guid: 5562c6d46e0392041ae9bc1ec13115d4, type: 3}
+  cycleTime: 5
+  maxCount: 5
+  spawnRange: {x: 25, y: 12}
+  spawnExclusionRange: {x: 20, y: 12}
+  debugVectors: []
+--- !u!4 &816190135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816190133}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &817617190 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1693955696384019898, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
@@ -3942,6 +3993,6 @@ SceneRoots:
   - {fileID: 5787187148874216554}
   - {fileID: 596654833}
   - {fileID: 7878045993923659085}
-  - {fileID: 162412287}
-  - {fileID: 498371703}
   - {fileID: 1595614276}
+  - {fileID: 120692002}
+  - {fileID: 816190135}

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Systems
         {
             var particle = Object.Instantiate(DataBase.data.GetParticles()[id], parent.transform);
             particle.transform.localPosition = position;
-            Object.Destroy(particle);
+            Object.Destroy(particle, duration);
             //DataBase.data.DestroyData(, duration);
         }
     }

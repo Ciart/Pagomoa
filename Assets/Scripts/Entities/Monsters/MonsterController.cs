@@ -8,15 +8,12 @@ namespace Ciart.Pagomoa.Entities.Monsters
         protected Rigidbody2D _rigidbody;
         protected Animator _animator;
         protected Monster _monster;
+        protected EntityController _entityController;
 
         protected GameObject touchingTarget;
 
-        void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
-            _monster = GetComponent<Monster>();
-        }
+        [SerializeField] protected float chaseTime = 6f;
+
 
         public abstract void StateChanged(Monster.MonsterState state);
         protected abstract IEnumerator Chase();
@@ -26,24 +23,45 @@ namespace Ciart.Pagomoa.Entities.Monsters
         protected virtual void Die() {
             _rigidbody.linearVelocity = Vector3.zero;
             _rigidbody.gravityScale = 0;
-            GetComponent<Collider2D>().enabled = false;
+            _rigidbody.Sleep();
             _animator.SetTrigger("Hit");
             _monster.Die();
         }
 
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        // if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
-        // {
-        //     _monster.target = touchingTarget = collision.gameObject;
-        //     StateChanged(Monster.MonsterState.Chase);
-        // }
-        //}
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject == touchingTarget)
-        //        touchingTarget = null;
-        //}
+        protected virtual void OnHit(EntityDamagedEventArgs args)
+        {
+            if (args.attacker == null) return;
+            if (_entityController.isDead) return;
+ 
+            _monster.target = args.attacker.gameObject;
+            StateChanged(Monster.MonsterState.Hit);
+        }
+
+        protected virtual void OnDie()
+        {
+            StateChanged(Monster.MonsterState.Die);
+        }
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
+            _monster = GetComponent<Monster>();
+            _entityController = GetComponent<EntityController>();
+                
+        }
+
+        private void OnEnable()
+        {
+            _entityController.damaged += OnHit;
+            _entityController.died += OnDie;
+        }
+
+        private void OnDisable()
+        {
+            _entityController.damaged -= OnHit;
+            _entityController.died -= OnDie;
+        }
 
     }
 }
