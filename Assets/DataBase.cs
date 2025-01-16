@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Worlds;
@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa
         public WorldDatabase GetWorldData();
         public ItemEntity GetItemEntity();
         public QuestDatabase GetQuestData();
-        public List<ParticleSystem> GetParticles();
+        public List<GameObject> GetParticles();
         public AudioSource GetAudioSource();
         public AudioSource[] GetSfxSources();
         public UIContainer GetUIData();
@@ -31,7 +31,7 @@ namespace Ciart.Pagomoa
         [SerializeField] private ItemEntity itemEntity;
         
         [Header("Particle Data")]
-        [SerializeField] private List<ParticleSystem> particles;
+        [SerializeField] private List<GameObject> particles;
         
         [Header("Sound Data")]
         [SerializeField] private AudioSource musicSource;
@@ -61,7 +61,7 @@ namespace Ciart.Pagomoa
         public WorldDatabase GetWorldData() { return worldDatabase; }
         public ItemEntity GetItemEntity() { return itemEntity; }
         public QuestDatabase GetQuestData() { return questDatabase; }
-        public List<ParticleSystem> GetParticles() { return particles; }
+        public List<GameObject> GetParticles() { return particles; }
         public AudioSource GetAudioSource() { return musicSource; }
         public AudioSource[] GetSfxSources() { return sfxSources; }
         public UIContainer GetUIData() { return uiContainer; }

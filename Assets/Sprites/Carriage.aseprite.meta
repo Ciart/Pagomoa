@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -209,7 +210,7 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1441386676
+    guid: 2037519492
     name: BackWheel
     layerFlags: 3
     layerType: 0
@@ -227,7 +228,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 1
-    guid: 1317221951
+    guid: -7500618
     name: Layer 3
     layerFlags: 3
     layerType: 0
@@ -245,7 +246,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 2
-    guid: 1317223933
+    guid: -7500613
     name: Layer 4
     layerFlags: 3
     layerType: 0
@@ -263,7 +264,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 3
-    guid: 336872891
+    guid: 44122776
     name: FrontWheel
     layerFlags: 3
     layerType: 0
@@ -321,3 +322,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 176, y: 96}
+  previousTextureSize: {x: 256, y: 128}

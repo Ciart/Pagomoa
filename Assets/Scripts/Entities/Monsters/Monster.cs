@@ -37,48 +37,12 @@ namespace Ciart.Pagomoa.Entities.Monsters
         {
             isGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, LayerMask.GetMask("Platform")) ? true : false;
         }
-        private void FixedUpdate()
-        {
-            //if(groundCheck)
-            //    GroundCheck();
-        }
-        public void GetDamage(GameObject attacker, float damage)
-        {
-            if (state == MonsterState.Die) return;
 
-            status.hp -= damage;
-            if (status.hp <= 0)
-                _controller.StateChanged(MonsterState.Die);
-            else
-            {
-                Hit(attacker);
-                _controller.StateChanged(MonsterState.Hit);
-            }
-        }
-        void Hit(GameObject attacker)
-        {
-            target = attacker;
-            direction = target.transform.position.x > transform.position.x ? 1 : -1;
-            transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), 1f, 1f);
-
-            var particleManager = ParticleManager.instance;
-            
-            if(attacker.CompareTag("Player"))
-                particleManager.Make(1, gameObject, Vector2.zero, 0.5f);
-            else
-                particleManager.Make(0, gameObject, Vector2.zero, 0.5f);
-            GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
-            var knockBackForce2 = 3f;
-            Vector2 knockBackDirection2 = transform.position - attacker.transform.position;
-            knockBackDirection2.Normalize();
-            Vector2 knockBackPosition2 = new Vector2(knockBackForce2 * Mathf.Sign(knockBackDirection2.x), 2.5f);
-
-            GetComponent<Rigidbody2D>().AddForce(knockBackPosition2, ForceMode2D.Impulse);
-        }
         public void Die()
         {
             StartCoroutine(FadeOut());
         }
+
         IEnumerator FadeOut()
         {
             SpriteRenderer sprite = GetComponent<SpriteRenderer>();
