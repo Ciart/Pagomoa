@@ -1,49 +1,92 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Systems.Dialogue;
+using Ciart.Pagomoa.Systems.Time;
+using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class ShopUI : MonoBehaviour
     {
-        [SerializeField] private GameObject _scrollView;
-        [SerializeField] private GameObject _book;
+        public TextMeshProUGUI shopGoldUI;
+        
+        [SerializeField] private GameObject _buyPanel;
+        [SerializeField] private GameObject _sellPanel;
         [SerializeField] private GameObject _toSell;
         [SerializeField] private GameObject _toBuy;
-        [SerializeField] public ShopHover hovering;
-        [SerializeField] public TextMeshProUGUI[] gold;
 
-        public static ShopUI Instance = null;
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(this);
-        }
+        [SerializeField] private ShopChat shopChat;
+        public ShopChat GetShopChat() => shopChat;
+        [SerializeField] private CountUI countUI;
+        public CountUI GetCountUI() => countUI;
+        [SerializeField] private BuyUI buyUI;
+        public BuyUI GetBuyUI() => buyUI;
+        [SerializeField] private SellUI sellUI;
+        public SellUI GetSellUI() => sellUI;
+        private List<Item> _items;
+        public List<Item> GetShopItems() => _items;
+        public void SetShopItems(List<Item> shopItems) => _items = shopItems;
+        
         public void ClickToSell()
         {
-            _scrollView.SetActive(false);
-            _book.SetActive(true);
+            _buyPanel.SetActive(false);
+            _sellPanel.SetActive(true);
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
-            var buy = GetComponent<Buy>();
-            buy.DeleteSellUISlot();
-            buy.ResetSellUISlot();
+            
+            sellUI.DeleteSellUISlot();
+            sellUI.UpdateSellUISlot();
         }
         public void ClickToBuy()
         {
-            _scrollView.SetActive(true);
-            _book.SetActive(false);
+            _buyPanel.SetActive(true);
+            _sellPanel.SetActive(false);
             _toSell.SetActive(true);
             _toBuy.SetActive(false);
         }
-        public void SetUI()
+        public void ActiveShop()
         {
-            bool click = false;
-            if (gameObject.activeSelf == false)
-                click = !click;
-            gameObject.SetActive(click);
+            if (gameObject.activeSelf) return;
+                
+            gameObject.SetActive(true);
+            TimeManager.instance.PauseTime();
+        }
+
+        public void DeActiveShop()
+        {
+            if (!gameObject.activeSelf) return;
+            
+            gameObject.SetActive(false);
+            TimeManager.instance.ResumeTime();
+        }
+        
+        public void BuyCheck(BuySlot buySlot)
+        {
+            UIManager.instance.GetUIContainer().SetChosenSlot(buySlot);
+            var chosenItem = buySlot.slot.GetSlotItem();
+            
+            countUI.gameObject.SetActive(true);
+            countUI.ActiveCountUI(buySlot.slot.GetSlotType());
+            shopChat.BuyPriceToChat(chosenItem.price);
+        }
+        
+        public void SellCheck(SellSlot sellSlot)
+        {
+            if (sellSlot.slot.GetSlotItemID() == "")
+                return;
+
+            UIManager.instance.GetUIContainer().SetChosenSlot(sellSlot);
+
+            if (sellSlot.slot.GetSlotItem().type == ItemType.Use ||
+                sellSlot.slot.GetSlotItem().type == ItemType.Mineral)
+            {
+                UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
+                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(sellSlot.slot.GetSlotType());
+                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(sellSlot.slot.GetSlotItem().price);
+            }
         }
     }
 }

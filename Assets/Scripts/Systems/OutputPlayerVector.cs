@@ -1,39 +1,50 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems
 {
     public class OutputPlayerVector : MonoBehaviour
     {
-        [SerializeField] private Transform _player;
-
-        [SerializeField] private TextMeshProUGUI _tmpGuiText;
-        private Vector2 _playerPos;
-        void Update()
+        private enum TargetVector
         {
-            SetPlayerVectorOutput();
+            TargetX = 0,
+            TargetY = 1,
+        }
+        
+        private Vector2 _playerPos;
+        private TargetVector _targetVector;
+        public void SetTargetVector(int value) { _targetVector = (TargetVector)value; }
+        
+        private TextMeshProUGUI _tmpGuiText;
+
+        private void Start()
+        {
+            _tmpGuiText = GetComponentInChildren<TextMeshProUGUI>();    
         }
 
-        public void SetPlayerVectorOutput()
+        public void UpdateVectorOutput()
         {
-            if (!_player) { return; }
-            _playerPos = _player.position;
+            var player = GameManager.instance.player;
+            
+            if (!player) return; 
+            _playerPos = player.transform.position;
 
-            if (gameObject.name == "CoordX")
+            if (_targetVector == TargetVector.TargetX)
             {
             
                 if (Math.Round(_playerPos.x) >= 1)
-                    _tmpGuiText.text = string.Format("{0:+0}", _playerPos.x);
+                    _tmpGuiText.text = $"{_playerPos.x:+0}";
                 else if(_playerPos.x < 1)
-                    _tmpGuiText.text = string.Format("{0:0}", _playerPos.x);
+                    _tmpGuiText.text = $"{_playerPos.x:0}";
             }
-            else if (gameObject.name == "CoordY")
+            else if (_targetVector == TargetVector.TargetY)
             {
                 if(Math.Round(_playerPos.y) >= 1)
-                    _tmpGuiText.text = string.Format("{0:+0}", _playerPos.y);
+                    _tmpGuiText.text = $"{_playerPos.y:+0}";
                 else if(_playerPos.y < 1)
-                    _tmpGuiText.text = string.Format("{0:0}", _playerPos.y);
+                    _tmpGuiText.text = $"{_playerPos.y:0}";
             }
         }
     }

@@ -1,72 +1,57 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class RightClickMenu : MonoBehaviour
+    public class RightClickMenu : MonoBehaviour, IPointerExitHandler
     {
-        public static RightClickMenu Instance;
+        [SerializeField] private Image _instanceMenu;
+        public List<Image> menu = new List<Image>();
+        [SerializeField] private Image _instanceLine;
+        public List<Image> lines = new List<Image>();
+        [SerializeField] private Image _instanceUnderLine;
+        public Image underLine;
 
-        [SerializeField] private GameObject _menu;
-        [SerializeField] public List<GameObject> menus = new List<GameObject>();
-        [SerializeField] private GameObject _line;
-        [SerializeField] public List<GameObject> lines = new List<GameObject>();
-        [SerializeField] public GameObject underLine;
-        [SerializeField] public List<GameObject> underLines = new List<GameObject>();
-        [SerializeField] public Sprite[] basicMenuImages;
-        [SerializeField] public Sprite[] pressedMenuImages;
-        [SerializeField] public Sprite[] hoverMenuImages;
-    
+        private UpdateItemImageSelection _refMenu;
 
         private void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(this.gameObject);
+            _refMenu = _instanceMenu.GetComponent<UpdateItemImageSelection>();
+            gameObject.SetActive(true);
         }
-        public void SetUI()
+
+
+        private InventorySlot targetSlot => (InventorySlot)UIManager.instance.GetUIContainer().chosenSlot;
+        
+        public void PressedEquipButton() { targetSlot.clickToSlot.EquipCheck(); }
+        public void PressedEquipYesButton() { targetSlot.clickToSlot.EquipItem(); }
+
+        public void PressedEatButton()
         {
-            if(gameObject.activeSelf == false)
-                gameObject.SetActive(true);
-            else
-                gameObject.SetActive(false);
+            const int mineralCount = 1; 
+            targetSlot.clickToSlot.EatMineral(mineralCount);
         }
-        public void PressedEquipBtn()
+
+        public void PressedEatTenButton()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipCheck();
+            const int mineralCount = 10; 
+            targetSlot.clickToSlot.EatMineral(mineralCount);
         }
-        public void PressedEquipYes()
+
+        public void PressedEatFiftyButton()
         {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EquipItem();
+            const int mineralCount = 50;
+            targetSlot.clickToSlot.EatMineral(mineralCount);
         }
-        public void PressedEatAllBtn()
-        {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatAllMineral();
-        }
-        public void PressedEatBtn()
-        {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatMineral();
-        }
-        public void PressedTenEatBtn()
-        {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().EatTenMineral();
-        }
-        public void PressedUseBtn()
-        {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().UseItem();
-        }
-        public void PressedThrowAwayBtn()
-        {
-            InventoryUI.Instance.choiceSlot.GetComponent<ClickToSlot>().AbandonItem();
-        }
-        public void PressedCancleBtn()
-        {
-            SetUI();
-            DeleteMenu();
-        }
+        public void PressedUseButton() { targetSlot.clickToSlot.UseItem(); }
+        public void PressedThrowAwayButton() { targetSlot.clickToSlot.AbandonItem(); }
+        public void PressedCancelButton() { DeleteMenu(); }
+        
         public void EquipmentMenu()
         {
             MakeMenu("착용하기");
@@ -77,22 +62,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void MineralMenu(int itemCount)
         {
-            if (itemCount >= 10)
+            if (itemCount >= 50)
             {
-                MakeMenu("모두 먹이기");
+                MakeMenu("50개 먹이기");
                 MakeMenu("10개 먹이기");
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (itemCount > 1)
+            else if (itemCount >= 10)
             {
-                MakeMenu("모두 먹이기");
+                MakeMenu("10개 먹이기");
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
                 MakeMenu("그만두기");
             }
-            else if (itemCount == 1)
+            else if (itemCount >= 1)
             {
                 MakeMenu("1개 먹이기");
                 MakeMenu("버리기");
@@ -118,56 +103,73 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void MakeMenu(string text)
         {
-            GameObject newLine = Instantiate(_line, this.transform);
+            var newLine = Instantiate(_instanceLine, this.transform);
             lines.Add(newLine);
-            newLine.SetActive(true);
+            newLine.gameObject.SetActive(true);
 
-            GameObject newMenu = Instantiate(_menu, this.transform);
-            menus.Add(newMenu);
-            newMenu.SetActive(true);
-            newMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+            var newMenu = Instantiate(_instanceMenu, this.transform);
+            menu.Add(newMenu);
+            newMenu.gameObject.SetActive(true);
+            newMenu.transform.GetComponentInChildren<TextMeshProUGUI>().text = text;
 
             if (text == "착용하기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedEquipBtn);
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedEquipButton);
             else if (text == "버리기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedThrowAwayBtn);
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedThrowAwayButton);
             else if (text == "그만두기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedCancleBtn);
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedCancelButton);
             else if (text == "사용하기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedUseBtn);
-            else if (text == "10개 먹이기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedTenEatBtn);
-            else if (text == "모두 먹이기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatAllBtn);
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedUseButton);
             else if (text == "1개 먹이기")
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatBtn);
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatButton);
+            else if (text == "10개 먹이기")
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatTenButton);
+            else if (text == "50개 먹이기")
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedEatFiftyButton);
         }
         private void MakeUnderLine()
         {
-            GameObject UnderLine = Instantiate(underLine, this.transform);
-            underLines.Add(UnderLine);
-            UnderLine.SetActive(true);
+            var underLineImage = Instantiate(_instanceUnderLine, this.transform);
+            underLine = underLineImage;
+            underLine.gameObject.SetActive(true);
         }
         private void MenuImage()
         {
-            for (int i = 0; i < menus.Count; i++)
+            for (int i = 0; i < menu.Count; i++)
             {
                 if (i == 0)
-                    lines[i].GetComponent<Image>().sprite = basicMenuImages[1];
+                    lines[i].sprite = _refMenu.GetDefaultUnderLine();
                 else
                 {
-                    lines[i].GetComponent<Image>().sprite = basicMenuImages[0];
-                    lines[i].GetComponent<RectTransform>().sizeDelta = new Vector2(50, 1);
+                    lines[i].sprite = _refMenu.GetDefaultLine();
+                    lines[i].rectTransform.sizeDelta = new Vector2(50, 1);
                 }
             }
         }
         public void DeleteMenu()
         {
-            menus.Clear();
+            for (int i = 0; i < menu.Count; i++)
+            {
+                menu.RemoveAt(i);
+            }
+            for (int i = 0; i < lines.Count; i++)
+            {
+                lines.RemoveAt(i);    
+            }
+            
+            menu.Clear();
+            menu = new List<Image>();
             lines.Clear();
-            underLines.Clear();
+            lines = new List<Image>();
+            
+            underLine = null;
             for (int i = 3; i < transform.childCount; i++)
                 Destroy(transform.GetChild(i).gameObject);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (eventData.fullyExited) DeleteMenu();
         }
     }
 }
