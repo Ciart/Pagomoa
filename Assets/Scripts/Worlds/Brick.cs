@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa.Worlds
                 if (string.IsNullOrEmpty(groundId))
                     return null;
 
-                return ResourceSystem.instance.GetGround(groundId);
+                return ResourceSystem.instance.GetGround(groundId); // 여기
             }
         }
 

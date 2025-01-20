@@ -27,7 +27,7 @@ namespace Ciart.Pagomoa.Entities.Players
         public DrillController drill;
 
         private Rigidbody2D _rigidbody;
-        
+
         private PlayerInput _input;
 
         private PlayerMovement _movement;
@@ -58,7 +58,7 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 return;
             }
-
+            
             state = PlayerState.Jump;
             _movement.Jump();
         }

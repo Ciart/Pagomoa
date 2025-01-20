@@ -8,22 +8,30 @@ namespace Ciart.Pagomoa.UI
 {
     public class MinimapUI : MonoBehaviour
     {
-        public TextMeshProUGUI coordXText;
-        public TextMeshProUGUI coordYText;
+        [Header("플레이어 위치 UI")]
+        [SerializeField] private OutputPlayerVector outputPlayerVectorX;
+        [SerializeField] private OutputPlayerVector outputPlayerVectorY;
+        
+        [Header("플레이 타임 UI")]
+        [SerializeField] private OutputPlayerPlayTime outputPlayDays;
+        [SerializeField] private OutputPlayerPlayTime outputPlayTimeMinutes;
 
-        private void Update()
+        private void Start()
         {
-            var position = GameManager.instance.player.transform.position;
+            outputPlayerVectorX.SetTargetVector(0);
+            outputPlayerVectorY.SetTargetVector(1);
+            
+            outputPlayDays.SetTargetTimeValue(0);
+            outputPlayTimeMinutes.SetTargetTimeValue(1);
+        }
 
-            if (Math.Round(position.x) >= 1)
-                coordXText.text = $"{position.x:+0}";
-            else if(position.x < 1)
-                coordXText.text = $"{position.x:0}";
+        public void UpdateMinimap()
+        {
+            outputPlayerVectorX.UpdateVectorOutput();
+            outputPlayerVectorY.UpdateVectorOutput();
 
-            if(Math.Round(position.y) >= 1)
-                coordYText.text = $"{position.y:+0}";
-            else if(position.y < 1)
-                coordYText.text = $"{position.y:0}";
+            outputPlayDays.UpdatePlayTimeOutput();
+            outputPlayTimeMinutes.UpdatePlayTimeOutput();
         }
     }
 }

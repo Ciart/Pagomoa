@@ -25,28 +25,28 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void ChangePrice()
         {
-            findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.item.type == ItemType.Mineral);
+            /*findallMineral = Achievements.Instance.AchieveMinerals.FindAll(a => a.GetSlotItem().type == ItemType.Mineral);
             for(int i = 0; i < findallMineral.Count; i++)
             {
-                int save = findallMineral[i].item.price;
-                random = Random.Range(-findallMineral[i].item.price, findallMineral[i].item.price);
+                int save = findallMineral[i].GetSlotItem().price;
+                random = Random.Range(-findallMineral[i].GetSlotItem().price, findallMineral[i].GetSlotItem().price);
                 
                 // NOTE: 
                 // findallMineral[i].item.price += random;
 
-                marketCondition.contentDatas[i].price.text = findallMineral[i].item.price.ToString();
+                marketCondition.contentDatas[i].price.text = findallMineral[i].GetSlotItem().price.ToString();
 
 
                 Sprite upordown;
-                if (findallMineral[i].item.price > save)
+                if (findallMineral[i].GetSlotItem().price > save)
                     upordown = up;
-                else if (findallMineral[i].item.price < save)
+                else if (findallMineral[i].GetSlotItem().price < save)
                     upordown = down;
                 else
                     return;
 
                 marketCondition.contentDatas[i].updownImage.GetComponent<Image>().sprite = upordown;
-            }
+            }*/
         }
     }
 }

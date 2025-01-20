@@ -1,58 +1,50 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class ShopChat : MonoBehaviour
     {
-        [SerializeField] public TextMeshProUGUI chatting;
-        [SerializeField] private string[] _awakeChats;
-        [SerializeField] private string[] _endChats;
-        [SerializeField] private string[] _cancleChats;
-
-        public static ShopChat Instance = null;
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(this);
-        }
+        public TextMeshProUGUI chatting;
+        [SerializeField] private string[] awakeChats;
+        [SerializeField] private string[] endChats;
+        [SerializeField] private string[] cancelChats;
 
         public void AwakeChat()
         {
-            int random = Random.Range(0, _awakeChats.Length);
-            chatting.text = _awakeChats[random];
+            var random = Random.Range(0, awakeChats.Length);
+            chatting.text = awakeChats[random];
         }
 
         public void ThankChat()
         {
-            int random = Random.Range(0, _endChats.Length);
-            chatting.text = _endChats[random];
+            var random = Random.Range(0, endChats.Length);
+            chatting.text = endChats[random];
         }
 
-        public void CancleChat()
+        public void CancelChat()
         {
-            int random = Random.Range(0, _cancleChats.Length);
-            chatting.text = _cancleChats[random];
+            var random = Random.Range(0, cancelChats.Length);
+            chatting.text = cancelChats[random];
         }
 
         public void BuyPriceToChat(int price)
         {
-            string itemprice = string.Format("이게 필요해? 1개당 {0}골드야.", price);
-            chatting.text = itemprice;
+            var itemPrice = $"이게 필요해? 1개당 {price}골드야.";
+            chatting.text = itemPrice;
         }
 
         public void SellPriceToChat(int price)
         {
-            string itemprice = string.Format("이거면 1개당 {0}골드에 사줄 수 있어.", price);
-            chatting.text = itemprice;
+            var itemPrice = $"이거면 1개당 {price}골드에 사줄 수 있어.";
+            chatting.text = itemPrice;
         }
 
         public void TotalPriceToChat(int price)
         {
-            string itemprice = string.Format("총 {0}골드야.", price);
-            chatting.text = itemprice;
+            var itemPrice = $"총 {price}골드야.";
+            chatting.text = itemPrice;
         }
     }
 }
