@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -131,23 +131,20 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     Die();
                     gage = minOxygen;
-                    Debug.Log("0 됐다");
                 }
             }
             else if (oxygen < maxOxygen)
             {
                 oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
                 gage = oxygen;
-                Debug.Log("올라간다");
             }
-
             oxygenAlter.Invoke(gage, maxOxygen);
         }
 
         private void Die()
         {
             var inventory = GameManager.instance.player.inventory;
-            inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
+            inventory.gold = Mathf.FloorToInt(inventory.gold * 0.9f);
             
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
@@ -168,17 +165,19 @@ namespace Ciart.Pagomoa.Entities.Players
         private void LoseMoney(float percentage)
         {
             var inventory = GameManager.instance.player.inventory;
-            inventory.Gold = (int)(inventory.Gold * (1 - percentage));
+            inventory.gold = (int)(inventory.gold * (1 - percentage));
         }
 
+        // TODO : 사망 시 아이템 제거 기능 잠금 
         private void LoseItem(ItemType itemType, float probabilty)
         {
             var inventory = GameManager.instance.player.inventory;
 
-            List<InventorySlot> deleteItems = new List<InventorySlot>();
-            foreach (InventorySlot item in inventory.items)
+            /*List<string> deleteItems = new List<string>();*/
+            
+            foreach (var item in inventory.inventoryItems)
             {
-                if (item.item == null) continue;
+                if (item.GetSlotItem().id == "") continue;
 
                 var rand = Random.Range(0, 101) * 0.01f;
                 if (probabilty < rand)
@@ -187,23 +186,23 @@ namespace Ciart.Pagomoa.Entities.Players
                     continue;
                 }
 
-                if (item.item.type == itemType)
+                if (item.GetSlotItem().type == itemType)
                 {
-                    for (int i = 0; i < item.count; i++)
+                    for (int i = 0; i < item.GetSlotItemCount(); i++)
                     {
                         var entity = Instantiate(WorldManager.instance.itemEntity, transform.position,
                             Quaternion.identity);
-                        entity.Item = item.item;
+                        entity.Item = item.GetSlotItem();
                         entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
                     }
 
-                    deleteItems.Add(item);
+                    /*deleteItems.Add(item.GetSlotItem().id);*/
                 }
             }
 
-            var count = deleteItems.Count;
+            /*var count = deleteItems.Count;
             for (int i = 0; i < count; i++)
-                inventory.RemoveItemData(deleteItems[i].item);
+                inventory.RemoveInventoryItem(ResourceSystem.instance.GetItem(deleteItems[i]));*/
         }
 
         private void NextDay()

@@ -259,6 +259,7 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             RenderChunk(e.chunk.coords);
+            RenderEdgeFog();
         }
 
         private void OnEnable()
@@ -400,6 +401,7 @@ namespace Ciart.Pagomoa.Worlds
                 }
 
                 var data = entityController.GetEntityData();
+
                 dataList.Add(data);
 
                 entityManager.Despawn(entityController);

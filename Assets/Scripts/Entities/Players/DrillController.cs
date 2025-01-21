@@ -70,7 +70,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             _drillParts = gameObject.GetComponentsInChildren<Transform>();
             
-            _fairyMoa = FindObjectOfType<MoaInteraction>();
+            _fairyMoa = FindAnyObjectByType<MoaInteraction>();
             _fairyMoa.InitMoa();
         }
 
@@ -157,7 +157,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 var (x, y) = coord;
                 var brick = WorldManager.world.currentLevel.GetBrick(x, y, out _);
 
-                return brick.ground is not null;
+                return brick?.ground is not null;
             });
 
             foreach (var (x, y) in _target.targetCoordsList)
@@ -288,7 +288,7 @@ namespace Ciart.Pagomoa.Entities.Players
                     int used = 0;
                     while (used < needs.count)
                     {
-                        inventory.RemoveItemData(needs.mineral);
+                        inventory.RemoveItemByItemID(needs.mineral.id);
                         used++;
                     }
                 }
