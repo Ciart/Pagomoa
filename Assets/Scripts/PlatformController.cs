@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa
 
         private void OnEnable()
         {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
 
             if (Game.instance.player != null)
             {
@@ -45,7 +45,7 @@ namespace Ciart.Pagomoa
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
         }
 
         private void Update()

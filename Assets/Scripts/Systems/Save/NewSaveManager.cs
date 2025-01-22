@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
-    public class NewSaveManager : PManager<NewSaveManager>
+    public class NewSaveManager : Manager<NewSaveManager>
     {
         private const string GameDataFileName = "NewSave.dat";
         
@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             var data = new SaveData();
             
-            EventManager.Notify(new DataSaveEvent(data));
+            EventSystem.Notify(new DataSaveEvent(data));
             
             var path = Application.persistentDataPath + "/" + GameDataFileName;
             var raw = MemoryPackSerializer.Serialize(data);
@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Save
             var path = Application.persistentDataPath + "/" + GameDataFileName;
             var data = MemoryPackSerializer.Deserialize<SaveData>(File.ReadAllBytes(path));
             
-            EventManager.Notify(new DataLoadedEvent(data));
+            EventSystem.Notify(new DataLoadedEvent(data));
         }
 
         // public override void Awake()

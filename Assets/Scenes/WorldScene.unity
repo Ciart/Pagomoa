@@ -5408,6 +5408,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018746307}
+  - component: {fileID: 1018746310}
+  - component: {fileID: 1018746309}
   - component: {fileID: 1018746306}
   - component: {fileID: 1018746308}
   m_Layer: 0
@@ -5457,6 +5459,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ea6ca038b3465fb046235522b3dc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1018746309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018746305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ea281e173346ecb42c10751b661510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1018746310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018746305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50545cacd73646c8b3e5bfeb5ea7ef5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  hasPowerGemEarth: 0
+  isLoadSave: 0
 --- !u!1 &1040038971
 GameObject:
   m_ObjectHideFlags: 0

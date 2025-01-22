@@ -4,7 +4,7 @@ using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa.Events
 {
-    public class EventManager : PManager<EventManager>
+    public class EventSystem : SingletonMonoBehaviour<EventSystem>
     {
         private Dictionary<Type, HashSet<Delegate>> _listeners = new();
 

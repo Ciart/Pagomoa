@@ -1,12 +1,17 @@
 using System;
 using System.Reflection;
 
-public interface IPManager {}
+public interface IManager {}
 
-public class PManager<T> : IPManager where T : PManager<T> 
+public class Manager<T> : IManager where T : Manager<T> 
 {
-    public PManager()
+    [Obsolete("Game.Instance.[Name]을 사용해주세요.")]
+    public static T instance { get; private set; }
+    
+    public Manager()
     {
+        instance ??= this as T;
+        
         var type = GetType();
         var ms = ManagerSystem.instance;
         
@@ -19,8 +24,8 @@ public class PManager<T> : IPManager where T : PManager<T>
                 var action = (Action)Delegate.CreateDelegate(typeof(Action), this, method);
                 switch (method.Name)
                 {
-                    case NameOfAwake:
-                        ms.awake += action;
+                    case NameOfPreStart:
+                        ms.preStart += action;
                         break;
                     case NameOfStart:
                         ms.start += action;
@@ -50,8 +55,8 @@ public class PManager<T> : IPManager where T : PManager<T>
             }
         }
     }
-
-    public virtual void Awake() { }
+    
+    public virtual void PreStart() { }
     public virtual void Start() { }
     public virtual void Quit() { }
     public virtual void PreUpdate() { }
@@ -62,7 +67,7 @@ public class PManager<T> : IPManager where T : PManager<T>
     public virtual void LateUpdate() { }
     public virtual void OnDestroy() { }
     
-    private const string NameOfAwake = "Awake";
+    private const string NameOfPreStart = "PreStart";
     private const string NameOfStart = "Start";
     private const string NameOfQuit = "Quit";
     private const string NameOfPreUpdate = "PreUpdate";

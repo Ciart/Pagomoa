@@ -27,9 +27,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         
         private void Start()
         {
-            var uiManager = UIManager.instance;
-            
-            _questCompleteUI = uiManager.CreateQuestCompleteUI(transform);
+            _questCompleteUI = Game.Instance.UI.CreateQuestCompleteUI(transform);
             _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
             
@@ -121,7 +119,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
          
             var questManager = QuestManager.instance;
             
-            EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
+            EventSystem.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
             
             _entityController = GetComponent<EntityController>();
             if (_entityController == null) return;
@@ -142,7 +140,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<QuestCompleted>(OnCompleteQuestsUpdated);
+            EventSystem.RemoveListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }
     }
 }

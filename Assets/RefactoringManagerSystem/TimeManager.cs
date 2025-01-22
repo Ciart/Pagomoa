@@ -5,11 +5,11 @@ using Ciart.Pagomoa.Events;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
-    public class TimeManager : PManager<TimeManager>
+    public class TimeManager : Manager<TimeManager>
     {
         ~TimeManager()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         public const int MinuteTick = 30;
@@ -61,17 +61,17 @@ namespace Ciart.Pagomoa.Systems.Time
         [HideInInspector] public UnityEvent MonsterWakeUp;
         [HideInInspector] public UnityEvent<FadeState> FadeEvent;*/
         
-        public override void Awake()
-        {
-            /*base.Awake();
-            MonsterSleep.AddListener(DayMonster.GetSleep);
-            MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
-            MonsterWakeUp.AddListener(NightMonster.TimeToBye);*/
-        }
+        // public override void Awake()
+        // {
+        //     /*base.Awake();
+        //     MonsterSleep.AddListener(DayMonster.GetSleep);
+        //     MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
+        //     MonsterWakeUp.AddListener(NightMonster.TimeToBye);*/
+        // }
 
         public override void Start()
         {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

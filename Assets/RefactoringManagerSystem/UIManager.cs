@@ -5,11 +5,11 @@ using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class UIManager : PManager<UIManager>
+    public class UIManager : Manager<UIManager>
     {
         ~UIManager()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         private UIContainer _uiContainer;
@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems
         private FadeUI _fadeUI;
         public UIContainer GetUIContainer() { return _uiContainer; }
         
-        public override void Awake()
+        public override void PreStart()
         {
             _uiContainer = DataBase.data.GetUIData();
             
@@ -43,7 +43,7 @@ namespace Ciart.Pagomoa.Systems
 
         public override void Start()
         {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

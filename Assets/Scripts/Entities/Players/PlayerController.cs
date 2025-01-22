@@ -98,7 +98,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             TryJump();
             
-            EventManager.Notify(new PlayerMove(transform.position));
+            EventSystem.Notify(new PlayerMove(transform.position));
         }
 
         private void UpdateIsGrounded()

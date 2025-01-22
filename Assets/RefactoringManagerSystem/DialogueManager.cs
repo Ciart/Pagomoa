@@ -9,11 +9,11 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public class DialogueManager : PManager<DialogueManager>
+    public class DialogueManager : Manager<DialogueManager>
     {
         ~DialogueManager()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         public Story story;
@@ -49,21 +49,17 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             return false;
         }
 
-        public override void Awake()
-        {
-            RegisterCommands();
-        }
-
         public override void Start()
         {
-            Debug.Log("DialogueManager::Start()");
+            RegisterCommands();
+            
             _dialogueUI = UIManager.instance.GetUIContainer().dialogueUI;
             if (_dialogueUI == null)
             {
                 Debug.LogWarning("DialogueManager::StartStory(): Could not find UI container");
             }
             
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         private void OnPlayerSpawned(PlayerSpawnedEvent e) 
@@ -86,7 +82,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             if (onCreateStory != null) onCreateStory(story);
                 
             _dialogueUI.gameObject.SetActive(true);
-            EventManager.Notify(new StoryStarted());
+            EventSystem.Notify(new StoryStarted());
             TimeManager.instance.PauseTime();
         }
 
@@ -105,7 +101,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public void StartQuestChat()
         {
             var quests = nowEntityDialogue.GetValidationQuests();
-            EventManager.Notify(new QuestStoryStarted(quests));
+            EventSystem.Notify(new QuestStoryStarted(quests));
         }
     }
 }

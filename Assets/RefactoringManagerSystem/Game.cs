@@ -1,55 +1,84 @@
-using System;
-using System.Collections.Generic;
-using Ciart.Pagomoa.Systems;
-using UnityEngine;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.RefactoringManagerSystem;
+using Ciart.Pagomoa.Sounds;
+using Ciart.Pagomoa.Systems.Dialogue;
+using Ciart.Pagomoa.Systems.Save;
+using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Worlds;
 
-public class ManagerSystem : SingletonMonoBehaviour<ManagerSystem>
+namespace Ciart.Pagomoa.Systems
 {
-    public Action awake;
-    public Action start;
-    public Action quit;
-    public Action preUpdate;
-    public Action update;
-    public Action preFixedUpdate;
-    public Action fixedUpdate;
-    public Action preLateUpdate;
-    public Action lateUpdate;
-
-    protected override void Awake()
+    public enum GameState
     {
-        awake?.Invoke();
+        Playing,
+        EndDay,
     }
 
-    private void Start()
+    public class Game : SingletonMonoBehaviour<Game>
     {
-       start.Invoke();
-       Debug.Log("Game::Start()");
-    }
+        public PlayerController? player;
 
-    // Update is called once per frame
-    private void Update()
-    { 
-        preUpdate?.Invoke();
+        public bool hasPowerGemEarth = false;
+        public bool isLoadSave = false;
+
+        public DialogueManager Dialogue { get; private set; } = null!;
+        public EntityManager Entity { get; private set; } = null!;
+        public NewSaveManager Save { get; private set; } = null!;
+        public ParticleManager Particle { get; private set; } = null!;
+        public QuestManager Quest { get; private set; } = null!;
+        public SoundManager Sound { get; private set; } = null!;
+        public TimeManager Time { get; private set; } = null!;
+        public UIManager UI { get; private set; } = null!;
+        public WorldManager World { get; private set; } = null!;
+
         
-        update?.Invoke();
-    }
-
-    private void FixedUpdate()
-    {
-        preFixedUpdate?.Invoke();
+        private GameState _state;
         
-        fixedUpdate?.Invoke();
-    }
+        public GameState State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                EventSystem.Notify(new GameStateChangedEvent(_state));
+            }
+        }
 
-    private void LateUpdate()
-    {
-        preLateUpdate?.Invoke();
-        
-        lateUpdate?.Invoke();
-    }
+        public void MoveToNextDay()
+        {
+            Time.SkipToNextDay();
+        }
 
-    private void OnApplicationQuit()
-    {
-        quit?.Invoke();
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        {
+            player = e.player;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Dialogue = new DialogueManager();
+            Entity = new EntityManager();
+            Save = new NewSaveManager();
+            Particle = new ParticleManager();
+            Quest = new QuestManager();
+            Sound = new SoundManager();
+            Time = new TimeManager();
+            UI = new UIManager();
+            World = new WorldManager();
+        }
+
+        private void OnEnable()
+        {
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+
+        private void OnDisable()
+        {
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
     }
 }

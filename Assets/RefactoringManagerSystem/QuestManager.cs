@@ -9,13 +9,13 @@ using UnityEngine;
 namespace Ciart.Pagomoa.RefactoringManagerSystem
 {
 
-    public class QuestManager : PManager<QuestManager>
+    public class QuestManager : Manager<QuestManager>
     {
         public List<Quest> quests = new List<Quest>();
 
         public QuestDatabase database;
 
-        public override void Awake()
+        public override void PreStart()
         {
             database = DataBase.data.GetQuestData();
         }
@@ -32,19 +32,19 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
                 quests.Add(progressQuest);
 
-                EventManager.Notify(new QuestStarted(progressQuest));
-                EventManager.Notify(new AddNpcImageEvent(npcSprite));
-                EventManager.Notify(new MakeQuestListEvent());
+                EventSystem.Notify(new QuestStarted(progressQuest));
+                EventSystem.Notify(new AddNpcImageEvent(npcSprite));
+                EventSystem.Notify(new MakeQuestListEvent());
             }
 
-            EventManager.Notify(new QuestListUpdated(quests));
+            EventSystem.Notify(new QuestListUpdated(quests));
         }
 
         public void CompleteQuest(string id)
         {
             GetReward(id);
 
-            EventManager.Notify(new QuestCompleted(FindQuestById(id)));
+            EventSystem.Notify(new QuestCompleted(FindQuestById(id)));
         }
 
         private void GetReward(string id)
@@ -54,10 +54,10 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
             if (!string.IsNullOrEmpty(reward.itemId)) {
                 var rewardItem = ResourceSystem.instance.GetItem(reward.itemId);
-                EventManager.Notify(new AddReward(rewardItem, reward.value));
+                EventSystem.Notify(new AddReward(rewardItem, reward.value));
             }
 
-            EventManager.Notify(new AddGold(reward.gold));
+            EventSystem.Notify(new AddGold(reward.gold));
 
             targetQuest.state = QuestState.Finish;
 

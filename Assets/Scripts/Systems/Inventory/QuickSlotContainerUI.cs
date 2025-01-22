@@ -50,16 +50,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void OnEnable()
         {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.AddListener<QuickSlotChangedEvent>(OnQuickSlotChanged);
-            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.AddListener<QuickSlotChangedEvent>(OnQuickSlotChanged);
+            EventSystem.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
         
         private void OnDisable()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.RemoveListener<QuickSlotChangedEvent>(OnQuickSlotChanged);
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.RemoveListener<QuickSlotChangedEvent>(OnQuickSlotChanged);
+            EventSystem.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
         
         // public void SetQuickSlotItemCount(Item data)

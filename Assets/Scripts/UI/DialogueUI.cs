@@ -51,14 +51,14 @@ namespace Ciart.Pagomoa
 
         private void OnEnable()
         {
-            EventManager.AddListener<StoryStarted>(RefreshView);
-            EventManager.AddListener<QuestStoryStarted>(MakeQuestContentView);
+            EventSystem.AddListener<StoryStarted>(RefreshView);
+            EventSystem.AddListener<QuestStoryStarted>(MakeQuestContentView);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<StoryStarted>(RefreshView);
-            EventManager.RemoveListener<QuestStoryStarted>(MakeQuestContentView);
+            EventSystem.RemoveListener<StoryStarted>(RefreshView);
+            EventSystem.RemoveListener<QuestStoryStarted>(MakeQuestContentView);
         }
 
 

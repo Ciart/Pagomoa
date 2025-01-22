@@ -65,14 +65,14 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            EventManager.AddListener<LevelChangedEvent>(OnLevelChanged);
-            EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
+            EventSystem.AddListener<LevelChangedEvent>(OnLevelChanged);
+            EventSystem.AddListener<WorldCreatedEvent>(OnWorldCreated);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<LevelChangedEvent>(OnLevelChanged);
-            EventManager.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
+            EventSystem.RemoveListener<LevelChangedEvent>(OnLevelChanged);
+            EventSystem.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
         }
 
         private void Init()

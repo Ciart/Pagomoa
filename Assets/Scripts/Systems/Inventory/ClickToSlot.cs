@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using EventSystem = Ciart.Pagomoa.Events.EventSystem;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
@@ -97,7 +98,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
                     player.inventory.items[inventory.choiceSlot.id].count -= mineralCount;
-                    EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
+                    EventSystem.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
                 }
                 else if(player.inventory.items[inventory.choiceSlot.id].count == mineralCount)
                     player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
@@ -119,7 +120,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 if (player.inventory.items[inventory.choiceSlot.id].count > mineralCount)
                 {
                     player.inventory.items[inventory.choiceSlot.id].count -= mineralCount;
-                    EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
+                    EventSystem.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, mineralCount));
                 }
                 else if (player.inventory.items[inventory.choiceSlot.id].count == mineralCount)
                     player.inventory.RemoveItemData(player.inventory.items[inventory.choiceSlot.id].item);
@@ -138,7 +139,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             int count = player.inventory.items[inventory.choiceSlot.id].count;
             
             player.inventory.items[inventory.choiceSlot.id].count -= count;
-            EventManager.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, count));
+            EventSystem.Notify(new ItemUsedEvent(player.inventory.items[inventory.choiceSlot.id].item, count));
             _stoneCount.UpCount(count);
             player.inventory.RemoveItemData(inventory.choiceSlot.slot.item);
             inventory.ResetSlots();

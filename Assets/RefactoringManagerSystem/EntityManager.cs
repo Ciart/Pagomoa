@@ -11,7 +11,7 @@ using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Entities
 {
-    public class EntityManager : PManager<EntityManager>
+    public class EntityManager : Manager<EntityManager>
     {
         private List<EntityController> _entities = new();
 
@@ -34,7 +34,7 @@ namespace Ciart.Pagomoa.Entities
             if (entity.tags.Contains("Player"))
             {
                 var player = controller.GetComponent<PlayerController>();
-                EventManager.Notify(new PlayerSpawnedEvent(player));
+                EventSystem.Notify(new PlayerSpawnedEvent(player));
             }
             
             return controller;

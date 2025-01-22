@@ -43,12 +43,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             UpdateSlots();
             
-            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventSystem.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventSystem.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
 
         public void MakeSlots() // slotdatas 갯수만큼 슬롯 만들기

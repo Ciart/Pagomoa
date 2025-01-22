@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Worlds
 {
-    public class WorldManager : PManager<WorldManager>
+    public class WorldManager : Manager<WorldManager>
     {
         public WorldDatabase database;
 
@@ -27,7 +27,7 @@ namespace Ciart.Pagomoa.Worlds
                 }
 
                 instance._world = value;
-                EventManager.Notify(new WorldCreatedEvent(instance._world));
+                EventSystem.Notify(new WorldCreatedEvent(instance._world));
             }
         }
 
@@ -45,8 +45,8 @@ namespace Ciart.Pagomoa.Worlds
         
         public override void Start()
         {
-            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
-            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
+            EventSystem.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventSystem.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
             
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
@@ -57,8 +57,8 @@ namespace Ciart.Pagomoa.Worlds
         
         public override void OnDestroy()
         {
-            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
-            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
+            EventSystem.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
+            EventSystem.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
         }
 
         public void GetComponent(WorldGenerator generator)
@@ -79,7 +79,7 @@ namespace Ciart.Pagomoa.Worlds
             foreach (var chunk in _expiredChunks)
             {
                 // TODO: Level 값 다른 방식으로 변경
-                EventManager.Notify(new ChunkChangedEvent(world.currentLevel, chunk));
+                EventSystem.Notify(new ChunkChangedEvent(world.currentLevel, chunk));
             }
 
             _expiredChunks.Clear();
@@ -219,7 +219,7 @@ namespace Ciart.Pagomoa.Worlds
                 _expiredChunks.Add(c);
             }
 
-            EventManager.Notify(new GroundBrokenEvent(x, y, prevBrick));
+            EventSystem.Notify(new GroundBrokenEvent(x, y, prevBrick));
         }
 
         public bool CheckBreakable(int x, int y, int tier, string item)

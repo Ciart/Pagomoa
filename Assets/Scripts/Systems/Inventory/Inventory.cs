@@ -25,8 +25,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Start()
         {
-            EventManager.AddListener<AddReward>(AddReward);
-            EventManager.AddListener<AddGold>(ChangeGold);
+            EventSystem.AddListener<AddReward>(AddReward);
+            EventSystem.AddListener<AddGold>(ChangeGold);
         }
         
         private void ChangeGold(AddGold e)
@@ -93,7 +93,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 ref var item = ref items[idx];
                 item.count += count;
                 
-                EventManager.Notify(new ItemCountChangedEvent(item.item, item.count));
+                EventSystem.Notify(new ItemCountChangedEvent(item.item, item.count));
             }
             else
             {
@@ -103,7 +103,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     {
                         items[i].item = data;
                         items[i].count = count;
-                        EventManager.Notify(new ItemCountChangedEvent(items[i].item, items[i].count));
+                        EventSystem.Notify(new ItemCountChangedEvent(items[i].item, items[i].count));
                         break;
                     }
                 }
@@ -134,7 +134,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     items[idx].count = 0;
                 }
                 
-                EventManager.Notify(new ItemCountChangedEvent(data, items[idx].count));
+                EventSystem.Notify(new ItemCountChangedEvent(data, items[idx].count));
             }
         }
         
@@ -147,14 +147,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             items[idx].item = null;
             items[idx].count = 0;
             
-            EventManager.Notify(new ItemCountChangedEvent(items[idx].item, items[idx].count));
+            EventSystem.Notify(new ItemCountChangedEvent(items[idx].item, items[idx].count));
         }
 
         public void SwapSlot(int a, int b)
         {
             (items[a], items[b]) = (items[b], items[a]);
-            EventManager.Notify(new ItemCountChangedEvent(items[a].item, items[a].count));
-            EventManager.Notify(new ItemCountChangedEvent(items[b].item, items[b].count));
+            EventSystem.Notify(new ItemCountChangedEvent(items[a].item, items[a].count));
+            EventSystem.Notify(new ItemCountChangedEvent(items[b].item, items[b].count));
         }
         
         public int GetItemCount(Item data)
@@ -175,13 +175,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void SetQuickItem(int id, Item item)
         {
             _quickItems[id] = item;
-            EventManager.Notify(new QuickSlotChangedEvent(_quickItems));
+            EventSystem.Notify(new QuickSlotChangedEvent(_quickItems));
         }
         
         public void SwapQuickSlot(int a, int b)
         {
             (_quickItems[a], _quickItems[b]) = (_quickItems[b], _quickItems[a]);
-            EventManager.Notify(new QuickSlotChangedEvent(_quickItems));
+            EventSystem.Notify(new QuickSlotChangedEvent(_quickItems));
         }
         
         // TODO: GameManager.player.GetComponent<PlayerStatus>() 없애야 합니다. Item.Active()에 왜 stat을 넣어야 하나요?

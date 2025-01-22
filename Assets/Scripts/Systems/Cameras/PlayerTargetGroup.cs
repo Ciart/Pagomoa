@@ -24,12 +24,12 @@ namespace Ciart.Pagomoa.Systems.Cameras
 
         private void OnEnable()
         {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         private void OnDisable()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
     }
 }
