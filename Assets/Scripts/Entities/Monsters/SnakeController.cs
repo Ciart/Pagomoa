@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
@@ -6,29 +6,8 @@ namespace Ciart.Pagomoa.Entities.Monsters
 {
     public class SnakeController : MonsterController
     {
-        //private GameObject touchingTarget;
-
         Coroutine Proceeding;
 
-        void FixedUpdate()
-        {
-            if (touchingTarget)
-            {
-                switch (touchingTarget.tag)
-                {
-                    case "Player":
-                        // _monster._attack._Attack(gameObject, touchingTarget, _monster.status.attackPower);
-                        break;
-                }
-            }
-        }
-        private void Start()
-        {
-            if (TimeManager.GetSeasonForMonster() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
-        }
         public override void StateChanged(Monster.MonsterState state)
         {
             if(Proceeding != null)
@@ -79,10 +58,6 @@ namespace Ciart.Pagomoa.Entities.Monsters
                     yield return new WaitForSeconds(Time.fixedDeltaTime);
                 }
             }
-            if(TimeManager.GetSeasonForMonster() == "Night")
-                StateChanged(Monster.MonsterState.Sleep);
-            else
-                StateChanged(Monster.MonsterState.Active);
         }
         protected override IEnumerator Chase()
         {
@@ -112,30 +87,5 @@ namespace Ciart.Pagomoa.Entities.Monsters
             yield return new WaitForSeconds(0.7f);
             StateChanged(Monster.MonsterState.Chase);
         }
-        //protected override void Die()
-        //{
-        //    _rigidbody.velocity = Vector3.zero;
-        //    _rigidbody.gravityScale = 0;
-        //    GetComponent<Collider2D>().enabled = false;
-        //    _animator.SetTrigger("Hit");
-        //    _monster.Die();
-        //}
-
-
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
-        //    {
-        //        _monster.target = touchingTarget = collision.gameObject;
-        //        StateChanged(Monster.MonsterState.Chase);
-        //    }
-        //}
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject == touchingTarget)
-        //        touchingTarget = null;
-        //}
-
     }
 }
