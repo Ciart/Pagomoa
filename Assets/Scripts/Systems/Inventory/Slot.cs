@@ -8,8 +8,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public SlotType GetSlotType();
         public int GetSlotID();
-        public void SetSlot(Slot targetSlot);
-        public void ResetSlot();
     }
     
     public enum SlotType
@@ -20,20 +18,38 @@ namespace Ciart.Pagomoa.Systems.Inventory
         Buy,
         BuyArtifact,
         Sell,
+        Artifact,
     }
     
     public class Slot
     {
         private SlotType _type = SlotType.None;
+        private string _itemID = "";
+        private int _itemCount = 0;
+        private ItemType _itemType = ItemType.None;
+        
         public SlotType GetSlotType() => _type;
         public void SetSlotType(SlotType type) => _type = type;
 
-        private string _itemID = "";
+        public ItemType GetItemType() { return _itemType; }
+        
         public string GetSlotItemID() => _itemID;
-        public void SetSlotItemID(string itemID) => _itemID = itemID;
+
+        public void SetSlotItemID(string itemID)
+        {
+            _itemID = itemID;
+            
+            if (_itemID == "")
+            {
+                _itemType = ItemType.None;
+                return;
+            }
+            
+            _itemType = ResourceSystem.instance.GetItem(_itemID).type;
+        }
         public Item GetSlotItem() { return ResourceSystem.instance.GetItem(_itemID); }
         
-        private int _itemCount = 0;
+        
         public int GetSlotItemCount() { return _itemCount; }
         public void SetSlotItemCount(int itemCount) => _itemCount = itemCount;
     }

@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             Debug.Log($"giving item {ResourceSystem.instance.GetItem(subCommand).name}");
             
-            inventory.Add(ResourceSystem.instance.GetItem(subCommand));
+            inventory.AddInventory(subCommand);
         }
         
         [RegisterCommand(Help = "", MinArgCount = 1, MaxArgCount = 2)]

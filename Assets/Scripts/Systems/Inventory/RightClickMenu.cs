@@ -25,31 +25,31 @@ namespace Ciart.Pagomoa.Systems.Inventory
             gameObject.SetActive(true);
         }
 
-
-        private InventorySlot targetSlot => (InventorySlot)UIManager.instance.GetUIContainer().chosenSlot;
+        public InventorySlotUI clickedSlot { get; private set; }
+        public void SetClickedSlot(InventorySlotUI slot) { clickedSlot = slot; } 
         
-        public void PressedEquipButton() { targetSlot.clickToSlot.EquipCheck(); }
-        public void PressedEquipYesButton() { targetSlot.clickToSlot.EquipItem(); }
+        public void PressedEquipButton() { clickedSlot.slotMenu.EquipCheck(); }
+        public void PressedEquipYesButton() { clickedSlot.slotMenu.EquipItem(); }
 
         public void PressedEatButton()
         {
             const int mineralCount = 1; 
-            targetSlot.clickToSlot.EatMineral(mineralCount);
+            clickedSlot.slotMenu.EatMineral(mineralCount);
         }
 
         public void PressedEatTenButton()
         {
             const int mineralCount = 10; 
-            targetSlot.clickToSlot.EatMineral(mineralCount);
+            clickedSlot.slotMenu.EatMineral(mineralCount);
         }
 
         public void PressedEatFiftyButton()
         {
             const int mineralCount = 50;
-            targetSlot.clickToSlot.EatMineral(mineralCount);
+            clickedSlot.slotMenu.EatMineral(mineralCount);
         }
-        public void PressedUseButton() { targetSlot.clickToSlot.UseItem(); }
-        public void PressedThrowAwayButton() { targetSlot.clickToSlot.AbandonItem(); }
+        public void PressedUseButton() { clickedSlot.slotMenu.UseItem(); }
+        public void PressedThrowAwayButton() { clickedSlot.slotMenu.AbandonItem(); }
         public void PressedCancelButton() { DeleteMenu(); }
         
         public void EquipmentMenu()

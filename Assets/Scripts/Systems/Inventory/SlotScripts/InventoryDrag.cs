@@ -1,49 +1,76 @@
 using System;
+using Ciart.Pagomoa.Items;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class InventoryDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
+    public class InventoryDrag : MonoBehaviour
+        , IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
-        private InventorySlot inventorySlot => GetComponent<InventorySlot>(); 
+        private InventorySlotUI inventorySlotUI => GetComponent<InventorySlotUI>(); 
         
-        public void OnPointerDown(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
-            if (inventorySlot.slot.GetSlotItemID() == "") return;
+            if (eventData.button != PointerEventData.InputButton.Right) return;
+            var inventory = GameManager.instance.player.inventory;
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
             
-            UIManager.instance.GetUIContainer().SetChosenSlot(inventorySlot);
+            if (targetSlot == null) return;
+            if (targetSlot.GetSlotItemID() == "") return;
+            
+            var hover = UIManager.instance.bookUI.GetHoverItemInfo();
+            if (hover.isActiveAndEnabled) hover.gameObject.SetActive(false);
+            
+            var rightClickMenu = UIManager.instance.bookUI.GetRightClickMenu();
+            rightClickMenu.DeleteMenu();
+            rightClickMenu.transform.position = inventorySlotUI.transform.position;
+            rightClickMenu.SetClickedSlot(inventorySlotUI);
+            
+            var itemType = targetSlot.GetItemType();
+            
+            switch (itemType)
+            {
+                case ItemType.Equipment:
+                    rightClickMenu.EquipmentMenu();
+                    break;    
+                case ItemType.Mineral:
+                    rightClickMenu.MineralMenu(targetSlot.GetSlotItemCount());
+                    break;
+                case ItemType.Use:
+                    rightClickMenu.UseMenu();
+                    break;
+                case ItemType.Inherent:
+                    rightClickMenu.InherentMenu();
+                    break;
+            }
         }
         
         public void OnBeginDrag(PointerEventData eventData)
         {
             var inventory = GameManager.instance.player.inventory;
-            var dragSlot = UIManager.instance.GetUIContainer().chosenSlot;
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
             
-            if (dragSlot.IsUnityNull()) return;
-            
-            var targetSlot = inventory.FindInventorySlotByID(dragSlot); 
-            
-            if (targetSlot.GetSlotItemID() == "")
-            {
-                UIManager.instance.GetUIContainer().SetChosenSlot(null);
-                return;
-            }
+            if (targetSlot == null) return;
+            if (targetSlot.GetSlotItemID() == "") return;
             
             DragItem.instance.DragSetImage(targetSlot.GetSlotItem().sprite);
             DragItem.instance.transform.position = eventData.position;
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public void OnDrag(PointerEventData eventData) { DragItem.instance.transform.position = eventData.position; }
+        public void OnEndDrag(PointerEventData eventData) { DragItem.instance.SetColor(0); }
+        
+        public void OnDrop(PointerEventData eventData)
         {
-            DragItem.instance.transform.position = eventData.position;
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            DragItem.instance.SetColor(0);
-            UIManager.instance.GetUIContainer().SetChosenSlot(null);
+            var inventory = GameManager.instance.player.inventory;
+            eventData.pointerPress.TryGetComponent<InventorySlotUI>(out var dragSlot);
+            
+            if (!dragSlot || inventorySlotUI.slotID == dragSlot.slotID) return;
+            
+            inventory.SwapInventorySlot(dragSlot.slotID, inventorySlotUI.slotID);
+            UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
         }
     }
 }

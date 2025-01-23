@@ -5,7 +5,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class Achievements : MonoBehaviour
     {
-        public List<InventorySlot> AchieveMinerals = new List<InventorySlot>();
+        public List<InventorySlotUI> AchieveMinerals = new List<InventorySlotUI>();
 
         private static Achievements instance;
         public static Achievements Instance

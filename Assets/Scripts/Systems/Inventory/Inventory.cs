@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,260 +12,443 @@ using UnityEngine.Serialization;
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     [Serializable]
-    public partial class Inventory
+    public partial class Inventory : MonoBehaviour
     {
         public int gold;
-        public int stoneCount;
-        public int maxCount;
         
+        private Slot[] _quickData = new Slot[MaxQuickSlots];
         public const int MaxQuickSlots = 6;
-        public Slot[] quickItems = new Slot[MaxQuickSlots];
         
+        private Slot[] _artifactSlots = new Slot[MaxArtifactSlots];
         public const int MaxArtifactSlots = 4;
-        public InventorySlot[] artifactItems = new InventorySlot[MaxArtifactSlots];
         
-        public const int MaxSlots = 36;
-        public Slot[] inventoryItems = new Slot[MaxSlots];
+        private Slot[] _inventoryData = new Slot[MaxInventorySlots];
+        public const int MaxInventorySlots = 36;
+        public const int MaxUseItemCount = 64;
+        public const int MaxInherentItemCount = 1;
         
         private void Awake()
         {
             EventManager.AddListener<AddReward>(AddReward);
             EventManager.AddListener<AddGold>(ChangeGold);
+            
+            InitSlots();
+            Debug.Log("ininin");
+            EventManager.Notify(new UpdateInventory());
+        }
+
+        private void Destroy()
+        {
+            EventManager.RemoveListener<AddReward>(AddReward);
+            EventManager.RemoveListener<AddGold>(ChangeGold);
         }
         
         // 초기 인벤토리 초기화
         public void InitSlots()
         {
+            
             for (int i = 0; i < MaxQuickSlots; i++)
             {
-                quickItems[i] = new Slot();
-                quickItems[i].SetSlotType(SlotType.Quick);
-            } 
+                _quickData[i] = new Slot();
+                _quickData[i].SetSlotType(SlotType.Quick);
+            }
             
-            for(int i = 0; i < MaxArtifactSlots; i++) {}
-
-            for (int i = 0; i < MaxSlots; i++)
+            for (int i = 0; i < MaxArtifactSlots; i++)
             {
-                inventoryItems[i] = new Slot();
-                inventoryItems[i].SetSlotType(SlotType.Inventory);
+                
+            }
+
+            for (int i = 0; i < MaxInventorySlots; i++)
+            {
+                _inventoryData[i] = new Slot();
+                _inventoryData[i].SetSlotType(SlotType.Inventory);
             }
                 
         }
         
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
-        private void AddReward(AddReward e) { Add(e.item, e.itemCount); }
+        private void AddReward(AddReward e) { AddInventory(e.item.id, e.itemCount); }
         private void AddGold(int addGold) { gold += addGold; }
-        
-
-        public void UseQuickSlotItem(int slotID)
-        {
-            var slot = quickItems[slotID];
-            
-            if (slot.GetSlotItemID() == "") return;
-
-            var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
-            var quickSlotUI = UIManager.instance.quickSlotUI;
-            var count = slot.GetSlotItemCount() - 1;
-            
-            switch (slot.GetSlotItem().type)
-            {
-                case ItemType.Use:
-                    if (count > 0)
-                    {
-                        slot.GetSlotItem().DisplayUseEffect();
-                        slot.SetSlotItemCount(count);
-                    }
-                    else
-                    {
-                        slot.GetSlotItem().DisplayUseEffect();                        
-                        slot.SetSlotItemID("");
-                        slot.SetSlotItemCount(0);
-                    }
-                    quickSlotUI.UpdateQuickSlot();
-                    inventoryUI.UpdateInventorySlotByQuickSlotID(slotID);
-                    break;
-                case ItemType.Inherent:
-                    slot.GetSlotItem().DisplayUseEffect();
-                    break;
-            }
-        }
     }
 
+#region 인벤토리 함수
     public partial class Inventory
     {
-        public void Equip(Item data) { }
-        
-        public void AddArtifactData(Item data) { }
-        
-        public void RemoveArtifactData(Item data) { }
-        
-        public void Add(Item data, int count = 1)
+        public void AddInventory(string itemID, int itemCount = 1)
         {
-            int index = Array.FindIndex(inventoryItems, element => element.GetSlotItemID() == data.id);
-        
-            if (index < 0) // 아이템이 인벤토리에 존재하지 않을때
+            var hasItemSlot = Array.FindIndex(_inventoryData,
+                (data) => data.GetSlotItemID() == itemID);
+
+            if (hasItemSlot == -1)
             {
-                for (int i = 0; i < MaxSlots; i++)
+                var accCount = itemCount + _inventoryData[hasItemSlot].GetSlotItemCount();
+                
+                if (accCount <= MaxUseItemCount) // 슬롯에 할당 가능한 아이템 상한  
                 {
-                    if (inventoryItems[i].GetSlotItemID() != "") continue;
+                    _inventoryData[hasItemSlot].SetSlotItemID(itemID);
+                    _inventoryData[hasItemSlot].SetSlotItemCount(accCount);
+                }
+                else // 2000 
+                {
+                    accCount -= _inventoryData[hasItemSlot].GetSlotItemCount();
+                    _inventoryData[hasItemSlot].SetSlotItemCount(MaxInventorySlots);
                     
-                    inventoryItems[i].SetSlotItemID(data.id);
-                    inventoryItems[i].SetSlotItemCount(count);
-                    EventManager.Notify(new ItemCountChangedEvent(inventoryItems[i].GetSlotItemID(), inventoryItems[i].GetSlotItemCount()));
-                    break;
+                    var divVal = (int)(accCount / MaxInventorySlots); 
+                    var remainVal = accCount % MaxInventorySlots;  
+                    
+                    if (divVal > 0)
+                    {
+                        for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
+                        {
+                            var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+
+                            if (emptySlot != null)
+                            {
+                                emptySlot.SetSlotItemID(itemID);
+                                emptySlot.SetSlotItemCount(MaxUseItemCount);
+                            }
+                        }
+                    }
+                    if (remainVal != 0)
+                    {
+                        var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+
+                        if (emptySlot != null)
+                        {
+                            emptySlot.SetSlotItemID(itemID);
+                            emptySlot.SetSlotItemCount(remainVal);
+                        }
+                    }
+                }
+                // TODO : 사용 아이템 이외에는 복수 장착이 있는가?
+            }
+            else
+            {
+                if (itemCount <= MaxUseItemCount)
+                {
+                    var hasEmptySlot = Array.FindIndex(_inventoryData,
+                        (data) => data.GetSlotItemID() == "");
+                    
+                    _inventoryData[hasEmptySlot].SetSlotItemID(itemID);
+                    _inventoryData[hasEmptySlot].SetSlotItemCount(itemCount);
+                }
+                else
+                {
+                    var divVal = (int)(itemCount / MaxInventorySlots);
+                    var remainVal = itemCount % MaxInventorySlots;
+                    
+                    if (divVal > 0)
+                    {
+                        for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
+                        {
+                            var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+
+                            if (emptySlot != null)
+                            {
+                                emptySlot.SetSlotItemID(itemID);
+                                emptySlot.SetSlotItemCount(MaxUseItemCount);
+                            }    
+                        }
+                    }
+                    if (remainVal != 0)
+                    {
+                        var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+
+                        if (emptySlot != null)
+                        {
+                            emptySlot.SetSlotItemID(itemID);
+                            emptySlot.SetSlotItemCount(remainVal);
+                        }
+                    }
                 }
             }
-            else // 아이템이 인벤토리에 존재할때
+
+            var registrationSlot = FindSlotByItemID(SlotType.Quick, itemID);
+            if (registrationSlot != null)
             {
-                var itemCount = inventoryItems[index].GetSlotItemCount() + count;
-                inventoryItems[index].SetSlotItemCount(itemCount);
-                
-                EventManager.Notify(new ItemCountChangedEvent(inventoryItems[index].GetSlotItemID(), inventoryItems[index].GetSlotItemCount()));
+                UpdateQuickSlot();
             }
+            
+            // TODO : 빈 슬롯 없을때는 어떻게 해야하노
+            
+            var sameItemList = FindSameItem(itemID);
+            var accItemCount = 0;
+            foreach (var slotID in sameItemList)
+            {
+                accItemCount += _inventoryData[slotID].GetSlotItemCount();
+            }
+            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new ItemCountChangedEvent(itemID, accItemCount));
         }
 
         public void SellItem(ISlot targetSlot)
         {
-            var inventorySlot =
-                UIManager.instance.bookUI.GetInventoryUI().GetInventorySlot(targetSlot.GetSlotID());
-
-            gold += inventoryItems[targetSlot.GetSlotID()].GetSlotItem().price;
-            DecreaseItemBySlotID(inventorySlot);
+            gold += _inventoryData[targetSlot.GetSlotID()].GetSlotItem().price;
+            DecreaseItemBySlotID(targetSlot);
             
             UIManager.instance.UpdateGoldUI();
         }
-        
-        public void DecreaseItemBySlotID(ISlot targetSlot)
+
+        public void DecreaseItemBySlotID(ISlot targetSlot, int itemCount = 1)
         {
-            var count = inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount() - 1;
+            var inventorySlot = _inventoryData[targetSlot.GetSlotID()];
+            var count = inventorySlot.GetSlotItemCount() - itemCount;
             
             if (count >= 1)
             {
-                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(count);
+                _inventoryData[targetSlot.GetSlotID()].SetSlotItemCount(count);
             }
             else if (count == 0)
             {
-                inventoryItems[targetSlot.GetSlotID()].SetSlotItemID("");
-                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(0);
+                _inventoryData[targetSlot.GetSlotID()].SetSlotItemID("");
+                _inventoryData[targetSlot.GetSlotID()].SetSlotItemCount(0);
+            }
+            
+            var registrationSlot = FindSlotByItemID(SlotType.Quick, inventorySlot.GetSlotItemID());
+            if (registrationSlot != null)
+            {
+                UpdateQuickSlot();
             }
 
-            if (targetSlot.GetSlotType() == SlotType.Inventory)
+            var eventItemID = _inventoryData[targetSlot.GetSlotID()].GetSlotItemID();
+            var sameItemList = FindSameItem(eventItemID);
+            var accItemCount = 0;
+            foreach (var slotID in sameItemList)
             {
-                var inventorySlot = (InventorySlot)targetSlot;
-
-                if (inventorySlot.referenceSlotID != -1)
-                {
-                    quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(count);
-            
-                    if (quickItems[inventorySlot.referenceSlotID].GetSlotItemCount() == 0)
-                    {
-                        quickItems[inventorySlot.referenceSlotID].SetSlotItemID("");
-                        quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(0);
-                    }      
-                }
+                accItemCount += _inventoryData[slotID].GetSlotItemCount();
             }
-            
-            EventManager.Notify(new ItemCountChangedEvent(
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
-        }
-        
-        public void DecreaseItemBySlotID(ISlot targetSlot, int mineralCount)
-        {
-            if (inventoryItems[targetSlot.GetSlotID()].GetSlotItem().type != ItemType.Mineral) return;
-            var count = inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount() - mineralCount;
-            
-            EventManager.Notify(new ItemUsedEvent(
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItem(),
-                mineralCount));
-            
-            if (count >= 1)
-            {
-                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(count);
-            }
-            else if (count == 0)
-            {
-                inventoryItems[targetSlot.GetSlotID()].SetSlotItemID("");
-                inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(0);
-            }
-            
-            if (targetSlot.GetSlotType() == SlotType.Inventory)
-            {
-                var inventorySlot = (InventorySlot)targetSlot;
-                if (inventorySlot.referenceSlotID != -1)
-                {
-                    quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(count);
-
-                    if (quickItems[inventorySlot.referenceSlotID].GetSlotItemCount() == 0)
-                    {
-                        quickItems[inventorySlot.referenceSlotID].SetSlotItemID("");
-                        quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(0);
-                    }
-                }
-            }
-            
-            EventManager.Notify(new ItemCountChangedEvent(
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
+            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
         }
         
         public void RemoveItem(ISlot targetSlot)
         {
-            inventoryItems[targetSlot.GetSlotID()].SetSlotItemID("");
-            inventoryItems[targetSlot.GetSlotID()].SetSlotItemCount(0);
+            var inventorySlot = _inventoryData[targetSlot.GetSlotID()];
+            inventorySlot.SetSlotItemID("");
+            inventorySlot.SetSlotItemCount(0);
 
-            if (targetSlot.GetSlotType() == SlotType.Inventory)
+            var registrationSlot = FindSlotByItemID(SlotType.Quick, inventorySlot.GetSlotItemID());
+            if (registrationSlot != null)
             {
-                var inventorySlot = (InventorySlot)targetSlot;
-                
-                if (inventorySlot.referenceSlotID != -1)
-                {
-                    quickItems[inventorySlot.referenceSlotID].SetSlotItemID("");
-                    quickItems[inventorySlot.referenceSlotID].SetSlotItemCount(0);
-                    inventorySlot.referenceSlotID = -1;
-                }   
+                UpdateQuickSlot();
             }
             
-            EventManager.Notify(new ItemCountChangedEvent(
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
-                inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
-        }
-
-        public void RemoveItemByItemID(string itemID)
-        {
-            foreach (var slot in inventoryItems)
+            var eventItemID = _inventoryData[targetSlot.GetSlotID()].GetSlotItemID();
+            var sameItemList = FindSameItem(eventItemID);
+            var accItemCount = 0;
+            foreach (var slotID in sameItemList)
             {
-                if (slot.GetSlotItemID() == itemID)
-                {
-                    slot.SetSlotItemID("");
-                    slot.SetSlotItemCount(0);
-                    
-                    EventManager.Notify(new ItemCountChangedEvent(
-                        slot.GetSlotItemID(), 
-                        slot.GetSlotItemCount()));
+                accItemCount += _inventoryData[slotID].GetSlotItemCount();
+            }
+            
+            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
+        }
+        public void SwapInventorySlot(int dropID, int targetID)
+        {
+            (_inventoryData[dropID], _inventoryData[targetID]) = (_inventoryData[targetID], _inventoryData[dropID]);
+        }
+    }
+#endregion
+
+#region 퀵슬롯 함수
+    public partial class Inventory
+    {
+        public void UseQuickSlotItem(int slotID)
+        {
+            var slotData = _quickData[slotID];
+            
+            if (slotData.GetSlotItemID() == "") return;
+            
+            var count = slotData.GetSlotItemCount() - 1;
+            
+            switch (slotData.GetSlotItem().type)
+            {
+                case ItemType.Use:
+                    if (count > 0)
+                    {
+                        slotData.GetSlotItem().DisplayUseEffect();
+                        slotData.SetSlotItemCount(count);
+                    }
+                    else
+                    {
+                        slotData.GetSlotItem().DisplayUseEffect();                        
+                        slotData.SetSlotItemID("");
+                        slotData.SetSlotItemCount(0);
+                    }
                     break;
+                case ItemType.Inherent:
+                    slotData.GetSlotItem().DisplayUseEffect();
+                    break;
+            }
+
+            var inventorySlot = FindSlotByItemID(SlotType.Inventory, slotData.GetSlotItemID());
+            if (inventorySlot != null)
+            {
+                var minItemCount = inventorySlot.GetSlotItemCount() - 1;
+                
+                if (count > 0)
+                    inventorySlot.SetSlotItemCount(minItemCount);
+                else
+                {
+                    slotData.SetSlotItemID("");
+                    slotData.SetSlotItemCount(0);
                 }
             }
+            
+            var eventItemID = _quickData[slotID].GetSlotItemID();
+            var sameItemCount = _quickData[slotID].GetSlotItemCount();
+            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new ItemCountChangedEvent(eventItemID, sameItemCount));
         }
 
-        public Slot FindInventorySlotByID(ISlot targetSlot)
+        public void SwapQuickSlot(int dropID, int targetID)
         {
-            return inventoryItems[targetSlot.GetSlotID()];
-        }
-
-        public void SwapSlot(int dropID, int targetID)
-        {
-            (inventoryItems[dropID], inventoryItems[targetID]) = (inventoryItems[targetID], inventoryItems[dropID]);
+            (_quickData[dropID], _quickData[targetID]) = (_quickData[targetID], _quickData[dropID]);
         }
         
-        public int GetItemCount(Item data)
+        public void RegistrationQuickSlot(int targetSlotID , int referenceID)
         {
-            var idx = Array.FindIndex(inventoryItems, element => element.GetSlotItem() == data);
-
-            if (idx != -1)
-                return inventoryItems[idx].GetSlotItemCount();
+            var droppedSlot = _inventoryData[referenceID];
             
-            return 0;
+            for (int i = 0; i < MaxQuickSlots; i++)
+            {
+                if (_quickData[i].GetSlotItemID() == "") continue;
+
+                if (_quickData[i].GetSlotItemID() == droppedSlot.GetSlotItemID())
+                {
+                    _quickData[i].SetSlotItemID("");
+                    _quickData[i].SetSlotItemCount(0);
+                }
+            }
+            
+            _quickData[targetSlotID].SetSlotItemID(droppedSlot.GetSlotItemID());
+            UpdateQuickSlot();
+            
+            EventManager.Notify(new UpdateInventory());
+        }
+        
+        private void UpdateQuickSlot()
+        {
+            var accItemCount = 0;
+            
+            foreach (var data in _quickData)
+            {
+                if (data.GetSlotItemID() == "") continue;
+
+                var itemListIndex = FindSameItem(data.GetSlotItemID());
+                if (itemListIndex.Count == 0)
+                {
+                    data.SetSlotItemID("");
+                    data.SetSlotItemCount(0);
+                    return;
+                }
+                
+                foreach (var index in itemListIndex)
+                {
+                    accItemCount += _inventoryData[index].GetSlotItemCount();
+                }
+                
+                data.SetSlotItemCount(accItemCount);
+            }
+        }
+    }
+#endregion
+    
+    // 검색
+    public partial class Inventory
+    {
+        public Slot[]? GetSlots(SlotType slotType)
+        {
+            switch (slotType)
+            {
+                case SlotType.Inventory:
+                    return _inventoryData;   
+                case SlotType.Quick:
+                    return _quickData;   
+                case SlotType.Artifact:
+                    return _artifactSlots;
+            }
+            
+            return null;
+        }
+        
+        public Slot FindSlot(SlotType slotType, int slotID)
+        {
+            switch (slotType)
+            {
+                case SlotType.Inventory:
+                    return _inventoryData[slotID];
+                case SlotType.Quick:
+                    return _quickData[slotID];
+                case SlotType.Artifact:
+                    return _artifactSlots[slotID];
+            }
+            
+            return null!;
+        }
+        public List<int> FindSameItem(string itemID)
+        {
+            var slotCount = _inventoryData.Length;
+            var sameIDList = new List<int>();
+            
+            for (int i = 0; i < slotCount; i++)
+            {
+                if (_inventoryData[i].GetSlotItemID() == itemID)
+                    sameIDList.Add(i);
+            }
+            return sameIDList;
+        }
+
+        private Slot? FindSlotByItemID(SlotType slotType, string itemID)
+        {
+            if (slotType == SlotType.Inventory)
+            {
+                foreach (var data in _inventoryData)
+                {
+                    if (data.GetSlotItemID() == itemID)
+                        return data;
+                }
+            }
+            else if (slotType == SlotType.Quick)
+            {
+                foreach (var data in _quickData)
+                {
+                    if (data.GetSlotItemID() == itemID)
+                        return data;
+                }
+            }
+            else if (slotType == SlotType.Artifact)
+            {
+                foreach (var data in _artifactSlots)
+                {
+                    if (data.GetSlotItemID() == itemID)
+                        return data;
+                }
+            }
+            
+            return null;
         }
     }
 }
+/*
+ *
+             아이템 있는지 확인
+             if 아이템 있음 itemtype
+                if 더했을때 Max 수치 보다 작으면
+                    그냥 더함 
+                else if 더했을때 Max 수치 보다 크면
+                    1. 아이템 있는 슬롯 Max 까지 채우기
+                    2. 남은 아이템들 (int)(itemCount / Max) 만큼 빈 슬롯 찾기 Max할당
+                    3. (itemCount % Max)가 있다면 빈 슬롯 찾고 나머지 할당
+                if 퀵슬롯 찾아서 refID있으면 
+                    1. refID 추가 & 수량 조정 
+             if 아이템 없음 itemtype
+                if 더했을때 Max 수치 보다 작으면
+                    빈 슬롯 찾고 아이템 할당, 아이템 수량 체크
+                else if 더했을때 Max 수치 보다 크면
+                    1. 남은 아이템들 (int)(itemCount / Max) 만큼 빈 슬롯 찾기 Max할당
+                    2. (itemCount % Max)가 있다면 빈 슬롯 찾고 나머지 할당
+                if 퀵슬롯 찾아서 refID있으면 
+                    1. refID 추가 & 수량 조정 
+ */

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class SellUI : MonoBehaviour
     {
-        [SerializeField] private SellSlot _instanceSlot;
-        private List<SellSlot> _sellSlots = new List<SellSlot>();
+        [SerializeField] private SellSlotUI instanceSlotUI;
+        private List<SellSlotUI> _sellSlots = new List<SellSlotUI>();
 
         private void Awake()
         {
@@ -16,19 +17,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void OnEnable()
         {
-            DeleteSellUISlot();
+            ClearSellUISlot();
             UpdateSellUISlot();
         }
         
         public void MakeSellUISlot()
         {
-            var inventory = GameManager.instance.player.inventory;
-            
-            for(int i = 0; i < inventory.inventoryItems.Length; i++)
+            for(int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
-                var spawnedSlot = Instantiate(_instanceSlot, transform);
+                var spawnedSlot = Instantiate(instanceSlotUI, transform);
                 _sellSlots.Add(spawnedSlot);
-                _sellSlots[i].id = i;
+                _sellSlots[i].SetSlotID(i);
                 spawnedSlot.gameObject.SetActive(true);
             }
             UpdateSellUISlot();
@@ -36,16 +35,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void UpdateSellUISlot()
         {
             var inventory = GameManager.instance.player.inventory;
-
+            var inventorySlots = inventory.GetSlots(SlotType.Inventory);
+            if (inventorySlots == null) return;
+            
             for (int i = 0; i < _sellSlots.Count; i++)
             {
-                _sellSlots[i].SetSlot(inventory.inventoryItems[i]);
+                _sellSlots[i].SetSlot(inventorySlots[i]);
             }
         }
-        public void DeleteSellUISlot()
+        public void ClearSellUISlot()
         {
+            var emptySlot = new Slot();
+            emptySlot.SetSlotItemID("");
             foreach (var slot in _sellSlots)
-                slot.ResetSlot();
+                slot.SetSlot(emptySlot);
         }
     }
 }

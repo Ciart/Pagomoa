@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class ShopUI : MonoBehaviour
     {
         public TextMeshProUGUI shopGoldUI;
-        
+
         [SerializeField] private GameObject _buyPanel;
         [SerializeField] private GameObject _sellPanel;
         [SerializeField] private GameObject _toSell;
@@ -26,18 +26,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public BuyUI GetBuyUI() => buyUI;
         [SerializeField] private SellUI sellUI;
         public SellUI GetSellUI() => sellUI;
-        private List<Item> _items;
-        public List<Item> GetShopItems() => _items;
-        public void SetShopItems(List<Item> shopItems) => _items = shopItems;
-        
-        public void ClickToSell()
+        private List<string> _shopItemIDs;
+        public List<string> GetShopItemIDs() { return _shopItemIDs; }
+        public void SetShopItemIDs(List<string> shopItems) { _shopItemIDs = shopItems; }
+
+    public void ClickToSell()
         {
             _buyPanel.SetActive(false);
             _sellPanel.SetActive(true);
             _toSell.SetActive(false);
             _toBuy.SetActive(true);
             
-            sellUI.DeleteSellUISlot();
+            sellUI.ClearSellUISlot();
             sellUI.UpdateSellUISlot();
         }
         public void ClickToBuy()
@@ -63,29 +63,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
             TimeManager.instance.ResumeTime();
         }
         
-        public void BuyCheck(BuySlot buySlot)
+        public void BuyCheck(BuySlotUI buySlotUI)
         {
-            UIManager.instance.GetUIContainer().SetChosenSlot(buySlot);
-            var chosenItem = buySlot.slot.GetSlotItem();
+            var shopItemID = _shopItemIDs[buySlotUI.GetSlotID()];
+            var item = ResourceSystem.instance.GetItem(shopItemID);
             
             countUI.gameObject.SetActive(true);
-            countUI.ActiveCountUI(buySlot.slot.GetSlotType());
-            shopChat.BuyPriceToChat(chosenItem.price);
+            countUI.ActiveCountUI(buySlotUI);
+            shopChat.BuyPriceToChat(item.price);
         }
         
-        public void SellCheck(SellSlot sellSlot)
+        public void SellCheck(SellSlotUI sellSlotUI)
         {
-            if (sellSlot.slot.GetSlotItemID() == "")
-                return;
+            var inventory = GameManager.instance.player.inventory;
+            var slot = inventory.FindSlot(SlotType.Inventory, sellSlotUI.GetSlotID());
+                
+            if (slot == null || slot.GetSlotItemID() == "") return;
 
-            UIManager.instance.GetUIContainer().SetChosenSlot(sellSlot);
-
-            if (sellSlot.slot.GetSlotItem().type == ItemType.Use ||
-                sellSlot.slot.GetSlotItem().type == ItemType.Mineral)
+            var item = slot.GetSlotItem();
+            
+            if (item.type == ItemType.Use || item.type == ItemType.Mineral)
             {
                 UIManager.instance.shopUI.GetCountUI().gameObject.SetActive(true);
-                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(sellSlot.slot.GetSlotType());
-                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(sellSlot.slot.GetSlotItem().price);
+                UIManager.instance.shopUI.GetCountUI().ActiveCountUI(sellSlotUI);
+                UIManager.instance.shopUI.GetShopChat().SellPriceToChat(item.price);
             }
         }
     }

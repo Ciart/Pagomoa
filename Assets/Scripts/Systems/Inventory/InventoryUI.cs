@@ -11,114 +11,41 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] private RectTransform inventorySlotParent;
-        [SerializeField] private InventorySlot InstanceInventorySlot;
-        private List<InventorySlot> _inventoryUISlots = new List<InventorySlot>();
-        public InventorySlot[] artifactSlotData = new InventorySlot[Inventory.MaxArtifactSlots];
-        
-        private void OnItemCountChanged(ItemCountChangedEvent e) { UpdateInventorySlot(); }
+        [SerializeField] private InventorySlotUI instanceInventorySlotUI;
+        private List<InventorySlotUI> _inventoryUISlots = new List<InventorySlotUI>();
+        public InventorySlotUI[] artifactSlotData = new InventorySlotUI[Inventory.MaxArtifactSlots];
 
-        public void InitInventorySlots() // slotData 갯수만큼 슬롯 만들기
-        {
-            for (int i = 0; i < Inventory.MaxSlots; i++)
-            {
-                var spawnedSlot = Instantiate(InstanceInventorySlot, inventorySlotParent.transform);
-                spawnedSlot.InitSlot();
-                _inventoryUISlots.Add(spawnedSlot);
-                _inventoryUISlots[i].id = i;
-                spawnedSlot.gameObject.SetActive(true);
-            }
-            GameManager.instance.player.inventory.InitSlots();
-            UpdateInventorySlot();
-        }
-        
-        public void SetArtifactSlots()
+        private void InitInventorySlotUI()
         {
             var inventory = GameManager.instance.player.inventory;
-            
-            for (int i = 0; i < artifactSlotData.Length; i++)
+
+            for (int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
-                //artifactSlotData[i].SetSlot(inventory.artifactItems[i].s);
+                var spawnedSlot = Instantiate(instanceInventorySlotUI, inventorySlotParent.transform);
+                spawnedSlot.SetSlotID(i);
+                spawnedSlot.SetSlot(inventory.FindSlot(SlotType.Inventory, i));
+                spawnedSlot.gameObject.SetActive(true);
+                
+                _inventoryUISlots.Add(spawnedSlot);
             }
-        }
+            UIManager.instance.bookUI.gameObject.SetActive(false);
+        } 
+        private void UpdateInventoryUI(UpdateInventory e) { UpdateInventorySlot(); }  
         
         public void UpdateInventorySlot() // List안의 Item 전체 인벤토리에 출력
         {
-            var inventory = GameManager.instance.player.inventory;
-            var quickSlotUI = UIManager.instance.quickSlotUI;
+            if (_inventoryUISlots.Count == 0) InitInventorySlotUI();
             
-            var hasQuickSlot = false;
+            var slotList = GameManager.instance.player.inventory.GetSlots(SlotType.Inventory);
+            if (slotList == null) return;
             
-            for (var i = 0; i < Inventory.MaxSlots; i++)
+            for (int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
-                _inventoryUISlots[i].SetSlot(inventory.inventoryItems[i]);
-                if (_inventoryUISlots[i].referenceSlotID != -1)
-                {
-                    hasQuickSlot = true;   
-                }
+                _inventoryUISlots[i].SetSlot(slotList[i]);
             }
-            
-            if (hasQuickSlot) quickSlotUI.UpdateQuickSlot();
-        }
-
-        public void UpdateInventorySlotByQuickSlotID(int quickSlotID)
-        {
-            var inventoryItems = GameManager.instance.player.inventory.inventoryItems;
-            
-            foreach (var slotUI in _inventoryUISlots)
-            {
-                if (slotUI.referenceSlotID != quickSlotID) continue;
-                
-                var itemCount = inventoryItems[slotUI.id].GetSlotItemCount() - 1;
-                inventoryItems[slotUI.id].SetSlotItemCount(itemCount);
-                
-                if (itemCount == 0)
-                    inventoryItems[slotUI.id].SetSlotItemID("");
-            }
-            
-            UpdateInventorySlot();
-        }
-
-        public ISlot GetInventorySlot(int slotID)
-        {
-            foreach (var slot in _inventoryUISlots)
-            {
-                if (slot.id == slotID)
-                    return slot;
-            }
-
-            return null!;
         }
         
-        public void SwapReferenceSlotID(int toChangeID, int beforeID, bool notSwap = false)
-        {
-            InventorySlot? beforeSlot = null;
-            InventorySlot? toChangeSlot = null;
-            
-            foreach (var slot in _inventoryUISlots)
-            {
-                if (slot.referenceSlotID == toChangeID)
-                    toChangeSlot = slot;
-            }
-            foreach (var slot in _inventoryUISlots)
-            {
-                if (slot.referenceSlotID == beforeID) 
-                    beforeSlot = slot;
-            }
-            
-            if (!beforeSlot) return;
-            
-            if (notSwap)
-            {
-                beforeSlot.referenceSlotID = toChangeID;
-                return;
-            }
-            
-            if (!toChangeSlot) return;
-
-            (beforeSlot.referenceSlotID, toChangeSlot.referenceSlotID) = (toChangeID, beforeID);
-        }
-
-        public void SwapUISlot(int targetID, int dragID)
+        /*public void SwapUISlot(int targetID, int dragID)
         {
             var targetIndex = _inventoryUISlots[targetID].transform.GetSiblingIndex();
             var dragIndex = _inventoryUISlots[dragID].transform.GetSiblingIndex();
@@ -148,19 +75,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (int i = 0; i < Inventory.MaxSlots; i++)
             {
-                _inventoryUISlots[i].id = i;
+                _inventoryUISlots[i].slotID = i;
             }
-        }
+        }*/
         
         private void OnEnable()
         {
             UpdateInventorySlot();
-            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventManager.AddListener<UpdateInventory>(UpdateInventoryUI);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventManager.RemoveListener<UpdateInventory>(UpdateInventoryUI);
         }
     }
 }

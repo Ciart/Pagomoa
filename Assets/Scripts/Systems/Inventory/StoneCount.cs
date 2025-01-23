@@ -27,23 +27,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void WriteStoneCount()
         {
-            var playerInventory = GameManager.instance.player.inventory;
-            countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";
+            /*var playerInventory = GameManager.instance.player.inventory;
+            countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";*/
         }
         public void UpCount(int count)
         {
-            var playerInventory = GameManager.instance.player.inventory;
+            /*var playerInventory = GameManager.instance.player.inventory;
             
             playerInventory.stoneCount += count;
             countText.text = $"{playerInventory.stoneCount} / {playerInventory.maxCount}";
-            LoadDrillImage();
+            LoadDrillImage();*/
         }
         private void LoadDrillImage()
         {
-            var playerInventory = GameManager.instance.player.inventory;
+            /*var playerInventory = GameManager.instance.player.inventory;
             
             if (playerInventory.maxCount / 2 <= playerInventory.stoneCount)
-                drillImage.sprite = drillImages[0];
+                drillImage.sprite = drillImages[0];*/
         }
     }
 }
