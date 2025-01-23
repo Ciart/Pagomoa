@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Monsters
@@ -19,10 +21,17 @@ namespace Ciart.Pagomoa.Entities.Monsters
         [SerializeField] private Vector2Int spawnRange = new Vector2Int(25, 15);
         [SerializeField] private Vector2Int spawnExclusionRange = new Vector2Int(20, 10);
 
+        private TimeManager _timeManager;
+
         #region Debugging
         Vector2Int debugPoint;
         [SerializeField] List<Vector2Int> debugVectors;
         #endregion
+
+        private void Awake()
+        {
+            _timeManager = TimeManager.instance;
+        }
 
         private void Start()
         {
@@ -33,6 +42,8 @@ namespace Ciart.Pagomoa.Entities.Monsters
         private void SpawnMonster(GameObject monster)
         {
             if (monsters.Count >= maxCount) return;
+            if (!(_timeManager.hour < 6 || _timeManager.hour >= 18)) return;
+            Debug.Log("소환" + TimeManager.instance.hour + ":" + TimeManager.instance.minute);
 
             var entityManager = EntityManager.instance;
 
@@ -53,14 +64,21 @@ namespace Ciart.Pagomoa.Entities.Monsters
             var spawnedMonster = entityManager.Spawn(entityId, new Vector3(point.x, point.y));
 
             spawnedMonster.TakeDamage(0, 0, player.GetComponent<EntityController>(), DamageFlag.Melee);
+            spawnedMonster.died += () => { RemoveMonster(spawnedMonster); };
 
             monsters.Add(spawnedMonster);
-
+            
             // just For Debugging
-            ForDebug(basePoint, spawnPoints);
+            // ForDebug(basePoint, spawnPoints);
         }
 
-        IEnumerator StartSpawn()
+        private void RemoveMonster(EntityController entity)
+        {
+            monsters.Remove(entity);
+        }
+
+
+        private IEnumerator StartSpawn()
         {
             while (true)
             {
@@ -68,6 +86,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
                 SpawnMonster(monster);
             }
         }
+
 
         #region Debugging
 

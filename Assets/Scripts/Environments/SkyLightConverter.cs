@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Time;
 using JetBrains.Annotations;
@@ -70,8 +70,8 @@ namespace Ciart.Pagomoa.Environments
                 {
                     var startTick = (sumLength + value.length) * TimeManager.HourTick;
                     var endTick = sumLength * TimeManager.HourTick;
-
-                    return (TimeManager.instance.tick - startTick) / (endTick - startTick);
+                    var returnValueDebug = 1 - ((TimeManager.instance.tick - startTick) / (endTick - startTick));
+                    return 1 - ((TimeManager.instance.tick - startTick) / (endTick - startTick));
                 }
 
                 sumLength += value.length;
