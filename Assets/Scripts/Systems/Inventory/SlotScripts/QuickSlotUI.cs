@@ -14,10 +14,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class QuickSlotUI : MonoBehaviour, ISlot
     {
         [Header("퀵슬롯 변수")]
+        [SerializeField] private Sprite _emptySprite;
         [SerializeField] private Image slotImage;
+        
+        [Header("자식 변수")]
         [SerializeField] private Image itemImage;
         [SerializeField] private TextMeshProUGUI countText;
-        [SerializeField] private Sprite _emptySprite;
+        
         public int slotID {get; private set;}
         public void SetSlotID(int id) { slotID = id; }
         public SlotType GetSlotType() { return SlotType.Quick; }
@@ -27,8 +30,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void Awake()
         {
             slotImage = GetComponent<Image>();
-            itemImage = GetComponentInChildren<Image>();
-            countText = GetComponentInChildren<TextMeshProUGUI>();
             countText.color = new Color(1, 1, 1, 255);
         }
         

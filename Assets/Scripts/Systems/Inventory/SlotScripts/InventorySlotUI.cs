@@ -8,22 +8,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventorySlotUI : MonoBehaviour, ISlot
     {
-        [Header("인벤토리 슬롯 변수")]
+        [Header("자식 인벤토리 슬롯 변수")]
         public Image itemImage;
         public TextMeshProUGUI countText;
-        public int slotID {get; private set;}
-        public void SetSlotID(int id) { slotID = id; }
+        private int _slotID;
+        public int GetSlotID() { return _slotID; }
+        public void SetSlotID(int id) { _slotID = id; }
+        public SlotType GetSlotType() { return SlotType.Inventory; }
         public SlotMenu slotMenu { get; private set; }
 
-        private void Awake()
+        private void Start()
         {
             slotMenu = GetComponent<SlotMenu>();
-            itemImage = GetComponentInChildren<Image>();
-            countText = GetComponentInChildren<TextMeshProUGUI>();
         }
-
-        public SlotType GetSlotType() { return SlotType.Inventory; }
-        public int GetSlotID() { return slotID; }
 
         public void SetSlot(Slot targetSlot)
         {

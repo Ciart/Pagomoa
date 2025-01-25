@@ -61,7 +61,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             foreach (var artifact in artifactSlots)
             {
                 var slot = new Slot();
-                slot.SetSlotItemID(shopUI.GetShopItemIDs()[artifact.slotID]);
+                slot.SetSlotItemID(shopUI.GetShopItemIDs()[artifact.GetSlotID()]);
                 artifact.SetSlot(slot);
                 
                 slot = null;
@@ -70,7 +70,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             foreach (var use in consumptionSlots)
             {
                 var slot = new Slot();
-                slot.SetSlotItemID(shopUI.GetShopItemIDs()[use.slotID]);
+                slot.SetSlotItemID(shopUI.GetShopItemIDs()[use.GetSlotID()]);
                 use.SetSlot(slot);
                 
                 slot = null;
@@ -115,16 +115,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SoldOut(int slotID)
         {
-            var itemIDList = UIManager.instance.shopUI.GetShopItemIDs();
-            var item = ResourceSystem.instance.GetItem(itemIDList[slotID]);
-            if (item.type != ItemType.Equipment || item.type != ItemType.Inherent) return;
-            
             foreach (var artifact in artifactSlots)
             {
-                if (artifact.slotID == slotID)
+                if (artifact.GetSlotID() == slotID)
                 {
+                    Debug.Log(artifact.GetSlotID());
+                    Debug.Log(slotID);
                     artifact.soldOutImage.gameObject.SetActive(true);
-                    artifact.artifactSlotButton.interactable = false;
+                    artifact.buyCheckButton.interactable = false;
                 }
             }
         }

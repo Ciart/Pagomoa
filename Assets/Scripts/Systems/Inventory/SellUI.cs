@@ -26,9 +26,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             for(int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
                 var spawnedSlot = Instantiate(instanceSlotUI, transform);
-                _sellSlots.Add(spawnedSlot);
-                _sellSlots[i].SetSlotID(i);
+                spawnedSlot.SetSlotID(i);
+                spawnedSlot.AddSlotEvent();
                 spawnedSlot.gameObject.SetActive(true);
+                _sellSlots.Add(spawnedSlot);
             }
             UpdateSellUISlot();
         }

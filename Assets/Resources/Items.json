@@ -62,6 +62,13 @@
       "name": "두더지 장갑",
       "description": "빨간 코가 움찔 거린다.",
       "price": 1000
+    },
+    {
+      "type": 1,
+      "id": "AwfulSnakeBlood",
+      "name": "역겨운 배의 피",
+      "description": "아찔한 낸새가 코를 찌른다.",
+      "price": 1000
     }
   ]
 }

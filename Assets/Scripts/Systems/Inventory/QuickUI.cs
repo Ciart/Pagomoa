@@ -32,13 +32,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _playerInput.Actions.Slot6.started += context => { SelectQuickSlot(6); };
                 
             _playerInput.Actions.UseQuickSlot.started += context => { UseQuickSlot(); };
+
+            InitQuickSlots();
+            UpdateQuickSlot();
         }
         
         // <Summary> 인벤토리 아이템 퀵슬롯 등록 시 중복 아이템 체크 <Summary>
-        private void OnUpdateQuickSlot(ItemCountChangedEvent e)
-        {
-            UpdateQuickSlot();
-        }
+        private void OnUpdateQuickSlot(UpdateInventory e) { UpdateQuickSlot(); }
 
         public void UpdateQuickSlot()
         {
@@ -73,7 +73,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     || input.displayName == index.ToString())
                 {
                     
-                    inventory.UseQuickSlotItem(_chosenSlotUI.slotID);
+                    inventory.UseQuickSlotItem(_chosenSlotUI.GetSlotID());
                     break;
                 }
             }
@@ -81,21 +81,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SelectQuickSlot(int index)
         {
+            var slotID = index - 1;
             
-            UpdateSlotImage();
-        }
-        
-        private void UpdateSlotImage()
-        {
             for (var i = 0; i < Inventory.MaxQuickSlots; i++)
             {
-                var slot = _quickSlots[i];
-                var index = i;
-                
-                if (index == _chosenSlotUI.slotID)
-                    slot.SetSlotImage(_selectedQuickSlotSprite);
+                if (_quickSlots[i].GetSlotID() == slotID)
+                {
+                    _quickSlots[i].SetSlotImage(_selectedQuickSlotSprite);
+                    _chosenSlotUI = _quickSlots[i];
+                }
                 else
-                    slot.SetSlotImage(_normalQuickSlotSprite);
+                    _quickSlots[i].SetSlotImage(_normalQuickSlotSprite);
             }
         }
         
@@ -125,13 +121,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.AddListener<ItemCountChangedEvent>(OnUpdateQuickSlot);
+            EventManager.AddListener<UpdateInventory>(OnUpdateQuickSlot);
         }
         
         private void OnDisable()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnUpdateQuickSlot);
+            EventManager.RemoveListener<UpdateInventory>(OnUpdateQuickSlot);
         }
     }
 }

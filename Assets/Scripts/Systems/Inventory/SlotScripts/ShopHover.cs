@@ -15,9 +15,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var shopUI = UIManager.instance.shopUI;
             var shopItemIDs = UIManager.instance.shopUI.GetShopItemIDs();
-            var item = ResourceSystem.instance.GetItem(shopItemIDs[buySlotUI.slotID]);
+            
             if (buySlotUI)
             {
+                var item = ResourceSystem.instance.GetItem(shopItemIDs[buySlotUI.GetSlotID()]);
                 var itemName = item.name;
                 shopUI.GetShopChat().chatting.text = itemName;
             }

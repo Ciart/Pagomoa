@@ -1,5 +1,4 @@
 ﻿using Ciart.Pagomoa.Events;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             if (targetSlot == null) return;
             
-            UIManager.instance.quickUI.SelectQuickSlot(quickSlotUI.transform.GetSiblingIndex());;
+            UIManager.instance.quickUI.SelectQuickSlot(quickSlotUI.GetSlotID() + 1);;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -62,20 +61,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void DropIsInventorySlot(InventorySlotUI slot)
         {
             var inventory = GameManager.instance.player.inventory;
-            var droppedSlot = inventory.FindSlot(SlotType.Inventory, slot.slotID);
+            var droppedSlot = inventory.FindSlot(SlotType.Inventory, slot.GetSlotID());
             
             if (droppedSlot == null) return;
             if (droppedSlot.GetSlotItemID() == "") return;
             
             var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
             if (targetSlot == null) return;
-            inventory.RegistrationQuickSlot(quickSlotUI.slotID, slot.slotID);
-            
-            var updatedSlot = inventory.FindSlot(SlotType.Quick, slot.slotID);
-            if (updatedSlot == null) return;
-            quickSlotUI.SetSlot(updatedSlot);
-            
-            UIManager.instance.quickUI.UpdateQuickSlot();
+            inventory.RegistrationQuickSlot(quickSlotUI.slotID, slot.GetSlotID());
+            quickSlotUI.SetSlot(targetSlot);
         }
 
         private void DropIsQuickSlot(QuickSlotUI slot)
@@ -94,8 +88,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var targetChanged= inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
             if (targetChanged == null) return;
             quickSlotUI.SetSlot(targetChanged);
-            
-            UIManager.instance.quickUI.UpdateQuickSlot();
         }
     }
 }

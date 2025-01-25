@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (eventData.button != PointerEventData.InputButton.Right) return;
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
@@ -67,9 +67,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = GameManager.instance.player.inventory;
             eventData.pointerPress.TryGetComponent<InventorySlotUI>(out var dragSlot);
             
-            if (!dragSlot || inventorySlotUI.slotID == dragSlot.slotID) return;
+            if (!dragSlot || inventorySlotUI.GetSlotID() == dragSlot.GetSlotID()) return;
             
-            inventory.SwapInventorySlot(dragSlot.slotID, inventorySlotUI.slotID);
+            inventory.SwapInventorySlot(dragSlot.GetSlotID(), inventorySlotUI.GetSlotID());
             UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
         }
     }

@@ -1,6 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -10,10 +10,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         [Header("판매 슬롯 변수")]
         public Image itemImage;
+        public Button sellCheckButton;
         public TextMeshProUGUI countText;
-        public int slotID {get; private set;}
-        public void SetSlotID(int id) { slotID = id; }
-        public int GetSlotID() { return slotID; }
+        private int _slotID;
+        public void SetSlotID(int id) { _slotID = id; }
+        public int GetSlotID() { return _slotID; }
+
+        public void AddSlotEvent()
+        {
+            sellCheckButton.onClick.AddListener(() =>
+                UIManager.instance.shopUI.SellCheck(this)
+            );
+        }
 
         public void SetSlot(Slot targetSlot)
         {

@@ -33,7 +33,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.AddListener<AddGold>(ChangeGold);
             
             InitSlots();
-            Debug.Log("ininin");
             EventManager.Notify(new UpdateInventory());
         }
 
@@ -46,7 +45,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         // 초기 인벤토리 초기화
         public void InitSlots()
         {
-            
             for (int i = 0; i < MaxQuickSlots; i++)
             {
                 _quickData[i] = new Slot();
@@ -79,7 +77,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var hasItemSlot = Array.FindIndex(_inventoryData,
                 (data) => data.GetSlotItemID() == itemID);
 
-            if (hasItemSlot == -1)
+            if (hasItemSlot > -1)
             {
                 var accCount = itemCount + _inventoryData[hasItemSlot].GetSlotItemCount();
                 
@@ -90,11 +88,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
                 else // 2000 
                 {
-                    accCount -= _inventoryData[hasItemSlot].GetSlotItemCount();
-                    _inventoryData[hasItemSlot].SetSlotItemCount(MaxInventorySlots);
+                    accCount -= MaxUseItemCount;
+                    _inventoryData[hasItemSlot].SetSlotItemCount(MaxUseItemCount);
                     
-                    var divVal = (int)(accCount / MaxInventorySlots); 
-                    var remainVal = accCount % MaxInventorySlots;  
+                    var divVal = (int)(accCount / MaxUseItemCount); 
+                    var remainVal = accCount % MaxUseItemCount;  
                     
                     if (divVal > 0)
                     {
@@ -134,8 +132,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
                 else
                 {
-                    var divVal = (int)(itemCount / MaxInventorySlots);
-                    var remainVal = itemCount % MaxInventorySlots;
+                    var divVal = (int)(itemCount / MaxUseItemCount);
+                    var remainVal = itemCount % MaxUseItemCount;
                     
                     if (divVal > 0)
                     {
@@ -184,24 +182,24 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void SellItem(ISlot targetSlot)
         {
             gold += _inventoryData[targetSlot.GetSlotID()].GetSlotItem().price;
-            DecreaseItemBySlotID(targetSlot);
+            DecreaseItemBySlotID(targetSlot.GetSlotID());
             
             UIManager.instance.UpdateGoldUI();
         }
 
-        public void DecreaseItemBySlotID(ISlot targetSlot, int itemCount = 1)
+        public void DecreaseItemBySlotID(int targetSlotID, int itemCount = 1)
         {
-            var inventorySlot = _inventoryData[targetSlot.GetSlotID()];
+            var inventorySlot = _inventoryData[targetSlotID];
             var count = inventorySlot.GetSlotItemCount() - itemCount;
             
             if (count >= 1)
             {
-                _inventoryData[targetSlot.GetSlotID()].SetSlotItemCount(count);
+                _inventoryData[targetSlotID].SetSlotItemCount(count);
             }
             else if (count == 0)
             {
-                _inventoryData[targetSlot.GetSlotID()].SetSlotItemID("");
-                _inventoryData[targetSlot.GetSlotID()].SetSlotItemCount(0);
+                _inventoryData[targetSlotID].SetSlotItemID("");
+                _inventoryData[targetSlotID].SetSlotItemCount(0);
             }
             
             var registrationSlot = FindSlotByItemID(SlotType.Quick, inventorySlot.GetSlotItemID());
@@ -210,7 +208,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 UpdateQuickSlot();
             }
 
-            var eventItemID = _inventoryData[targetSlot.GetSlotID()].GetSlotItemID();
+            var eventItemID = _inventoryData[targetSlotID].GetSlotItemID();
             var sameItemList = FindSameItem(eventItemID);
             var accItemCount = 0;
             foreach (var slotID in sameItemList)
@@ -247,6 +245,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void SwapInventorySlot(int dropID, int targetID)
         {
             (_inventoryData[dropID], _inventoryData[targetID]) = (_inventoryData[targetID], _inventoryData[dropID]);
+            EventManager.Notify(new UpdateInventory());
         }
     }
 #endregion
@@ -257,6 +256,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void UseQuickSlotItem(int slotID)
         {
             var slotData = _quickData[slotID];
+            var index = Array.FindIndex(_inventoryData
+                , data => data.GetSlotItemID() == slotData.GetSlotItemID());
             
             if (slotData.GetSlotItemID() == "") return;
             
@@ -264,7 +265,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             switch (slotData.GetSlotItem().type)
             {
-                case ItemType.Use:
+                case ItemType.Use : case ItemType.Mineral:
                     if (count > 0)
                     {
                         slotData.GetSlotItem().DisplayUseEffect();
@@ -281,9 +282,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     slotData.GetSlotItem().DisplayUseEffect();
                     break;
             }
-
-            var inventorySlot = FindSlotByItemID(SlotType.Inventory, slotData.GetSlotItemID());
-            if (inventorySlot != null)
+            
+            DecreaseItemBySlotID(index);
+            /*if (inventorySlot != null)
             {
                 var minItemCount = inventorySlot.GetSlotItemCount() - 1;
                 
@@ -291,15 +292,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     inventorySlot.SetSlotItemCount(minItemCount);
                 else
                 {
-                    slotData.SetSlotItemID("");
-                    slotData.SetSlotItemCount(0);
+                    inventorySlot.SetSlotItemID("");
+                    inventorySlot.SetSlotItemCount(0);
                 }
             }
             
             var eventItemID = _quickData[slotID].GetSlotItemID();
             var sameItemCount = _quickData[slotID].GetSlotItemCount();
             EventManager.Notify(new UpdateInventory());
-            EventManager.Notify(new ItemCountChangedEvent(eventItemID, sameItemCount));
+            EventManager.Notify(new ItemCountChangedEvent(eventItemID, sameItemCount));*/
         }
 
         public void SwapQuickSlot(int dropID, int targetID)
@@ -350,6 +351,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
                 
                 data.SetSlotItemCount(accItemCount);
+                accItemCount = 0;
             }
         }
     }

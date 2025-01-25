@@ -9,15 +9,28 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class BuySlotUI : MonoBehaviour, ISlot
     {
-        [Header("구매 슬롯 변수")]
-        public Image itemImage;
+        [Header("구매 슬롯 변수")] 
         public Image slotImage;
+        public Button buyCheckButton;
+        
+        [Header("자식 변수")]
+        public Image itemImage;
         public TextMeshProUGUI itemNameText;
         public TextMeshProUGUI itemPriceText;
-        public int slotID {get; private set;}
-        public void SetSlotID(int id) { slotID = id; }
+        private int _slotID;
+        public void SetSlotID(int id) { _slotID = id; }
+        public virtual int GetSlotID() { return _slotID; }
+        private void Start()
+        {
+            buyCheckButton.onClick.AddListener(
+                () => UIManager.instance.shopUI.BuyCheck(this)
+            );
+            
+            slotImage = GetComponent<Image>();
+            buyCheckButton = GetComponent<Button>();
+        }
         
-        public virtual void SetSlot(Slot targetSlot)
+        public void SetSlot(Slot targetSlot)
         {
             itemImage.sprite = targetSlot.GetSlotItem().sprite;
             itemNameText.text = targetSlot.GetSlotItem().name;
@@ -25,6 +38,5 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
 
         public virtual SlotType GetSlotType() { return SlotType.Buy; }
-        public virtual int GetSlotID() { return slotID; }
     }
 }

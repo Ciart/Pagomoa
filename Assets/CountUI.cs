@@ -139,7 +139,6 @@ namespace Ciart.Pagomoa
                 if (inventory.gold >= totalPrice && inputCount == 1)
                 {
                     inventory.AddInventory(item.id);
-                    shopUI.GetShopItemIDs().Remove(item.id);
                     DisableCountUI();
                     
                     inventory.gold -= totalPrice;

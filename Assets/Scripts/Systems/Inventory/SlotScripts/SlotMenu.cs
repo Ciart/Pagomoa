@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void EquipCheck()
         {
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
@@ -34,7 +34,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = GameManager.instance.player.inventory;
             var mineralCount = count;
             
-            inventory.DecreaseItemBySlotID(inventorySlotUI, mineralCount);
+            inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID(), mineralCount);
             
             UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
@@ -43,13 +43,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void UseItem()
         {
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
             if (inventorySlotUI.GetSlotType() != SlotType.Inventory) return;
             
             targetSlot.GetSlotItem().DisplayUseEffect();
-            inventory.DecreaseItemBySlotID(inventorySlotUI);
+            inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID());
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }
@@ -57,7 +57,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void AbandonItem()
         {
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.slotID);
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
             
