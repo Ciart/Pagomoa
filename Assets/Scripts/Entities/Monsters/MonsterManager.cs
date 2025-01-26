@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Systems.Time;
+﻿using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities.Monsters
@@ -23,10 +23,10 @@ namespace Ciart.Pagomoa.Entities.Monsters
         }
         void FixedUpdate()
         {
-            if (_isSleepTime)
-            { 
-                _nightSpawner.StartNightSpawner();    
-            }
+            //if (_isSleepTime)
+            //{ 
+            //    _nightSpawner.StartNightSpawner();    
+            //}
         }
 
         public void SleepTime()
@@ -36,8 +36,8 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         public void AwakeTime()
         {
-            _nightSpawner.KillNightMonsters();
-            _isSleepTime = false;
+            //_nightSpawner.KillNightMonsters();
+            //_isSleepTime = false;
         }
     }
 }

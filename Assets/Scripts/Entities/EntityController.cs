@@ -117,6 +117,8 @@ namespace Ciart.Pagomoa.Entities
 
         public void TakeKnockback(float force, Vector2 direction)
         {
+            if(isDead) return;
+
             ParticleManager.instance.Make(0, gameObject, Vector2.zero, 0.5f);
 
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
@@ -136,6 +138,7 @@ namespace Ciart.Pagomoa.Entities
             if (status.health <= 0)
             {
                 status.health = 0;
+                died?.Invoke();
             }
 
             if (attacker is not null)
