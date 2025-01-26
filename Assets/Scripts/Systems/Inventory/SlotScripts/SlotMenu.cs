@@ -27,7 +27,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
         }
         // TODO : 장비 착용하는 법
-        public void EquipItem() { UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu(); }
+        public void EquipItem()
+        {
+            var inventory = GameManager.instance.player.inventory;
+            
+            
+            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
+        }
         
         public void EatMineral(int count)
         {
@@ -36,7 +42,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID(), mineralCount);
             
-            UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }
 

@@ -1774,6 +1774,7 @@ GameObject:
   - component: {fileID: 1018746307}
   - component: {fileID: 1018746306}
   - component: {fileID: 1018746308}
+  - component: {fileID: 1018746309}
   m_Layer: 0
   m_Name: ManagerSystem
   m_TagString: Untagged
@@ -1839,7 +1840,7 @@ MonoBehaviour:
   ToggleHotkey: '`'
   ToggleFullHotkey: '#`'
   BufferSize: 512
-  ConsoleFont: {fileID: 0}
+  ConsoleFont: {fileID: 12800000, guid: 166863fb1cfb3450e9c64d78b17e527f, type: 3}
   InputCaret: '>'
   ShowGUIButtons: 0
   RightAlignButtons: 0
@@ -4025,3 +4026,4 @@ SceneRoots:
   - {fileID: 7878045993923659085}
   - {fileID: 1595614276}
   - {fileID: 120692002}
+  - {fileID: 816190135}

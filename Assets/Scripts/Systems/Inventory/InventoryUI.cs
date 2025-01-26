@@ -12,8 +12,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         [SerializeField] private RectTransform inventorySlotParent;
         [SerializeField] private InventorySlotUI instanceInventorySlotUI;
-        private List<InventorySlotUI> _inventoryUISlots = new List<InventorySlotUI>();
-        public InventorySlotUI[] artifactSlotData = new InventorySlotUI[Inventory.MaxArtifactSlots];
+        [SerializeField] private RectTransform artifacSlotParent;
+        [SerializeField] private ArtifactSlotUI instanceArtifactSlotUI;
+        private List<InventorySlotUI> _inventoryUISlots = new List<InventorySlotUI>(Inventory.MaxInventorySlots);
+        private List<ArtifactSlotUI> _artifactSlots = new List<ArtifactSlotUI>(Inventory.MaxArtifactSlots);
 
         private void InitInventorySlotUI()
         {
@@ -44,40 +46,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryUISlots[i].SetSlot(slotList[i]);
             }
         }
-        
-        /*public void SwapUISlot(int targetID, int dragID)
-        {
-            var targetIndex = _inventoryUISlots[targetID].transform.GetSiblingIndex();
-            var dragIndex = _inventoryUISlots[dragID].transform.GetSiblingIndex();
-            
-            Debug.Log("Want to drop in  " + targetIndex);
-            if (targetIndex == Inventory.MaxSlots)
-            {
-                Debug.Log("You drop in Last Sibling");
-                _inventoryUISlots[dragID].transform.SetAsLastSibling();
-                _inventoryUISlots[targetID].transform.SetSiblingIndex(dragID + 1);
-            }
-            else if (dragIndex == Inventory.MaxSlots)
-            {
-                Debug.Log("You hold Last Sibling");
-                _inventoryUISlots[dragID].transform.SetSiblingIndex(targetID + 1);
-                _inventoryUISlots[targetID].transform.SetAsLastSibling();
-            }
-            else
-            {
-                Debug.Log("Normal Swap");
-                _inventoryUISlots[dragID].transform.SetSiblingIndex(targetID + 1); 
-                _inventoryUISlots[targetID].transform.SetSiblingIndex(dragID + 1);   
-            }
-
-            (_inventoryUISlots[dragID], _inventoryUISlots[targetID]) =
-                (_inventoryUISlots[targetID], _inventoryUISlots[dragID]);
-            
-            for (int i = 0; i < Inventory.MaxSlots; i++)
-            {
-                _inventoryUISlots[i].slotID = i;
-            }
-        }*/
         
         private void OnEnable()
         {

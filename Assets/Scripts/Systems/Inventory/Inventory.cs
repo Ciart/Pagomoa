@@ -31,9 +31,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             EventManager.AddListener<AddReward>(AddReward);
             EventManager.AddListener<AddGold>(ChangeGold);
-            
             InitSlots();
-            EventManager.Notify(new UpdateInventory());
         }
 
         private void Destroy()
@@ -53,7 +51,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (int i = 0; i < MaxArtifactSlots; i++)
             {
-                
+                _artifactSlots[i] = new Slot();
+                _artifactSlots[i].SetSlotType(SlotType.Artifact);
             }
 
             for (int i = 0; i < MaxInventorySlots; i++)
@@ -61,7 +60,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryData[i] = new Slot();
                 _inventoryData[i].SetSlotType(SlotType.Inventory);
             }
-                
         }
         
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
@@ -357,6 +355,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
     }
 #endregion
     
+#region 아티팩트 함수
+    public partial class Inventory
+    {
+        public void EquipArtifact(ISlot inventorySlot)
+        {
+            
+            
+            // 메뉴 등록
+            // TODO : 플레이어 스텟 적용
+        }
+
+        public void EquipDraggedArtifact(ISlot inventorySlot, ISlot targetSlot)
+        {
+            // 드래그 드롭 등록
+            // TODO : 플레이어 스텟 적용
+        }
+
+        public void UnEquipArtifact(ISlot inventorySlot)
+        {
+            
+            // TODO : 플레이어 스텟 적용
+        }
+    }
+#endregion
     // 검색
     public partial class Inventory
     {
