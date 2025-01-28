@@ -1,26 +1,36 @@
 using Ciart.Pagomoa.Systems.Time;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems {
     public class OutputPlayerPlayTime : MonoBehaviour
-    {
-        [SerializeField] private TextMeshProUGUI _tmpGuiText;
-
-        private void Update()
+    { 
+        private enum TargetTimeValue
         {
-            SetPlayerPlayTimeOutput();
+            TargetDate = 0,
+            TargetTime = 1,
+        }
+        
+        private TargetTimeValue _targetTimeValue;
+        public void SetTargetTimeValue(int value) { _targetTimeValue = (TargetTimeValue)value; }
+        
+        private TextMeshProUGUI _tmpGuiText;
+
+        private void Start()
+        {
+            _tmpGuiText = GetComponent<TextMeshProUGUI>();    
         }
 
-        private void SetPlayerPlayTimeOutput()
+        public void UpdatePlayTimeOutput()
         {
             var timeManager = TimeManager.instance;
             
-            if (gameObject.name == "Day-N")
+            if (_targetTimeValue == TargetTimeValue.TargetDate)
             {
                 _tmpGuiText.text = timeManager.date.ToString();
             }
-            else if (gameObject.name == "Time")
+            else if (_targetTimeValue == TargetTimeValue.TargetTime)
             {
                 var hour = timeManager.hour;
                 var minute = timeManager.minute;

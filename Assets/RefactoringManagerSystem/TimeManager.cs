@@ -39,7 +39,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public int date = 1;
     
-        public int hour => tick / HourTick + HourOffset;
+        public int hour => (tick / HourTick + HourOffset) % 24;
 
         public int minute => tick % HourTick / MinuteTick;
     
@@ -49,25 +49,9 @@ namespace Ciart.Pagomoa.Systems.Time
 
         private float _nextUpdateTime = 0f;
 
-        private string _season = "";
-        private bool _eventTakePlace = true;
-
         private PlayerInput _playerInput;
     
         public event Action<int> tickUpdated;
-
-        /*[HideInInspector] public UnityEvent NextDaySpawn;
-        [HideInInspector] public UnityEvent MonsterSleep;
-        [HideInInspector] public UnityEvent MonsterWakeUp;
-        [HideInInspector] public UnityEvent<FadeState> FadeEvent;*/
-        
-        // public override void Awake()
-        // {
-        //     /*base.Awake();
-        //     MonsterSleep.AddListener(DayMonster.GetSleep);
-        //     MonsterWakeUp.AddListener(DayMonster.AwakeSleep);
-        //     MonsterWakeUp.AddListener(NightMonster.TimeToBye);*/
-        // }
 
         public override void Start()
         {
@@ -84,7 +68,8 @@ namespace Ciart.Pagomoa.Systems.Time
         {
             if (_nextUpdateTime <= 0)
             {
-                tick += 1;
+                tick += 10;
+                //To do : tick have to change into 1, But should be do before Release. Not now.
                 _nextUpdateTime += 1f / tickSpeed;
                 tickUpdated?.Invoke(tick);
 
@@ -95,74 +80,17 @@ namespace Ciart.Pagomoa.Systems.Time
                     /*NextDaySpawn.Invoke();*/
                 }
 
-                if (_season != GetSeasonForPlayer())
-                {
-                    _season = GetSeasonForPlayer();
-                    EventTime();
-                }
             }
         
             _nextUpdateTime -= UnityEngine.Time.deltaTime;
         }
 
-        private void EventTime()
-        {
-            if (_eventTakePlace == true) return;
-
-            if (_season == "MiddleNight")
-            {
-                canSleep = true;
-                _eventTakePlace = true;
-                /*MonsterSleep.Invoke();*/
-            }
-
-            if (_season == "Morning")
-            {
-                canSleep = false;
-                _eventTakePlace = true;
-                /*MonsterWakeUp.Invoke();*/
-            }
-        }
-    
-        // private void ReturnToBase()
-        // {
-        //     Vector3 returnPosition = new Vector3(31.7f, 4, 0);
-        //     gameObject.transform.position = returnPosition;
-        // }
-    
         public void SkipToNextDay()
         {
-            // FadeEvent.Invoke(FadeState.FadeInOut);
-            //EventManager.Notify(new FadeEvent(FadeState.FadeInOut));
             AddDay(1);
             tick = Morning;
-
-            /*NextDaySpawn.Invoke();
-            MonsterWakeUp.Invoke();*/
         }
-
-        public string GetSeasonForMonster()
-        {       
-            if (tick >= 0 && tick < 6 * HourTick)
-                return "Night";
-            else if (tick < 22 * HourTick)
-                return "Day";
-            else
-                return "Night";
-        }
-
-        public string GetSeasonForPlayer()
-        {           
-            if (6 * HourTick < tick && tick < 12 * HourTick)
-                return "Morning";
-            else if (tick < 18 * HourTick)
-                return "Afternoon";
-            else if (tick < 22 * HourTick)
-                return "Night";
-            else
-                return "MiddleNight";
-        }
-
+ 
         public void AddTime(int hourToAdd, int minuteToAdd)
         {
             tick += (hourToAdd * HourTick) + (minuteToAdd * MinuteTick);

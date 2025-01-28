@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.UI;
 using UnityEngine;
@@ -17,7 +16,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public BookTabItem[] tabItems;
         
-        // [SerializeField] public GameObject ItemHoverObject;
+        [SerializeField] private InventoryUI _inventoryUI;
+        public InventoryUI GetInventoryUI() => _inventoryUI;
+        
+        [SerializeField] private RightClickMenu _rightClickMenu;
+        public RightClickMenu GetRightClickMenu() => _rightClickMenu;
+        [SerializeField] private  HoverItemInfo _hoverItemInfo;
+        public HoverItemInfo GetHoverItemInfo() => _hoverItemInfo;
         
         private void OnClickTab(int index)
         {
@@ -34,8 +39,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 tabItem.tabButton.onClick.AddListener(() => OnClickTab(i));
             }
-            
-            //OnClickTab(0);
         }
         
         [Obsolete("프로토타입에서 사용하는 함수 입니다.")]

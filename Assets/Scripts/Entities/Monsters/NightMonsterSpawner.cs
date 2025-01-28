@@ -1,205 +1,127 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Monsters
 {
     public class NightMonsterSpawner : MonoBehaviour
     {
-        public Transform player;
-    
-        public bool x, y, z;
-    
-        public int land;
+        [SerializeField] private GameObject monster;
+        [SerializeField] private float cycleTime = 5f;
+        [SerializeField] private int maxCount = 5;
+        private List<EntityController> monsters = new List<EntityController>();
 
-        public int minSearchWidth = 4;
-    
-        public int maxSearchWidth = 10;
+        [SerializeField] private Vector2Int spawnRange = new Vector2Int(25, 15);
+        [SerializeField] private Vector2Int spawnExclusionRange = new Vector2Int(20, 10);
 
-        [SerializeField] private int maxSpawn = 10;
-    
-        [SerializeField] private float spawnTerm = 30f;
-    
-        [SerializeField] private float spawnCoolTime = 30f;
+        private TimeManager _timeManager;
 
-        [SerializeField] private GameObject[] monsterType;
+        #region Debugging
+        Vector2Int debugPoint;
+        [SerializeField] List<Vector2Int> debugVectors;
+        #endregion
 
-        private GameObject _monsterPrefab;
-
-        private List<GameObject> _spawnedMonster;
-
-        private List<WorldCoords> _canSpawnPoints;
-    
-        private Vector2 _spawnPoint;
-
-        private float _desertDepth = 50f;
-        private float _forestDepth = -100f;
-
-        private int _searchSize = 10;
-        //private int _checkVectorX = - 1;
-
-        void Start()
+        private void Awake()
         {
-            _spawnedMonster = new List<GameObject>();
-            _canSpawnPoints = new List<WorldCoords>();
-
-            SetSpawnMonster();
-            CheckSpawnPosition();
+            _timeManager = TimeManager.instance;
         }
 
-        public void StartNightSpawner()
+        private void Start()
         {
-            ChasePlayer();
-            if (spawnCoolTime <= 0)
-            {
-                spawnCoolTime = spawnTerm;
-            }
-            if (spawnCoolTime == spawnTerm)
-            {
-                StartCoroutine(nameof(SpawnMonsters));
-            }
-            if (spawnCoolTime <= spawnTerm)
-            {
-                spawnCoolTime -= 0.05f;
-            }
+            if(monster is not null)
+                StartCoroutine(StartSpawn());
         }
 
-        private void ChasePlayer()
+        private void SpawnMonster(GameObject monster)
         {
-            if (!player) return ;
-        
-            transform.position = new Vector3(
-                (x ? player.position.x : transform.position.x),
-                (y ? player.position.y : transform.position.y),
-                (z ? player.position.z : transform.position.z)); 
-        }
+            if (monsters.Count >= maxCount) return;
+            if (!(_timeManager.hour < 6 || _timeManager.hour >= 18)) return;
+            Debug.Log("소환" + TimeManager.instance.hour + ":" + TimeManager.instance.minute);
 
-        private void SetSpawnMonster()
-        {
-            float playerPositionY = player.transform.position.y;
+            var entityManager = EntityManager.instance;
 
-            switch (playerPositionY)
-            {
-                case float yPos when yPos > _desertDepth:
-                    land = 1;
-                    _monsterPrefab = monsterType[land - 1];
-                    break;
+            var entityId = monster.GetComponent<EntityController>().entityId;
 
-                case float yPos when yPos > _forestDepth:
-                    land = 2;
-                    _monsterPrefab = monsterType[land - 1];
-                    break;
+            var player = GameManager.instance.player;
+            var playerPosition = player.transform.position;
 
-                case float yPos when yPos > _forestDepth:
-                    land = 3;
-                    _monsterPrefab = monsterType[land - 1];
-                    break;
+            var basePoint = new Vector2Int((int)playerPosition.x, (int)playerPosition.y);
 
-                case float yPos when yPos > _forestDepth:
-                    land = 4;
-                    _monsterPrefab = monsterType[land - 1];
-                    break;
+            var spawnPoints = BrickSearchUtility.GetAboveEmptyGroundVectors(
+                basePoint
+                , spawnRange
+                , spawnExclusionRange);
 
-                case float yPos when yPos > _forestDepth:
-                    land = 5;
-                    _monsterPrefab = monsterType[land - 1];
-                    break;
+            var point = spawnPoints[Random.Range(0, spawnPoints.Count)];
 
-                case float yPos when yPos > _forestDepth:
-                    land = 6;
-                    _monsterPrefab = monsterType[land - 1];
-                    break;
-            }
-        }
-    
-        private IEnumerator SpawnMonsters()
-        {
-            if (_spawnedMonster.Count < maxSpawn)
-            {
-                SetSpawnMonster();
-                CheckSpawnPosition();
+            var spawnedMonster = entityManager.Spawn(entityId, new Vector3(point.x, point.y));
+
+            spawnedMonster.TakeDamage(0, 0, player.GetComponent<EntityController>(), DamageFlag.Melee);
+            spawnedMonster.died += () => { RemoveMonster(spawnedMonster); };
+
+            monsters.Add(spawnedMonster);
             
-                int randomPoint = UnityEngine.Random.Range(0, _canSpawnPoints.Count);
-                var coords = _canSpawnPoints[randomPoint];
-                _spawnPoint = new Vector2(coords.x, coords.y);
-                _spawnPoint.y += 0.5f;
-            
-
-                GameObject nightMonster = Instantiate(_monsterPrefab, _spawnPoint, Quaternion.identity);
-                _spawnedMonster.Add(nightMonster);
-            
-                yield return new WaitForSeconds(spawnTerm);
-            }
-            yield return null;
+            // just For Debugging
+            // ForDebug(basePoint, spawnPoints);
         }
 
-        public void KillNightMonsters()
+        private void RemoveMonster(EntityController entity)
         {
-            foreach (var nightMonster in _spawnedMonster)
+            monsters.Remove(entity);
+        }
+
+
+        private IEnumerator StartSpawn()
+        {
+            while (true)
             {
-                Destroy(nightMonster);
+                yield return new WaitForSeconds(cycleTime);
+                SpawnMonster(monster);
             }
-            _spawnedMonster.Clear();
-        }
-    
-        private void CheckSpawnPosition()
-        {
-            Vector3 spawnerPivot = transform.position;
-
-            Vector2Int bottomLeft = InitBottomLeftPosition(spawnerPivot);
-            Vector2Int topRight = InitTopRightPosition(spawnerPivot);
-            bottomLeft.x += minSearchWidth;
-            topRight.x += maxSearchWidth;
-
-            SearchTiles(bottomLeft, topRight);
-
-            bottomLeft = InitBottomLeftPosition(spawnerPivot);
-            topRight = InitTopRightPosition(spawnerPivot);
-            bottomLeft.x -= maxSearchWidth;
-            topRight.x -= minSearchWidth;
-
-            SearchTiles(bottomLeft, topRight);
         }
 
-        private void SearchTiles(Vector2Int bottomLeft, Vector2Int topRight)
+
+        #region Debugging
+
+        private void ForDebug(Vector2Int basePoint, List<Vector2Int> points)
         {
-            for (int x = bottomLeft.x; x <= topRight.x; x++)
+            debugPoint = basePoint;
+            debugVectors = points;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (debugVectors.Count == 0) return;
+            if (monsters.Count >= maxCount) return;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(new Vector3(debugPoint.x, debugPoint.y) , new Vector3(spawnRange.x * 2, spawnRange.y * 2));
+            Gizmos.DrawWireCube(new Vector3(debugPoint.x, debugPoint.y) , new Vector3(spawnExclusionRange.x * 2, spawnExclusionRange.y * 2));
+
+
+
+
+            foreach (var intPos in debugVectors)
             {
-                for (int y = bottomLeft.y; y <= topRight.y; y++)
-                {
-                    var tilePosition = WorldManager.ComputeCoords(new Vector3(x, y));
-                    var tile = WorldManager.world.currentLevel.GetBrick(tilePosition.x, tilePosition.y, out _)?.ground;
-
-                    if (tile == null)
-                    {
-                        var isNullTilePos =  WorldManager.ComputeCoords(new Vector3(x, y - 1f));
-                        var tileCheck = WorldManager.world.currentLevel.GetBrick(isNullTilePos.x, isNullTilePos.y, out _)?.ground;
-
-                        if (tileCheck != null)
-                        {
-                            _canSpawnPoints.Add(tilePosition);
-                        }
-                    }
-                }
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(new Vector3(intPos.x, intPos.y), new Vector3(intPos.x + 1, intPos.y));
+                Gizmos.DrawCube(new Vector3(intPos.x + 0.5f, intPos.y + 0.5f), new Vector3(0.5f, 0.5f));
             }
+
+            Gizmos.color = Color.green;
+
+            Vector2Int targetBrickVector2Int = Vector2Int.zero;
+
+            Gizmos.DrawCube(new Vector3(targetBrickVector2Int.x + 0.5f, targetBrickVector2Int.y + 0.5f), new Vector3(0.3f, 0.3f));
         }
 
-        private Vector2Int InitBottomLeftPosition(Vector3 spawnerPivot)
-        {
-            return new Vector2Int(
-                Mathf.FloorToInt(spawnerPivot.x),
-                Mathf.FloorToInt(spawnerPivot.y) - _searchSize / 2 - 1
-            );
-        }
-
-        private Vector2Int InitTopRightPosition(Vector3 spawnerPivot)
-        {
-            return new Vector2Int(
-                Mathf.CeilToInt(spawnerPivot.x),
-                Mathf.CeilToInt(spawnerPivot.y) + _searchSize / 2 - 1
-            );
-        }
+        #endregion
     }
 }

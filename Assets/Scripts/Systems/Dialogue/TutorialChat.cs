@@ -55,11 +55,11 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var inventory = Game.instance.player.inventory;
             
             // var inherentItem = InventoryDB.Instance.itemss.Find(inventoryItem => inventoryItem.item.itemType == Item.ItemType.Inherent);
-            int idx = Array.FindIndex(inventory.items, element => element.item.type == ItemType.Inherent);
+            int idx = Array.FindIndex(inventory.inventoryItems, element => element.GetSlotItem().type == ItemType.Inherent);
             if (idx != -1)
             {
-                InventorySlot item = inventory.items[idx];
-                if (item.item.name == "UFO리모컨") return true;
+                /*InventorySlot item = inventory.inventoryItems[idx];
+                if (item.GetSlotItem().name == "UFO리모컨") return true;*/
             }
             return false;
         } 

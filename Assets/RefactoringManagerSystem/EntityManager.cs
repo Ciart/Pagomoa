@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.RefactoringManagerSystem;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Entities
@@ -15,7 +13,8 @@ namespace Ciart.Pagomoa.Entities
     {
         private List<EntityController> _entities = new();
 
-        public EntityController? Spawn(string id, Vector3 position, EntityStatus status = null)
+        [CanBeNull]
+        public EntityController? Spawn(string id, Vector3 position, EntityStatus? status = null)
         {
             var entity = ResourceSystem.instance.GetEntity(id);
 
@@ -26,7 +25,7 @@ namespace Ciart.Pagomoa.Entities
             }
             
             var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
-            
+                       
             _entities.Add(controller);
             
             controller.Init(new EntityData(id, position.x, position.y, status));

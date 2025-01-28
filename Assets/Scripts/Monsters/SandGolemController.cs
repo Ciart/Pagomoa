@@ -9,8 +9,6 @@ namespace Ciart.Pagomoa
 {
     public class SandGolemController : MonsterController
     {
-        //private GameObject touchingTarget;
-
         Coroutine Proceeding;
 
         public LayerMask enemyLayer;
@@ -27,31 +25,11 @@ namespace Ciart.Pagomoa
                 }
             }
         }
-        private void Start()
-        {
-            //if (TimeManager.GetSeasonForMonster() == "Night")
-            //    StateChanged(Monster.MonsterState.Sleep);
-            //else
-            //    StateChanged(Monster.MonsterState.Active);
-            StateChanged(Monster.MonsterState.Active);
-        }
-
-        private void OnEnable()
-        {
-            GetComponent<EntityController>().damaged += OnHit;
-        }
-
-        private void OnDisable()
-        {
-            GetComponent<EntityController>().damaged -= OnHit;
-        }
 
         public override void StateChanged(Monster.MonsterState state)
         {
             if (Proceeding != null)
                 StopCoroutine(Proceeding);
-
-            //if (_monster == null) Debug.Log("몬스터_가 없어");
 
             _monster.state = state;
 
@@ -74,6 +52,7 @@ namespace Ciart.Pagomoa
                     Proceeding = StartCoroutine("Hit");
                     break;
                 case Monster.MonsterState.Die:
+                    StopAllCoroutines();
                     Die();
                     break;
                 default:
@@ -101,14 +80,11 @@ namespace Ciart.Pagomoa
                     yield return new WaitForSeconds(Time.fixedDeltaTime);
                 }
             }
-            //if (TimeManager.GetSeasonForMonster() == "Night")
-            //    StateChanged(Monster.MonsterState.Sleep);
-            //else
-            //    StateChanged(Monster.MonsterState.Active);
         }
+
         protected override IEnumerator Chase()
         {
-            float time = 6f;
+            float time = chaseTime;
             _animator.SetTrigger("Chase");
             while (time >= 0 && _monster.target)
             {
@@ -124,6 +100,7 @@ namespace Ciart.Pagomoa
             }
             StateChanged(Monster.MonsterState.Active);
         }
+
         protected override void Sleep()
         {
             _rigidbody.linearVelocity = Vector3.zero;
@@ -148,19 +125,9 @@ namespace Ciart.Pagomoa
             StateChanged(Monster.MonsterState.Chase);
         }
 
-        private void OnHit(EntityDamagedEventArgs args)
-        {
-            if (args.attacker == null) return;
-            
-            Debug.Log("현재타겟" + args.attacker.name);
-            _monster.target = args.attacker.gameObject;
-            StateChanged(Monster.MonsterState.Hit);
-        }
-
         private void CheckEnemyInAttackRange()
         {
             var colliders = Physics2D.OverlapAreaAll(transform.position, transform.position + new Vector3(_monster.direction, 0.2f), enemyLayer);
-            Debug.Log("현재 위치" + transform.position + "/ 방향 : " + _monster.direction);
             foreach(var collider in colliders)
             {
                 var entity = collider.GetComponent<EntityController>();
@@ -186,30 +153,6 @@ namespace Ciart.Pagomoa
                 entity.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
             }
         }
-        //protected override void Die()
-        //{
-        //    _rigidbody.velocity = Vector3.zero;
-        //    _rigidbody.gravityScale = 0;
-        //    GetComponent<Collider2D>().enabled = false;
-        //    _animator.SetTrigger("Hit");
-        //    _monster.Die();
-        //}
-
-
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if (_monster._attack.attackTargetTag.Contains(collision.gameObject.tag))
-        //    {
-        //        _monster.target = touchingTarget = collision.gameObject;
-        //        StateChanged(Monster.MonsterState.Chase);
-        //    }
-        //}
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject == touchingTarget)
-        //        touchingTarget = null;
-        //}
 
     }
 }

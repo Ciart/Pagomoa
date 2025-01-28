@@ -33,11 +33,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void UpdateSlot()
         {
-            for (int i = 0; i < contentDatas.Count; i++)
+            /*for (int i = 0; i < contentDatas.Count; i++)
             {
-                contentDatas[i].SetUI(Achievements.Instance.AchieveMinerals[i].item.sprite, 
-                    Achievements.Instance.AchieveMinerals[i].item.price);
-            }
+                contentDatas[i].SetUI(Achievements.Instance.AchieveMinerals[i].GetSlotItem().sprite, 
+                    Achievements.Instance.AchieveMinerals[i].GetSlotItem().price);
+            }*/
         }
     }
 }
