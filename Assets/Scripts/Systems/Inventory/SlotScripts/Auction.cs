@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         /*public void Remove(Item data)
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             var countUI = UIManager.instance.shopUI.GetCountUI();
             var auctionItem = UIManager.instance.shopUI.chosenSlot;
             

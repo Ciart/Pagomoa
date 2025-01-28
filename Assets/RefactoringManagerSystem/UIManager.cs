@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Systems
     {
         ~UIManager()
         {
-            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         private UIContainer _uiContainer;
@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa.Systems
 
         public override void Start()
         {
-            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         public override void FixedUpdate()
@@ -80,7 +80,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void UpdateGoldUI()
         {
-            var playerGold = GameManager.instance.player.inventory.gold;
+            var playerGold = Game.instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
             stateUI.playerGoldUI.text = playerGold.ToString();         

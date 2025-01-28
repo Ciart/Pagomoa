@@ -27,7 +27,7 @@ namespace Ciart.Pagomoa.Worlds
                 }
 
                 instance._world = value;
-                EventSystem.Notify(new WorldCreatedEvent(instance._world));
+                EventManager.Notify(new WorldCreatedEvent(instance._world));
             }
         }
 
@@ -45,8 +45,8 @@ namespace Ciart.Pagomoa.Worlds
         
         public override void Start()
         {
-            EventSystem.AddListener<DataSaveEvent>(OnDataSaveEvent);
-            EventSystem.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
+            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
             
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
@@ -57,8 +57,8 @@ namespace Ciart.Pagomoa.Worlds
         
         public override void OnDestroy()
         {
-            EventSystem.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
-            EventSystem.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
+            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
         }
 
         public void GetComponent(WorldGenerator generator)
@@ -79,7 +79,7 @@ namespace Ciart.Pagomoa.Worlds
             foreach (var chunk in _expiredChunks)
             {
                 // TODO: Level 값 다른 방식으로 변경
-                EventSystem.Notify(new ChunkChangedEvent(world.currentLevel, chunk));
+                EventManager.Notify(new ChunkChangedEvent(world.currentLevel, chunk));
             }
 
             _expiredChunks.Clear();
@@ -219,7 +219,7 @@ namespace Ciart.Pagomoa.Worlds
                 _expiredChunks.Add(c);
             }
 
-            EventSystem.Notify(new GroundBrokenEvent(x, y, prevBrick));
+            EventManager.Notify(new GroundBrokenEvent(x, y, prevBrick));
         }
 
         public bool CheckBreakable(int x, int y, int tier, string item)

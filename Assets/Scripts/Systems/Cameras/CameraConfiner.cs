@@ -24,14 +24,14 @@ namespace Ciart.Pagomoa
 
         private void OnEnable()
         {
-            EventSystem.AddListener<WorldCreatedEvent>(OnWorldCreated);
-            EventSystem.AddListener<LevelChangedEvent>(OnLevelChanged);
+            EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
+            EventManager.AddListener<LevelChangedEvent>(OnLevelChanged);
         }
 
         private void OnDisable()
         {
-            EventSystem.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
-            EventSystem.RemoveListener<LevelChangedEvent>(OnLevelChanged);
+            EventManager.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
+            EventManager.RemoveListener<LevelChangedEvent>(OnLevelChanged);
 
         }
 

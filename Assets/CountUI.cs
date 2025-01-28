@@ -123,7 +123,7 @@ namespace Ciart.Pagomoa
         }
         public void BuySlots()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
             var buySlot = (BuySlot)UIManager.instance.GetUIContainer().chosenSlot;
 
@@ -207,7 +207,7 @@ namespace Ciart.Pagomoa
         }
         public void SellSlots()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
             var sellSlot = (SellSlot)UIManager.instance.GetUIContainer().chosenSlot;
             

@@ -101,14 +101,14 @@ namespace Ciart.Pagomoa.UI.Book
             UpdateQuestList(questManager.quests);
             UpdateQuestDetail(questManager.FindQuestById(selectQuestId));
 
-            EventSystem.AddListener<QuestListUpdated>(OnQuestListUpdated);
-            EventSystem.AddListener<QuestUpdated>(OnQuestUpdated);
+            EventManager.AddListener<QuestListUpdated>(OnQuestListUpdated);
+            EventManager.AddListener<QuestUpdated>(OnQuestUpdated);
         }
 
         private void OnDisable()
         {
-            EventSystem.RemoveListener<QuestListUpdated>(OnQuestListUpdated);
-            EventSystem.RemoveListener<QuestUpdated>(OnQuestUpdated);
+            EventManager.RemoveListener<QuestListUpdated>(OnQuestListUpdated);
+            EventManager.RemoveListener<QuestUpdated>(OnQuestUpdated);
         }
 
         private void Awake()

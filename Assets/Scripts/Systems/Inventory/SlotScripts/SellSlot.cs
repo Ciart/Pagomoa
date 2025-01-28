@@ -51,7 +51,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         /*public void ClickSlot()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
             var countUI = shopUI.GetCountUI();
             

@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             var data = new SaveData();
             
-            EventSystem.Notify(new DataSaveEvent(data));
+            EventManager.Notify(new DataSaveEvent(data));
             
             var path = Application.persistentDataPath + "/" + GameDataFileName;
             var raw = MemoryPackSerializer.Serialize(data);
@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Save
             var path = Application.persistentDataPath + "/" + GameDataFileName;
             var data = MemoryPackSerializer.Deserialize<SaveData>(File.ReadAllBytes(path));
             
-            EventSystem.Notify(new DataLoadedEvent(data));
+            EventManager.Notify(new DataLoadedEvent(data));
         }
 
         // public override void Awake()

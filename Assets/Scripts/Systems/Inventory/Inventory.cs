@@ -26,8 +26,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Awake()
         {
-            EventSystem.AddListener<AddReward>(AddReward);
-            EventSystem.AddListener<AddGold>(ChangeGold);
+            EventManager.AddListener<AddReward>(AddReward);
+            EventManager.AddListener<AddGold>(ChangeGold);
         }
         
         // 초기 인벤토리 초기화
@@ -117,7 +117,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 var itemCount = inventoryItems[index].GetSlotItemCount() + count;
                 inventoryItems[index].SetSlotItemCount(itemCount);
                 
-                EventSystem.Notify(new ItemCountChangedEvent(inventoryItems[index].GetSlotItemID(), inventoryItems[index].GetSlotItemCount()));
+                EventManager.Notify(new ItemCountChangedEvent(inventoryItems[index].GetSlotItemID(), inventoryItems[index].GetSlotItemCount()));
             }
         }
 
@@ -162,7 +162,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
             }
             
-            EventSystem.Notify(new ItemCountChangedEvent(
+            EventManager.Notify(new ItemCountChangedEvent(
                 inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
                 inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
         }
@@ -223,7 +223,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }   
             }
             
-            EventSystem.Notify(new ItemCountChangedEvent(
+            EventManager.Notify(new ItemCountChangedEvent(
                 inventoryItems[targetSlot.GetSlotID()].GetSlotItemID(), 
                 inventoryItems[targetSlot.GetSlotID()].GetSlotItemCount()));
         }
@@ -237,7 +237,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     slot.SetSlotItemID("");
                     slot.SetSlotItemCount(0);
                     
-                    EventSystem.Notify(new ItemCountChangedEvent(
+                    EventManager.Notify(new ItemCountChangedEvent(
                         slot.GetSlotItemID(), 
                         slot.GetSlotItemCount()));
                     break;

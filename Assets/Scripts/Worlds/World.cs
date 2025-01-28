@@ -46,7 +46,7 @@ namespace Ciart.Pagomoa.Worlds
 
             _currentLevelIndex = index;
 
-            EventSystem.Notify(new LevelChangedEvent(currentLevel));
+            EventManager.Notify(new LevelChangedEvent(currentLevel));
 
             return true;
         }

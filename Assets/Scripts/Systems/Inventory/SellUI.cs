@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void MakeSellUISlot()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             for(int i = 0; i < inventory.inventoryItems.Length; i++)
             {
@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UpdateSellUISlot()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
 
             for (int i = 0; i < _sellSlots.Count; i++)
             {

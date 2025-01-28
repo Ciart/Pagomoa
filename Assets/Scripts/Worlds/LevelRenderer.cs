@@ -264,14 +264,14 @@ namespace Ciart.Pagomoa.Worlds
 
         private void OnEnable()
         {
-            EventSystem.AddListener<ChunkChangedEvent>(OnChunkChanged);
+            EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
             RenderLevel();
             SpawnEntities();
         }
 
         private void OnDisable()
         {
-            EventSystem.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
+            EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
             DespawnEntities();
         }
 

@@ -27,13 +27,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryUISlots[i].id = i;
                 spawnedSlot.gameObject.SetActive(true);
             }
-            GameManager.instance.player.inventory.InitSlots();
+            Game.instance.player.inventory.InitSlots();
             UpdateInventorySlot();
         }
         
         public void SetArtifactSlots()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             for (int i = 0; i < artifactSlotData.Length; i++)
             {
@@ -43,7 +43,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void UpdateInventorySlot() // List안의 Item 전체 인벤토리에 출력
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var quickSlotUI = UIManager.instance.quickSlotUI;
             
             var hasQuickSlot = false;
@@ -62,7 +62,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void UpdateInventorySlotByQuickSlotID(int quickSlotID)
         {
-            var inventoryItems = GameManager.instance.player.inventory.inventoryItems;
+            var inventoryItems = Game.instance.player.inventory.inventoryItems;
             
             foreach (var slotUI in _inventoryUISlots)
             {
@@ -155,12 +155,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnEnable()
         {
             UpdateInventorySlot();
-            EventSystem.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
 
         private void OnDisable()
         {
-            EventSystem.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
+            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChanged);
         }
     }
 }

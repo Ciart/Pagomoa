@@ -45,7 +45,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void EquipCheck()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var targetID = inventorySlot.GetSlotID();
             
             if (inventory.inventoryItems[targetID].GetSlotItem().id == "") return;
@@ -68,7 +68,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void EatMineral(int count)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var mineralCount = count;
             
             inventory.DecreaseItemBySlotID(inventorySlot, mineralCount);
@@ -80,7 +80,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void UseItem()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             
             if (inventorySlot.GetSlotType() != SlotType.Inventory) return;
@@ -94,7 +94,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void AbandonItem()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             if (inventory.FindInventorySlotByID(inventorySlot).GetSlotItem().type != ItemType.Equipment ||
                 inventory.FindInventorySlotByID(inventorySlot).GetSlotItem().type != ItemType.Inherent)

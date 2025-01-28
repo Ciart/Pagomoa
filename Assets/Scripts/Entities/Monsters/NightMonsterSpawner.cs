@@ -49,7 +49,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
             var entityId = monster.GetComponent<EntityController>().entityId;
 
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             var playerPosition = player.transform.position;
 
             var basePoint = new Vector2Int((int)playerPosition.x, (int)playerPosition.y);

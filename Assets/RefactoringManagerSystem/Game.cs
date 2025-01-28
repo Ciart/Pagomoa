@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Systems
             set
             {
                 _state = value;
-                EventSystem.Notify(new GameStateChangedEvent(_state));
+                EventManager.Notify(new GameStateChangedEvent(_state));
             }
         }
 
@@ -73,12 +73,12 @@ namespace Ciart.Pagomoa.Systems
 
         private void OnEnable()
         {
-            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnDisable()
         {
-            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
     }
 }

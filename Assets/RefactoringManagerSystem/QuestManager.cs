@@ -32,19 +32,19 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
                 quests.Add(progressQuest);
 
-                EventSystem.Notify(new QuestStarted(progressQuest));
-                EventSystem.Notify(new AddNpcImageEvent(npcSprite));
-                EventSystem.Notify(new MakeQuestListEvent());
+                EventManager.Notify(new QuestStarted(progressQuest));
+                EventManager.Notify(new AddNpcImageEvent(npcSprite));
+                EventManager.Notify(new MakeQuestListEvent());
             }
 
-            EventSystem.Notify(new QuestListUpdated(quests));
+            EventManager.Notify(new QuestListUpdated(quests));
         }
 
         public void CompleteQuest(string id)
         {
             GetReward(id);
 
-            EventSystem.Notify(new QuestCompleted(FindQuestById(id)));
+            EventManager.Notify(new QuestCompleted(FindQuestById(id)));
         }
 
         private void GetReward(string id)
@@ -54,10 +54,10 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
             if (!string.IsNullOrEmpty(reward.itemId)) {
                 var rewardItem = ResourceSystem.instance.GetItem(reward.itemId);
-                EventSystem.Notify(new AddReward(rewardItem, reward.value));
+                EventManager.Notify(new AddReward(rewardItem, reward.value));
             }
 
-            EventSystem.Notify(new AddGold(reward.gold));
+            EventManager.Notify(new AddGold(reward.gold));
 
             targetQuest.state = QuestState.Finish;
 

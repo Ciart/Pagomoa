@@ -18,7 +18,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var dragSlot = UIManager.instance.GetUIContainer().chosenSlot;
             
             if (dragSlot.IsUnityNull()) return;

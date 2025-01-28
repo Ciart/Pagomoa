@@ -143,8 +143,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Die()
         {
-            var inventory = Game.instance.player.inventory;
-            inventory.Gold = Mathf.FloorToInt(inventory.Gold * 0.9f);
+            var inventory = Game.Instance.player.inventory;
+            inventory.gold = Mathf.FloorToInt(inventory.gold * 0.9f);
             
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
@@ -164,7 +164,7 @@ namespace Ciart.Pagomoa.Entities.Players
         private void LoseMoney(float percentage)
         {
             var inventory = Game.instance.player.inventory;
-            inventory.Gold = (int)(inventory.Gold * (1 - percentage));
+            inventory.gold = (int)(inventory.gold * (1 - percentage));
         }
 
         // TODO : 사망 시 아이템 제거 기능 잠금 

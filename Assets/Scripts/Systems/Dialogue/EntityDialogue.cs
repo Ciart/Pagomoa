@@ -119,7 +119,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
          
             var questManager = QuestManager.instance;
             
-            EventSystem.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
+            EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
             
             _entityController = GetComponent<EntityController>();
             if (_entityController == null) return;
@@ -140,7 +140,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         private void OnDisable()
         {
-            EventSystem.RemoveListener<QuestCompleted>(OnCompleteQuestsUpdated);
+            EventManager.RemoveListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }
     }
 }

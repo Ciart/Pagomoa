@@ -2,7 +2,6 @@
 using Ciart.Pagomoa.Systems;
 using TMPro;
 using UnityEngine.EventSystems;
-using EventSystem = Ciart.Pagomoa.Events.EventSystem;
 
 namespace Ciart.Pagomoa.UI.Book
 {
@@ -40,7 +39,7 @@ namespace Ciart.Pagomoa.UI.Book
         protected override void OnEnable()
         {
             base.OnEnable();
-            EventSystem.AddListener<ItemCountChangedEvent>(OnItemCountChangedEvent);
+            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChangedEvent);
 
             Upgrade();
         }
@@ -48,7 +47,7 @@ namespace Ciart.Pagomoa.UI.Book
         protected override void OnDisable()
         {
             base.OnDisable();
-            EventSystem.RemoveListener<ItemCountChangedEvent>(OnItemCountChangedEvent);
+            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChangedEvent);
         }
 
         public void OnDrillUpgrade()

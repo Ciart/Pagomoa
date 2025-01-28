@@ -119,9 +119,9 @@ namespace Ciart.Pagomoa.Systems.Save
         public bool LoadMap()
         {
             var LoadSuccess = DataManager.Instance.LoadGameData();
-            var gameManager = Game.instance;
+            var game = Game.Instance;
             
-            if (!gameManager.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
+            if (!game.isLoadSave || DataManager.Instance.data == null) LoadSuccess = false;
             if (DataManager.Instance.data != null)
             {
                 if (DataManager.Instance.data.worldData == null) LoadSuccess = false;
@@ -134,7 +134,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
             var worldManager = WorldManager.instance;
 
-            if (gameManager.isLoadSave && LoadSuccess)
+            if (game.isLoadSave && LoadSuccess)
             {
                 try
                 {

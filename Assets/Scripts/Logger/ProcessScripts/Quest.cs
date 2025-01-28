@@ -78,12 +78,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             if (allFinish) progress = 1.0f;
             
-            EventSystem.Notify(new QuestUpdated(this));
+            EventManager.Notify(new QuestUpdated(this));
             
             if (allFinish == false) return;
             
             state = QuestState.Completed;
-            EventSystem.Notify(new QuestCompleted(this));
+            EventManager.Notify(new QuestCompleted(this));
         }
 
         public void Dispose()
@@ -113,7 +113,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         
         public void Dispose()
         {
-            EventSystem.RemoveListener<ItemCountChangedEvent>(CountItem);
+            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
         }
 
         public CollectItem(QuestConditionData elements)
@@ -126,7 +126,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = 0;
             _prevValue = 0;
             
-            EventSystem.AddListener<ItemCountChangedEvent>(CountItem);
+            EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
             var inventoryItems = Game.instance.player.inventory.inventoryItems;
             foreach (var inventoryItem in inventoryItems)
@@ -212,7 +212,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             valueType = conditions.value; 
             compareValue = 0;
             
-            EventSystem.AddListener<ItemUsedEvent>(HasUsingItem);
+            EventManager.AddListener<ItemUsedEvent>(HasUsingItem);
         }
 
         public void HasUsingItem(ItemUsedEvent e)
@@ -242,7 +242,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public void Dispose()
         {
-            EventSystem.RemoveListener<ItemUsedEvent>(HasUsingItem);
+            EventManager.RemoveListener<ItemUsedEvent>(HasUsingItem);
         }
         
         public bool CheckComplete()
@@ -272,7 +272,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     { 
         public void Dispose()
         {
-            EventSystem.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
+            EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
         }
 
         public BreakBlock(QuestConditionData elements)
@@ -284,7 +284,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             value = int.Parse(elements.value);
             compareValue = 0;
             
-            EventSystem.AddListener<GroundBrokenEvent>(OnGroundBroken);
+            EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
         }
         
         public bool CheckComplete()

@@ -33,7 +33,7 @@ namespace Ciart.Pagomoa.Entities
             if (entity.tags.Contains("Player"))
             {
                 var player = controller.GetComponent<PlayerController>();
-                EventSystem.Notify(new PlayerSpawnedEvent(player));
+                EventManager.Notify(new PlayerSpawnedEvent(player));
             }
             
             return controller;

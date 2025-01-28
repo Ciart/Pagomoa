@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void UpdateVectorOutput()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             
             if (!player) return; 
             _playerPos = player.transform.position;

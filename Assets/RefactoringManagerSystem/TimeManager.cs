@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Systems.Time
     {
         ~TimeManager()
         {
-            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
         public const int MinuteTick = 30;
@@ -55,7 +55,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public override void Start()
         {
-            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

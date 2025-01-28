@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (droppedInventorySlot.slot.GetSlotItemID() == "") return;
             
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             
             if (inventory.quickItems[quickSlot.id].GetSlotItemID() != "")
@@ -81,7 +81,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void ThatDropIsQuickSlot(QuickSlot droppedQuickSlot)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             if (quickSlot.slot.GetSlotItemID() == "")
             {

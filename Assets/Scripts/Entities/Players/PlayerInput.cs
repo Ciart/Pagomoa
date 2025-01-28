@@ -48,13 +48,13 @@ namespace Ciart.Pagomoa.Entities.Players
         private void OnEnable()
         {
             Actions.Enable();
-            EventSystem.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnDisable()
         {
             Actions.Disable();
-            EventSystem.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

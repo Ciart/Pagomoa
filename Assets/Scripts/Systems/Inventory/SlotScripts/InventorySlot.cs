@@ -28,7 +28,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         /*public void ReleaseItem()
         {
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             inventoryUI.chosenSlot = this;
 
@@ -74,7 +74,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnDrop(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             var inventoryUI = UIManager.instance.bookUI.GetInventoryUI();
             eventData.pointerPress.TryGetComponent<InventorySlot>(out var dragSlot);
             
