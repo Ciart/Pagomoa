@@ -9,28 +9,23 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         private InventorySlotUI inventorySlotUI => GetComponent<InventorySlotUI>();
         
-        public void EquipCheck()
+        // TODO : 장비 착용하는 법
+        public void EquipArtifact()
         {
             var inventory = GameManager.instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
-            if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
-
-            if (ItemType.Equipment == targetSlot.GetItemType())
-            {
-                EquipItem();
-            }
-            else if (ItemType.Use == targetSlot.GetItemType())
-            {
-                UseItem();
-            }
+            
+            inventory.EquipArtifact(inventorySlotUI);
+            
+            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }
-        // TODO : 장비 착용하는 법
-        public void EquipItem()
+        
+        public void UnEquipArtifact()
         {
             var inventory = GameManager.instance.player.inventory;
-            
+            inventory.UnEquipArtifact(inventorySlotUI);
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
         }

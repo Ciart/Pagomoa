@@ -1,4 +1,5 @@
 ﻿using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -45,7 +46,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             eventData.pointerDrag.TryGetComponent<InventorySlotUI>(out var inventorySlot);
             if (inventorySlot)
             {
-                // eventData 가 InventorySlot 이면 QuickSlot 할당, player 것도 동기화
                 DropIsInventorySlot(inventorySlot);
                 return;
             }
@@ -53,7 +53,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             eventData.pointerDrag.TryGetComponent<QuickSlotUI>(out var quickSlot);
             if (quickSlot)
             {
-                // eventData 가 QuickSlot 이면 swap 
                 DropIsQuickSlot(quickSlot);
             }
         }
@@ -63,11 +62,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = GameManager.instance.player.inventory;
             var droppedSlot = inventory.FindSlot(SlotType.Inventory, slot.GetSlotID());
             
-            if (droppedSlot == null) return;
             if (droppedSlot.GetSlotItemID() == "") return;
+            if (droppedSlot.GetItemType() != ItemType.Use
+                || droppedSlot.GetItemType() != ItemType.Inherent)
+                return;
             
             var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
-            if (targetSlot == null) return;
             inventory.RegistrationQuickSlot(quickSlotUI.slotID, slot.GetSlotID());
             quickSlotUI.SetSlot(targetSlot);
         }

@@ -42,9 +42,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void UpdateQuickSlot()
         {
-            Debug.Log(GameManager.instance.player);
-            Debug.Log(GameManager.instance.player.inventory);
-            Debug.Log(GameManager.instance.player.inventory.GetSlots(SlotType.Quick));
             var slotList = GameManager.instance.player.inventory.GetSlots(SlotType.Quick);
             
             if (slotList == null) return;

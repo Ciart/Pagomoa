@@ -282,23 +282,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             
             DecreaseItemBySlotID(index);
-            /*if (inventorySlot != null)
-            {
-                var minItemCount = inventorySlot.GetSlotItemCount() - 1;
-                
-                if (count > 0)
-                    inventorySlot.SetSlotItemCount(minItemCount);
-                else
-                {
-                    inventorySlot.SetSlotItemID("");
-                    inventorySlot.SetSlotItemCount(0);
-                }
-            }
-            
-            var eventItemID = _quickData[slotID].GetSlotItemID();
-            var sameItemCount = _quickData[slotID].GetSlotItemCount();
-            EventManager.Notify(new UpdateInventory());
-            EventManager.Notify(new ItemCountChangedEvent(eventItemID, sameItemCount));*/
         }
 
         public void SwapQuickSlot(int dropID, int targetID)
@@ -360,22 +343,66 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public void EquipArtifact(ISlot inventorySlot)
         {
+            var artifactItemSlot = FindSlot(SlotType.Inventory, inventorySlot.GetSlotID());
+            if (artifactItemSlot.GetItemType() != ItemType.Equipment) return;
+            foreach (var artifactSlot in _artifactSlots)
+                if (artifactSlot.GetSlotItemID() == artifactItemSlot.GetSlotItemID())
+                    return;
             
+            var emptySlot = FindSlotByItemID(SlotType.Artifact, "");
+            if (emptySlot == null) return;
+            
+            emptySlot.SetSlotItemID(artifactItemSlot.GetSlotItemID());
+            EventManager.Notify(new UpdateInventory());
             
             // 메뉴 등록
             // TODO : 플레이어 스텟 적용
+            // TODO : GetSlots(SlotType.Artifact);로 가져가서 아이템 확인후 스텟 적용 하면 될듯 
         }
 
         public void EquipDraggedArtifact(ISlot inventorySlot, ISlot targetSlot)
         {
+            var draggedSlot = FindSlot(SlotType.Inventory, inventorySlot.GetSlotID());
+            if (draggedSlot.GetItemType() != ItemType.Equipment) return;
+            foreach (var artifactSlot in _artifactSlots)
+                if (artifactSlot.GetSlotItemID() == draggedSlot.GetSlotItemID())
+                    artifactSlot.SetSlotItemID("");
+            
+            _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID(draggedSlot.GetSlotItemID());
+            EventManager.Notify(new UpdateInventory());
+            
             // 드래그 드롭 등록
             // TODO : 플레이어 스텟 적용
         }
 
-        public void UnEquipArtifact(ISlot inventorySlot)
+        public void UnEquipArtifact(ISlot targetSlot)
         {
+            if (targetSlot.GetSlotType() == SlotType.Artifact)
+                _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
+            else if (targetSlot.GetSlotType() == SlotType.Inventory)
+            {
+                foreach (var artifactSlot in _artifactSlots)
+                {
+                    if (artifactSlot.GetSlotItemID()
+                        == _inventoryData[targetSlot.GetSlotID()].GetSlotItemID())
+                    {
+                        artifactSlot.SetSlotItemID("");
+                        break;
+                    }
+                }
+            }
             
+            EventManager.Notify(new UpdateInventory());
             // TODO : 플레이어 스텟 적용
+        }
+
+        public void SwapArtifact(ISlot draggedSlot, ISlot targetSlot)
+        {
+            if (_artifactSlots[draggedSlot.GetSlotID()].GetSlotItemID() == "") return;
+            
+            (_artifactSlots[draggedSlot.GetSlotID()], _artifactSlots[targetSlot.GetSlotID()]) 
+                = (_artifactSlots[targetSlot.GetSlotID()], _artifactSlots[draggedSlot.GetSlotID()]);
+            EventManager.Notify(new UpdateInventory());
         }
     }
 #endregion
@@ -393,7 +420,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 case SlotType.Artifact:
                     return _artifactSlots;
             }
-            
             return null;
         }
         
@@ -408,7 +434,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 case SlotType.Artifact:
                     return _artifactSlots[slotID];
             }
-            
             return null!;
         }
         public List<int> FindSameItem(string itemID)
@@ -450,7 +475,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         return data;
                 }
             }
-            
             return null;
         }
     }

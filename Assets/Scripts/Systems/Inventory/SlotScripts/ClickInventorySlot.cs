@@ -6,18 +6,17 @@ using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class InventoryDrag : MonoBehaviour
+    public class ClickInventorySlot : MonoBehaviour
         , IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
-        private InventorySlotUI inventorySlotUI => GetComponent<InventorySlotUI>(); 
+        private InventorySlotUI _inventorySlotUI => GetComponent<InventorySlotUI>(); 
         
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right) return;
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
             
-            if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
             
             var hover = UIManager.instance.bookUI.GetHoverItemInfo();
@@ -25,8 +24,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             var rightClickMenu = UIManager.instance.bookUI.GetRightClickMenu();
             rightClickMenu.DeleteMenu();
-            rightClickMenu.transform.position = inventorySlotUI.transform.position;
-            rightClickMenu.SetClickedSlot(inventorySlotUI);
+            rightClickMenu.transform.position = _inventorySlotUI.transform.position;
+            rightClickMenu.SetClickedSlot(_inventorySlotUI);
             
             var itemType = targetSlot.GetItemType();
             
@@ -50,7 +49,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             var inventory = GameManager.instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
@@ -67,10 +66,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = GameManager.instance.player.inventory;
             eventData.pointerPress.TryGetComponent<InventorySlotUI>(out var dragSlot);
             
-            if (!dragSlot || inventorySlotUI.GetSlotID() == dragSlot.GetSlotID()) return;
+            if (!dragSlot || _inventorySlotUI.GetSlotID() == dragSlot.GetSlotID()) return;
             
-            inventory.SwapInventorySlot(dragSlot.GetSlotID(), inventorySlotUI.GetSlotID());
-            UIManager.instance.bookUI.GetInventoryUI().UpdateInventorySlot();
+            inventory.SwapInventorySlot(dragSlot.GetSlotID(), _inventorySlotUI.GetSlotID());
         }
     }
 }
