@@ -32,7 +32,7 @@ namespace Ciart.Pagomoa.UI.Book
             {
                 var need = nextDrill.upgradeNeeds[i];
                 
-                texts[i].text = $"{need.mineral.name} ({GameManager.instance.player.inventory.GetItemCount(need.mineral)} / {need.count})";
+                /*texts[i].text = $"{need.mineral.name} ({GameManager.instance.player.inventory.GetItemCount(need.mineral)} / {need.count})";*/
             }
         }
         

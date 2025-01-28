@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems
         public StateUI stateUI { get; private set; }
         public BookUI bookUI {get; private set;}
         public ShopUI shopUI {get; private set;}
-        public QuickSlotUI quickSlotUI {get; private set;}
+        public QuickUI quickUI {get; private set;}
         private FadeUI _fadeUI;
         
         public UIContainer GetUIContainer() { return _uiContainer; }
@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Systems
             
             bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
             shopUI = Object.Instantiate(_uiContainer.shopUIPrefab, _uiContainer.transform);
-            quickSlotUI = Object.Instantiate(_uiContainer.quickSlotUIPrefab, _uiContainer.transform);
+            quickUI = Object.Instantiate(_uiContainer.quickUIPrefab, _uiContainer.transform);
             
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
@@ -70,8 +70,6 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
             
             UpdateGoldUI();
-            bookUI.GetInventoryUI().InitInventorySlots();
-            quickSlotUI.InitQuickSlots();
         }
 
         public void UpdateGoldUI()
@@ -79,7 +77,7 @@ namespace Ciart.Pagomoa.Systems
             var playerGold = GameManager.instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
-            stateUI.playerGoldUI.text = playerGold.ToString();         
+            stateUI.playerGoldUI.text = playerGold.ToString();        
         }
         
         private void ToggleEscUI()
@@ -116,14 +114,14 @@ namespace Ciart.Pagomoa.Systems
         {
             minimapUI.gameObject.SetActive(false);
             stateUI.gameObject.SetActive(false);
-            quickSlotUI.gameObject.SetActive(false);
+            quickUI.gameObject.SetActive(false);
         }
 
         public void ActiveUI()
         {
             minimapUI.gameObject.SetActive(true);
             stateUI.gameObject.SetActive(true);
-            quickSlotUI.gameObject.SetActive(true);
+            quickUI.gameObject.SetActive(true);
         }
         
         private void ToggleEscDialogueUI()

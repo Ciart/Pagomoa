@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
 using TMPro;
 using UnityEngine;
@@ -14,12 +15,16 @@ namespace Ciart.Pagomoa
         
         private RectTransform _rectTransform;
         
-        public void UpdateItemInfo(InventorySlot slot)
+        public void UpdateItemInfo(int slotID)
         {
-            _itemName.text = slot.slot.GetSlotItem().name;
-            _itemInfo.text = slot.slot.GetSlotItem().description;
-            _itemType.text = slot.slot.GetSlotItem().type.ToString();
-            _itemCount.text = $"보유량 : {slot.slot.GetSlotItemCount().ToString()}";
+            var inventory = GameManager.instance.player.inventory;
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, slotID);
+            
+            if (targetSlot.GetSlotItemID() == "") return;
+            _itemName.text = targetSlot.GetSlotItem().name;
+            _itemInfo.text = targetSlot.GetSlotItem().description;
+            _itemType.text = targetSlot.GetSlotItem().type.ToString();
+            _itemCount.text = $"보유량 : {targetSlot.GetSlotItemCount().ToString()}";
         }
 
         public Vector2 GetPositionOffSet()

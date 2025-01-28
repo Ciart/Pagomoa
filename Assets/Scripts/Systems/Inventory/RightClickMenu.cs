@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
-    public class RightClickMenu : MonoBehaviour, IPointerExitHandler
+    public class RightClickMenu : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     {
         [SerializeField] private Image _instanceMenu;
         public List<Image> menu = new List<Image>();
@@ -25,36 +25,76 @@ namespace Ciart.Pagomoa.Systems.Inventory
             gameObject.SetActive(true);
         }
 
-
-        private InventorySlot targetSlot => (InventorySlot)UIManager.instance.GetUIContainer().chosenSlot;
+        private InventorySlotUI _clickedSlot;
+        private ClickArtifactSlot _artifactSlotUI;
+        public void SetClickedSlot(InventorySlotUI slot) { _clickedSlot = slot; }
+        public void SetClickedSlot(ClickArtifactSlot slot) { _artifactSlotUI = slot; }
         
-        public void PressedEquipButton() { targetSlot.clickToSlot.EquipCheck(); }
-        public void PressedEquipYesButton() { targetSlot.clickToSlot.EquipItem(); }
+        public void PressedArtifactSlot() 
+        { 
+            _artifactSlotUI.RightClickMenu(); 
+            DeleteMenu();
+        }
+
+        public void PressedEquipButton()
+        {
+            _clickedSlot.slotMenu.EquipArtifact();
+            DeleteMenu();
+        }
+
+        public void PressedUnEquipButton()
+        {
+            _clickedSlot.slotMenu.UnEquipArtifact();
+            DeleteMenu();
+        }
 
         public void PressedEatButton()
         {
             const int mineralCount = 1; 
-            targetSlot.clickToSlot.EatMineral(mineralCount);
+            _clickedSlot.slotMenu.EatMineral(mineralCount);
+            DeleteMenu();
         }
 
         public void PressedEatTenButton()
         {
             const int mineralCount = 10; 
-            targetSlot.clickToSlot.EatMineral(mineralCount);
+            _clickedSlot.slotMenu.EatMineral(mineralCount);
+            DeleteMenu();
         }
 
         public void PressedEatFiftyButton()
         {
             const int mineralCount = 50;
-            targetSlot.clickToSlot.EatMineral(mineralCount);
+            _clickedSlot.slotMenu.EatMineral(mineralCount);
+            DeleteMenu();
         }
-        public void PressedUseButton() { targetSlot.clickToSlot.UseItem(); }
-        public void PressedThrowAwayButton() { targetSlot.clickToSlot.AbandonItem(); }
+
+        public void PressedUseButton()
+        {
+            _clickedSlot.slotMenu.UseItem();
+            DeleteMenu();
+        }
+
+        public void PressedThrowAwayButton()
+        {
+            _clickedSlot.slotMenu.AbandonItem();
+            DeleteMenu();
+        }
         public void PressedCancelButton() { DeleteMenu(); }
+
+
+        public void ArtifactMenu()
+        {
+            MakeMenu("A해제하기");
+            MakeMenu("그만두기");
+            MakeUnderLine();
+            MenuImage();
+        }
         
         public void EquipmentMenu()
         {
             MakeMenu("착용하기");
+            MakeMenu("해제하기");
             MakeMenu("버리기");
             MakeMenu("그만두기");
             MakeUnderLine();
@@ -111,9 +151,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
             menu.Add(newMenu);
             newMenu.gameObject.SetActive(true);
             newMenu.transform.GetComponentInChildren<TextMeshProUGUI>().text = text;
-
+            
+            if (text == "A해제하기")
+            {
+                newMenu.transform.GetComponentInChildren<TextMeshProUGUI>().text = "해제하기";
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedArtifactSlot);
+                return;
+            }
+            
             if (text == "착용하기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedEquipButton);
+            else if (text == "해제하기")
+                newMenu.GetComponent<Button>().onClick.AddListener(PressedUnEquipButton);
             else if (text == "버리기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedThrowAwayButton);
             else if (text == "그만두기")
@@ -166,10 +215,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
             for (int i = 3; i < transform.childCount; i++)
                 Destroy(transform.GetChild(i).gameObject);
         }
-
+        
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+                DeleteMenu();
+        }
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (eventData.fullyExited) DeleteMenu();
+            if (eventData.fullyExited) 
+                DeleteMenu();
         }
     }
 }

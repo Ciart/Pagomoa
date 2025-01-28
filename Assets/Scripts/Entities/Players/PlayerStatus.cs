@@ -175,7 +175,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             /*List<string> deleteItems = new List<string>();*/
             
-            foreach (var item in inventory.inventoryItems)
+            foreach (var item in inventory.GetSlots(SlotType.Inventory))
             {
                 if (item.GetSlotItem().id == "") continue;
 

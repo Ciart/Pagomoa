@@ -166,21 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068b42e0a5fe4254f9c7d2577fd7bb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
+  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotImage: {fileID: 7035390298393168718}
   itemImage: {fileID: 690011507739350459}
-  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 8077026720076916315}
-  id: 1
-  referenceSlot: {fileID: 0}
 --- !u!114 &5135149023827150496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,10 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce459347c28bb74ab62e23b77e4eedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenSlot: {fileID: 0}
+  _quickSlots: []
   _selectedQuickSlotSprite: {fileID: -1798522322, guid: b71806ce9973e43da9add2252179ec44, type: 3}
   _normalQuickSlotSprite: {fileID: 605854001, guid: b71806ce9973e43da9add2252179ec44, type: 3}
-  sellingQuickSlot: {fileID: 0}
 --- !u!114 &7848904687106535545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,21 +368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068b42e0a5fe4254f9c7d2577fd7bb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
+  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotImage: {fileID: 3834774891477086840}
   itemImage: {fileID: 8537016030678463983}
-  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 8984337216803139819}
-  id: 0
-  referenceSlot: {fileID: 0}
 --- !u!114 &2672741182806204378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,21 +686,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068b42e0a5fe4254f9c7d2577fd7bb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
+  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotImage: {fileID: 5855782670672558907}
   itemImage: {fileID: 8659890861933795287}
-  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 3292071901457368265}
-  id: 2
-  referenceSlot: {fileID: 0}
 --- !u!114 &2575209391711617745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,21 +1140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068b42e0a5fe4254f9c7d2577fd7bb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
+  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotImage: {fileID: 2074098083261475384}
   itemImage: {fileID: 4088073873679997188}
-  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 1834242887781354899}
-  id: 4
-  referenceSlot: {fileID: 0}
 --- !u!114 &7214945656902927746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,21 +1669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068b42e0a5fe4254f9c7d2577fd7bb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
+  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotImage: {fileID: 1228672179472108877}
   itemImage: {fileID: 5888139951460314259}
-  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 8180031767357594120}
-  id: 3
-  referenceSlot: {fileID: 0}
 --- !u!114 &8786293797546169538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,21 +2001,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068b42e0a5fe4254f9c7d2577fd7bb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _item:
-    type: 0
-    id: 
-    name: 
-    description: 
-    price: 0
-    sprite: {fileID: 0}
-  _itemCount: 0
+  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   slotImage: {fileID: 5570303097054844126}
   itemImage: {fileID: 2694870504354519709}
-  _emptySprite: {fileID: -690812983, guid: d665907c8282701488f575cf31062c66, type: 3}
   countText: {fileID: 6980203172247210648}
-  id: 5
-  referenceSlot: {fileID: 0}
 --- !u!114 &2239428508179027805
 MonoBehaviour:
   m_ObjectHideFlags: 0

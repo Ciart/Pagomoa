@@ -73,20 +73,20 @@ namespace Ciart.Pagomoa.Systems.Save
     [System.Serializable]
     public class ItemData
     {
-        const int MaxItems = 30;
+        /*const int MaxItems = 30;
         public Slot[] items = new Slot[MaxItems];
         public int gold;
         public void SetItemDataFromInventoryDB(Inventory.Inventory inventory)
         {
             var index = 0;
-            foreach (var item in inventory.inventoryItems)
+            foreach (var item in inventory.GetSlots(SlotType.Inventory))
             {
-                items[index] = inventory.inventoryItems[index];
+                items[index] = inventory.inventorySlots[index];
                 index++;
             }
             
             gold = inventory.gold;
-        }
+        }*/
     }
 
     // [System.Serializable]
@@ -105,7 +105,7 @@ namespace Ciart.Pagomoa.Systems.Save
     [System.Serializable]
     public class ArtifactData
     {
-        public List<InventorySlot> artifacts;
+        public List<InventorySlotUI> artifacts;
 
         // public void SetArtifactDataFromArtifactSlotDB(ArtifactSlotDB artifactSlotDB)
         // {
@@ -142,12 +142,12 @@ namespace Ciart.Pagomoa.Systems.Save
     [System.Serializable]
     public class MineralData
     {
-        public int eatenMineralCount;
+        /*public int eatenMineralCount;
 
         public void SetEatenMineralData(Inventory.Inventory stoneCount)
         {
             eatenMineralCount = stoneCount.stoneCount;
-        }
+        }*/
     }
 
     [System.Serializable]

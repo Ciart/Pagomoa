@@ -448,13 +448,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86a22bb36f7e074fbc5e02bb6a96b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auctionItemsID:
+  auctionItemsIDs:
   - Bomb
-  - Cookie
   - AirBurble
   - AbyssLantern
-  - HourGlassOfNight
+  - Cookie
   - MoleGloves
+  - AwfulSnakeBlood
 --- !u!114 &306791841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,6 +1774,7 @@ GameObject:
   - component: {fileID: 1018746307}
   - component: {fileID: 1018746306}
   - component: {fileID: 1018746308}
+  - component: {fileID: 1018746309}
   m_Layer: 0
   m_Name: ManagerSystem
   m_TagString: Untagged
@@ -1821,6 +1822,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ea6ca038b3465fb046235522b3dc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1018746309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018746305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abd44fa023da4c5eab197de4e11d406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHeight: 0.8
+  SmallTerminalRatio: 0.33
+  ToggleSpeed: 360
+  ToggleHotkey: '`'
+  ToggleFullHotkey: '#`'
+  BufferSize: 512
+  ConsoleFont: {fileID: 12800000, guid: 166863fb1cfb3450e9c64d78b17e527f, type: 3}
+  InputCaret: '>'
+  ShowGUIButtons: 0
+  RightAlignButtons: 0
+  InputContrast: 0
+  InputAlpha: 0.5
+  BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  ForegroundColor: {r: 1, g: 1, b: 1, a: 1}
+  ShellColor: {r: 1, g: 1, b: 1, a: 1}
+  InputColor: {r: 0, g: 1, b: 1, a: 1}
+  WarningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ErrorColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1107194803
 GameObject:
   m_ObjectHideFlags: 0
@@ -2633,7 +2664,7 @@ MonoBehaviour:
   statePanelPrefab: {fileID: 3907677986734665167, guid: 0429bab5b0500b949985969ce3c6fa81, type: 3}
   shopUIPrefab: {fileID: 1356624431031133237, guid: 652c909e8347bc64aa95d768f63edd80, type: 3}
   bookUIPrefab: {fileID: 9036683792300616078, guid: 5d92f3e60f0986149b05d9550041c43a, type: 3}
-  quickSlotUIPrefab: {fileID: 5669934315126194384, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
+  quickUIPrefab: {fileID: 5669934315126194384, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
   dialogueUIPrefab: {fileID: 3394228335729607216, guid: d46ea0b7a9cfe6946ab08fe9688ea49b, type: 3}
   escUI: {fileID: 7640810986153796479, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
   fadeUIPrefab: {fileID: 3649949960614969455, guid: 73aee344ceb9adb428fc789fc2a40bd5, type: 3}
