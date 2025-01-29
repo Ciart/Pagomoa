@@ -48,6 +48,7 @@ namespace Ciart.Pagomoa.Entities.Players
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
+            inventory = GetComponent<Inventory>();
             _camera = Camera.main;
             _world = WorldManager.instance;
         }

@@ -32,7 +32,7 @@ namespace Ciart.Pagomoa.Systems
             }
 
             OnCollectEvent.Invoke();
-            game.player.inventory.Add(item);
+            game.player.inventory.AddInventory(item.id);
             Destroy(itemEntity.gameObject);
 
             if (item.name == "PowerGemEarth")

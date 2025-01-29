@@ -276,21 +276,21 @@ namespace Ciart.Pagomoa.Entities.Players
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {
-                if (needs.count > inventory.GetItemCount(needs.mineral))
+                /*if (needs.count > inventory.GetItemCount(needs.mineral))
                 {
                     upgradable = false;
                     Debug.Log("업그레이드 실패: " + inventory.GetItemCount(needs.mineral) + "/" + needs.count);
-                }
+                }*/
             }
             if (upgradable) {
                 foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
                 {
-                    int used = 0;
+                    /*int used = 0;
                     while (used < needs.count)
                     {
                         inventory.RemoveItemByItemID(needs.mineral.id);
                         used++;
-                    }
+                    }*/
                 }
                 _drillLevel += 1; Debug.Log("업그레이드 성공"); 
             }

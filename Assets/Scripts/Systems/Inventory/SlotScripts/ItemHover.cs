@@ -15,9 +15,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             boostImage.sprite = hoverImage[0];
             
-            if (eventData.pointerEnter.TryGetComponent(out InventorySlot inventorySlot))
+            
+            
+            if (eventData.pointerEnter.TryGetComponent(out InventorySlotUI inventorySlot))
             {
-                if (inventorySlot.slot.GetSlotItemID() == "") return;
+                var slot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, inventorySlot.GetSlotID());
+                if (slot.GetSlotItemID() == "") return;
                 
                 var hover = UIManager.instance.bookUI.GetHoverItemInfo();
                 
@@ -27,7 +30,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 
                 hover.gameObject.SetActive(true);
                 hover.transform.position = newPosition;
-                hover.UpdateItemInfo(inventorySlot);
+                hover.UpdateItemInfo(inventorySlot.GetSlotID());
             }
         }
         public void OnPointerExit(PointerEventData eventData)

@@ -156,18 +156,18 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void LoadItem()
         {
-            var dataManager = DataManager.Instance;
+            /*var dataManager = DataManager.Instance;
             if (dataManager.data.itemData == null) return;
 
             if (dataManager.data.itemData.items != null)
             {
                 var player = Game.instance.player;
                 
-                player.inventory.inventoryItems = dataManager.data.itemData.items;
+                player.inventory.inventorySlots = dataManager.data.itemData.items;
                 player.inventory.gold = dataManager.data.itemData.gold;
             }
             else
-                Debug.Log("Item Data is Nothing");
+                Debug.Log("Item Data is Nothing");*/
         }
         
         // public void LoadArtifactItem()
@@ -210,8 +210,8 @@ namespace Ciart.Pagomoa.Systems.Save
         {
             if (DataManager.Instance.data.mineralData != null)
             {
-                var player = Game.instance.player;
-                player.inventory.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;
+                var player = Game.Instance.player;
+                /*player.inventory.stoneCount = DataManager.Instance.data.mineralData.eatenMineralCount;*/
             }
                 
             else
@@ -242,14 +242,14 @@ namespace Ciart.Pagomoa.Systems.Save
             DataManager.Instance.data.introData.isFirstStart = arg;
         }
 
-        private void WriteItemData()
+        /*private void WriteItemData()
         {
             var player = Game.instance.player;
             
             InitData();
             DataManager.Instance.data.itemData.SetItemDataFromInventoryDB(player.inventory);
-        }
-        
+        }*/
+       
         // private void WriteArtifactData()
         // {
         //     InitData();
@@ -275,7 +275,7 @@ namespace Ciart.Pagomoa.Systems.Save
             var player = Game.instance.player;
             
             InitData();
-            DataManager.Instance.data.mineralData.SetEatenMineralData(player.inventory);
+            /*DataManager.Instance.data.mineralData.SetEatenMineralData(player.inventory);*/
         }
 
         public void InitData()
@@ -335,7 +335,7 @@ namespace Ciart.Pagomoa.Systems.Save
             if (!LoadComplete) return;
             WritePosData();
             WriteMapData();
-            WriteItemData();
+            /*WriteItemData();*/
             // WriteArtifactData();
             // WriteQuickSlotData();
             WritePlayerCurrentStatusData();

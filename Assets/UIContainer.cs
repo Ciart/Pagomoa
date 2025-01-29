@@ -2,6 +2,7 @@ using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -11,7 +12,7 @@ namespace Ciart.Pagomoa
         public StateUI statePanelPrefab;
         public ShopUI shopUIPrefab;
         public BookUI bookUIPrefab;
-        public QuickSlotUI quickSlotUIPrefab;
+        public QuickUI quickUIPrefab;
         public GameObject dialogueUIPrefab;
         public GameObject quickSlotContainerUIPrefab;
         public DaySummaryUI daySummaryUIPrefab;
@@ -25,7 +26,7 @@ namespace Ciart.Pagomoa
         
         [Header("For Run Tine Can be None")] 
         public DialogueUI? dialogueUI;
-        public ISlot chosenSlot { get; private set; }
-        public void SetChosenSlot (ISlot slot) => chosenSlot = slot;
+        /*public ISlot? chosenSlot { get; private set; }
+        public void SetChosenSlot (ISlot slot) => chosenSlot = slot;*/
     }
 }

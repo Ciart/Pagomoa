@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa
         public TextMeshProUGUI countUIText;
         public int inputCount;
         
-        private SlotType _chosenSlotType;
+        private ISlot _chosenSlot;
         
         [Header("아이템 구매&판매 제어 버튼")]
         public Button countUpButton;
@@ -25,23 +25,23 @@ namespace Ciart.Pagomoa
         [SerializeField] private Button sellYesButton;
         [SerializeField] private Button sellNoButton;
         
-        public void ActiveCountUI(SlotType type)
+        public void ActiveCountUI(ISlot slot)
         {
-            _chosenSlotType = type;
+            _chosenSlot = slot;
             
             countUpButton.gameObject.SetActive(true);
             countDownButton.gameObject.SetActive(true);
             countUpButton.onClick.RemoveAllListeners();
             countDownButton.onClick.RemoveAllListeners();
             
-            if (type == SlotType.Buy || type == SlotType.BuyArtifact)
+            if (_chosenSlot.GetSlotType() == SlotType.Buy || _chosenSlot.GetSlotType() == SlotType.BuyArtifact)
             {
                 countUpButton.onClick.AddListener(BuyPlus);
                 countDownButton.onClick.AddListener(BuyMinus);
                 buyYesButton.gameObject.SetActive(true);
                 buyNoButton.gameObject.SetActive(true);
             }
-            else if (type == SlotType.Sell)
+            else if (_chosenSlot.GetSlotType() == SlotType.Sell)
             {
                 countUpButton.onClick.AddListener(SellPlus);
                 countDownButton.onClick.AddListener(SellMinus);
@@ -59,12 +59,12 @@ namespace Ciart.Pagomoa
             var shopUI = UIManager.instance.shopUI;
             shopUI.GetShopChat().CancelChat();
             
-            if (_chosenSlotType == SlotType.Buy)
+            if (_chosenSlot.GetSlotType() == SlotType.Buy)
             {
                 countUpButton.onClick.RemoveAllListeners();
                 countDownButton.onClick.RemoveAllListeners();
             }
-            else if (_chosenSlotType == SlotType.Sell)
+            else if (_chosenSlot.GetSlotType() == SlotType.Sell)
             {
                 countUpButton.onClick.RemoveAllListeners();
                 countDownButton.onClick.RemoveAllListeners();
@@ -82,23 +82,14 @@ namespace Ciart.Pagomoa
         
         public void BuyPlus()
         {
+            var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var buySlot = (BuySlot)UIManager.instance.GetUIContainer().chosenSlot;
+            var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
             
-            if (buySlot.GetSlotType() != SlotType.Buy)
-                if (buySlot.GetSlotType() != SlotType.BuyArtifact)
-                    return;
-            
-            if (buySlot.slot.GetSlotItem().type == ItemType.Use)
+            if (item.type == ItemType.Use)
             {
                 inputCount++;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.slot.GetSlotItem().price);
-            }
-            else if (buySlot.slot.GetSlotItem().type == ItemType.Equipment || 
-                     buySlot.slot.GetSlotItem().type == ItemType.Inherent)
-            {
-                if (inputCount < buySlot.slot.GetSlotItemCount())
-                    inputCount++;
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * item.price);
             }
             
             countUIText.text = inputCount.ToString();
@@ -106,40 +97,32 @@ namespace Ciart.Pagomoa
         
         public void BuyMinus()
         {
+            var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var buySlot = (BuySlot)UIManager.instance.GetUIContainer().chosenSlot;
-            
-            if (buySlot.GetSlotType() != SlotType.Buy)
-                if (buySlot.GetSlotType() != SlotType.BuyArtifact)
-                    return;
+            var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
             
             if (inputCount > 1)
             {
                 inputCount--;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * buySlot.slot.GetSlotItem().price);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * item.price);
             }
             
             countUIText.text = inputCount.ToString();
         }
         public void BuySlots()
         {
-            var inventory = Game.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
+            var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var buySlot = (BuySlot)UIManager.instance.GetUIContainer().chosenSlot;
+            var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
 
-            if (buySlot.GetSlotType() != SlotType.Buy)
-                if (buySlot.GetSlotType() != SlotType.BuyArtifact)
-                    return;
-
-
-            if (buySlot.slot.GetSlotItem().type == ItemType.Use)
+            if (item.type == ItemType.Use)
             {
-                var totalPrice = buySlot.slot.GetSlotItem().price * inputCount;
+                var totalPrice = item.price * inputCount;
                 
                 if (inventory.gold >= totalPrice && inputCount > 0)
                 {
-                    inventory.Add(buySlot.slot.GetSlotItem(), inputCount);
-                    shopUI.GetShopItems().Remove(buySlot.slot.GetSlotItem());
+                    inventory.AddInventory(item.id, inputCount);
                     DisableCountUI();
                     
                     inventory.gold -= totalPrice;
@@ -149,20 +132,18 @@ namespace Ciart.Pagomoa
                 
                 shopUI.GetShopChat().ThankChat();
             }
-            else if (buySlot.slot.GetSlotItem().type == ItemType.Equipment || 
-                     buySlot.slot.GetSlotItem().type == ItemType.Inherent)
+            else if (item.type == ItemType.Equipment || item.type == ItemType.Inherent)
             {
-                var totalPrice = buySlot.slot.GetSlotItem().price * inputCount;
+                var totalPrice = item.price * inputCount;
                 
-                if (inventory.gold >= totalPrice && buySlot.slot.GetSlotItemCount() == inputCount)
+                if (inventory.gold >= totalPrice && inputCount == 1)
                 {
-                    inventory.Add(buySlot.slot.GetSlotItem());
-                    shopUI.GetShopItems().Remove(buySlot.slot.GetSlotItem());
+                    inventory.AddInventory(item.id);
                     DisableCountUI();
                     
                     inventory.gold -= totalPrice;
                     UIManager.instance.UpdateGoldUI();
-                    UIManager.instance.shopUI.GetBuyUI().SoldOut();
+                    UIManager.instance.shopUI.GetBuyUI().SoldOut(slotID);
                 }
                 else
                     return;
@@ -173,16 +154,14 @@ namespace Ciart.Pagomoa
         
         public void SellPlus()
         {
+            var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var sellSlot = (SellSlot)UIManager.instance.GetUIContainer().chosenSlot;
+            var inventorySlot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
-            if(sellSlot.GetSlotType() != SlotType.Sell)
-                return;
-            
-            if (inputCount < sellSlot.slot.GetSlotItemCount())
+            if (inputCount < inventorySlot.GetSlotItemCount())
             {
                 inputCount++;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * sellSlot.slot.GetSlotItem().price);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * inventorySlot.GetSlotItem().price);
             }
             else
                 return;
@@ -190,16 +169,14 @@ namespace Ciart.Pagomoa
         }
         public void SellMinus()
         {
+            var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var sellSlot = (SellSlot)UIManager.instance.GetUIContainer().chosenSlot;
-            
-            if(sellSlot.GetSlotType() != SlotType.Sell)
-                return;
+            var inventorySlot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount > 1)
             {
                 inputCount--;
-                shopUI.GetShopChat().TotalPriceToChat(inputCount * sellSlot.slot.GetSlotItem().price);
+                shopUI.GetShopChat().TotalPriceToChat(inputCount * inventorySlot.GetSlotItem().price);
             }
             else
                 return;
@@ -207,27 +184,28 @@ namespace Ciart.Pagomoa
         }
         public void SellSlots()
         {
-            var inventory = Game.instance.player.inventory;
+            var slotID = _chosenSlot.GetSlotID();
+            var inventory = Game.Instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
-            var sellSlot = (SellSlot)UIManager.instance.GetUIContainer().chosenSlot;
-            
-            if(sellSlot.GetSlotType() != SlotType.Sell)
-                return;
+            var inventorySlot = inventory.FindSlot(SlotType.Inventory, slotID);
             
             for (int i = 0; i < inputCount; i++)
             {
-                if (sellSlot.slot.GetSlotItemCount() > 0)
+                if (inventorySlot.GetSlotItemCount() > 0)
                 {
-                    inventory.SellItem(sellSlot);
+                    inventory.SellItem(_chosenSlot);
                 }
                 
-                UIManager.instance.shopUI.GetSellUI().DeleteSellUISlot();
+                UIManager.instance.shopUI.GetSellUI().ClearSellUISlot();
                 UIManager.instance.shopUI.GetSellUI().UpdateSellUISlot();
             }
             
-            if (sellSlot.slot.GetSlotItemCount() == 0)
+            if (inventorySlot.GetSlotItemCount() == 0)
             {
-                sellSlot.ResetSlot();
+                var sellSlot = (SellSlotUI)_chosenSlot;
+                var emptySlot = new Slot();
+                emptySlot.SetSlotItemID("");
+                sellSlot.SetSlot(emptySlot);
             }
             
             inputCount = 1;

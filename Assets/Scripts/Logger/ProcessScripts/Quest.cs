@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
@@ -128,7 +129,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
-            var inventoryItems = Game.instance.player.inventory.inventoryItems;
+            var inventoryItems = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
             foreach (var inventoryItem in inventoryItems)
             {
                 if (inventoryItem.GetSlotItem().id == targetId)

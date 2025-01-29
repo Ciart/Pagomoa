@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems
         {
             var shopUI = UIManager.instance.shopUI;
             shopUI.GetShopChat().AwakeChat();
-            shopUI.SetShopItems(_auction.GetAuctionItems());
+            shopUI.SetShopItemIDs(_auction.GetAuctionItemIDs());
             
             shopUI.gameObject.SetActive(true);
             
