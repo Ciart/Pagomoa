@@ -240,6 +240,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.Notify(new UpdateInventory());
             EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
         }
+
+        public void TransferItem(ISlot sourceSlot, ISlot targetSlot)
+        {
+            var target = _inventoryData[targetSlot.GetSlotID()];
+            var source = _inventoryData[sourceSlot.GetSlotID()];
+            
+            var itemCount = target.GetSlotItemCount() + source.GetSlotItemCount();
+
+            if (itemCount <= MaxUseItemCount)
+            {
+                target.SetSlotItemCount(itemCount);
+                source.SetSlotItemID("");
+                source.SetSlotItemCount(0);
+            }
+            else
+            {
+                var remainCount = itemCount - MaxUseItemCount;
+                target.SetSlotItemCount(MaxUseItemCount);
+                source.SetSlotItemCount(remainCount);
+            }
+            
+            EventManager.Notify(new UpdateInventory());
+        }
+        
         public void SwapInventorySlot(int dropID, int targetID)
         {
             (_inventoryData[dropID], _inventoryData[targetID]) = (_inventoryData[targetID], _inventoryData[dropID]);

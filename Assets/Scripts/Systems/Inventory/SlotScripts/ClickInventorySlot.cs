@@ -67,6 +67,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
             eventData.pointerPress.TryGetComponent<InventorySlotUI>(out var dragSlot);
             
             if (!dragSlot || _inventorySlotUI.GetSlotID() == dragSlot.GetSlotID()) return;
+
+            var itemSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
+            var draggedItemSlot = inventory.FindSlot(SlotType.Inventory, dragSlot.GetSlotID());
+            if (itemSlot.GetSlotItemID() == draggedItemSlot.GetSlotItemID())
+            {
+                if (itemSlot.GetSlotItemCount() != Inventory.MaxUseItemCount)
+                {
+                    inventory.TransferItem(dragSlot, _inventorySlotUI);
+                    return;
+                }
+            }
             
             inventory.SwapInventorySlot(dragSlot.GetSlotID(), _inventorySlotUI.GetSlotID());
         }
