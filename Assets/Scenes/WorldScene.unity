@@ -448,13 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86a22bb36f7e074fbc5e02bb6a96b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auctionItemsIDs:
-  - Bomb
-  - AirBurble
-  - AbyssLantern
-  - Cookie
-  - MoleGloves
-  - AwfulSnakeBlood
+  auctionItemsIDs: []
 --- !u!114 &306791841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1772,7 +1766,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018746307}
-  - component: {fileID: 1018746310}
+  - component: {fileID: 1018746311}
   - component: {fileID: 1018746306}
   - component: {fileID: 1018746308}
   - component: {fileID: 1018746309}
@@ -1853,6 +1847,21 @@ MonoBehaviour:
   InputColor: {r: 0, g: 1, b: 1, a: 1}
   WarningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   ErrorColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &1018746311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018746305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50545cacd73646c8b3e5bfeb5ea7ef5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  hasPowerGemEarth: 0
+  isLoadSave: 0
 --- !u!1 &1107194803
 GameObject:
   m_ObjectHideFlags: 0
