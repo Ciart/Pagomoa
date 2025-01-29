@@ -448,7 +448,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86a22bb36f7e074fbc5e02bb6a96b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auctionItemsIDs: []
+  auctionItemsIDs:
+  - Bomb
+  - AirBurble
+  - AbyssLantern
+  - Cookie
+  - MoleGloves
+  - AwfulSnakeBlood
 --- !u!114 &306791841
 MonoBehaviour:
   m_ObjectHideFlags: 0

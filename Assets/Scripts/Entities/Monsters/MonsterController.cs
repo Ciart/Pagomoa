@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
             StateChanged(Monster.MonsterState.Hit);
         }
 
-        protected virtual void OnDie()
+        protected virtual void OnDie(EntityDiedEventArgs args)
         {
             StateChanged(Monster.MonsterState.Die);
         }

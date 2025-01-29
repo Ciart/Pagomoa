@@ -11,38 +11,42 @@ namespace Ciart.Pagomoa.Systems.Time
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
-        
+
         public const int MinuteTick = 30;
-    
+
         public const int HourTick = MinuteTick * 60;
-    
-        public const int MaxTick = HourTick * 24;
+
+        /// <summary>
+        /// 새벽 2시까지 입니다.
+        /// </summary>
+        public const int MaxTick = HourTick * 20;
 
         public const int HourOffset = 6;
-    
+
         /// <summary>
         /// 06:00
         /// </summary>
         public const int Morning = 0;
 
         private int _tick = 0;
-        
-        public int tick {
+
+        public int tick
+        {
             get => _tick;
-            set => _tick = value % MaxTick;
+            set => _tick = value >= MaxTick ? MaxTick : value;
         }
-    
+
         /// <summary>
         /// 1초 당 틱 수
         /// </summary>
         public int tickSpeed = 30;
 
         public int date = 1;
-    
+
         public int hour => (tick / HourTick + HourOffset) % 24;
 
         public int minute => tick % HourTick / MinuteTick;
-    
+
         public bool canSleep = false;
 
         public bool isTimeStop = false;
@@ -50,7 +54,7 @@ namespace Ciart.Pagomoa.Systems.Time
         private float _nextUpdateTime = 0f;
 
         private PlayerInput _playerInput;
-    
+
         public event Action<int> tickUpdated;
 
         public override void Start()
@@ -66,6 +70,8 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public override void Update()
         {
+            if (tick >= MaxTick) return;
+
             if (_nextUpdateTime <= 0)
             {
                 tick += 10;
@@ -75,13 +81,11 @@ namespace Ciart.Pagomoa.Systems.Time
 
                 if (tick >= MaxTick)
                 {
-                    tick = 0;
-                    date++;
-                    /*NextDaySpawn.Invoke();*/
+                    Game.Instance.player.entityController.Die();
+                    return;
                 }
-
             }
-        
+
             _nextUpdateTime -= UnityEngine.Time.deltaTime;
         }
 
@@ -90,32 +94,32 @@ namespace Ciart.Pagomoa.Systems.Time
             AddDay(1);
             tick = Morning;
         }
- 
+
         public void AddTime(int hourToAdd, int minuteToAdd)
         {
             tick += (hourToAdd * HourTick) + (minuteToAdd * MinuteTick);
         }
-    
+
         public void SetTime(int hourToAdd, int minuteToAdd)
         {
             tick = ((hourToAdd - HourOffset) * HourTick) + (minuteToAdd * MinuteTick);
         }
-    
+
         public void SetDay(int day)
         {
             date = day;
         }
-    
+
         public void AddDay(int day)
         {
             date += day;
         }
-        
+
         public void PauseTime()
         {
             UnityEngine.Time.timeScale = 0;
             isTimeStop = true;
-            if(_playerInput) _playerInput.Actable = false;
+            if (_playerInput) _playerInput.Actable = false;
         }
 
         public void ResumeTime()
@@ -124,12 +128,12 @@ namespace Ciart.Pagomoa.Systems.Time
             isTimeStop = false;
             if (_playerInput) _playerInput.Actable = true;
         }
-        
+
         public async void SetTimer(float seconds, Action callback)
         {
             var milliSeconds = (int)(seconds * 1000);
             await Task.Delay(milliSeconds);
-            
+
             callback.Invoke();
         }
     }

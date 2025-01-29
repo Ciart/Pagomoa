@@ -24,8 +24,10 @@ namespace Ciart.Pagomoa.Entities.Monsters
         private TimeManager _timeManager;
 
         #region Debugging
+
         Vector2Int debugPoint;
         [SerializeField] List<Vector2Int> debugVectors;
+
         #endregion
 
         private void Awake()
@@ -35,7 +37,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         private void Start()
         {
-            if(monster is not null)
+            if (monster is not null)
                 StartCoroutine(StartSpawn());
         }
 
@@ -64,10 +66,10 @@ namespace Ciart.Pagomoa.Entities.Monsters
             var spawnedMonster = entityManager.Spawn(entityId, new Vector3(point.x, point.y));
 
             spawnedMonster.TakeDamage(0, 0, player.GetComponent<EntityController>(), DamageFlag.Melee);
-            spawnedMonster.died += () => { RemoveMonster(spawnedMonster); };
+            spawnedMonster.died += e => { RemoveMonster(spawnedMonster); };
 
             monsters.Add(spawnedMonster);
-            
+
             // just For Debugging
             // ForDebug(basePoint, spawnPoints);
         }
@@ -102,10 +104,10 @@ namespace Ciart.Pagomoa.Entities.Monsters
             if (monsters.Count >= maxCount) return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(new Vector3(debugPoint.x, debugPoint.y) , new Vector3(spawnRange.x * 2, spawnRange.y * 2));
-            Gizmos.DrawWireCube(new Vector3(debugPoint.x, debugPoint.y) , new Vector3(spawnExclusionRange.x * 2, spawnExclusionRange.y * 2));
-
-
+            Gizmos.DrawWireCube(new Vector3(debugPoint.x, debugPoint.y),
+                new Vector3(spawnRange.x * 2, spawnRange.y * 2));
+            Gizmos.DrawWireCube(new Vector3(debugPoint.x, debugPoint.y),
+                new Vector3(spawnExclusionRange.x * 2, spawnExclusionRange.y * 2));
 
 
             foreach (var intPos in debugVectors)
@@ -119,7 +121,8 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
             Vector2Int targetBrickVector2Int = Vector2Int.zero;
 
-            Gizmos.DrawCube(new Vector3(targetBrickVector2Int.x + 0.5f, targetBrickVector2Int.y + 0.5f), new Vector3(0.3f, 0.3f));
+            Gizmos.DrawCube(new Vector3(targetBrickVector2Int.x + 0.5f, targetBrickVector2Int.y + 0.5f),
+                new Vector3(0.3f, 0.3f));
         }
 
         #endregion

@@ -29,6 +29,15 @@ namespace Ciart.Pagomoa.Entities
     {
         public float amount;
     }
+    
+    public class EntityDiedEventArgs
+    {
+        /// <summary>
+        /// false일 경우 수동으로 제거해야 함
+        /// default: true
+        /// </summary>
+        public bool AutoDespawn { get; set; } = true;
+    }
 
     public class EntityController : MonoBehaviour
     {
@@ -42,7 +51,7 @@ namespace Ciart.Pagomoa.Entities
 
         public event Action<EntityExplodedEventArgs> exploded;
 
-        public event Action died;
+        public event Action<EntityDiedEventArgs> died;
         
         public bool isDead => status.health <= 0;
 
@@ -166,9 +175,16 @@ namespace Ciart.Pagomoa.Entities
         public void Die()
         {
             status.health = 0;
-            died?.Invoke();
             
-            _spriteRenderer.enabled = false;
+            var args = new EntityDiedEventArgs();
+            
+            died?.Invoke(args);
+            
+            if (args.AutoDespawn)
+            {
+                // TODO: EntityManager에서 관리해야 함
+                Destroy(gameObject);
+            }
         }
 
         private IEnumerator RunInvincibleTimeFlash()

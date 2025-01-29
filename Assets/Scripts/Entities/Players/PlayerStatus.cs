@@ -15,8 +15,6 @@ namespace Ciart.Pagomoa.Entities.Players
         public float maxOxygen = 100f;
         public float minOxygen = 0f;
 
-        public bool isDie = false;
-
         [SerializeField] protected float _oxygenRecovery = 1;
 
         public float oxygenRecovery
@@ -129,7 +127,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 gage = oxygen;
                 if (oxygen < minOxygen)
                 {
-                    Die();
+                    _player.entityController.Die();
                     gage = minOxygen;
                 }
             }
@@ -141,84 +139,14 @@ namespace Ciart.Pagomoa.Entities.Players
             oxygenAlter.Invoke(gage, maxOxygen);
         }
 
-        private void Die()
-        {
-            var inventory = _player.inventory;
-            inventory.gold = Mathf.FloorToInt(inventory.gold * 0.9f);
-
-            LoseMoney(0.1f);
-            LoseItem(ItemType.Mineral, 0.5f);
-
-            Game.Instance.UI.ShowDaySummaryUI();
-            Respawn();
-        }
-
-        private void Respawn()
-        {
-            _player.transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
-
-            oxygen = maxOxygen;
-            isDie = false;
-        }
-
-        private void LoseMoney(float percentage)
-        {
-            var inventory = _player.inventory;
-            inventory.gold = (int)(inventory.gold * (1 - percentage));
-        }
-
-        // TODO : 사망 시 아이템 제거 기능 잠금 
-        private void LoseItem(ItemType itemType, float probabilty)
-        {
-            var inventory = _player.inventory;
-
-            /*List<string> deleteItems = new List<string>();*/
-
-            foreach (var slot in inventory.GetSlots(SlotType.Inventory))
-            {
-                var item = slot.GetSlotItem();
-
-                if (item is null) continue;
-
-                var rand = Random.Range(0, 101) * 0.01f;
-                if (probabilty < rand)
-                {
-                    Debug.Log("item not Losted by" + probabilty + "<" + rand);
-                    continue;
-                }
-
-                if (item.type == itemType)
-                {
-                    for (int i = 0; i < slot.GetSlotItemCount(); i++)
-                    {
-                        var entity = Instantiate(Game.Instance.World.itemEntity, transform.position, Quaternion.identity);
-                        entity.Item = item;
-                        entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
-                    }
-
-                    /*deleteItems.Add(item.GetSlotItem().id);*/
-                }
-            }
-
-            /*var count = deleteItems.Count;
-            for (int i = 0; i < count; i++)
-                inventory.RemoveInventoryItem(ResourceSystem.instance.GetItem(deleteItems[i]));*/
-        }
-
-        private void NextDay()
-        {
-            var timeManager = TimeManager.instance;
-
-            timeManager.SetTime(6, 0);
-            timeManager.AddDay(1);
-        }
-
         private void FixedUpdate()
         {
+            if (_player.entityController.isDead) return;
+            
             UpdateOxygen();
-            if (oxygen < minOxygen && !isDie)
+            if (oxygen < minOxygen)
             {
-                GetComponent<EntityController>().TakeDamage(10);
+                _player.entityController.TakeDamage(10);
             }
         }
 

@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Entities
             _entityController.died -= OnDied;
         }
 
-        private void OnDied()
+        private void OnDied(EntityDiedEventArgs e)
         {
             EntityManager.instance.Spawn(spawnEntityId, transform.position);
         }
