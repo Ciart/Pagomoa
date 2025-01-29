@@ -57,7 +57,7 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
 
-        [Header("# Armor")] [SerializeField] protected float _armor = 0;
+        [Header("# Armor")][SerializeField] protected float _armor = 0;
 
         public float armor
         {
@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Entities.Players
             set { _armor = value; }
         }
 
-        [Header("# Attack")] [SerializeField] protected float _attackpower = 100;
+        [Header("# Attack")][SerializeField] protected float _attackpower = 100;
 
         public float attackpower
         {
@@ -74,7 +74,7 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
 
-        [Header("# SIght")] [SerializeField] protected float _sight = 1;
+        [Header("# SIght")][SerializeField] protected float _sight = 1;
 
         public float sight
         {
@@ -83,7 +83,7 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
 
-        [Header("# Speed")] [SerializeField] protected float _speed = 5;
+        [Header("# Speed")][SerializeField] protected float _speed = 5;
 
         public float speed
         {
@@ -91,7 +91,7 @@ namespace Ciart.Pagomoa.Entities.Players
             set { _speed = value; }
         }
 
-        [Header("Dig")] [SerializeField] protected float _digSpeed = 10;
+        [Header("Dig")][SerializeField] protected float _digSpeed = 10;
 
         public float digSpeed
         {
@@ -100,7 +100,7 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
 
-        [Header("CrawlUp")] [SerializeField] protected float _crawlUpSpeed = 100;
+        [Header("CrawlUp")][SerializeField] protected float _crawlUpSpeed = 100;
 
         public float crawlUpSpeed
         {
@@ -112,11 +112,11 @@ namespace Ciart.Pagomoa.Entities.Players
         public UnityEvent<float, float> oxygenAlter;
         public UnityEvent<float, float> hungryAlter;
 
-        private WorldManager _worldManager;
+        private PlayerController _player;
 
         private void Awake()
         {
-            _worldManager = WorldManager.instance;
+            _player = GetComponent<PlayerController>();
         }
 
         private void UpdateOxygen()
@@ -143,40 +143,42 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void Die()
         {
-            var inventory = Game.Instance.player.inventory;
+            var inventory = _player.inventory;
             inventory.gold = Mathf.FloorToInt(inventory.gold * 0.9f);
-            
+
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
-            
-            UIManager.instance.ShowDaySummaryUI();
+
+            Game.Instance.UI.ShowDaySummaryUI();
             Respawn();
         }
 
         private void Respawn()
         {
-            Game.instance.player.transform.position = FindObjectOfType<SpawnPoint>().transform.position;
-            
+            _player.transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
+
             oxygen = maxOxygen;
             isDie = false;
         }
 
         private void LoseMoney(float percentage)
         {
-            var inventory = Game.instance.player.inventory;
+            var inventory = _player.inventory;
             inventory.gold = (int)(inventory.gold * (1 - percentage));
         }
 
         // TODO : 사망 시 아이템 제거 기능 잠금 
         private void LoseItem(ItemType itemType, float probabilty)
         {
-            var inventory = Game.instance.player.inventory;
+            var inventory = _player.inventory;
 
             /*List<string> deleteItems = new List<string>();*/
-            
-            foreach (var item in inventory.GetSlots(SlotType.Inventory))
+
+            foreach (var slot in inventory.GetSlots(SlotType.Inventory))
             {
-                if (item.GetSlotItem().id == "") continue;
+                var item = slot.GetSlotItem();
+
+                if (item is null) continue;
 
                 var rand = Random.Range(0, 101) * 0.01f;
                 if (probabilty < rand)
@@ -185,13 +187,12 @@ namespace Ciart.Pagomoa.Entities.Players
                     continue;
                 }
 
-                if (item.GetSlotItem().type == itemType)
+                if (item.type == itemType)
                 {
-                    for (int i = 0; i < item.GetSlotItemCount(); i++)
+                    for (int i = 0; i < slot.GetSlotItemCount(); i++)
                     {
-                        var entity = Instantiate(WorldManager.instance.itemEntity, transform.position,
-                            Quaternion.identity);
-                        entity.Item = item.GetSlotItem();
+                        var entity = Instantiate(Game.Instance.World.itemEntity, transform.position, Quaternion.identity);
+                        entity.Item = item;
                         entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
                     }
 
@@ -207,7 +208,7 @@ namespace Ciart.Pagomoa.Entities.Players
         private void NextDay()
         {
             var timeManager = TimeManager.instance;
-            
+
             timeManager.SetTime(6, 0);
             timeManager.AddDay(1);
         }

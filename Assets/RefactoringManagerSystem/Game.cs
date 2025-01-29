@@ -23,6 +23,7 @@ namespace Ciart.Pagomoa.Systems
         public bool hasPowerGemEarth = false;
         public bool isLoadSave = false;
 
+        public EventManager Event { get; private set; } = null!;
         public DialogueManager Dialogue { get; private set; } = null!;
         public EntityManager Entity { get; private set; } = null!;
         public NewSaveManager Save { get; private set; } = null!;
@@ -60,6 +61,7 @@ namespace Ciart.Pagomoa.Systems
         {
             base.Awake();
 
+            Event = new EventManager();
             Dialogue = new DialogueManager();
             Entity = new EntityManager();
             Save = new NewSaveManager();
