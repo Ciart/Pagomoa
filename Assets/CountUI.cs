@@ -156,7 +156,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var inventorySlot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
+            var inventorySlot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount < inventorySlot.GetSlotItemCount())
             {
@@ -171,7 +171,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var inventorySlot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
+            var inventorySlot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount > 1)
             {

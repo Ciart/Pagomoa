@@ -75,7 +75,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void SellCheck(SellSlotUI sellSlotUI)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var slot = inventory.FindSlot(SlotType.Inventory, sellSlotUI.GetSlotID());
                 
             if (slot.GetSlotItemID() == "") return;

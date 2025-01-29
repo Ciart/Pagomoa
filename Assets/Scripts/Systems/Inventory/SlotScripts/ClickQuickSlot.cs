@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
 
             if (targetSlot == null) return;
@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
             
             if (targetSlot == null) return;
@@ -59,7 +59,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void DropIsInventorySlot(InventorySlotUI slot)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var droppedSlot = inventory.FindSlot(SlotType.Inventory, slot.GetSlotID());
             
             if (droppedSlot.GetSlotItemID() == "") return;
@@ -74,7 +74,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void DropIsQuickSlot(QuickSlotUI slot)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var droppedSlot = inventory.FindSlot(SlotType.Quick, slot.slotID);
             
             if (droppedSlot == null) return;

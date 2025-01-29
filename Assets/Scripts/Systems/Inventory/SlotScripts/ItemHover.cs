@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (eventData.pointerEnter.TryGetComponent(out InventorySlotUI inventorySlot))
             {
-                var slot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, inventorySlot.GetSlotID());
+                var slot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, inventorySlot.GetSlotID());
                 if (slot.GetSlotItemID() == "") return;
                 
                 var hover = UIManager.instance.bookUI.GetHoverItemInfo();

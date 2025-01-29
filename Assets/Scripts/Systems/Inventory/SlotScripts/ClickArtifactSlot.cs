@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var artifact =inventory.FindSlot(SlotType.Artifact, _artifactSlotUI.GetSlotID());
             
             if (eventData.clickCount == 1)
@@ -43,7 +43,7 @@ namespace Ciart.Pagomoa
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Artifact, _artifactSlotUI.GetSlotID());
             
             if (targetSlot == null) return;
@@ -58,7 +58,7 @@ namespace Ciart.Pagomoa
         
         public void OnDrop(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             
             eventData.pointerDrag.TryGetComponent<InventorySlotUI>(out var inventorySlotUI);
             if (inventorySlotUI)
@@ -76,7 +76,7 @@ namespace Ciart.Pagomoa
 
         public void RightClickMenu()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             inventory.UnEquipArtifact(_artifactSlotUI);
         }
     }
