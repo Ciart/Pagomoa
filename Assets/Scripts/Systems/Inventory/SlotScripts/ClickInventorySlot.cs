@@ -10,11 +10,29 @@ namespace Ciart.Pagomoa.Systems.Inventory
         , IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
         private InventorySlotUI _inventorySlotUI => GetComponent<InventorySlotUI>(); 
+        private const float ClickTime = 0.3f;
+        private const int DoubleClick = 2;
+        private float _firstClickTime = 0.0f;
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button != PointerEventData.InputButton.Right) return;
             var inventory = GameManager.instance.player.inventory;
+            
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (eventData.clickCount == 1)
+                {
+                    _firstClickTime = eventData.clickTime;
+                }
+                if (eventData.clickCount == DoubleClick 
+                    && eventData.clickTime - _firstClickTime <= ClickTime)
+                {
+                    inventory.EquipArtifact(_inventorySlotUI);
+                    _firstClickTime = 0.0f;
+                }
+            }
+            
+            if (eventData.button != PointerEventData.InputButton.Right) return;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
             
             if (targetSlot.GetSlotItemID() == "") return;
