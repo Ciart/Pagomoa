@@ -10,11 +10,29 @@ namespace Ciart.Pagomoa.Systems.Inventory
         , IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
         private InventorySlotUI _inventorySlotUI => GetComponent<InventorySlotUI>(); 
+        private const float ClickTime = 0.3f;
+        private const int DoubleClick = 2;
+        private float _firstClickTime = 0.0f;
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button != PointerEventData.InputButton.Right) return;
             var inventory = GameManager.instance.player.inventory;
+            
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (eventData.clickCount == 1)
+                {
+                    _firstClickTime = eventData.clickTime;
+                }
+                if (eventData.clickCount == DoubleClick 
+                    && eventData.clickTime - _firstClickTime <= ClickTime)
+                {
+                    inventory.EquipArtifact(_inventorySlotUI);
+                    _firstClickTime = 0.0f;
+                }
+            }
+            
+            if (eventData.button != PointerEventData.InputButton.Right) return;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
             
             if (targetSlot.GetSlotItemID() == "") return;
@@ -67,6 +85,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
             eventData.pointerPress.TryGetComponent<InventorySlotUI>(out var dragSlot);
             
             if (!dragSlot || _inventorySlotUI.GetSlotID() == dragSlot.GetSlotID()) return;
+
+            var itemSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
+            var draggedItemSlot = inventory.FindSlot(SlotType.Inventory, dragSlot.GetSlotID());
+            if (itemSlot.GetSlotItemID() == draggedItemSlot.GetSlotItemID())
+            {
+                if (itemSlot.GetSlotItemCount() != Inventory.MaxUseItemCount)
+                {
+                    inventory.TransferItem(dragSlot, _inventorySlotUI);
+                    return;
+                }
+            }
             
             inventory.SwapInventorySlot(dragSlot.GetSlotID(), _inventorySlotUI.GetSlotID());
         }
