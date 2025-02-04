@@ -63,30 +63,29 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var droppedSlot = inventory.FindSlot(SlotType.Inventory, slot.GetSlotID());
             
             if (droppedSlot.GetSlotItemID() == "") return;
-            if (droppedSlot.GetItemType() != ItemType.Use
-                || droppedSlot.GetItemType() != ItemType.Inherent)
-                return;
-            
-            var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
-            inventory.RegistrationQuickSlot(quickSlotUI.slotID, slot.GetSlotID());
-            quickSlotUI.SetSlot(targetSlot);
+
+            switch (droppedSlot.GetItemType())
+            {
+                case ItemType.Use: 
+                case ItemType.Inherent:
+                case ItemType.Mineral:
+                    var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
+                    inventory.RegistrationQuickSlot(quickSlotUI.slotID, slot.GetSlotID());
+                    quickSlotUI.SetSlot(targetSlot);
+                    break;
+            }
         }
 
         private void DropIsQuickSlot(QuickSlotUI slot)
         {
-            var inventory = Game.Instance.player.inventory;
-            var droppedSlot = inventory.FindSlot(SlotType.Quick, slot.slotID);
-            
-            if (droppedSlot == null) return;
+            var inventory = Game.instance.player.inventory;
             
             inventory.SwapQuickSlot(slot.slotID, quickSlotUI.slotID);
             
             var droppedChanged = inventory.FindSlot(SlotType.Quick, slot.slotID);
-            if (droppedChanged == null) return;
             slot.SetSlot(droppedChanged);
             
             var targetChanged= inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
-            if (targetChanged == null) return;
             quickSlotUI.SetSlot(targetChanged);
         }
     }

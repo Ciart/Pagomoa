@@ -29,12 +29,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private ClickArtifactSlot _artifactSlotUI;
         public void SetClickedSlot(InventorySlotUI slot) { _clickedSlot = slot; }
         public void SetClickedSlot(ClickArtifactSlot slot) { _artifactSlotUI = slot; }
-        
-        public void PressedArtifactSlot() 
-        { 
-            _artifactSlotUI.RightClickMenu(); 
-            DeleteMenu();
-        }
 
         public void PressedEquipButton()
         {
@@ -44,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void PressedUnEquipButton()
         {
-            _clickedSlot.slotMenu.UnEquipArtifact();
+            _artifactSlotUI.RightClickMenu(); 
             DeleteMenu();
         }
 
@@ -85,7 +79,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void ArtifactMenu()
         {
-            MakeMenu("A해제하기");
+            MakeMenu("해제하기");
             MakeMenu("그만두기");
             MakeUnderLine();
             MenuImage();
@@ -94,7 +88,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void EquipmentMenu()
         {
             MakeMenu("착용하기");
-            MakeMenu("해제하기");
             MakeMenu("버리기");
             MakeMenu("그만두기");
             MakeUnderLine();
@@ -151,13 +144,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             menu.Add(newMenu);
             newMenu.gameObject.SetActive(true);
             newMenu.transform.GetComponentInChildren<TextMeshProUGUI>().text = text;
-            
-            if (text == "A해제하기")
-            {
-                newMenu.transform.GetComponentInChildren<TextMeshProUGUI>().text = "해제하기";
-                newMenu.GetComponent<Button>().onClick.AddListener(PressedArtifactSlot);
-                return;
-            }
             
             if (text == "착용하기")
                 newMenu.GetComponent<Button>().onClick.AddListener(PressedEquipButton);

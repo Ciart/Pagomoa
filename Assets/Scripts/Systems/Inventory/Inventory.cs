@@ -240,6 +240,30 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.Notify(new UpdateInventory());
             EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
         }
+
+        public void TransferItem(ISlot sourceSlot, ISlot targetSlot)
+        {
+            var target = _inventoryData[targetSlot.GetSlotID()];
+            var source = _inventoryData[sourceSlot.GetSlotID()];
+            
+            var itemCount = target.GetSlotItemCount() + source.GetSlotItemCount();
+
+            if (itemCount <= MaxUseItemCount)
+            {
+                target.SetSlotItemCount(itemCount);
+                source.SetSlotItemID("");
+                source.SetSlotItemCount(0);
+            }
+            else
+            {
+                var remainCount = itemCount - MaxUseItemCount;
+                target.SetSlotItemCount(MaxUseItemCount);
+                source.SetSlotItemCount(remainCount);
+            }
+            
+            EventManager.Notify(new UpdateInventory());
+        }
+        
         public void SwapInventorySlot(int dropID, int targetID)
         {
             (_inventoryData[dropID], _inventoryData[targetID]) = (_inventoryData[targetID], _inventoryData[dropID]);
@@ -354,6 +378,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (emptySlot == null) return;
 
             emptySlot.SetSlotItemID(artifactItemSlot.GetSlotItemID());
+            artifactItemSlot.SetSlotItemID("");
+            artifactItemSlot.SetSlotItemCount(0);
+                
             EventManager.Notify(new UpdateInventory());
 
             // 메뉴 등록
@@ -370,6 +397,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     artifactSlot.SetSlotItemID("");
 
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID(draggedSlot.GetSlotItemID());
+            draggedSlot.SetSlotItemID("");
+            draggedSlot.SetSlotItemCount(0);
+            
             EventManager.Notify(new UpdateInventory());
 
             // 드래그 드롭 등록
@@ -378,21 +408,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void UnEquipArtifact(ISlot targetSlot)
         {
-            if (targetSlot.GetSlotType() == SlotType.Artifact)
-                _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
-            else if (targetSlot.GetSlotType() == SlotType.Inventory)
-            {
-                foreach (var artifactSlot in _artifactSlots)
-                {
-                    if (artifactSlot.GetSlotItemID()
-                        == _inventoryData[targetSlot.GetSlotID()].GetSlotItemID())
-                    {
-                        artifactSlot.SetSlotItemID("");
-                        break;
-                    }
-                }
-            }
-
+            var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+            var artifactItemSlot = _artifactSlots[targetSlot.GetSlotID()];
+            
+            emptySlot.SetSlotItemID(artifactItemSlot.GetSlotItemID());
+            emptySlot.SetSlotItemCount(MaxInherentItemCount);
+            
+            _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
+            
             EventManager.Notify(new UpdateInventory());
             // TODO : 플레이어 스텟 적용
         }
