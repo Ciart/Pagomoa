@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             if (eventData.button == PointerEventData.InputButton.Left)
             {
