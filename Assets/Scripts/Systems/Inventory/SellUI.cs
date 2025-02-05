@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void UpdateSellUISlot()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var inventorySlots = inventory.GetSlots(SlotType.Inventory);
             if (inventorySlots == null) return;
             

@@ -37,9 +37,9 @@ namespace Ciart.Pagomoa
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
 
-            if (GameManager.instance.player != null)
+            if (Game.instance.player != null)
             {
-                SetPlayerComponent(GameManager.instance.player);
+                SetPlayerComponent(Game.instance.player);
             }
         }
 

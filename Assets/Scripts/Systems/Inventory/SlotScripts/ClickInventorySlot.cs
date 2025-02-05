@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             if (eventData.button == PointerEventData.InputButton.Left)
             {
@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
@@ -81,7 +81,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnDrop(PointerEventData eventData)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             eventData.pointerPress.TryGetComponent<InventorySlotUI>(out var dragSlot);
             
             if (!dragSlot || _inventorySlotUI.GetSlotID() == dragSlot.GetSlotID()) return;

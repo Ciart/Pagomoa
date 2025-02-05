@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void InitInventorySlotUI()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
 
             for (int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void InitArtifactSlotUI()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
 
             for (int i = 0; i < Inventory.MaxArtifactSlots; i++)
             {
@@ -60,7 +60,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (_inventoryUISlots.Count == 0) InitInventorySlotUI();
             
-            var slotList = GameManager.instance.player.inventory.GetSlots(SlotType.Inventory);
+            var slotList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
             if (slotList == null) return;
             
             for (int i = 0; i < Inventory.MaxInventorySlots; i++)
@@ -74,7 +74,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (_artifactSlots.Count == 0) InitArtifactSlotUI();
             
-            var slotList = GameManager.instance.player.inventory.GetSlots(SlotType.Artifact);
+            var slotList = Game.Instance.player.inventory.GetSlots(SlotType.Artifact);
             if (slotList == null) return;
 
             for (int i = 0; i < Inventory.MaxArtifactSlots; i++)

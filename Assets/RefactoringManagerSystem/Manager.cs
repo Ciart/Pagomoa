@@ -1,23 +1,19 @@
 using System;
 using System.Reflection;
 
-public interface IPManager
-{
-    public void Init(GameSystem game);
-}
+public interface IManager {}
 
-public class PManager<T> : IPManager where T : PManager<T> 
+public class Manager<T> : IManager where T : Manager<T> 
 {
+    [Obsolete("Game.Instance.[Name]을 사용해주세요.")]
     public static T instance { get; private set; }
-
-    protected PManager()
+    
+    public Manager()
     {
         instance ??= this as T;
-    }
-    
-    public void Init(GameSystem game)
-    {
+        
         var type = GetType();
+        var ms = ManagerSystem.instance;
         
         MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
@@ -28,38 +24,39 @@ public class PManager<T> : IPManager where T : PManager<T>
                 var action = (Action)Delegate.CreateDelegate(typeof(Action), this, method);
                 switch (method.Name)
                 {
-                    case NameOfAwake:
-                        game.awake += action;
+                    case NameOfPreStart:
+                        ms.preStart += action;
                         break;
                     case NameOfStart:
-                        game.start += action;
+                        ms.start += action;
                         break;
                     case NameOfQuit:
-                        game.quit += action;
+                        ms.quit += action;
                         break;
                     case NameOfPreUpdate:
-                        game.preUpdate += action;
+                        ms.preUpdate += action;
                         break;
                     case NameOfUpdate:
-                        game.update += action;
+                        ms.update += action;
                         break;
                     case NameOfPreFixedUpdate:
-                        game.preFixedUpdate += action;
+                        ms.preFixedUpdate += action;
                         break;
                     case NameOfFixedUpdate:
-                        game.fixedUpdate += action;
+                        ms.fixedUpdate += action;
                         break;
                     case NameOfPreLateUpdate:
-                        game.preLateUpdate += action;
+                        ms.preLateUpdate += action;
                         break;
                     case NameOfLateUpdate:
-                        game.lateUpdate += action;
+                        ms.lateUpdate += action;
                         break;  
                 }
             }
         }
     }
-    public virtual void Awake() { }
+    
+    public virtual void PreStart() { }
     public virtual void Start() { }
     public virtual void Quit() { }
     public virtual void PreUpdate() { }
@@ -70,7 +67,7 @@ public class PManager<T> : IPManager where T : PManager<T>
     public virtual void LateUpdate() { }
     public virtual void OnDestroy() { }
     
-    private const string NameOfAwake = "Awake";
+    private const string NameOfPreStart = "PreStart";
     private const string NameOfStart = "Start";
     private const string NameOfQuit = "Quit";
     private const string NameOfPreUpdate = "PreUpdate";

@@ -272,7 +272,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             bool upgradable = true;
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {

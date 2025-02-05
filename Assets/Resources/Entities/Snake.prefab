@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 9212918678109758895}
   - component: {fileID: 5833853642368172660}
   - component: {fileID: 735875786116628391}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Snake
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -175,9 +175,7 @@ Transform:
   m_LocalPosition: {x: 44.41, y: 5.57, z: -0.13191384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5937743482606738767}
-  - {fileID: 2375633427890804346}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8539279095016983486
@@ -269,17 +267,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.22022629, y: -0.026694179}
+  m_Offset: {x: 0.04658699, y: 0.48900604}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.44827583, y: -0.94117653}
-    oldSize: {x: 1.8125, y: 1.0625}
+    pivot: {x: 0.45161292, y: 0.05263158}
+    oldSize: {x: 1.9375, y: 1.1875}
     newSize: {x: 0.9375, y: 0.84375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.241539, y: 0.94416213}
+  m_Size: {x: 1.388958, y: 0.9831543}
   m_EdgeRadius: 0
 --- !u!50 &8121166119662435968
 Rigidbody2D:
@@ -318,7 +316,7 @@ Animator:
   m_GameObject: {fileID: 8094247419071719335}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4f909154867d508418ff3c1610a9f577, type: 2}
+  m_Controller: {fileID: 9100000, guid: 02bd71b2c3d774241b9ee3fd2c0ba213, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

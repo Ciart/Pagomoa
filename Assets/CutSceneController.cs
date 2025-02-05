@@ -52,7 +52,7 @@ namespace Ciart.Pagomoa
         {
             UIManager.instance.DeActiveUI();
             
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             for (int i = 0; i < player.transform.childCount; i++)
             {
                 player.transform.GetChild(i).gameObject.SetActive(false);    
@@ -72,7 +72,7 @@ namespace Ciart.Pagomoa
             DefaultCameraSetting();
             
             UIManager.instance.ActiveUI();
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             player.gameObject.SetActive(true);
             
             for (int i = 0; i < player.transform.childCount; i++)

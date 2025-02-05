@@ -247,5 +247,10 @@ namespace Ciart.Pagomoa.Systems
 
             Init();
         }
+
+        private void OnValidate()
+        {
+            Init();
+        }
     }
 }

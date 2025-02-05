@@ -9,13 +9,13 @@ using UnityEngine;
 namespace Ciart.Pagomoa.RefactoringManagerSystem
 {
 
-    public class QuestManager : PManager<QuestManager>
+    public class QuestManager : Manager<QuestManager>
     {
         public List<Quest> quests = new List<Quest>();
 
         public QuestDatabase database;
 
-        public override void Awake()
+        public override void PreStart()
         {
             database = DataBase.data.GetQuestData();
         }

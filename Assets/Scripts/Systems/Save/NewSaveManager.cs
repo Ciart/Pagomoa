@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
-    public class NewSaveManager : PManager<NewSaveManager>
+    public class NewSaveManager : Manager<NewSaveManager>
     {
         private const string GameDataFileName = "NewSave.dat";
         
