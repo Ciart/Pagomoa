@@ -61,6 +61,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private MoaInteraction _fairyMoa;
         
+        private PlayerController _player;
+        
         private void Awake()
         {
             _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
@@ -72,6 +74,8 @@ namespace Ciart.Pagomoa.Entities.Players
             
             _fairyMoa = FindAnyObjectByType<MoaInteraction>();
             _fairyMoa.InitMoa();
+            
+            _player = GetComponentInParent<PlayerController>();
         }
 
         private void UpdateDirection()
@@ -217,7 +221,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     // TODO: attacker 변경해야 함.
                     // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                    enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
+                    enemy.TakeDamage(_player.attack, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
                 }
             }
         }

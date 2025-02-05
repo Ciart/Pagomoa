@@ -12,22 +12,22 @@ using Random = UnityEngine.Random;
 namespace Ciart.Pagomoa.Entities.Players
 {
     [RequireComponent(typeof(PlayerStatus))]
-    public partial class PlayerController : MonoBehaviour
+    public partial class PlayerController : EntityController
     {
         public PlayerState state = PlayerState.Idle;
 
         public bool isGrounded = false;
-        
+
         public PlayerStatus status;
 
         public PlayerStatus initialStatus;
 
         public float groundDistance = 0.125f;
-        
+
         public float sideWallDistance = 1.0625f;
-        
+
         public Inventory inventory;
-        
+
         public DrillController drill;
 
         public EntityController entityController;
@@ -37,27 +37,28 @@ namespace Ciart.Pagomoa.Entities.Players
         private PlayerInput _input;
 
         private PlayerMovement _movement;
-
         
         private Camera _camera;
 
         private WorldManager _world;
 
         private Direction _direction;
-        
+
         private void Awake()
         {
             status = GetComponent<PlayerStatus>();
             initialStatus = status.copy();
             drill = GetComponentInChildren<DrillController>();
             entityController = GetComponent<EntityController>();
-            
+
             _rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             inventory = GetComponent<Inventory>();
             _camera = Camera.main;
             _world = Game.Instance.World;
+
+            inventory.artifactChanged += OnArtifactChanged;
         }
 
         private void TryJump()
@@ -66,11 +67,11 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 return;
             }
-            
+
             state = PlayerState.Jump;
             _movement.Jump();
         }
-        
+
         private void OnChangedState(PlayerState state)
         {
             if (state == PlayerState.Fall)
@@ -105,7 +106,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
 
             TryJump();
-            
+
             EventManager.Notify(new PlayerMove(transform.position));
         }
 
@@ -148,7 +149,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             _movement.isSideWall = true;
         }
-        
+
         public bool Hungry(float value)
         {
             if (status.hungry - value < 0) return true;
@@ -156,7 +157,7 @@ namespace Ciart.Pagomoa.Entities.Players
             status.hungryAlter.Invoke(status.hungry, status.maxHungry);
             return false;
         }
-        
+
         private void FixedUpdate()
         {
             UpdateIsGrounded();
@@ -167,14 +168,14 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             return _direction;
         }
-        
+
         private void Respawn()
         {
             transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
 
             status.oxygen = status.maxOxygen;
         }
-        
+
         private void LoseMoney(float percentage)
         {
             inventory.gold = (int)(inventory.gold * (1 - percentage));
@@ -202,7 +203,8 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     for (int i = 0; i < slot.GetSlotItemCount(); i++)
                     {
-                        var entity = Instantiate(Game.Instance.World.itemEntity, transform.position, Quaternion.identity);
+                        var entity = Instantiate(Game.Instance.World.itemEntity, transform.position,
+                            Quaternion.identity);
                         entity.Item = item;
                         entity.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, 5), 100));
                     }
@@ -215,23 +217,47 @@ namespace Ciart.Pagomoa.Entities.Players
             for (int i = 0; i < count; i++)
                 inventory.RemoveInventoryItem(ResourceSystem.instance.GetItem(deleteItems[i]));*/
         }
-        
+
+        private void OnArtifactChanged()
+        {
+            var slots = inventory.GetSlots(SlotType.Artifact);
+            var statusModifier = new PlayerStatusModifier();
+
+            foreach (var slot in slots)
+            {
+                var item = slot.GetSlotItem();
+                
+                if (item is null) continue;
+
+                if (item.status is null) continue;
+
+                statusModifier += item.status;
+            }
+
+            var entity = ResourceSystem.instance.GetEntity(entityController.entityId);
+
+            maxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
+            attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
+            defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
+            speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;
+        }
+
         private void OnDied(EntityDiedEventArgs e)
         {
             e.AutoDespawn = false;
-            
+
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
 
             Game.Instance.UI.ShowDaySummaryUI();
             Respawn();
         }
-        
+
         private void OnEnable()
         {
             entityController.died += OnDied;
         }
-        
+
         private void OnDisable()
         {
             entityController.died -= OnDied;

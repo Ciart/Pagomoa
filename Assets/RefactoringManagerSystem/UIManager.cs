@@ -38,6 +38,8 @@ namespace Ciart.Pagomoa.Systems
             stateUI = Object.Instantiate(_uiContainer.statePanelPrefab, _uiContainer.transform);
             
             bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
+            bookUI.gameObject.SetActive(_isActiveInventory);
+            
             shopUI = Object.Instantiate(_uiContainer.shopUIPrefab, _uiContainer.transform);
             quickUI = Object.Instantiate(_uiContainer.quickUIPrefab, _uiContainer.transform);
             

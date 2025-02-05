@@ -26,6 +26,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public const int MaxInventorySlots = 36;
         public const int MaxUseItemCount = 64;
         public const int MaxInherentItemCount = 1;
+        
+        public Action artifactChanged;
 
         private void Awake()
         {
@@ -382,10 +384,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             artifactItemSlot.SetSlotItemCount(0);
                 
             EventManager.Notify(new UpdateInventory());
-
+            artifactChanged?.Invoke();
+            
             // 메뉴 등록
-            // TODO : 플레이어 스텟 적용
-            // TODO : GetSlots(SlotType.Artifact);로 가져가서 아이템 확인후 스텟 적용 하면 될듯 
         }
 
         public void EquipDraggedArtifact(ISlot inventorySlot, ISlot targetSlot)
@@ -401,9 +402,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             draggedSlot.SetSlotItemCount(0);
             
             EventManager.Notify(new UpdateInventory());
-
+            artifactChanged?.Invoke();
+            
             // 드래그 드롭 등록
-            // TODO : 플레이어 스텟 적용
         }
 
         public void UnEquipArtifact(ISlot targetSlot)
@@ -417,7 +418,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
             
             EventManager.Notify(new UpdateInventory());
-            // TODO : 플레이어 스텟 적용
+            artifactChanged?.Invoke();
         }
 
         public void SwapArtifact(ISlot draggedSlot, ISlot targetSlot)
@@ -427,6 +428,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             (_artifactSlots[draggedSlot.GetSlotID()], _artifactSlots[targetSlot.GetSlotID()])
                 = (_artifactSlots[targetSlot.GetSlotID()], _artifactSlots[draggedSlot.GetSlotID()]);
             EventManager.Notify(new UpdateInventory());
+            artifactChanged?.Invoke();
         }
     }
     #endregion

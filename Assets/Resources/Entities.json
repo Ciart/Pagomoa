@@ -47,7 +47,9 @@
       "description": "",
       "isEnemy": false,
       "isInvincible": false,
-      "baseHealth": 100
+      "baseHealth": 100,
+      "attack": 5,
+      "speed": 250
     },
     {
       "id": "SandGolem",

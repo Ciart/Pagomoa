@@ -32,7 +32,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 
                 _inventoryUISlots.Add(spawnedSlot);
             }
-            UIManager.instance.bookUI.gameObject.SetActive(false);
         }
 
         private void InitArtifactSlotUI()

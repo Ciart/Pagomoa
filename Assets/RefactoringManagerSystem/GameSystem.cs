@@ -17,13 +17,13 @@ namespace Ciart.Pagomoa.Systems
         EndDay,
     }
 
-    public class GameManager
+    public static class GameManager
     {
         [Obsolete("Game.Instance를 사용하세요.")]
         public static GameSystem instance => GameSystem.Instance;
     }
 
-    public class Game
+    public static class Game
     {
         [Obsolete("Game.Instance를 사용하세요.")]
         public static GameSystem instance => GameSystem.Instance;
