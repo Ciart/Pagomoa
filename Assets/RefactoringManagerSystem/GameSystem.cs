@@ -1,3 +1,4 @@
+using System;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
@@ -16,7 +17,21 @@ namespace Ciart.Pagomoa.Systems
         EndDay,
     }
 
-    public class Game : SingletonMonoBehaviour<Game>
+    public class GameManager
+    {
+        [Obsolete("Game.Instance를 사용하세요.")]
+        public static GameSystem instance => GameSystem.Instance;
+    }
+
+    public class Game
+    {
+        [Obsolete("Game.Instance를 사용하세요.")]
+        public static GameSystem instance => GameSystem.Instance;
+
+        public static GameSystem Instance => GameSystem.Instance;
+    }
+
+    public class GameSystem : SingletonMonoBehaviour<GameSystem>
     {
         public PlayerController? player;
 
