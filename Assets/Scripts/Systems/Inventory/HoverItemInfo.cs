@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa
         
         public void UpdateItemInfo(int slotID)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (targetSlot.GetSlotItemID() == "") return;

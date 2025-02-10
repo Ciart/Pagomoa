@@ -14,6 +14,8 @@ namespace Ciart.Pagomoa
         public BookUI bookUIPrefab;
         public QuickUI quickUIPrefab;
         public GameObject dialogueUIPrefab;
+        public GameObject quickSlotContainerUIPrefab;
+        public DaySummaryUI daySummaryUIPrefab;
         public GameObject escUI;
         public FadeUI fadeUIPrefab;
         public CinemachineVirtualCamera inventoryCamera;

@@ -4,7 +4,7 @@ using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa.Events
 {
-    public class EventManager : PManager<EventManager>
+    public class EventManager : Manager<EventManager>
     {
         private Dictionary<Type, HashSet<Delegate>> _listeners = new();
 
@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void Notify<T>(T args) where T : IEvent
         {
-            var eventManager = instance;
+            var eventManager = Game.Instance.Event;
             var type = typeof(T);
 
             if (!eventManager._listeners.ContainsKey(type))
@@ -36,7 +36,7 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void AddListener<T>(Action<T> listener) where T : IEvent
         {
-            var eventManager = instance;
+            var eventManager = Game.Instance.Event;
             var type = typeof(T);
 
             if (!eventManager._listeners.ContainsKey(type))
@@ -54,7 +54,7 @@ namespace Ciart.Pagomoa.Events
         /// <typeparam name="T">이벤트 타입</typeparam>
         public static void RemoveListener<T>(Action<T> listener) where T : IEvent
         {
-            var eventManager = instance;
+            var eventManager = Game.Instance.Event;
             var type = typeof(T);
 
             if (!eventManager._listeners.ContainsKey(type))

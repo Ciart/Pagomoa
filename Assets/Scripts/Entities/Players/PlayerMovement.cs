@@ -16,8 +16,6 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public float gravityScale = 2.5f;
 
-        public float speed = 250f;
-
         public float climbSpeed = 250f;
 
         public float jumpForce = 650f;
@@ -41,6 +39,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private Rigidbody2D _rigidbody;
 
         private Animator _animator;
+        
+        private EntityController _entityController;
 
         private WorldManager _world;
 
@@ -57,6 +57,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+            _entityController = GetComponent<EntityController>();
 
             _world = WorldManager.instance;
 
@@ -161,11 +162,10 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             if (_animator.GetBool(AnimatorEndClimb)) return;
 
-            var velocity = new Vector2(directionVector.x * speed * Time.deltaTime, _rigidbody.linearVelocity.y);
+            var velocity = new Vector2(directionVector.x * _entityController.speed * Time.deltaTime, _rigidbody.linearVelocity.y);
 
             _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = gravityScale;
-
         }
 
         private void CheckDomain()

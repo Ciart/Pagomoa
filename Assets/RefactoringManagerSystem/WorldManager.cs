@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Worlds
 {
-    public class WorldManager : PManager<WorldManager>
+    public class WorldManager : Manager<WorldManager>
     {
         public WorldDatabase database;
 

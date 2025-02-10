@@ -129,7 +129,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
-            var inventoryItems = GameManager.instance.player.inventory.GetSlots(SlotType.Inventory);
+            var inventoryItems = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
             foreach (var inventoryItem in inventoryItems)
             {
                 if (inventoryItem.GetSlotItemID() == targetId)

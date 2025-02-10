@@ -27,9 +27,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         
         private void Start()
         {
-            var uiManager = UIManager.instance;
-            
-            _questCompleteUI = uiManager.CreateQuestCompleteUI(transform);
+            _questCompleteUI = Game.Instance.UI.CreateQuestCompleteUI(transform);
             _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
             

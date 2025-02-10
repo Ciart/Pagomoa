@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class UIManager : PManager<UIManager>
+    public class UIManager : Manager<UIManager>
     {
         ~UIManager()
         {
@@ -17,6 +17,7 @@ namespace Ciart.Pagomoa.Systems
         private UIContainer _uiContainer;
         private PlayerInput _playerInput;
         private GameObject _dialogueUI;
+        private DaySummaryUI _daySummaryUI;
         
         public MinimapUI minimapUI { get; private set; }
         public StateUI stateUI { get; private set; }
@@ -29,7 +30,7 @@ namespace Ciart.Pagomoa.Systems
         
         private bool _isActiveInventory;
         
-        public override void Awake()
+        public override void PreStart()
         {
             _uiContainer = DataBase.data.GetUIData();
 
@@ -37,12 +38,17 @@ namespace Ciart.Pagomoa.Systems
             stateUI = Object.Instantiate(_uiContainer.statePanelPrefab, _uiContainer.transform);
             
             bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
+            bookUI.gameObject.SetActive(_isActiveInventory);
+            
             shopUI = Object.Instantiate(_uiContainer.shopUIPrefab, _uiContainer.transform);
             quickUI = Object.Instantiate(_uiContainer.quickUIPrefab, _uiContainer.transform);
             
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+
+            _daySummaryUI = Object.Instantiate(_uiContainer.daySummaryUIPrefab, _uiContainer.transform);
+            _daySummaryUI.gameObject.SetActive(false);
 
             _fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
         }
@@ -74,7 +80,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void UpdateGoldUI()
         {
-            var playerGold = GameManager.instance.player.inventory.gold;
+            var playerGold = Game.instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
             stateUI.playerGoldUI.text = playerGold.ToString();        
@@ -108,6 +114,11 @@ namespace Ciart.Pagomoa.Systems
             //     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
             //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
             // }
+        }
+
+        public void ShowDaySummaryUI()
+        {
+            _daySummaryUI.gameObject.SetActive(true);
         }
 
         public void DeActiveUI()

@@ -15,18 +15,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public partial class Inventory : MonoBehaviour
     {
         public int gold;
-        
+
         private Slot[] _quickData = new Slot[MaxQuickSlots];
         public const int MaxQuickSlots = 6;
-        
+
         private Slot[] _artifactSlots = new Slot[MaxArtifactSlots];
         public const int MaxArtifactSlots = 4;
-        
+
         private Slot[] _inventoryData = new Slot[MaxInventorySlots];
         public const int MaxInventorySlots = 36;
         public const int MaxUseItemCount = 64;
         public const int MaxInherentItemCount = 1;
         
+        public Action artifactChanged;
+
         private void Awake()
         {
             EventManager.AddListener<AddReward>(AddReward);
@@ -39,7 +41,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.RemoveListener<AddReward>(AddReward);
             EventManager.RemoveListener<AddGold>(ChangeGold);
         }
-        
+
         // 초기 인벤토리 초기화
         public void InitSlots()
         {
@@ -48,7 +50,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _quickData[i] = new Slot();
                 _quickData[i].SetSlotType(SlotType.Quick);
             }
-            
+
             for (int i = 0; i < MaxArtifactSlots; i++)
             {
                 _artifactSlots[i] = new Slot();
@@ -61,13 +63,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryData[i].SetSlotType(SlotType.Inventory);
             }
         }
-        
+
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
         private void AddReward(AddReward e) { AddInventory(e.item.id, e.itemCount); }
         private void AddGold(int addGold) { gold += addGold; }
     }
 
-#region 인벤토리 함수
+    #region 인벤토리 함수
     public partial class Inventory
     {
         public void AddInventory(string itemID, int itemCount = 1)
@@ -78,7 +80,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (hasItemSlot > -1)
             {
                 var accCount = itemCount + _inventoryData[hasItemSlot].GetSlotItemCount();
-                
+
                 if (accCount <= MaxUseItemCount) // 슬롯에 할당 가능한 아이템 상한  
                 {
                     _inventoryData[hasItemSlot].SetSlotItemID(itemID);
@@ -88,10 +90,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 {
                     accCount -= MaxUseItemCount;
                     _inventoryData[hasItemSlot].SetSlotItemCount(MaxUseItemCount);
-                    
-                    var divVal = (int)(accCount / MaxUseItemCount); 
-                    var remainVal = accCount % MaxUseItemCount;  
-                    
+
+                    var divVal = (int)(accCount / MaxUseItemCount);
+                    var remainVal = accCount % MaxUseItemCount;
+
                     if (divVal > 0)
                     {
                         for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
@@ -124,7 +126,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 {
                     var hasEmptySlot = Array.FindIndex(_inventoryData,
                         (data) => data.GetSlotItemID() == "");
-                    
+
                     _inventoryData[hasEmptySlot].SetSlotItemID(itemID);
                     _inventoryData[hasEmptySlot].SetSlotItemCount(itemCount);
                 }
@@ -132,7 +134,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 {
                     var divVal = (int)(itemCount / MaxUseItemCount);
                     var remainVal = itemCount % MaxUseItemCount;
-                    
+
                     if (divVal > 0)
                     {
                         for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
@@ -143,7 +145,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                             {
                                 emptySlot.SetSlotItemID(itemID);
                                 emptySlot.SetSlotItemCount(MaxUseItemCount);
-                            }    
+                            }
                         }
                     }
                     if (remainVal != 0)
@@ -164,9 +166,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 UpdateQuickSlot();
             }
-            
+
             // TODO : 빈 슬롯 없을때는 어떻게 해야하노
-            
+
             var sameItemList = FindSameItem(itemID);
             var accItemCount = 0;
             foreach (var slotID in sameItemList)
@@ -181,7 +183,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             gold += _inventoryData[targetSlot.GetSlotID()].GetSlotItem().price;
             DecreaseItemBySlotID(targetSlot.GetSlotID());
-            
+
             UIManager.instance.UpdateGoldUI();
         }
 
@@ -189,7 +191,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventorySlot = _inventoryData[targetSlotID];
             var count = inventorySlot.GetSlotItemCount() - itemCount;
-            
+
             if (count >= 1)
             {
                 _inventoryData[targetSlotID].SetSlotItemCount(count);
@@ -199,7 +201,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryData[targetSlotID].SetSlotItemID("");
                 _inventoryData[targetSlotID].SetSlotItemCount(0);
             }
-            
+
             var registrationSlot = FindSlotByItemID(SlotType.Quick, inventorySlot.GetSlotItemID());
             if (registrationSlot != null)
             {
@@ -216,7 +218,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.Notify(new UpdateInventory());
             EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
         }
-        
+
         public void RemoveItem(ISlot targetSlot)
         {
             var inventorySlot = _inventoryData[targetSlot.GetSlotID()];
@@ -228,7 +230,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 UpdateQuickSlot();
             }
-            
+
             var eventItemID = _inventoryData[targetSlot.GetSlotID()].GetSlotItemID();
             var sameItemList = FindSameItem(eventItemID);
             var accItemCount = 0;
@@ -236,7 +238,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 accItemCount += _inventoryData[slotID].GetSlotItemCount();
             }
-            
+
             EventManager.Notify(new UpdateInventory());
             EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
         }
@@ -270,9 +272,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
             EventManager.Notify(new UpdateInventory());
         }
     }
-#endregion
+    #endregion
 
-#region 퀵슬롯 함수
+    #region 퀵슬롯 함수
     public partial class Inventory
     {
         public void UseQuickSlotItem(int slotID)
@@ -280,14 +282,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var slotData = _quickData[slotID];
             var index = Array.FindIndex(_inventoryData
                 , data => data.GetSlotItemID() == slotData.GetSlotItemID());
-            
+
             if (slotData.GetSlotItemID() == "") return;
-            
+
             var count = slotData.GetSlotItemCount() - 1;
-            
+
             switch (slotData.GetSlotItem().type)
             {
-                case ItemType.Use : case ItemType.Mineral:
+                case ItemType.Use:
+                case ItemType.Mineral:
                     if (count > 0)
                     {
                         slotData.GetSlotItem().DisplayUseEffect();
@@ -295,7 +298,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     }
                     else
                     {
-                        slotData.GetSlotItem().DisplayUseEffect();                        
+                        slotData.GetSlotItem().DisplayUseEffect();
                         slotData.SetSlotItemID("");
                         slotData.SetSlotItemCount(0);
                     }
@@ -304,7 +307,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     slotData.GetSlotItem().DisplayUseEffect();
                     break;
             }
-            
+
             DecreaseItemBySlotID(index);
         }
 
@@ -312,11 +315,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             (_quickData[dropID], _quickData[targetID]) = (_quickData[targetID], _quickData[dropID]);
         }
-        
-        public void RegistrationQuickSlot(int targetSlotID , int referenceID)
+
+        public void RegistrationQuickSlot(int targetSlotID, int referenceID)
         {
             var droppedSlot = _inventoryData[referenceID];
-            
+
             for (int i = 0; i < MaxQuickSlots; i++)
             {
                 if (_quickData[i].GetSlotItemID() == "") continue;
@@ -327,17 +330,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     _quickData[i].SetSlotItemCount(0);
                 }
             }
-            
+
             _quickData[targetSlotID].SetSlotItemID(droppedSlot.GetSlotItemID());
             UpdateQuickSlot();
-            
+
             EventManager.Notify(new UpdateInventory());
         }
-        
+
         private void UpdateQuickSlot()
         {
             var accItemCount = 0;
-            
+
             foreach (var data in _quickData)
             {
                 if (data.GetSlotItemID() == "") continue;
@@ -349,20 +352,20 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     data.SetSlotItemCount(0);
                     return;
                 }
-                
+
                 foreach (var index in itemListIndex)
                 {
                     accItemCount += _inventoryData[index].GetSlotItemCount();
                 }
-                
+
                 data.SetSlotItemCount(accItemCount);
                 accItemCount = 0;
             }
         }
     }
-#endregion
-    
-#region 아티팩트 함수
+    #endregion
+
+    #region 아티팩트 함수
     public partial class Inventory
     {
         public void EquipArtifact(ISlot inventorySlot)
@@ -372,19 +375,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
             foreach (var artifactSlot in _artifactSlots)
                 if (artifactSlot.GetSlotItemID() == artifactItemSlot.GetSlotItemID())
                     return;
-            
+
             var emptySlot = FindSlotByItemID(SlotType.Artifact, "");
             if (emptySlot == null) return;
-            
+
             emptySlot.SetSlotItemID(artifactItemSlot.GetSlotItemID());
             artifactItemSlot.SetSlotItemID("");
             artifactItemSlot.SetSlotItemCount(0);
                 
             EventManager.Notify(new UpdateInventory());
+            artifactChanged?.Invoke();
             
             // 메뉴 등록
-            // TODO : 플레이어 스텟 적용
-            // TODO : GetSlots(SlotType.Artifact);로 가져가서 아이템 확인후 스텟 적용 하면 될듯 
         }
 
         public void EquipDraggedArtifact(ISlot inventorySlot, ISlot targetSlot)
@@ -394,15 +396,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
             foreach (var artifactSlot in _artifactSlots)
                 if (artifactSlot.GetSlotItemID() == draggedSlot.GetSlotItemID())
                     artifactSlot.SetSlotItemID("");
-            
+
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID(draggedSlot.GetSlotItemID());
             draggedSlot.SetSlotItemID("");
             draggedSlot.SetSlotItemCount(0);
             
             EventManager.Notify(new UpdateInventory());
+            artifactChanged?.Invoke();
             
             // 드래그 드롭 등록
-            // TODO : 플레이어 스텟 적용
         }
 
         public void UnEquipArtifact(ISlot targetSlot)
@@ -416,36 +418,38 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
             
             EventManager.Notify(new UpdateInventory());
-            // TODO : 플레이어 스텟 적용
+            artifactChanged?.Invoke();
         }
 
         public void SwapArtifact(ISlot draggedSlot, ISlot targetSlot)
         {
             if (_artifactSlots[draggedSlot.GetSlotID()].GetSlotItemID() == "") return;
-            
-            (_artifactSlots[draggedSlot.GetSlotID()], _artifactSlots[targetSlot.GetSlotID()]) 
+
+            (_artifactSlots[draggedSlot.GetSlotID()], _artifactSlots[targetSlot.GetSlotID()])
                 = (_artifactSlots[targetSlot.GetSlotID()], _artifactSlots[draggedSlot.GetSlotID()]);
             EventManager.Notify(new UpdateInventory());
+            artifactChanged?.Invoke();
         }
     }
-#endregion
+    #endregion
     // 검색
     public partial class Inventory
     {
-        public Slot[]? GetSlots(SlotType slotType)
+        public Slot[] GetSlots(SlotType slotType)
         {
             switch (slotType)
             {
                 case SlotType.Inventory:
-                    return _inventoryData;   
+                    return _inventoryData;
                 case SlotType.Quick:
-                    return _quickData;   
+                    return _quickData;
                 case SlotType.Artifact:
                     return _artifactSlots;
+                default:
+                    throw new InvalidOperationException($"{nameof(slotType)}는 유효하지 않습니다.");
             }
-            return null;
         }
-        
+
         public Slot FindSlot(SlotType slotType, int slotID)
         {
             switch (slotType)
@@ -456,14 +460,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
                     return _quickData[slotID];
                 case SlotType.Artifact:
                     return _artifactSlots[slotID];
+                default:
+                    throw new InvalidOperationException($"{nameof(slotType)}는 유효하지 않습니다.");
             }
-            return null!;
         }
         public List<int> FindSameItem(string itemID)
         {
             var slotCount = _inventoryData.Length;
             var sameIDList = new List<int>();
-            
+
             for (int i = 0; i < slotCount; i++)
             {
                 if (_inventoryData[i].GetSlotItemID() == itemID)
@@ -498,6 +503,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         return data;
                 }
             }
+            else
+            {
+                throw new InvalidOperationException($"{nameof(slotType)}는 유효하지 않습니다.");
+            }
+
             return null;
         }
     }

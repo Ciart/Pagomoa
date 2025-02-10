@@ -1,4 +1,5 @@
 ﻿using System;
+using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,8 +14,6 @@ namespace Ciart.Pagomoa.Items
         Inherent
     }
     
-    
-    
     [Serializable]
     public class Item
     {
@@ -27,6 +26,8 @@ namespace Ciart.Pagomoa.Items
         public string description = "";
 
         public int price = 0;
+
+        public PlayerStatusModifier? status = null;
 
         public Sprite? sprite = null;
 

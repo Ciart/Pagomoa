@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class ParticleManager : PManager<ParticleManager>
+    public class ParticleManager : Manager<ParticleManager>
     {
         public void Make(int id, GameObject parent, Vector3 position, float duration)
         {

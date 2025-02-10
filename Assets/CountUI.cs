@@ -111,7 +111,7 @@ namespace Ciart.Pagomoa
         }
         public void BuySlots()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
             var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
@@ -156,7 +156,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var inventorySlot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
+            var inventorySlot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount < inventorySlot.GetSlotItemCount())
             {
@@ -171,7 +171,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = UIManager.instance.shopUI;
-            var inventorySlot = GameManager.instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
+            var inventorySlot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount > 1)
             {
@@ -185,7 +185,7 @@ namespace Ciart.Pagomoa
         public void SellSlots()
         {
             var slotID = _chosenSlot.GetSlotID();
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var shopUI = UIManager.instance.shopUI;
             var inventorySlot = inventory.FindSlot(SlotType.Inventory, slotID);
             

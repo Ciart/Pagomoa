@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         // TODO : 장비 착용하는 법
         public void EquipArtifact()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot.GetSlotItemID() == "") return;
@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void UnEquipArtifact()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             inventory.UnEquipArtifact(inventorySlotUI);
             
             UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
@@ -32,7 +32,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void EatMineral(int count)
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var mineralCount = count;
             
             inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID(), mineralCount);
@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void UseItem()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;
@@ -56,7 +56,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void AbandonItem()
         {
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
             if (targetSlot == null) return;

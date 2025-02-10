@@ -29,12 +29,29 @@ namespace Ciart.Pagomoa.Entities
     {
         public float amount;
     }
+    
+    public class EntityDiedEventArgs
+    {
+        /// <summary>
+        /// false일 경우 수동으로 제거해야 함
+        /// default: true
+        /// </summary>
+        public bool AutoDespawn { get; set; } = true;
+    }
 
     public class EntityController : MonoBehaviour
     {
         public string entityId;
 
-        public EntityStatus status;
+        public float health;
+        
+        public float maxHealth;
+
+        public float attack;
+        
+        public float defense;
+        
+        public float speed;
 
         public EntityController parent;
 
@@ -42,9 +59,9 @@ namespace Ciart.Pagomoa.Entities
 
         public event Action<EntityExplodedEventArgs> exploded;
 
-        public event Action died;
+        public event Action<EntityDiedEventArgs> died;
         
-        public bool isDead => status.health <= 0;
+        public bool isDead => health <= 0;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -90,15 +107,19 @@ namespace Ciart.Pagomoa.Entities
 
             if (data.status != null)
             {
-                status = data.status;
+                health = data.status.health;
+                maxHealth = data.status.maxHealth;
+                attack = data.status.attack;
+                defense = data.status.defense;
+                speed = data.status.speed;
                 return;
             }
             
-            status = new EntityStatus
-            {
-                health = entity.baseHealth,
-                maxHealth = entity.baseHealth
-            };
+            health = entity.baseHealth;
+            maxHealth = entity.baseHealth;
+            attack = entity.attack;
+            defense = entity.defense;
+            speed = entity.speed;
         }
         
         public EntityData GetEntityData()
@@ -106,6 +127,15 @@ namespace Ciart.Pagomoa.Entities
             if (this == null) return null;
 
             var position = transform.position;
+            
+            var status = new EntityStatus
+            {
+                health = health,
+                maxHealth = maxHealth,
+                attack = attack,
+                defense = defense,
+                speed = speed
+            };
             
             return new EntityData(entityId, position.x, position.y, status);
         }
@@ -127,18 +157,25 @@ namespace Ciart.Pagomoa.Entities
         public void TakeDamage(float amount, float invincibleTime = 0f, EntityController attacker = null,
             DamageFlag flag = DamageFlag.None)
         {
-            if (isInvincible)
+            if (isInvincible || isDead)
             {
                 return;
             }
 
             _invincibleTime = invincibleTime;
 
-            status.health -= amount;
-            if (status.health <= 0)
+            var damage = amount * (1 - defense / (defense + 100));
+
+            health -= damage;
+            damaged?.Invoke(new EntityDamagedEventArgs { amount = damage, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
+
+            if (health <= 0)
             {
-                status.health = 0;
-                died?.Invoke();
+                health = 0;
+
+                // TODO: preDied 이벤트 추가
+                Die();
+                return;
             }
 
             if (attacker is not null)
@@ -146,7 +183,6 @@ namespace Ciart.Pagomoa.Entities
                 TakeKnockback(5f, transform.position - attacker.transform.position);
             }
 
-            damaged?.Invoke(new EntityDamagedEventArgs { amount = amount, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
             StartCoroutine(RunInvincibleTimeFlash());
         }
 
@@ -154,16 +190,24 @@ namespace Ciart.Pagomoa.Entities
         {
             if (!isInvincible)
             {
-                status.health -= amount;
+                health -= amount;
             }
             exploded?.Invoke(new EntityExplodedEventArgs { amount = amount });
         }
 
         public void Die()
         {
-            status.health = 0;
-            gameObject.SetActive(false);
-            died?.Invoke();
+            health = 0;
+            
+            var args = new EntityDiedEventArgs();
+            
+            died?.Invoke(args);
+            
+            if (args.AutoDespawn)
+            {
+                // TODO: EntityManager에서 관리해야 함
+                Destroy(gameObject);
+            }
         }
 
         private IEnumerator RunInvincibleTimeFlash()
@@ -186,7 +230,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void CheckDeath()
         {
-            if (!isDead && status.health <= 0)
+            if (!isDead && health <= 0)
             {
                 Die();
             }
@@ -196,7 +240,7 @@ namespace Ciart.Pagomoa.Entities
         {
             CheckDeath();
 
-            var distance = Vector3.Distance(transform.position, GameManager.instance.player.transform.position);
+            var distance = Vector3.Distance(transform.position, Game.instance.player.transform.position);
 
             if (distance > 100f)
             {

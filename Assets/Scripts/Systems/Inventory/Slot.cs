@@ -47,7 +47,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             _itemType = ResourceSystem.instance.GetItem(_itemID).type;
         }
-        public Item GetSlotItem() { return ResourceSystem.instance.GetItem(_itemID); }
+        public Item? GetSlotItem() {
+            if (string.IsNullOrEmpty(_itemID)) return null;
+
+            return ResourceSystem.instance.GetItem(_itemID);
+        }
         
         
         public int GetSlotItemCount() { return _itemCount; }

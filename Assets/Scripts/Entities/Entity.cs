@@ -20,6 +20,12 @@ namespace Ciart.Pagomoa.Entities
         
         public float baseHealth;
 
+        public float attack;
+        
+        public float defense;
+        
+        public float speed;
+
         public EntityController? prefab;
         
         private void LoadResources()

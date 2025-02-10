@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            UIManager.instance.shopUI.shopGoldUI.text = GameManager.instance.player.inventory.gold.ToString();
+            UIManager.instance.shopUI.shopGoldUI.text = Game.instance.player.inventory.gold.ToString();
         }
         public void MakeBuyUISlot()
         {

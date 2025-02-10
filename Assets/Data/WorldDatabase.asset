@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entities:
   - id: 
-    tags: 
+    tags: []
     name: 
     description: 
     isEnemy: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
     baseHealth: 0
     prefab: {fileID: 0}
   - id: 
-    tags: 
+    tags: []
     name: 
     description: 
     isEnemy: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     baseHealth: 0
     prefab: {fileID: 0}
   - id: 
-    tags: 
+    tags: []
     name: 
     description: 
     isEnemy: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     baseHealth: 0
     prefab: {fileID: 0}
   - id: 
-    tags: 
+    tags: []
     name: 
     description: 
     isEnemy: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
     baseHealth: 0
     prefab: {fileID: 0}
   - id: 
-    tags: 
+    tags: []
     name: 
     description: 
     isEnemy: 0
@@ -1500,7 +1500,123 @@ MonoBehaviour:
       groundId: Sand
       mineralId: 
       isRock: 0
-  selectIndex: 0
+  - name: "\uD56D\uC544\uB9AC \uD14C\uC2A4\uD2B8"
+    appearanceArea: 1
+    tags:
+    - Golem
+    <width>k__BackingField: 5
+    <height>k__BackingField: 5
+    pivot: {x: 7, y: 6}
+    weight: 0.1
+    entities:
+    - id: DesertPot
+      x: 2
+      y: 1
+      status:
+        health: 0
+        maxHealth: 0
+    _bricks:
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: 
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+    - wallId: SandWall
+      groundId: Sand
+      mineralId: 
+      isRock: 0
+  selectIndex: 6
   brokenEffectTiles:
   - {fileID: 11400000, guid: cc15b4e5012644df99d607aa7176cd11, type: 2}
   - {fileID: 11400000, guid: 94a7431bd0284473e8e796797a1f6ab9, type: 2}

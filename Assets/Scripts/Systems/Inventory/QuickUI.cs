@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void UpdateQuickSlot()
         {
-            var slotList = GameManager.instance.player.inventory.GetSlots(SlotType.Quick);
+            var slotList = Game.Instance.player.inventory.GetSlots(SlotType.Quick);
             
             if (slotList == null) return;
             for (int i = 0; i < Inventory.MaxQuickSlots; i++)
@@ -62,7 +62,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var index = _chosenSlotUI.slotID + 1;
             var playerInput = _playerInput.Actions.UseQuickSlot;
             
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             foreach (var input in playerInput.controls)
             {
@@ -99,7 +99,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             _quickSlots = new List<QuickSlotUI>(Inventory.MaxQuickSlots);
             var index = 0;
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             var quickSlots = inventory.GetSlots(SlotType.Quick);
 
             if (quickSlots == null) return;

@@ -47,7 +47,11 @@
       "id": "AbyssLantern",
       "name": "심연의 랜턴",
       "description": "차가운 기운이 감돈다.\n 앞을 조금이나마 밝게 비춰준다.",
-      "price": 1000
+      "price": 1000,
+      "status": {
+        "speed": 1000,
+        "speedMultiplier": 2
+      }
     },
     {
       "type": 1,

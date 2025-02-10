@@ -9,7 +9,7 @@ using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Entities
 {
-    public class EntityManager : PManager<EntityManager>
+    public class EntityManager : Manager<EntityManager>
     {
         private List<EntityController> _entities = new();
 
