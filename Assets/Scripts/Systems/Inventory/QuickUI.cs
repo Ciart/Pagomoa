@@ -59,7 +59,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (!_chosenSlotUI) return;
             
             // key 패드 입력 'E', '1' ~ '6'
-            var index = _chosenSlotUI.slotID + 1;
+            var index = _chosenSlotUI.GetSlotID() + 1;
             var playerInput = _playerInput.Actions.UseQuickSlot;
             
             var inventory = Game.instance.player.inventory;
@@ -101,8 +101,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var index = 0;
             var inventory = Game.Instance.player.inventory;
             var quickSlots = inventory.GetSlots(SlotType.Quick);
-
-            if (quickSlots == null) return;
             
             for (int i = 0; i < transform.childCount; i++)
             {

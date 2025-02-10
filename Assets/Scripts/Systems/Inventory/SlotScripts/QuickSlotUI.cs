@@ -20,11 +20,11 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [Header("자식 변수")]
         [SerializeField] private Image itemImage;
         [SerializeField] private TextMeshProUGUI countText;
-        
-        public int slotID {get; private set;}
-        public void SetSlotID(int id) { slotID = id; }
+
+        private int _slotID;
+        public void SetSlotID(int id) { _slotID = id; }
         public SlotType GetSlotType() { return SlotType.Quick; }
-        public int GetSlotID() { return slotID; }
+        public int GetSlotID() { return _slotID; }
         public void SetSlotImage(Sprite sprite) { slotImage.sprite = sprite; }
         
         private void Awake()
