@@ -12,20 +12,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            var inventory = Game.Instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
-
-            if (targetSlot == null) return;
-            
             UIManager.instance.quickUI.SelectQuickSlot(quickSlotUI.GetSlotID() + 1);;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             var inventory = Game.Instance.player.inventory;
-            var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
-            
-            if (targetSlot == null) return;
+            var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.GetSlotID());
             
             DragItem.instance.DragSetImage(targetSlot.GetSlotItem().sprite);
             DragItem.instance.transform.position = eventData.position;
@@ -69,8 +62,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 case ItemType.Use: 
                 case ItemType.Inherent:
                 case ItemType.Mineral:
-                    var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
-                    inventory.RegistrationQuickSlot(quickSlotUI.slotID, slot.GetSlotID());
+                    var targetSlot = inventory.FindSlot(SlotType.Quick, quickSlotUI.GetSlotID());
+                    inventory.RegistrationQuickSlot(quickSlotUI.GetSlotID(), slot.GetSlotID());
                     quickSlotUI.SetSlot(targetSlot);
                     break;
             }
@@ -80,12 +73,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventory = Game.instance.player.inventory;
             
-            inventory.SwapQuickSlot(slot.slotID, quickSlotUI.slotID);
+            inventory.SwapQuickSlot(slot.GetSlotID(), quickSlotUI.GetSlotID());
             
-            var droppedChanged = inventory.FindSlot(SlotType.Quick, slot.slotID);
+            var droppedChanged = inventory.FindSlot(SlotType.Quick, slot.GetSlotID());
             slot.SetSlot(droppedChanged);
             
-            var targetChanged= inventory.FindSlot(SlotType.Quick, quickSlotUI.slotID);
+            var targetChanged= inventory.FindSlot(SlotType.Quick, quickSlotUI.GetSlotID());
             quickSlotUI.SetSlot(targetChanged);
         }
     }

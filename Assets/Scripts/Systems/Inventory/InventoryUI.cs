@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -18,31 +19,27 @@ namespace Ciart.Pagomoa.Systems.Inventory
             = new List<InventorySlotUI>(Inventory.MaxInventorySlots);
         private readonly List<ArtifactSlotUI> _artifactSlots 
             = new List<ArtifactSlotUI>(Inventory.MaxArtifactSlots);
-
-        private void InitInventorySlotUI()
+        
+        private void InitInventorySlotUI(Inventory inventoryData)
         {
-            var inventory = Game.Instance.player.inventory;
-
             for (int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
                 var spawnedSlot = Instantiate(instanceInventorySlotUI, inventorySlotParent.transform);
                 spawnedSlot.SetSlotID(i);
-                spawnedSlot.SetSlot(inventory.FindSlot(SlotType.Inventory, i));
+                spawnedSlot.SetSlot(inventoryData.FindSlot(SlotType.Inventory, i));
                 spawnedSlot.gameObject.SetActive(true);
                 
                 _inventoryUISlots.Add(spawnedSlot);
             }
         }
 
-        private void InitArtifactSlotUI()
+        private void InitArtifactSlotUI(Inventory inventoryData)
         {
-            var inventory = Game.Instance.player.inventory;
-
             for (int i = 0; i < Inventory.MaxArtifactSlots; i++)
             {
                 var spawnedSlot = Instantiate(instanceArtifactSlotUI, artifacSlotParent.transform);
                 spawnedSlot.SetSlotID(i);
-                spawnedSlot.SetSlot(inventory.FindSlot(SlotType.Artifact, i));
+                spawnedSlot.SetSlot(inventoryData.FindSlot(SlotType.Artifact, i));
                 spawnedSlot.gameObject.SetActive(true);
                 
                 _artifactSlots .Add(spawnedSlot);
@@ -57,10 +54,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void UpdateInventorySlot() // List안의 Item 전체 인벤토리에 출력
         {
-            if (_inventoryUISlots.Count == 0) InitInventorySlotUI();
+            if (Game.Instance.player == null) return;
+            var inventory = Game.Instance.player.inventory;
             
-            var slotList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-            if (slotList == null) return;
+            
+            if (_inventoryUISlots.Count == 0) InitInventorySlotUI(inventory);
+            
+            var slotList = inventory.GetSlots(SlotType.Inventory);
             
             for (int i = 0; i < Inventory.MaxInventorySlots; i++)
             {
@@ -71,10 +71,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void UpdateArtifactSlot()
         {
-            if (_artifactSlots.Count == 0) InitArtifactSlotUI();
+            if (Game.Instance.player == null) return;
+            var inventory = Game.Instance.player.inventory;
             
-            var slotList = Game.Instance.player.inventory.GetSlots(SlotType.Artifact);
-            if (slotList == null) return;
+            if (_artifactSlots.Count == 0) InitArtifactSlotUI(inventory);
+            
+            var slotList = inventory.GetSlots(SlotType.Artifact);
 
             for (int i = 0; i < Inventory.MaxArtifactSlots; i++)
             {

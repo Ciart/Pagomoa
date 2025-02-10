@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4220622093020230323}
   - component: {fileID: 2859202016703500627}
   - component: {fileID: 9153408440643260791}
-  - component: {fileID: -6772888320800246035}
+  - component: {fileID: 4100663588324487168}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -144,9 +144,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityId: 
-  status:
-    health: 1000
-    maxHealth: 1000
+  health: 0
+  maxHealth: 0
+  attack: 0
+  defense: 0
+  speed: 0
   parent: {fileID: 0}
 --- !u!114 &2442559022297014597
 MonoBehaviour:
@@ -160,6 +162,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5581741d49ffd42b7fb5dcf8c4a607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityId: 
+  health: 0
+  maxHealth: 0
+  attack: 0
+  defense: 0
+  speed: 0
+  parent: {fileID: 0}
   state: 0
   isGrounded: 0
   status: {fileID: 0}
@@ -168,6 +177,7 @@ MonoBehaviour:
   sideWallDistance: 1.0625
   inventory: {fileID: 0}
   drill: {fileID: 0}
+  entityController: {fileID: 0}
 --- !u!114 &6532384969457569552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +194,6 @@ MonoBehaviour:
   isClimb: 0
   isSideWall: 0
   gravityScale: 2.5
-  speed: 250
   climbSpeed: 250
   jumpForce: 650
   fallForce: 200
@@ -204,7 +213,6 @@ MonoBehaviour:
   oxygen: 100
   maxOxygen: 100
   minOxygen: 0
-  isDie: 0
   _oxygenRecovery: 100
   _oxygenConsume: 1
   hungry: 100
@@ -342,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7206afdf399caf4ab1dcf811ccf7170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6772888320800246035
+--- !u!114 &4100663588324487168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9fe78d2ab77704cad95cce2b2ac246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 10000
+  gold: 100000
 --- !u!1 &1444686428981919571
 GameObject:
   m_ObjectHideFlags: 0
