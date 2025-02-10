@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2575898860443185257}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -55,6 +55,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,12 +82,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8759322438531082122, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
+  m_Sprite: {fileID: -1306664058038191922, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.6875, y: 2.6875}
+  m_Size: {x: 5.6875, y: 1.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -147,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 11400000, guid: a19b9d4fedc0139469a33a1622c90597, type: 2}
+  entityId: 
   status:
     health: 0
     maxHealth: 0
@@ -160,6 +163,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2575898860443185257}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -183,23 +187,23 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 1.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4835165, y: 0}
+    pivot: {x: 0.49450552, y: 0.050000004}
     oldSize: {x: 5.6875, y: 1.25}
-    newSize: {x: 5.6875, y: 2.6875}
+    newSize: {x: 5.6875, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!50 &7914056794958880702
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -210,8 +214,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -236,4 +240,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036911c78185e8e429182d9ed843b925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tent: {fileID: 0}
+  tent: {fileID: 8980031124683800915, guid: 5661c65bdcb96c0468db114d8ecd7846, type: 3}

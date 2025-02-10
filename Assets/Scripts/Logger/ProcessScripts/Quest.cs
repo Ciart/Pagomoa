@@ -132,7 +132,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             var inventoryItems = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
             foreach (var inventoryItem in inventoryItems)
             {
-                if (inventoryItem.GetSlotItem().id == targetId)
+                if (inventoryItem.GetSlotItemID() == targetId)
                 {
                     _prevValue = inventoryItem.GetSlotItemCount();
                     break;
