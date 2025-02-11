@@ -76,8 +76,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         public void StartDialogue()
         {
             Debug.Log(_entityQuests.Length);
-            var questManager = QuestManager.instance;
-            var dialogueManager = DialogueManager.instance;
+            var questManager = Game.Instance.Quest;
+            var dialogueManager = Game.Instance.Dialogue;
             var icon = transform.GetComponentInChildren<QuestCompleteIcon>();
 
             if (icon)
@@ -116,8 +116,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void OnEnable()
         {
             if(!_hasInit) return;
-         
-            var questManager = QuestManager.instance;
             
             EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
             
@@ -125,13 +123,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             if (_entityController == null) return;
             var entityId = _entityController.entityId;
             
-            if (questManager is null) return;
-            
-            _entityQuests = questManager.database.GetEntityQuestsByEntity(entityId);
+            _entityQuests = ResourceSystem.instance.GetQuests(entityId);
+            Debug.Log(_entityQuests.Length);
 
             if (_entityQuests == Array.Empty<QuestData>()) return; 
             
-            var hasCompletedQuest = questManager.FindCompletedQuest(_entityQuests);
+            var hasCompletedQuest = Game.Instance.Quest.FindCompletedQuest(_entityQuests);
             if (hasCompletedQuest)
             {
                 _questCompleteUI.SetActive(true);

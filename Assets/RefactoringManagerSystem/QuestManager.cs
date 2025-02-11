@@ -52,8 +52,8 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
-            if (!string.IsNullOrEmpty(reward.itemId)) {
-                var rewardItem = ResourceSystem.instance.GetItem(reward.itemId);
+            if (!string.IsNullOrEmpty(reward.itemID)) {
+                var rewardItem = ResourceSystem.instance.GetItem(reward.itemID);
                 EventManager.Notify(new AddReward(rewardItem, reward.value));
             }
 

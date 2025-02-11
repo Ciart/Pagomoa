@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
 {
-    [CreateAssetMenu(menuName = "MakeQuest")]
+    [CreateAssetMenu(menuName = "new Quest")]
+    [Serializable]
     public class QuestData : ScriptableObject
     {
         [SerializeField] public string id;
@@ -26,7 +28,7 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     public class Reward
     {
         public int gold;
-        public string itemId;
+        public string itemID;
         public Sprite itemSprite;
         public int value;
     }

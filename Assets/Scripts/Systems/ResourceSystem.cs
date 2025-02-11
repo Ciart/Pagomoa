@@ -5,7 +5,11 @@ using System.Linq;
 using System.Reflection;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Items;
+using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Worlds;
+using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [Serializable]
@@ -46,6 +50,8 @@ namespace Ciart.Pagomoa.Systems
         private Dictionary<string, Mineral> minerals = new();
 
         private Dictionary<string, Entity> entities = new();
+        
+        private Dictionary<string, List<QuestData>> matchQuests = new();
 
         public static ResourceSystem instance { get; private set; }
 
@@ -117,6 +123,35 @@ namespace Ciart.Pagomoa.Systems
             {
                 entities.Add(entity.id, entity);
                 entity.Init();
+            }
+        }
+
+        private void LoadMatchQuests()
+        {
+            var text = Resources.Load<TextAsset>("Quests");
+            var data = JsonUtility.FromJson<MatchData>(text.text);
+            var questData = Resources.LoadAll<QuestData>("Quests");
+            var prevMatch = string.Empty;
+            
+            foreach (var match in data.data)
+            {
+                if (prevMatch != match.owner)
+                    matchQuests.Add(match.owner, new List<QuestData>());
+                prevMatch = match.owner;
+                
+                foreach (var quest in questData)
+                {
+                    if (quest.id == match.id)
+                        matchQuests[match.owner].Add(quest);
+                }
+            }
+
+            foreach (var match in matchQuests)
+            {
+                foreach (var t in match.Value)
+                {
+                    Debug.Log($"Key : {match.Key}, Value : {t}");
+                }
             }
         }
 
@@ -220,6 +255,16 @@ namespace Ciart.Pagomoa.Systems
             throw new Exception($"ResourceSystem: GetEntity - '{id}' is not found");
         }
 
+        public QuestData[] GetQuests(string id)
+        {
+            if (matchQuests.TryGetValue(id, out var quests))
+            {
+                return quests.ToArray();
+            }
+            
+            throw new Exception($"ResourceSystem: GetQuest - '{id}'s quests are not found");
+        }
+        
         private void Init()
         {
             items = new Dictionary<string, Item>();
@@ -227,10 +272,12 @@ namespace Ciart.Pagomoa.Systems
             grounds = new Dictionary<string, Ground>();
             minerals = new Dictionary<string, Mineral>();
             entities = new Dictionary<string, Entity>();
+            matchQuests = new Dictionary<string, List<QuestData>>();
 
             LoadItems();
             LoadBricks();
             LoadEntities();
+            LoadMatchQuests();
         }
 
         private void Awake()

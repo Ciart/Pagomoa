@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.BeginVertical("퀘스트 설명", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuestData.title = EditorGUILayout.TextField("퀘스트 제목", newQuestData.title);
-            newQuestData.description = EditorGUILayout.TextField("퀘스트 설명", newQuestData.description);
+            newQuestData.description = EditorGUILayout.TextField("퀘스트 설명", newQuestData.description, GUILayout.MinHeight(100));
             GUILayout.EndVertical();
 
             GUILayout.Space(20);
@@ -74,7 +74,7 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuestData.reward.gold = EditorGUILayout.IntField("보상 골드", newQuestData.reward.gold);
-            newQuestData.reward.itemId = EditorGUILayout.TextField("보상 아이템", newQuestData.reward.itemId);
+            newQuestData.reward.itemID = EditorGUILayout.TextField("보상 아이템", newQuestData.reward.itemID);
             newQuestData.reward.itemSprite = (Sprite)EditorGUILayout.ObjectField("보상 아이템 sprite", newQuestData.reward.itemSprite, typeof(Sprite), true);
             newQuestData.reward.value = EditorGUILayout.IntField("엔티티 보상 개수", newQuestData.reward.value);
             GUILayout.EndVertical();

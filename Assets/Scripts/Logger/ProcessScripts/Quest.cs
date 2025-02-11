@@ -18,12 +18,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     }
     public class Quest : IDisposable
     {
-        public string id;
-        public string description;
-        public string title;
-        public Reward reward;
-        public List<IQuestElements> conditions;
-        public Sprite npcSprite;
+        public string id {get; private set;}
+        public string description {get; private set;}
+        public string title {get; private set;}
+        public Reward reward {get; private set;}
+        public readonly List<IQuestElements> conditions;
+        public Sprite npcSprite {get; private set;}
         public QuestState state;
         public float progress;
         

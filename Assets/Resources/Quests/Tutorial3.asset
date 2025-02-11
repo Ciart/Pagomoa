@@ -21,14 +21,14 @@ MonoBehaviour:
   completePrologue: {fileID: 4900000, guid: 47b2d6f19cbadcc4693ca8f1f8619ce3, type: 3}
   reward:
     gold: 1000
-    targetEntity: {fileID: 0}
-    targetEntitySprite: {fileID: 0}
+    itemId: 
+    itemSprite: {fileID: 0}
     value: 0
   questList:
   - questType: 0
     summary: "\uD150\uD2B8 \uC218\uB9AC"
     value: 1
-    targetEntity: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+    targetId: 
     conditionType:
       target: 1
       typeValue: int
