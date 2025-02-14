@@ -53,18 +53,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void QuestAccept(string id)
         {
-            var questManager = QuestManager.instance;
-
             var entityId = _entityController.entityId;
             
-            questManager.RegistrationQuest(portrait, entityId, id);
+            Game.Instance.Quest.RegistrationQuest(portrait, entityId, id);
         }
 
         public void QuestComplete(string id)
         {
-            var questManager = QuestManager.instance;
-
-            questManager.CompleteQuest(id);
+            Game.Instance.Quest.CompleteQuest(id);
 
             var questEvent = _entityController.GetComponent<IQuestEvent>();
 
@@ -75,7 +71,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void StartDialogue()
         {
-            Debug.Log(_entityQuests.Length);
             var questManager = Game.Instance.Quest;
             var dialogueManager = Game.Instance.Dialogue;
             var icon = transform.GetComponentInChildren<QuestCompleteIcon>();

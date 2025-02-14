@@ -8,6 +8,7 @@ using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Ciart.Pagomoa.Editor
 {
@@ -20,7 +21,7 @@ namespace Ciart.Pagomoa.Editor
         private readonly string[] _questList = new string[Enum.GetValues(typeof(QuestType)).Length];
         private readonly ConditionDictionary _conditionDic = new();
         private readonly string[] _boolList = { "false", "true" };
-
+        
         public override void OnInspectorGUI()
         {
             QuestData newQuestData = (QuestData)target;
@@ -66,7 +67,9 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.BeginVertical("퀘스트 설명", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuestData.title = EditorGUILayout.TextField("퀘스트 제목", newQuestData.title);
-            newQuestData.description = EditorGUILayout.TextField("퀘스트 설명", newQuestData.description, GUILayout.MinHeight(100));
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("퀘스트 설명");
+            newQuestData.description = EditorGUILayout.TextArea(newQuestData.description, GUILayout.Height(100));
             GUILayout.EndVertical();
 
             GUILayout.Space(20);
@@ -145,25 +148,27 @@ namespace Ciart.Pagomoa.Editor
                 GUILayout.BeginVertical($"{i + 1}번째 퀘스트 목록", new GUIStyle(GUI.skin.window));
 
                 EditorGUILayout.LabelField("퀘스트 타입", newQuestData.questList[i].questType.ToString());
-
+                GUILayout.Space(10);
+                newQuestData.questList[i].summary = EditorGUILayout.TextField("퀘스트 설명", newQuestData.questList[i].summary);
+                EditorGUILayout.LabelField("타입 값", newQuestData.questList[i].conditionType.typeValue);
+                
                 switch (newQuestData.questList[i].questType)
                 {
                     case QuestType.CollectItem:
+                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"수집할 아이템 ID"
+                            , newQuestData.questList[i].targetId);
+                        break;
                     case QuestType.ConsumeItem:
                     case QuestType.UseItem:
-                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"타겟 ID {newQuestData.questList[i].conditionType.target}"
+                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"사용할 아이템 ID"
                             , newQuestData.questList[i].targetId);
                         break;
                     case QuestType.BreakBlock:
-                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"타겟 ID {newQuestData.questList[i].conditionType.target}"
+                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"파괴할 블럭 ID"
                             , newQuestData.questList[i].targetId);
                         break;
                 }
-
-                EditorGUILayout.LabelField("타입 값", newQuestData.questList[i].conditionType.typeValue);
-
-                newQuestData.questList[i].summary = EditorGUILayout.TextField("퀘스트 설명", newQuestData.questList[i].summary);
-
+                
                 if (newQuestData.questList[i].conditionType.typeValue == "int")
                 {
                     newQuestData.questList[i].value = EditorGUILayout.TextField("수행할 목표 값", newQuestData.questList[i].value);

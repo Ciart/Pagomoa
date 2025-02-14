@@ -10,15 +10,15 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     [Serializable]
     public class QuestData : ScriptableObject
     {
-        [SerializeField] public string id;
-        [SerializeField] public List<string> prevQuestIds = new();
-        [SerializeField] public string title;
-        [TextArea, SerializeField] public string description;
+        public string id;
+        public List<string> prevQuestIds = new();
+        public string title;
+        [TextArea] public string description;
         
-        [SerializeField] public TextAsset startPrologue;
-        [SerializeField] public TextAsset completePrologue;
+        public TextAsset startPrologue;
+        public TextAsset completePrologue;
         
-        [SerializeField] public Reward reward = new();
+        public Reward reward = new();
         
         public List<QuestConditionData> questList = new List<QuestConditionData>();
         public List<QuestData> prevQuestData = new List<QuestData>();
@@ -27,9 +27,9 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     [Serializable]
     public class Reward
     {
-        public int gold;
-        public string itemID;
-        public Sprite itemSprite;
-        public int value;
+        public int gold = 0;
+        public string itemID = "";
+        public Sprite itemSprite = null;
+        public int value = 0;
     }
 }

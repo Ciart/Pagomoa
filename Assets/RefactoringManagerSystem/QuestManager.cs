@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
         public void RegistrationQuest(Sprite npcSprite, string entityId, string questId)
         {
-            var targetQuests = database.GetEntityQuestsByEntity(entityId);
+            var targetQuests = ResourceSystem.instance.GetQuests(entityId);
 
             foreach (var quest in targetQuests)
             {
