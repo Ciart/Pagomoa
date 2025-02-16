@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             inventory.EquipArtifact(inventorySlotUI);
             
-            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
+            Game.Instance.UI.bookUI.GetRightClickMenu().DeleteMenu();
         }
         
         public void UnEquipArtifact()
@@ -27,7 +27,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = Game.Instance.player.inventory;
             inventory.UnEquipArtifact(inventorySlotUI);
             
-            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
+            Game.Instance.UI.bookUI.GetRightClickMenu().DeleteMenu();
         }
         
         public void EatMineral(int count)
@@ -37,7 +37,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID(), mineralCount);
             
-            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
+            Game.Instance.UI.bookUI.GetRightClickMenu().DeleteMenu();
         }
 
         public void UseItem()
@@ -45,21 +45,22 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
             
-            if (targetSlot == null) return;
             if (inventorySlotUI.GetSlotType() != SlotType.Inventory) return;
             
-            targetSlot.GetSlotItem().DisplayUseEffect();
-            inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID());
+            var slotItem = targetSlot.GetSlotItem(); 
+            if (slotItem == null) return; 
             
-            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
+            slotItem.DisplayUseEffect();
+            if (slotItem.type == ItemType.Use)
+                inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID());
+            
+            Game.Instance.UI.bookUI.GetRightClickMenu().DeleteMenu();
         }
         
         public void AbandonItem()
         {
             var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
-            
-            if (targetSlot == null) return;
             
             if (targetSlot.GetItemType() != ItemType.Equipment ||
                 targetSlot.GetItemType() != ItemType.Inherent)
@@ -70,7 +71,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 }
             }
             
-            UIManager.instance.bookUI.GetRightClickMenu().DeleteMenu();
+            Game.Instance.UI.bookUI.GetRightClickMenu().DeleteMenu();
         }
     }
 }

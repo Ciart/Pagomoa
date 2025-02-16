@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Logger.ForEditorBaseScripts
 {
@@ -8,11 +9,11 @@ namespace Logger.ForEditorBaseScripts
     {
         public QuestType questType;
         
-        public string summary;
+        public string summary = "";
         
-        public string value;
+        public string value = "";
 
-        public String targetId;
+        public string targetID = "";
 
         public ConditionType conditionType;
     }

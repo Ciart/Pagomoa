@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
 
         private void ChangeGold(AddGold e) { AddGold(e.gold); }
-        private void AddReward(AddReward e) { AddInventory(e.item.id, e.itemCount); }
+        private void AddReward(AddReward e) { AddInventory(e.itemID, e.itemCount); }
         private void AddGold(int addGold) { gold += addGold; }
     }
 
@@ -184,14 +184,15 @@ namespace Ciart.Pagomoa.Systems.Inventory
             gold += _inventoryData[targetSlot.GetSlotID()].GetSlotItem().price;
             DecreaseItemBySlotID(targetSlot.GetSlotID());
 
-            UIManager.instance.UpdateGoldUI();
+            Game.Instance.UI.UpdateGoldUI();
         }
 
         public void DecreaseItemBySlotID(int targetSlotID, int itemCount = 1)
         {
             var inventorySlot = _inventoryData[targetSlotID];
             var count = inventorySlot.GetSlotItemCount() - itemCount;
-
+            var slotItemID = inventorySlot.GetSlotItemID();
+            
             if (count >= 1)
             {
                 _inventoryData[targetSlotID].SetSlotItemCount(count);
@@ -216,7 +217,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 accItemCount += _inventoryData[slotID].GetSlotItemCount();
             }
             EventManager.Notify(new UpdateInventory());
-            EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
+            EventManager.Notify(new ItemCountChangedEvent(slotItemID, accItemCount));
+            EventManager.Notify(new ItemUsedEvent(slotItemID, accItemCount));
         }
 
         public void RemoveItem(ISlot targetSlot)

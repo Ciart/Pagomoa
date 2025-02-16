@@ -73,6 +73,13 @@
       "name": "역겨운 배의 피",
       "description": "아찔한 낸새가 코를 찌른다.",
       "price": 1000
+    },
+    {
+      "type": 4,
+      "id": "TentRepairKit",
+      "name": "텐트 수리 키트",
+      "description": "정상 영업 합니다.",
+      "price": 500
     }
   ]
 }

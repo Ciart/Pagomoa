@@ -14,8 +14,6 @@ namespace Ciart.Pagomoa
     {
         [SerializeField] private GameObject tent;
         
-        
-
         public void CompleteEvent()
         {
             RepairTent();

@@ -454,7 +454,7 @@ MonoBehaviour:
   - AbyssLantern
   - Cookie
   - MoleGloves
-  - AwfulSnakeBlood
+  - TentRepairKit
 --- !u!114 &306791841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,7 +795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldDatabase: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
-  questDatabase: {fileID: 1232868278}
   itemEntity: {fileID: 9201767070594165824, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
   particles:
   - {fileID: 4929765826255280206, guid: 393d5baa459e72a4a88a9efa8bed9d64, type: 3}
@@ -1818,7 +1817,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018746305}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64ea6ca038b3465fb046235522b3dc95, type: 3}
   m_Name: 
@@ -2172,58 +2171,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
---- !u!1 &1232868273
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1232868277}
-  - component: {fileID: 1232868278}
-  m_Layer: 0
-  m_Name: QuestData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1232868277
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232868273}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.38, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1232868278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232868273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71835b2ca574a3ba1add1929b4d07a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapEntityQuests:
-  - entity: {fileID: 1709861990}
-    entityQuests:
-    - {fileID: 11400000, guid: 083889d6c4cf1c34981e076dd0304b69, type: 2}
-  - entity: {fileID: 398867004004853786}
-    entityQuests:
-    - {fileID: 11400000, guid: 4db044733ef049f4e939b7199b0ab234, type: 2}
-    - {fileID: 11400000, guid: 523dfe6de930c5e4eb84d772f02fa525, type: 2}
 --- !u!1 &1247752221
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,17 +2915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd4ef1d35e0ce742828b399508b3ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1709861990 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8479840956492563226, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
-  m_PrefabInstance: {fileID: 7878045993923659085}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1793737717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3039,9 +2975,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityId: 
-  status:
-    health: 100
-    maxHealth: 100
+  health: 0
+  maxHealth: 0
+  attack: 0
+  defense: 0
+  speed: 0
   parent: {fileID: 0}
 --- !u!1 &1979542731
 GameObject:
@@ -3400,10 +3338,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3342775027776304295, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
+      propertyPath: entityId
+      value: Moa
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533922381019219248, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: ebc7cba58a6d22f499ef6dbb9781d633, type: 3}
     - target: {fileID: 3533922381019219248, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
       propertyPath: basicDialogue
       value: 
-      objectReference: {fileID: 4900000, guid: 1c9b8edb55ffe224fabd23cc5004317c, type: 3}
+      objectReference: {fileID: 4900000, guid: 36fb84424f5fe6f45b6938d663d1cd82, type: 3}
+    - target: {fileID: 3533922381019219248, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
+      propertyPath: dailyDialogues
+      value: 
+      objectReference: {fileID: 11400000, guid: 09ec98392b38c1a4799f096c95ca3b98, type: 2}
     - target: {fileID: 5067004438659504450, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.21
@@ -3461,17 +3411,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
---- !u!114 &398867004004853786 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3342775027776304295, guid: 3647f9caef915e1478729a83dd442f48, type: 3}
-  m_PrefabInstance: {fileID: 398867004004853785}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2380287356156771475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3961,6 +3900,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BrokenTent
       objectReference: {fileID: 0}
+    - target: {fileID: 2575898860443185257, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2714556791889967317, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -4001,6 +3944,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6950832595882012785, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: -1306664058038191922, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
+    - target: {fileID: 6950832595882012785, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: basicDialogue
+      value: 
+      objectReference: {fileID: 4900000, guid: 3d50a0b1f341adc428ac5577dc0128b7, type: 3}
+    - target: {fileID: 8479840956492563226, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: entityId
+      value: BrokenTent
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4013,7 +3968,6 @@ SceneRoots:
   - {fileID: 1520502531}
   - {fileID: 409812967}
   - {fileID: 1018746307}
-  - {fileID: 1232868277}
   - {fileID: 1517881707}
   - {fileID: 407164513}
   - {fileID: 1332227802}

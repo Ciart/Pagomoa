@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
@@ -37,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         
         public QuestData[] GetValidationQuests()
         { 
-            var questManager = QuestManager.instance; 
+            var questManager = Game.Instance.Quest; 
             var result = new List<QuestData>();
 
             foreach (var quest in _entityQuests)
@@ -53,18 +54,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void QuestAccept(string id)
         {
-            var questManager = QuestManager.instance;
-
             var entityId = _entityController.entityId;
             
-            questManager.RegistrationQuest(portrait, entityId, id);
+            Game.Instance.Quest.RegistrationQuest(portrait, entityId, id);
         }
 
         public void QuestComplete(string id)
         {
-            var questManager = QuestManager.instance;
-
-            questManager.CompleteQuest(id);
+            Game.Instance.Quest.CompleteQuest(id);
 
             var questEvent = _entityController.GetComponent<IQuestEvent>();
 
@@ -75,9 +72,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public void StartDialogue()
         {
-            Debug.Log(_entityQuests.Length);
-            var questManager = QuestManager.instance;
-            var dialogueManager = DialogueManager.instance;
+            var questManager = Game.Instance.Quest;
+            var dialogueManager = Game.Instance.Dialogue;
             var icon = transform.GetComponentInChildren<QuestCompleteIcon>();
 
             if (icon)
@@ -116,22 +112,20 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void OnEnable()
         {
             if(!_hasInit) return;
-         
-            var questManager = QuestManager.instance;
             
             EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
             
             _entityController = GetComponent<EntityController>();
             if (_entityController == null) return;
             var entityId = _entityController.entityId;
-            
-            if (questManager is null) return;
-            
-            _entityQuests = questManager.database.GetEntityQuestsByEntity(entityId);
 
-            if (_entityQuests == Array.Empty<QuestData>()) return; 
+            var quests = ResourceSystem.instance.GetQuests(entityId);
+            if (quests == null) return;
+            _entityQuests = quests;
+
+            DebugCheck(); // TODO : 디버그용 함수
             
-            var hasCompletedQuest = questManager.FindCompletedQuest(_entityQuests);
+            var hasCompletedQuest = Game.Instance.Quest.FindCompletedQuest(_entityQuests);
             if (hasCompletedQuest)
             {
                 _questCompleteUI.SetActive(true);
@@ -142,5 +136,40 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             EventManager.RemoveListener<QuestCompleted>(OnCompleteQuestsUpdated);
         }
+#if UNITY_EDITOR
+        private void DebugCheck()
+        {
+            foreach (var quest in _entityQuests)
+            {
+                if (quest.id == "")
+                    throw new Exception($"Quest name of {quest.name}'s quest ID is empty. Check Please.");
+                if (quest.title == "")
+                    throw new Exception($"Quest name of {quest.name}'s title is empty. Check Please.");
+                if (quest.description == "")
+                    throw new Exception($"Quest name of {quest.name}'s description is empty. Check Please.");
+                if (!quest.startPrologue)
+                    throw new Exception($"Quest name of {quest.name}'s quest start dialogue is null. Check Please.");
+                if (!quest.completePrologue)
+                    throw new Exception($"Quest name of {quest.name}'s quest complete Dialogue is null. Check Please.");
+                if (quest.reward.gold <= 0)
+                    throw new Exception($"Quest name of {quest.name}'s reward gold is under 0. Is it right?");
+                if (quest.reward.itemID == "")
+                    throw new Exception($"Quest name of {quest.name}'s reward item ID is empty. Is it right?");
+                if (!quest.reward.itemSprite)
+                    throw new Exception($"Quest name of {quest.name}'s reward item sprite is null. Is it right?");
+                if (quest.reward.value <= 0)
+                    throw new Exception($"Quest name of {quest.name}'s reward item count id under 0. Is it right?");
+                foreach (var condition in quest.questList)
+                {
+                    if (condition.summary == "")
+                        throw new Exception($"Quest name of {quest.name} summary is empty that in {condition.questType}");
+                    if (condition.value == "")
+                        throw new Exception($"Quest name of {quest.name} value is empty that in {condition.questType}");
+                    if (condition.targetID == "")
+                        throw new Exception($"Quest name of {quest.name} target ID is empty that in {condition.questType}");
+                }
+            }
+        }
+#endif
     }
 }
