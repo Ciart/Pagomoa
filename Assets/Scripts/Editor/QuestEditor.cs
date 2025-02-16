@@ -25,7 +25,8 @@ namespace Ciart.Pagomoa.Editor
         public override void OnInspectorGUI()
         {
             QuestData newQuestData = (QuestData)target;
-
+            newQuestData.hideFlags = HideFlags.None;
+            
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
             newQuestData.id = EditorGUILayout.TextField("Quest ID", newQuestData.id);
@@ -155,17 +156,17 @@ namespace Ciart.Pagomoa.Editor
                 switch (newQuestData.questList[i].questType)
                 {
                     case QuestType.CollectItem:
-                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"수집할 아이템 ID"
-                            , newQuestData.questList[i].targetId);
+                        newQuestData.questList[i].targetID = EditorGUILayout.TextField($"수집할 아이템 ID"
+                            , newQuestData.questList[i].targetID);
                         break;
                     case QuestType.ConsumeItem:
                     case QuestType.UseItem:
-                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"사용할 아이템 ID"
-                            , newQuestData.questList[i].targetId);
+                        newQuestData.questList[i].targetID = EditorGUILayout.TextField($"사용할 아이템 ID"
+                            , newQuestData.questList[i].targetID);
                         break;
                     case QuestType.BreakBlock:
-                        newQuestData.questList[i].targetId = EditorGUILayout.TextField($"파괴할 블럭 ID"
-                            , newQuestData.questList[i].targetId);
+                        newQuestData.questList[i].targetID = EditorGUILayout.TextField($"파괴할 블럭 ID"
+                            , newQuestData.questList[i].targetID);
                         break;
                 }
                 
@@ -211,7 +212,7 @@ namespace Ciart.Pagomoa.Editor
                 GUILayout.EndVertical();
                 GUILayout.Space(10);
             }
-
+            
             EditorUtility.SetDirty(newQuestData);
         }
     }

@@ -12,7 +12,6 @@ namespace Ciart.Pagomoa
     {
         public WorldDatabase GetWorldData();
         public ItemEntity GetItemEntity();
-        public QuestDatabase GetQuestData();
         public List<GameObject> GetParticles();
         public AudioSource GetAudioSource();
         public AudioSource[] GetSfxSources();
@@ -23,9 +22,6 @@ namespace Ciart.Pagomoa
     {
         [Header("World Data")]
         [SerializeField] private WorldDatabase worldDatabase;
-        
-        [Header("Quest Data")]
-        [SerializeField] private QuestDatabase questDatabase;
 
         [Header("ItemEntity Data")]
         [SerializeField] private ItemEntity itemEntity;
@@ -60,7 +56,6 @@ namespace Ciart.Pagomoa
         
         public WorldDatabase GetWorldData() { return worldDatabase; }
         public ItemEntity GetItemEntity() { return itemEntity; }
-        public QuestDatabase GetQuestData() { return questDatabase; }
         public List<GameObject> GetParticles() { return particles; }
         public AudioSource GetAudioSource() { return musicSource; }
         public AudioSource[] GetSfxSources() { return sfxSources; }

@@ -145,14 +145,6 @@ namespace Ciart.Pagomoa.Systems
                         matchQuests[match.owner].Add(quest);
                 }
             }
-
-            foreach (var match in matchQuests)
-            {
-                foreach (var t in match.Value)
-                {
-                    Debug.Log($"Key : {match.Key}, Value : {t}");
-                }
-            }
         }
 
         public List<string> GetItemIds()
@@ -255,14 +247,14 @@ namespace Ciart.Pagomoa.Systems
             throw new Exception($"ResourceSystem: GetEntity - '{id}' is not found");
         }
 
-        public QuestData[] GetQuests(string id)
+        public QuestData[]? GetQuests(string id)
         {
             if (matchQuests.TryGetValue(id, out var quests))
             {
                 return quests.ToArray();
             }
-            
-            throw new Exception($"ResourceSystem: GetQuest - '{id}'s quests are not found");
+
+            return null;
         }
         
         private void Init()

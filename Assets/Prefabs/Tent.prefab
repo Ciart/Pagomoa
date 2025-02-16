@@ -54,6 +54,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 348068520038460390, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
+  m_Sprite: {fileID: -270781315454099631, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,9 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460fe55a96245c54994795816d33e40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicDialogue: {fileID: 4900000, guid: 2917720dd06856745b9a14685ba6761c, type: 3}
+  basicDialogue: {fileID: 4900000, guid: 0875881becce03341825d3007bace9df, type: 3}
   dailyDialogues: {fileID: 11400000, guid: bd21f2b850652454288c37febf83128d, type: 2}
-  portrait: {fileID: 348068520038460390, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
+  portrait: {fileID: -270781315454099631, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
   uiOffset: {x: 0, y: 3.2, z: 0}
 --- !u!114 &1727882895028079166
 MonoBehaviour:
@@ -146,10 +149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 11400000, guid: e0fac715c9018584aae235e351a32b45, type: 2}
-  status:
-    health: 0
-    maxHealth: 0
+  entityId: Tent
+  health: 0
+  maxHealth: 0
+  attack: 0
+  defense: 0
+  speed: 0
   parent: {fileID: 0}
 --- !u!61 &8176925477701493338
 BoxCollider2D:
@@ -159,6 +164,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8980031124683800915}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -182,23 +188,23 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 1.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4835165, y: 0}
+    pivot: {x: 0.49450552, y: 0.023255816}
     oldSize: {x: 5.6875, y: 2.6875}
     newSize: {x: 5.6875, y: 2.6875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!50 &4538430060086457799
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -209,8 +215,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

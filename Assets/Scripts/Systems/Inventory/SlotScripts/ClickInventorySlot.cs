@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            var inventory = Game.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
             
             if (eventData.button == PointerEventData.InputButton.Left)
             {
@@ -37,10 +37,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             if (targetSlot.GetSlotItemID() == "") return;
             
-            var hover = UIManager.instance.bookUI.GetHoverItemInfo();
+            var hover = Game.Instance.UI.bookUI.GetHoverItemInfo();
             if (hover.isActiveAndEnabled) hover.gameObject.SetActive(false);
             
-            var rightClickMenu = UIManager.instance.bookUI.GetRightClickMenu();
+            var rightClickMenu = Game.Instance.UI.bookUI.GetRightClickMenu();
             rightClickMenu.DeleteMenu();
             rightClickMenu.transform.position = _inventorySlotUI.transform.position;
             rightClickMenu.SetClickedSlot(_inventorySlotUI);
@@ -69,7 +69,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventory = Game.Instance.player.inventory;
             var targetSlot = inventory.FindSlot(SlotType.Inventory, _inventorySlotUI.GetSlotID());
             
-            if (targetSlot == null) return;
             if (targetSlot.GetSlotItemID() == "") return;
             
             DragItem.instance.DragSetImage(targetSlot.GetSlotItem().sprite);

@@ -20,22 +20,18 @@ namespace Ciart.Pagomoa.Systems
         }
         public void SetUI()
         {
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             shopUI.GetShopChat().AwakeChat();
             shopUI.SetShopItemIDs(_auction.GetAuctionItemIDs());
             
             shopUI.gameObject.SetActive(true);
             
-            var timeManager = TimeManager.instance;
-            timeManager.PauseTime();
+            Game.Instance.Time.PauseTime();
         }
         public void OffUI()
         {
-            var timeManager = TimeManager.instance;
-            var shopUI = UIManager.instance.shopUI;
-            
-            timeManager.ResumeTime();
-            shopUI.gameObject.SetActive(false);
+            Game.Instance.Time.ResumeTime();
+            Game.Instance.UI.shopUI.gameObject.SetActive(false);
         }
     }
 }

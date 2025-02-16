@@ -14,20 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: tutorial_3
   prevQuestIds: []
-  title: "\uC800\uCABD \uC7A1\uC774 \uBB34\uB108\uC800\uC11C \uBD24\uB294\uB370 \uB0B4\uC9D1\uC774\uB354\uB77C\uAD6C\uC694,"
-  description: "\uD018\uC2A4\uD2B8 \uC124\uBA85"
+  title: "\uC815\uC0C1 \uC601\uC5C5 \uD569\uB2C8\uB2E4."
+  description: "\uC800\uCABD \uD150\uD2B8\uAC00 \uBB34\uB108\uC84C\uB2E4\uACE0 \uD574\uC11C
+    \uAD6C\uACBD\uD558\uB7EC \uAC14\uC8E0.\n\uD558\uC9C0\uB9CC \uBCF4\uB2C8\uAE4C
+    \uADF8\uAC8C \uC6B0\uB9AC \uC9D1\uC778 \uAC70\uC608\uC694.\n\uBCF4\uC790\uB9C8\uC790
+    \uB208\uBB3C\uC774 \uB0AC\uC5B4\uC694.\r\n\n\uBC24\uC774 \uC624\uAE30 \uC804\uC5D0
+    \uD150\uD2B8\uB97C \uC218\uB9AC\uD558\uBA74 \uC88B\uACA0\uB294\uB370\n\uD150\uD2B8
+    \uC218\uB9AC\uB97C \uD558\uB824\uBA74 \uB3C4\uAD6C\uB97C \uCC3E\uC544\uC57C \uD55C\uB2E4.\n\uBAA8\uBAA8\uAC00
+    \uAC00\uC9C0\uACE0 \uC788\uC744\uC9C0\uB3C4 \uBAA8\uB974\uACA0\uB2E4."
   startPrologue: {fileID: 4900000, guid: f59656191780fe846832d12546098970, type: 3}
   completePrologue: {fileID: 4900000, guid: 47b2d6f19cbadcc4693ca8f1f8619ce3, type: 3}
   reward:
-    gold: 1000
-    itemID: 
-    itemSprite: {fileID: 0}
-    value: 0
+    gold: 300
+    itemID: Cookie
+    itemSprite: {fileID: 21300000, guid: 3ffadcaed375446549bb35f1b4cc775c, type: 3}
+    value: 5
   questList:
   - questType: 0
-    summary: "\uD150\uD2B8 \uC218\uB9AC"
+    summary: "\uD150\uD2B8 \uC218\uB9AC \uD0A4\uD2B8 \uCC3E\uAE30."
     value: 1
-    targetId: 
+    targetID: TentRepairKit
     conditionType:
       target: 1
       typeValue: int

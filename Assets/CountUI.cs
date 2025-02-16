@@ -56,7 +56,7 @@ namespace Ciart.Pagomoa
         
         public void DisableCountUI()
         {
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             shopUI.GetShopChat().CancelChat();
             
             if (_chosenSlot.GetSlotType() == SlotType.Buy)
@@ -83,7 +83,7 @@ namespace Ciart.Pagomoa
         public void BuyPlus()
         {
             var slotID = _chosenSlot.GetSlotID();
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
             
             if (item.type == ItemType.Use)
@@ -98,7 +98,7 @@ namespace Ciart.Pagomoa
         public void BuyMinus()
         {
             var slotID = _chosenSlot.GetSlotID();
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
             
             if (inputCount > 1)
@@ -113,7 +113,7 @@ namespace Ciart.Pagomoa
         {
             var inventory = Game.Instance.player.inventory;
             var slotID = _chosenSlot.GetSlotID();
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
 
             if (item.type == ItemType.Use)
@@ -126,7 +126,7 @@ namespace Ciart.Pagomoa
                     DisableCountUI();
                     
                     inventory.gold -= totalPrice;
-                    UIManager.instance.UpdateGoldUI();
+                    Game.Instance.UI.UpdateGoldUI();
                 }
                 else return;
                 
@@ -142,8 +142,8 @@ namespace Ciart.Pagomoa
                     DisableCountUI();
                     
                     inventory.gold -= totalPrice;
-                    UIManager.instance.UpdateGoldUI();
-                    UIManager.instance.shopUI.GetBuyUI().SoldOut(slotID);
+                    Game.Instance.UI.UpdateGoldUI();
+                    Game.Instance.UI.shopUI.GetBuyUI().SoldOut(slotID);
                 }
                 else
                     return;
@@ -155,7 +155,7 @@ namespace Ciart.Pagomoa
         public void SellPlus()
         {
             var slotID = _chosenSlot.GetSlotID();
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             var inventorySlot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount < inventorySlot.GetSlotItemCount())
@@ -170,7 +170,7 @@ namespace Ciart.Pagomoa
         public void SellMinus()
         {
             var slotID = _chosenSlot.GetSlotID();
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             var inventorySlot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, slotID);
             
             if (inputCount > 1)
@@ -186,7 +186,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var inventory = Game.Instance.player.inventory;
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             var inventorySlot = inventory.FindSlot(SlotType.Inventory, slotID);
             
             for (int i = 0; i < inputCount; i++)
@@ -196,8 +196,8 @@ namespace Ciart.Pagomoa
                     inventory.SellItem(_chosenSlot);
                 }
                 
-                UIManager.instance.shopUI.GetSellUI().ClearSellUISlot();
-                UIManager.instance.shopUI.GetSellUI().UpdateSellUISlot();
+                Game.Instance.UI.shopUI.GetSellUI().ClearSellUISlot();
+                Game.Instance.UI.shopUI.GetSellUI().UpdateSellUISlot();
             }
             
             if (inventorySlot.GetSlotItemCount() == 0)

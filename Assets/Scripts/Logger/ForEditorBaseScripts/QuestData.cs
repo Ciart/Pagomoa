@@ -10,13 +10,13 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     [Serializable]
     public class QuestData : ScriptableObject
     {
-        public string id;
+        public string id = "";
         public List<string> prevQuestIds = new();
-        public string title;
-        [TextArea] public string description;
+        public string title = "";
+        [TextArea] public string description = "";
         
-        public TextAsset startPrologue;
-        public TextAsset completePrologue;
+        public TextAsset startPrologue = null;
+        public TextAsset completePrologue = null;
         
         public Reward reward = new();
         

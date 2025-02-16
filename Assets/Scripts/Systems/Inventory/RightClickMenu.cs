@@ -209,7 +209,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (eventData.fullyExited) 
+            if (eventData.fullyExited)
                 DeleteMenu();
         }
     }

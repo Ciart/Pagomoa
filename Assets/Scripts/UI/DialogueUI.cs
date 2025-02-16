@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Ciart.Pagomoa.Systems;
 
 namespace Ciart.Pagomoa
 {
@@ -176,7 +177,7 @@ namespace Ciart.Pagomoa
                         }
                         else
                         {
-                            if (!DialogueManager.instance.ExecuteCommand(param))
+                            if (!Game.Instance.Dialogue.ExecuteCommand(param))
                             {
                                 Debug.LogError("Dialogue command not found : " + param);
                             }
