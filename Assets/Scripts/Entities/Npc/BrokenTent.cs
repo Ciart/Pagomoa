@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 
 namespace Ciart.Pagomoa
 {
     public interface IQuestEvent
     {
-        public void CompleteEvent();
+        public void CompleteEvent(string questId);
     }
     
     public class BrokenTent : MonoBehaviour, IQuestEvent
     {
+        private const string RepairTentQuestID = "tutorial_3";
+        
         [SerializeField] private GameObject tent;
         
-        public void CompleteEvent()
+        public void CompleteEvent(string questID)
         {
-            RepairTent();
+            if (RepairTentQuestID == questID)
+                RepairTent();
         }
             
         private void RepairTent()
