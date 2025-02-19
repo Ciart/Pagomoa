@@ -152,9 +152,9 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public bool Hungry(float value)
         {
-            if (status.hungry - value < 0) return true;
-            status.hungry -= value;
-            status.hungryAlter.Invoke(status.hungry, status.maxHungry);
+            if (status.Hungry - value < 0) return true;
+            status.Hungry -= value;
+            status.hungryAlter.Invoke(status.Hungry, status.maxHungry);
             return false;
         }
 
@@ -173,7 +173,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
 
-            status.oxygen = status.maxOxygen;
+            status.Oxygen = status.maxOxygen;
         }
 
         private void LoseMoney(float percentage)
@@ -237,9 +237,9 @@ namespace Ciart.Pagomoa.Entities.Players
             var entity = ResourceSystem.instance.GetEntity(entityController.entityId);
 
             maxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
-            attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
-            defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
-            speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;
+            Attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
+            Defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
+            Speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;
         }
 
         private void OnDied(EntityDiedEventArgs e)

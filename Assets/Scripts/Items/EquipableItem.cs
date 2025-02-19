@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
@@ -43,10 +43,10 @@ namespace Ciart.Pagomoa.Items
                         playerStatus.oxygenConsume *= keyValuePairs[key];
                         break;
                     case "hungry+":
-                        playerStatus.hungry += keyValuePairs[key];
+                        playerStatus.Hungry += keyValuePairs[key];
                         break;
                     case "hungry%":
-                        playerStatus.hungry *= keyValuePairs[key];
+                        playerStatus.Hungry *= keyValuePairs[key];
                         break;
                     case "hungryRecovery+":
                         playerStatus.hungryRecovery += keyValuePairs[key];

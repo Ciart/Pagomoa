@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Ciart.Pagomoa.UI;
+using TMPro;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -23,7 +24,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public RightClickMenu GetRightClickMenu() => _rightClickMenu;
         [SerializeField] private  HoverItemInfo _hoverItemInfo;
         public HoverItemInfo GetHoverItemInfo() => _hoverItemInfo;
-        
+
         private void OnClickTab(int index)
         {
             for (var i = 0; i < tabItems.Length; i++)

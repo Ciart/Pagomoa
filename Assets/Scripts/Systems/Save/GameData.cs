@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI.Title;
@@ -134,8 +134,8 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void SetCurrentStatusData(PlayerStatus playerStatus)
         {
-            currentOxygen = playerStatus.oxygen;
-            currentHungry = playerStatus.hungry;
+            currentOxygen = playerStatus.Oxygen;
+            currentHungry = playerStatus.Hungry;
         }
     }
 

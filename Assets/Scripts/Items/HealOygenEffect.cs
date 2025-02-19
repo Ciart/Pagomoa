@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Entities.Players;
+﻿using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Items
@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Items
         public int oxygenHealValue;
         public override void Effect(ConsumerableItem item, PlayerStatus stat)
         {
-            stat.oxygen += oxygenHealValue;
+            stat.Oxygen += oxygenHealValue;
         }
     }
 }

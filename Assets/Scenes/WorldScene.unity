@@ -799,6 +799,7 @@ MonoBehaviour:
   particles:
   - {fileID: 4929765826255280206, guid: 393d5baa459e72a4a88a9efa8bed9d64, type: 3}
   - {fileID: 5849672310036749508, guid: eab503777304a3447a1d23f946068d6c, type: 3}
+  - {fileID: 4460523424032526743, guid: 252d2aa91b32a5a4a9f76c5f703ac8ea, type: 3}
   musicSource: {fileID: 1412277325}
   sfxSources:
   - {fileID: 1810940266}

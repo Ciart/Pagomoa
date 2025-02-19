@@ -7,10 +7,13 @@ namespace Ciart.Pagomoa.Systems
     {
         public void Make(int id, GameObject parent, Vector3 position, float duration)
         {
-            var particle = Object.Instantiate(DataBase.data.GetParticles()[id], parent.transform);
-            particle.transform.localPosition = position;
+            GameObject particle;
+
+            particle = Object.Instantiate(DataBase.data.GetParticles()[id]);
+            particle.transform.position = position;
+            
+            //particle.transform.localPosition = position;
             Object.Destroy(particle, duration);
-            //DataBase.data.DestroyData(, duration);
         }
     }
 }

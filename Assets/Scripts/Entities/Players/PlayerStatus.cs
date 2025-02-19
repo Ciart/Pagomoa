@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -11,7 +12,18 @@ namespace Ciart.Pagomoa.Entities.Players
 {
     public class PlayerStatus : MonoBehaviour
     {
-        [Header("# Oxygen")] public float oxygen = 100f;
+        [Header("# Oxygen")] 
+        
+        private float _oxygen = 100f;
+        public float Oxygen
+        {
+            get => _oxygen;
+            set
+            {
+                _oxygen = value > maxOxygen ? maxOxygen : value;
+            }
+        }
+        
         public float maxOxygen = 100f;
         public float minOxygen = 0f;
 
@@ -32,7 +44,14 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
 
-        [Header("# Hungry")] public float hungry = 100f;
+        [Header("# Hungry")] 
+        private float _hungry = 100f;
+        public float Hungry
+        {
+            get => _hungry;
+            set => _hungry = value > maxHungry ? maxHungry : value;
+        }
+
         public float maxHungry = 100f;
         public float minHungry = 0f;
 
@@ -77,9 +96,9 @@ namespace Ciart.Pagomoa.Entities.Players
         public float sight
         {
             get { return _sight; }
-            set { _sight = value; }
+            set { _sight = value; sightChange?.Invoke(); }
         }
-
+        public event Action sightChange;
 
         [Header("# Speed")][SerializeField] protected float _speed = 5;
 
@@ -94,8 +113,9 @@ namespace Ciart.Pagomoa.Entities.Players
         public float digSpeed
         {
             get { return _digSpeed; }
-            set { _digSpeed = value; }
+            set { _digSpeed = value; digSpeedChange?.Invoke(); }
         }
+        public event Action digSpeedChange;
 
 
         [Header("CrawlUp")][SerializeField] protected float _crawlUpSpeed = 100;
@@ -121,20 +141,20 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             var gage = 100f;
 
-            if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
+            if (transform.position.y < World.GroundHeight && _oxygen >= minOxygen)
             {
-                oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
-                gage = oxygen;
-                if (oxygen < minOxygen)
+                _oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
+                gage = _oxygen;
+                if (_oxygen < minOxygen)
                 {
                     _player.entityController.Die();
                     gage = minOxygen;
                 }
             }
-            else if (oxygen < maxOxygen)
+            else if (_oxygen < maxOxygen)
             {
-                oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
-                gage = oxygen;
+                _oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
+                gage = _oxygen;
             }
             oxygenAlter.Invoke(gage, maxOxygen);
         }
@@ -144,7 +164,7 @@ namespace Ciart.Pagomoa.Entities.Players
             if (_player.entityController.isDead) return;
             
             UpdateOxygen();
-            if (oxygen < minOxygen)
+            if (_oxygen < minOxygen)
             {
                 _player.entityController.TakeDamage(10);
             }
