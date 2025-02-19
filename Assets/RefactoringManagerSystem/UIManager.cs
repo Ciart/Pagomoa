@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Systems
         public BookUI bookUI {get; private set;}
         public ShopUI shopUI {get; private set;}
         public QuickUI quickUI {get; private set;}
-        private FadeUI _fadeUI;
+        public FadeUI fadeUI {get; private set;}
         
         public UIContainer GetUIContainer() { return _uiContainer; }
         
@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Systems
             _daySummaryUI = Object.Instantiate(_uiContainer.daySummaryUIPrefab, _uiContainer.transform);
             _daySummaryUI.gameObject.SetActive(false);
 
-            _fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
+            fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
         }
 
         public override void Start()
@@ -142,8 +142,8 @@ namespace Ciart.Pagomoa.Systems
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
         {
-            _fadeUI.gameObject.SetActive(true);
-            _fadeUI.Fade(flag, duration);
+            fadeUI.gameObject.SetActive(true);
+            fadeUI.Fade(flag, duration);
         }
         
         public GameObject CreateInteractableUI(Transform parent)

@@ -25,7 +25,6 @@ namespace Ciart.Pagomoa.Editor
         public override void OnInspectorGUI()
         {
             QuestData newQuestData = (QuestData)target;
-            newQuestData.hideFlags = HideFlags.None;
             
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
@@ -71,8 +70,9 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.Space(10);
             EditorGUILayout.LabelField("퀘스트 설명");
             newQuestData.description = EditorGUILayout.TextArea(newQuestData.description, GUILayout.Height(100));
+            if (string.IsNullOrEmpty(newQuestData.description)) newQuestData.description = "";
             GUILayout.EndVertical();
-
+            
             GUILayout.Space(20);
 
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));

@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             var questEvent = _entityController.GetComponent<IQuestEvent>();
 
-            questEvent?.CompleteEvent();
+            questEvent?.CompleteEvent(id);
             
             _questCompleteUI.SetActive(false);
         }

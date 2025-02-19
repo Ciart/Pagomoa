@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Timelines;
@@ -10,8 +11,9 @@ namespace Ciart.Pagomoa
         public CutScene playableCutScene;
         
         private BoxCollider2D _boxCollider;
-
-        private const string TargetTag = "Player"; 
+        
+        private const string TargetTag = "Player";
+        [SerializeField] private GameObject _shopKeeperPrefab;
         
         void Start()
         {
@@ -34,11 +36,22 @@ namespace Ciart.Pagomoa
 
         private IEnumerator StartFade()
         {
-            UIManager.instance.PlayFadeAnimation(FadeFlag.FadeIn, 1.0f);
+            Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeIn, 1.0f);
 
             yield return new WaitForSeconds(1.0f);
             
             StartCutScene();
+        }
+        
+        // TODO : 상속으로 컷신 추가시 컷신마다의 기능으로 변경되어야 함. 
+        public void OnCutSceneTrigger(Action afterCutScene)
+        {
+            Game.Instance.Time.SetTimer(600, afterCutScene);
+        }
+
+        public void OffCutSceneTrigger()
+        {
+            Instantiate(_shopKeeperPrefab, new Vector2(13.0f, 0.0f), Quaternion.identity);
         }
     }
 }

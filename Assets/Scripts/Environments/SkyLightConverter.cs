@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Ciart.Pagomoa.Environments
         [CanBeNull]
         private SkyLight GetNowSkyLight()
         {
-            var time = TimeManager.instance.tick / (float)TimeManager.HourTick;
+            var time = Game.Instance.Time.tick / (float)TimeManager.HourTick;
             var sumLength = 0f;
 
             foreach (var skyLight in skyLights)
