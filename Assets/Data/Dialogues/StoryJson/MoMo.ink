@@ -1,19 +1,19 @@
 -> momo
 
- === momo
- #talker 모모
- #sprite 모모
- #UIMode In
- * [대화하기] -> dialogue
- * [수행 가능한 퀘스트 보기] -> quest
- * [상점 이용하기] -> shop
+=== momo
+#talker 모모
+#sprite MoMo
+#UIMode In
+* [대화하기] -> dialogue
+* [수행 가능한 퀘스트 보기] -> quest
+* [상점 이용하기] -> shop
  
- === dialogue
- #start dialogue
+=== dialogue
+#start dialogue
     -> END
  
- === quest
- #start quest
+=== quest
+#start quest
     -> END
     
 === shop

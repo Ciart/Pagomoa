@@ -190,8 +190,10 @@ namespace Ciart.Pagomoa
                     case "reward":
                         dialogueManager.nowEntityDialogue.QuestComplete(param);
                         break; 
-                    
-                        
+                    case "shop":
+                        Debug.Log("in");
+                        Game.Instance.UI.shopUI.ActiveShop();
+                        break;
                 }
             }
         }
