@@ -63,6 +63,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         hasItem.CheckComplete();
                         hasItem.questFinished.Invoke();
                         break;
+                    case QuestType.SellItem :
+                        var sellItem = new SellItem(condition);
+                        sellItem.questFinished = AllElementsFinish;
+                        conditions.Add(sellItem);
+                        break;
                 }
             }
         }
@@ -298,8 +303,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
     #endregion
-    
-    // This quest counts blocks when player dig blocks that same Type.      
+    #region BreakBlock      
     public class BreakBlock : QuestCondition, IQuestElements
     { 
         public void Dispose()
@@ -368,7 +372,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
-
+    #endregion
+    
     #region HasItem 
     public class HasItem : QuestCondition, IQuestElements
     {
@@ -413,11 +418,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return progress;
         }
 
-        public string GetTargetID()
-        {
-            return targetId;
-        }
-
         public override bool TypeValidation(string target)
         {
             return target == targetId;
@@ -437,10 +437,77 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             CalculationValue(e);
 
             CheckComplete();
-            Debug.Log(CheckComplete());
             questFinished.Invoke();
         }
 
+        public string GetTargetID() { return targetId; }
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString(); }
+        public string GetCompareValueToString() { return compareValue.ToString(); }
+    }
+    #endregion
+
+    #region SellItem
+
+    public class SellItem : QuestCondition, IQuestElements
+    {
+        public void Dispose()
+        {
+            EventManager.RemoveListener<ItemSellEvent>(SellingItem);
+        }
+
+        public SellItem(QuestConditionData elements)
+        {
+            questType = elements.questType; 
+            summary = elements.summary;
+            value = int.Parse(elements.value);
+            targetId = elements.targetID;
+            valueType = elements.value; 
+            compareValue = 0;
+            
+            EventManager.AddListener<ItemSellEvent>(SellingItem);
+        }
+        
+        private void SellingItem(ItemSellEvent e)
+        {
+            if (!TypeValidation(e.itemID)) return;
+            if (CheckComplete()) return;
+            
+            CalculationValue(e);
+            
+            CheckComplete();
+            questFinished.Invoke();
+        } 
+        
+        public override void CalculationValue(IEvent e)
+        {
+            var sellEvent = (ItemSellEvent)e;
+
+            compareValue += sellEvent.count;
+            if (compareValue >= value) compareValue = value;
+        }
+
+        public override bool TypeValidation(string target)
+        {
+            return target == targetId;
+        }
+
+        public bool CheckComplete()
+        {
+            return compareValue >= value;
+        }
+
+        public float GetProgress()
+        {
+            var fCompareValue = (float)compareValue;
+            var fValue = (float)value;
+            
+            progress = fCompareValue / fValue;
+            
+            return progress;
+        }
+        
+        public string GetTargetID() { return targetId; }
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }

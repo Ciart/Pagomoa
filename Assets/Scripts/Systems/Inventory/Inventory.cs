@@ -181,6 +181,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void SellItem(ISlot targetSlot)
         {
+            var targetItemID = FindSlot(SlotType.Inventory, targetSlot.GetSlotID()).GetSlotItemID();
+            EventManager.Notify(new ItemSellEvent(targetItemID, 1));
+            
             gold += _inventoryData[targetSlot.GetSlotID()].GetSlotItem().price;
             DecreaseItemBySlotID(targetSlot.GetSlotID());
 

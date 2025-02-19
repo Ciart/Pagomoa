@@ -168,6 +168,10 @@ namespace Ciart.Pagomoa.Editor
                         newQuestData.questList[i].targetID = EditorGUILayout.TextField($"파괴할 블럭 ID"
                             , newQuestData.questList[i].targetID);
                         break;
+                    case QuestType.SellItem:
+                        newQuestData.questList[i].targetID = EditorGUILayout.TextField($"판매할 아이템 ID"
+                            , newQuestData.questList[i].targetID);
+                        break;
                 }
                 
                 if (newQuestData.questList[i].conditionType.typeValue == "int")

@@ -17,6 +17,7 @@ namespace Logger.ForEditorBaseScripts
         KillMonster,
         EarnGold,
         ConsumeGold,
+        SellItem,
     }
 
     [Serializable]
@@ -83,6 +84,10 @@ namespace Logger.ForEditorBaseScripts
                 target = TargetType.Inventory,
                 typeValue = TypeInt
             }}, { QuestType.ConsumeGold, new ConditionType
+            {
+                target = TargetType.Inventory,
+                typeValue = TypeInt
+            }}, { QuestType.SellItem, new ConditionType
             {
                 target = TargetType.Inventory,
                 typeValue = TypeInt
