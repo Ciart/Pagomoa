@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossHammerGather : StateMachineBehaviour
     {
@@ -19,8 +19,8 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         {
             if (_boss.hammers[0].GetComponent<RCactusBossHammer>().isGather)
             {
-                animator.SetTrigger("HammerChase");
                 animator.ResetTrigger("HammerGather");
+                animator.SetTrigger("HammerChase");
             }
         }
 

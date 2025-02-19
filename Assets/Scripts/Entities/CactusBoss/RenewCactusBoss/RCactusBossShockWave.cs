@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class RenewCactusBossShockWave : MonoBehaviour
     {

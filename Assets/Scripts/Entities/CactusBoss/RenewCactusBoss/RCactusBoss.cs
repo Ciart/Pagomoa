@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class RCactusBoss : MonoBehaviour
     {
+        public int patternCount = 0;
         public float dir;
         public GameObject[] hammers;
         public Transform[] initialPos = new Transform[2];
 
         public float attackRange;
         public float attackRate = 1f;
-
-        public float hammerDownSpeed;
-
+        
         // public enum State
         // {
         //     Hammer,

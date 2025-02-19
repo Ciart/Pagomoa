@@ -1,7 +1,7 @@
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossHammerSmashUp : StateMachineBehaviour
     {
@@ -25,8 +25,8 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
             if (_boss.hammers[0].transform.position.y >= hammerMaxPosition)
             {
-                animator.SetTrigger("HammerGather");
                 animator.ResetTrigger("HammerSmashUp");
+                animator.SetTrigger("HammerGather");
             }
         }
         

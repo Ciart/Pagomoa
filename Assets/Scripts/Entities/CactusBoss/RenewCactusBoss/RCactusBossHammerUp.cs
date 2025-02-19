@@ -1,7 +1,7 @@
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossHammerUp : StateMachineBehaviour
     {
@@ -31,8 +31,8 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
 
                 if (_elapsedTime >= stateDuration)
                 {
-                    animator.SetTrigger("HammerDown");
                     animator.ResetTrigger("HammerUp");
+                    animator.SetTrigger("HammerDown");
                     _elapsedTime = 0;
                 }
             }

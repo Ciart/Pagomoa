@@ -1,24 +1,28 @@
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
-    public class CactusBossHammerDown : StateMachineBehaviour
+    public class RCactusBossGroggy : StateMachineBehaviour
     {
         private RCactusBoss _boss;
-        [SerializeField] private float downSpeed;
+        private float _timer;
 
+        public float groggyTime;
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _boss = animator.GetComponent<RCactusBoss>();
-            _boss.hammers[0].GetComponent<RCactusBossHammer>().HammerCoroutine();
+            _timer = 0f;
+            _boss.patternCount = 0;
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().doneInstantiate)
+            _timer += Time.deltaTime;
+
+            if (_timer >= groggyTime)
             {
+                animator.ResetTrigger("Groggy");                
                 animator.SetTrigger("Idle");
-                animator.ResetTrigger("HammerDown");
             }
         }
     }
