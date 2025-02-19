@@ -224,6 +224,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void RemoveItem(ISlot targetSlot)
         {
             var inventorySlot = _inventoryData[targetSlot.GetSlotID()];
+            var slotItemID = inventorySlot.GetSlotItemID();
             inventorySlot.SetSlotItemID("");
             inventorySlot.SetSlotItemCount(0);
 
@@ -242,7 +243,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
 
             EventManager.Notify(new UpdateInventory());
-            EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
+            EventManager.Notify(new ItemCountChangedEvent(slotItemID, accItemCount));
         }
 
         public void TransferItem(ISlot sourceSlot, ISlot targetSlot)

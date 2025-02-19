@@ -156,10 +156,10 @@ namespace Ciart.Pagomoa.Editor
                 switch (newQuestData.questList[i].questType)
                 {
                     case QuestType.CollectItem:
+                    case QuestType.HasItem:
                         newQuestData.questList[i].targetID = EditorGUILayout.TextField($"수집할 아이템 ID"
                             , newQuestData.questList[i].targetID);
                         break;
-                    case QuestType.ConsumeItem:
                     case QuestType.UseItem:
                         newQuestData.questList[i].targetID = EditorGUILayout.TextField($"사용할 아이템 ID"
                             , newQuestData.questList[i].targetID);

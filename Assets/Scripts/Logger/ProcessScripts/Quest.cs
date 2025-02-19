@@ -56,6 +56,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                         breakBlock.questFinished = AllElementsFinish;
                         conditions.Add(breakBlock);                        
                         break;
+                    case QuestType.HasItem :
+                        var hasItem = new HasItem(condition);
+                        hasItem.questFinished = AllElementsFinish;
+                        conditions.Add(hasItem);
+                        hasItem.CheckComplete();
+                        hasItem.questFinished.Invoke();
+                        break;
                 }
             }
         }
@@ -77,13 +84,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 }
             }
             
-            if (allFinish) progress = 1.0f;
-            
             EventManager.Notify(new QuestUpdated(this));
-            
-            if (allFinish == false) return;
-            
-            state = QuestState.Completed;
+
+            if (allFinish)
+            {
+                progress = 1.0f;
+                state = QuestState.Completed;    
+            }
+            else
+            {
+                state = QuestState.InProgress;
+            }
+
             EventManager.Notify(new QuestCompleted(this));
         }
 
@@ -98,16 +110,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
     public interface IQuestElements : IDisposable
     {
-        public QuestType questType { get; set; }
+        public QuestType questType { get; }
         public bool CheckComplete();
         public float GetProgress();
+        public string GetTargetID();
         public string GetQuestSummary();
         public string GetValueToString();
         public string GetCompareValueToString();
     }
-    
-    #region IntQuestElements
-    
+
+    #region CollectItem : 아이템 수집 (수집한 아이템은 퀘스트를 완료해도 사라지지 않음)
     public class CollectItem : QuestCondition, IQuestElements
     {
         private int _prevValue;
@@ -154,6 +166,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return progress;
         }
 
+        public string GetTargetID()
+        {
+            return targetId;
+        }
+
         public override bool TypeValidation(string target)
         {
             return target == targetId;
@@ -170,7 +187,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             }
 
             var collectValue = inventoryItem.count - _prevValue;
-            Debug.Log("collectValue :" + collectValue);
 
             if (compareValue >= collectValue)
             {
@@ -180,8 +196,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             {
                 compareValue = collectValue;
             }
-            
-            Debug.Log("mineral :" + compareValue);
         }
 
         private void CountItem(ItemCountChangedEvent e)
@@ -199,7 +213,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
-
+    #endregion
+    #region UseItem 소모성, 액티브 아이템 사용 
     public class UseItem : QuestCondition, IQuestElements
     {
         private int _prevValue;
@@ -273,11 +288,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return progress;
         }
 
+        public string GetTargetID()
+        {
+            return targetId;
+        }
+
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
     }
-    
+    #endregion
     
     // This quest counts blocks when player dig blocks that same Type.      
     public class BreakBlock : QuestCondition, IQuestElements
@@ -315,6 +335,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             return progress;
         }
 
+        public string GetTargetID()
+        {
+            return targetId;
+        }
+
         public override bool TypeValidation(string target)
         {
             return target == targetId;
@@ -339,6 +364,83 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             questFinished.Invoke();
         }
         
+        public string GetQuestSummary() { return summary; }
+        public string GetValueToString() { return value.ToString(); }
+        public string GetCompareValueToString() { return compareValue.ToString(); }
+    }
+
+    #region HasItem 
+    public class HasItem : QuestCondition, IQuestElements
+    {
+        public void Dispose()
+        {
+            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
+        }
+
+        public HasItem(QuestConditionData elements)
+        {
+            questType = elements.questType; 
+            summary = elements.summary;
+            value = int.Parse(elements.value);
+            targetId = elements.targetID;
+            valueType = elements.value; 
+            compareValue = 0;
+            
+            EventManager.AddListener<ItemCountChangedEvent>(CountItem);
+
+            var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
+            var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
+            
+            foreach (var slot in sameSlots)
+            {
+                compareValue += inventoryList[slot].GetSlotItemCount();
+            }
+        }
+
+        public bool CheckComplete()
+        {
+            complete = compareValue >= value;
+            return complete;
+        }
+
+        public float GetProgress()
+        {
+            var fCompareValue = (float)compareValue;
+            var fValue = (float)value;
+            
+            progress = fCompareValue / fValue;
+            
+            return progress;
+        }
+
+        public string GetTargetID()
+        {
+            return targetId;
+        }
+
+        public override bool TypeValidation(string target)
+        {
+            return target == targetId;
+        }
+
+        public override void CalculationValue(IEvent e)
+        {
+            var inventoryItem = (ItemCountChangedEvent)e;
+            
+            compareValue = inventoryItem.count;
+        }
+
+        private void CountItem(ItemCountChangedEvent e)
+        {
+            if (!TypeValidation(e.itemID)) return ;
+
+            CalculationValue(e);
+
+            CheckComplete();
+            Debug.Log(CheckComplete());
+            questFinished.Invoke();
+        }
+
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }

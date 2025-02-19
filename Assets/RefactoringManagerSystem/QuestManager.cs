@@ -3,7 +3,9 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
 using Logger;
+using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.RefactoringManagerSystem
@@ -36,7 +38,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
         public void CompleteQuest(string id)
         {
             GetReward(id);
-
+    
             EventManager.Notify(new QuestCompleted(FindQuestById(id)));
         }
 
@@ -44,6 +46,24 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
         {
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
+
+            foreach (var condition in targetQuest.conditions)
+            {
+                if (condition.questType != QuestType.HasItem) continue;
+                
+                var value  = int.Parse(condition.GetValueToString());
+                var itemList = Game.Instance.player.inventory.FindSameItem(condition.GetTargetID());
+
+                foreach (var index in itemList)
+                {
+                    var slot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, index);
+                    if (slot.GetSlotItemCount() >= value)
+                    {
+                        Game.Instance.player.inventory.DecreaseItemBySlotID(index, value);
+                        break;
+                    }
+                }
+            }
 
             EventManager.Notify(new AddReward(reward.itemID, reward.value));
 

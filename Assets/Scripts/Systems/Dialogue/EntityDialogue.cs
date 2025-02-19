@@ -99,7 +99,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             foreach (var entityQuest in _entityQuests)
             {
-                if (e.quest.id == entityQuest.id)
+                if (e.quest.id == entityQuest.id && e.quest.state == QuestState.Completed)
                 {
                     _questCompleteUI.SetActive(true);
                     return;
