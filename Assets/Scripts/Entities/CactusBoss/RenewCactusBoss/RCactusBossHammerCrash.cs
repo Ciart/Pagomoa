@@ -1,22 +1,22 @@
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossHammerCrash : StateMachineBehaviour
     {
-        private RenewCactusBoss _boss;
+        private RCactusBoss _boss;
         public float speed;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _boss = animator.GetComponent<RenewCactusBoss>();
+            _boss = animator.GetComponent<RCactusBoss>();
             animator.ResetTrigger("HammerSpin");
             HammerCrash();
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_boss.hammers[0].GetComponent<CactusBossHammer>().doneInstantiate)
+            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().doneInstantiate)
             {
                 animator.SetTrigger("ResetRotation");
                 animator.ResetTrigger("HammerCrash");

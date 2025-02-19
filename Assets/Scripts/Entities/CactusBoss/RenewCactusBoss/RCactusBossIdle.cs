@@ -1,45 +1,49 @@
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class RenewCactusBossIdle : StateMachineBehaviour
     {
        
-        private RenewCactusBoss _renewCactusBoss;
+        private RCactusBoss _renewCactusBoss;
         private bool _isReposed;
         private int _randomNumber;
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _renewCactusBoss = animator.GetComponent<RenewCactusBoss>();
+            _renewCactusBoss = animator.GetComponent<RCactusBoss>();
             _randomNumber = Random.Range(0, 3);
+            // _renewCactusBoss.hammers[0].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            // _renewCactusBoss.hammers[1].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            Debug.Log(_randomNumber);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_renewCactusBoss.hammers[0].GetComponent<CactusBossHammer>().doneInstantiate)
+            if (_renewCactusBoss.hammers[0].GetComponent<RCactusBossHammer>().doneInstantiate)
             {
                 ResetHammersPos();
                 if (AreVectorsEqual(_renewCactusBoss.hammers[0].transform.position, _renewCactusBoss.initialPos[0].position, 0.1f))
                 {
-                    _renewCactusBoss.hammers[0].GetComponent<CactusBossHammer>().doneInstantiate = false;
+                    _renewCactusBoss.hammers[0].GetComponent<RCactusBossHammer>().doneInstantiate = false;
                     _isReposed = true;
                 }
             }
-
+            
             if (_renewCactusBoss.CheckPlayerInRange() && _isReposed)
             {
-                switch (_randomNumber)
-                {
-                    case 0:
-                        animator.SetTrigger("HammerUp");
-                        break;
-                    case 1:
-                        animator.SetTrigger("HammerSpin");
-                        break;
-                    case 2:
-                        animator.SetTrigger("HammerSmashUp");
-                        break;
-                }
+                animator.SetTrigger("HammerSpin");
+                // switch (_randomNumber)
+                // {
+                //     case 0:
+                //         animator.SetTrigger("HammerUp");
+                //         break;
+                //     case 1:
+                //         animator.SetTrigger("HammerSpin");
+                //         break;
+                //     case 2:
+                //         animator.SetTrigger("HammerSmashUp");
+                //         break;
+                // }
                 _isReposed = false;
                 animator.ResetTrigger("Idle");
             }

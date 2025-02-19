@@ -27,6 +27,7 @@ namespace Ciart.Pagomoa.Entities
             foreach (var enemy in _targets)
             {
                 enemy.TakeDamage(damage, invincibleTime: 0.3f, attacker: _entity, flag: DamageFlag.Contact);
+                Debug.Log("호출중");
             }
         }
 

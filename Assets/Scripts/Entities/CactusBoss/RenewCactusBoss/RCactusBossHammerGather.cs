@@ -1,26 +1,26 @@
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossHammerGather : StateMachineBehaviour
     {
-        private RenewCactusBoss _boss;
+        private RCactusBoss _boss;
 
         public float gatherSpeed;
         
         
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _boss = animator.GetComponent<RenewCactusBoss>();
+            _boss = animator.GetComponent<RCactusBoss>();
             GatherHammers();    
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_boss.hammers[0].GetComponent<CactusBossHammer>().isGather)
+            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().isGather)
             {
-                animator.SetTrigger("HammerChase");
                 animator.ResetTrigger("HammerGather");
+                animator.SetTrigger("HammerChase");
             }
         }
 

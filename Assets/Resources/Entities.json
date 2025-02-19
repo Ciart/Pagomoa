@@ -96,6 +96,30 @@
       "isEnemy": false,
       "isInvincible": true,
       "baseHealth": 100
+    },
+    {
+      "id": "RCactusBoss",
+      "name": "수정된 선인장 보스",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": true,
+      "baseHealth": 1000
+    },
+    {
+      "id": "LeftHammer",
+      "name": "수정된 선인장 보스 왼쪽팔",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": true,
+      "baseHealth": 1000
+    },
+    {
+      "id": "RightHammer",
+      "name": "수정된 선인장 보스 왼쪽팔",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": true,
+      "baseHealth": 1000
     }
   ]
 }

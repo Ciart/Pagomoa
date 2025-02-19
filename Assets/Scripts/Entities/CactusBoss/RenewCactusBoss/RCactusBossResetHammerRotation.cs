@@ -1,15 +1,15 @@
-using Ciart.Pagomoa.Entities.CactusBoss;
 using UnityEngine;
 
-namespace Ciart.Pagomoa
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossResetHammerRotation : StateMachineBehaviour
     {
-        private RenewCactusBoss _boss;
+        private RCactusBoss _boss;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _boss = animator.GetComponent<RenewCactusBoss>();
+            _boss = animator.GetComponent<RCactusBoss>();
+            _boss.patternCount++;
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -17,8 +17,16 @@ namespace Ciart.Pagomoa
             HammerSpin();
             if (_boss.hammers[0].transform.rotation.eulerAngles.z <= 0.1)
             {
-                animator.SetTrigger("Idle");
-                animator.ResetTrigger("ResetRotation");
+                if (_boss.patternCount == 3)
+                {
+                    animator.ResetTrigger("ResetRotation");
+                    animator.SetTrigger("Groggy");
+                }
+                else
+                {
+                    animator.ResetTrigger("ResetRotation");
+                    animator.SetTrigger("Idle");
+                } 
             }
         }
         

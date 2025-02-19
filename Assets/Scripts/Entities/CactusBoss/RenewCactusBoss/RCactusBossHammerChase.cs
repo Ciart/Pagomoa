@@ -1,20 +1,19 @@
-using Ciart.Pagomoa.Entities.CactusBoss;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.cactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
     public class CactusBossHammerChase : StateMachineBehaviour
     {
         public float chaseSpeed;
         public float stateDuration;
         
-        private RenewCactusBoss _boss;
+        private RCactusBoss _boss;
         private float _elapsedTime;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _boss = animator.GetComponent<RenewCactusBoss>();
+            _boss = animator.GetComponent<RCactusBoss>();
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -25,8 +24,8 @@ namespace Ciart.Pagomoa.Entities.cactusBoss
 
             if (_elapsedTime >= stateDuration)
             {
-                animator.SetTrigger("HammerSmashDown");
                 animator.ResetTrigger("HammerChase");
+                animator.SetTrigger("HammerSmashDown");
                 _elapsedTime = 0;
             }
         }

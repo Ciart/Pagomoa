@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
-    public class RenewCactusBoss : MonoBehaviour
+    public class RCactusBoss : MonoBehaviour
     {
+        public int patternCount = 0;
         public float dir;
         public GameObject[] hammers;
         public Transform[] initialPos = new Transform[2];
 
         public float attackRange;
         public float attackRate = 1f;
-
-        public float hammerDownSpeed;
-
+        
         // public enum State
         // {
         //     Hammer,
@@ -25,17 +24,9 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         //
         // public State state;
         
-        [NonSerialized]
-        public EntityController controller;
-
-        [NonSerialized]
-        public Rigidbody2D rigid;
-       
         private SpriteRenderer _spriteRenderer;
         private void Awake()
         {
-            controller = GetComponent<EntityController>();
-            rigid = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
         private void Start()
@@ -69,8 +60,14 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         }
         private void InstantiateHammer()
         {
-            hammers[0] = Instantiate(hammers[0], initialPos[0].position, Quaternion.identity, transform);
-            hammers[1] = Instantiate(hammers[1], initialPos[1].position, Quaternion.identity, transform);
+            EntityController? leftHammer = EntityManager.instance.Spawn("LeftHammer", initialPos[0].position);
+            EntityController? rightHammer = EntityManager.instance.Spawn("RightHammer", initialPos[1].position);
+            
+            leftHammer!.transform.SetParent(transform);
+            rightHammer!.transform.SetParent(transform);
+
+            hammers[0] = leftHammer!.gameObject;
+            hammers[1] = rightHammer!.gameObject;
         }
     }
 }

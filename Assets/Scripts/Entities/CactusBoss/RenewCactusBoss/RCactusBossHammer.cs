@@ -5,9 +5,9 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Ciart.Pagomoa.Entities.CactusBoss
+namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 {
-    public class CactusBossHammer : MonoBehaviour
+    public class RCactusBossHammer : MonoBehaviour
     {
         [SerializeField] private bool isRight;
         [SerializeField] private GameObject shockWave;
@@ -19,20 +19,21 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
         [NonSerialized] public bool doneInstantiate = true;
         [NonSerialized] public bool isGather;
         
-        private RenewCactusBoss _boss;
+        private RCactusBoss _boss;
         private Rigidbody2D _rigidbody;
         private Animator _animator;
         void Start()
         {
-            _boss = GetComponentInParent<RenewCactusBoss>();
+            _boss = GetComponentInParent<RCactusBoss>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponentInParent<Animator>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
-
+            var info = _animator.GetCurrentAnimatorStateInfo(0);
+            Debug.Log(info.IsName("HammerResetRotation"));
+            
             if (collision.gameObject.layer == LayerMask.NameToLayer("Platform"))
             {
                 if (info.IsName("HammerSmashDown"))
@@ -40,14 +41,18 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                     _rigidbody.linearVelocity = Vector2.zero;
                     InstantiateParticles();
                 }
-                else
+                else if(info.IsName("HammerDown"))
                 {
                     _rigidbody.linearVelocity = Vector2.zero;
                     StartCoroutine(InstantiateShockWave());
                 }
+                else if (info.IsName("HammerCrash"))
+                {
+                    return;
+                }
             }
 
-            else if (collision.gameObject.CompareTag("Boss"))
+            if (collision.gameObject.CompareTag("Boss"))
             {
                 if (info.IsName("HammerDown"))
                 {
@@ -58,6 +63,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
                 else if (info.IsName("HammerCrash"))
                 {
                     _rigidbody.linearVelocity = Vector2.zero;
+                    Debug.Log(gameObject.name + ": " + _rigidbody.linearVelocity);
                     StartCoroutine(InstantiateShockWaveAtCenter());
                 }
                 else if (info.IsName("HammerGather"))
@@ -83,7 +89,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             }
             doneInstantiate = true;
         }
-        IEnumerator InstantiateShockWaveAtCenter()
+        private IEnumerator InstantiateShockWaveAtCenter()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -98,7 +104,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             }
             doneInstantiate = true;
         }
-        IEnumerator InstantiateShockWave()
+        private IEnumerator InstantiateShockWave()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -119,17 +125,17 @@ namespace Ciart.Pagomoa.Entities.CactusBoss
             }
             doneInstantiate = true;
         }
-        public void HammerCoroutine()
+        public void HammerCoroutine(float downSpeed)
         {
-            _boss.hammers[0].GetComponent<Rigidbody2D>().AddForce(Vector2.down * _boss.hammerDownSpeed, ForceMode2D.Impulse);
+            _boss.hammers[0].GetComponent<Rigidbody2D>().AddForce(Vector2.down * downSpeed, ForceMode2D.Impulse);
 
-            StartCoroutine(AfterHammerDown());
+            StartCoroutine(AfterHammerDown(downSpeed));
         }
         
-        IEnumerator AfterHammerDown()
+        private IEnumerator AfterHammerDown(float downSpeed)
         {
             yield return new WaitForSeconds(2);
-            _boss.hammers[1].GetComponent<Rigidbody2D>().AddForce(Vector2.down * _boss.hammerDownSpeed, ForceMode2D.Impulse);
+            _boss.hammers[1].GetComponent<Rigidbody2D>().AddForce(Vector2.down * downSpeed, ForceMode2D.Impulse);
         }
     }
 }
