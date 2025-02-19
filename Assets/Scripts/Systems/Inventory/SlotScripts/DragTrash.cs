@@ -10,8 +10,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public void OnDrop(PointerEventData eventData)
         {
-            var data = eventData.pointerDrag.GetComponent<QuickSlot>();
-            var inventory = GameManager.instance.player.inventory;
+            var data = eventData.pointerDrag.GetComponent<QuickSlotUI>();
+            var inventory = Game.Instance.player.inventory;
             
             /*if (data)
             {

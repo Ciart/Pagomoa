@@ -10,13 +10,16 @@ namespace Ciart.Pagomoa.Terminal.Commands
         {
             var subCommand = args[0].String;
 
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
             
             if (Terminal.IssuedError) return;
             
             Debug.Log($"giving item {ResourceSystem.instance.GetItem(subCommand).name}");
+
+            var itemCount1 = 500;
+            /*var itemCount2 = 1;*/
             
-            inventory.Add(ResourceSystem.instance.GetItem(subCommand));
+            inventory.AddInventory(subCommand, itemCount1);
         }
         
         [RegisterCommand(Help = "", MinArgCount = 1, MaxArgCount = 2)]

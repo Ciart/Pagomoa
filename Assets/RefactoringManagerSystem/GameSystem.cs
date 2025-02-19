@@ -1,103 +1,101 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.RefactoringManagerSystem;
+using Ciart.Pagomoa.Sounds;
+using Ciart.Pagomoa.Systems.Dialogue;
+using Ciart.Pagomoa.Systems.Save;
+using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Worlds;
 
-public class GameSystem : MonoBehaviour
+namespace Ciart.Pagomoa.Systems
 {
-    private static GameSystem _instance = null;
-    private static List<IPManager> _managers = null;
-
-    public Action awake;
-    public Action start;
-    public Action quit;
-    public Action preUpdate;
-    public Action update;
-    public Action preFixedUpdate;
-    public Action fixedUpdate;
-    public Action preLateUpdate;
-    public Action lateUpdate;
-    
-    private static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+    public enum GameState
     {
-        while (toCheck != null && toCheck != typeof(object))
-        {
-            var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
-            if (generic == cur)
-            {
-                return true;
-            }
-            toCheck = toCheck.BaseType;
-        }
-        return false;
+        Playing,
+        EndDay,
     }
-    
-    private void Awake()
+
+    public static class GameManager
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        [Obsolete("Game.Instance를 사용하세요.")]
+        public static GameSystem instance => GameSystem.Instance;
+    }
 
-        if(_managers == null)
+    public static class Game
+    {
+        [Obsolete("Game.Instance를 사용하세요.")]
+        public static GameSystem instance => GameSystem.Instance;
+
+        public static GameSystem Instance => GameSystem.Instance;
+    }
+
+    public class GameSystem : SingletonMonoBehaviour<GameSystem>
+    {
+        public PlayerController? player;
+
+        public bool hasPowerGemEarth = false;
+        public bool isLoadSave = false;
+
+        public EventManager Event { get; private set; } = null!;
+        public DialogueManager Dialogue { get; private set; } = null!;
+        public EntityManager Entity { get; private set; } = null!;
+        public NewSaveManager Save { get; private set; } = null!;
+        public ParticleManager Particle { get; private set; } = null!;
+        public QuestManager Quest { get; private set; } = null!;
+        public SoundManager Sound { get; private set; } = null!;
+        public TimeManager Time { get; private set; } = null!;
+        public UIManager UI { get; private set; } = null!;
+        public WorldManager World { get; private set; } = null!;
+
+        
+        private GameState _state;
+        
+        public GameState State
         {
-            _managers = new List<IPManager>();
-            
-            foreach(System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            get => _state;
+            set
             {
-                foreach (Type type in assembly.GetTypes())
-                {
-                    if (IsSubclassOfRawGeneric(typeof(PManager<>), type) 
-                        && typeof(IPManager).IsAssignableFrom(type)
-                        && !type.ContainsGenericParameters) // 구체적인 타입만 허용
-                    {
-                        var manager = Activator.CreateInstance(type) as IPManager;
-
-                        _managers.Add(manager);
-                        manager?.Init(this);
-                    } 
-                }
+                _state = value;
+                EventManager.Notify(new GameStateChangedEvent(_state));
             }
         }
-        
-        awake?.Invoke();
-    }
 
+        public void MoveToNextDay()
+        {
+            Time.SkipToNextDay();
+        }
 
-   private void Start()
-   {
-       start.Invoke();
-       Debug.Log("Game::Start()");
-    }
+        private void OnPlayerSpawned(PlayerSpawnedEvent e)
+        {
+            player = e.player;
+        }
 
-   // Update is called once per frame
-   private void Update()
-   { 
-       preUpdate?.Invoke();
-       
-       update?.Invoke();
-   }
+        protected override void Awake()
+        {
+            base.Awake();
 
-    private void FixedUpdate()
-    {
-        preFixedUpdate?.Invoke();
-        
-        fixedUpdate?.Invoke();
-    }
+            Event = new EventManager();
+            Dialogue = new DialogueManager();
+            Entity = new EntityManager();
+            Save = new NewSaveManager();
+            Particle = new ParticleManager();
+            Quest = new QuestManager();
+            Sound = new SoundManager();
+            Time = new TimeManager();
+            UI = new UIManager();
+            World = new WorldManager();
+        }
 
-    private void LateUpdate()
-    {
-        preLateUpdate?.Invoke();
-        
-        lateUpdate?.Invoke();
-    }
+        private void OnEnable()
+        {
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
 
-    private void OnApplicationQuit()
-    {
-        quit?.Invoke();
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
     }
 }

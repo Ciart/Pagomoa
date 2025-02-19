@@ -19,14 +19,14 @@ namespace Ciart.Pagomoa.Systems
         
         private TextMeshProUGUI _tmpGuiText;
 
-        private void Start()
+        private void Awake()
         {
             _tmpGuiText = GetComponentInChildren<TextMeshProUGUI>();    
         }
 
         public void UpdateVectorOutput()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             
             if (!player) return; 
             _playerPos = player.transform.position;

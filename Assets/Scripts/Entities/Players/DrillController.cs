@@ -61,6 +61,8 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private MoaInteraction _fairyMoa;
         
+        private PlayerController _player;
+        
         private void Awake()
         {
             _groundHitAudioSource = gameObject.AddComponent<AudioSource>();
@@ -72,6 +74,8 @@ namespace Ciart.Pagomoa.Entities.Players
             
             _fairyMoa = FindAnyObjectByType<MoaInteraction>();
             _fairyMoa.InitMoa();
+            
+            _player = GetComponentInParent<PlayerController>();
         }
 
         private void UpdateDirection()
@@ -217,7 +221,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     // TODO: attacker 변경해야 함.
                     // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                    enemy.TakeDamage(5, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
+                    enemy.TakeDamage(_player.attack, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
                 }
             }
         }
@@ -272,25 +276,25 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
             bool upgradable = true;
-            var inventory = GameManager.instance.player.inventory;
+            var inventory = Game.instance.player.inventory;
 
             foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
             {
-                if (needs.count > inventory.GetItemCount(needs.mineral))
+                /*if (needs.count > inventory.GetItemCount(needs.mineral))
                 {
                     upgradable = false;
                     Debug.Log("업그레이드 실패: " + inventory.GetItemCount(needs.mineral) + "/" + needs.count);
-                }
+                }*/
             }
             if (upgradable) {
                 foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
                 {
-                    int used = 0;
+                    /*int used = 0;
                     while (used < needs.count)
                     {
                         inventory.RemoveItemByItemID(needs.mineral.id);
                         used++;
-                    }
+                    }*/
                 }
                 _drillLevel += 1; Debug.Log("업그레이드 성공"); 
             }

@@ -47,7 +47,11 @@
       "id": "AbyssLantern",
       "name": "심연의 랜턴",
       "description": "차가운 기운이 감돈다.\n 앞을 조금이나마 밝게 비춰준다.",
-      "price": 1000
+      "price": 1000,
+      "status": {
+        "speed": 1000,
+        "speedMultiplier": 2
+      }
     },
     {
       "type": 1,
@@ -62,6 +66,20 @@
       "name": "두더지 장갑",
       "description": "빨간 코가 움찔 거린다.",
       "price": 1000
+    },
+    {
+      "type": 1,
+      "id": "AwfulSnakeBlood",
+      "name": "역겨운 배의 피",
+      "description": "아찔한 낸새가 코를 찌른다.",
+      "price": 1000
+    },
+    {
+      "type": 4,
+      "id": "TentRepairKit",
+      "name": "텐트 수리 키트",
+      "description": "정상 영업 합니다.",
+      "price": 500
     }
   ]
 }

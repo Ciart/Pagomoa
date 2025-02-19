@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems
     
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var gameManager = GameManager.instance;
+            var game = Game.Instance;
             
             if (!other.CompareTag("ItemEntityTrigger"))
             {
@@ -32,12 +32,12 @@ namespace Ciart.Pagomoa.Systems
             }
 
             OnCollectEvent.Invoke();
-            gameManager.player.inventory.Add(item);
+            game.player.inventory.AddInventory(item.id);
             Destroy(itemEntity.gameObject);
 
             if (item.name == "PowerGemEarth")
             {
-                gameManager.hasPowerGemEarth = true;
+                game.hasPowerGemEarth = true;
             }
         }
     }

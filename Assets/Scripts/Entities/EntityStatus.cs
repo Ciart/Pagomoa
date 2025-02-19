@@ -8,5 +8,11 @@ namespace Ciart.Pagomoa.Entities
         public float health;
         
         public float maxHealth;
+        
+        public float attack;
+        
+        public float defense;
+        
+        public float speed;
     }
 }

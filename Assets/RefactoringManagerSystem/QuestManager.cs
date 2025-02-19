@@ -9,21 +9,14 @@ using UnityEngine;
 namespace Ciart.Pagomoa.RefactoringManagerSystem
 {
 
-    public class QuestManager : PManager<QuestManager>
+    public class QuestManager : Manager<QuestManager>
     {
         public List<Quest> quests = new List<Quest>();
 
-        public QuestDatabase database;
-
-        public override void Awake()
-        {
-            database = DataBase.data.GetQuestData();
-        }
-
         public void RegistrationQuest(Sprite npcSprite, string entityId, string questId)
         {
-            var targetQuests = database.GetEntityQuestsByEntity(entityId);
-
+            var targetQuests = ResourceSystem.instance.GetQuests(entityId);
+            
             foreach (var quest in targetQuests)
             {
                 if (quest.id != questId) continue;
@@ -52,10 +45,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
-            if (!string.IsNullOrEmpty(reward.itemId)) {
-                var rewardItem = ResourceSystem.instance.GetItem(reward.itemId);
-                EventManager.Notify(new AddReward(rewardItem, reward.value));
-            }
+            EventManager.Notify(new AddReward(reward.itemID, reward.value));
 
             EventManager.Notify(new AddGold(reward.gold));
 

@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Ciart.Pagomoa.Systems
 {
-    public class UIManager : PManager<UIManager>
+    public class UIManager : Manager<UIManager>
     {
         ~UIManager()
         {
@@ -17,19 +17,20 @@ namespace Ciart.Pagomoa.Systems
         private UIContainer _uiContainer;
         private PlayerInput _playerInput;
         private GameObject _dialogueUI;
+        private DaySummaryUI _daySummaryUI;
         
         public MinimapUI minimapUI { get; private set; }
         public StateUI stateUI { get; private set; }
         public BookUI bookUI {get; private set;}
         public ShopUI shopUI {get; private set;}
-        public QuickSlotUI quickSlotUI {get; private set;}
-        private FadeUI _fadeUI;
+        public QuickUI quickUI {get; private set;}
+        public FadeUI fadeUI {get; private set;}
         
         public UIContainer GetUIContainer() { return _uiContainer; }
         
         private bool _isActiveInventory;
         
-        public override void Awake()
+        public override void PreStart()
         {
             _uiContainer = DataBase.data.GetUIData();
 
@@ -37,14 +38,19 @@ namespace Ciart.Pagomoa.Systems
             stateUI = Object.Instantiate(_uiContainer.statePanelPrefab, _uiContainer.transform);
             
             bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
+            bookUI.gameObject.SetActive(_isActiveInventory);
+            
             shopUI = Object.Instantiate(_uiContainer.shopUIPrefab, _uiContainer.transform);
-            quickSlotUI = Object.Instantiate(_uiContainer.quickSlotUIPrefab, _uiContainer.transform);
+            quickUI = Object.Instantiate(_uiContainer.quickUIPrefab, _uiContainer.transform);
             
             _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
             _dialogueUI.SetActive(false);
             _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            _fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
+            _daySummaryUI = Object.Instantiate(_uiContainer.daySummaryUIPrefab, _uiContainer.transform);
+            _daySummaryUI.gameObject.SetActive(false);
+
+            fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
         }
 
         public override void Start()
@@ -70,16 +76,14 @@ namespace Ciart.Pagomoa.Systems
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
             
             UpdateGoldUI();
-            bookUI.GetInventoryUI().InitInventorySlots();
-            quickSlotUI.InitQuickSlots();
         }
 
         public void UpdateGoldUI()
         {
-            var playerGold = GameManager.instance.player.inventory.gold;
+            var playerGold = Game.instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
-            stateUI.playerGoldUI.text = playerGold.ToString();         
+            stateUI.playerGoldUI.text = playerGold.ToString();        
         }
         
         private void ToggleEscUI()
@@ -112,18 +116,23 @@ namespace Ciart.Pagomoa.Systems
             // }
         }
 
+        public void ShowDaySummaryUI()
+        {
+            _daySummaryUI.gameObject.SetActive(true);
+        }
+
         public void DeActiveUI()
         {
             minimapUI.gameObject.SetActive(false);
             stateUI.gameObject.SetActive(false);
-            quickSlotUI.gameObject.SetActive(false);
+            quickUI.gameObject.SetActive(false);
         }
 
         public void ActiveUI()
         {
             minimapUI.gameObject.SetActive(true);
             stateUI.gameObject.SetActive(true);
-            quickSlotUI.gameObject.SetActive(true);
+            quickUI.gameObject.SetActive(true);
         }
         
         private void ToggleEscDialogueUI()
@@ -133,8 +142,8 @@ namespace Ciart.Pagomoa.Systems
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
         {
-            _fadeUI.gameObject.SetActive(true);
-            _fadeUI.Fade(flag, duration);
+            fadeUI.gameObject.SetActive(true);
+            fadeUI.Fade(flag, duration);
         }
         
         public GameObject CreateInteractableUI(Transform parent)

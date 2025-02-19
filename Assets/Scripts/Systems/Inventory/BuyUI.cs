@@ -9,16 +9,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
     public class BuyUI : MonoBehaviour
     {
         [SerializeField] private GameObject artifactPanel;
-        [SerializeField] private BuyArtifactSlot instanceArtifactSlot;
+        [SerializeField] private BuyArtifactSlotUI instanceArtifactSlotUI;
         [SerializeField] private GameObject consumableItemsPanel;
-        [SerializeField] private BuySlot instanceBuySlot;
+        [SerializeField] private BuySlotUI instanceBuySlotUI;
         
         [SerializeField] private Sprite[] _papersSprites;
         [SerializeField] private Sprite[] _soldOutsSprites;
         
         [Header("Run Time UI Can Be None")]
-        [SerializeField] private List<BuyArtifactSlot> artifactSlots = new List<BuyArtifactSlot>();
-        [SerializeField] private List<BuySlot> consumptionSlots = new List<BuySlot>();
+        [SerializeField] private List<BuyArtifactSlotUI> artifactSlots = new List<BuyArtifactSlotUI>();
+        [SerializeField] private List<BuySlotUI> consumptionSlots = new List<BuySlotUI>();
+        [SerializeField] private List<BuyArtifactSlotUI> inherentSlots = new List<BuyArtifactSlotUI>();
 
         private void Awake()
         {
@@ -26,53 +27,71 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void OnEnable()
         {
-            UIManager.instance.shopUI.shopGoldUI.text = GameManager.instance.player.inventory.gold.ToString();
+            UIManager.instance.shopUI.shopGoldUI.text = Game.instance.player.inventory.gold.ToString();
         }
         public void MakeBuyUISlot()
         {
-            var shopUI = UIManager.instance.shopUI;
+            var itemIDs = UIManager.instance.shopUI.GetShopItemIDs();
             
-            for (int i = 0; i < shopUI.GetShopItems().Count; i++)
+            for (int i = 0; i < itemIDs.Count; i++)
             {
-                if (shopUI.GetShopItems()[i].type == ItemType.Equipment)
+                var item = ResourceSystem.instance.GetItem(itemIDs[i]);
+                if (item.type == ItemType.Equipment)
                 {
-                    var spawnedSlot = Instantiate(instanceArtifactSlot, artifactPanel.transform);
+                    var spawnedSlot = Instantiate(instanceArtifactSlotUI, artifactPanel.transform);
                     
+                    spawnedSlot.SetSlotID(i);
                     spawnedSlot.gameObject.SetActive(true);
                     artifactSlots.Add(spawnedSlot);
                 }
-                else if (shopUI.GetShopItems()[i].type == ItemType.Use)
+                else if (item.type == ItemType.Use)
                 {
-                    var spawnedSlot = Instantiate(instanceBuySlot, consumableItemsPanel.transform);
-                    
+                    var spawnedSlot = Instantiate(instanceBuySlotUI, consumableItemsPanel.transform);
+
+                    spawnedSlot.SetSlotID(i);
                     spawnedSlot.gameObject.SetActive(true);
                     consumptionSlots.Add(spawnedSlot);
+                }
+                else if (item.type == ItemType.Inherent)
+                {
+                    var spawnedSlot = Instantiate(instanceArtifactSlotUI, artifactPanel.transform);
+                    
+                    spawnedSlot.SetSlotID(i);
+                    spawnedSlot.gameObject.SetActive(true);
+                    inherentSlots.Add(spawnedSlot);
                 }
             }
             SetItemToBuySlot();
         }
         public void SetItemToBuySlot()
         {
-            var shopUI = UIManager.instance.shopUI;
+            var shopUI = Game.Instance.UI.shopUI;
             
-            int equipIndex = 0;
-            int useIndex = 0;
-
-            foreach (var shopItem in shopUI.GetShopItems())
+            foreach (var artifact in artifactSlots)
             {
-                if (shopItem.type == ItemType.Equipment)
-                {
-                    artifactSlots[equipIndex].slot.SetSlotItemID(shopItem.id);
-                    artifactSlots[equipIndex].slot.GetSlotItem().type = ItemType.Equipment;
-                    
-                    equipIndex++;
-                }
-                else if (shopItem.type == ItemType.Use)
-                {
-                    consumptionSlots[useIndex].slot.SetSlotItemID(shopItem.id);
-                    
-                    useIndex++;
-                }
+                var slot = new Slot();
+                slot.SetSlotItemID(shopUI.GetShopItemIDs()[artifact.GetSlotID()]);
+                artifact.SetSlot(slot);
+                
+                slot = null;
+            }
+            
+            foreach (var use in consumptionSlots)
+            {
+                var slot = new Slot();
+                slot.SetSlotItemID(shopUI.GetShopItemIDs()[use.GetSlotID()]);
+                use.SetSlot(slot);
+                
+                slot = null;
+            }
+
+            foreach (var inherent in inherentSlots)
+            {
+                var slot = new Slot();
+                slot.SetSlotItemID(shopUI.GetShopItemIDs()[inherent.GetSlotID()]);
+                inherent.SetSlot(slot);
+                
+                slot = null;
             }
             
             UpdateBuyUISlot();
@@ -81,51 +100,62 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var shopUI = UIManager.instance.shopUI;
             
-            int equipIndex = 0;
-            int useIndex = 0;
-            foreach (var shopItem in shopUI.GetShopItems())
+            var equipIndex = 0;
+            var useIndex = 0;
+            var inherentIndex = 0;
+            
+            foreach (var id in shopUI.GetShopItemIDs())
             {
-                if (shopItem.type == ItemType.Equipment)
+                var item = ResourceSystem.instance.GetItem(id);
+                if (item.type == ItemType.Equipment)
                 {
-                    artifactSlots[equipIndex].GetComponent<Image>().sprite = _papersSprites[equipIndex];
-                    artifactSlots[equipIndex].soldOut.GetComponent<Image>().sprite = _soldOutsSprites[equipIndex];
-                    artifactSlots[equipIndex].SetSlot(new Slot());
+                    artifactSlots[equipIndex].slotImage.sprite = _papersSprites[equipIndex];
+                    artifactSlots[equipIndex].soldOutImage.sprite = _soldOutsSprites[equipIndex];
                     equipIndex++;
                 }
-                else if (shopItem.type == ItemType.Use)
+                else if (item.type == ItemType.Use)
                 {
                     if (useIndex < 3)
                     {
-                        consumptionSlots[useIndex].GetComponent<Image>().sprite = _papersSprites[useIndex + 3];
+                        consumptionSlots[useIndex].slotImage.sprite = _papersSprites[useIndex + 3];
                     }
                     else if (useIndex is > 3 and < 6)
                     {
-                        consumptionSlots[useIndex].GetComponent<Image>().sprite = _papersSprites[useIndex];
+                        consumptionSlots[useIndex].slotImage.sprite = _papersSprites[useIndex];
                     }
                     else if (useIndex >= 6)
                     {
-                        consumptionSlots[useIndex].GetComponent<Image>().sprite = _papersSprites[useIndex - 3];
+                        consumptionSlots[useIndex].slotImage.sprite = _papersSprites[useIndex - 3];
                     }
-                    consumptionSlots[useIndex].SetSlot(new Slot());
                     useIndex++;
+                }
+                else if (item.type == ItemType.Inherent)
+                {
+                    inherentSlots[inherentIndex].slotImage.sprite = _papersSprites[equipIndex];
+                    inherentSlots[inherentIndex].soldOutImage.sprite = _soldOutsSprites[equipIndex];
+                    equipIndex++;
+                    inherentIndex++;
                 }
             }
         }
         
-        public void SoldOut()
+        public void SoldOut(int slotID)
         {
-            var chosenSlot = (BuyArtifactSlot)UIManager.instance.GetUIContainer().chosenSlot;
-
-            if (chosenSlot.GetSlotType() != SlotType.BuyArtifact) return;
-            
             foreach (var artifact in artifactSlots)
             {
-                if (artifact.slot.GetSlotItem().id == chosenSlot.slot.GetSlotItemID())
+                if (artifact.GetSlotID() == slotID)
                 {
-                    artifact.artifactCount.text = chosenSlot.slot.GetSlotItemCount().ToString();
-                    
-                    artifact.soldOut.SetActive(true);
-                    artifact.artifactSlotButton.interactable = false;
+                    artifact.soldOutImage.gameObject.SetActive(true);
+                    artifact.buyCheckButton.interactable = false;
+                }
+            }
+
+            foreach (var inherent in inherentSlots)
+            {
+                if (inherent.GetSlotID() == slotID)
+                {
+                    inherent.soldOutImage.gameObject.SetActive(true);
+                    inherent.buyCheckButton.interactable = false;
                 }
             }
         }

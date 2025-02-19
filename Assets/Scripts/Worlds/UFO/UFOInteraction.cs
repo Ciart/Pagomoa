@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Worlds.UFO
 
         public IEnumerator MoveToPlayer()
         {
-            var player = GameManager.instance.player;
+            var player = Game.instance.player;
             var startPos = transform.position;
             var targetPos = new Vector3(player.transform.position.x, startPos.y);
             var sqrDistance = (targetPos - startPos).sqrMagnitude;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Inventory;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
@@ -17,12 +18,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     }
     public class Quest : IDisposable
     {
-        public string id;
-        public string description;
-        public string title;
-        public Reward reward;
-        public List<IQuestElements> conditions;
-        public Sprite npcSprite;
+        public string id {get; private set;}
+        public string description {get; private set;}
+        public string title {get; private set;}
+        public Reward reward {get; private set;}
+        public readonly List<IQuestElements> conditions;
+        public Sprite npcSprite {get; private set;}
         public QuestState state;
         public float progress;
         
@@ -121,21 +122,19 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             questType = elements.questType; 
             summary = elements.summary;
             value = int.Parse(elements.value);
-            targetId = elements.targetId;
+            targetId = elements.targetID;
             valueType = elements.value; 
             compareValue = 0;
             _prevValue = 0;
             
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
-            var inventoryItems = GameManager.instance.player.inventory.inventoryItems;
-            foreach (var inventoryItem in inventoryItems)
+            var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
+            var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
+            
+            foreach (var slot in sameSlots)
             {
-                if (inventoryItem.GetSlotItem().id == targetId)
-                {
-                    _prevValue = inventoryItem.GetSlotItemCount();
-                    break;
-                }
+                _prevValue += inventoryList[slot].GetSlotItemCount();
             }
         }
 
@@ -187,7 +186,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         private void CountItem(ItemCountChangedEvent e)
         {
-            // if (!TypeValidation(e.item)) return ;
+            if (!TypeValidation(e.itemID)) return ;
             if (CheckComplete()) return;
 
             CalculationValue(e);
@@ -203,21 +202,32 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
     public class UseItem : QuestCondition, IQuestElements
     {
+        private int _prevValue;
+        
         public UseItem(QuestConditionData conditions)
         {
             questType = conditions.questType; 
             summary = conditions.summary;
             value = int.Parse(conditions.value);
-            targetId = conditions.targetId;
+            targetId = conditions.targetID;
             valueType = conditions.value; 
             compareValue = 0;
+            _prevValue = 0;
             
             EventManager.AddListener<ItemUsedEvent>(HasUsingItem);
+
+            var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
+            var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
+            
+            foreach (var slot in sameSlots)
+            {
+                _prevValue += inventoryList[slot].GetSlotItemCount();
+            }
         }
 
-        public void HasUsingItem(ItemUsedEvent e)
+        private void HasUsingItem(ItemUsedEvent e)
         {
-            if (!TypeValidation(e.item.id)) return;
+            if (!TypeValidation(e.itemID)) return;
             if (CheckComplete()) return;
             
             CalculationValue(e);
@@ -231,7 +241,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             if (compareValue == value) return ;
             var usedItemEvent = (ItemUsedEvent)e;
             
-            compareValue += usedItemEvent.count;
+            compareValue += _prevValue - usedItemEvent.count;
+            _prevValue = usedItemEvent.count;
+            
             if (compareValue > value) compareValue = value;
         }
 
@@ -279,7 +291,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             questType = elements.questType;
             summary = elements.summary;
-            targetId = elements.targetId;
+            targetId = elements.targetID;
             valueType = elements.value;
             value = int.Parse(elements.value);
             compareValue = 0;

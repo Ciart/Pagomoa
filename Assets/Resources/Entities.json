@@ -47,7 +47,9 @@
       "description": "",
       "isEnemy": false,
       "isInvincible": false,
-      "baseHealth": 100
+      "baseHealth": 100,
+      "attack": 5,
+      "speed": 250
     },
     {
       "id": "SandGolem",
@@ -66,12 +68,20 @@
       "baseHealth": 100
     },
     {
+      "id": "DesertPot",
+      "name": "사막 항아리",
+      "description": "",
+      "isEnemy": true,
+      "isInvincible": false,
+      "baseHealth": 1
+    },
+    {
       "id": "Snake",
       "name": "뱀",
       "description": "",
       "isEnemy": true,
       "isInvincible": false,
-      "baseHealth": 100
+      "baseHealth": 200
     },
     {
       "id": "Tent",

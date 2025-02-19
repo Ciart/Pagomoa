@@ -7,16 +7,16 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 {
     public abstract class QuestCondition
     {
-        public bool complete{ get; set; }
-        public float progress { get; set; }
+        protected bool complete{ get; set; }
+        protected float progress { get; set; }
         public Action questFinished;
         public QuestType questType { get; set; }
-        public string summary { get; set; }
-        public string targetId { get; set; }
+        protected string summary { get; set; }
+        protected string targetId { get; set; }
         public string valueType { get; set; }
 
-        public int value { get; set; }
-        public int compareValue { get; set; }
+        protected int value { get; set; }
+        protected int compareValue { get; set; }
         
         public void InitQuest(QuestType initQuestType, string initSummary, int initValue, int initCompareValue,
             string initTargetId)

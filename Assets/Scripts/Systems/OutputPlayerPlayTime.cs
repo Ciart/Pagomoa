@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Systems {
         
         private TextMeshProUGUI _tmpGuiText;
 
-        private void Start()
+        private void Awake()
         {
             _tmpGuiText = GetComponent<TextMeshProUGUI>();    
         }

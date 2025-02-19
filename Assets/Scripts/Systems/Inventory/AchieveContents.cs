@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private Sprite down;
         [SerializeField] private GameObject updownImage;
         [SerializeField] int random;
-        public List<InventorySlot> findallMineral;
+        public List<InventorySlotUI> findallMineral;
 
         public void SetUI(Sprite s, int p)
         {

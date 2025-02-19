@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
-    public class DialogueManager : PManager<DialogueManager>
+    public class DialogueManager : Manager<DialogueManager>
     {
         ~DialogueManager()
         {
@@ -49,14 +49,10 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             return false;
         }
 
-        public override void Awake()
-        {
-            RegisterCommands();
-        }
-
         public override void Start()
         {
-            Debug.Log("DialogueManager::Start()");
+            RegisterCommands();
+            
             _dialogueUI = UIManager.instance.GetUIContainer().dialogueUI;
             if (_dialogueUI == null)
             {
