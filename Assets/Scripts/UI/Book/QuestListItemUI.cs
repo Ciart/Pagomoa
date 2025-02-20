@@ -48,7 +48,7 @@ namespace Ciart.Pagomoa.UI.Book
             {
                 _isSelected = value;
                 
-                if (questId == "") return;
+                if (questID == "") return;
                 
                 _image.sprite = _isSelected ? selectedBackgroundSprite : defaultBackgroundSprite;
                 progressBarFill.sprite = _isSelected ? selectedProgressFillSprite : defaultProgressFillSprite;
@@ -58,20 +58,20 @@ namespace Ciart.Pagomoa.UI.Book
             }
         }
         
-        public string questId
+        public string questID
         {
             get;
             private set;
         }
         
-        public void UpdateUI([CanBeNull] Quest quest)
+        public void UpdateUI(Quest? quest)
         {
             if (quest is null)
             {
                 _image.sprite = emptyBackgroundSprite;
                 _image.type = Image.Type.Tiled;
 
-                questId = "";
+                questID = "";
                 
                 progressBar.gameObject.SetActive(false);
                 titleText.gameObject.SetActive(false);
@@ -79,11 +79,11 @@ namespace Ciart.Pagomoa.UI.Book
 
                 return;
             }
-
+            
             _image.sprite = defaultBackgroundSprite;
             _image.type = Image.Type.Sliced;
             
-            questId = quest.id;
+            questID = quest.id;
             titleText.text = quest.title;
             progressText.text = $"{(int) (quest.progress * 100)}%";
 
@@ -106,16 +106,16 @@ namespace Ciart.Pagomoa.UI.Book
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (questId == "") return;
+            if (questID == "") return;
             
-            onClick.Invoke(questId);
+            onClick.Invoke(questID);
         }
 
         public void OnSubmit(BaseEventData eventData)
         {
-            if (questId == "") return;
+            if (questID == "") return;
             
-            onClick.Invoke(questId);
+            onClick.Invoke(questID);
         }
     }
 }

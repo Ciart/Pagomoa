@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         Completed,
         Finish
     }
-    public class Quest : IDisposable
+    public class Quest
     {
         public string id {get; private set;}
         public string description {get; private set;}
@@ -84,12 +84,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 
                 if (condition.CheckComplete() == false)
                 {
-                    Debug.Log(condition.CheckComplete());
                     allFinish = false;
                 }
             }
             
             EventManager.Notify(new QuestUpdated(this));
+            EventManager.Notify(new QuestListUpdated(Game.Instance.Quest.quests));
 
             if (allFinish)
             {
@@ -104,16 +104,19 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             EventManager.Notify(new QuestCompleted(this));
         }
 
-        public void Dispose()
+        public void Finish()
         {
+            EventManager.Notify(new QuestUpdated(this));
+            EventManager.Notify(new QuestListUpdated(Game.Instance.Quest.quests));
+            
             foreach (var element in conditions)
             {
-                element.Dispose();
+                element.Finish();
             }
         }
     }
 
-    public interface IQuestElements : IDisposable
+    public interface IQuestElements
     {
         public QuestType questType { get; }
         public bool CheckComplete();
@@ -122,18 +125,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary();
         public string GetValueToString();
         public string GetCompareValueToString();
+        public void Finish();
     }
 
     #region CollectItem : 아이템 수집 (수집한 아이템은 퀘스트를 완료해도 사라지지 않음)
     public class CollectItem : QuestCondition, IQuestElements
     {
         private int _prevValue;
-        
-        public void Dispose()
-        {
-            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
-        }
-
         public CollectItem(QuestConditionData elements)
         {
             questType = elements.questType; 
@@ -217,6 +215,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
+        public void Finish() { EventManager.RemoveListener<ItemCountChangedEvent>(CountItem); }
     }
     #endregion
     #region UseItem 소모성, 액티브 아이템 사용 
@@ -271,11 +270,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             return target == targetId;
         }
-
-        public void Dispose()
-        {
-            EventManager.RemoveListener<ItemUsedEvent>(HasUsingItem);
-        }
         
         public bool CheckComplete()
         {
@@ -301,16 +295,12 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
+        public void Finish() { EventManager.RemoveListener<ItemUsedEvent>(HasUsingItem); }
     }
     #endregion
     #region BreakBlock      
     public class BreakBlock : QuestCondition, IQuestElements
     { 
-        public void Dispose()
-        {
-            EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken);
-        }
-
         public BreakBlock(QuestConditionData elements)
         {
             questType = elements.questType;
@@ -353,8 +343,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             if (compareValue == value) return ;
             compareValue++;
-            
-            Debug.Log("Block :" + compareValue);
         }
         
         private void OnGroundBroken(GroundBrokenEvent e)
@@ -371,17 +359,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
+        public void Finish() { EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken); }
     }
     #endregion
     
     #region HasItem 
     public class HasItem : QuestCondition, IQuestElements
     {
-        public void Dispose()
-        {
-            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
-        }
-
         public HasItem(QuestConditionData elements)
         {
             questType = elements.questType; 
@@ -444,6 +428,22 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
+        public void Finish()
+        {
+            EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
+            
+            var itemList = Game.Instance.player.inventory.FindSameItem(GetTargetID());
+
+            foreach (var index in itemList)
+            {
+                var slot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, index);
+                if (slot.GetSlotItemCount() >= value)
+                {
+                    Game.Instance.player.inventory.DecreaseItemBySlotID(index, value);
+                    break;
+                }
+            }
+        }
     }
     #endregion
 
@@ -451,11 +451,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
     public class SellItem : QuestCondition, IQuestElements
     {
-        public void Dispose()
-        {
-            EventManager.RemoveListener<ItemSellEvent>(SellingItem);
-        }
-
         public SellItem(QuestConditionData elements)
         {
             questType = elements.questType; 
@@ -511,6 +506,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
+        public void Finish() { EventManager.RemoveListener<ItemSellEvent>(SellingItem); }
     }
     #endregion
 }

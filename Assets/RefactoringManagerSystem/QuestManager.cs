@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
         public void CompleteQuest(string id)
         {
             GetReward(id);
-    
+            
             EventManager.Notify(new QuestCompleted(FindQuestById(id)));
         }
 
@@ -47,31 +47,12 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             var targetQuest = FindQuestById(id);
             var reward = targetQuest.reward;
 
-            foreach (var condition in targetQuest.conditions)
-            {
-                if (condition.questType != QuestType.HasItem) continue;
-                
-                var value  = int.Parse(condition.GetValueToString());
-                var itemList = Game.Instance.player.inventory.FindSameItem(condition.GetTargetID());
-
-                foreach (var index in itemList)
-                {
-                    var slot = Game.Instance.player.inventory.FindSlot(SlotType.Inventory, index);
-                    if (slot.GetSlotItemCount() >= value)
-                    {
-                        Game.Instance.player.inventory.DecreaseItemBySlotID(index, value);
-                        break;
-                    }
-                }
-            }
-
             EventManager.Notify(new AddReward(reward.itemID, reward.value));
 
             EventManager.Notify(new AddGold(reward.gold));
 
             targetQuest.state = QuestState.Finish;
-
-            targetQuest.Dispose();
+            targetQuest.Finish();
         }
 
         public Quest FindQuestById(string id)

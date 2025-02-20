@@ -44,10 +44,10 @@ namespace Ciart.Pagomoa
         }
         
         // TODO : 상속으로 컷신 추가시 컷신마다의 기능으로 변경되어야 함. 
-        public void OnCutSceneTrigger(Action afterCutScene)
+        /*public void OnCutSceneTrigger(Action afterCutScene)
         {
             Game.Instance.Time.SetTimer(600, afterCutScene);
-        }
+        }*/
 
         public void OffCutSceneTrigger()
         {

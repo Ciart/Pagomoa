@@ -44,21 +44,6 @@ namespace Ciart.Pagomoa
             mainCamera = Camera.main;
             
             _director.stopped += EndCutScene;
-            
-            foreach (var trigger in triggers)
-            {
-                switch (trigger.name)
-                {
-                    case "ShopKeeperTrigger":
-                        _currentCutSceneTrigger = trigger;
-                        void WhenCutSceneEnd()
-                        {
-                            Instantiate(trigger.gameObject, Vector3.zero, Quaternion.identity);
-                        }
-                        trigger.OnCutSceneTrigger(WhenCutSceneEnd);
-                        continue;
-                }
-            }
         }
         
         public CutScene GetOnPlayingCutScene()

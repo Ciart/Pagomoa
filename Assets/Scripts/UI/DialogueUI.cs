@@ -175,6 +175,11 @@ namespace Ciart.Pagomoa
                             dialogueManager.StartQuestChat();
                             _changeDialogue = true;
                         }
+                        else if (param == "shop")
+                        {
+                            Game.Instance.UI.shopUI.ActiveShop();
+                            _targetManager.StopStory();
+                        }
                         else
                         {
                             if (!Game.Instance.Dialogue.ExecuteCommand(param))
@@ -190,10 +195,6 @@ namespace Ciart.Pagomoa
                     case "reward":
                         dialogueManager.nowEntityDialogue.QuestComplete(param);
                         break; 
-                    case "shop":
-                        Debug.Log("in");
-                        Game.Instance.UI.shopUI.ActiveShop();
-                        break;
                 }
             }
         }

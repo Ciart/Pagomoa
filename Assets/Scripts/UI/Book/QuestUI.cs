@@ -49,7 +49,7 @@ namespace Ciart.Pagomoa.UI.Book
         {
             foreach (var item in _questListItems)
             {
-                item.isSelected = item.questId == selectQuestId;
+                item.isSelected = item.questID == selectQuestId;
             }
             
             UpdateQuestDetail(Game.Instance.Quest.FindQuestById(selectQuestId));
@@ -71,7 +71,7 @@ namespace Ciart.Pagomoa.UI.Book
                 {
                     selectQuestId = questList[i].id;
                 }
-
+                
                 _questListItems[i].UpdateUI(questList[i]);
             }
 
