@@ -33,8 +33,8 @@ namespace Ciart.Pagomoa
         
         [SerializeField] private float fadeDelay;
         
-        private LayerMask cutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
-        private LayerMask inGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
+        private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
+        private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
         private void Start()
         {
@@ -44,21 +44,6 @@ namespace Ciart.Pagomoa
             mainCamera = Camera.main;
             
             _director.stopped += EndCutScene;
-            
-            foreach (var trigger in triggers)
-            {
-                switch (trigger.name)
-                {
-                    case "ShopKeeperTrigger":
-                        _currentCutSceneTrigger = trigger;
-                        void WhenCutSceneEnd()
-                        {
-                            Instantiate(trigger.gameObject, Vector3.zero, Quaternion.identity);
-                        }
-                        trigger.OnCutSceneTrigger(WhenCutSceneEnd);
-                        continue;
-                }
-            }
         }
         
         public CutScene GetOnPlayingCutScene()
@@ -109,8 +94,8 @@ namespace Ciart.Pagomoa
             return _signalReceiver;
         }
         
-        private void CutSceneCameraSetting() { mainCamera.cullingMask= cutSceneMasks; }
-        private void DefaultCameraSetting() { mainCamera.cullingMask= inGameMasks; }
+        private void CutSceneCameraSetting() { mainCamera.cullingMask= CutSceneMasks; }
+        private void DefaultCameraSetting() { mainCamera.cullingMask= InGameMasks; }
         
         public bool CutSceneIsPlayed()
         {
@@ -162,7 +147,7 @@ namespace Ciart.Pagomoa
                         
                         target.Chatting(_targetCutScene.GetMiniChat(), chat.duration);
                         _targetCutScene.IncreaseMiniChatIndex();
-
+                            
                         return;
                     }
                     if (chat.content.Trim() != "") 
