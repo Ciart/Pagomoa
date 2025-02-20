@@ -24,8 +24,6 @@ namespace Ciart.Pagomoa.UI.Book
         {
             summaryText.text = condition.GetQuestSummary();
             valueText.text = $"({condition.GetCompareValueToString()} / {condition.GetValueToString()})";
-            
-
 
             // 높이를 텍스트 높이에 맞춤
             float totalHeight = summaryText.preferredHeight;
