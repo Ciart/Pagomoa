@@ -25,8 +25,16 @@ MonoBehaviour:
     value: 5
   questList:
   - questType: 12
-    summary: "\uD310\uB9E4"
+    summary: "\uAD6C\uB9AC 5\uAC1C \uD310\uB9E4 \uAD6C\uB9AC 5\uAC1C \uD310\uB9E4
+      \uAD6C\uB9AC 5\uAC1C \uD310\uB9E4 \uAD6C\uB9AC 5\uAC1C \uD310\uB9E4"
     value: 5
+    targetID: Copper
+    conditionType:
+      target: 1
+      typeValue: int
+  - questType: 12
+    summary: 1
+    value: 10
     targetID: Copper
     conditionType:
       target: 1

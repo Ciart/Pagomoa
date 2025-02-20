@@ -125,19 +125,23 @@ namespace Ciart.Pagomoa.Editor
                         conTypeValue.typeValue = conditionType.Value.typeValue;
                     }
                 }
-
+                
                 newQuestData.questList[_listIndex].conditionType.target = conTarget.target;
                 newQuestData.questList[_listIndex].conditionType.typeValue = conTypeValue.typeValue;
                 QuestType[] questTypes = (QuestType[])Enum.GetValues(typeof(QuestType));
                 newQuestData.questList[_listIndex].questType = questTypes[_typeIndex];
+                Debug.Log(_listIndex);
             }
             if (GUILayout.Button("퀘스트 제거하기"))
             {
-                if (newQuestData.questList.Count == 0) return;
+                if (newQuestData.questList.Count <= 0) return;
 
                 if (newQuestData.questList.Count != 1 && newQuestData.questList.Count > 0) _listIndex--;
 
                 newQuestData.questList.RemoveAt(newQuestData.questList.Count - 1);
+
+                _listIndex--;
+                if(_listIndex < 0) _listIndex = 0; 
             }
 
             GUILayout.Space(20);
