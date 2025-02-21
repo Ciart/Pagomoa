@@ -25,7 +25,5 @@ namespace Ciart.Pagomoa
         
         [Header("For Run Tine Can be None")] 
         public DialogueUI? dialogueUI;
-        /*public ISlot? chosenSlot { get; private set; }
-        public void SetChosenSlot (ISlot slot) => chosenSlot = slot;*/
     }
 }
