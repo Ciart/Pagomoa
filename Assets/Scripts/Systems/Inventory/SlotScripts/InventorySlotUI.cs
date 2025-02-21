@@ -26,11 +26,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (targetSlot.GetSlotItemID() == "")
             {
+                var color = itemImage.color;
+                color.a = 0.0f;
+                itemImage.color = color;
                 itemImage.sprite = null;
                 countText.text = "";
             } 
             else if (targetSlot.GetSlotItemID() != "")
             {
+                var color = itemImage.color;
+                color.a = 255.0f;
+                itemImage.color = color;
                 itemImage.sprite = targetSlot.GetSlotItem().sprite;
                 countText.text = targetSlot.GetSlotItemCount() == 0 ? "" : targetSlot.GetSlotItemCount().ToString();
             }
