@@ -82,7 +82,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
             if (_nextUpdateTime <= 0)
             {
-                tick += 100;
+                tick += 10;
                 //To do : tick have to change into 1, But should be do before Release. Not now.
                 _nextUpdateTime += 1f / tickSpeed;
                 tickUpdated?.Invoke(tick);

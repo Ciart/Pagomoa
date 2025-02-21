@@ -88,15 +88,23 @@ namespace Ciart.Pagomoa.Systems
         
         private void ToggleEscUI()
         {
-            if(!_dialogueUI.activeSelf)
-                _uiContainer.escUI.SetActive(!_uiContainer.escUI.activeSelf);
+            bookUI.DeActiveBook();
+            shopUI.DeActiveShop();
+            _dialogueUI.SetActive(false);
         }
 
         private void ToggleInventoryUI()
         {
+            if (Game.Instance.UI.shopUI.gameObject.activeSelf) return;
+            if (_dialogueUI.gameObject.activeSelf)
+            {
+                bookUI.DeActiveBook();
+                return;
+            }
+            
             _isActiveInventory = !_isActiveInventory;
             bookUI.gameObject.SetActive(_isActiveInventory);
-
+            
             // if (_isActiveInventory)
             // {
             //     inventoryCamera.Priority = 11;
