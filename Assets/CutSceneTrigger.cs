@@ -3,17 +3,20 @@ using System.Collections;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Timelines;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
     public class CutSceneTrigger : MonoBehaviour
     {
         public CutScene playableCutScene;
+        public Vector2  instantiatedPos;
         
         private BoxCollider2D _boxCollider;
-        
         private const string TargetTag = "Player";
         [SerializeField] private GameObject _shopKeeperPrefab;
+
+        private CutSceneTrigger _trigger;
         
         void Start()
         {
@@ -29,9 +32,10 @@ namespace Ciart.Pagomoa
 
         private void StartCutScene()
         {
+            DataBase.data.GetCutSceneController().SetCutSceneTrigger(this);
             DataBase.data.GetCutSceneController().StartCutScene(playableCutScene);
             
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         private IEnumerator StartFade()
@@ -43,15 +47,20 @@ namespace Ciart.Pagomoa
             StartCutScene();
         }
         
-        // TODO : 상속으로 컷신 추가시 컷신마다의 기능으로 변경되어야 함. 
-        /*public void OnCutSceneTrigger(Action afterCutScene)
+
+        public void OnCutSceneTrigger(int tick)
         {
-            Game.Instance.Time.SetTimer(600, afterCutScene);
-        }*/
+            if (tick == 18000 && Game.Instance.Time.date == 1)
+            {
+                _trigger = Instantiate(this, instantiatedPos, Quaternion.identity);
+                Game.Instance.Time.UnregisterTickEvent(OnCutSceneTrigger);
+            }
+        }
 
         public void OffCutSceneTrigger()
         {
             Instantiate(_shopKeeperPrefab, new Vector2(13.0f, 0.0f), Quaternion.identity);
+            Destroy(_trigger);
         }
     }
 }

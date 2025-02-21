@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Save;
+using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
@@ -10,6 +15,7 @@ namespace Ciart.Pagomoa.Systems.Time
         ~TimeManager()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            Task.FromCanceled(CancellationToken.None);
         }
 
         public const int MinuteTick = 30;
@@ -70,11 +76,13 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public override void Update()
         {
+            if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;
+            if (isTimeStop == true) return;
             if (tick >= MaxTick) return;
 
             if (_nextUpdateTime <= 0)
             {
-                tick += 10;
+                tick += 100;
                 //To do : tick have to change into 1, But should be do before Release. Not now.
                 _nextUpdateTime += 1f / tickSpeed;
                 tickUpdated?.Invoke(tick);
@@ -128,13 +136,22 @@ namespace Ciart.Pagomoa.Systems.Time
             isTimeStop = false;
             if (_playerInput) _playerInput.Actable = true;
         }
-
-        public async void SetTimer(float seconds, Action callback)
+        
+        public void RegisterTickEvent(Action<int> action)
         {
-            var milliSeconds = (int)(seconds * 1000);
-            await Task.Delay(milliSeconds);
-
-            callback.Invoke();
+            if (!tickUpdated.GetInvocationList().Contains(action))
+            {
+                tickUpdated += action;   
+            }
+        }
+        
+        public void UnregisterTickEvent(Action<int> action)
+        {
+            if (tickUpdated.GetInvocationList().Contains(action))
+            {
+                Debug.Log(action.Method.Name);
+                tickUpdated -= action;
+            }
         }
     }
 }
