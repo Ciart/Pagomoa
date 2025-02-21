@@ -173,17 +173,17 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            TimeManager.instance.tickUpdated += OnTickUpdated;
+            Game.Instance.Time.tickUpdated += OnTickUpdated;
         }
 
         private void OnDisable()
         {
-            TimeManager.instance.tickUpdated -= OnTickUpdated;
+            Game.Instance.Time.tickUpdated -= OnTickUpdated;
         }
         
         private void OnTickUpdated(int tick)
         {
-            var soundManager = SoundManager.instance;
+            var soundManager = Game.Instance.Sound;
             
             if (isDig && isGroundHit)
             {

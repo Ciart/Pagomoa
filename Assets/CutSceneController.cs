@@ -27,9 +27,10 @@ namespace Ciart.Pagomoa
         
         public List<CutSceneTrigger> triggers = new List<CutSceneTrigger>();
         private CutScene? _targetCutScene;
-        private CutSceneTrigger? _currentCutSceneTrigger;
-
         private Transform _camTransform;
+        private CutSceneTrigger? _currentCutSceneTrigger;
+        public void SetCutSceneTrigger(CutSceneTrigger trigger) { _currentCutSceneTrigger = trigger; }
+        
         
         [SerializeField] private float fadeDelay;
         
@@ -44,6 +45,11 @@ namespace Ciart.Pagomoa
             mainCamera = Camera.main;
             
             _director.stopped += EndCutScene;
+
+            foreach (var trigger in triggers)
+            {
+                Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
+            }
         }
         
         public CutScene GetOnPlayingCutScene()
@@ -74,9 +80,9 @@ namespace Ciart.Pagomoa
             Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeOut, fadeDelay);
             DefaultCameraSetting();
             
-            Game.Instance.UI.ActiveUI();
             var player = Game.instance.player;
             player.gameObject.SetActive(true);
+            Game.Instance.UI.ActiveUI();
             
             for (int i = 0; i < player.transform.childCount; i++)
             {
@@ -113,8 +119,8 @@ namespace Ciart.Pagomoa
             
             foreach (var actor in _targetCutScene.GetActors())
             {
-                var chatBalloon = actor.GetComponent<ChatBalloon>().balloon;
-                chatBalloon.SetActive(false);
+                actor.TryGetComponent<ChatBalloon>(out var chat);
+                chat.balloon.SetActive(false);
             }
             
             _director.Play();

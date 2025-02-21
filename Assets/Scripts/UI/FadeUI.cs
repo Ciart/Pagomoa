@@ -1,6 +1,7 @@
 using System;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,13 +52,13 @@ namespace Ciart.Pagomoa
                     animator.speed = duration;
                     
                     FadeOut();
-                    Game.Instance.Time.SetTimer(duration, standby);
+                    TimerUtility.SetTimer(duration, standby);
                     break;
                 case FadeFlag.FadeInOut: case FadeFlag.MoonFadeInOut:
                     animator.speed = duration;
                     FadeIn();
-                    Game.Instance.Time.SetTimer(duration, fadeOut);
-                    Game.Instance.Time.SetTimer(duration * 2, standby);
+                    TimerUtility.SetTimer(duration, fadeOut);
+                    TimerUtility.SetTimer(duration * 2, standby);
                     break;
             }
         }

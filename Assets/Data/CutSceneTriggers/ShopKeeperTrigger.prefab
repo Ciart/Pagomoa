@@ -92,4 +92,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playableCutScene: {fileID: 8007347994331867935, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
+  instantiatedPos: {x: 0, y: 0}
   _shopKeeperPrefab: {fileID: 7612459397517908787, guid: 4c99cfc365e1b9e448bd398da421ac85, type: 3}
