@@ -26,6 +26,16 @@ namespace Ciart.Pagomoa.Entities
         
         public float speed;
 
+        /// <summary>
+        /// Only Player
+        /// </summary>
+        public float oxygen;
+
+        /// <summary>
+        /// Only Player
+        /// </summary>
+        public float hungry;
+
         public EntityController? prefab;
         
         private void LoadResources()

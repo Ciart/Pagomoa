@@ -116,40 +116,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             _player = GetComponent<PlayerController>();
         }
-
-        private void UpdateOxygen()
-        {
-            var gage = 100f;
-
-            if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
-            {
-                oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
-                gage = oxygen;
-                if (oxygen < minOxygen)
-                {
-                    _player.entityController.Die();
-                    gage = minOxygen;
-                }
-            }
-            else if (oxygen < maxOxygen)
-            {
-                oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
-                gage = oxygen;
-            }
-            oxygenAlter.Invoke(gage, maxOxygen);
-        }
-
-        private void FixedUpdate()
-        {
-            if (_player.entityController.isDead) return;
-            
-            UpdateOxygen();
-            if (oxygen < minOxygen)
-            {
-                _player.entityController.TakeDamage(10);
-            }
-        }
-
+        
         public PlayerStatus copy()
         {
             return (PlayerStatus)this.MemberwiseClone();
