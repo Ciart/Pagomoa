@@ -79,7 +79,7 @@ ScriptedImporter:
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
-    spritePadding: 0
+    spritePadding: 4
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
@@ -92,13 +92,13 @@ ScriptedImporter:
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
-    spritePadding: 0
+    spritePadding: 4
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638587996973744659
+  platformSettingsDirtyTick: 638762055850094471
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -125,16 +125,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: sandgolem_Frame_0
     originalName: 
-    pivot: {x: 0.45000002, y: 0}
+    pivot: {x: 0.45588234, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 50
-      y: 44
-      width: 30
-      height: 33
+      x: 4
+      y: 136
+      width: 34
+      height: 37
     spriteID: 612420d37c9da1f4b967a8d7843cfed6
     spriteBone: []
     spriteOutline: []
@@ -143,19 +143,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 50, y: 44}
+    uvTransform: {x: 4, y: 136}
   - name: sandgolem_Frame_1
     originalName: 
-    pivot: {x: 0.45000002, y: 0}
+    pivot: {x: 0.45588234, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 50
-      y: 85
-      width: 30
-      height: 33
+      x: 46
+      y: 136
+      width: 34
+      height: 37
     spriteID: 616175b1506be0c42b3b0b2e609c41a7
     spriteBone: []
     spriteOutline: []
@@ -164,19 +164,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 50, y: 85}
+    uvTransform: {x: 46, y: 136}
   - name: sandgolem_Frame_2
     originalName: 
-    pivot: {x: 0.4354839, y: 0}
+    pivot: {x: 0.44285715, y: 0.055555556}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 50
-      y: 4
-      width: 31
-      height: 32
+      x: 4
+      y: 92
+      width: 35
+      height: 36
     spriteID: 29c8e04a2f433ed4cae1748b87ea0be9
     spriteBone: []
     spriteOutline: []
@@ -185,19 +185,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 50, y: 4}
+    uvTransform: {x: 4, y: 92}
   - name: sandgolem_Frame_3
     originalName: 
-    pivot: {x: 0.40384614, y: 0}
+    pivot: {x: 0.4166667, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 89
-      y: 4
-      width: 26
-      height: 33
+      x: 214
+      y: 136
+      width: 30
+      height: 37
     spriteID: 6ecc5e2935f03e241bc30d38fa0c5b3f
     spriteBone: []
     spriteOutline: []
@@ -206,19 +206,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 89, y: 4}
+    uvTransform: {x: 214, y: 136}
   - name: sandgolem_Frame_4
     originalName: 
-    pivot: {x: 0.45000002, y: 0}
+    pivot: {x: 0.45588234, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 50
-      y: 126
-      width: 30
-      height: 33
+      x: 88
+      y: 136
+      width: 34
+      height: 37
     spriteID: 93a52bf694cd13d4c9ba5cbc3351f86f
     spriteBone: []
     spriteOutline: []
@@ -227,19 +227,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 50, y: 126}
+    uvTransform: {x: 88, y: 136}
   - name: sandgolem_Frame_5
     originalName: 
-    pivot: {x: 0.43939397, y: 0}
+    pivot: {x: 0.44594595, y: 0.055555556}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 128
-      width: 33
-      height: 32
+      x: 154
+      y: 4
+      width: 37
+      height: 36
     spriteID: 6ec7a87dfcd22444bbdb9168b1025223
     spriteBone: []
     spriteOutline: []
@@ -248,19 +248,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 128}
+    uvTransform: {x: 154, y: 4}
   - name: sandgolem_Frame_6
     originalName: 
-    pivot: {x: 0.45000002, y: 0}
+    pivot: {x: 0.45588234, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 50
-      y: 167
-      width: 30
-      height: 33
+      x: 130
+      y: 136
+      width: 34
+      height: 37
     spriteID: 400d3d4548937e7408f08f5903da4b1b
     spriteBone: []
     spriteOutline: []
@@ -269,10 +269,10 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 50, y: 167}
+    uvTransform: {x: 130, y: 136}
   - name: sandgolem_Frame_7
     originalName: 
-    pivot: {x: 0.43421054, y: 0}
+    pivot: {x: 0.44047618, y: 0.05263158}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -280,8 +280,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 38
-      height: 34
+      width: 42
+      height: 38
     spriteID: 4d1c6910e15437a469f06a16688bc4c3
     spriteBone: []
     spriteOutline: []
@@ -293,16 +293,16 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: sandgolem_Frame_8
     originalName: 
-    pivot: {x: 0.6617647, y: 0}
+    pivot: {x: 0.6447368, y: 0.05882353}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
-      y: 208
-      width: 34
-      height: 30
+      y: 50
+      width: 38
+      height: 34
     spriteID: 8b47c23d4b0a7464bbfd6edc8b59b1da
     spriteBone: []
     spriteOutline: []
@@ -311,19 +311,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 208}
+    uvTransform: {x: 4, y: 50}
   - name: sandgolem_Frame_9
     originalName: 
-    pivot: {x: 0.46052632, y: 0}
+    pivot: {x: 0.4642857, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 46
-      width: 38
-      height: 33
+      x: 54
+      y: 4
+      width: 42
+      height: 37
     spriteID: 53a3295e528b24a4eb829eedd5988bf7
     spriteBone: []
     spriteOutline: []
@@ -332,19 +332,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 46}
+    uvTransform: {x: 54, y: 4}
   - name: sandgolem_Frame_10
     originalName: 
-    pivot: {x: 0.43421054, y: 0}
+    pivot: {x: 0.44047618, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 87
-      width: 38
-      height: 33
+      x: 104
+      y: 4
+      width: 42
+      height: 37
     spriteID: 90a2fa3e36b6a0545b5911965fb0e762
     spriteBone: []
     spriteOutline: []
@@ -353,19 +353,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 87}
+    uvTransform: {x: 104, y: 4}
   - name: sandgolem_Frame_11
     originalName: 
-    pivot: {x: 0.40384614, y: 0}
+    pivot: {x: 0.4166667, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 89
-      y: 45
-      width: 26
-      height: 33
+      x: 4
+      y: 181
+      width: 30
+      height: 37
     spriteID: 5057e12dbab82144a915b12a8f805eb6
     spriteBone: []
     spriteOutline: []
@@ -374,19 +374,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 89, y: 45}
+    uvTransform: {x: 4, y: 181}
   - name: sandgolem_Frame_12
     originalName: 
-    pivot: {x: 0.45000002, y: 0}
+    pivot: {x: 0.45588234, y: 0.054054055}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 50
-      y: 208
-      width: 30
-      height: 33
+      x: 172
+      y: 136
+      width: 34
+      height: 37
     spriteID: 1ebe5ce32512a3c4cab0450b8fbb0a10
     spriteBone: []
     spriteOutline: []
@@ -395,19 +395,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 50, y: 208}
+    uvTransform: {x: 172, y: 136}
   - name: sandgolem_Frame_13
     originalName: 
-    pivot: {x: 0.43939397, y: 0}
+    pivot: {x: 0.44594595, y: 0.055555556}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 168
-      width: 33
-      height: 32
+      x: 199
+      y: 4
+      width: 37
+      height: 36
     spriteID: 1946993d978e09040bcf576ed0ef0c5e
     spriteBone: []
     spriteOutline: []
@@ -416,7 +416,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 168}
+    uvTransform: {x: 199, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -607,4 +607,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 45, y: 45}
-  previousTextureSize: {x: 128, y: 256}
+  previousTextureSize: {x: 256, y: 256}
