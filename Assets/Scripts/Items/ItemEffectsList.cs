@@ -1,7 +1,5 @@
 ﻿using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
-using System.Runtime.ConstrainedExecution;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Items
@@ -41,7 +39,7 @@ namespace Ciart.Pagomoa.Items
 
             entity.Item = ResourceSystem.instance.GetItem("Bomb");
 
-            entity.AddComponent<Bomb>().Init(3, 3);
+            entity.gameObject.AddComponent<Bomb>().Init(3, 3);
         }
     }
 
@@ -52,7 +50,7 @@ namespace Ciart.Pagomoa.Items
         {
             var player = Game.Instance.player;
 
-            player.entityController.health += 100;
+            player.health += 100;
 
             Debug.Log("오래된 붕대 사용");
         }
@@ -94,7 +92,7 @@ namespace Ciart.Pagomoa.Items
         {
             var player = Game.Instance.player;
 
-            player.entityController.health = player.entityController.maxHealth;
+            player.health = player.maxHealth;
 
             Debug.Log("역겨운 뱀의 피 섭취");
         }

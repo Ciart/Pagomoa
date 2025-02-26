@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Ciart.Pagomoa.Systems.Inventory

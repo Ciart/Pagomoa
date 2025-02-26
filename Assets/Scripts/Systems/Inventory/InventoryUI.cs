@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Items;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using TMPro;
 using Ciart.Pagomoa.Entities;
 
@@ -97,7 +92,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         private void UpdateHPValueText(EntityDamagedEventArgs args)
         {
-            hpValueText.text = $"{Game.Instance.player.entityController.health:F0}";
+            hpValueText.text = $"{Game.Instance.player.health:F0}";
         }
 
         private void UpdateDamageValueText()
@@ -174,10 +169,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             player.status.sightChange += UpdateSightValueText;
             player.status.digSpeedChange += UpdateDigValueText;
 
-            player.entityController.damaged += UpdateHPValueText;
-            player.entityController.attackChanged += UpdateDamageValueText;
-            player.entityController.deffenseChanged += UpdateDeffenseValueText;
-            player.entityController.speedChanged += UpdateMoveSpeedValueText;
+            player.damaged += UpdateHPValueText;
+            player.attackChanged += UpdateDamageValueText;
+            player.deffenseChanged += UpdateDeffenseValueText;
+            player.speedChanged += UpdateMoveSpeedValueText;
         }
 
         private void OnDisable()

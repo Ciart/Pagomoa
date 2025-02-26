@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Ciart.Pagomoa.Entities.Players;
-using Ciart.Pagomoa.Items;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory

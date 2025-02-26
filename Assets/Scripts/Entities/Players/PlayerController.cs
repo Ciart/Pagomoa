@@ -41,8 +41,8 @@ namespace Ciart.Pagomoa.Entities.Players
         public Inventory inventory;
 
         public DrillController drill;
-        
-        private Rigidbody2D _rigidbody;
+
+        private EntityController? _moa;
 
         private PlayerInput _input;
 
@@ -54,13 +54,15 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private Direction _direction;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             status = GetComponent<PlayerStatus>();
             initialStatus = status.copy();
             drill = GetComponentInChildren<DrillController>();
 
-            _rigidbody = GetComponent<Rigidbody2D>();
+            _moa = Game.Instance.Entity.Spawn("Moa", transform.position);
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             inventory = GetComponent<Inventory>();
@@ -70,8 +72,10 @@ namespace Ciart.Pagomoa.Entities.Players
             inventory.artifactChanged += OnArtifactChanged;
         }
         
-        public void InitPlayer(EntityData data)
+        public override void Init(EntityData data)
         {
+            base.Init(data);
+            
             var entity = ResourceSystem.instance.GetEntity(data.id);
 
             oxygen = entity.oxygen;
