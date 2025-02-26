@@ -1,10 +1,5 @@
 ﻿using Ciart.Pagomoa.Events;
 using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Ciart.Pagomoa

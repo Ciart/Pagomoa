@@ -1,6 +1,4 @@
-using System;
 using Ciart.Pagomoa.Items;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

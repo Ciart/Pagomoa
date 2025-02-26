@@ -94,9 +94,9 @@ namespace Ciart.Pagomoa.Entities
         
         public bool isDead => health <= 0;
 
-        private SpriteRenderer _spriteRenderer;
+        protected SpriteRenderer _spriteRenderer;
 
-        private Rigidbody2D _rigidbody;
+        protected Rigidbody2D _rigidbody;
 
         private float _invincibleTime;
 
@@ -129,7 +129,7 @@ namespace Ciart.Pagomoa.Entities
             }
         }
 
-        public void Init(EntityData data)
+        public virtual void Init(EntityData data)
         {
             var entity = ResourceSystem.instance.GetEntity(data.id);
             entityId = entity.id;
@@ -252,11 +252,10 @@ namespace Ciart.Pagomoa.Entities
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _rigidbody.simulated = false;
         }
 
         private void CheckDeath()
@@ -271,7 +270,11 @@ namespace Ciart.Pagomoa.Entities
         {
             CheckDeath();
 
-            var distance = Vector3.Distance(transform.position, Game.instance.player.transform.position);
+            var player = Game.Instance.player;
+            
+            if (player is null || this == player) return;
+
+            var distance = Vector3.Distance(transform.position, player.transform.position);
 
             if (distance > 100f)
             {

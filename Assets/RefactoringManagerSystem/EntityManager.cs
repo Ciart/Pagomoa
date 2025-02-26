@@ -30,10 +30,9 @@ namespace Ciart.Pagomoa.Entities
             
             controller.Init(new EntityData(id, position.x, position.y, status));
             
-            if (entity.tags.Contains("Player"))
+            if (controller is PlayerController playerController)
             {
-                var player = controller.GetComponent<PlayerController>();
-                EventManager.Notify(new PlayerSpawnedEvent(player));
+                EventManager.Notify(new PlayerSpawnedEvent(playerController));
             }
             
             return controller;

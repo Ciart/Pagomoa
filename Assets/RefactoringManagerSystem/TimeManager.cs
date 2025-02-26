@@ -89,7 +89,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
                 if (tick >= MaxTick)
                 {
-                    Game.Instance.player.entityController.Die();
+                    Game.Instance.player.Die();
                     return;
                 }
             }
