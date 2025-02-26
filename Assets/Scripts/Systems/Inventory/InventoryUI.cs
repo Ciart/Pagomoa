@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using TMPro;
+using Ciart.Pagomoa.Entities;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
@@ -19,7 +21,16 @@ namespace Ciart.Pagomoa.Systems.Inventory
             = new List<InventorySlotUI>(Inventory.MaxInventorySlots);
         private readonly List<ArtifactSlotUI> _artifactSlots 
             = new List<ArtifactSlotUI>(Inventory.MaxArtifactSlots);
-        
+
+        [SerializeField] private TextMeshProUGUI hpValueText;
+        [SerializeField] private TextMeshProUGUI damageValueText;
+        [SerializeField] private TextMeshProUGUI oxygenValueText;
+        [SerializeField] private TextMeshProUGUI deffenseValueText;
+        [SerializeField] private TextMeshProUGUI hungerValueText;
+        [SerializeField] private TextMeshProUGUI moveSpeedValueText;
+        [SerializeField] private TextMeshProUGUI sightValueText;
+        [SerializeField] private TextMeshProUGUI digValueText;
+
         private void InitInventorySlotUI(Inventory inventoryData)
         {
             for (int i = 0; i < Inventory.MaxInventorySlots; i++)
@@ -84,17 +95,106 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _artifactSlots[i].SetSlotID(i);
             }
         }
-        
+        private void UpdateHPValueText(EntityDamagedEventArgs args)
+        {
+            hpValueText.text = $"{Game.Instance.player.entityController.health:F0}";
+        }
+
+        private void UpdateDamageValueText()
+        {
+            damageValueText.text = $"{Game.Instance.player.Attack:F0}";
+        }
+
+        private void UpdateOxygenValueText(float currentValue, float maxValue)
+        {
+            oxygenValueText.text = $"{currentValue:F1}";
+        }
+
+        private void UpdateDeffenseValueText()
+        {
+            deffenseValueText.text = $"{Game.Instance.player.Defense:F0}";
+        }
+
+        private void UpdateHungryValueText(float currentValue, float maxValue)
+        {
+            hungerValueText.text = $"{currentValue:F1}";
+        }
+
+        private void UpdateMoveSpeedValueText()
+        {
+            moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}";
+        }
+
+        private void UpdateSightValueText()
+        {
+            sightValueText.text = $"{Game.Instance.player.status.sight:F1}";
+        }
+
+        private void UpdateDigValueText()
+        {
+            digValueText.text = $"{Game.Instance.player.status.digSpeed:F1}";
+        }
+
+        private void UpdateAllStatusText()
+        {
+            var player = Game.Instance.player;
+            if (player == null) return;
+            if (player.status == null) return;
+            UpdateOxygenValueText(player.status.Oxygen, 0);
+            UpdateHungryValueText(player.status.Hungry, 0);
+            UpdateSightValueText();
+            UpdateDigValueText();
+
+            UpdateHPValueText(null);
+            UpdateDamageValueText();
+            UpdateDeffenseValueText();
+            UpdateMoveSpeedValueText();
+        }
+
         private void OnEnable()
         {
             UpdateInventorySlot();
             UpdateArtifactSlot();
             EventManager.AddListener<UpdateInventory>(UpdateInventoryUI);
+            EventManager.AddListener<PlayerSpawnedEvent>(UpdatePlayerStatValueUI);
+
+            var player = Game.Instance.player;
+            if (player != null)
+                UpdatePlayerStatValueUI(new PlayerSpawnedEvent(player));
+        }
+
+        private void UpdatePlayerStatValueUI(PlayerSpawnedEvent @event)
+        {
+            var player = Game.Instance.player;
+
+            UpdateAllStatusText();
+
+            player.status.oxygenAlter.AddListener(UpdateOxygenValueText);
+            player.status.hungryAlter.AddListener(UpdateHungryValueText);
+            player.status.sightChange += UpdateSightValueText;
+            player.status.digSpeedChange += UpdateDigValueText;
+
+            player.entityController.damaged += UpdateHPValueText;
+            player.entityController.attackChanged += UpdateDamageValueText;
+            player.entityController.deffenseChanged += UpdateDeffenseValueText;
+            player.entityController.speedChanged += UpdateMoveSpeedValueText;
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<UpdateInventory>(UpdateInventoryUI);
+
+            //var player = Game.Instance.player;
+
+            //player.status.oxygenAlter.RemoveListener(UpdateOxygenValueText);
+            //player.status.hungryAlter.RemoveListener(UpdateHungryValueText);
+            //player.status.sightChange -= UpdateSightValueText;
+            //player.status.digSpeedChange -= UpdateDigValueText;
+
+            //player.entityController.damaged -= UpdateHPValueText;
+            //player.entityController.attackChanged -= UpdateDamageValueText;
+            //player.entityController.deffenseChanged -= UpdateDeffenseValueText;
+            //player.entityController.speedChanged -= UpdateMoveSpeedValueText;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Ciart.Pagomoa
     public class CameraConfiner : MonoBehaviour
     {
         private PolygonCollider2D cameraBorderCollider;
+        private CinemachineConfiner2D confiner;
 
         private void Awake()
         {
@@ -61,10 +62,10 @@ namespace Ciart.Pagomoa
 
             var virtualCamera = GameObject.Find("VirtualCamera");
 
-            if(virtualCamera.TryGetComponent<CinemachineConfiner2D>(out CinemachineConfiner2D confiner))
-                confiner.m_BoundingShape2D = cameraBorderCollider;
-            else
-                virtualCamera.AddComponent<CinemachineConfiner2D>().m_BoundingShape2D = cameraBorderCollider;
+            if (!virtualCamera.TryGetComponent<CinemachineConfiner2D>(out confiner))
+                confiner = virtualCamera.AddComponent<CinemachineConfiner2D>();
+            confiner.m_BoundingShape2D = cameraBorderCollider;
+            confiner.InvalidateCache();
         }
     }
 }

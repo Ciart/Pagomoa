@@ -47,11 +47,42 @@ namespace Ciart.Pagomoa.Entities
         
         public float maxHealth;
 
-        public float attack;
-        
-        public float defense;
-        
-        public float speed;
+        private float attack;
+        public float Attack
+        {
+            get => attack;
+            set
+            {
+                attack = value;
+                attackChanged?.Invoke();
+            }
+        }
+        public event Action attackChanged;
+
+        private float deffense;
+        public float Defense
+        {
+            get => deffense;
+            set
+            {
+                deffense = value;
+                deffenseChanged?.Invoke();
+            }
+        }
+        public event Action deffenseChanged;
+
+
+        private float speed;
+        public float Speed
+        {
+            get => speed;
+            set
+            {
+                speed = value;
+                speedChanged?.Invoke();
+            }
+        }
+        public event Action speedChanged;
 
         public EntityController parent;
 
@@ -109,17 +140,17 @@ namespace Ciart.Pagomoa.Entities
             {
                 health = data.status.health;
                 maxHealth = data.status.maxHealth;
-                attack = data.status.attack;
-                defense = data.status.defense;
-                speed = data.status.speed;
+                Attack = data.status.attack;
+                Defense = data.status.defense;
+                Speed = data.status.speed;
                 return;
             }
             
             health = entity.baseHealth;
             maxHealth = entity.baseHealth;
-            attack = entity.attack;
-            defense = entity.defense;
-            speed = entity.speed;
+            Attack = entity.attack;
+            Defense = entity.defense;
+            Speed = entity.speed;
         }
         
         public EntityData GetEntityData()
@@ -132,9 +163,9 @@ namespace Ciart.Pagomoa.Entities
             {
                 health = health,
                 maxHealth = maxHealth,
-                attack = attack,
-                defense = defense,
-                speed = speed
+                attack = Attack,
+                defense = Defense,
+                speed = Speed
             };
             
             return new EntityData(entityId, position.x, position.y, status);
@@ -164,7 +195,7 @@ namespace Ciart.Pagomoa.Entities
 
             _invincibleTime = invincibleTime;
 
-            var damage = amount * (1 - defense / (defense + 100));
+            var damage = amount * (1 - Defense / (Defense + 100));
 
             health -= damage;
             damaged?.Invoke(new EntityDamagedEventArgs { amount = damage, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
