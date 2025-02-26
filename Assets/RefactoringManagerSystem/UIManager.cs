@@ -24,7 +24,7 @@ namespace Ciart.Pagomoa.Systems
         public BookUI bookUI {get; private set;}
         public ShopUI shopUI {get; private set;}
         public QuickUI quickUI {get; private set;}
-        private FadeUI _fadeUI;
+        public FadeUI fadeUI {get; private set;}
         
         public UIContainer GetUIContainer() { return _uiContainer; }
         
@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Systems
             _daySummaryUI = Object.Instantiate(_uiContainer.daySummaryUIPrefab, _uiContainer.transform);
             _daySummaryUI.gameObject.SetActive(false);
 
-            _fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
+            fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
         }
 
         public override void Start()
@@ -88,15 +88,23 @@ namespace Ciart.Pagomoa.Systems
         
         private void ToggleEscUI()
         {
-            if(!_dialogueUI.activeSelf)
-                _uiContainer.escUI.SetActive(!_uiContainer.escUI.activeSelf);
+            bookUI.DeActiveBook();
+            shopUI.DeActiveShop();
+            _dialogueUI.SetActive(false);
         }
 
         private void ToggleInventoryUI()
         {
+            if (Game.Instance.UI.shopUI.gameObject.activeSelf) return;
+            if (_dialogueUI.gameObject.activeSelf)
+            {
+                bookUI.DeActiveBook();
+                return;
+            }
+            
             _isActiveInventory = !_isActiveInventory;
             bookUI.gameObject.SetActive(_isActiveInventory);
-
+            
             // if (_isActiveInventory)
             // {
             //     inventoryCamera.Priority = 11;
@@ -142,8 +150,8 @@ namespace Ciart.Pagomoa.Systems
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
         {
-            _fadeUI.gameObject.SetActive(true);
-            _fadeUI.Fade(flag, duration);
+            fadeUI.gameObject.SetActive(true);
+            fadeUI.Fade(flag, duration);
         }
         
         public GameObject CreateInteractableUI(Transform parent)

@@ -1,6 +1,9 @@
 using System;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Utilities;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ciart.Pagomoa
 {
@@ -20,11 +23,11 @@ namespace Ciart.Pagomoa
         private readonly int _animatorInActive = Animator.StringToHash("InActive");
         public GameObject moon;
         
-        private Animator _animator;
+        public Animator animator { get; private set; }
         
         void Start()
         {
-            _animator = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
             
             gameObject.SetActive(false);
             moon.SetActive(false);
@@ -41,27 +44,27 @@ namespace Ciart.Pagomoa
             switch (flag)
             {
                 case FadeFlag.FadeIn : case FadeFlag.MoonFadeIn:
-                    _animator.speed = duration;
+                    animator.speed = duration;
                     
                     FadeIn();
                     break;
                 case FadeFlag.FadeOut: case FadeFlag.MoonFadeOut:
-                    _animator.speed = duration;
+                    animator.speed = duration;
                     
                     FadeOut();
-                    TimeManager.instance.SetTimer(duration, standby);
+                    TimerUtility.SetTimer(duration, standby);
                     break;
                 case FadeFlag.FadeInOut: case FadeFlag.MoonFadeInOut:
-                    _animator.speed = duration;
+                    animator.speed = duration;
                     FadeIn();
-                    TimeManager.instance.SetTimer(duration, fadeOut);
-                    TimeManager.instance.SetTimer(duration * 2, standby);
+                    TimerUtility.SetTimer(duration, fadeOut);
+                    TimerUtility.SetTimer(duration * 2, standby);
                     break;
             }
         }
 
-        public void StandByFadeUI() { _animator.SetTrigger(_animatorInActive); gameObject.SetActive(false); }
-        public void FadeIn() { _animator.SetTrigger(FadeFlag.FadeIn.ToString()); }
-        public void FadeOut() { _animator.SetTrigger(FadeFlag.FadeOut.ToString()); }
+        public void StandByFadeUI() { animator.SetTrigger(_animatorInActive); gameObject.SetActive(false); }
+        public void FadeIn() { animator.SetTrigger(FadeFlag.FadeIn.ToString()); }
+        public void FadeOut() { animator.SetTrigger(FadeFlag.FadeOut.ToString()); }
     }
 }

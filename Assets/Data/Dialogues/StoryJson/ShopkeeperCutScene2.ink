@@ -2,7 +2,7 @@
 
 === ShopkeeperCutScene3
 #talker ???
-#sprite Shopkeeper
+#sprite MoMo
 #UIMode Out
 평안 하십니까!
 드릴 교단에서 나왔습니다!
@@ -10,7 +10,7 @@
 
 === Conversation1
 #talker ???
-#sprite Shopkeeper
+#sprite MoMo
 말씀 좀 나눌 수 있으시겠습니다까!
 *[다음] -> Conversation2
 
@@ -53,7 +53,7 @@
 
 === Conversation8
 #talker ???
-#sprite Shopkeeper
+#sprite MoMo
 당신꼐 위해를 가할 의사는 없습니다.
 부디 대화를 나눌 수 있겠습니까!
 *[다음] -> Conversation9

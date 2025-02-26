@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public Sprite portrait;
         private EntityController _entityController;
-        private QuestData[] _entityQuests;
+        private QuestData[] _entityQuests = Array.Empty<QuestData>();
 
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
         private GameObject _questCompleteUI;
@@ -48,7 +48,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                     result.Add(quest);
                 }
             }
-
+            
             return result.ToArray();
         }
 
@@ -65,7 +65,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             var questEvent = _entityController.GetComponent<IQuestEvent>();
 
-            questEvent?.CompleteEvent();
+            questEvent?.CompleteEvent(id);
             
             _questCompleteUI.SetActive(false);
         }
@@ -99,7 +99,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             foreach (var entityQuest in _entityQuests)
             {
-                if (e.quest.id == entityQuest.id)
+                if (e.quest.id == entityQuest.id && e.quest.state == QuestState.Completed)
                 {
                     _questCompleteUI.SetActive(true);
                     return;

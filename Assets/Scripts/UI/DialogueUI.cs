@@ -147,7 +147,7 @@ namespace Ciart.Pagomoa
 
             foreach (var currentTag in currentTags)
             {
-                var dialogueManager = DialogueManager.instance;
+                var dialogueManager = Game.Instance.Dialogue;
                 
                 var prefix = currentTag.Split(' ')[0];
                 var param = currentTag.Split(' ')[1];
@@ -175,6 +175,11 @@ namespace Ciart.Pagomoa
                             dialogueManager.StartQuestChat();
                             _changeDialogue = true;
                         }
+                        else if (param == "shop")
+                        {
+                            Game.Instance.UI.shopUI.ActiveShop();
+                            _targetManager.StopStory();
+                        }
                         else
                         {
                             if (!Game.Instance.Dialogue.ExecuteCommand(param))
@@ -189,7 +194,7 @@ namespace Ciart.Pagomoa
                         break;
                     case "reward":
                         dialogueManager.nowEntityDialogue.QuestComplete(param);
-                        break;
+                        break; 
                 }
             }
         }

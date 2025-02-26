@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Timelines;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -64,7 +65,17 @@ namespace Ciart.Pagomoa
                 {
                     director.SetGenericBinding(output.sourceObject, GetCutSceneController().GetSignalReceiver());
                 }
+                else if (output.streamName == "FadeUI")
+                {
+                    director.SetGenericBinding(output.sourceObject, Game.Instance.UI.fadeUI.gameObject);
+                }
+                else if (output.streamName == "FadeAnimator")
+                {
+                    director.SetGenericBinding(output.sourceObject, Game.Instance.UI.fadeUI.animator);
+                }
             }
+
+            index = 0;
         }
     }
 }

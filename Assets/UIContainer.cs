@@ -14,7 +14,6 @@ namespace Ciart.Pagomoa
         public BookUI bookUIPrefab;
         public QuickUI quickUIPrefab;
         public GameObject dialogueUIPrefab;
-        public GameObject quickSlotContainerUIPrefab;
         public DaySummaryUI daySummaryUIPrefab;
         public GameObject escUI;
         public FadeUI fadeUIPrefab;
@@ -26,7 +25,5 @@ namespace Ciart.Pagomoa
         
         [Header("For Run Tine Can be None")] 
         public DialogueUI? dialogueUI;
-        /*public ISlot? chosenSlot { get; private set; }
-        public void SetChosenSlot (ISlot slot) => chosenSlot = slot;*/
     }
 }

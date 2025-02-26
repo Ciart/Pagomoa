@@ -34,7 +34,6 @@ namespace Ciart.Pagomoa.Events
 
     /// <summary>
     /// 퀘스트가 완료되었을 때 발생하는 이벤트입니다.
-    /// TODO: 미구현입니다.
     /// </summary>
     /// <param name="quest">런타임 퀘스트 객체</param>
     public record QuestCompleted(Quest quest) : IEvent;

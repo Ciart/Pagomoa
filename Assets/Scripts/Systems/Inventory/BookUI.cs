@@ -25,6 +25,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private  HoverItemInfo _hoverItemInfo;
         public HoverItemInfo GetHoverItemInfo() => _hoverItemInfo;
 
+        public void ActiveBook()
+        {
+            if (gameObject.activeSelf) return;
+            gameObject.SetActive(true);
+        }
+
+        public void DeActiveBook()
+        {
+            if (!gameObject.activeSelf) return;
+            gameObject.SetActive(false);
+        }
+        
         private void OnClickTab(int index)
         {
             for (var i = 0; i < tabItems.Length; i++)
@@ -40,15 +52,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 tabItem.tabButton.onClick.AddListener(() => OnClickTab(i));
             }
-        }
-        
-        [Obsolete("프로토타입에서 사용하는 함수 입니다.")]
-        public void SetUI()
-        {
-            bool click = false;
-            if (gameObject.activeSelf == false)
-                click = !click;
-            gameObject.SetActive(click);
         }
     }
 }

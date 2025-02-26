@@ -25,7 +25,6 @@ namespace Ciart.Pagomoa.Editor
         public override void OnInspectorGUI()
         {
             QuestData newQuestData = (QuestData)target;
-            newQuestData.hideFlags = HideFlags.None;
             
             GUILayout.BeginVertical("퀘스트 id", new GUIStyle(GUI.skin.window));
             GUILayout.Space(10);
@@ -71,8 +70,9 @@ namespace Ciart.Pagomoa.Editor
             GUILayout.Space(10);
             EditorGUILayout.LabelField("퀘스트 설명");
             newQuestData.description = EditorGUILayout.TextArea(newQuestData.description, GUILayout.Height(100));
+            if (string.IsNullOrEmpty(newQuestData.description)) newQuestData.description = "";
             GUILayout.EndVertical();
-
+            
             GUILayout.Space(20);
 
             GUILayout.BeginVertical("퀘스트 보상", new GUIStyle(GUI.skin.window));
@@ -125,19 +125,23 @@ namespace Ciart.Pagomoa.Editor
                         conTypeValue.typeValue = conditionType.Value.typeValue;
                     }
                 }
-
+                
                 newQuestData.questList[_listIndex].conditionType.target = conTarget.target;
                 newQuestData.questList[_listIndex].conditionType.typeValue = conTypeValue.typeValue;
                 QuestType[] questTypes = (QuestType[])Enum.GetValues(typeof(QuestType));
                 newQuestData.questList[_listIndex].questType = questTypes[_typeIndex];
+                Debug.Log(_listIndex);
             }
             if (GUILayout.Button("퀘스트 제거하기"))
             {
-                if (newQuestData.questList.Count == 0) return;
+                if (newQuestData.questList.Count <= 0) return;
 
                 if (newQuestData.questList.Count != 1 && newQuestData.questList.Count > 0) _listIndex--;
 
                 newQuestData.questList.RemoveAt(newQuestData.questList.Count - 1);
+
+                _listIndex--;
+                if(_listIndex < 0) _listIndex = 0; 
             }
 
             GUILayout.Space(20);
@@ -156,16 +160,20 @@ namespace Ciart.Pagomoa.Editor
                 switch (newQuestData.questList[i].questType)
                 {
                     case QuestType.CollectItem:
+                    case QuestType.HasItem:
                         newQuestData.questList[i].targetID = EditorGUILayout.TextField($"수집할 아이템 ID"
                             , newQuestData.questList[i].targetID);
                         break;
-                    case QuestType.ConsumeItem:
                     case QuestType.UseItem:
                         newQuestData.questList[i].targetID = EditorGUILayout.TextField($"사용할 아이템 ID"
                             , newQuestData.questList[i].targetID);
                         break;
                     case QuestType.BreakBlock:
                         newQuestData.questList[i].targetID = EditorGUILayout.TextField($"파괴할 블럭 ID"
+                            , newQuestData.questList[i].targetID);
+                        break;
+                    case QuestType.SellItem:
+                        newQuestData.questList[i].targetID = EditorGUILayout.TextField($"판매할 아이템 ID"
                             , newQuestData.questList[i].targetID);
                         break;
                 }

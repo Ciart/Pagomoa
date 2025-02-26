@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Timelines;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -23,15 +25,17 @@ namespace Ciart.Pagomoa
         private PlayableDirector _director;
         private SignalReceiver _signalReceiver;
         
-        public List<CutScene> cutScenes;
-        private CutScene _targetCutScene;
-
+        public List<CutSceneTrigger> triggers = new List<CutSceneTrigger>();
+        private CutScene? _targetCutScene;
         private Transform _camTransform;
+        private CutSceneTrigger? _currentCutSceneTrigger;
+        public void SetCutSceneTrigger(CutSceneTrigger trigger) { _currentCutSceneTrigger = trigger; }
+        
         
         [SerializeField] private float fadeDelay;
         
-        private LayerMask cutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
-        private LayerMask inGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
+        private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
+        private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
         private void Start()
         {
@@ -41,6 +45,11 @@ namespace Ciart.Pagomoa
             mainCamera = Camera.main;
             
             _director.stopped += EndCutScene;
+
+            foreach (var trigger in triggers)
+            {
+                Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
+            }
         }
         
         public CutScene GetOnPlayingCutScene()
@@ -50,7 +59,7 @@ namespace Ciart.Pagomoa
         
         public void StartCutScene(CutScene cutScene)
         {
-            UIManager.instance.DeActiveUI();
+            Game.Instance.UI.DeActiveUI();
             
             var player = Game.instance.player;
             for (int i = 0; i < player.transform.childCount; i++)
@@ -68,17 +77,22 @@ namespace Ciart.Pagomoa
         private void EndCutScene(PlayableDirector director)
         {
             _targetCutScene.ClearActors();
-            UIManager.instance.PlayFadeAnimation(FadeFlag.FadeOut, fadeDelay);
+            Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeOut, fadeDelay);
             DefaultCameraSetting();
             
-            UIManager.instance.ActiveUI();
             var player = Game.instance.player;
             player.gameObject.SetActive(true);
+            Game.Instance.UI.ActiveUI();
             
             for (int i = 0; i < player.transform.childCount; i++)
             {
                 player.transform.GetChild(i).gameObject.SetActive(true);    
             }
+            
+            _currentCutSceneTrigger.OffCutSceneTrigger();
+
+            _targetCutScene = null;
+            _currentCutSceneTrigger = null;
         }
         
         public SignalReceiver GetSignalReceiver()
@@ -86,8 +100,8 @@ namespace Ciart.Pagomoa
             return _signalReceiver;
         }
         
-        private void CutSceneCameraSetting() { mainCamera.cullingMask= cutSceneMasks; }
-        private void DefaultCameraSetting() { mainCamera.cullingMask= inGameMasks; }
+        private void CutSceneCameraSetting() { mainCamera.cullingMask= CutSceneMasks; }
+        private void DefaultCameraSetting() { mainCamera.cullingMask= InGameMasks; }
         
         public bool CutSceneIsPlayed()
         {
@@ -96,25 +110,17 @@ namespace Ciart.Pagomoa
         
         private void PlayCutScene()
         {
-            foreach (var cutScene in cutScenes)
-            {
-                if (cutScene.name.Trim() == _targetCutScene.name.Trim())
-                {
-                    _targetCutScene.SetCutSceneController(this);
-                    _targetCutScene.SetBinding(_director);
-                    _targetCutScene.SetInstanceCharacter();
+            _targetCutScene.SetCutSceneController(this);
+            _targetCutScene.SetBinding(_director);
+            _targetCutScene.SetInstanceCharacter();
 
-                    _director.playableAsset = _targetCutScene.GetTimelineClip();
-                    _director.timeUpdateMode = DirectorUpdateMode.GameTime;
-                    
-                    break;
-                }    
-            }
+            _director.playableAsset = _targetCutScene.GetTimelineClip();
+            _director.timeUpdateMode = DirectorUpdateMode.GameTime;
             
             foreach (var actor in _targetCutScene.GetActors())
             {
-                var chatBalloon = actor.GetComponent<ChatBalloon>().balloon;
-                chatBalloon.SetActive(false);
+                actor.TryGetComponent<ChatBalloon>(out var chat);
+                chat.balloon.SetActive(false);
             }
             
             _director.Play();
@@ -127,7 +133,7 @@ namespace Ciart.Pagomoa
                 var dialogue = notification as DialogueMarker;
                 
                 if (dialogue != null)
-                    DialogueManager.instance.StartStory(dialogue.story);    
+                    Game.Instance.Dialogue.StartStory(dialogue.story);    
             }
             else if (notification.id == "1")
             {
@@ -147,10 +153,10 @@ namespace Ciart.Pagomoa
                         
                         target.Chatting(_targetCutScene.GetMiniChat(), chat.duration);
                         _targetCutScene.IncreaseMiniChatIndex();
-
+                            
                         return;
                     }
-                    else if (chat.content.Trim() != "") 
+                    if (chat.content.Trim() != "") 
                     {
                         var target = actor.GetComponent<Chat>();
                         
