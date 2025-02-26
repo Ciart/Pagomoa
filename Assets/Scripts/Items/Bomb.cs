@@ -2,48 +2,57 @@
 using System.Drawing;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Sounds;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Items
 {
-    public class BombController : MonoBehaviour
+    public class Bomb : MonoBehaviour
     {
-        [SerializeField] private float _waitingTime;
-        [SerializeField] private int _boomRange;
-        [SerializeField] private GameObject _bombImage;
-        [SerializeField] private GameObject _bombEffect;
         [SerializeField] private LayerMask _damageTargetLayer;
 
+        private SpriteRenderer _spriteRenderer;
         private IEnumerator corutine;
-        void Start()
+
+        private void Awake()
         {
-            corutine = Wait(_waitingTime, gameObject);
+            transform.GetChild(0).TryGetComponent<SpriteRenderer>(out _spriteRenderer);
+        }
+
+        public void Init(float waitingTime, int boomRange)
+        {
+            corutine = Wait(waitingTime, boomRange);
             StartCoroutine(corutine);
         }
     
-        private IEnumerator Wait(float WaitTime, GameObject Bomb)
+        private IEnumerator Wait(float waitTime, int boomRange)
         {
-            yield return new WaitForSeconds(WaitTime);
-            SetBomb(Bomb);
-            Destroy(Bomb, _waitingTime);
+            var itemEntity = GetComponentInParent<ItemEntity>();
+            var timer = 0f;
+            while (timer < waitTime)
+            {
+                timer += Time.deltaTime;
+                itemEntity.frequency = (waitTime - timer) * 5f;
+                yield return null;
+            }
+            Boom(boomRange);
         }
 
-        private void SetBomb(GameObject Bomb)
+        private void Boom(int boomRange)
         {
-            _bombImage.SetActive(false);
-            _bombEffect.transform.localScale = new Vector3(10, 10, 1);
-            _bombEffect.SetActive(true);
-            _bombEffect.transform.position = _bombImage.transform.position;
-
-            Boom(_boomRange);
+            var duration = 2f;
+            _spriteRenderer.enabled = false;
+            Game.Instance.Particle.Make(2, null, transform.position, duration);
+            Destroy(gameObject, duration);
+            Game.Instance.Sound.PlaySfx("BombEffect", true, this.transform.position);
             
-            SoundManager.instance.PlaySfx("BombEffect", true, this.transform.position);
+            Earthquake(boomRange);
         }
 
-        private void Boom(int bound)
+        private void Earthquake(int bound)
         {
-            var point = _bombEffect.transform.position;
+            var point = transform.position;
             var digPoint = point;
 
             for (int i = -bound; i <= bound; i++)
@@ -53,7 +62,7 @@ namespace Ciart.Pagomoa.Items
                 {
                     digPoint.y = point.y + j;
                     var pointInt = WorldManager.ComputeCoords(digPoint);
-                    WorldManager.instance.BreakGround(pointInt.x, pointInt.y, 99999, true);
+                    Game.Instance.World.BreakGround(pointInt.x, pointInt.y, 99999, true);
                 }
             }
 

@@ -162,7 +162,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             if (_animator.GetBool(AnimatorEndClimb)) return;
 
-            var velocity = new Vector2(directionVector.x * _entityController.speed * Time.deltaTime, _rigidbody.linearVelocity.y);
+            var velocity = new Vector2(directionVector.x * _entityController.Speed * Time.deltaTime, _rigidbody.linearVelocity.y);
 
             _rigidbody.linearVelocity = velocity;
             _rigidbody.gravityScale = gravityScale;

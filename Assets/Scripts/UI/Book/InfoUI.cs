@@ -1,5 +1,6 @@
 ﻿using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine.EventSystems;
 
@@ -27,7 +28,8 @@ namespace Ciart.Pagomoa.UI.Book
         private void Upgrade()
         {
             var nextDrill = Game.instance.player.drill.nextDrill;
-            
+            if (nextDrill == null) { UnityEngine.Debug.Log("표기할 다음 레벨 드릴이 없습니다."); return; }
+
             for (var i = 0; i < nextDrill.upgradeNeeds.Length; i++)
             {
                 var need = nextDrill.upgradeNeeds[i];

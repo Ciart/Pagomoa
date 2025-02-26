@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Ciart.Pagomoa.UI;
+using TMPro;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Inventory

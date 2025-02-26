@@ -1,4 +1,4 @@
-using Ciart.Pagomoa.Entities.Players;
+﻿using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Items
@@ -10,10 +10,10 @@ namespace Ciart.Pagomoa.Items
     
         public override void Effect(ConsumerableItem item, PlayerStatus stat)
         {
-            stat.hungry += hungryHealValue;
-            if(stat.hungry < stat.minHungry) stat.hungry = stat.minHungry;
-            else if(stat.hungry > stat.maxHungry) stat.hungry = stat.maxHungry;
-            stat.hungryAlter.Invoke(stat.hungry, stat.maxHungry);
+            stat.Hungry += hungryHealValue;
+            if(stat.Hungry < stat.minHungry) stat.Hungry = stat.minHungry;
+            else if(stat.Hungry > stat.maxHungry) stat.Hungry = stat.maxHungry;
+            stat.hungryAlter.Invoke(stat.Hungry, stat.maxHungry);
         }
     }
 }
