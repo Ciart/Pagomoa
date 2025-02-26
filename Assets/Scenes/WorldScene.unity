@@ -2200,7 +2200,6 @@ MonoBehaviour:
   bookUIPrefab: {fileID: 9036683792300616078, guid: 5d92f3e60f0986149b05d9550041c43a, type: 3}
   quickUIPrefab: {fileID: 5669934315126194384, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
   dialogueUIPrefab: {fileID: 3394228335729607216, guid: d46ea0b7a9cfe6946ab08fe9688ea49b, type: 3}
-  quickSlotContainerUIPrefab: {fileID: 0}
   daySummaryUIPrefab: {fileID: 8641994485999273961, guid: 89f0b6e87c7d1804ebb86f958dd87dda, type: 3}
   escUI: {fileID: 7640810986153796479, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
   fadeUIPrefab: {fileID: 3649949960614969455, guid: 73aee344ceb9adb428fc789fc2a40bd5, type: 3}
@@ -3280,7 +3279,7 @@ PrefabInstance:
     - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_PlayableAsset
       value: 
-      objectReference: {fileID: 11400000, guid: e6306a8744c647a49b34e8ea5fdaf509, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
       propertyPath: m_SceneBindings.Array.size
       value: 10
@@ -3523,6 +3522,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6570742934786067693, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570742934786067693, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6950832595882012785, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
       propertyPath: portrait
       value: 
@@ -3531,6 +3538,14 @@ PrefabInstance:
       propertyPath: basicDialogue
       value: 
       objectReference: {fileID: 4900000, guid: 3d50a0b1f341adc428ac5577dc0128b7, type: 3}
+    - target: {fileID: 7914056794958880702, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_Simulated
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914056794958880702, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8479840956492563226, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
       propertyPath: entityId
       value: BrokenTent
