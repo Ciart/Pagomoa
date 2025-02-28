@@ -123,6 +123,8 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 drill.isDig = true;
                 drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
+                Debug.Log(status.hungryConsume * Time.deltaTime);
+                UpdateHunger(status.hungryConsume * Time.deltaTime);
             }
             else
             {
@@ -201,7 +203,7 @@ namespace Ciart.Pagomoa.Entities.Players
             status.oxygenAlter.Invoke(gage, maxOxygen);
         }
 
-        public bool Hungry(float value)
+        public bool UpdateHunger(float value)
         {
             if (hungry - value < 0) return true;
             hungry -= value;

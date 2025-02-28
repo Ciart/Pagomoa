@@ -105,7 +105,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             oxygenValueText.text = $"{currentValue:F1}";
         }
 
-        private void UpdateDeffenseValueText()
+        private void UpdateDefenseValueText()
         {
             deffenseValueText.text = $"{Game.Instance.player.Defense:F0}";
         }
@@ -142,7 +142,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             UpdateHPValueText(null);
             UpdateDamageValueText();
-            UpdateDeffenseValueText();
+            UpdateDefenseValueText();
             UpdateMoveSpeedValueText();
         }
 
@@ -171,7 +171,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             player.damaged += UpdateHPValueText;
             player.attackChanged += UpdateDamageValueText;
-            player.deffenseChanged += UpdateDeffenseValueText;
+            player.deffenseChanged += UpdateDefenseValueText;
             player.speedChanged += UpdateMoveSpeedValueText;
         }
 

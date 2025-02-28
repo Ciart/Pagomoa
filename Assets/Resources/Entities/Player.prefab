@@ -145,9 +145,6 @@ MonoBehaviour:
   entityId: 
   health: 0
   maxHealth: 0
-  attack: 0
-  defense: 0
-  speed: 0
   parent: {fileID: 0}
   oxygen: 0
   maxOxygen: 0
@@ -161,7 +158,6 @@ MonoBehaviour:
   sideWallDistance: 1.0625
   inventory: {fileID: 0}
   drill: {fileID: 0}
-  entityController: {fileID: 0}
 --- !u!114 &6532384969457569552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,12 +190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18dac83e2e89aa469d1d98f38c80eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygen: 100
   maxOxygen: 100
   minOxygen: 0
   _oxygenRecovery: 100
   _oxygenConsume: 1
-  hungry: 100
   maxHungry: 100
   minHungry: 0
   _hungryRecovery: 1
@@ -346,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9fe78d2ab77704cad95cce2b2ac246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 100000
+  gold: 10000
 --- !u!1 &1444686428981919571
 GameObject:
   m_ObjectHideFlags: 0
