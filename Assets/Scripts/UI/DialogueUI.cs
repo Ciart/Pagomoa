@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Ciart.Pagomoa.Systems;
+using UnityEngine.Serialization;
+using Choice = Ink.Runtime.Choice;
 
 namespace Ciart.Pagomoa
 {
@@ -20,15 +22,12 @@ namespace Ciart.Pagomoa
     public class DialogueUI : MonoBehaviour
     {
         public GameObject outButtonGroup;
-
         public GameObject inButtonGroup;
 
-        public Button outButtonPrefab;
-
+        [SerializeField] private OutModeButton _outButtonPrefab;
         public Button inButtonPrefab;
 
         public GameObject talkPanel;
-
         public Image talkImage;
 
         public TextMeshProUGUI talkText;
@@ -62,19 +61,14 @@ namespace Ciart.Pagomoa
             EventManager.RemoveListener<QuestStoryStarted>(MakeQuestContentView);
         }
 
-
-        private void Update()
-        {
-            SetBtnSizeAfterContentSizeFitter();
-        }
-
         private void SetBtnSizeAfterContentSizeFitter()
-        {
-            if (uiMode == UISelectMode.Out)
-            {
-                var rect = _dialogueUI.outButtonGroup.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector3(162f - rect.sizeDelta.x * 0.5f, 47f + rect.sizeDelta.y * 0.5f);
-            }
+        { 
+            var buttonCount = _targetManager.story.currentChoices.Count;
+            
+            if (buttonCount == 0) buttonCount = 1; // 마지막 선택 시 때문에 설정
+            _dialogueUI.outButtonGroup.TryGetComponent<RectTransform>(out var rect);
+            var buttonSize = _outButtonPrefab.rectTransform.sizeDelta;
+            rect.anchoredPosition = new Vector2(0f, (buttonSize.y + 4)  * buttonCount);
         }
 
         private void RefreshView(StoryStarted obj)
@@ -83,7 +77,7 @@ namespace Ciart.Pagomoa
                 _targetManager = obj.targetManagement;
             else
             {
-                var dialogueManager = DialogueManager.instance;
+                var dialogueManager = Game.Instance.Dialogue;
                 
                 _targetManager = dialogueManager;
             }
@@ -94,7 +88,7 @@ namespace Ciart.Pagomoa
         private void RefreshView()
         {
             var story = _targetManager.story;
-
+            
             RemoveChildren(_dialogueUI.outButtonGroup);
             RemoveChildren(_dialogueUI.inButtonGroup);
             _dialogueUI.talkText.text = "";
@@ -134,6 +128,8 @@ namespace Ciart.Pagomoa
             else
             {
                 Button choice = CreateChoiceView("확인");
+                SetBtnSizeAfterContentSizeFitter();
+                
                 choice.onClick.AddListener(delegate
                 {
                     _targetManager.StopStory();
@@ -216,18 +212,26 @@ namespace Ciart.Pagomoa
         // Creates a button showing the choice text
         private Button CreateChoiceView(string text)
         {
-            var choice = Instantiate(uiMode == UISelectMode.Out ? outButtonPrefab : inButtonPrefab);
-
-            TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
-            foreach (var chosenText in choiceText)
-                chosenText.text = text;
-            choice.transform.SetParent(uiMode == UISelectMode.Out ? outButtonGroup.transform : inButtonGroup.transform, false);
-
-            var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-            layoutGroup.childForceExpandHeight = false;
-
-
-            return choice;
+            if (uiMode == UISelectMode.Out)
+            {
+                var choice = Instantiate(_outButtonPrefab , outButtonGroup.transform, false);
+                foreach (var chosenText in choice.GetChoiceTexts())
+                    chosenText.text = text;
+                
+                choice.ReSizeToFitChildren();
+                SetBtnSizeAfterContentSizeFitter();
+                
+                return choice.GetDialogueButton();
+            }
+            else
+            {
+                var choice =  Instantiate(inButtonPrefab, inButtonGroup.transform, false);
+                TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
+                foreach (var chosenText in choiceText)
+                    chosenText.text = text;
+                return choice;
+            }
+            return null!;
         }
 
         // Destroys all the children of this gameobject (all the UI)
@@ -297,7 +301,7 @@ namespace Ciart.Pagomoa
                 // Tell the button what to do when we press it
                 button.onClick.AddListener(delegate
                 {
-                    DialogueManager.instance.StartStory(quest.startPrologue);
+                    Game.Instance.Dialogue.StartStory(quest.startPrologue);
                 });
             }
 
@@ -309,7 +313,7 @@ namespace Ciart.Pagomoa
                 Button choice = CreateChoiceView("확인");
                 choice.onClick.AddListener(delegate
                 {
-                    DialogueManager.instance.StopStory();
+                    Game.Instance.Dialogue.StopStory();
                 });
             }
         }
