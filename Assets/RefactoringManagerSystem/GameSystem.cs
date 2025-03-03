@@ -8,6 +8,7 @@ using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
+using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems
 {
@@ -65,11 +66,22 @@ namespace Ciart.Pagomoa.Systems
         public void MoveToNextDay()
         {
             Time.SkipToNextDay();
+            Save.Save();
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             player = e.player;
+        }
+
+        private void TryLoadSave()
+        {
+            var saveSlot = PlayerPrefs.GetInt("SaveSlot");
+
+            if (saveSlot != 0)
+            {
+                Save.Load();
+            }
         }
 
         protected override void Awake()
@@ -86,6 +98,8 @@ namespace Ciart.Pagomoa.Systems
             Time = new TimeManager();
             UI = new UIManager();
             World = new WorldManager();
+
+            TryLoadSave();
         }
 
         private void OnEnable()

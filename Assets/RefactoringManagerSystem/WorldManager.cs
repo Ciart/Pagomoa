@@ -33,17 +33,17 @@ namespace Ciart.Pagomoa.Worlds
 
         private HashSet<Chunk> _expiredChunks = new();
         
-        public void OnDataSaveEvent(DataSaveEvent e)
+        private void OnDataSaveEvent(DataSaveEvent e)
         {
             e.saveData.world = world.CreateSaveData();
         }
 
-        public void OnDataLoadedEvent(DataLoadedEvent e)
+        private void OnDataLoadedEvent(DataLoadedEvent e)
         {
             world = new World(e.saveData.world);
         }
-        
-        public override void Start()
+
+        public override void PreStart()
         {
             EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
             EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
@@ -51,7 +51,10 @@ namespace Ciart.Pagomoa.Worlds
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
             worldGenerator = new WorldGenerator();
-
+        }
+        
+        public override void Start()
+        {
             world = worldGenerator.Generate();
         }
         

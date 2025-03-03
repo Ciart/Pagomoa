@@ -28,11 +28,21 @@ namespace Ciart.Pagomoa.Systems.Save
             
             EventManager.Notify(new DataLoadedEvent(data));
         }
+        
+        private void TryLoadSave()
+        {
+            var saveSlot = PlayerPrefs.GetInt("SaveSlot");
 
-        // public override void Awake()
-        // {
-        //     Load();
-        // }
+            if (saveSlot != 0)
+            {
+                Load();
+            }
+        }
+
+        public override void Start()
+        {
+            TryLoadSave();
+        }
 
         public override void Quit()
         {
