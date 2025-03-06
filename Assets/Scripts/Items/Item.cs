@@ -31,6 +31,19 @@ namespace Ciart.Pagomoa.Items
 
         public Sprite? sprite = null;
 
+        private float _hungerAmount;
+        public float hungerAmount
+        {
+            get
+            {
+                if (type == ItemType.Mineral)
+                    return _hungerAmount;
+                
+                throw new InvalidOperationException("ItemType이 Mineral 타입이어야 사용가능한 프로퍼티 입니다.");
+            }
+            set => _hungerAmount = value;
+        }
+
         private NewItemEffect? _useEffect = null;
 
         private void LoadResources()

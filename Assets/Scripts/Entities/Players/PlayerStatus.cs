@@ -125,8 +125,7 @@ namespace Ciart.Pagomoa.Entities.Players
             get { return _crawlUpSpeed; }
             set { _crawlUpSpeed = value; }
         }
-
-
+        
         public UnityEvent<float, float> oxygenAlter;
         public UnityEvent<float, float> hungryAlter;
 
