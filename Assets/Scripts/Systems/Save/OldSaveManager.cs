@@ -194,7 +194,7 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void LoadPlayerCurrentStatusData()
         {
-            var player = Game.instance.player;
+            /*var player = Game.instance.player;
             
             if (DataManager.Instance.data.playerStatusData == null) return;
             if (player == null) return;
@@ -203,7 +203,7 @@ namespace Ciart.Pagomoa.Systems.Save
             playerStatus.Oxygen = DataManager.Instance.data.playerStatusData.currentOxygen;
             playerStatus.Hungry = DataManager.Instance.data.playerStatusData.currentHungry;
             playerStatus.oxygenAlter.Invoke(playerStatus.Oxygen, playerStatus.maxOxygen);
-            playerStatus.hungryAlter.Invoke(playerStatus.Hungry, playerStatus.maxHungry);
+            playerStatus.hungryAlter.Invoke(playerStatus.Hungry, playerStatus.maxHungry);*/
         }
 
         public void LoadEatenMineralCountData()

@@ -12,21 +12,27 @@ namespace Ciart.Pagomoa
         [SerializeField] private Image _hpBar;
         [SerializeField] private Image _oxygenBar;
         public TextMeshProUGUI playerGoldUI;
-        
-        // Todo : HP바 추가 해야함
-        // Todo : Hunger바 추가 해야함
 
-        public void UpdateHungerBar(float currentHunger, float maxHunger)
+        public void UpdateHungerBar()
         {
-            _hungerBar.fillAmount = currentHunger / maxHunger;
+            var player = Game.Instance.player;
+            if (player)
+            {
+                _hungerBar.fillAmount = player.hungry / player.maxHungry;
+            }
+                
         }
-        public void UpdateHpBar(float currentHp, float maxHp)
+        public void UpdateHpBar()
         {
-            _hpBar.fillAmount = currentHp / maxHp;
+            var player = Game.Instance.player;
+            if( player )
+                _hpBar.fillAmount = player.health / player.maxHealth;
         }
-        public void UpdateOxygenBar(float currentOxygen, float maxOxygen)
+        public void UpdateOxygenBar()
         {
-            _oxygenBar.fillAmount = currentOxygen / maxOxygen;
+            var player = Game.Instance.player;
+            if( player )
+                _hpBar.fillAmount = player.health / player.maxHealth;
         }
     }
 }

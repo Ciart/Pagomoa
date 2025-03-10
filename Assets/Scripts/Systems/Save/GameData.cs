@@ -134,8 +134,8 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public void SetCurrentStatusData(PlayerStatus playerStatus)
         {
-            currentOxygen = playerStatus.Oxygen;
-            currentHungry = playerStatus.Hungry;
+            /*currentOxygen = playerStatus.Oxygen;
+            currentHungry = playerStatus.Hungry;*/
         }
     }
 

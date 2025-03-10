@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Items
     {
         [SerializeField] private GameObject prefab;
 
-        public override void Effect(ConsumerableItem item, PlayerStatus stat)
+        public override void Effect(ConsumeableItem item, PlayerStatus stat)
         {
             Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             if (playerTransform == null) return;

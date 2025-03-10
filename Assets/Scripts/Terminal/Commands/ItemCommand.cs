@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             Debug.Log($"giving item {ResourceSystem.instance.GetItem(subCommand).name}");
 
-            var itemCount1 = 500;
+            var itemCount1 = 150;
             /*var itemCount2 = 1;*/
             
             inventory.AddInventory(subCommand, itemCount1);
@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             if (Terminal.IssuedError) return;
             
-            ResourceSystem.instance.GetItem(subCommand).DisplayUseEffect();
+            ResourceSystem.instance.GetItem(subCommand).DisplayUseEffect(subCommand);
         }
     }
 }

@@ -90,62 +90,54 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _artifactSlots[i].SetSlotID(i);
             }
         }
-        private void UpdateHPValueText(EntityDamagedEventArgs args)
-        {
-            hpValueText.text = $"{Game.Instance.player.health:F0}";
-        }
+        private void UpdateHpValueText(EntityDamagedEventArgs args) 
+        { hpValueText.text = $"{Game.Instance.player.health:F0} / {Game.Instance.player.maxHealth:F0}"; }
+        private void UpdateHpValueText() 
+        { hpValueText.text = $"{Game.Instance.player.health:F0} / {Game.Instance.player.maxHealth:F0}"; }
 
-        private void UpdateDamageValueText()
-        {
-            damageValueText.text = $"{Game.Instance.player.Attack:F0}";
-        }
+        private void UpdateDamageValueText() { damageValueText.text = $"{Game.Instance.player.Attack:F0}"; }
 
-        private void UpdateOxygenValueText(float currentValue, float maxValue)
-        {
-            oxygenValueText.text = $"{currentValue:F1}";
-        }
+        private void UpdateOxygenValueText() 
+        { oxygenValueText.text = $"{Game.Instance.player.oxygen:F1} / {Game.Instance.player.maxOxygen:F1}"; }
 
-        private void UpdateDefenseValueText()
-        {
-            deffenseValueText.text = $"{Game.Instance.player.Defense:F0}";
-        }
+        private void UpdateDefenseValueText() { deffenseValueText.text = $"{Game.Instance.player.Defense:F0}"; }
 
-        private void UpdateHungryValueText(float currentValue, float maxValue)
-        {
-            hungerValueText.text = $"{currentValue:F1}";
-        }
+        private void UpdateHungryValueText() 
+        { hungerValueText.text = $"{Game.Instance.player.hungry:F1} / {Game.Instance.player.maxHungry:F1}"; }
 
-        private void UpdateMoveSpeedValueText()
-        {
-            moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}";
-        }
+        private void UpdateMoveSpeedValueText() { moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}"; }
 
-        private void UpdateSightValueText()
-        {
-            sightValueText.text = $"{Game.Instance.player.status.sight:F1}";
-        }
+        private void UpdateSightValueText() { sightValueText.text = $"{Game.Instance.player.status.sight:F1}"; }
 
-        private void UpdateDigValueText()
-        {
-            digValueText.text = $"{Game.Instance.player.status.digSpeed:F1}";
-        }
-
-        private void UpdateAllStatusText()
+        private void UpdateDigValueText() { digValueText.text = $"{Game.Instance.player.status.digSpeed:F1}"; }
+        
+        private void UpdatePlayerStatValueUI(PlayerSpawnedEvent @event)
         {
             var player = Game.Instance.player;
             if (player == null) return;
-            if (player.status == null) return;
-            UpdateOxygenValueText(player.status.Oxygen, 0);
-            UpdateHungryValueText(player.status.Hungry, 0);
+            
+            UpdateOxygenValueText();
+            UpdateHungryValueText();
             UpdateSightValueText();
             UpdateDigValueText();
 
-            UpdateHPValueText(null);
+            UpdateHpValueText(null);
             UpdateDamageValueText();
             UpdateDefenseValueText();
             UpdateMoveSpeedValueText();
-        }
 
+            player.oxygenChanged += UpdateOxygenValueText;
+            player.hungryChanged += UpdateHungryValueText;
+            player.healthChanged += UpdateHpValueText;
+            player.status.sightChange += UpdateSightValueText;
+            player.status.digSpeedChange += UpdateDigValueText;
+
+            player.damaged += UpdateHpValueText;
+            player.attackChanged += UpdateDamageValueText;
+            player.deffenseChanged += UpdateDefenseValueText;
+            player.speedChanged += UpdateMoveSpeedValueText;
+        }
+        
         private void OnEnable()
         {
             UpdateInventorySlot();
@@ -156,23 +148,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var player = Game.Instance.player;
             if (player != null)
                 UpdatePlayerStatValueUI(new PlayerSpawnedEvent(player));
-        }
-
-        private void UpdatePlayerStatValueUI(PlayerSpawnedEvent @event)
-        {
-            var player = Game.Instance.player;
-
-            UpdateAllStatusText();
-
-            player.status.oxygenAlter.AddListener(UpdateOxygenValueText);
-            player.status.hungryAlter.AddListener(UpdateHungryValueText);
-            player.status.sightChange += UpdateSightValueText;
-            player.status.digSpeedChange += UpdateDigValueText;
-
-            player.damaged += UpdateHPValueText;
-            player.attackChanged += UpdateDamageValueText;
-            player.deffenseChanged += UpdateDefenseValueText;
-            player.speedChanged += UpdateMoveSpeedValueText;
         }
 
         private void OnDisable()

@@ -1,10 +1,16 @@
 ﻿using System;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Items
 {
+    public enum MineralHungryAmount
+    {
+        Copper = 20,
+           
+    }
     public enum ItemType
     {
         None = 0,
@@ -30,18 +36,25 @@ namespace Ciart.Pagomoa.Items
         public PlayerStatusModifier? status = null;
 
         public Sprite? sprite = null;
-
-        private float _hungerAmount;
-        public float hungerAmount
+        
+        /// <value>float</value>
+        /// hungerAmount는 ItemType이 Mineral일때만 사용가능합니다.
+        /// <remarks>ItemType이 Mineral이 아닌 경우 에러 로그를 반환합니다.</remarks>
+        public float hungeyAmount
         {
             get
             {
                 if (type == ItemType.Mineral)
-                    return _hungerAmount;
+                    switch (id)
+                    {
+                        case "Copper":
+                            return (float)MineralHungryAmount.Copper;
+                        default:
+                            throw new InvalidOperationException($"{id}의 배고픔 값을 찾을 수 없습니다.");
+                    }
                 
                 throw new InvalidOperationException("ItemType이 Mineral 타입이어야 사용가능한 프로퍼티 입니다.");
             }
-            set => _hungerAmount = value;
         }
 
         private NewItemEffect? _useEffect = null;
@@ -58,11 +71,11 @@ namespace Ciart.Pagomoa.Items
             LoadResources();
         }
 
-        public void DisplayUseEffect()
+        public void DisplayUseEffect(string itemID)
         {
-            if (type != ItemType.Use) return;
+            if (type != ItemType.Use && type != ItemType.Mineral) return;
 
-            _useEffect?.Effect();
+            _useEffect?.Effect(itemID);
         }
 
         public void SetItem(Item item)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
@@ -20,15 +21,18 @@ namespace Ciart.Pagomoa.Items
         {
             Dictionary<string, float> keyValuePairs;
             keyValuePairs = ListDictionaryConverter.ToDictionary(AbilityList);
+
+            var player = Game.Instance.player;
+            
             foreach (string key in keyValuePairs.Keys)
             {
                 switch (key)
                 {
                     case "oxygen+":
-                        playerStatus.maxOxygen += keyValuePairs[key];
+                        player.maxOxygen += keyValuePairs[key];
                         break;
                     case "oxygen%":
-                        playerStatus.maxOxygen *= keyValuePairs[key];
+                        player.maxOxygen *= keyValuePairs[key];
                         break;
                     case "oxygenRecovery+":
                         playerStatus.oxygenRecovery += keyValuePairs[key];
@@ -43,10 +47,10 @@ namespace Ciart.Pagomoa.Items
                         playerStatus.oxygenConsume *= keyValuePairs[key];
                         break;
                     case "hungry+":
-                        playerStatus.Hungry += keyValuePairs[key];
+                        player.maxHungry += keyValuePairs[key];
                         break;
                     case "hungry%":
-                        playerStatus.Hungry *= keyValuePairs[key];
+                        player.maxHungry *= keyValuePairs[key];
                         break;
                     case "hungryRecovery+":
                         playerStatus.hungryRecovery += keyValuePairs[key];

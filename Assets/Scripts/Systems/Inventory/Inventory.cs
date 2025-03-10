@@ -295,18 +295,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 case ItemType.Mineral:
                     if (count > 0)
                     {
-                        slotData.GetSlotItem().DisplayUseEffect();
+                        slotData.GetSlotItem().DisplayUseEffect(slotData.GetSlotItemID());
                         slotData.SetSlotItemCount(count);
                     }
                     else
                     {
-                        slotData.GetSlotItem().DisplayUseEffect();
+                        slotData.GetSlotItem().DisplayUseEffect(slotData.GetSlotItemID());
                         slotData.SetSlotItemID("");
                         slotData.SetSlotItemCount(0);
                     }
                     break;
                 case ItemType.Inherent:
-                    slotData.GetSlotItem().DisplayUseEffect();
+                    slotData.GetSlotItem().DisplayUseEffect(slotData.GetSlotItemID());
                     break;
             }
 
@@ -514,24 +514,3 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
     }
 }
-/*
- *
-             아이템 있는지 확인
-             if 아이템 있음 itemtype
-                if 더했을때 Max 수치 보다 작으면
-                    그냥 더함 
-                else if 더했을때 Max 수치 보다 크면
-                    1. 아이템 있는 슬롯 Max 까지 채우기
-                    2. 남은 아이템들 (int)(itemCount / Max) 만큼 빈 슬롯 찾기 Max할당
-                    3. (itemCount % Max)가 있다면 빈 슬롯 찾고 나머지 할당
-                if 퀵슬롯 찾아서 refID있으면 
-                    1. refID 추가 & 수량 조정 
-             if 아이템 없음 itemtype
-                if 더했을때 Max 수치 보다 작으면
-                    빈 슬롯 찾고 아이템 할당, 아이템 수량 체크
-                else if 더했을때 Max 수치 보다 크면
-                    1. 남은 아이템들 (int)(itemCount / Max) 만큼 빈 슬롯 찾기 Max할당
-                    2. (itemCount % Max)가 있다면 빈 슬롯 찾고 나머지 할당
-                if 퀵슬롯 찾아서 refID있으면 
-                    1. refID 추가 & 수량 조정 
- */

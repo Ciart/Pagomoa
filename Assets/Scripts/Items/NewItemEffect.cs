@@ -5,6 +5,6 @@ namespace Ciart.Pagomoa.Items
 {
     public abstract class NewItemEffect
     {
-        public abstract void Effect();
+        public abstract void Effect(string itemID);
     }
 }

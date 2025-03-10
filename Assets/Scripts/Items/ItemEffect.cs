@@ -5,6 +5,6 @@ namespace Ciart.Pagomoa.Items
 {
     public abstract class ItemEffect : ScriptableObject
     {
-        public abstract void Effect(ConsumerableItem item, PlayerStatus stat);
+        public abstract void Effect(ConsumeableItem item, PlayerStatus stat);
     }
 }

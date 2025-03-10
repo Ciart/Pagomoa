@@ -67,8 +67,9 @@ namespace Ciart.Pagomoa.Systems
         {
             var player = e.player;
             
-            player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(stateUI.UpdateOxygenBar);
-            player.GetComponent<PlayerStatus>().hungryAlter.AddListener(stateUI.UpdateHungerBar);
+            player.oxygenChanged += stateUI.UpdateOxygenBar;
+            player.hungryChanged += stateUI.UpdateHungerBar;
+            player.healthChanged += stateUI.UpdateHpBar;
 
             _playerInput = player.GetComponent<PlayerInput>();
             _playerInput.Actions.Menu.performed += context => { ToggleEscUI(); };

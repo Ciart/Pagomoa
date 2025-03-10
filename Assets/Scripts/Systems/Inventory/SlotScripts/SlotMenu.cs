@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var slotItem = targetSlot.GetSlotItem(); 
             if (slotItem == null) return; 
             
-            slotItem.DisplayUseEffect();
+            slotItem.DisplayUseEffect(slotItem.id);
             if (slotItem.type == ItemType.Use)
                 inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID());
             
