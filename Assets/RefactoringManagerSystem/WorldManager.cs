@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 
@@ -18,20 +19,30 @@ namespace Ciart.Pagomoa.Worlds
 
         public static World world
         {
-            get => instance._world;
+            get => Game.Instance.World._world;
             private set
             {
-                if (instance._world == value)
+                if (Game.Instance.World._world == value)
                 {
                     return;
                 }
 
-                instance._world = value;
-                EventManager.Notify(new WorldCreatedEvent(instance._world));
+                Game.Instance.World._world = value;
+                EventManager.Notify(new WorldCreatedEvent(Game.Instance.World._world));
             }
         }
 
         private HashSet<Chunk> _expiredChunks = new();
+
+        public WorldManager()
+        {
+            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
+
+            database = DataBase.data.GetWorldData();
+            itemEntity = DataBase.data.GetItemEntity();
+            worldGenerator = new WorldGenerator();
+        }
         
         private void OnDataSaveEvent(DataSaveEvent e)
         {
@@ -42,19 +53,14 @@ namespace Ciart.Pagomoa.Worlds
         {
             world = new World(e.saveData.world);
         }
-
-        public override void PreStart()
-        {
-            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
-            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
-            
-            database = DataBase.data.GetWorldData();
-            itemEntity = DataBase.data.GetItemEntity();
-            worldGenerator = new WorldGenerator();
-        }
         
         public override void Start()
         {
+            if (world is not null)
+            {
+                return;
+            }
+
             world = worldGenerator.Generate();
         }
         
@@ -62,12 +68,6 @@ namespace Ciart.Pagomoa.Worlds
         {
             EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
             EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
-        }
-
-        public void GetComponent(WorldGenerator generator)
-        {
-            //Todo 수정수정 가저오는 방법 
-            worldGenerator = generator;
         }
 
         public override void LateUpdate()

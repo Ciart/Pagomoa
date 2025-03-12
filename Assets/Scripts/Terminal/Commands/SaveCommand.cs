@@ -9,13 +9,13 @@ namespace Ciart.Pagomoa.Terminal.Commands
         [RegisterCommand(Help = "")]
         private static void CommandSave(CommandArg[] args)
         {
-            Game.Instance.Save.Save();
+            SaveSystem.Instance.Save();
         }
         
         [RegisterCommand(Help = "")]
         private static void CommandLoad(CommandArg[] args)
         {
-            Game.Instance.Save.Load();
+            SaveSystem.Instance.Load();
         }
     }
 }

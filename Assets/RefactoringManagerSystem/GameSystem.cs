@@ -42,7 +42,6 @@ namespace Ciart.Pagomoa.Systems
         public EventManager Event { get; private set; } = null!;
         public DialogueManager Dialogue { get; private set; } = null!;
         public EntityManager Entity { get; private set; } = null!;
-        public NewSaveManager Save { get; private set; } = null!;
         public ParticleManager Particle { get; private set; } = null!;
         public QuestManager Quest { get; private set; } = null!;
         public SoundManager Sound { get; private set; } = null!;
@@ -66,22 +65,12 @@ namespace Ciart.Pagomoa.Systems
         public void MoveToNextDay()
         {
             Time.SkipToNextDay();
-            Save.Save();
+            SaveSystem.Instance.Save();
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             player = e.player;
-        }
-
-        private void TryLoadSave()
-        {
-            var saveSlot = PlayerPrefs.GetInt("SaveSlot");
-
-            if (saveSlot != 0)
-            {
-                Save.Load();
-            }
         }
 
         protected override void Awake()
@@ -91,15 +80,12 @@ namespace Ciart.Pagomoa.Systems
             Event = new EventManager();
             Dialogue = new DialogueManager();
             Entity = new EntityManager();
-            Save = new NewSaveManager();
             Particle = new ParticleManager();
             Quest = new QuestManager();
             Sound = new SoundManager();
             Time = new TimeManager();
             UI = new UIManager();
             World = new WorldManager();
-
-            TryLoadSave();
         }
 
         private void OnEnable()

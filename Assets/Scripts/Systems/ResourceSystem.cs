@@ -243,14 +243,30 @@ namespace Ciart.Pagomoa.Systems
             throw new Exception($"ResourceSystem: GetEntity - '{id}' is not found");
         }
 
-        public QuestData[]? GetQuests(string id)
+        public QuestData[]? GetQuests(string ownerId)
         {
-            if (matchQuests.TryGetValue(id, out var quests))
+            if (matchQuests.TryGetValue(ownerId, out var quests))
             {
                 return quests.ToArray();
             }
 
             return null;
+        }
+
+        public QuestData GetQuest(string questId)
+        {
+            foreach (var quests in matchQuests.Values)
+            {
+                foreach (var quest in quests)
+                {
+                    if (quest.id == questId)
+                    {
+                        return quest;
+                    }
+                }
+            }
+
+            throw new Exception($"ResourceSystem: GetQuest - '{questId}' is not found");
         }
         
         private void Init()
