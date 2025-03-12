@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Systems.Save;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
 
@@ -18,15 +19,15 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     }
     public class Quest
     {
-        public string id {get; private set;}
-        public string description {get; private set;}
-        public string title {get; private set;}
-        public Reward reward {get; private set;}
+        public string id { get; private set; }
+        public string description { get; private set; }
+        public string title { get; private set; }
+        public Reward reward { get; private set; }
         public readonly List<IQuestElements> conditions;
-        public Sprite npcSprite {get; private set;}
+        public Sprite npcSprite { get; private set; }
         public QuestState state;
         public float progress;
-        
+
         public Quest(QuestData questData, Sprite npcSprite)
         {
             id = questData.id;
@@ -36,34 +37,34 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             conditions = new List<IQuestElements>();
             state = QuestState.InProgress;
             this.npcSprite = npcSprite;
-            
+
             foreach (var condition in questData.questList)
             {
                 switch (condition.questType)
                 {
-                    case QuestType.CollectItem :
+                    case QuestType.CollectItem:
                         var collectItem = new CollectItem(condition);
                         collectItem.questFinished = AllElementsFinish;
-                        conditions.Add(collectItem);                        
+                        conditions.Add(collectItem);
                         break;
-                    case QuestType.UseItem :
+                    case QuestType.UseItem:
                         var useItem = new UseItem(condition);
                         useItem.questFinished = AllElementsFinish;
-                        conditions.Add(useItem);                        
+                        conditions.Add(useItem);
                         break;
-                    case QuestType.BreakBlock :
+                    case QuestType.BreakBlock:
                         var breakBlock = new BreakBlock(condition);
                         breakBlock.questFinished = AllElementsFinish;
-                        conditions.Add(breakBlock);                        
+                        conditions.Add(breakBlock);
                         break;
-                    case QuestType.HasItem :
+                    case QuestType.HasItem:
                         var hasItem = new HasItem(condition);
                         hasItem.questFinished = AllElementsFinish;
                         conditions.Add(hasItem);
                         hasItem.CheckComplete();
                         hasItem.questFinished.Invoke();
                         break;
-                    case QuestType.SellItem :
+                    case QuestType.SellItem:
                         var sellItem = new SellItem(condition);
                         sellItem.questFinished = AllElementsFinish;
                         conditions.Add(sellItem);
@@ -77,24 +78,24 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             progress = 0.0f;
 
             var allFinish = true;
-            
+
             foreach (var condition in conditions)
             {
                 progress += condition.GetProgress() / conditions.Count;
-                
+
                 if (condition.CheckComplete() == false)
                 {
                     allFinish = false;
                 }
             }
-            
+
             EventManager.Notify(new QuestUpdated(this));
             EventManager.Notify(new QuestListUpdated(Game.Instance.Quest.quests));
 
             if (allFinish)
             {
                 progress = 1.0f;
-                state = QuestState.Completed;    
+                state = QuestState.Completed;
             }
             else
             {
@@ -108,7 +109,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             EventManager.Notify(new QuestUpdated(this));
             EventManager.Notify(new QuestListUpdated(Game.Instance.Quest.quests));
-            
+
             foreach (var element in conditions)
             {
                 element.Finish();
@@ -125,6 +126,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetQuestSummary();
         public string GetValueToString();
         public string GetCompareValueToString();
+        public int GetCompareValue();
+        public void SetCompareValue(int value);
         public void Finish();
     }
 
@@ -134,19 +137,19 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         private int _prevValue;
         public CollectItem(QuestConditionData elements)
         {
-            questType = elements.questType; 
+            questType = elements.questType;
             summary = elements.summary;
             value = int.Parse(elements.value);
             targetId = elements.targetID;
-            valueType = elements.value; 
+            valueType = elements.value;
             compareValue = 0;
             _prevValue = 0;
-            
+
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
             var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
             var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-            
+
             foreach (var slot in sameSlots)
             {
                 _prevValue += inventoryList[slot].GetSlotItemCount();
@@ -163,9 +166,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             var fCompareValue = (float)compareValue;
             var fValue = (float)value;
-            
+
             progress = fCompareValue / fValue;
-            
+
             return progress;
         }
 
@@ -203,7 +206,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         private void CountItem(ItemCountChangedEvent e)
         {
-            if (!TypeValidation(e.itemID)) return ;
+            if (!TypeValidation(e.itemID)) return;
             if (CheckComplete()) return;
 
             CalculationValue(e);
@@ -216,28 +219,37 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
         public void Finish() { EventManager.RemoveListener<ItemCountChangedEvent>(CountItem); }
+
+        public int GetCompareValue()
+        {
+            return compareValue;
+        }
+        public void SetCompareValue(int value)
+        {
+            compareValue = value;
+        }
     }
     #endregion
     #region UseItem 소모성, 액티브 아이템 사용 
     public class UseItem : QuestCondition, IQuestElements
     {
         private int _prevValue;
-        
+
         public UseItem(QuestConditionData conditions)
         {
-            questType = conditions.questType; 
+            questType = conditions.questType;
             summary = conditions.summary;
             value = int.Parse(conditions.value);
             targetId = conditions.targetID;
-            valueType = conditions.value; 
+            valueType = conditions.value;
             compareValue = 0;
             _prevValue = 0;
-            
+
             EventManager.AddListener<ItemUsedEvent>(HasUsingItem);
 
             var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
             var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-            
+
             foreach (var slot in sameSlots)
             {
                 _prevValue += inventoryList[slot].GetSlotItemCount();
@@ -248,21 +260,21 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             if (!TypeValidation(e.itemID)) return;
             if (CheckComplete()) return;
-            
+
             CalculationValue(e);
 
             CheckComplete();
             questFinished.Invoke();
         }
-        
+
         public override void CalculationValue(IEvent e)
         {
-            if (compareValue == value) return ;
+            if (compareValue == value) return;
             var usedItemEvent = (ItemUsedEvent)e;
-            
+
             compareValue += _prevValue - usedItemEvent.count;
             _prevValue = usedItemEvent.count;
-            
+
             if (compareValue > value) compareValue = value;
         }
 
@@ -270,7 +282,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             return target == targetId;
         }
-        
+
         public bool CheckComplete()
         {
             complete = compareValue >= value;
@@ -281,9 +293,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             var fCompareValue = (float)compareValue;
             var fValue = (float)value;
-            
+
             progress = fCompareValue / fValue;
-            
+
             return progress;
         }
 
@@ -296,11 +308,20 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
         public void Finish() { EventManager.RemoveListener<ItemUsedEvent>(HasUsingItem); }
+
+        public int GetCompareValue()
+        {
+            return compareValue;
+        }
+        public void SetCompareValue(int value)
+        {
+            compareValue = value;
+        }
     }
     #endregion
     #region BreakBlock      
     public class BreakBlock : QuestCondition, IQuestElements
-    { 
+    {
         public BreakBlock(QuestConditionData elements)
         {
             questType = elements.questType;
@@ -309,10 +330,10 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             valueType = elements.value;
             value = int.Parse(elements.value);
             compareValue = 0;
-            
+
             EventManager.AddListener<GroundBrokenEvent>(OnGroundBroken);
         }
-        
+
         public bool CheckComplete()
         {
             complete = compareValue >= value;
@@ -323,9 +344,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             var fCompareValue = (float)compareValue;
             var fValue = (float)value;
-            
+
             progress = fCompareValue / fValue;
-            
+
             return progress;
         }
 
@@ -341,45 +362,54 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         public override void CalculationValue(IEvent e)
         {
-            if (compareValue == value) return ;
+            if (compareValue == value) return;
             compareValue++;
         }
-        
+
         private void OnGroundBroken(GroundBrokenEvent e)
         {
             if (!TypeValidation(e.brick.groundId)) return;
             if (CheckComplete()) return;
-            
+
             CalculationValue(e);
 
             CheckComplete();
             questFinished.Invoke();
         }
-        
+
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
         public void Finish() { EventManager.RemoveListener<GroundBrokenEvent>(OnGroundBroken); }
+
+        public int GetCompareValue()
+        {
+            return compareValue;
+        }
+        public void SetCompareValue(int value)
+        {
+            compareValue = value;
+        }
     }
     #endregion
-    
+
     #region HasItem 
     public class HasItem : QuestCondition, IQuestElements
     {
         public HasItem(QuestConditionData elements)
         {
-            questType = elements.questType; 
+            questType = elements.questType;
             summary = elements.summary;
             value = int.Parse(elements.value);
             targetId = elements.targetID;
-            valueType = elements.value; 
+            valueType = elements.value;
             compareValue = 0;
-            
+
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
 
             var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
             var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-            
+
             foreach (var slot in sameSlots)
             {
                 compareValue += inventoryList[slot].GetSlotItemCount();
@@ -396,9 +426,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             var fCompareValue = (float)compareValue;
             var fValue = (float)value;
-            
+
             progress = fCompareValue / fValue;
-            
+
             return progress;
         }
 
@@ -410,13 +440,13 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public override void CalculationValue(IEvent e)
         {
             var inventoryItem = (ItemCountChangedEvent)e;
-            
+
             compareValue = inventoryItem.count;
         }
 
         private void CountItem(ItemCountChangedEvent e)
         {
-            if (!TypeValidation(e.itemID)) return ;
+            if (!TypeValidation(e.itemID)) return;
 
             CalculationValue(e);
 
@@ -431,7 +461,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public void Finish()
         {
             EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
-            
+
             var itemList = Game.Instance.player.inventory.FindSameItem(GetTargetID());
 
             foreach (var index in itemList)
@@ -444,6 +474,15 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                 }
             }
         }
+
+        public int GetCompareValue()
+        {
+            return compareValue;
+        }
+        public void SetCompareValue(int value)
+        {
+            compareValue = value;
+        }
     }
     #endregion
 
@@ -453,27 +492,27 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     {
         public SellItem(QuestConditionData elements)
         {
-            questType = elements.questType; 
+            questType = elements.questType;
             summary = elements.summary;
             value = int.Parse(elements.value);
             targetId = elements.targetID;
-            valueType = elements.value; 
+            valueType = elements.value;
             compareValue = 0;
-            
+
             EventManager.AddListener<ItemSellEvent>(SellingItem);
         }
-        
+
         private void SellingItem(ItemSellEvent e)
         {
             if (!TypeValidation(e.itemID)) return;
             if (CheckComplete()) return;
-            
+
             CalculationValue(e);
-            
+
             CheckComplete();
             questFinished.Invoke();
-        } 
-        
+        }
+
         public override void CalculationValue(IEvent e)
         {
             var sellEvent = (ItemSellEvent)e;
@@ -496,17 +535,26 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             var fCompareValue = (float)compareValue;
             var fValue = (float)value;
-            
+
             progress = fCompareValue / fValue;
-            
+
             return progress;
         }
-        
+
         public string GetTargetID() { return targetId; }
         public string GetQuestSummary() { return summary; }
         public string GetValueToString() { return value.ToString(); }
         public string GetCompareValueToString() { return compareValue.ToString(); }
         public void Finish() { EventManager.RemoveListener<ItemSellEvent>(SellingItem); }
+
+        public int GetCompareValue()
+        {
+            return compareValue;
+        }
+        public void SetCompareValue(int value)
+        {
+            compareValue = value;
+        }
     }
     #endregion
 }
