@@ -13,7 +13,7 @@ public class Manager<T> : IManager where T : Manager<T>
         instance ??= this as T;
         
         var type = GetType();
-        var ms = ManagerSystem.instance;
+        var ms = ManagerSystem.Instance;
         
         MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 

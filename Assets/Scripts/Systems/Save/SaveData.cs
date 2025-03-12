@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Worlds;
 using MemoryPack;
@@ -9,19 +8,39 @@ namespace Ciart.Pagomoa.Systems.Save
     [MemoryPackable]
     public partial class SaveData
     {
-        public WorldSaveData world;
-        public PlayerSaveData player;
+        public int version = 0;
+
+        public WorldSaveData world = new WorldSaveData();
+        
+        public PlayerSaveData player = new PlayerSaveData();
+
+        public List<QuestSaveData> quests = new List<QuestSaveData>();
     }
 
+    /// <summary>
+    /// 스탯과는 관련 없는 플레이어 고유의 데이터입니다.
+    /// </summary>
     [MemoryPackable]
     public partial class PlayerSaveData
     {
-        public PlayerStatusSaveData status;
+        public InventorySaveData inventory;
     }
 
     [MemoryPackable]
-    public partial class PlayerStatusSaveData
+    public partial class InventorySaveData
     {
+        public InventorySlotSaveData[] quickSlots;
+
+        public InventorySlotSaveData[] artifactSlots;
+
+        public InventorySlotSaveData[] inventorySlots;
+    }
+
+    [MemoryPackable]
+    public partial class InventorySlotSaveData
+    {
+        public string id;
+        public int count;
     }
 
     [MemoryPackable]
@@ -72,5 +91,21 @@ namespace Ciart.Pagomoa.Systems.Save
         public string[] minerals;
 
         public bool[] isRocks;
+    }
+
+    [MemoryPackable]
+    public partial class QuestSaveData
+    {
+        public string id;
+
+        public QuestState state;
+
+        public QuestConditionSaveData[] conditions;
+    }
+
+    [MemoryPackable]
+    public partial class QuestConditionSaveData
+    {
+        public int compareValue;
     }
 }

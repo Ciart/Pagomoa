@@ -19,30 +19,38 @@ namespace Ciart.Pagomoa.UI.Title
         public GameObject titlePanel;
 
         public Intro intro;
-        
+
         private void Start()
         {
             DataManager.Instance.LoadGameData();
         }
-        public void StartGame(bool restart)
+
+        public void StartGame(bool isContinue)
         {
-            /*isFirstStart = DataManager.Instance.data.introData.isFirstStart;
-        
-            if (!isFirstStart || restart == true)
-            {
-                SceneManager.LoadScene("Scenes/IntroScene");
-                SaveManager.Instance.WriteIntroData(true);
-                DataManager.Instance.SaveGameData();
-            }*/
+            // isFirstStart = DataManager.Instance.data.introData.isFirstStart;
+
+            // if (!isFirstStart || restart == true)
+            // {
+            //     SceneManager.LoadScene("Scenes/IntroScene");
+            //     DataManager.Instance.SaveGameData();
+            // }
             // else
-            {
-                SceneManager.LoadScene("Scenes/WorldScene");
-            }
+            // {
+            //     SceneManager.LoadScene("Scenes/WorldScene");
+            // }
             
+            titlePanel.SetActive(false);
+
+            if (isContinue)
+            {
+                PlayerPrefs.SetInt("SaveSlot", 1);
+                StartGame();
+                return;
+            }
+
             foreach (var backGround in backGrounds)
             {
                 backGround.needScrollDown = true;
-                titlePanel.SetActive(false);
             }
             // foreach (var backGround in backGrounds)
             // {
@@ -50,13 +58,15 @@ namespace Ciart.Pagomoa.UI.Title
             //     titlePanel.SetActive(false);
             // }
         }
+
         public void ReStart()
         {
             DataManager.Instance.DeleteGameData();
             DataManager.Instance.LoadGameData();
-            
+
             StartGame(true);
         }
+
         public void PressStartButton()
         {
             isFirstStart = DataManager.Instance.data.introData.isFirstStart;
@@ -69,11 +79,13 @@ namespace Ciart.Pagomoa.UI.Title
                 transform.Find("LoadQuestion").gameObject.SetActive(true);
             }
         }
+
         public void PopUpReStart()
         {
             transform.Find("LoadQuestion").gameObject.SetActive(false);
             transform.Find("ReStartQuestion").gameObject.SetActive(true);
         }
+
         public void EndGame()
         {
             Application.Quit();
@@ -82,16 +94,16 @@ namespace Ciart.Pagomoa.UI.Title
         private void FixedUpdate()
         {
             if (intro.isPlayed) return;
-            
+
             if (backGrounds[0].startIntro && !intro.isPlayed)
                 intro.PlayIntro();
         }
 
         public void StartGame()
         {
-            if (intro.isPlayed) intro.gameObject.SetActive(false); 
-            
+            if (intro.isPlayed) intro.gameObject.SetActive(false);
+
             SceneManager.LoadScene("Scenes/WorldScene");
-        } 
+        }
     }
 }
