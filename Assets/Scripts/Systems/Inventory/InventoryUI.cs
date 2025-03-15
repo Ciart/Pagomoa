@@ -8,6 +8,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        [Header("InventoryUI")]
         [SerializeField] private RectTransform inventorySlotParent;
         [SerializeField] private InventorySlotUI instanceInventorySlotUI;
         [SerializeField] private RectTransform artifacSlotParent;
@@ -17,6 +18,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private readonly List<ArtifactSlotUI> _artifactSlots 
             = new List<ArtifactSlotUI>(Inventory.MaxArtifactSlots);
 
+        [Header("Status Text")]
         [SerializeField] private TextMeshProUGUI hpValueText;
         [SerializeField] private TextMeshProUGUI damageValueText;
         [SerializeField] private TextMeshProUGUI oxygenValueText;
@@ -90,6 +92,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _artifactSlots[i].SetSlotID(i);
             }
         }
+        
+        
         private void UpdateHpValueText(EntityDamagedEventArgs args) 
         { hpValueText.text = $"{Game.Instance.player.health:F0} / {Game.Instance.player.maxHealth:F0}"; }
         private void UpdateHpValueText() 
@@ -153,18 +157,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnDisable()
         {
             EventManager.RemoveListener<UpdateInventory>(UpdateInventoryUI);
-
-            //var player = Game.Instance.player;
-
-            //player.status.oxygenAlter.RemoveListener(UpdateOxygenValueText);
-            //player.status.hungryAlter.RemoveListener(UpdateHungryValueText);
-            //player.status.sightChange -= UpdateSightValueText;
-            //player.status.digSpeedChange -= UpdateDigValueText;
-
-            //player.entityController.damaged -= UpdateHPValueText;
-            //player.entityController.attackChanged -= UpdateDamageValueText;
-            //player.entityController.deffenseChanged -= UpdateDeffenseValueText;
-            //player.entityController.speedChanged -= UpdateMoveSpeedValueText;
         }
     }
 }

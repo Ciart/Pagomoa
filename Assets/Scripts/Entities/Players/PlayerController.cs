@@ -18,6 +18,7 @@ namespace Ciart.Pagomoa.Entities.Players
         public event Action oxygenChanged;
         public event Action hungryChanged;
         public event Action healthChanged;
+        
         private float _oxygen; 
         public float oxygen 
         {
@@ -115,10 +116,11 @@ namespace Ciart.Pagomoa.Entities.Players
             base.Init(data);
             
             var entity = ResourceSystem.instance.GetEntity(data.id);
-            maxOxygen = 100.0f;
+            // TODO : 
+            maxOxygen = entity.oxygen;   
             maxHungry = 100.0f;
             maxHealth = 100.0f;
-            oxygen = entity.oxygen;
+            oxygen = maxOxygen;
             hungry = entity.hungry;
             health = entity.baseHealth;
         }
@@ -147,7 +149,6 @@ namespace Ciart.Pagomoa.Entities.Players
             UpdateState();
             UpdateSound();
             UpdateOxygen();
-            UpdateHealth();
 
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
@@ -246,20 +247,6 @@ namespace Ciart.Pagomoa.Entities.Players
         private void UpdateHunger(float value)
         {
             hungry -= value;
-        }
-
-        private void UpdateHealth()
-        {
-            if (health > maxHealth) health = maxHealth;
-            if (health <= 0.0f) health = 0.0f;
-            
-            if (health <= 0.0f)
-            {
-                Die();
-                health = maxHealth;
-            }
-            
-            healthChanged?.Invoke();
         }
 
         private void FixedUpdate()
