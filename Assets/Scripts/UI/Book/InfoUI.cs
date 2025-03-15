@@ -1,61 +1,81 @@
-﻿using Ciart.Pagomoa.Events;
+﻿using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
-using System.Diagnostics;
+using Ciart.Pagomoa.Worlds;
+using System;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.UI.Book
 {
     public class InfoUI : UIBehaviour
     {
-        public TextMeshProUGUI[] texts;
-        
-        private void OnItemCountChangedEvent(ItemCountChangedEvent e)
+        [SerializeField] private TextMeshProUGUI[] needStoneText;
+        [SerializeField] private Image[] needStoneImage;
+
+        [SerializeField] private TextMeshProUGUI drillName;
+        [SerializeField] private TextMeshProUGUI drillDescription;
+
+        [SerializeField] private Button upgradeBtn;
+
+        private void SetMineralCount(string id, int count)
         {
-            var nextDrill = Game.instance.player.drill.nextDrill;
+            UIUpdate();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
             
-            for (var i = 0; i < nextDrill.upgradeNeeds.Length; i++)
-            {
-                var need = nextDrill.upgradeNeeds[i];
-
-                if (e.itemID == need.mineral.id)
-                {
-                    texts[i].text = $"{need.mineral.name} ({e.count} / {need.count})";
-                }
-            }
+            upgradeBtn?.onClick.AddListener(Game.Instance.player.drill.DrillUpgrade);
+            upgradeBtn?.onClick.AddListener(UIUpdate);
         }
 
-        private void Upgrade()
+        private void UIUpdate()
         {
-            var nextDrill = Game.instance.player.drill.nextDrill;
-            if (nextDrill == null) { UnityEngine.Debug.Log("표기할 다음 레벨 드릴이 없습니다."); return; }
+            if (Game.Instance.player == null) return;
 
-            for (var i = 0; i < nextDrill.upgradeNeeds.Length; i++)
+            var nowDrill = Game.Instance.player.drill.nowDrill;
+            drillName.text = nowDrill.drillName;
+            drillDescription.text = nowDrill.drillDescription;
+
+
+            var nextDrill = Game.Instance.player.drill.nextDrill;
+
+            for (int i = 0; i < nextDrill.upgradeNeeds.Length; i++)
             {
-                var need = nextDrill.upgradeNeeds[i];
-                
-                /*texts[i].text = $"{need.mineral.name} ({Game.Instance.player.inventory.GetItemCount(need.mineral)} / {need.count})";*/
+                var mineralID = nextDrill.upgradeNeeds[i].mineral.id;
+                var mineralName = nextDrill.upgradeNeeds[i].mineral.name;
+                var currentCount = MineralCollector.GetMineralCount(mineralID);
+                var maxCount = nextDrill.upgradeNeeds[i].count;
+
+                needStoneImage[i].sprite = Resources.Load<Sprite>("Items/" + mineralID);
+                needStoneImage[i].enabled = true;
+                needStoneText[i].text = $"{mineralName} {currentCount}/{maxCount}";
+                needStoneText[i].enabled = true;
+            }
+            for (int i = nextDrill.upgradeNeeds.Length; i < needStoneText.Length; i++)
+            {
+                needStoneText[i].enabled = false;
+                needStoneImage[i].enabled = false;
             }
         }
-        
+
+
         protected override void OnEnable()
         {
             base.OnEnable();
-            EventManager.AddListener<ItemCountChangedEvent>(OnItemCountChangedEvent);
-
-            Upgrade();
+            UIUpdate();
+            MineralCollector.OnMineralsChange += SetMineralCount;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            EventManager.RemoveListener<ItemCountChangedEvent>(OnItemCountChangedEvent);
-        }
-
-        public void OnDrillUpgrade()
-        {
-            Game.instance.player.drill.DrillUpgrade();
-            Upgrade();
+            MineralCollector.OnMineralsChange -= SetMineralCount;
         }
     }
 }

@@ -15,5 +15,28 @@ MonoBehaviour:
   tier: 1
   speed: 15
   upgradeNeeds:
-  - mineral: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+  - mineral:
+      type: 3
+      id: Copper
+      name: 
+      description: 
+      price: 0
+      status:
+        health: 0
+        healthMultiplier: 1
+        oxygen: 0
+        oxygenMultiplier: 1
+        hungry: 0
+        hungryMultiplier: 1
+        attack: 0
+        attackMultiplier: 1
+        defense: 0
+        defenseMultiplier: 1
+        sight: 0
+        sightMultiplier: 1
+        speed: 0
+        speedMultiplier: 1
+      sprite: {fileID: 0}
     count: 10
+  drillName: "\uC801\uB2F9\uD55C \uAD6C\uB9AC \uB4DC\uB9B4"
+  drillDescription: "\uC870\uAE08 \uB290\uB9B0 \uB4DC\uB9B4\uC774\uB2E4."
