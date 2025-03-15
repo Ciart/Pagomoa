@@ -86,10 +86,9 @@ namespace Ciart.Pagomoa.Entities
 
         public EntityController parent;
 
+        public event Action healthChanged;
         public event Action<EntityDamagedEventArgs> damaged;
-
         public event Action<EntityExplodedEventArgs> exploded;
-
         public event Action<EntityDiedEventArgs> died;
         
         public bool isDead => health <= 0;

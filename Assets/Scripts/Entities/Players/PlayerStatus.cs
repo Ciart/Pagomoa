@@ -58,8 +58,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public float maxHungry = 100f;
         public float minHungry = 0f;*/
-
-
+        
         [SerializeField] protected float _hungryRecovery = 1;
 
         public float hungryRecovery

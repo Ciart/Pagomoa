@@ -17,7 +17,6 @@ namespace Ciart.Pagomoa.Entities.Players
         #region Status
         public event Action oxygenChanged;
         public event Action hungryChanged;
-        public event Action healthChanged;
         
         private float _oxygen; 
         public float oxygen 
@@ -116,7 +115,7 @@ namespace Ciart.Pagomoa.Entities.Players
             base.Init(data);
             
             var entity = ResourceSystem.instance.GetEntity(data.id);
-            // TODO : 
+            
             maxOxygen = entity.oxygen;   
             maxHungry = 100.0f;
             maxHealth = 100.0f;
@@ -225,22 +224,17 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private void UpdateOxygen()
         {
-            var gage = 100f;
-
             if (transform.position.y < World.GroundHeight && oxygen >= 0)
             {
                 oxygen -= Mathf.Abs(transform.position.y) * status.oxygenConsume * Time.deltaTime;
-                gage = oxygen;
                 if (oxygen < 0)
                 {
                     Die();
-                    gage = 0;
                 }
             }
             else if (oxygen < maxOxygen)
             {
                 oxygen += Mathf.Abs(transform.position.y) * status.oxygenRecovery * Time.deltaTime;
-                gage = oxygen;
             }
         }
 
