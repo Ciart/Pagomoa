@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
@@ -65,7 +66,17 @@ namespace Ciart.Pagomoa.Worlds
         
         public LevelSaveData CreateSaveData()
         {
-            return new LevelSaveData();
+            return new LevelSaveData()
+            {
+                id = id,
+                type = type,
+                top = top,
+                bottom = bottom,
+                left = left,
+                right = right,
+                // entities = entityDataList.ToArray(),
+                chunks = _chunks.Values.Select(chunk => chunk.CreateSaveData()).ToArray()
+            };
         }
 
         public Chunk GetChunk(ChunkCoords coords)
