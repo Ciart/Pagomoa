@@ -134,6 +134,8 @@ namespace Ciart.Pagomoa.Systems
             minimapUI.gameObject.SetActive(false);
             stateUI.gameObject.SetActive(false);
             quickUI.gameObject.SetActive(false);
+            
+            bookUI.DeActiveBook();
         }
 
         public void ActiveUI()
