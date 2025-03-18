@@ -47,6 +47,7 @@ namespace Ciart.Pagomoa.Items
 
         public void DisplayUseEffect()
         {
+            if (type == ItemType.Mineral) MineralCollector.CollectMineral(id, 1);
             if (type != ItemType.Use) return;
 
             _useEffect?.Effect();

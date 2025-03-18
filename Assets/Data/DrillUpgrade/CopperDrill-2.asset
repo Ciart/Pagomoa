@@ -15,7 +15,52 @@ MonoBehaviour:
   tier: 1
   speed: 20
   upgradeNeeds:
-  - mineral: {fileID: 11400000, guid: c777f80e28c923946b277c4213af07cc, type: 2}
+  - mineral:
+      type: 2
+      id: Copper
+      name: 
+      description: 
+      price: 0
+      status:
+        health: 0
+        healthMultiplier: 1
+        oxygen: 0
+        oxygenMultiplier: 1
+        hungry: 0
+        hungryMultiplier: 1
+        attack: 0
+        attackMultiplier: 1
+        defense: 0
+        defenseMultiplier: 1
+        sight: 0
+        sightMultiplier: 1
+        speed: 0
+        speedMultiplier: 1
+      sprite: {fileID: 0}
     count: 15
-  - mineral: {fileID: 11400000, guid: 5f76ad0660da641068931cc9b9b50666, type: 2}
+  - mineral:
+      type: 2
+      id: Quartz
+      name: 
+      description: 
+      price: 0
+      status:
+        health: 0
+        healthMultiplier: 1
+        oxygen: 0
+        oxygenMultiplier: 1
+        hungry: 0
+        hungryMultiplier: 1
+        attack: 0
+        attackMultiplier: 1
+        defense: 0
+        defenseMultiplier: 1
+        sight: 0
+        sightMultiplier: 1
+        speed: 0
+        speedMultiplier: 1
+      sprite: {fileID: 0}
     count: 10
+  drillName: "\uBE5B\uB098\uB294 \uAD6C\uB9AC \uB4DC\uB9B4"
+  drillDescription: "\uBE5B\uC774 \uB098\uB294 \uB4DC\uB9B4\uC774\uB2E4. \uC870\uAE08
+    \uBE60\uB978 \uAC83 \uAC19\uB2E4."
