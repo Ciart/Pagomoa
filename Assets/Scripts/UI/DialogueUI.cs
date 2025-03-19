@@ -63,6 +63,7 @@ namespace Ciart.Pagomoa
 
         private void SetBtnSizeAfterContentSizeFitter()
         { 
+            if (!_targetManager.story) return; // 상점과 같은 버튼이 없는 대화 출력시 버튼 에러 방지
             var buttonCount = _targetManager.story.currentChoices.Count;
             
             if (buttonCount == 0) buttonCount = 1; // 마지막 선택 시 때문에 설정
