@@ -1,0 +1,49 @@
+name: Bug Report
+description: Report a bug
+labels: [bug]
+type: Bug
+title: '[Bug]: '
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: ❗️버그 설명
+      description: 버그가 무엇인지 명확하고 간결하게 작성해주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 재연 과정
+      description: 버그가 어떤 조건에 이루지는지 추가적인 서술을 해주세요.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 예상되는 동작
+    validations:
+      required: true
+
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: 예상되는 해결책
+      description: 문제를 어떻게 해결 할 수 있을지 작성해주세요.
+    validations:
+      required: false
+
+  - type: textarea
+    id: etc
+    attributes:
+      label: 추가 정보
+      description: 문제에 대한 다른 정보를 작성해주세요.
+      placeholder: 에러 로그, 스크린샷
+    validations:
+      required: false

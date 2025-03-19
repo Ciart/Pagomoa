@@ -41,6 +41,14 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private int _drillLevel = 0;
 
+        public Drill nowDrill
+        {
+            get
+            {
+                return _drills[_drillLevel];
+            }
+        }
+
         public Drill nextDrill
         {
             get {
@@ -70,6 +78,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private MoaInteraction _fairyMoa;
         
         private PlayerController _player;
+       
+        public static event Action<Drill> OnDrillUpgrade;
         
         private void Awake()
         {
@@ -282,43 +292,22 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public void DrillUpgrade()
         {
-            var inventory = Game.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
 
             if (nextDrill == null) { Debug.Log("Drill is on Max Level. Can not Upgrade!"); return; }
 
-            foreach (DrillUpgradeNeeds needs in nextDrill.upgradeNeeds)
+            foreach (var needs in nextDrill.upgradeNeeds)
             {
-                
+                if (needs.mineral.id == "")
+                    return;
+
+                if (!MineralCollector.TryUseMineral(needs.mineral.id, needs.count))
+                    return;
             }
+
             _drillLevel += 1;
+            OnDrillUpgrade?.Invoke(_drills[_drillLevel]);
             Debug.Log("업그레이드 완료" + _drills[_drillLevel]);
-
-
-            // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
-
-            //bool upgradable = true;
-            //var inventory = Game.instance.player.inventory;
-
-            //foreach (DrillUpgradeNeeds needs in nextDrill.upgradeNeeds)
-            //{
-            //    /*if (needs.count > inventory.GetItemCount(needs.mineral))
-            //    {
-            //        upgradable = false;
-            //        Debug.Log("업그레이드 실패: " + inventory.GetItemCount(needs.mineral) + "/" + needs.count);
-            //    }*/
-            //}
-            //if (upgradable) {
-            //    foreach (DrillUpgradeNeeds needs in nextDrill.upgradeNeeds)
-            //    {
-            //        /*int used = 0;
-            //        while (used < needs.count)
-            //        {
-            //            inventory.RemoveItemByItemID(needs.mineral.id);
-            //            used++;
-            //        }*/
-            //    }
-            //    _drillLevel += 1; Debug.Log("업그레이드 성공"); 
-            //}
         }
 
         private void RemoveThisIfItWorkedProperly()

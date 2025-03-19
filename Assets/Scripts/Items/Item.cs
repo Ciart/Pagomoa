@@ -1,6 +1,5 @@
 ﻿using System;
 using Ciart.Pagomoa.Entities.Players;
-using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -73,7 +72,8 @@ namespace Ciart.Pagomoa.Items
 
         public void DisplayUseEffect(string itemID)
         {
-            if (type != ItemType.Use && type != ItemType.Mineral) return;
+            if (type == ItemType.Mineral) MineralCollector.CollectMineral(id, 1);
+            if (type != ItemType.Use) return;
 
             _useEffect?.Effect(itemID);
         }

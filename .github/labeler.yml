@@ -1,0 +1,43 @@
+# enable labeler on issues, prs, or both.
+enable:
+  issues: true
+  prs: true
+
+# 레이블을 성공적으로 붙이고 PR에 보낼 코멘트를 설정
+comments:
+  issues: |
+    Thanks for opening this issue!
+    I have applied any labels matching special text in your title and description.
+
+    Please review the labels and make any necessary changes.
+  prs: |
+    Thanks for the contribution!
+    I have applied any labels matching special text in your title and description.
+
+    Please review the labels and make any necessary changes.
+
+# 레이블
+labels:
+  'bug':
+    include:
+      - '\b[Ff]ix\b'
+      - '\b[Bb]ug\b'
+  'enhancement':
+    include:
+      - '\b[Ff]eat\b'
+      - '\b[Ff]eature\b'
+      - '\b[Dd]ev\b'
+  'documentation':
+    include:
+      - '\b[Dd]ocs\b'
+  'refactor':
+    include:
+      - '\b[Rr]efact\b'
+      - '\b[Rr]efactor\b'
+  'graphic':
+    include:
+      - '\b[Gg]raphic\b'
+      - '\b[Ss]tyle\b'
+  'chore':
+    include:
+      - '\b[Cc]hore\b'
