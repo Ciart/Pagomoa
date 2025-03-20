@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using UnityEditor;
@@ -43,9 +44,28 @@ namespace Ciart.Pagomoa.Entities
     {
         public string entityId;
 
-        public float health;
+        private float _health; 
+        public float health 
+        {
+            get => _health;
+            set
+            {
+                _health = value >= maxHealth ? maxHealth : value;
+                if (_health <= 0.0f) _health = 0.0f;
+                healthChanged?.Invoke();
+            }
+        }
         
-        public float maxHealth;
+        private float _maxHealth;
+        public float maxHealth
+        {
+            get => _maxHealth;
+            set
+            {
+                _maxHealth = value;
+                healthChanged?.Invoke();
+            }
+        }
 
         private float attack;
         public float Attack
@@ -198,7 +218,8 @@ namespace Ciart.Pagomoa.Entities
 
             health -= damage;
             damaged?.Invoke(new EntityDamagedEventArgs { amount = damage, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
-
+            healthChanged?.Invoke();
+            
             if (health <= 0)
             {
                 health = 0;

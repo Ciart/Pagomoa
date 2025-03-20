@@ -102,12 +102,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void UpdateDamageValueText() { damageValueText.text = $"{Game.Instance.player.Attack:F0}"; }
 
         private void UpdateOxygenValueText() 
-        { oxygenValueText.text = $"{Game.Instance.player.oxygen:F1} / {Game.Instance.player.maxOxygen:F1}"; }
+        { oxygenValueText.text = $"{Game.Instance.player.oxygen:F0} / {Game.Instance.player.maxOxygen:F0}"; }
 
         private void UpdateDefenseValueText() { deffenseValueText.text = $"{Game.Instance.player.Defense:F0}"; }
 
         private void UpdateHungryValueText() 
-        { hungerValueText.text = $"{Game.Instance.player.hungry:F1} / {Game.Instance.player.maxHungry:F1}"; }
+        { hungerValueText.text = $"{Game.Instance.player.hungry:F0} / {Game.Instance.player.maxHungry:F0}"; }
 
         private void UpdateMoveSpeedValueText() { moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}"; }
 
