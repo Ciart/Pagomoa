@@ -379,18 +379,18 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 case ItemType.Mineral:
                     if (count > 0)
                     {
-                        slotData.GetSlotItem().DisplayUseEffect(slotData.GetSlotItemID());
+                        slotData.GetSlotItem().DisplayUseEffect();
                         slotData.SetSlotItemCount(count);
                     }
                     else
                     {
-                        slotData.GetSlotItem().DisplayUseEffect(slotData.GetSlotItemID());
+                        slotData.GetSlotItem().DisplayUseEffect();
                         slotData.SetSlotItemID("");
                         slotData.SetSlotItemCount(0);
                     }
                     break;
                 case ItemType.Inherent:
-                    slotData.GetSlotItem().DisplayUseEffect(slotData.GetSlotItemID());
+                    slotData.GetSlotItem().DisplayUseEffect();
                     break;
             }
 

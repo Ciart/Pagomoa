@@ -91,7 +91,6 @@ namespace Ciart.Pagomoa.Entities
         }
         public event Action deffenseChanged;
 
-
         private float speed;
         public float Speed
         {
@@ -165,8 +164,8 @@ namespace Ciart.Pagomoa.Entities
                 return;
             }
             
-            health = entity.baseHealth;
             maxHealth = entity.baseHealth;
+            health = entity.baseHealth;
             Attack = entity.attack;
             Defense = entity.defense;
             Speed = entity.speed;

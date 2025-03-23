@@ -34,8 +34,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var inventory = Game.Instance.player.inventory;
             var mineralCount = count;
-            
+
+            var targetSlot = inventory.FindSlot(SlotType.Inventory, inventorySlotUI.GetSlotID());
+            targetSlot.GetSlotItem().DisplayUseEffect();
             inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID(), mineralCount);
+            
+            
             
             Game.Instance.UI.bookUI.GetRightClickMenu().DeleteMenu();
         }
@@ -50,7 +54,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var slotItem = targetSlot.GetSlotItem(); 
             if (slotItem == null) return; 
             
-            slotItem.DisplayUseEffect(slotItem.id);
+            slotItem.DisplayUseEffect();
             if (slotItem.type == ItemType.Use)
                 inventory.DecreaseItemBySlotID(inventorySlotUI.GetSlotID());
             

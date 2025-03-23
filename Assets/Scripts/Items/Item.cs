@@ -70,12 +70,12 @@ namespace Ciart.Pagomoa.Items
             LoadResources();
         }
 
-        public void DisplayUseEffect(string itemID)
+        public void DisplayUseEffect()
         {
             if (type == ItemType.Mineral) MineralCollector.CollectMineral(id, 1);
-            if (type != ItemType.Use) return;
-
-            _useEffect?.Effect(itemID);
+            if (type is not (ItemType.Use or ItemType.Mineral)) return;
+            
+            _useEffect?.Effect(id);
         }
 
         public void SetItem(Item item)

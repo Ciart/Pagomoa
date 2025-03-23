@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             if (Terminal.IssuedError) return;
             
-            ResourceSystem.instance.GetItem(subCommand).DisplayUseEffect(subCommand);
+            ResourceSystem.instance.GetItem(subCommand).DisplayUseEffect();
         }
     }
 }
