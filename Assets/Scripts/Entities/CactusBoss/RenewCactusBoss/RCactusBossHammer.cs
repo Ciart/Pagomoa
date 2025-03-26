@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Ink.Parsed;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,8 +14,18 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
         [SerializeField] private GameObject particle;
         public Transform[] particleSpawnPoints;
         
-        [NonSerialized] public bool doneInstantiate = true;
-        [NonSerialized] public bool isGather;
+        private bool _doneInstantiate = true;
+        public bool DoneInstantiate
+        {
+            get { return _doneInstantiate; }
+            set { _doneInstantiate = value; }
+        }
+
+        public bool IsGather
+        {
+            get;
+            private set;
+        }
         
         private RCactusBoss _boss;
         private Rigidbody2D _rigidbody;
@@ -32,45 +40,48 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var info = _animator.GetCurrentAnimatorStateInfo(0);
-            Debug.Log(info.IsName("HammerResetRotation"));
             
             if (collision.gameObject.layer == LayerMask.NameToLayer("Platform"))
             {
-                if (info.IsName("HammerSmashDown"))
-                {
-                    _rigidbody.linearVelocity = Vector2.zero;
-                    InstantiateParticles();
-                }
-                else if(info.IsName("HammerDown"))
+                if(_boss.state == RCactusBoss.State.Hammer) 
                 {
                     _rigidbody.linearVelocity = Vector2.zero;
                     StartCoroutine(InstantiateShockWave());
                 }
-                else if (info.IsName("HammerCrash"))
+                else if (_boss.state == RCactusBoss.State.Spin) 
                 {
                     return;
+                }
+                else if (_boss.state == RCactusBoss.State.Smash) 
+                {
+                    _rigidbody.linearVelocity = Vector2.zero;
+                    InstantiateParticles();
                 }
             }
 
             if (collision.gameObject.CompareTag("Boss"))
             {
-                if (info.IsName("HammerDown"))
+                // 전체 수정 필요
+                if (info.IsName("Idle")) return;
+                
+                if (_boss.state == RCactusBoss.State.Hammer) // HammerUp
                 {
                     _rigidbody.linearVelocity = Vector2.zero;
                     if (isRight)
                         StartCoroutine(InstantiateShockWave());
                 }
-                else if (info.IsName("HammerCrash"))
+                else if (_boss.state == RCactusBoss.State.Spin) // HammerSpin
                 {
+                    Debug.Log(collision.gameObject.name);
                     _rigidbody.linearVelocity = Vector2.zero;
-                    Debug.Log(gameObject.name + ": " + _rigidbody.linearVelocity);
                     StartCoroutine(InstantiateShockWaveAtCenter());
                 }
-                else if (info.IsName("HammerGather"))
+                else if (_boss.state == RCactusBoss.State.Smash) // HammerSmashUp
                 {
                     _rigidbody.linearVelocity = Vector2.zero;
-                    isGather = true;
+                    IsGather = true;
                 }
+                
             }
         }
 
@@ -87,10 +98,11 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
                 Vector2 random = new Vector2(randomX, 1).normalized;
                 dustRigidbody.AddForce(random * 35f, ForceMode2D.Impulse);
             }
-            doneInstantiate = true;
+            _doneInstantiate = true;
         }
         private IEnumerator InstantiateShockWaveAtCenter()
         {
+            Debug.Log("호출");
             for (int i = 0; i < 3; i++)
             {
                 GameObject center = Instantiate(shockWave, shockWaveSpawner[2].position, quaternion.identity);
@@ -102,7 +114,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
                 
                 yield return new WaitForSeconds(1.5f);
             }
-            doneInstantiate = true;
+            _doneInstantiate = true;
         }
         private IEnumerator InstantiateShockWave()
         {
@@ -123,7 +135,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
                 }
                 yield return new WaitForSeconds(1.5f);
             }
-            doneInstantiate = true;
+            _doneInstantiate = true;
         }
         public void HammerCoroutine(float downSpeed)
         {

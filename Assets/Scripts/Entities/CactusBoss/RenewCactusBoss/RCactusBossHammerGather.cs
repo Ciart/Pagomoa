@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().isGather)
+            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().IsGather)
             {
                 animator.ResetTrigger("HammerGather");
                 animator.SetTrigger("HammerChase");

@@ -22,7 +22,7 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
         
         private void TakeDamage(float amount, GameObject attacker)
         {
-            _player.status.health -= amount;
+            // _player.status.health -= amount;
             TakeKnockback(5f, attacker.transform.position - transform.position);
         }
         

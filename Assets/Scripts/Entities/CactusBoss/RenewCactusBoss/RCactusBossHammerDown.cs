@@ -16,12 +16,12 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_boss.patternCount == 3)
-            {
-                animator.ResetTrigger("HammerDown");
-                animator.SetTrigger("Groggy");
-            }
-            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().doneInstantiate)
+            // if (_boss.patternCount == 3)
+            // {
+            //     animator.ResetTrigger("HammerDown");
+            //     animator.SetTrigger("Groggy");
+            // }
+            if (_boss.hammers[0].GetComponent<RCactusBossHammer>().DoneInstantiate)
             {
                 animator.ResetTrigger("HammerDown");
                 animator.SetTrigger("Idle");

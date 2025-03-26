@@ -6,8 +6,11 @@ namespace Ciart.Pagomoa.Entities.CactusBoss.RenewCactusBoss
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+            if (other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+            {
+                Debug.Log("Player entered");
                 Destroy(gameObject);
+            }
         }
     }
 }
