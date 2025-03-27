@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa
     public class UIContainer : MonoBehaviour
     {
         public MinimapUI miniMapPanelPrefab;
-        public StateUI statePanelPrefab;
+        public StatusUI statusPanelPrefab;
         public ShopUI shopUIPrefab;
         public BookUI bookUIPrefab;
         public QuickUI quickUIPrefab;
