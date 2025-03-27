@@ -29,10 +29,10 @@ namespace Ciart.Pagomoa.Items
                 switch (key)
                 {
                     case "oxygen+":
-                        player.maxOxygen += keyValuePairs[key];
+                        player.MaxOxygen += keyValuePairs[key];
                         break;
                     case "oxygen%":
-                        player.maxOxygen *= keyValuePairs[key];
+                        player.MaxOxygen *= keyValuePairs[key];
                         break;
                     case "oxygenRecovery+":
                         playerStatus.oxygenRecovery += keyValuePairs[key];
@@ -47,10 +47,10 @@ namespace Ciart.Pagomoa.Items
                         playerStatus.oxygenConsume *= keyValuePairs[key];
                         break;
                     case "hungry+":
-                        player.maxHungry += keyValuePairs[key];
+                        player.MaxHungry += keyValuePairs[key];
                         break;
                     case "hungry%":
-                        player.maxHungry *= keyValuePairs[key];
+                        player.MaxHungry *= keyValuePairs[key];
                         break;
                     case "hungryRecovery+":
                         playerStatus.hungryRecovery += keyValuePairs[key];

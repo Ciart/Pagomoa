@@ -20,20 +20,20 @@ namespace Ciart.Pagomoa
             var player = Game.Instance.player;
             if ( player )
             {
-                _hungerBar.fillAmount = player.hungry / player.maxHungry;
+                _hungerBar.fillAmount = player.Hungry / player.MaxHungry;
             }
         }
         public void UpdateHealthBar()
         {
             var player = Game.Instance.player;
             if( player )
-                _healthBar.fillAmount = player.health / player.maxHealth;
+                _healthBar.fillAmount = player.Health / player.MaxHealth;
         }
         public void UpdateOxygenBar()
         {
             var player = Game.Instance.player;
             if( player )
-                _oxygenBar.fillAmount = player.oxygen / player.maxOxygen;
+                _oxygenBar.fillAmount = player.Oxygen / player.MaxOxygen;
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

@@ -12,7 +12,7 @@ namespace Ciart.Pagomoa.Items
         public int oxygenHealValue;
         public override void Effect(ConsumeableItem item, PlayerStatus stat)
         {
-            Game.Instance.player.oxygen += oxygenHealValue;
+            Game.Instance.player.Oxygen += oxygenHealValue;
         }
     }
 }

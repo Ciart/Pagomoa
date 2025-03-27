@@ -95,19 +95,19 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         
         private void UpdateHpValueText(EntityDamagedEventArgs args) 
-        { hpValueText.text = $"{Game.Instance.player.health:F0} / {Game.Instance.player.maxHealth:F0}"; }
+        { hpValueText.text = $"{Game.Instance.player.Health:F0} / {Game.Instance.player.MaxHealth:F0}"; }
         private void UpdateHpValueText() 
-        { hpValueText.text = $"{Game.Instance.player.health:F0} / {Game.Instance.player.maxHealth:F0}"; }
+        { hpValueText.text = $"{Game.Instance.player.Health:F0} / {Game.Instance.player.MaxHealth:F0}"; }
 
         private void UpdateDamageValueText() { damageValueText.text = $"{Game.Instance.player.Attack:F0}"; }
 
         private void UpdateOxygenValueText() 
-        { oxygenValueText.text = $"{Game.Instance.player.oxygen:F0} / {Game.Instance.player.maxOxygen:F0}"; }
+        { oxygenValueText.text = $"{Game.Instance.player.Oxygen:F0} / {Game.Instance.player.MaxOxygen:F0}"; }
 
         private void UpdateDefenseValueText() { deffenseValueText.text = $"{Game.Instance.player.Defense:F0}"; }
 
         private void UpdateHungryValueText() 
-        { hungerValueText.text = $"{Game.Instance.player.hungry:F0} / {Game.Instance.player.maxHungry:F0}"; }
+        { hungerValueText.text = $"{Game.Instance.player.Hungry:F0} / {Game.Instance.player.MaxHungry:F0}"; }
 
         private void UpdateMoveSpeedValueText() { moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}"; }
 

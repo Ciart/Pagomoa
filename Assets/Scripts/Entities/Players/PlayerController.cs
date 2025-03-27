@@ -19,18 +19,18 @@ namespace Ciart.Pagomoa.Entities.Players
         public event Action hungryChanged;
         
         private float _oxygen; 
-        public float oxygen 
+        public float Oxygen 
         {
             get => _oxygen;
             set
             {
-                _oxygen = value > maxOxygen ? maxOxygen : value;
+                _oxygen = value > MaxOxygen ? MaxOxygen : value;
                 oxygenChanged?.Invoke();
             }
         }
 
         private float _maxOxygen;
-        public float maxOxygen
+        public float MaxOxygen
         {
             get => _maxOxygen;
             set
@@ -41,19 +41,19 @@ namespace Ciart.Pagomoa.Entities.Players
         }
         
         private float _hungry;
-        public float hungry
+        public float Hungry
         {
             get => _hungry;
             set
             {
-                _hungry = value >= maxHungry ? maxHungry : value;
+                _hungry = value >= MaxHungry ? MaxHungry : value;
                 if (_hungry <= 0.0f) _hungry = 0.0f;
                 hungryChanged?.Invoke();
             }
         }
 
         private float _maxHungry;
-        public float maxHungry
+        public float MaxHungry
         {
             get => _maxHungry;
             set
@@ -116,12 +116,12 @@ namespace Ciart.Pagomoa.Entities.Players
             
             var entity = ResourceSystem.instance.GetEntity(data.id);
             
-            maxOxygen = entity.oxygen;   
-            maxHungry = 100.0f;
-            maxHealth = 100.0f;
-            oxygen = maxOxygen;
-            hungry = entity.hungry;
-            health = entity.baseHealth;
+            MaxOxygen = entity.oxygen;   
+            MaxHungry = 100.0f;
+            MaxHealth = 100.0f;
+            Oxygen = MaxOxygen;
+            Hungry = entity.hungry;
+            Health = entity.baseHealth;
         }
 
         private void TryJump()
@@ -174,7 +174,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             TryJump();
             
-            if (isDead && oxygen < 0)
+            if (isDead && Oxygen < 0)
             {
                 TakeDamage(10, 1f);
             }
@@ -224,23 +224,23 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private void UpdateOxygen()
         {
-            if (transform.position.y < World.GroundHeight && oxygen >= 0)
+            if (transform.position.y < World.GroundHeight && Oxygen >= 0)
             {
-                oxygen -= Mathf.Abs(transform.position.y) * status.oxygenConsume * Time.deltaTime;
-                if (oxygen < 0)
+                Oxygen -= Mathf.Abs(transform.position.y) * status.oxygenConsume * Time.deltaTime;
+                if (Oxygen < 0)
                 {
                     Die();
                 }
             }
-            else if (oxygen < maxOxygen)
+            else if (Oxygen < MaxOxygen)
             {
-                oxygen += Mathf.Abs(transform.position.y) * status.oxygenRecovery * Time.deltaTime;
+                Oxygen += Mathf.Abs(transform.position.y) * status.oxygenRecovery * Time.deltaTime;
             }
         }
 
         private void UpdateHunger(float value)
         {
-            hungry -= value;
+            Hungry -= value;
         }
 
         private void FixedUpdate()
@@ -258,7 +258,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
 
-            oxygen = maxOxygen;
+            Oxygen = MaxOxygen;
         }
 
         private void LoseMoney(float percentage)
@@ -321,7 +321,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             var entity = ResourceSystem.instance.GetEntity(entityId);
 
-            maxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
+            MaxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
             Attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
             Defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
             Speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;

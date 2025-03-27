@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Items
         {
             var player = Game.Instance.player;
             var amount = ResourceSystem.instance.GetItem(itemID).hungeyAmount;
-            player.hungry += amount;
+            player.Hungry += amount;
             
             Debug.Log("구리 섭취");
         }
@@ -50,7 +50,7 @@ namespace Ciart.Pagomoa.Items
         {
             var player = Game.Instance.player;
 
-            player.health += 100;
+            player.Health += 100;
 
             Debug.Log("오래된 붕대 사용");
         }
@@ -63,7 +63,7 @@ namespace Ciart.Pagomoa.Items
         public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-            player.oxygen += 100;
+            player.Oxygen += 100;
 
             Debug.Log("공기 섭취");
         }
@@ -76,7 +76,7 @@ namespace Ciart.Pagomoa.Items
         public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-            player.hungry += 100;
+            player.Hungry += 100;
 
             Debug.Log("구리과자 섭취");
         }
@@ -90,7 +90,7 @@ namespace Ciart.Pagomoa.Items
         {
             var player = Game.Instance.player;
 
-            player.health = player.maxHealth;
+            player.Health = player.MaxHealth;
 
             Debug.Log("역겨운 뱀의 피 섭취");
         }

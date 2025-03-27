@@ -45,19 +45,19 @@ namespace Ciart.Pagomoa.Entities
         public string entityId;
 
         private float _health; 
-        public float health 
+        public float Health 
         {
             get => _health;
             set
             {
-                _health = value >= maxHealth ? maxHealth : value;
+                _health = value >= MaxHealth ? MaxHealth : value;
                 if (_health <= 0.0f) _health = 0.0f;
                 healthChanged?.Invoke();
             }
         }
         
         private float _maxHealth;
-        public float maxHealth
+        public float MaxHealth
         {
             get => _maxHealth;
             set
@@ -110,7 +110,7 @@ namespace Ciart.Pagomoa.Entities
         public event Action<EntityExplodedEventArgs> exploded;
         public event Action<EntityDiedEventArgs> died;
         
-        public bool isDead => health <= 0;
+        public bool isDead => Health <= 0;
 
         protected SpriteRenderer _spriteRenderer;
 
@@ -156,16 +156,16 @@ namespace Ciart.Pagomoa.Entities
 
             if (data.status != null)
             {
-                health = data.status.health;
-                maxHealth = data.status.maxHealth;
+                Health = data.status.health;
+                MaxHealth = data.status.maxHealth;
                 Attack = data.status.attack;
                 Defense = data.status.defense;
                 Speed = data.status.speed;
                 return;
             }
             
-            maxHealth = entity.baseHealth;
-            health = entity.baseHealth;
+            MaxHealth = entity.baseHealth;
+            Health = entity.baseHealth;
             Attack = entity.attack;
             Defense = entity.defense;
             Speed = entity.speed;
@@ -179,8 +179,8 @@ namespace Ciart.Pagomoa.Entities
             
             var status = new EntityStatus
             {
-                health = health,
-                maxHealth = maxHealth,
+                health = Health,
+                maxHealth = MaxHealth,
                 attack = Attack,
                 defense = Defense,
                 speed = Speed
@@ -215,13 +215,13 @@ namespace Ciart.Pagomoa.Entities
 
             var damage = amount * (1 - Defense / (Defense + 100));
 
-            health -= damage;
+            Health -= damage;
             damaged?.Invoke(new EntityDamagedEventArgs { amount = damage, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
             healthChanged?.Invoke();
             
-            if (health <= 0)
+            if (Health <= 0)
             {
-                health = 0;
+                Health = 0;
 
                 // TODO: preDied 이벤트 추가
                 Die();
@@ -240,14 +240,14 @@ namespace Ciart.Pagomoa.Entities
         {
             if (!isInvincible)
             {
-                health -= amount;
+                Health -= amount;
             }
             exploded?.Invoke(new EntityExplodedEventArgs { amount = amount });
         }
 
         public void Die()
         {
-            health = 0;
+            Health = 0;
             
             var args = new EntityDiedEventArgs();
             
@@ -279,7 +279,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void CheckDeath()
         {
-            if (!isDead && health <= 0)
+            if (!isDead && Health <= 0)
             {
                 Die();
             }
