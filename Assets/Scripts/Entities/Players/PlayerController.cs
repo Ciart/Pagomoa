@@ -165,7 +165,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
                 
                 
-                UpdateHunger(status.hungryConsume * Time.deltaTime);
+                UpdateHungry(status.hungryConsume * Time.deltaTime);
             }
             else
             {
@@ -238,7 +238,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
-        private void UpdateHunger(float value)
+        private void UpdateHungry(float value)
         {
             Hungry -= value;
         }

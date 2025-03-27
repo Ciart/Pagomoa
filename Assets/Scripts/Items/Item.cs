@@ -5,11 +5,6 @@ using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Items
 {
-    public enum MineralHungryAmount
-    {
-        Copper = 20,
-           
-    }
     public enum ItemType
     {
         None = 0,
@@ -39,7 +34,7 @@ namespace Ciart.Pagomoa.Items
         /// <value>float</value>
         /// hungerAmount는 ItemType이 Mineral일때만 사용가능합니다.
         /// <remarks>ItemType이 Mineral이 아닌 경우 에러 로그를 반환합니다.</remarks>
-        public float hungeyAmount
+        public float hungryAmount
         {
             get
             {
@@ -47,7 +42,7 @@ namespace Ciart.Pagomoa.Items
                     switch (id)
                     {
                         case "Copper":
-                            return (float)MineralHungryAmount.Copper;
+                            return 20.0f;
                         default:
                             throw new InvalidOperationException($"{id}의 배고픔 값을 찾을 수 없습니다.");
                     }
