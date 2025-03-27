@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Items
     {
         public int hungryHealValue;
     
-        public override void Effect(ConsumeableItem item, PlayerStatus stat)
+        public override void Effect(ConsumableItem item, PlayerStatus stat)
         {
             /*stat.Hungry += hungryHealValue;
             if(stat.Hungry < stat.minHungry) stat.Hungry = stat.minHungry;
