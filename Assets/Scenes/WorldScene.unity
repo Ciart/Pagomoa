@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniMapPanelPrefab: {fileID: 1917872846728318179, guid: 5863eeccc48919a4685b80a443b29fb5, type: 3}
-  statePanelPrefab: {fileID: 3907677986734665167, guid: 0429bab5b0500b949985969ce3c6fa81, type: 3}
+  statusPanelPrefab: {fileID: 3907677986734665167, guid: 0429bab5b0500b949985969ce3c6fa81, type: 3}
   shopUIPrefab: {fileID: 1356624431031133237, guid: 652c909e8347bc64aa95d768f63edd80, type: 3}
   bookUIPrefab: {fileID: 9036683792300616078, guid: 5d92f3e60f0986149b05d9550041c43a, type: 3}
   quickUIPrefab: {fileID: 5669934315126194384, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}

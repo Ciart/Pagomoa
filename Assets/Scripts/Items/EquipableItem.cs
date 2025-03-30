@@ -46,23 +46,23 @@ namespace Ciart.Pagomoa.Items
                     case "oxygenConsume%":
                         playerStatus.oxygenConsume *= keyValuePairs[key];
                         break;
-                    case "hungry+":
-                        player.MaxHungry += keyValuePairs[key];
+                    case "hunger+":
+                        player.MaxHunger += keyValuePairs[key];
                         break;
-                    case "hungry%":
-                        player.MaxHungry *= keyValuePairs[key];
+                    case "hunger%":
+                        player.MaxHunger *= keyValuePairs[key];
                         break;
-                    case "hungryRecovery+":
-                        playerStatus.hungryRecovery += keyValuePairs[key];
+                    case "hungerRecovery+":
+                        playerStatus.hungerRecovery += keyValuePairs[key];
                         break;
-                    case "hungryRecovery%":
-                        playerStatus.hungryRecovery *= keyValuePairs[key];
+                    case "hungerRecovery%":
+                        playerStatus.hungerRecovery *= keyValuePairs[key];
                         break;
-                    case "hungryConsume+":
-                        playerStatus.hungryConsume += keyValuePairs[key];
+                    case "hungerConsume+":
+                        playerStatus.hungerConsume += keyValuePairs[key];
                         break;
-                    case "hungryConsume%":
-                        playerStatus.hungryConsume *= keyValuePairs[key];
+                    case "hungerConsume%":
+                        playerStatus.hungerConsume *= keyValuePairs[key];
                         break;
                     case "armor+":
                         playerStatus.armor += keyValuePairs[key];

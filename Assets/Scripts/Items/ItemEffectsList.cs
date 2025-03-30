@@ -11,7 +11,7 @@ namespace Ciart.Pagomoa.Items
         {
             var player = Game.Instance.player;
             var amount = ResourceSystem.instance.GetItem(itemID).hungryAmount;
-            player.Hungry += amount;
+            player.Hunger += amount;
             
             Debug.Log("구리 섭취");
         }
@@ -76,7 +76,7 @@ namespace Ciart.Pagomoa.Items
         public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-            player.Hungry += 100;
+            player.Hunger += 100;
 
             Debug.Log("구리과자 섭취");
         }

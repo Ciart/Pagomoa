@@ -106,8 +106,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void UpdateDefenseValueText() { deffenseValueText.text = $"{Game.Instance.player.Defense:F0}"; }
 
-        private void UpdateHungryValueText() 
-        { hungerValueText.text = $"{Game.Instance.player.Hungry:F0} / {Game.Instance.player.MaxHungry:F0}"; }
+        private void UpdateHungerValueText() 
+        { hungerValueText.text = $"{Game.Instance.player.Hunger:F0} / {Game.Instance.player.MaxHunger:F0}"; }
 
         private void UpdateMoveSpeedValueText() { moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}"; }
 
@@ -121,7 +121,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (player == null) return;
             
             UpdateOxygenValueText();
-            UpdateHungryValueText();
+            UpdateHungerValueText();
             UpdateSightValueText();
             UpdateDigValueText();
 
@@ -131,7 +131,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             UpdateMoveSpeedValueText();
 
             player.oxygenChanged += UpdateOxygenValueText;
-            player.hungryChanged += UpdateHungryValueText;
+            player.hungerChanged += UpdateHungerValueText;
             player.healthChanged += UpdateHpValueText;
             player.status.sightChange += UpdateSightValueText;
             player.status.digSpeedChange += UpdateDigValueText;

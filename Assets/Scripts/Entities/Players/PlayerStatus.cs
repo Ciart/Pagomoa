@@ -7,6 +7,7 @@ using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
@@ -59,21 +60,21 @@ namespace Ciart.Pagomoa.Entities.Players
         public float maxHungry = 100f;
         public float minHungry = 0f;*/
         
-        [SerializeField] protected float _hungryRecovery = 1;
+        [SerializeField] protected float _hungerRecovery = 1;
 
-        public float hungryRecovery
+        public float hungerRecovery
         {
-            get { return _hungryRecovery; }
-            set { _hungryRecovery = value; }
+            get { return _hungerRecovery; }
+            set { _hungerRecovery = value; }
         }
 
 
-        [SerializeField] protected float _hungryConsume = 1;
+        [SerializeField] protected float _hungerConsume = 1;
 
-        public float hungryConsume
+        public float hungerConsume
         {
-            get { return _hungryConsume; }
-            set { _hungryConsume = value; }
+            get { return _hungerConsume; }
+            set { _hungerConsume = value; }
         }
 
 

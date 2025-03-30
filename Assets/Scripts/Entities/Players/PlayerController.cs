@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Entities.Players
     {
         #region Status
         public event Action oxygenChanged;
-        public event Action hungryChanged;
+        public event Action hungerChanged;
         
         private float _oxygen; 
         public float Oxygen 
@@ -40,26 +40,26 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
         
-        private float _hungry;
-        public float Hungry
+        private float hunger;
+        public float Hunger
         {
-            get => _hungry;
+            get => hunger;
             set
             {
-                _hungry = value >= MaxHungry ? MaxHungry : value;
-                if (_hungry <= 0.0f) _hungry = 0.0f;
-                hungryChanged?.Invoke();
+                hunger = value >= MaxHunger ? MaxHunger : value;
+                if (hunger <= 0.0f) hunger = 0.0f;
+                hungerChanged?.Invoke();
             }
         }
 
-        private float _maxHungry;
-        public float MaxHungry
+        private float maxHunger;
+        public float MaxHunger
         {
-            get => _maxHungry;
+            get => maxHunger;
             set
             {
-                _maxHungry = value;
-                hungryChanged?.Invoke();
+                maxHunger = value;
+                hungerChanged?.Invoke();
             }
         }
         #endregion
@@ -117,10 +117,10 @@ namespace Ciart.Pagomoa.Entities.Players
             var entity = ResourceSystem.instance.GetEntity(data.id);
             
             MaxOxygen = entity.oxygen;   
-            MaxHungry = 100.0f;
+            MaxHunger = 100.0f;
             MaxHealth = 100.0f;
             Oxygen = MaxOxygen;
-            Hungry = entity.hungry;
+            Hunger = 100.0f;
             Health = entity.baseHealth;
         }
 
@@ -164,8 +164,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 drill.isDig = true;
                 drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
                 
-                
-                UpdateHungry(status.hungryConsume * Time.deltaTime);
+                UpdateHunger(status.hungerConsume * Time.deltaTime);
             }
             else
             {
@@ -238,9 +237,9 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
-        private void UpdateHungry(float value)
+        private void UpdateHunger(float value)
         {
-            Hungry -= value;
+            Hunger -= value;
         }
 
         private void FixedUpdate()
