@@ -27,30 +27,15 @@ namespace Ciart.Pagomoa.Items
 
         public int price = 0;
 
+        /// <value>float</value>
+        /// hungerAmount는 ItemType이 Mineral일때만 사용가능합니다.
+        /// <remarks>ItemType이 Mineral이 아닌 경우 에러 로그를 반환합니다.</remarks>
+        public float hungerPoint = 0.0f;
+        
         public PlayerStatusModifier? status = null;
 
         public Sprite? sprite = null;
         
-        /// <value>float</value>
-        /// hungerAmount는 ItemType이 Mineral일때만 사용가능합니다.
-        /// <remarks>ItemType이 Mineral이 아닌 경우 에러 로그를 반환합니다.</remarks>
-        public float hungryAmount
-        {
-            get
-            {
-                if (type == ItemType.Mineral)
-                    switch (id)
-                    {
-                        case "Copper":
-                            return 20.0f;
-                        default:
-                            throw new InvalidOperationException($"{id}의 배고픔 값을 찾을 수 없습니다.");
-                    }
-                
-                throw new InvalidOperationException("ItemType이 Mineral 타입이어야 사용가능한 프로퍼티 입니다.");
-            }
-        }
-
         private NewItemEffect? _useEffect = null;
 
         private void LoadResources()

@@ -10,8 +10,11 @@ namespace Ciart.Pagomoa.Items
         public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-            var amount = ResourceSystem.instance.GetItem(itemID).hungryAmount;
-            player.Hunger += amount;
+            var copper = ResourceSystem.instance.GetItem(itemID);
+            if (copper.type == ItemType.Mineral)
+            {
+                player.Hunger += copper.hungerPoint;
+            }
             
             Debug.Log("구리 섭취");
         }

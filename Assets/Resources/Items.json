@@ -5,14 +5,16 @@
       "id": "Copper",
       "name": "구리",
       "description": "가장 흔한 광물이야.",
-      "price": 10
+      "price": 10,
+      "hungerPoint": 20
     },
     {
       "type": 3,
       "id": "Quartz",
       "name": "석영",
       "description": "조금 달콤해.",
-      "price": 20
+      "price": 20,
+      "hungerPoint": 50
     },
     {
       "type": 2,
