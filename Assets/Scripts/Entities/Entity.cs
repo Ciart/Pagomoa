@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities
 {
@@ -34,7 +35,7 @@ namespace Ciart.Pagomoa.Entities
         /// <summary>
         /// Only Player
         /// </summary>
-        public float hungry;
+        [FormerlySerializedAs("hungry")] public float hunger;
 
         public EntityController? prefab;
         

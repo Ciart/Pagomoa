@@ -7,12 +7,15 @@ namespace Ciart.Pagomoa.Items
     [System.Serializable]
     public class CopperEffect : NewItemEffect
     {
-        public override void Effect()
+        public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-
-            player.status.Hungry += 100;
-
+            var copper = ResourceSystem.instance.GetItem(itemID);
+            if (copper.type == ItemType.Mineral)
+            {
+                player.Hunger += copper.hungerPoint;
+            }
+            
             Debug.Log("구리 섭취");
         }
     }
@@ -21,7 +24,7 @@ namespace Ciart.Pagomoa.Items
     [System.Serializable]
     public class BombEffect : NewItemEffect
     {
-        public override void Effect()
+        public override void Effect(string itemID)
         {
             Debug.Log("BombEffect : NewItemEffect - 폭탄 설치");
             var playerTransform = Game.Instance.player.transform;
@@ -46,11 +49,11 @@ namespace Ciart.Pagomoa.Items
 
     public class BandageEffect : NewItemEffect
     {
-        public override void Effect()
+        public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
 
-            player.health += 100;
+            player.Health += 100;
 
             Debug.Log("오래된 붕대 사용");
         }
@@ -60,11 +63,10 @@ namespace Ciart.Pagomoa.Items
     [System.Serializable]
     public class AirBurbleEffect : NewItemEffect
     {
-        public override void Effect()
+        public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-
-            player.status.Oxygen += 100;
+            player.Oxygen += 100;
 
             Debug.Log("공기 섭취");
         }
@@ -74,11 +76,10 @@ namespace Ciart.Pagomoa.Items
     [System.Serializable]
     public class CookieEffect : NewItemEffect
     {
-        public override void Effect()
+        public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-
-            player.status.Hungry += 100;
+            player.Hunger += 100;
 
             Debug.Log("구리과자 섭취");
         }
@@ -88,11 +89,11 @@ namespace Ciart.Pagomoa.Items
     [System.Serializable]
     public class AwfulSnakeBloodEffect : NewItemEffect
     {
-        public override void Effect()
+        public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
 
-            player.health = player.maxHealth;
+            player.Health = player.MaxHealth;
 
             Debug.Log("역겨운 뱀의 피 섭취");
         }

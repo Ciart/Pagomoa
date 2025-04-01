@@ -27,10 +27,15 @@ namespace Ciart.Pagomoa.Items
 
         public int price = 0;
 
+        /// <value>float</value>
+        /// hungerAmount는 ItemType이 Mineral일때만 사용가능합니다.
+        /// <remarks>ItemType이 Mineral이 아닌 경우 에러 로그를 반환합니다.</remarks>
+        public float hungerPoint = 0.0f;
+        
         public PlayerStatusModifier? status = null;
 
         public Sprite? sprite = null;
-
+        
         private NewItemEffect? _useEffect = null;
 
         private void LoadResources()
@@ -48,9 +53,9 @@ namespace Ciart.Pagomoa.Items
         public void DisplayUseEffect()
         {
             if (type == ItemType.Mineral) MineralCollector.CollectMineral(id, 1);
-            if (type != ItemType.Use) return;
-
-            _useEffect?.Effect();
+            if (type is not (ItemType.Use or ItemType.Mineral)) return;
+            
+            _useEffect?.Effect(id);
         }
 
         public void SetItem(Item item)

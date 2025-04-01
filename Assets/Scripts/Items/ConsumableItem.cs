@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Ciart.Pagomoa.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "New Item/Consumerable item")]
-    public class ConsumerableItem : OldItem
+    public class ConsumableItem : OldItem
     {
         public bool Usable;
         public List<ItemEffect> Effects;

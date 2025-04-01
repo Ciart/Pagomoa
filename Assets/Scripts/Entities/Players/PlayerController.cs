@@ -15,15 +15,53 @@ namespace Ciart.Pagomoa.Entities.Players
     public partial class PlayerController : EntityController
     {
         #region Status
+        public event Action oxygenChanged;
+        public event Action hungerChanged;
+        
+        private float _oxygen; 
+        public float Oxygen 
+        {
+            get => _oxygen;
+            set
+            {
+                _oxygen = value > MaxOxygen ? MaxOxygen : value;
+                oxygenChanged?.Invoke();
+            }
+        }
 
-        public float oxygen;
+        private float _maxOxygen;
+        public float MaxOxygen
+        {
+            get => _maxOxygen;
+            set
+            {
+                _maxOxygen = value;
+                oxygenChanged?.Invoke();
+            }
+        }
+        
+        private float hunger;
+        public float Hunger
+        {
+            get => hunger;
+            set
+            {
+                hunger = value >= MaxHunger ? MaxHunger : value;
+                if (hunger <= 0.0f) hunger = 0.0f;
+                hungerChanged?.Invoke();
+            }
+        }
 
-        public float maxOxygen;
-
-        public float hungry;
-
-        public float maxHungry;
-
+        private float maxHunger;
+        public float MaxHunger
+        {
+            get => maxHunger;
+            set
+            {
+                maxHunger = value;
+                hungerChanged?.Invoke();
+            }
+        }
         #endregion
 
         public PlayerState state = PlayerState.Idle;
@@ -77,11 +115,13 @@ namespace Ciart.Pagomoa.Entities.Players
             base.Init(data);
             
             var entity = ResourceSystem.instance.GetEntity(data.id);
-
-            oxygen = entity.oxygen;
-            maxOxygen = entity.oxygen;
-            hungry = entity.hungry;
-            maxHungry = entity.hungry;
+            
+            MaxOxygen = entity.oxygen;   
+            MaxHunger = 100.0f;
+            MaxHealth = 100.0f;
+            Oxygen = MaxOxygen;
+            Hunger = 100.0f;
+            Health = entity.baseHealth;
         }
 
         private void TryJump()
@@ -123,6 +163,8 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 drill.isDig = true;
                 drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
+                
+                UpdateHunger(status.hungerConsume * Time.deltaTime);
             }
             else
             {
@@ -131,7 +173,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             TryJump();
             
-            if (isDead && oxygen < 0)
+            if (isDead && Oxygen < 0)
             {
                 TakeDamage(10, 1f);
             }
@@ -181,32 +223,23 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private void UpdateOxygen()
         {
-            var gage = 100f;
-
-            if (transform.position.y < World.GroundHeight && oxygen >= 0)
+            if (transform.position.y < World.GroundHeight && Oxygen >= 0)
             {
-                oxygen -= Mathf.Abs(transform.position.y) * status.oxygenConsume * Time.deltaTime;
-                gage = oxygen;
-                if (oxygen < 0)
+                Oxygen -= Mathf.Abs(transform.position.y) * status.oxygenConsume * Time.deltaTime;
+                if (Oxygen < 0)
                 {
                     Die();
-                    gage = 0;
                 }
             }
-            else if (oxygen < maxOxygen)
+            else if (Oxygen < MaxOxygen)
             {
-                oxygen += Mathf.Abs(transform.position.y) * status.oxygenRecovery * Time.deltaTime;
-                gage = oxygen;
+                Oxygen += Mathf.Abs(transform.position.y) * status.oxygenRecovery * Time.deltaTime;
             }
-            status.oxygenAlter.Invoke(gage, maxOxygen);
         }
 
-        public bool Hungry(float value)
+        private void UpdateHunger(float value)
         {
-            if (hungry - value < 0) return true;
-            hungry -= value;
-            status.hungryAlter.Invoke(hungry, maxHungry);
-            return false;
+            Hunger -= value;
         }
 
         private void FixedUpdate()
@@ -224,7 +257,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
 
-            oxygen = maxOxygen;
+            Oxygen = MaxOxygen;
         }
 
         private void LoseMoney(float percentage)
@@ -287,7 +320,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             var entity = ResourceSystem.instance.GetEntity(entityId);
 
-            maxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
+            MaxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
             Attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
             Defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
             Speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;

@@ -7,12 +7,18 @@ using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
+    
+    /// <summary>
+    /// PlayerController로 스텟 이적 준비해야 한다.
+    /// </summary>
+    [Obsolete("Use Ciart.Pagomoa.Entities.Players.PlayerController에 Status 이전하여 사용할 예정입니다.")]
     public class PlayerStatus : MonoBehaviour
     {
-        [Header("# Oxygen")] 
+        /*[Header("# Oxygen")] 
         
         private float _oxygen = 100f;
         public float Oxygen
@@ -25,7 +31,7 @@ namespace Ciart.Pagomoa.Entities.Players
         }
         
         public float maxOxygen = 100f;
-        public float minOxygen = 0f;
+        public float minOxygen = 0f;*/
 
         [SerializeField] protected float _oxygenRecovery = 1;
 
@@ -43,8 +49,7 @@ namespace Ciart.Pagomoa.Entities.Players
             set { _oxygenConsume = value; }
         }
 
-
-        [Header("# Hungry")] 
+        /*[Header("# Hungry")] 
         private float _hungry = 100f;
         public float Hungry
         {
@@ -53,24 +58,23 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
         public float maxHungry = 100f;
-        public float minHungry = 0f;
+        public float minHungry = 0f;*/
+        
+        [SerializeField] protected float _hungerRecovery = 1;
 
-
-        [SerializeField] protected float _hungryRecovery = 1;
-
-        public float hungryRecovery
+        public float hungerRecovery
         {
-            get { return _hungryRecovery; }
-            set { _hungryRecovery = value; }
+            get { return _hungerRecovery; }
+            set { _hungerRecovery = value; }
         }
 
 
-        [SerializeField] protected float _hungryConsume = 1;
+        [SerializeField] protected float _hungerConsume = 1;
 
-        public float hungryConsume
+        public float hungerConsume
         {
-            get { return _hungryConsume; }
-            set { _hungryConsume = value; }
+            get { return _hungerConsume; }
+            set { _hungerConsume = value; }
         }
 
 
@@ -125,10 +129,6 @@ namespace Ciart.Pagomoa.Entities.Players
             get { return _crawlUpSpeed; }
             set { _crawlUpSpeed = value; }
         }
-
-
-        public UnityEvent<float, float> oxygenAlter;
-        public UnityEvent<float, float> hungryAlter;
 
         private PlayerController _player;
 

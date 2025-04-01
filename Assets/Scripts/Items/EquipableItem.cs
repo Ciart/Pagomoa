@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
@@ -20,15 +21,18 @@ namespace Ciart.Pagomoa.Items
         {
             Dictionary<string, float> keyValuePairs;
             keyValuePairs = ListDictionaryConverter.ToDictionary(AbilityList);
+
+            var player = Game.Instance.player;
+            
             foreach (string key in keyValuePairs.Keys)
             {
                 switch (key)
                 {
                     case "oxygen+":
-                        playerStatus.maxOxygen += keyValuePairs[key];
+                        player.MaxOxygen += keyValuePairs[key];
                         break;
                     case "oxygen%":
-                        playerStatus.maxOxygen *= keyValuePairs[key];
+                        player.MaxOxygen *= keyValuePairs[key];
                         break;
                     case "oxygenRecovery+":
                         playerStatus.oxygenRecovery += keyValuePairs[key];
@@ -42,23 +46,23 @@ namespace Ciart.Pagomoa.Items
                     case "oxygenConsume%":
                         playerStatus.oxygenConsume *= keyValuePairs[key];
                         break;
-                    case "hungry+":
-                        playerStatus.Hungry += keyValuePairs[key];
+                    case "hunger+":
+                        player.MaxHunger += keyValuePairs[key];
                         break;
-                    case "hungry%":
-                        playerStatus.Hungry *= keyValuePairs[key];
+                    case "hunger%":
+                        player.MaxHunger *= keyValuePairs[key];
                         break;
-                    case "hungryRecovery+":
-                        playerStatus.hungryRecovery += keyValuePairs[key];
+                    case "hungerRecovery+":
+                        playerStatus.hungerRecovery += keyValuePairs[key];
                         break;
-                    case "hungryRecovery%":
-                        playerStatus.hungryRecovery *= keyValuePairs[key];
+                    case "hungerRecovery%":
+                        playerStatus.hungerRecovery *= keyValuePairs[key];
                         break;
-                    case "hungryConsume+":
-                        playerStatus.hungryConsume += keyValuePairs[key];
+                    case "hungerConsume+":
+                        playerStatus.hungerConsume += keyValuePairs[key];
                         break;
-                    case "hungryConsume%":
-                        playerStatus.hungryConsume *= keyValuePairs[key];
+                    case "hungerConsume%":
+                        playerStatus.hungerConsume *= keyValuePairs[key];
                         break;
                     case "armor+":
                         playerStatus.armor += keyValuePairs[key];
