@@ -14,5 +14,12 @@ public class DaySummaryUI : MonoBehaviour {
     {
         var date = Game.Instance.Time.date;
         dateText.text = $"{date}일차 종료";
+
+        Game.Instance.Time.PauseTime();
+    }
+
+    private void OnDisable()
+    {
+        Game.Instance.Time.ResumeTime();
     }
 }
