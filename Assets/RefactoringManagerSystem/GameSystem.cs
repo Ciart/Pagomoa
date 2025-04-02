@@ -65,6 +65,7 @@ namespace Ciart.Pagomoa.Systems
         public void MoveToNextDay()
         {
             Time.SkipToNextDay();
+            player!.Health = player.MaxHealth;
             SaveSystem.Instance.Save();
         }
 

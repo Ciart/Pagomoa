@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa
 
         private bool CheckPassingPlayer()
         {
-            if (_player == null || _playerInput == null)
+            if (_player == null || _playerInput == null || Game.Instance.Time.IsPause)
             {
                 return false;
             }
@@ -81,7 +81,7 @@ namespace Ciart.Pagomoa
             }
             else
             {
-                _enableTime -= Time.deltaTime;
+                _enableTime -= Time.unscaledDeltaTime;
             }
 
             if (_enableTime >= 0f)
