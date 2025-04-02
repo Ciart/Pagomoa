@@ -17,7 +17,7 @@ namespace Ciart.Pagomoa
 
         private BoxCollider2D _playerCollider;
 
-        private float _enableTime = 0f;
+        private float _platformResetTimer = 0f;
         
         private void SetPlayerComponent(PlayerController player)
         {
@@ -77,14 +77,14 @@ namespace Ciart.Pagomoa
         {
             if (_playerInput && CheckPassingPlayer())
             {
-                _enableTime = 0.5f;
+                _platformResetTimer = 0.5f;
             }
             else
             {
-                _enableTime -= Time.unscaledDeltaTime;
+                _platformResetTimer -= Time.unscaledDeltaTime;
             }
 
-            if (_enableTime >= 0f)
+            if (_platformResetTimer >= 0f)
             {
                 Physics2D.IgnoreCollision(_playerCollider, _collider);
             }
