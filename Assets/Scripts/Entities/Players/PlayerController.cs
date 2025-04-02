@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public PlayerState state = PlayerState.Idle;
 
-        public bool isGrounded = false;
+        public new bool isGrounded = false;
 
         public PlayerStatus status;
 
@@ -75,6 +75,10 @@ namespace Ciart.Pagomoa.Entities.Players
         public float groundDistance = 0.125f;
 
         public float sideWallDistance = 1.0625f;
+
+        public float fallDamageThreshold = 5.0f;
+
+        public float fallDamageMultiplier = 1.0f;
 
         public Inventory inventory;
 
@@ -91,6 +95,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private WorldManager _world;
 
         private Direction _direction;
+
+        private float _fallStartY;
 
         protected override void Awake()
         {
@@ -188,7 +194,23 @@ namespace Ciart.Pagomoa.Entities.Players
             var hit = Physics2D.Raycast(position, Vector2.down, groundDistance, LayerMask.GetMask("Platform"));
             Debug.DrawRay(position, Vector2.down * groundDistance, Color.green);
 
+            var previousIsGrounded = isGrounded;
             isGrounded = (bool)hit.collider;
+
+            if (!previousIsGrounded && isGrounded)
+            {
+                var fallDistance = _fallStartY - transform.position.y;
+
+                if (fallDistance > fallDamageThreshold)
+                {
+                    var damage = (fallDistance - fallDamageThreshold) * fallDamageMultiplier;
+                    TakeDamage(damage, 0.3f);
+                }
+            }
+            else if (!isGrounded && previousIsGrounded)
+            {
+                _fallStartY = transform.position.y;
+            }
         }
 
         private void UpdateIsSideWall()
