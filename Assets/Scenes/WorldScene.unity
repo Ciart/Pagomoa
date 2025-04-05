@@ -2051,7 +2051,7 @@ MonoBehaviour:
   quickUIPrefab: {fileID: 5669934315126194384, guid: 65bd2ad9273d8064a8747e6628096022, type: 3}
   dialogueUIPrefab: {fileID: 3394228335729607216, guid: d46ea0b7a9cfe6946ab08fe9688ea49b, type: 3}
   daySummaryUIPrefab: {fileID: 8641994485999273961, guid: 89f0b6e87c7d1804ebb86f958dd87dda, type: 3}
-  escUI: {fileID: 7640810986153796479, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
+  escUI: {fileID: 8882363732441083724, guid: 8311049413b716c44934b60905b8e053, type: 3}
   fadeUIPrefab: {fileID: 3649949960614969455, guid: 73aee344ceb9adb428fc789fc2a40bd5, type: 3}
   inventoryCamera: {fileID: 1469825036}
   interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
