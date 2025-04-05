@@ -90,7 +90,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             story = null;
             _dialogueUI.gameObject.SetActive(false);
-            Game.Instance.Time.ResumeTime();
+            while (Game.Instance.Time.IsPause)
+                Game.Instance.Time.ResumeTime();
         }
 
         public void StartDailyChat()
