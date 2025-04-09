@@ -17,9 +17,9 @@ namespace Ciart.Pagomoa.Entities.Players
         #region Status
         public event Action oxygenChanged;
         public event Action hungerChanged;
-        
-        private float _oxygen; 
-        public float Oxygen 
+
+        private float _oxygen;
+        public float Oxygen
         {
             get => _oxygen;
             set
@@ -39,7 +39,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 oxygenChanged?.Invoke();
             }
         }
-        
+
         private float hunger;
         public float Hunger
         {
@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public PlayerState state = PlayerState.Idle;
 
-        public bool isGrounded = false;
+        public new bool isGrounded = false;
 
         public PlayerStatus status;
 
@@ -75,6 +75,10 @@ namespace Ciart.Pagomoa.Entities.Players
         public float groundDistance = 0.125f;
 
         public float sideWallDistance = 1.0625f;
+
+        public float fallDamageThreshold = 5.0f;
+
+        public float fallDamageMultiplier = 1.0f;
 
         public Inventory inventory;
 
@@ -92,10 +96,12 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private Direction _direction;
 
+        private float _fallStartY;
+
         protected override void Awake()
         {
             base.Awake();
-            
+
             status = GetComponent<PlayerStatus>();
             initialStatus = status.copy();
             drill = GetComponentInChildren<DrillController>();
@@ -109,14 +115,14 @@ namespace Ciart.Pagomoa.Entities.Players
 
             inventory.artifactChanged += OnArtifactChanged;
         }
-        
+
         public override void Init(EntityData data)
         {
             base.Init(data);
-            
+
             var entity = ResourceSystem.instance.GetEntity(data.id);
-            
-            MaxOxygen = entity.oxygen;   
+
+            MaxOxygen = entity.oxygen;
             MaxHunger = 100.0f;
             MaxHealth = 100.0f;
             Oxygen = MaxOxygen;
@@ -163,7 +169,7 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 drill.isDig = true;
                 drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
-                
+
                 UpdateHunger(status.hungerConsume * Time.deltaTime);
             }
             else
@@ -172,7 +178,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
 
             TryJump();
-            
+
             if (isDead && Oxygen < 0)
             {
                 TakeDamage(10, 1f);
@@ -188,7 +194,32 @@ namespace Ciart.Pagomoa.Entities.Players
             var hit = Physics2D.Raycast(position, Vector2.down, groundDistance, LayerMask.GetMask("Platform"));
             Debug.DrawRay(position, Vector2.down * groundDistance, Color.green);
 
+            var previousIsGrounded = isGrounded;
             isGrounded = (bool)hit.collider;
+
+            HandleFallDamage(previousIsGrounded);
+        }
+
+        private void HandleFallDamage(bool previousIsGrounded)
+        {
+            if (!previousIsGrounded && isGrounded)
+            {
+                var fallDistance = _fallStartY - transform.position.y;
+
+                if (fallDistance > fallDamageThreshold)
+                {
+                    var damage = (fallDistance - fallDamageThreshold) * fallDamageMultiplier;
+                    TakeDamage(damage, 0.3f);
+                    TakeKnockback(10f, Vector2.up);
+                }
+            }
+            else if (!isGrounded)
+            {
+                if (previousIsGrounded || _fallStartY < transform.position.y)
+                {
+                    _fallStartY = transform.position.y;
+                }
+            }
         }
 
         private void UpdateIsSideWall()
@@ -220,7 +251,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             _movement.isSideWall = true;
         }
-        
+
         private void UpdateOxygen()
         {
             if (transform.position.y < World.GroundHeight && Oxygen >= 0)
