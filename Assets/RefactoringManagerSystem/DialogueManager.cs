@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
         
-        public Story story;
+        public Story? story;
         
         public EntityDialogue nowEntityDialogue;
         
@@ -83,14 +83,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 
             _dialogueUI.gameObject.SetActive(true);
             EventManager.Notify(new StoryStarted());
-            Game.Instance.Time.PauseTime();
         }
 
         public void StopStory()
         {
             story = null;
             _dialogueUI.gameObject.SetActive(false);
-            Game.Instance.Time.ResumeTime();
         }
 
         public void StartDailyChat()

@@ -153,7 +153,6 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             UpdateState();
             UpdateSound();
-            UpdateOxygen();
 
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
@@ -178,11 +177,6 @@ namespace Ciart.Pagomoa.Entities.Players
             }
 
             TryJump();
-
-            if (isDead && Oxygen < 0)
-            {
-                TakeDamage(10, 1f);
-            }
 
             EventManager.Notify(new PlayerMove(transform.position));
         }
@@ -368,14 +362,26 @@ namespace Ciart.Pagomoa.Entities.Players
             Respawn();
         }
 
+        private void OnTickUpdated(int tick)
+        {
+            UpdateOxygen();
+
+            if (isDead && Oxygen < 0)
+            {
+                TakeDamage(10, 1f);
+            }
+        }
+
         private void OnEnable()
         {
             died += OnDied;
+            Game.Instance.Time.tickUpdated += OnTickUpdated;
         }
 
         private void OnDisable()
         {
             died -= OnDied;
+            Game.Instance.Time.tickUpdated -= OnTickUpdated;
         }
     }
 }
