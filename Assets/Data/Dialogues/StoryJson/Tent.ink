@@ -4,15 +4,9 @@
  #talker 텐트
  #sprite Broken
  #UIMode In
- * [대화하기] -> dialogue
- * [수행 가능한 퀘스트 보기] -> quest
+ * [잠자기] -> sleep
+ * [그만두기] -> END
  
- === dialogue
- #start dialogue
- #sprite Broken
- 말끔하게 고쳐진 텐트이다.
+ === sleep
+ #start sleep
 ->END
- 
- === quest
- 퀘스트가 없습니다. (esc로 나가기)
- -> END

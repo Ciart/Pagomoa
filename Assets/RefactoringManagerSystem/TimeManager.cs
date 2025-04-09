@@ -33,6 +33,10 @@ namespace Ciart.Pagomoa.Systems.Time
         /// </summary>
         public const int Morning = 0;
 
+        public bool IsTutorialDay {
+            get => date == 0;
+        }
+
         private int _tick = 0;
 
         public int tick
@@ -46,7 +50,11 @@ namespace Ciart.Pagomoa.Systems.Time
         /// </summary>
         public int tickSpeed = 30;
 
-        public int date = 1;
+        /// <summary>
+        /// 현재 날짜입니다.
+        /// 튜토리얼 날짜인 0일부터 시작합니다.
+        /// </summary>
+        public int date = 0;
 
         public int hour => (tick / HourTick + HourOffset) % 24;
 
@@ -64,13 +72,13 @@ namespace Ciart.Pagomoa.Systems.Time
             {
                 if (value)
                 {
-                    UnityEngine.Time.timeScale = 0;
+                    Physics2D.simulationMode = SimulationMode2D.Script;
                     _isPause = true;
                     paused?.Invoke();
                 }
                 else
                 {
-                    UnityEngine.Time.timeScale = 1;
+                    Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
                     _isPause = false;
                     resumed?.Invoke();
                 }
@@ -78,8 +86,6 @@ namespace Ciart.Pagomoa.Systems.Time
         }
 
         private float _nextUpdateTime = 0f;
-
-        private PlayerInput _playerInput;
 
         private int _wantPauseCount = 0;
 
@@ -97,7 +103,12 @@ namespace Ciart.Pagomoa.Systems.Time
 
             if (_nextUpdateTime <= 0)
             {
-                tick += 10;
+                // 튜토리얼 진행 중에는 시간이 흐르지 않습니다.
+                if (!IsTutorialDay)
+                {
+                    tick += 1;
+                }
+
                 //To do : tick have to change into 1, But should be do before Release. Not now.
                 _nextUpdateTime += 1f / tickSpeed;
                 tickUpdated?.Invoke(tick);

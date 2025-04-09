@@ -143,19 +143,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityId: 
-  health: 0
-  maxHealth: 0
   parent: {fileID: 0}
-  oxygen: 0
-  maxOxygen: 0
-  hungry: 0
-  maxHungry: 0
   state: 0
   isGrounded: 0
   status: {fileID: 0}
   initialStatus: {fileID: 0}
   groundDistance: 0.125
   sideWallDistance: 1.0625
+  fallDamageThreshold: 5
+  fallDamageMultiplier: 10
   inventory: {fileID: 0}
   drill: {fileID: 0}
 --- !u!114 &6532384969457569552
@@ -190,26 +186,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18dac83e2e89aa469d1d98f38c80eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOxygen: 100
-  minOxygen: 0
   _oxygenRecovery: 100
-  _oxygenConsume: 1
-  maxHungry: 100
-  minHungry: 0
-  _hungryRecovery: 1
-  _hungryConsume: 1
+  _oxygenConsume: 0.5
+  _hungerRecovery: 1
+  _hungerConsume: 1
   _armor: 0
   _attackpower: 100
   _sight: 1
   _speed: 5
   _digSpeed: 10
   _crawlUpSpeed: 100
-  oxygenAlter:
-    m_PersistentCalls:
-      m_Calls: []
-  hungryAlter:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!95 &3585343481981625419
 Animator:
   serializedVersion: 7
