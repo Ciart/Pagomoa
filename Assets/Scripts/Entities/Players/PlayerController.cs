@@ -284,7 +284,7 @@ namespace Ciart.Pagomoa.Entities.Players
             return _direction;
         }
 
-        private void Respawn()
+        public void Respawn()
         {
             transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
 
