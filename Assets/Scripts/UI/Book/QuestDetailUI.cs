@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa.UI.Book
         
         private List<QuestConditionUI> _questConditionItems = new();
         
-        public void UpdateUI([CanBeNull] Quest quest)
+        public void UpdateUI(Quest? quest)
         {
             if (quest is null)
             {

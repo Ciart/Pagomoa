@@ -3,7 +3,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
-using Logger;
+using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.RefactoringManagerSystem
@@ -13,10 +13,66 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
     {
         public List<Quest> quests = new List<Quest>();
 
+        public QuestManager()
+        {
+            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
+        }
+
+        public override void OnDestroy()
+        {
+            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
+        }
+
+        private void OnDataSaveEvent(DataSaveEvent e)
+        {
+            e.saveData.quests = new List<QuestSaveData>();
+
+            foreach (var quest in quests)
+            {
+                var questData = new QuestSaveData
+                {
+                    id = quest.id,
+                    state = quest.state,
+                    conditions = new QuestConditionSaveData[quest.conditions.Count]
+                };
+
+                for (var i = 0; i < quest.conditions.Count; i++)
+                {
+                    questData.conditions[i] = new QuestConditionSaveData
+                    {
+                        compareValue = quest.conditions[i].GetCompareValue()
+                    };
+                }
+
+                e.saveData.quests.Add(questData);
+            }
+        }
+
+        private void OnDataLoadedEvent(DataLoadedEvent e)
+        {
+            quests = new List<Quest>();
+
+            foreach (var questData in e.saveData.quests)
+            {
+                // TODO: NPC Sprite 방식의 변경이 필요함
+                var quest = new Quest(ResourceSystem.instance.GetQuest(questData.id), null);
+                quest.state = questData.state;
+
+                for (var i = 0; i < questData.conditions.Length; i++)
+                {
+                    quest.conditions[i].SetCompareValue(questData.conditions[i].compareValue);
+                }
+
+                quests.Add(quest);
+            }
+        }
+
         public void RegistrationQuest(Sprite npcSprite, string entityId, string questId)
         {
             var targetQuests = ResourceSystem.instance.GetQuests(entityId);
-            
+
             foreach (var quest in targetQuests)
             {
                 if (quest.id != questId) continue;
@@ -50,8 +106,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             EventManager.Notify(new AddGold(reward.gold));
 
             targetQuest.state = QuestState.Finish;
-
-            targetQuest.Dispose();
+            targetQuest.Finish();
         }
 
         public Quest FindQuestById(string id)

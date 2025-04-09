@@ -41,7 +41,23 @@ namespace Ciart.Pagomoa.Entities.Players
         
         private int _drillLevel = 0;
 
-        public Drill nextDrill => _drills[_drillLevel + 1];
+        public Drill nowDrill
+        {
+            get
+            {
+                return _drills[_drillLevel];
+            }
+        }
+
+        public Drill nextDrill
+        {
+            get {
+                if (_drillLevel + 1 < _drills.Count)
+                    return _drills[_drillLevel + 1];
+                else
+                    return null;
+            }
+        } 
         
         private int width = 2;
 
@@ -62,6 +78,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private MoaInteraction _fairyMoa;
         
         private PlayerController _player;
+       
+        public static event Action<Drill> OnDrillUpgrade;
         
         private void Awake()
         {
@@ -173,17 +191,17 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            TimeManager.instance.tickUpdated += OnTickUpdated;
+            Game.Instance.Time.tickUpdated += OnTickUpdated;
         }
 
         private void OnDisable()
         {
-            TimeManager.instance.tickUpdated -= OnTickUpdated;
+            Game.Instance.Time.tickUpdated -= OnTickUpdated;
         }
         
         private void OnTickUpdated(int tick)
         {
-            var soundManager = SoundManager.instance;
+            var soundManager = Game.Instance.Sound;
             
             if (isDig && isGroundHit)
             {
@@ -221,7 +239,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 {
                     // TODO: attacker 변경해야 함.
                     // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.
-                    enemy.TakeDamage(_player.attack, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
+                    enemy.TakeDamage(_player.Attack, invincibleTime: 0.3f, attacker: GetComponentInParent<EntityController>(), flag: DamageFlag.Melee);
                 }
             }
         }
@@ -274,30 +292,22 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public void DrillUpgrade()
         {
-            // _drills[_drillLevel + 1].upgradeNeeds 충족확인 후
-            bool upgradable = true;
-            var inventory = Game.instance.player.inventory;
+            var inventory = Game.Instance.player.inventory;
 
-            foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
+            if (nextDrill == null) { Debug.Log("Drill is on Max Level. Can not Upgrade!"); return; }
+
+            foreach (var needs in nextDrill.upgradeNeeds)
             {
-                /*if (needs.count > inventory.GetItemCount(needs.mineral))
-                {
-                    upgradable = false;
-                    Debug.Log("업그레이드 실패: " + inventory.GetItemCount(needs.mineral) + "/" + needs.count);
-                }*/
+                if (needs.mineral.id == "")
+                    return;
+
+                if (!MineralCollector.TryUseMineral(needs.mineral.id, needs.count))
+                    return;
             }
-            if (upgradable) {
-                foreach (DrillUpgradeNeeds needs in _drills[_drillLevel + 1].upgradeNeeds)
-                {
-                    /*int used = 0;
-                    while (used < needs.count)
-                    {
-                        inventory.RemoveItemByItemID(needs.mineral.id);
-                        used++;
-                    }*/
-                }
-                _drillLevel += 1; Debug.Log("업그레이드 성공"); 
-            }
+
+            _drillLevel += 1;
+            OnDrillUpgrade?.Invoke(_drills[_drillLevel]);
+            Debug.Log("업그레이드 완료" + _drills[_drillLevel]);
         }
 
         private void RemoveThisIfItWorkedProperly()

@@ -9,6 +9,7 @@ namespace Logger.ForEditorBaseScripts
         ConsumeItem,
         UseItem,
         BreakBlock,
+        HasItem,
         ConversationWithNpc,
         PlayerMoveDistance,
         PlayerMoveDeeply,
@@ -16,6 +17,7 @@ namespace Logger.ForEditorBaseScripts
         KillMonster,
         EarnGold,
         ConsumeGold,
+        SellItem,
     }
 
     [Serializable]
@@ -33,7 +35,6 @@ namespace Logger.ForEditorBaseScripts
     public class ConditionDictionary
     {
         private const string TypeInt = "int";
-        private const string TypeFloat = "float";
         private const string TypeBool = "bool";
         
         public Dictionary<QuestType, ConditionType> typeDictionary = new Dictionary<QuestType, ConditionType>()
@@ -50,22 +51,26 @@ namespace Logger.ForEditorBaseScripts
             {
                 target = TargetType.Inventory,
                 typeValue = TypeInt
-            }},{ QuestType.BreakBlock, new ConditionType
+            }}, { QuestType.BreakBlock, new ConditionType
             {
                 target = TargetType.World,
                 typeValue = TypeInt
-            }},{ QuestType.ConversationWithNpc, new ConditionType
+            }}, { QuestType.HasItem, new ConditionType
+            {
+                target = TargetType.Inventory,
+                typeValue = TypeInt
+            }}, { QuestType.ConversationWithNpc, new ConditionType
             {
                 target = TargetType.Dialogue,
                 typeValue = TypeBool
             }},{ QuestType.PlayerMoveDistance, new ConditionType
             {
                 target = TargetType.Player,
-                typeValue = TypeFloat
+                typeValue = TypeInt
             }},{ QuestType.PlayerMoveDeeply, new ConditionType
             {
                 target = TargetType.Player,
-                typeValue = TypeFloat
+                typeValue = TypeInt
             }}, { QuestType.EnterArea, new ConditionType
             {
                 target = TargetType.Area,
@@ -79,6 +84,10 @@ namespace Logger.ForEditorBaseScripts
                 target = TargetType.Inventory,
                 typeValue = TypeInt
             }}, { QuestType.ConsumeGold, new ConditionType
+            {
+                target = TargetType.Inventory,
+                typeValue = TypeInt
+            }}, { QuestType.SellItem, new ConditionType
             {
                 target = TargetType.Inventory,
                 typeValue = TypeInt

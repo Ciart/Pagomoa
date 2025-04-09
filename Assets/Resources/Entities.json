@@ -49,7 +49,9 @@
       "isInvincible": false,
       "baseHealth": 100,
       "attack": 5,
-      "speed": 250
+      "speed": 250,
+      "oxygen": 100,
+      "hungry": 100
     },
     {
       "id": "SandGolem",

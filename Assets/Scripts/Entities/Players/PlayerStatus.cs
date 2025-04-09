@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -6,14 +7,31 @@ using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Entities.Players
 {
+    
+    /// <summary>
+    /// PlayerController로 스텟 이적 준비해야 한다.
+    /// </summary>
+    [Obsolete("Use Ciart.Pagomoa.Entities.Players.PlayerController에 Status 이전하여 사용할 예정입니다.")]
     public class PlayerStatus : MonoBehaviour
     {
-        [Header("# Oxygen")] public float oxygen = 100f;
+        /*[Header("# Oxygen")] 
+        
+        private float _oxygen = 100f;
+        public float Oxygen
+        {
+            get => _oxygen;
+            set
+            {
+                _oxygen = value > maxOxygen ? maxOxygen : value;
+            }
+        }
+        
         public float maxOxygen = 100f;
-        public float minOxygen = 0f;
+        public float minOxygen = 0f;*/
 
         [SerializeField] protected float _oxygenRecovery = 1;
 
@@ -31,27 +49,32 @@ namespace Ciart.Pagomoa.Entities.Players
             set { _oxygenConsume = value; }
         }
 
-
-        [Header("# Hungry")] public float hungry = 100f;
-        public float maxHungry = 100f;
-        public float minHungry = 0f;
-
-
-        [SerializeField] protected float _hungryRecovery = 1;
-
-        public float hungryRecovery
+        /*[Header("# Hungry")] 
+        private float _hungry = 100f;
+        public float Hungry
         {
-            get { return _hungryRecovery; }
-            set { _hungryRecovery = value; }
+            get => _hungry;
+            set => _hungry = value > maxHungry ? maxHungry : value;
+        }
+
+        public float maxHungry = 100f;
+        public float minHungry = 0f;*/
+        
+        [SerializeField] protected float _hungerRecovery = 1;
+
+        public float hungerRecovery
+        {
+            get { return _hungerRecovery; }
+            set { _hungerRecovery = value; }
         }
 
 
-        [SerializeField] protected float _hungryConsume = 1;
+        [SerializeField] protected float _hungerConsume = 1;
 
-        public float hungryConsume
+        public float hungerConsume
         {
-            get { return _hungryConsume; }
-            set { _hungryConsume = value; }
+            get { return _hungerConsume; }
+            set { _hungerConsume = value; }
         }
 
 
@@ -77,9 +100,9 @@ namespace Ciart.Pagomoa.Entities.Players
         public float sight
         {
             get { return _sight; }
-            set { _sight = value; }
+            set { _sight = value; sightChange?.Invoke(); }
         }
-
+        public event Action sightChange;
 
         [Header("# Speed")][SerializeField] protected float _speed = 5;
 
@@ -94,8 +117,9 @@ namespace Ciart.Pagomoa.Entities.Players
         public float digSpeed
         {
             get { return _digSpeed; }
-            set { _digSpeed = value; }
+            set { _digSpeed = value; digSpeedChange?.Invoke(); }
         }
+        public event Action digSpeedChange;
 
 
         [Header("CrawlUp")][SerializeField] protected float _crawlUpSpeed = 100;
@@ -106,50 +130,13 @@ namespace Ciart.Pagomoa.Entities.Players
             set { _crawlUpSpeed = value; }
         }
 
-
-        public UnityEvent<float, float> oxygenAlter;
-        public UnityEvent<float, float> hungryAlter;
-
         private PlayerController _player;
 
         private void Awake()
         {
             _player = GetComponent<PlayerController>();
         }
-
-        private void UpdateOxygen()
-        {
-            var gage = 100f;
-
-            if (transform.position.y < World.GroundHeight && oxygen >= minOxygen)
-            {
-                oxygen -= Mathf.Abs(transform.position.y) * oxygenConsume * Time.deltaTime;
-                gage = oxygen;
-                if (oxygen < minOxygen)
-                {
-                    _player.entityController.Die();
-                    gage = minOxygen;
-                }
-            }
-            else if (oxygen < maxOxygen)
-            {
-                oxygen += Mathf.Abs(transform.position.y) * oxygenRecovery * Time.deltaTime;
-                gage = oxygen;
-            }
-            oxygenAlter.Invoke(gage, maxOxygen);
-        }
-
-        private void FixedUpdate()
-        {
-            if (_player.entityController.isDead) return;
-            
-            UpdateOxygen();
-            if (oxygen < minOxygen)
-            {
-                _player.entityController.TakeDamage(10);
-            }
-        }
-
+        
         public PlayerStatus copy()
         {
             return (PlayerStatus)this.MemberwiseClone();

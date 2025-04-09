@@ -15,6 +15,8 @@ namespace Ciart.Pagomoa
         public int tier;
         public int speed;
         public DrillUpgradeNeeds[] upgradeNeeds;
+        public string drillName;
+        public string drillDescription;
     }
 
     [Serializable]

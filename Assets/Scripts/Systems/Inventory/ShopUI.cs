@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         [SerializeField] private ShopChat shopChat;
         public ShopChat GetShopChat() => shopChat;
         [SerializeField] private CountUI countUI;
-        public CountUI GetCountUI() => countUI;
+        private CountUI GetCountUI() => countUI;
         [SerializeField] private BuyUI buyUI;
         public BuyUI GetBuyUI() => buyUI;
         [SerializeField] private SellUI sellUI;
@@ -52,7 +52,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (gameObject.activeSelf) return;
                 
             gameObject.SetActive(true);
-            TimeManager.instance.PauseTime();
+            Game.Instance.Time.PauseTime();
         }
 
         public void DeActiveShop()
@@ -60,7 +60,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (!gameObject.activeSelf) return;
             
             gameObject.SetActive(false);
-            TimeManager.instance.ResumeTime();
+            Game.Instance.Time.ResumeTime();
         }
         
         public void BuyCheck(BuySlotUI buySlotUI)

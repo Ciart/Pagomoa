@@ -155,17 +155,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1}
+  m_Offset: {x: 0, y: 0.9675192}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.45000002, y: 0}
-    oldSize: {x: 1.875, y: 2.0625}
+    pivot: {x: 0.45588234, y: 0.054054055}
+    oldSize: {x: 2.125, y: 2.3125}
     newSize: {x: 2.1875, y: 2.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.95382375, y: 1.8862174}
+  m_Size: {x: 0.95382375, y: 1.9511789}
   m_EdgeRadius: 0
 --- !u!95 &1910408219843712697
 Animator:
@@ -202,9 +202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityId: SandGolem
-  status:
-    health: 0
-    maxHealth: 0
+  health: 0
+  maxHealth: 0
   parent: {fileID: 0}
 --- !u!114 &1168310593013737487
 MonoBehaviour:

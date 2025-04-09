@@ -11,14 +11,17 @@ namespace Ciart.Pagomoa
     {
         private CompositeCollider2D _collider;
 
+        private PlayerController _player;
+
         private PlayerInput _playerInput;
 
         private BoxCollider2D _playerCollider;
 
-        private float _enableTime = 0f;
+        private float _platformResetTimer = 0f;
         
         private void SetPlayerComponent(PlayerController player)
         {
+            _player = player;
             _playerInput = player.GetComponent<PlayerInput>();
             _playerCollider = player.GetComponent<BoxCollider2D>();
         }
@@ -37,9 +40,9 @@ namespace Ciart.Pagomoa
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
 
-            if (Game.instance.player != null)
+            if (Game.Instance.player != null)
             {
-                SetPlayerComponent(Game.instance.player);
+                SetPlayerComponent(Game.Instance.player);
             }
         }
 
@@ -48,18 +51,40 @@ namespace Ciart.Pagomoa
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawnedEvent);
         }
 
+        private bool CheckPassingPlayer()
+        {
+            if (_player == null || _playerInput == null || Game.Instance.Time.IsPause)
+            {
+                return false;
+            }
+
+            if (DirectionUtility.ToDirection(_playerInput.Move) == Direction.Down)
+            {
+                return true;
+            }
+
+            var drill = _player.drill;
+
+            if (drill.isDig && drill.isGroundHit && drill.direction == Direction.Down)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private void Update()
         {
-            if (_playerInput && DirectionUtility.ToDirection(_playerInput.Move) == Direction.Down)
+            if (_playerInput && CheckPassingPlayer())
             {
-                _enableTime = 0.5f;
+                _platformResetTimer = 0.5f;
             }
             else
             {
-                _enableTime -= Time.deltaTime;
+                _platformResetTimer -= Time.unscaledDeltaTime;
             }
 
-            if (_enableTime >= 0f)
+            if (_platformResetTimer >= 0f)
             {
                 Physics2D.IgnoreCollision(_playerCollider, _collider);
             }

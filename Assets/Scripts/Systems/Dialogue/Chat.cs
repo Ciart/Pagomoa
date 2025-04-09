@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Ciart.Pagomoa.Systems.Time;
+using Ciart.Pagomoa.Utilities;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
@@ -33,7 +34,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             Action easeChat = EaseChatting;
 
-            TimeManager.instance.SetTimer(duration, easeChat);
+            TimerUtility.SetTimer(duration, easeChat);
         }
 
         public void EaseChatting()

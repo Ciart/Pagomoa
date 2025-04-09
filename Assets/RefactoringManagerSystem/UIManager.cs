@@ -20,7 +20,7 @@ namespace Ciart.Pagomoa.Systems
         private DaySummaryUI _daySummaryUI;
         
         public MinimapUI minimapUI { get; private set; }
-        public StateUI stateUI { get; private set; }
+        public StatusUI StatusUI { get; private set; }
         public BookUI bookUI {get; private set;}
         public ShopUI shopUI {get; private set;}
         public QuickUI quickUI {get; private set;}
@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa.Systems
             _uiContainer = DataBase.data.GetUIData();
 
             minimapUI = Object.Instantiate(_uiContainer.miniMapPanelPrefab, _uiContainer.transform);
-            stateUI = Object.Instantiate(_uiContainer.statePanelPrefab, _uiContainer.transform);
+            StatusUI = Object.Instantiate(_uiContainer.statusPanelPrefab, _uiContainer.transform);
             
             bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
             bookUI.gameObject.SetActive(_isActiveInventory);
@@ -66,9 +66,6 @@ namespace Ciart.Pagomoa.Systems
         private void OnPlayerSpawned(PlayerSpawnedEvent e)
         {
             var player = e.player;
-            
-            player.GetComponent<PlayerStatus>().oxygenAlter.AddListener(stateUI.UpdateOxygenBar);
-            //player.GetComponent<PlayerStatus>().hungryAlter.AddListener(UpdateHungryBar);
 
             _playerInput = player.GetComponent<PlayerInput>();
             _playerInput.Actions.Menu.performed += context => { ToggleEscUI(); };
@@ -83,20 +80,28 @@ namespace Ciart.Pagomoa.Systems
             var playerGold = Game.instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
-            stateUI.playerGoldUI.text = playerGold.ToString();        
+            StatusUI.playerGoldUI.text = playerGold.ToString();        
         }
         
         private void ToggleEscUI()
         {
-            if(!_dialogueUI.activeSelf)
-                _uiContainer.escUI.SetActive(!_uiContainer.escUI.activeSelf);
+            bookUI.DeActiveBook();
+            shopUI.DeActiveShop();
+            _dialogueUI.SetActive(false);
         }
 
         private void ToggleInventoryUI()
         {
+            if (Game.Instance.UI.shopUI.gameObject.activeSelf) return;
+            if (_dialogueUI.gameObject.activeSelf)
+            {
+                bookUI.DeActiveBook();
+                return;
+            }
+            
             _isActiveInventory = !_isActiveInventory;
             bookUI.gameObject.SetActive(_isActiveInventory);
-
+            
             // if (_isActiveInventory)
             // {
             //     inventoryCamera.Priority = 11;
@@ -124,14 +129,16 @@ namespace Ciart.Pagomoa.Systems
         public void DeActiveUI()
         {
             minimapUI.gameObject.SetActive(false);
-            stateUI.gameObject.SetActive(false);
+            StatusUI.gameObject.SetActive(false);
             quickUI.gameObject.SetActive(false);
+            
+            bookUI.DeActiveBook();
         }
 
         public void ActiveUI()
         {
             minimapUI.gameObject.SetActive(true);
-            stateUI.gameObject.SetActive(true);
+            StatusUI.gameObject.SetActive(true);
             quickUI.gameObject.SetActive(true);
         }
         

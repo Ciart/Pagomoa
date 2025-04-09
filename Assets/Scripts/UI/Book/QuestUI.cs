@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.RefactoringManagerSystem;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Utilities;
 using UnityEngine;
 
@@ -48,10 +49,10 @@ namespace Ciart.Pagomoa.UI.Book
         {
             foreach (var item in _questListItems)
             {
-                item.isSelected = item.questId == selectQuestId;
+                item.isSelected = item.questID == selectQuestId;
             }
             
-            UpdateQuestDetail(QuestManager.instance.FindQuestById(selectQuestId));
+            UpdateQuestDetail(Game.Instance.Quest.FindQuestById(selectQuestId));
         }
 
         private void UpdateQuestList(List<Quest> questList)
@@ -70,7 +71,7 @@ namespace Ciart.Pagomoa.UI.Book
                 {
                     selectQuestId = questList[i].id;
                 }
-
+                
                 _questListItems[i].UpdateUI(questList[i]);
             }
 
@@ -96,7 +97,7 @@ namespace Ciart.Pagomoa.UI.Book
 
         private void OnEnable()
         {
-            var questManager = QuestManager.instance;
+            var questManager = Game.Instance.Quest;
             
             UpdateQuestList(questManager.quests);
             UpdateQuestDetail(questManager.FindQuestById(selectQuestId));

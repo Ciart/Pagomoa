@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c10b6c981bc3f749956449d513366f9, type: 3}
+  m_Name: Tutorial4
+  m_EditorClassIdentifier: 
+  id: tutorial_4
+  prevQuestIds: []
+  title: "\uD2F0\uD074 \uBAA8\uC544 \uD0DC\uC0B0"
+  description: "\uBAA8\uBAA8\uC5D0\uAC8C \uAD6C\uB9AC\uB97C 5\uAC1C \uAC00\uC800\uAC00
+    \n\uC0C1\uC810 \uCC3D\uC5D0\uC11C \uD310\uB9E4\uD558\uB294 \uBC84\uD2BC\uC744
+    \uB20C\uB7EC \n\uD310\uB9E4 \uD398\uC774\uC9C0\uC5D0\uC11C \uD314\uC218 \uC788\uB2E4."
+  startPrologue: {fileID: 4900000, guid: a0735f3e65c37414fa08f6782b912708, type: 3}
+  completePrologue: {fileID: 4900000, guid: 99ef7b1f653d9454da8a63b88316fc4d, type: 3}
+  reward:
+    gold: 100
+    itemID: Cookie
+    itemSprite: {fileID: 21300000, guid: 3ffadcaed375446549bb35f1b4cc775c, type: 3}
+    value: 5
+  questList:
+  - questType: 12
+    summary: "\uBAA8\uBAA8\uC5D0\uAC8C \uAC00\uC11C \uAD6C\uB9AC 5\uAC1C \uD310\uB9E4."
+    value: 5
+    targetID: Copper
+    conditionType:
+      target: 1
+      typeValue: int
+  prevQuestData: []

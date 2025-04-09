@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems.Save;
+using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Time
 {
@@ -9,7 +14,7 @@ namespace Ciart.Pagomoa.Systems.Time
     {
         ~TimeManager()
         {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            Task.FromCanceled(CancellationToken.None);
         }
 
         public const int MinuteTick = 30;
@@ -49,27 +54,45 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public bool canSleep = false;
 
-        public bool isTimeStop = false;
+
+        private bool _isPause = false;
+
+        public bool IsPause
+        {
+            get => _isPause;
+            private set
+            {
+                if (value)
+                {
+                    UnityEngine.Time.timeScale = 0;
+                    _isPause = true;
+                    paused?.Invoke();
+                }
+                else
+                {
+                    UnityEngine.Time.timeScale = 1;
+                    _isPause = false;
+                    resumed?.Invoke();
+                }
+            }
+        }
 
         private float _nextUpdateTime = 0f;
 
         private PlayerInput _playerInput;
 
+        private int _wantPauseCount = 0;
+
         public event Action<int> tickUpdated;
 
-        public override void Start()
-        {
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
+        public event Action paused;
 
-        private void OnPlayerSpawned(PlayerSpawnedEvent e)
-        {
-            var player = e.player;
-            _playerInput = player.GetComponent<PlayerInput>();
-        }
+        public event Action resumed;
 
         public override void Update()
         {
+            if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;
+            if (IsPause == true) return;
             if (tick >= MaxTick) return;
 
             if (_nextUpdateTime <= 0)
@@ -81,7 +104,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
                 if (tick >= MaxTick)
                 {
-                    Game.Instance.player.entityController.Die();
+                    Game.Instance.player!.Die();
                     return;
                 }
             }
@@ -117,24 +140,42 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public void PauseTime()
         {
-            UnityEngine.Time.timeScale = 0;
-            isTimeStop = true;
-            if (_playerInput) _playerInput.Actable = false;
+            if (_wantPauseCount == 0)
+            {
+                IsPause = true;
+            }
+
+            _wantPauseCount++;
         }
 
         public void ResumeTime()
         {
-            UnityEngine.Time.timeScale = 1;
-            isTimeStop = false;
-            if (_playerInput) _playerInput.Actable = true;
+            if (_wantPauseCount > 0)
+            {
+                _wantPauseCount--;
+
+                if (_wantPauseCount == 0)
+                {
+                    IsPause = false;
+                }
+            }
         }
 
-        public async void SetTimer(float seconds, Action callback)
+        public void RegisterTickEvent(Action<int> action)
         {
-            var milliSeconds = (int)(seconds * 1000);
-            await Task.Delay(milliSeconds);
+            if (!tickUpdated.GetInvocationList().Contains(action))
+            {
+                tickUpdated += action;
+            }
+        }
 
-            callback.Invoke();
+        public void UnregisterTickEvent(Action<int> action)
+        {
+            if (tickUpdated.GetInvocationList().Contains(action))
+            {
+                Debug.Log(action.Method.Name);
+                tickUpdated -= action;
+            }
         }
     }
 }

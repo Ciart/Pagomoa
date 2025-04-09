@@ -83,14 +83,14 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 
             _dialogueUI.gameObject.SetActive(true);
             EventManager.Notify(new StoryStarted());
-            TimeManager.instance.PauseTime();
+            Game.Instance.Time.PauseTime();
         }
 
         public void StopStory()
         {
             story = null;
             _dialogueUI.gameObject.SetActive(false);
-            TimeManager.instance.ResumeTime();
+            Game.Instance.Time.ResumeTime();
         }
 
         public void StartDailyChat()

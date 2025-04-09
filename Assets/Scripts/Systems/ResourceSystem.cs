@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Worlds;
-using Unity.VisualScripting;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 [Serializable]
@@ -247,14 +243,30 @@ namespace Ciart.Pagomoa.Systems
             throw new Exception($"ResourceSystem: GetEntity - '{id}' is not found");
         }
 
-        public QuestData[]? GetQuests(string id)
+        public QuestData[]? GetQuests(string ownerId)
         {
-            if (matchQuests.TryGetValue(id, out var quests))
+            if (matchQuests.TryGetValue(ownerId, out var quests))
             {
                 return quests.ToArray();
             }
 
             return null;
+        }
+
+        public QuestData GetQuest(string questId)
+        {
+            foreach (var quests in matchQuests.Values)
+            {
+                foreach (var quest in quests)
+                {
+                    if (quest.id == questId)
+                    {
+                        return quest;
+                    }
+                }
+            }
+
+            throw new Exception($"ResourceSystem: GetQuest - '{questId}' is not found");
         }
         
         private void Init()

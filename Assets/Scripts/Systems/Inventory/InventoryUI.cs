@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Items;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
+using TMPro;
+using Ciart.Pagomoa.Entities;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        [Header("InventoryUI")]
         [SerializeField] private RectTransform inventorySlotParent;
         [SerializeField] private InventorySlotUI instanceInventorySlotUI;
         [SerializeField] private RectTransform artifacSlotParent;
@@ -19,7 +17,17 @@ namespace Ciart.Pagomoa.Systems.Inventory
             = new List<InventorySlotUI>(Inventory.MaxInventorySlots);
         private readonly List<ArtifactSlotUI> _artifactSlots 
             = new List<ArtifactSlotUI>(Inventory.MaxArtifactSlots);
-        
+
+        [Header("Status Text")]
+        [SerializeField] private TextMeshProUGUI hpValueText;
+        [SerializeField] private TextMeshProUGUI damageValueText;
+        [SerializeField] private TextMeshProUGUI oxygenValueText;
+        [SerializeField] private TextMeshProUGUI deffenseValueText;
+        [SerializeField] private TextMeshProUGUI hungerValueText;
+        [SerializeField] private TextMeshProUGUI moveSpeedValueText;
+        [SerializeField] private TextMeshProUGUI sightValueText;
+        [SerializeField] private TextMeshProUGUI digValueText;
+
         private void InitInventorySlotUI(Inventory inventoryData)
         {
             for (int i = 0; i < Inventory.MaxInventorySlots; i++)
@@ -85,11 +93,65 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
         }
         
+        
+        private void UpdateHpValueText(EntityDamagedEventArgs args) 
+        { hpValueText.text = $"{Game.Instance.player.Health:F0} / {Game.Instance.player.MaxHealth:F0}"; }
+        private void UpdateHpValueText() 
+        { hpValueText.text = $"{Game.Instance.player.Health:F0} / {Game.Instance.player.MaxHealth:F0}"; }
+
+        private void UpdateDamageValueText() { damageValueText.text = $"{Game.Instance.player.Attack:F0}"; }
+
+        private void UpdateOxygenValueText() 
+        { oxygenValueText.text = $"{Game.Instance.player.Oxygen:F0} / {Game.Instance.player.MaxOxygen:F0}"; }
+
+        private void UpdateDefenseValueText() { deffenseValueText.text = $"{Game.Instance.player.Defense:F0}"; }
+
+        private void UpdateHungerValueText() 
+        { hungerValueText.text = $"{Game.Instance.player.Hunger:F0} / {Game.Instance.player.MaxHunger:F0}"; }
+
+        private void UpdateMoveSpeedValueText() { moveSpeedValueText.text = $"{Game.Instance.player.Speed:F1}"; }
+
+        private void UpdateSightValueText() { sightValueText.text = $"{Game.Instance.player.status.sight:F1}"; }
+
+        private void UpdateDigValueText() { digValueText.text = $"{Game.Instance.player.status.digSpeed:F1}"; }
+        
+        private void UpdatePlayerStatValueUI(PlayerSpawnedEvent @event)
+        {
+            var player = Game.Instance.player;
+            if (player == null) return;
+            
+            UpdateOxygenValueText();
+            UpdateHungerValueText();
+            UpdateSightValueText();
+            UpdateDigValueText();
+
+            UpdateHpValueText(null);
+            UpdateDamageValueText();
+            UpdateDefenseValueText();
+            UpdateMoveSpeedValueText();
+
+            player.oxygenChanged += UpdateOxygenValueText;
+            player.hungerChanged += UpdateHungerValueText;
+            player.healthChanged += UpdateHpValueText;
+            player.status.sightChange += UpdateSightValueText;
+            player.status.digSpeedChange += UpdateDigValueText;
+
+            player.damaged += UpdateHpValueText;
+            player.attackChanged += UpdateDamageValueText;
+            player.deffenseChanged += UpdateDefenseValueText;
+            player.speedChanged += UpdateMoveSpeedValueText;
+        }
+        
         private void OnEnable()
         {
             UpdateInventorySlot();
             UpdateArtifactSlot();
             EventManager.AddListener<UpdateInventory>(UpdateInventoryUI);
+            EventManager.AddListener<PlayerSpawnedEvent>(UpdatePlayerStatValueUI);
+
+            var player = Game.Instance.player;
+            if (player != null)
+                UpdatePlayerStatValueUI(new PlayerSpawnedEvent(player));
         }
 
         private void OnDisable()

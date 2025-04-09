@@ -8,6 +8,8 @@ namespace Ciart.Pagomoa.Events
     
     public record ItemUsedEvent(string itemID, int count) : IEvent;
     
+    public record ItemSellEvent(string itemID, int count) : IEvent;
+    
     public record AddReward(string itemID, int itemCount) : IEvent;
     
     public record AddGold(int gold) : IEvent;

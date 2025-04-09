@@ -1,4 +1,5 @@
 ﻿using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +36,8 @@ namespace Ciart.Pagomoa.Entities.Players
         private void Update()
         {
             if (!Actable) return;
+
+            if (Game.Instance.Time.IsPause) return;
 
             Move = Actions.Move.ReadValue<Vector2>();
             Look = Actions.Look.ReadValue<Vector2>();

@@ -14,9 +14,59 @@ namespace Ciart.Pagomoa.Entities.Players
     [RequireComponent(typeof(PlayerStatus))]
     public partial class PlayerController : EntityController
     {
+        #region Status
+        public event Action oxygenChanged;
+        public event Action hungerChanged;
+
+        private float _oxygen;
+        public float Oxygen
+        {
+            get => _oxygen;
+            set
+            {
+                _oxygen = value > MaxOxygen ? MaxOxygen : value;
+                oxygenChanged?.Invoke();
+            }
+        }
+
+        private float _maxOxygen;
+        public float MaxOxygen
+        {
+            get => _maxOxygen;
+            set
+            {
+                _maxOxygen = value;
+                oxygenChanged?.Invoke();
+            }
+        }
+
+        private float hunger;
+        public float Hunger
+        {
+            get => hunger;
+            set
+            {
+                hunger = value >= MaxHunger ? MaxHunger : value;
+                if (hunger <= 0.0f) hunger = 0.0f;
+                hungerChanged?.Invoke();
+            }
+        }
+
+        private float maxHunger;
+        public float MaxHunger
+        {
+            get => maxHunger;
+            set
+            {
+                maxHunger = value;
+                hungerChanged?.Invoke();
+            }
+        }
+        #endregion
+
         public PlayerState state = PlayerState.Idle;
 
-        public bool isGrounded = false;
+        public new bool isGrounded = false;
 
         public PlayerStatus status;
 
@@ -26,32 +76,37 @@ namespace Ciart.Pagomoa.Entities.Players
 
         public float sideWallDistance = 1.0625f;
 
+        public float fallDamageThreshold = 5.0f;
+
+        public float fallDamageMultiplier = 1.0f;
+
         public Inventory inventory;
 
         public DrillController drill;
 
-        public EntityController entityController;
-
-        private Rigidbody2D _rigidbody;
+        private EntityController? _moa;
 
         private PlayerInput _input;
 
         private PlayerMovement _movement;
-        
+
         private Camera _camera;
 
         private WorldManager _world;
 
         private Direction _direction;
 
-        private void Awake()
+        private float _fallStartY;
+
+        protected override void Awake()
         {
+            base.Awake();
+
             status = GetComponent<PlayerStatus>();
             initialStatus = status.copy();
             drill = GetComponentInChildren<DrillController>();
-            entityController = GetComponent<EntityController>();
 
-            _rigidbody = GetComponent<Rigidbody2D>();
+            _moa = Game.Instance.Entity.Spawn("Moa", transform.position);
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             inventory = GetComponent<Inventory>();
@@ -59,6 +114,20 @@ namespace Ciart.Pagomoa.Entities.Players
             _world = Game.Instance.World;
 
             inventory.artifactChanged += OnArtifactChanged;
+        }
+
+        public override void Init(EntityData data)
+        {
+            base.Init(data);
+
+            var entity = ResourceSystem.instance.GetEntity(data.id);
+
+            MaxOxygen = entity.oxygen;
+            MaxHunger = 100.0f;
+            MaxHealth = 100.0f;
+            Oxygen = MaxOxygen;
+            Hunger = 100.0f;
+            Health = entity.baseHealth;
         }
 
         private void TryJump()
@@ -84,6 +153,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             UpdateState();
             UpdateSound();
+            UpdateOxygen();
 
             _movement.isClimb = state == PlayerState.Climb;
             _movement.directionVector = _input.Move;
@@ -99,6 +169,8 @@ namespace Ciart.Pagomoa.Entities.Players
             {
                 drill.isDig = true;
                 drill.direction = DirectionUtility.ToDirection(_input.DigDirection);
+
+                UpdateHunger(status.hungerConsume * Time.deltaTime);
             }
             else
             {
@@ -106,6 +178,11 @@ namespace Ciart.Pagomoa.Entities.Players
             }
 
             TryJump();
+
+            if (isDead && Oxygen < 0)
+            {
+                TakeDamage(10, 1f);
+            }
 
             EventManager.Notify(new PlayerMove(transform.position));
         }
@@ -117,7 +194,32 @@ namespace Ciart.Pagomoa.Entities.Players
             var hit = Physics2D.Raycast(position, Vector2.down, groundDistance, LayerMask.GetMask("Platform"));
             Debug.DrawRay(position, Vector2.down * groundDistance, Color.green);
 
+            var previousIsGrounded = isGrounded;
             isGrounded = (bool)hit.collider;
+
+            HandleFallDamage(previousIsGrounded);
+        }
+
+        private void HandleFallDamage(bool previousIsGrounded)
+        {
+            if (!previousIsGrounded && isGrounded)
+            {
+                var fallDistance = _fallStartY - transform.position.y;
+
+                if (fallDistance > fallDamageThreshold)
+                {
+                    var damage = (fallDistance - fallDamageThreshold) * fallDamageMultiplier;
+                    TakeDamage(damage, 0.3f);
+                    TakeKnockback(10f, Vector2.up);
+                }
+            }
+            else if (!isGrounded)
+            {
+                if (previousIsGrounded || _fallStartY < transform.position.y)
+                {
+                    _fallStartY = transform.position.y;
+                }
+            }
         }
 
         private void UpdateIsSideWall()
@@ -150,12 +252,25 @@ namespace Ciart.Pagomoa.Entities.Players
             _movement.isSideWall = true;
         }
 
-        public bool Hungry(float value)
+        private void UpdateOxygen()
         {
-            if (status.hungry - value < 0) return true;
-            status.hungry -= value;
-            status.hungryAlter.Invoke(status.hungry, status.maxHungry);
-            return false;
+            if (transform.position.y < World.GroundHeight && Oxygen >= 0)
+            {
+                Oxygen -= Mathf.Abs(transform.position.y) * status.oxygenConsume * Time.deltaTime;
+                if (Oxygen < 0)
+                {
+                    Die();
+                }
+            }
+            else if (Oxygen < MaxOxygen)
+            {
+                Oxygen += Mathf.Abs(transform.position.y) * status.oxygenRecovery * Time.deltaTime;
+            }
+        }
+
+        private void UpdateHunger(float value)
+        {
+            Hunger -= value;
         }
 
         private void FixedUpdate()
@@ -173,7 +288,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             transform.position = FindAnyObjectByType<SpawnPoint>().transform.position;
 
-            status.oxygen = status.maxOxygen;
+            Oxygen = MaxOxygen;
         }
 
         private void LoseMoney(float percentage)
@@ -226,7 +341,7 @@ namespace Ciart.Pagomoa.Entities.Players
             foreach (var slot in slots)
             {
                 var item = slot.GetSlotItem();
-                
+
                 if (item is null) continue;
 
                 if (item.status is null) continue;
@@ -234,12 +349,12 @@ namespace Ciart.Pagomoa.Entities.Players
                 statusModifier += item.status;
             }
 
-            var entity = ResourceSystem.instance.GetEntity(entityController.entityId);
+            var entity = ResourceSystem.instance.GetEntity(entityId);
 
-            maxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
-            attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
-            defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
-            speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;
+            MaxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
+            Attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;
+            Defense = (entity.defense + statusModifier.defense) * statusModifier.defenseMultiplier;
+            Speed = (entity.speed + statusModifier.speed) * statusModifier.speedMultiplier;
         }
 
         private void OnDied(EntityDiedEventArgs e)
@@ -255,12 +370,12 @@ namespace Ciart.Pagomoa.Entities.Players
 
         private void OnEnable()
         {
-            entityController.died += OnDied;
+            died += OnDied;
         }
 
         private void OnDisable()
         {
-            entityController.died -= OnDied;
+            died -= OnDied;
         }
     }
 }

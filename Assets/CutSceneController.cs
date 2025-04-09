@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
-using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Timelines;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -27,14 +24,15 @@ namespace Ciart.Pagomoa
         
         public List<CutSceneTrigger> triggers = new List<CutSceneTrigger>();
         private CutScene? _targetCutScene;
-        private CutSceneTrigger? _currentCutSceneTrigger;
-
         private Transform _camTransform;
+        private CutSceneTrigger? _currentCutSceneTrigger;
+        public void SetCutSceneTrigger(CutSceneTrigger trigger) { _currentCutSceneTrigger = trigger; }
+        
         
         [SerializeField] private float fadeDelay;
         
-        private LayerMask cutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
-        private LayerMask inGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
+        private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
+        private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
         private void Start()
         {
@@ -44,20 +42,10 @@ namespace Ciart.Pagomoa
             mainCamera = Camera.main;
             
             _director.stopped += EndCutScene;
-            
+
             foreach (var trigger in triggers)
             {
-                switch (trigger.name)
-                {
-                    case "ShopKeeperTrigger":
-                        _currentCutSceneTrigger = trigger;
-                        void WhenCutSceneEnd()
-                        {
-                            Instantiate(trigger.gameObject, Vector3.zero, Quaternion.identity);
-                        }
-                        trigger.OnCutSceneTrigger(WhenCutSceneEnd);
-                        continue;
-                }
+                Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
             }
         }
         
@@ -89,9 +77,9 @@ namespace Ciart.Pagomoa
             Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeOut, fadeDelay);
             DefaultCameraSetting();
             
-            Game.Instance.UI.ActiveUI();
             var player = Game.instance.player;
             player.gameObject.SetActive(true);
+            Game.Instance.UI.ActiveUI();
             
             for (int i = 0; i < player.transform.childCount; i++)
             {
@@ -109,8 +97,8 @@ namespace Ciart.Pagomoa
             return _signalReceiver;
         }
         
-        private void CutSceneCameraSetting() { mainCamera.cullingMask= cutSceneMasks; }
-        private void DefaultCameraSetting() { mainCamera.cullingMask= inGameMasks; }
+        private void CutSceneCameraSetting() { mainCamera.cullingMask= CutSceneMasks; }
+        private void DefaultCameraSetting() { mainCamera.cullingMask= InGameMasks; }
         
         public bool CutSceneIsPlayed()
         {
@@ -128,8 +116,8 @@ namespace Ciart.Pagomoa
             
             foreach (var actor in _targetCutScene.GetActors())
             {
-                var chatBalloon = actor.GetComponent<ChatBalloon>().balloon;
-                chatBalloon.SetActive(false);
+                actor.TryGetComponent<ChatBalloon>(out var chat);
+                chat.balloon.SetActive(false);
             }
             
             _director.Play();
@@ -162,7 +150,7 @@ namespace Ciart.Pagomoa
                         
                         target.Chatting(_targetCutScene.GetMiniChat(), chat.duration);
                         _targetCutScene.IncreaseMiniChatIndex();
-
+                            
                         return;
                     }
                     if (chat.content.Trim() != "") 

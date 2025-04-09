@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7701893231697460608}
   - component: {fileID: 1217589383783385779}
   - component: {fileID: 545810255901230581}
-  - component: {fileID: 4741998686411541126}
   - component: {fileID: 2442559022297014597}
   - component: {fileID: 6532384969457569552}
   - component: {fileID: 1015079352211381871}
@@ -131,25 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4741998686411541126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106713657715818926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6567556fde994c56b894cfedda4abc53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityId: 
-  health: 0
-  maxHealth: 0
-  attack: 0
-  defense: 0
-  speed: 0
-  parent: {fileID: 0}
 --- !u!114 &2442559022297014597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,10 +145,11 @@ MonoBehaviour:
   entityId: 
   health: 0
   maxHealth: 0
-  attack: 0
-  defense: 0
-  speed: 0
   parent: {fileID: 0}
+  oxygen: 0
+  maxOxygen: 0
+  hungry: 0
+  maxHungry: 0
   state: 0
   isGrounded: 0
   status: {fileID: 0}
@@ -177,7 +158,6 @@ MonoBehaviour:
   sideWallDistance: 1.0625
   inventory: {fileID: 0}
   drill: {fileID: 0}
-  entityController: {fileID: 0}
 --- !u!114 &6532384969457569552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,12 +190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18dac83e2e89aa469d1d98f38c80eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygen: 100
   maxOxygen: 100
   minOxygen: 0
   _oxygenRecovery: 100
   _oxygenConsume: 1
-  hungry: 100
   maxHungry: 100
   minHungry: 0
   _hungryRecovery: 1
@@ -362,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9fe78d2ab77704cad95cce2b2ac246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 100000
+  gold: 10000
 --- !u!1 &1444686428981919571
 GameObject:
   m_ObjectHideFlags: 0

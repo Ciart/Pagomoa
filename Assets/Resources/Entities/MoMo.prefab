@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 3559785310303573628}
   - component: {fileID: 8278112179175067611}
   - component: {fileID: 7809020224276230852}
-  - component: {fileID: 7158219300083838817}
   - component: {fileID: 1777051858887008195}
   - component: {fileID: 5129879163333570251}
   - component: {fileID: 2706039085293964544}
   - component: {fileID: 4312874108457095968}
+  - component: {fileID: -9012504818165756905}
   m_Layer: 8
   m_Name: MoMo
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 7612459397517908787}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.37, y: 0, z: 0}
+  m_LocalPosition: {x: 8.912067, y: 0.45676404, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -170,13 +170,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbf4aee7a5eff14f9b8f81f302e1552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffset: {x: 0, y: 2.3, z: 0}
   interactionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1777051858887008195}
-        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.CloverMouseInteraction, Assembly-CSharp
-        m_MethodName: SetUI
+      - m_Target: {fileID: -9012504818165756905}
+        m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Dialogue.EntityDialogue,
+          Assembly-CSharp
+        m_MethodName: StartDialogue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -186,25 +187,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7158219300083838817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7612459397517908787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a86a22bb36f7e074fbc5e02bb6a96b0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  auctionItemsIDs:
-  - Bomb
-  - AirBurble
-  - AbyssLantern
-  - Cookie
-  - MoleGloves
-  - TentRepairKit
 --- !u!114 &1777051858887008195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +199,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f258b8185337dc942bdaf9cac2438998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  auctionItemsIDs:
+  - AbyssLantern
+  - HourGlassOfNight
+  - TentRepairKit
+  - Bomb
+  - AirBurble
+  - Bandage
 --- !u!114 &5129879163333570251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,3 +262,19 @@ MonoBehaviour:
   defense: 0
   speed: 0
   parent: {fileID: 0}
+--- !u!114 &-9012504818165756905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7612459397517908787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460fe55a96245c54994795816d33e40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicDialogue: {fileID: 4900000, guid: 3dda2944bf0364a41ae7de2fbf28524b, type: 3}
+  dailyDialogues: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 629688f19ed4dc34094bdc7c6f1aa2ff, type: 2}
+  uiOffset: {x: 0, y: 3.2, z: 0}

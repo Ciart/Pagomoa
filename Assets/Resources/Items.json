@@ -5,14 +5,16 @@
       "id": "Copper",
       "name": "구리",
       "description": "가장 흔한 광물이야.",
-      "price": 10
+      "price": 10,
+      "hungerPoint": 20
     },
     {
       "type": 3,
       "id": "Quartz",
       "name": "석영",
       "description": "조금 달콤해.",
-      "price": 20
+      "price": 20,
+      "hungerPoint": 50
     },
     {
       "type": 2,
@@ -43,14 +45,20 @@
       "price": 20
     },
     {
+      "type": 2,
+      "id": "AwfulSnakeBlood",
+      "name": "역겨운 뱀의 피",
+      "description": "아찔한 낸새가 코를 찌른다.",
+      "price": 1000
+    },
+    {
       "type": 1,
       "id": "AbyssLantern",
       "name": "심연의 랜턴",
       "description": "차가운 기운이 감돈다.\n 앞을 조금이나마 밝게 비춰준다.",
       "price": 1000,
       "status": {
-        "speed": 1000,
-        "speedMultiplier": 2
+        "defense": 100
       }
     },
     {
@@ -58,21 +66,20 @@
       "id": "HourGlassOfNight",
       "name": "밤의 모래시계",
       "description": "모래알이 미묘한 빛을 내뿜는다.",
-      "price": 1000
+      "price": 1000,
+      "status": {
+        "speedMultiplier": 2
+      }
     },
     {
       "type": 1,
       "id": "MoleGloves",
       "name": "두더지 장갑",
       "description": "빨간 코가 움찔 거린다.",
-      "price": 1000
-    },
-    {
-      "type": 1,
-      "id": "AwfulSnakeBlood",
-      "name": "역겨운 배의 피",
-      "description": "아찔한 낸새가 코를 찌른다.",
-      "price": 1000
+      "price": 1000,
+      "status": {
+        "attack": 100
+      }
     },
     {
       "type": 4,

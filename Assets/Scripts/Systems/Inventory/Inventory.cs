@@ -1,12 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
-using Unity.VisualScripting;
+using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Ciart.Pagomoa.Systems.Inventory
@@ -26,20 +23,103 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public const int MaxInventorySlots = 36;
         public const int MaxUseItemCount = 64;
         public const int MaxInherentItemCount = 1;
-        
+
         public Action artifactChanged;
+
+        private void OnDataSaveEvent(DataSaveEvent e)
+        {
+            var savaData = new InventorySaveData();
+
+            savaData.quickSlots = new InventorySlotSaveData[MaxQuickSlots];
+            savaData.artifactSlots = new InventorySlotSaveData[MaxArtifactSlots];
+            savaData.inventorySlots = new InventorySlotSaveData[MaxInventorySlots];
+
+            for (var i = 0; i < MaxQuickSlots; i++)
+            {
+                savaData.quickSlots[i] = new InventorySlotSaveData
+                {
+                    id = _quickData[i].GetSlotItemID(),
+                    count = _quickData[i].GetSlotItemCount()
+                };
+            }
+
+            for (var i = 0; i < MaxArtifactSlots; i++)
+            {
+                savaData.artifactSlots[i] = new InventorySlotSaveData
+                {
+                    id = _artifactSlots[i].GetSlotItemID(),
+                    count = _artifactSlots[i].GetSlotItemCount()
+                };
+            }
+
+            for (var i = 0; i < MaxInventorySlots; i++)
+            {
+                savaData.inventorySlots[i] = new InventorySlotSaveData
+                {
+                    id = _inventoryData[i].GetSlotItemID(),
+                    count = _inventoryData[i].GetSlotItemCount()
+                };
+            }
+
+            e.saveData.player.inventory = savaData;
+        }
+
+        private void LoadSaveData(InventorySaveData saveData)
+        {
+            for (var i = 0; i < MaxQuickSlots; i++)
+            {
+                _quickData[i].SetSlotItemID(saveData.quickSlots[i].id);
+                _quickData[i].SetSlotItemCount(saveData.quickSlots[i].count);
+            }
+
+            for (var i = 0; i < MaxArtifactSlots; i++)
+            {
+                _artifactSlots[i].SetSlotItemID(saveData.artifactSlots[i].id);
+                _artifactSlots[i].SetSlotItemCount(saveData.artifactSlots[i].count);
+            }
+
+            for (var i = 0; i < MaxInventorySlots; i++)
+            {
+                _inventoryData[i].SetSlotItemID(saveData.inventorySlots[i].id);
+                _inventoryData[i].SetSlotItemCount(saveData.inventorySlots[i].count);
+            }
+
+            EventManager.Notify(new UpdateInventory());
+            artifactChanged?.Invoke();
+        }
+
+        private void OnDataLoadedEvent(DataLoadedEvent e)
+        {
+            LoadSaveData(e.saveData.player.inventory);
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
+            EventManager.AddListener<AddReward>(AddReward);
+            EventManager.AddListener<AddGold>(ChangeGold);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
+            EventManager.RemoveListener<AddReward>(AddReward);
+            EventManager.RemoveListener<AddGold>(ChangeGold);
+        }
 
         private void Awake()
         {
-            EventManager.AddListener<AddReward>(AddReward);
-            EventManager.AddListener<AddGold>(ChangeGold);
             InitSlots();
         }
 
-        private void Destroy()
+        private void Start()
         {
-            EventManager.RemoveListener<AddReward>(AddReward);
-            EventManager.RemoveListener<AddGold>(ChangeGold);
+            if (SaveSystem.Instance.Data != null)
+            {
+                LoadSaveData(SaveSystem.Instance.Data.player.inventory);
+            }
         }
 
         // 초기 인벤토리 초기화
@@ -181,6 +261,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public void SellItem(ISlot targetSlot)
         {
+            var targetItemID = FindSlot(SlotType.Inventory, targetSlot.GetSlotID()).GetSlotItemID();
+            EventManager.Notify(new ItemSellEvent(targetItemID, 1));
+
             gold += _inventoryData[targetSlot.GetSlotID()].GetSlotItem().price;
             DecreaseItemBySlotID(targetSlot.GetSlotID());
 
@@ -192,7 +275,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             var inventorySlot = _inventoryData[targetSlotID];
             var count = inventorySlot.GetSlotItemCount() - itemCount;
             var slotItemID = inventorySlot.GetSlotItemID();
-            
+
             if (count >= 1)
             {
                 _inventoryData[targetSlotID].SetSlotItemCount(count);
@@ -224,6 +307,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void RemoveItem(ISlot targetSlot)
         {
             var inventorySlot = _inventoryData[targetSlot.GetSlotID()];
+            var slotItemID = inventorySlot.GetSlotItemID();
             inventorySlot.SetSlotItemID("");
             inventorySlot.SetSlotItemCount(0);
 
@@ -242,14 +326,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
 
             EventManager.Notify(new UpdateInventory());
-            EventManager.Notify(new ItemCountChangedEvent(eventItemID, accItemCount));
+            EventManager.Notify(new ItemCountChangedEvent(slotItemID, accItemCount));
         }
 
         public void TransferItem(ISlot sourceSlot, ISlot targetSlot)
         {
             var target = _inventoryData[targetSlot.GetSlotID()];
             var source = _inventoryData[sourceSlot.GetSlotID()];
-            
+
             var itemCount = target.GetSlotItemCount() + source.GetSlotItemCount();
 
             if (itemCount <= MaxUseItemCount)
@@ -264,10 +348,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 target.SetSlotItemCount(MaxUseItemCount);
                 source.SetSlotItemCount(remainCount);
             }
-            
+
             EventManager.Notify(new UpdateInventory());
         }
-        
+
         public void SwapInventorySlot(int dropID, int targetID)
         {
             (_inventoryData[dropID], _inventoryData[targetID]) = (_inventoryData[targetID], _inventoryData[dropID]);
@@ -384,10 +468,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             emptySlot.SetSlotItemID(artifactItemSlot.GetSlotItemID());
             artifactItemSlot.SetSlotItemID("");
             artifactItemSlot.SetSlotItemCount(0);
-                
+
             EventManager.Notify(new UpdateInventory());
             artifactChanged?.Invoke();
-            
+
             // 메뉴 등록
         }
 
@@ -402,10 +486,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID(draggedSlot.GetSlotItemID());
             draggedSlot.SetSlotItemID("");
             draggedSlot.SetSlotItemCount(0);
-            
+
             EventManager.Notify(new UpdateInventory());
             artifactChanged?.Invoke();
-            
+
             // 드래그 드롭 등록
         }
 
@@ -413,12 +497,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
             var artifactItemSlot = _artifactSlots[targetSlot.GetSlotID()];
-            
+
             emptySlot.SetSlotItemID(artifactItemSlot.GetSlotItemID());
             emptySlot.SetSlotItemCount(MaxInherentItemCount);
-            
+
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
-            
+
             EventManager.Notify(new UpdateInventory());
             artifactChanged?.Invoke();
         }
@@ -514,24 +598,3 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
     }
 }
-/*
- *
-             아이템 있는지 확인
-             if 아이템 있음 itemtype
-                if 더했을때 Max 수치 보다 작으면
-                    그냥 더함 
-                else if 더했을때 Max 수치 보다 크면
-                    1. 아이템 있는 슬롯 Max 까지 채우기
-                    2. 남은 아이템들 (int)(itemCount / Max) 만큼 빈 슬롯 찾기 Max할당
-                    3. (itemCount % Max)가 있다면 빈 슬롯 찾고 나머지 할당
-                if 퀵슬롯 찾아서 refID있으면 
-                    1. refID 추가 & 수량 조정 
-             if 아이템 없음 itemtype
-                if 더했을때 Max 수치 보다 작으면
-                    빈 슬롯 찾고 아이템 할당, 아이템 수량 체크
-                else if 더했을때 Max 수치 보다 크면
-                    1. 남은 아이템들 (int)(itemCount / Max) 만큼 빈 슬롯 찾기 Max할당
-                    2. (itemCount % Max)가 있다면 빈 슬롯 찾고 나머지 할당
-                if 퀵슬롯 찾아서 refID있으면 
-                    1. refID 추가 & 수량 조정 
- */
