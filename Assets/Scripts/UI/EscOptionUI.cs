@@ -21,14 +21,11 @@ namespace Ciart.Pagomoa
 
         public void GoToMenu()
         {
-            SaveSystem.Instance.Save();
             SceneManager.LoadScene("Scenes/NewTitleScene");
         }
 
         public void Quit()
         {
-            SaveSystem.Instance.Save();
-            
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
