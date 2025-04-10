@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa
         public QuickUI quickUIPrefab;
         public GameObject dialogueUIPrefab;
         public DaySummaryUI daySummaryUIPrefab;
-        public GameObject escUI;
+        public EscOptionUI escUI;
         public FadeUI fadeUIPrefab;
         public CinemachineVirtualCamera inventoryCamera;
         
@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa
         public GameObject interactableUI;
         public GameObject questCompleteUI;
         
-        [Header("For Run Tine Can be None")] 
+        [Header("For Run Time Can be None")] 
         public DialogueUI? dialogueUI;
     }
 }

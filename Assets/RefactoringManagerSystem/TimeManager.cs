@@ -91,6 +91,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public override void Update()
         {
+            if (DataBase.data.GetCutSceneController() == null) return; 
             if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;
             if (IsPause == true) return;
             if (tick >= MaxTick) return;

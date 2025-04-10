@@ -67,6 +67,7 @@ namespace Ciart.Pagomoa.Entities.Players
             var playerInput = player.GetComponent<PlayerInput>();
 
             playerInput.Actions.Inventory.performed += context => { Actable = !Actable; StopAct(); };
+            playerInput.Actions.Menu.performed += context => { Actable = true;};
         }
 
         private void StopAct()

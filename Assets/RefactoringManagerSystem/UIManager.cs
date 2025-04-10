@@ -25,6 +25,7 @@ namespace Ciart.Pagomoa.Systems
         public ShopUI shopUI {get; private set;}
         public QuickUI quickUI {get; private set;}
         public FadeUI fadeUI {get; private set;}
+        public EscOptionUI escOptionUI {get; private set;}
         
         public UIContainer GetUIContainer() { return _uiContainer; }
         
@@ -51,6 +52,7 @@ namespace Ciart.Pagomoa.Systems
             _daySummaryUI.gameObject.SetActive(false);
 
             fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
+            escOptionUI = Object.Instantiate(_uiContainer.escUI, _uiContainer.transform);
         }
 
         public override void Start()
@@ -69,7 +71,6 @@ namespace Ciart.Pagomoa.Systems
 
             _playerInput = player.GetComponent<PlayerInput>();
             _playerInput.Actions.Menu.performed += context => { ToggleEscUI(); };
-            _playerInput.Actions.Menu.performed += context => { ToggleEscDialogueUI(); };
             _playerInput.Actions.Inventory.performed += context => { ToggleInventoryUI(); };
             
             UpdateGoldUI();
@@ -85,9 +86,45 @@ namespace Ciart.Pagomoa.Systems
         
         private void ToggleEscUI()
         {
-            bookUI.DeActiveBook();
-            shopUI.DeActiveShop();
-            _dialogueUI.SetActive(false);
+            // 1. 일일 요약 창이 켜져 있으면 ESC 입력 무시
+            if (_daySummaryUI.gameObject.activeSelf)
+                return;
+
+            bool wasAnyUIClosed = false;
+
+            if (bookUI.gameObject.activeSelf)
+            {
+                bookUI.DeActiveBook();
+                _isActiveInventory = false;
+                wasAnyUIClosed = true;
+            }
+
+            if (shopUI.gameObject.activeSelf)
+            {
+                shopUI.DeActiveShop();
+                Game.Instance.Time.ResumeTime();
+                Game.Instance.Time.ResumeTime();
+                wasAnyUIClosed = true;
+            }
+            
+            if (_dialogueUI.activeSelf)
+            {
+                _dialogueUI.SetActive(false);
+                Game.Instance.Time.ResumeTime();
+                Game.Instance.Dialogue.StopStory();
+                wasAnyUIClosed = true;
+            }
+
+            if (!wasAnyUIClosed)
+            {
+                bool isActive = escOptionUI.gameObject.activeSelf;
+                escOptionUI.gameObject.SetActive(!isActive);
+
+                if (!isActive)
+                    Game.Instance.Time.PauseTime();
+                else
+                    Game.Instance.Time.ResumeTime();
+            }
         }
 
         private void ToggleInventoryUI()
@@ -101,24 +138,6 @@ namespace Ciart.Pagomoa.Systems
             
             _isActiveInventory = !_isActiveInventory;
             bookUI.gameObject.SetActive(_isActiveInventory);
-            
-            // if (_isActiveInventory)
-            // {
-            //     inventoryCamera.Priority = 11;
-            // }
-            // else
-            // {
-            //     inventoryCamera.Priority = 9;
-            //
-            //     // if (InventoryUIManager.Instance.ItemHoverObject.activeSelf == true)
-            //     //     InventoryUIManager.Instance.ItemHoverObject.SetActive(false);
-            //
-            //     if (Inventory.Inventory.Instance.hoverSlot == null)
-            //         return;
-            //
-            //     Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().boostImage.sprite =
-            //         Inventory.Inventory.Instance.hoverSlot.GetComponent<Hover>().hoverImage[1];
-            // }
         }
 
         public void ShowDaySummaryUI()
@@ -140,11 +159,6 @@ namespace Ciart.Pagomoa.Systems
             minimapUI.gameObject.SetActive(true);
             StatusUI.gameObject.SetActive(true);
             quickUI.gameObject.SetActive(true);
-        }
-        
-        private void ToggleEscDialogueUI()
-        {
-            _dialogueUI.SetActive(false);
         }
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
