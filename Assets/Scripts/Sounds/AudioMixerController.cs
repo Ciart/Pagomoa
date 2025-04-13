@@ -11,19 +11,20 @@ namespace Ciart.Pagomoa.Sounds
         public Slider masterSlider;
         public Slider musicSlider;
         public Slider sfxSlider;
-        public Slider teamSlider;
+        public Slider playerSlider;
         public Slider monsterSlider;
         public Slider uiSlider;
-        
-        private void Start()
+
+        public void AddSliderFunction()
         {
             masterSlider.onValueChanged.AddListener(SetMasterVolume);
             musicSlider.onValueChanged.AddListener(SetMusicVolume);
             sfxSlider.onValueChanged.AddListener(SetSfxVolume);
-            teamSlider.onValueChanged.AddListener(SetTeamVolume);
+            playerSlider.onValueChanged.AddListener(SetTeamVolume);
             monsterSlider.onValueChanged.AddListener(SetMonsterVolume);
             uiSlider.onValueChanged.AddListener(SetUIVolume);
         }
+        
         private void SetMasterVolume(float volume)
         {
             audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);

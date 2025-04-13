@@ -4114,7 +4114,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 833010026}
         m_TargetAssemblyTypeName: Ciart.Pagomoa.Change, Assembly-CSharp
-        m_MethodName: UIOn
+        m_MethodName: UIToggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
