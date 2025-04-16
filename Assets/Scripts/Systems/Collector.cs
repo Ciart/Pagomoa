@@ -1,3 +1,4 @@
+using System;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
@@ -7,17 +8,24 @@ namespace Ciart.Pagomoa.Systems
 {
     public class Collector : MonoBehaviour
     {
-        public UnityEvent OnCollectEvent;
-        private void Awake()
+        private bool TryAddItemInInventory(string itemId)
         {
-            if (OnCollectEvent == null)
-                OnCollectEvent = new UnityEvent();
-        }
-    
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            var game = Game.Instance;
+            var inventory = Game.Instance.player?.inventory;
+
+            if (inventory == null) return false;
             
+            inventory.AddInventory(itemId);
+
+            if (itemId == "PowerGemEarth")
+            {
+                Game.Instance.hasPowerGemEarth = true;
+            }
+
+            return true;
+        }
+
+        private void CollectItem(Collider2D other)
+        {
             if (!other.CompareTag("ItemEntityTrigger"))
             {
                 return;
@@ -26,19 +34,20 @@ namespace Ciart.Pagomoa.Systems
             var itemEntity = other.transform.parent.GetComponent<ItemEntity>();
             var item = itemEntity.Item;
 
-            if (item is null)
+            if (TryAddItemInInventory(item.id))
             {
-                return;
+                Destroy(itemEntity.gameObject);
             }
+        }
 
-            OnCollectEvent.Invoke();
-            game.player.inventory.AddInventory(item.id);
-            Destroy(itemEntity.gameObject);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            CollectItem(other);
+        }
 
-            if (item.name == "PowerGemEarth")
-            {
-                game.hasPowerGemEarth = true;
-            }
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            CollectItem(other);
         }
     }
 }
