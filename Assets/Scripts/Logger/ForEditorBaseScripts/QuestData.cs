@@ -11,6 +11,7 @@ namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
     public class QuestData : ScriptableObject
     {
         public string id = "";
+        public string? owner;
         public List<string> prevQuestIds = new();
         public string title = "";
         [TextArea] public string description = "";

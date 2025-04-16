@@ -138,7 +138,10 @@ namespace Ciart.Pagomoa.Systems
                 foreach (var quest in questData)
                 {
                     if (quest.id == match.id)
+                    {
                         matchQuests[match.owner].Add(quest);
+                        quest.owner = match.owner;
+                    }
                 }
             }
         }
