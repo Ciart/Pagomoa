@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Timelines
         public void IncreaseMiniChatIndex() { index++; }
         
         public void ClearActors() {
-            for (var i = actors.Count - 1; i > 0; i--)
+            for (var i = actors.Count - 1; i >= 0; i--)
             {
                 Destroy(actors[i].gameObject);
                 actors.RemoveAt(i);

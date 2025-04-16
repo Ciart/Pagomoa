@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             RegisterCommands();
             
-            _dialogueUI = UIManager.instance.GetUIContainer().dialogueUI;
+            _dialogueUI = Game.Instance.UI.GetUIContainer().dialogueUI;
             if (_dialogueUI == null)
             {
                 Debug.LogWarning("DialogueManager::StartStory(): Could not find UI container");
@@ -66,8 +66,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             var player = e.player;
             var playerInput = player.GetComponent<PlayerInput>();
-
-            playerInput.Actions.Menu.performed += context => { StopStory(); };
+            
+            
         }
 
         public void StartStory(TextAsset asset)
@@ -80,7 +80,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             nowEntityDialogue = dialogue;
             story = new Story(asset.text);
             if (onCreateStory != null) onCreateStory(story);
-                
+            
+            Game.Instance.UI.bookUI.DeActiveBook();
             _dialogueUI.gameObject.SetActive(true);
             EventManager.Notify(new StoryStarted());
             Game.Instance.Time.PauseTime();
@@ -90,7 +91,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             story = null;
             _dialogueUI.gameObject.SetActive(false);
-            Game.Instance.Time.ResumeTime();
         }
 
         public void StartDailyChat()
