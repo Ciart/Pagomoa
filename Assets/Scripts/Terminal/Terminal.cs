@@ -1,4 +1,5 @@
 using System.Text;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -66,6 +67,7 @@ namespace Ciart.Pagomoa.Terminal
         GUIStyle input_style;
         Texture2D background_texture;
         Texture2D input_background_texture;
+        bool prevent_is_closed;
 
         public static CommandLog Buffer { get; private set; }
         public static CommandShell Shell { get; private set; }
@@ -181,6 +183,20 @@ namespace Ciart.Pagomoa.Terminal
             if (ShowGUIButtons) {
                 DrawGUIButtons();
             }
+
+            if (prevent_is_closed != IsClosed)
+            {
+                if (IsClosed)
+                {
+                    Game.Instance.Time.ResumeTime();
+                }
+                else
+                {
+                    Game.Instance.Time.PauseTime();
+                }
+            }
+            
+            prevent_is_closed = IsClosed;
 
             if (IsClosed) {
                 return;
