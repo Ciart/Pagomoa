@@ -24,11 +24,11 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public string title { get; private set; }
         public Reward reward { get; private set; }
         public readonly List<IQuestElements> conditions;
-        public Sprite npcSprite { get; private set; }
+        public Sprite? npcSprite { get; private set; }
         public QuestState state;
         public float progress;
 
-        public Quest(QuestData questData, Sprite npcSprite)
+        public Quest(QuestData questData)
         {
             id = questData.id;
             description = questData.description;
@@ -36,7 +36,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             reward = questData.reward;
             conditions = new List<IQuestElements>();
             state = QuestState.InProgress;
-            this.npcSprite = npcSprite;
+            if (questData.owner != null) npcSprite = ResourceSystem.instance.GetEntity(questData.owner).portrait;
 
             foreach (var condition in questData.questList)
             {

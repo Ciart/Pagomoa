@@ -56,8 +56,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
             foreach (var questData in e.saveData.quests)
             {
-                // TODO: NPC Sprite 방식의 변경이 필요함
-                var quest = new Quest(ResourceSystem.instance.GetQuest(questData.id), null);
+                var quest = new Quest(ResourceSystem.instance.GetQuest(questData.id));
                 quest.state = questData.state;
 
                 for (var i = 0; i < questData.conditions.Length; i++)
@@ -69,7 +68,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             }
         }
 
-        public void RegistrationQuest(Sprite npcSprite, string entityId, string questId)
+        public void RegistrationQuest(string entityId, string questId)
         {
             var targetQuests = ResourceSystem.instance.GetQuests(entityId);
 
@@ -77,12 +76,12 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             {
                 if (quest.id != questId) continue;
 
-                var progressQuest = new Quest(quest, npcSprite);
+                var progressQuest = new Quest(quest);
 
                 quests.Add(progressQuest);
 
                 EventManager.Notify(new QuestStarted(progressQuest));
-                EventManager.Notify(new AddNpcImageEvent(npcSprite));
+                // EventManager.Notify(new AddNpcImageEvent(npcSprite));
                 EventManager.Notify(new MakeQuestListEvent());
             }
 
