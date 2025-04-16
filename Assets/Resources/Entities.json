@@ -86,11 +86,19 @@
       "baseHealth": 200
     },
     {
+      "id": "BrokenTent",
+      "name": "부서진 텐트",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": true,
+      "baseHealth": 100
+    },
+    {
       "id": "Tent",
       "name": "텐트",
       "description": "",
       "isEnemy": false,
-      "isInvincible": false,
+      "isInvincible": true,
       "baseHealth": 100
     },
     {

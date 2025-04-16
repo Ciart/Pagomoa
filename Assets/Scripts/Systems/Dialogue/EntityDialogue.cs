@@ -56,7 +56,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             var entityId = _entityController.entityId;
             
-            Game.Instance.Quest.RegistrationQuest(portrait, entityId, id);
+            Game.Instance.Quest.RegistrationQuest(entityId, id);
         }
 
         public void QuestComplete(string id)

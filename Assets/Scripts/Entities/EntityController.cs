@@ -198,7 +198,7 @@ namespace Ciart.Pagomoa.Entities
         {
             if(isDead) return;
 
-            Game.Instance.Particle.Make(0, gameObject, Vector2.zero, 0.5f);
+            Game.Instance.Particle.Make(0, gameObject, transform.position + Vector3.up * 0.5f, 0.5f);
 
             _rigidbody.AddForce(force * direction.normalized, ForceMode2D.Impulse);
         }
