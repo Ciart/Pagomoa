@@ -87,6 +87,11 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             }
 
             EventManager.Notify(new QuestListUpdated(quests));
+
+            if (Game.Instance.Time.IsTutorialDay)
+            {
+                SaveSystem.Instance.Save();
+            }
         }
 
         public void CompleteQuest(string id)

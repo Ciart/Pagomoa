@@ -4,6 +4,7 @@ using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
+using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,10 +16,12 @@ namespace Ciart.Pagomoa.Entities.Players
     public partial class PlayerController : EntityController
     {
         #region Status
+
         public event Action oxygenChanged;
         public event Action hungerChanged;
 
         private float _oxygen;
+
         public float Oxygen
         {
             get => _oxygen;
@@ -30,6 +33,7 @@ namespace Ciart.Pagomoa.Entities.Players
         }
 
         private float _maxOxygen;
+
         public float MaxOxygen
         {
             get => _maxOxygen;
@@ -40,28 +44,31 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
-        private float hunger;
+        private float _hunger;
+
         public float Hunger
         {
-            get => hunger;
+            get => _hunger;
             set
             {
-                hunger = value >= MaxHunger ? MaxHunger : value;
-                if (hunger <= 0.0f) hunger = 0.0f;
+                _hunger = value >= MaxHunger ? MaxHunger : value;
+                if (_hunger <= 0.0f) _hunger = 0.0f;
                 hungerChanged?.Invoke();
             }
         }
 
-        private float maxHunger;
+        private float _maxHunger;
+
         public float MaxHunger
         {
-            get => maxHunger;
+            get => _maxHunger;
             set
             {
-                maxHunger = value;
+                _maxHunger = value;
                 hungerChanged?.Invoke();
             }
         }
+
         #endregion
 
         public PlayerState state = PlayerState.Idle;
@@ -355,6 +362,12 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             e.AutoDespawn = false;
 
+            if (Game.Instance.Time.IsTutorialDay)
+            {
+                SaveSystem.Instance.Load();
+                return;
+            }
+
             LoseMoney(0.1f);
             LoseItem(ItemType.Mineral, 0.5f);
 
@@ -372,16 +385,57 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
+        private void OnDataSaveEvent(DataSaveEvent e)
+        {
+            var savaData = new PlayerSaveData()
+            {
+                x = transform.position.x,
+                y = transform.position.y,
+                health = Health,
+                oxygen = Oxygen,
+                hunger = Hunger,
+                inventory = inventory.CreateSaveData()
+            };
+
+            e.saveData.player = savaData;
+        }
+
+        private void LoadSaveData(PlayerSaveData saveData)
+        {
+            transform.position = new Vector3(saveData.x, saveData.y, 0);
+            Health = saveData.health;
+            Oxygen = saveData.oxygen;
+            Hunger = saveData.hunger;
+            inventory.ApplySaveData(saveData.inventory);
+        }
+
+        private void OnDataLoadedEvent(DataLoadedEvent e)
+        {
+            LoadSaveData(e.saveData.player);
+        }
+
+        private void Start()
+        {
+            if (SaveSystem.Instance.Data != null)
+            {
+                LoadSaveData(SaveSystem.Instance.Data.player);
+            }
+        }
+
         private void OnEnable()
         {
             died += OnDied;
             Game.Instance.Time.tickUpdated += OnTickUpdated;
+            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
         }
 
         private void OnDisable()
         {
             died -= OnDied;
             Game.Instance.Time.tickUpdated -= OnTickUpdated;
+            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
+            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
         }
     }
 }
