@@ -67,7 +67,7 @@ namespace Ciart.Pagomoa.Terminal
         GUIStyle input_style;
         Texture2D background_texture;
         Texture2D input_background_texture;
-        bool prevent_is_closed;
+        bool was_closed;
 
         public static CommandLog Buffer { get; private set; }
         public static CommandShell Shell { get; private set; }
@@ -184,7 +184,7 @@ namespace Ciart.Pagomoa.Terminal
                 DrawGUIButtons();
             }
 
-            if (prevent_is_closed != IsClosed)
+            if (was_closed != IsClosed)
             {
                 if (IsClosed)
                 {
@@ -196,7 +196,7 @@ namespace Ciart.Pagomoa.Terminal
                 }
             }
             
-            prevent_is_closed = IsClosed;
+            was_closed = IsClosed;
 
             if (IsClosed) {
                 return;
