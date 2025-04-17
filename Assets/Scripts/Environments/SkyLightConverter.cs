@@ -97,10 +97,20 @@ namespace Ciart.Pagomoa.Environments
             else if (skyLight.floorChangeEndTime < time)
                 light2D.intensity = skyLight.floorIntensityEnd;
             else
-                light2D.intensity = skyLight.floorIntensityStart +
+            {
+                var intensity = skyLight.floorIntensityStart +
                                   (skyLight.floorIntensityEnd - skyLight.floorIntensityStart) *
                                   (time - skyLight.floorChangeStartTime) /
                                   (skyLight.floorChangeEndTime - skyLight.floorChangeStartTime);
+
+                if (float.IsNaN(intensity))
+                {
+                    light2D.intensity = 1;
+                    return;
+                }
+
+                light2D.intensity = intensity;
+            }
         }
     }
 }

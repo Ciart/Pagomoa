@@ -1,12 +1,12 @@
-﻿using Ciart.Pagomoa.Systems.Time;
-
-namespace Ciart.Pagomoa.Systems.Dialogue.Commands
+﻿namespace Ciart.Pagomoa.Systems.Dialogue.Commands
 {
     public class SleepDialogueCommand : IDialogueCommand
     {
         public void Execute()
         {
-            TimeManager.instance.SkipToNextDay();
+            Game.Instance.player?.Respawn();
+            Game.Instance.UI.ShowDaySummaryUI();
+            Game.Instance.Dialogue.StopStory();
         }
     }
 }

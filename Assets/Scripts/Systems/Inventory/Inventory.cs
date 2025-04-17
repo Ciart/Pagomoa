@@ -26,7 +26,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         public Action artifactChanged;
 
-        private void OnDataSaveEvent(DataSaveEvent e)
+        public InventorySaveData CreateSaveData()
         {
             var savaData = new InventorySaveData();
 
@@ -61,10 +61,10 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 };
             }
 
-            e.saveData.player.inventory = savaData;
+            return savaData;
         }
 
-        private void LoadSaveData(InventorySaveData saveData)
+        public void ApplySaveData(InventorySaveData saveData)
         {
             for (var i = 0; i < MaxQuickSlots; i++)
             {
@@ -88,23 +88,14 @@ namespace Ciart.Pagomoa.Systems.Inventory
             artifactChanged?.Invoke();
         }
 
-        private void OnDataLoadedEvent(DataLoadedEvent e)
-        {
-            LoadSaveData(e.saveData.player.inventory);
-        }
-
         private void OnEnable()
         {
-            EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
-            EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
             EventManager.AddListener<AddReward>(AddReward);
             EventManager.AddListener<AddGold>(ChangeGold);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
-            EventManager.RemoveListener<DataLoadedEvent>(OnDataLoadedEvent);
             EventManager.RemoveListener<AddReward>(AddReward);
             EventManager.RemoveListener<AddGold>(ChangeGold);
         }
@@ -112,14 +103,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void Awake()
         {
             InitSlots();
-        }
-
-        private void Start()
-        {
-            if (SaveSystem.Instance.Data != null)
-            {
-                LoadSaveData(SaveSystem.Instance.Data.player.inventory);
-            }
         }
 
         // 초기 인벤토리 초기화
