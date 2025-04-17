@@ -1,4 +1,5 @@
 ﻿using System;
+using Ciart.Pagomoa.Systems.Dialogue;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -38,10 +39,17 @@ namespace Ciart.Pagomoa.Entities
         [FormerlySerializedAs("hungry")] public float hunger;
 
         public EntityController? prefab;
+
+        public Sprite? portrait;
         
         private void LoadResources()
         {
             prefab = Resources.Load<EntityController>($"Entities/{id}");
+
+            if (prefab != null)
+            {
+                portrait = prefab.GetComponent<EntityDialogue>()?.portrait;
+            }
         }
 
         public void Init()
