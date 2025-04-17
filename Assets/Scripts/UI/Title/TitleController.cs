@@ -23,6 +23,7 @@ namespace Ciart.Pagomoa.UI.Title
         private void Start()
         {
             DataManager.Instance.LoadGameData();
+            SceneManager.activeSceneChanged += QuitToTitle;
         }
 
         public void StartGame(bool isContinue)
@@ -104,6 +105,12 @@ namespace Ciart.Pagomoa.UI.Title
             if (intro.isPlayed) intro.gameObject.SetActive(false);
 
             SceneManager.LoadScene("Scenes/WorldScene");
+        }
+
+        private void QuitToTitle(Scene scene, Scene title)
+        {
+            Debug.Log(intro.isPlayed);
+            Debug.Log(backGrounds[0].stopScroll);
         }
     }
 }
