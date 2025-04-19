@@ -516,6 +516,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: _audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
+    - target: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: musicSlider
       value: 
       objectReference: {fileID: 0}
@@ -526,6 +530,10 @@ PrefabInstance:
     - target: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: monsterSlider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975801253785826963, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+      propertyPath: m_Name
+      value: PlayerEffect
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1452918760258971659, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
@@ -834,7 +842,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.1875
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
