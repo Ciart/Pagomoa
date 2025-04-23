@@ -10,6 +10,11 @@ namespace Ciart.Pagomoa.Worlds
 
         private List<LevelRenderer> _levelRenderers = new();
 
+        public LevelRenderer GetLevelRenderer(Level level)
+        {
+            return _levelRenderers.Find(renderer => renderer.level == level);
+        }
+
         private void OnWorldCreated(WorldCreatedEvent e)
         {
             foreach (var levelRenderer in _levelRenderers)

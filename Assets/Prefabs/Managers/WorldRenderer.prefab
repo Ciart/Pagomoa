@@ -989,7 +989,7 @@ GameObject:
   - component: {fileID: 6632102197688724806}
   - component: {fileID: 3669576954988456613}
   m_Layer: 0
-  m_Name: WorldManager
+  m_Name: WorldRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2731,7 +2731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2692469588520254377
 Transform:
   m_ObjectHideFlags: 0

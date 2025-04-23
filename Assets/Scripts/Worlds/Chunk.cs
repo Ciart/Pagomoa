@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -86,6 +88,17 @@ namespace Ciart.Pagomoa.Worlds
         private bool CheckRange(float x, float y)
         {
             return 0 <= x && x < Size && 0 <= y && y < Size;
+        }
+
+        public IEnumerable<(int x, int y, int index)> GetBrickPositionsAndIndices()
+        {
+            for (var x = 0; x < Size; x++)
+            {
+                for (var y = 0; y < Size; y++)
+                {
+                    yield return (x, y, x + y * Size);
+                }
+            }
         }
     }
 }
