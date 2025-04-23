@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;

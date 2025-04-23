@@ -8,15 +8,7 @@ namespace Ciart.Pagomoa.Sounds
         [SerializeField] private MusicBundle[] musicBundleDB;
         [SerializeField] private SfxBundle[] sfxBundleDB;
         
-        
-        public MusicBundle[] MusicBundleDB
-        {
-            get { return musicBundleDB; }
-        }
-        
-        public SfxBundle[] SfxBundleDB
-        {
-            get { return sfxBundleDB; }
-        }
+        public MusicBundle[] MusicBundleDB => musicBundleDB;
+        public SfxBundle[] SfxBundleDB => sfxBundleDB;
     }
 }

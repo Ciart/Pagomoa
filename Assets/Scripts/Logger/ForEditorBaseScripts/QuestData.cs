@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Logger.ForEditorBaseScripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa.Logger.ForEditorBaseScripts
 {

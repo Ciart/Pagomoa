@@ -8,8 +8,6 @@ namespace Ciart.Pagomoa
 {
     public class OptionMenu : MonoBehaviour
     {
-        [SerializeField] private TMP_Dropdown dropdown;
-        public OptionData optionData; 
         public Button _confirmButton;
         public Button _cancleButton;
         
@@ -23,73 +21,60 @@ namespace Ciart.Pagomoa
         
         private void Awake()
         {
-            AudioMixerController controller = AudioMixerController.Instance;
-            Debug.Log(controller.gameObject);
-            controller.masterSlider = _masterSlider;
-            controller.musicSlider = _musicSlider;
-            controller.sfxSlider = _sfxSlider;
-            controller.playerSlider = _playerSlider;
-            controller.monsterSlider = _monsterSlider;
-            controller.uiSlider = _uiSlider;
-            
-            optionData.masterMixerValue = controller.masterSlider.value;
-            optionData.musicMixerValue = controller.musicSlider.value;
-            optionData.sfxMixerValue = controller.sfxSlider.value;
-            optionData.teamMixerValue = controller.playerSlider.value;
-            optionData.monsterMixerValue = controller.monsterSlider.value;
-            optionData.uiMixerValue = controller.uiSlider.value;
-            
-            MakeDropDownMenu();
-            controller.AddSliderFunction();
-            
-            dropdown.onValueChanged.AddListener(delegate{SetDropDown(dropdown.value + 1);});
+            MatchUIFunction();
             _confirmButton.onClick.AddListener(ConfirmOption);
             _cancleButton.onClick.AddListener(CancelOption);
-        }
-        
-        private void MakeDropDownMenu()
-        {
-            dropdown.ClearOptions();
-            for (var i = 0; i < 8; i++)
-            {
-                dropdown.options.Add(new TMP_Dropdown.OptionData($"{i + 1}"));
-            }
-        }
-        
-        private void SetDropDown(int i)
-        {
-            //uiCanvas.scaleFactor = i;
+            
+            AudioMixerController controller = AudioMixerController.Instance;
+            controller.InitAudioMixer();
+            OptionData data = controller.GetOptionData();
+            _masterSlider.value = data.masterMixerValue;
+            _musicSlider.value = data.musicMixerValue;
+            _sfxSlider.value = data.sfxMixerValue;
+            _playerSlider.value = data.playerMixerValue;
+            _monsterSlider.value = data.monsterMixerValue;
+            _uiSlider.value = data.uiMixerValue;
         }
         
         public void CancelOption()
         {
-            AudioMixerController controller = AudioMixerController.instance; 
-            
-            controller.masterSlider.value = optionData.masterMixerValue;
-            controller.musicSlider.value = optionData.musicMixerValue;
-            controller.sfxSlider.value = optionData.sfxMixerValue;
-            controller.playerSlider.value = optionData.teamMixerValue;
-            controller.monsterSlider.value = optionData.monsterMixerValue;
-            controller.uiSlider.value = optionData.uiMixerValue;
-            dropdown.value = (int)optionData.uiScale - 1;
+            AudioMixerController controller = AudioMixerController.Instance;
+            OptionData prevData = controller.GetOptionData();
+            _masterSlider.value = prevData.masterMixerValue;
+            _musicSlider.value = prevData.musicMixerValue;
+            _sfxSlider.value = prevData.sfxMixerValue;
+            _playerSlider.value = prevData.playerMixerValue;
+            _monsterSlider.value = prevData.monsterMixerValue;
+            _uiSlider.value = prevData.uiMixerValue;
         }
         
         public void ConfirmOption()
         {
-            AudioMixerController controller = AudioMixerController.instance; 
-            
-            optionData.masterMixerValue = controller.masterSlider.value;
-            optionData.musicMixerValue = controller.musicSlider.value;
-            optionData.sfxMixerValue = controller.sfxSlider.value;
-            optionData.teamMixerValue = controller.playerSlider.value;
-            optionData.monsterMixerValue = controller.monsterSlider.value;
-            optionData.uiMixerValue = controller.uiSlider.value;
+            AudioMixerController controller = AudioMixerController.Instance;
+
+            OptionData changerData = new OptionData()
+            {
+                masterMixerValue = _masterSlider.value,
+                musicMixerValue = _musicSlider.value,
+                sfxMixerValue = _sfxSlider.value,
+                playerMixerValue = _playerSlider.value,
+                monsterMixerValue = _monsterSlider.value,
+                uiMixerValue = _uiSlider.value,
+            };
+            controller.SetOptionData(changerData);
         }
         
-        public void UIToggle()
+        public void UIToggle() { gameObject.SetActive(!gameObject.activeSelf); }
+
+        private void MatchUIFunction()
         {
-            Debug.Log("눌림");
-            gameObject.SetActive(!gameObject.activeSelf);
+            AudioMixerController controller = AudioMixerController.Instance;
+            _masterSlider.onValueChanged.AddListener(controller.SetMasterVolume);
+            _musicSlider.onValueChanged.AddListener(controller.SetMusicVolume);
+            _sfxSlider.onValueChanged.AddListener(controller.SetSfxVolume);
+            _playerSlider.onValueChanged.AddListener(controller.SetPlayerVolume);
+            _monsterSlider.onValueChanged.AddListener(controller.SetMonsterVolume);
+            _uiSlider.onValueChanged.AddListener(controller.SetUIVolume);
         }
     }
 }

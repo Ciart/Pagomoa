@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa
         
         public GameObject outButtonGroup;
         public GameObject inButtonGroup;
-        public Button outButtonPrefab;
+        public OutModeButton outButtonPrefab;
         public Button inButtonPrefab;
         
         public Image talkImage;
@@ -125,22 +125,29 @@ namespace Ciart.Pagomoa
             RefreshView();
         }
         
+        private void SetBtnSizeAfterContentSizeFitter()
+        { 
+            if (!story) return; // 상점과 같은 버튼이 없는 대화 출력시 버튼 에러 방지
+            var buttonCount = story.currentChoices.Count;
+            
+            if (buttonCount == 0) buttonCount = 1; // 마지막 선택 시 때문에 설정
+            outButtonGroup.TryGetComponent<RectTransform>(out var rect);
+            var buttonSize = outButtonPrefab.rectTransform.sizeDelta;
+            rect.anchoredPosition = new Vector2(0f, (buttonSize.y + 4)  * buttonCount);
+        }
+        
         private void CreateContentView(string text) { talkText.text = text; }
         
         private Button CreateChoiceView(string text)
         {
-            var choice = Instantiate(uiMode == UISelectMode.Out ? outButtonPrefab : inButtonPrefab);
-
-            TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
-            foreach (var chosenText in choiceText)
+            var choice = Instantiate(outButtonPrefab , outButtonGroup.transform, false);
+            foreach (var chosenText in choice.GetChoiceTexts())
                 chosenText.text = text;
-            choice.transform.SetParent(uiMode == UISelectMode.Out ? outButtonGroup.transform : inButtonGroup.transform, false);
-
-            var layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-            layoutGroup.childForceExpandHeight = false;
-
-
-            return choice;
+                
+            choice.ReSizeToFitChildren();
+            SetBtnSizeAfterContentSizeFitter();
+                
+            return choice.GetDialogueButton();
         }
         
         private void RemoveChildren(GameObject vas)
