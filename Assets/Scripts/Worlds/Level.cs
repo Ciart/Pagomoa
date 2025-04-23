@@ -79,12 +79,12 @@ namespace Ciart.Pagomoa.Worlds
             };
         }
 
-        public Chunk GetChunk(ChunkCoords coords)
+        public Chunk? GetChunk(ChunkCoords coords)
         {
             return _chunks.TryGetValue(coords, out var chunk) ? chunk : null;
         }
 
-        public Chunk GetChunk(int x, int y)
+        public Chunk? GetChunk(int x, int y)
         {
             var key = new ChunkCoords(Mathf.FloorToInt((float)x / Chunk.Size), Mathf.FloorToInt((float)y / Chunk.Size));
 

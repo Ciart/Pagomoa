@@ -9,7 +9,7 @@ namespace Ciart.Pagomoa.Events
         private Dictionary<Type, HashSet<Delegate>> _listeners = new();
 
         /// <summary>
-        /// 이벤트를 발생시킵니다.ZF
+        /// 이벤트를 발생시킵니다.
         /// </summary>
         /// <param name="args">전달할 데이터</param>
         /// <typeparam name="T">이벤트 타입</typeparam>

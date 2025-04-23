@@ -989,7 +989,7 @@ GameObject:
   - component: {fileID: 6632102197688724806}
   - component: {fileID: 3669576954988456613}
   m_Layer: 0
-  m_Name: WorldManager
+  m_Name: WorldRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,6 +14,16 @@
       "dependencies": {},
       "url": "https://npm.pkg.jetbrains.space/public/p/jetbrains-gamedev/jetbrains-gamedev"
     },
+    "com.singularitygroup.hotreload": {
+      "version": "git+https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.6",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "hash": "0e333aeaffb090aef921a6cf64fae8c8f37f728a"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 1,

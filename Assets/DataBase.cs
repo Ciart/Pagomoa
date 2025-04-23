@@ -11,6 +11,7 @@ namespace Ciart.Pagomoa
     public interface IDataBase
     {
         public WorldDatabase GetWorldData();
+        public WorldRenderer GetWorldRenderer();
         public ItemEntity GetItemEntity();
         public List<GameObject> GetParticles();
         public AudioSource GetAudioSource();
@@ -22,6 +23,9 @@ namespace Ciart.Pagomoa
     {
         [Header("World Data")]
         [SerializeField] private WorldDatabase worldDatabase;
+
+        [Header("World Renderer Data")]
+        [SerializeField] private WorldRenderer worldRenderer;
 
         [Header("ItemEntity Data")]
         [SerializeField] private ItemEntity itemEntity;
@@ -55,6 +59,7 @@ namespace Ciart.Pagomoa
         }
         
         public WorldDatabase GetWorldData() { return worldDatabase; }
+        public WorldRenderer GetWorldRenderer() { return worldRenderer; }
         public ItemEntity GetItemEntity() { return itemEntity; }
         public List<GameObject> GetParticles() { return particles; }
         public AudioSource GetAudioSource() { return musicSource; }

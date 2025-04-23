@@ -35,19 +35,28 @@ namespace Ciart.Pagomoa.Worlds
 
         [Range(1, 256)] public int renderChunkRange = 2;
 
-        private Chunk _currentChunk;
+        /// <summary>
+        /// 청크 로딩 중인지 여부입니다.
+        /// </summary>
+        public bool IsLoading { get; private set; }
 
-        private HashSet<ChunkCoords> _renderedChunks = new();
+        private Chunk _lastPlayerChunk;
+
+        private HashSet<ChunkCoords> _activedChunks = new();
 
         private Dictionary<ChunkCoords, SpriteRenderer> _minimapRenderers = new();
 
         private GameObject? minimapObjects;
 
+        private Coroutine _chunkUpdateCoroutine;
+
+        private Coroutine _chunkClearCoroutine;
+
         public void Init(Level level)
         {
             this.level = level;
 
-            RenderLevel();
+            UpdateLevel();
             SpawnEntities();
         }
 
@@ -58,8 +67,8 @@ namespace Ciart.Pagomoa.Worlds
             mineralTilemap.ClearAllTiles();
             fogTilemap.ClearAllTiles();
 
-            _currentChunk = null;
-            _renderedChunks = new HashSet<ChunkCoords>();
+            _lastPlayerChunk = null;
+            _activedChunks = new HashSet<ChunkCoords>();
             _minimapRenderers = new Dictionary<ChunkCoords, SpriteRenderer>();
         }
 
@@ -79,7 +88,7 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
-            _renderedChunks.Remove(coords);
+            _activedChunks.Remove(coords);
 
             var entityManager = EntityManager.instance;
 
@@ -143,7 +152,54 @@ namespace Ciart.Pagomoa.Worlds
             return fogMap;
         }
 
-        private void RenderChunk(ChunkCoords coords)
+        private Chunk? GetPlayerChunk()
+        {
+            if (level is null)
+            {
+                return null;
+            }
+
+            var playerCoord = WorldManager.ComputeCoords(Game.Instance.player?.transform.position ?? Vector3.zero);
+            var playerChunk = level.GetChunk(playerCoord.x, playerCoord.y);
+
+            return playerChunk;
+        }
+
+        private IEnumerator RunActionWithChunks(IEnumerable<ChunkCoords> keys, Action<ChunkCoords> action, Action? onComplete = null)
+        {
+            foreach (var key in keys)
+            {
+                action(key);
+                yield return null;
+            }
+
+            onComplete?.Invoke();
+        }
+
+        private void UpdateEdgeFog()
+        {
+            var top = level.top;
+            var bottom = -level.bottom;
+            var left = -level.left - 1;
+            var right = level.right;
+            for (int i = left; i <= right; i++)
+            {
+                fogTilemap.SetTile(new Vector3Int(i, top), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, top - 1), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, bottom), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, bottom + 1), fogTile);
+            }
+
+            for (int i = bottom; i <= top; i++)
+            {
+                fogTilemap.SetTile(new Vector3Int(left, i), fogTile);
+                fogTilemap.SetTile(new Vector3Int(left + 1, i), fogTile);
+                fogTilemap.SetTile(new Vector3Int(right, i), fogTile);
+                fogTilemap.SetTile(new Vector3Int(right - 1, i), fogTile);
+            }
+        }
+
+        private void UpdateChunk(ChunkCoords coords)
         {
             var world = WorldManager.world;
             var texture = new Texture2D(Chunk.Size, Chunk.Size);
@@ -151,53 +207,42 @@ namespace Ciart.Pagomoa.Worlds
 
             if (chunk is null)
             {
-                // chunk = new Chunk(key, Chunk.Size);
-                //
-                // foreach (var brick in chunk.bricks)
-                // {
-                //     brick.ground = _worldManager.database.GetGround("Grass");
-                // }
-
                 return;
             }
 
             var fogMap = CreateFogMap(chunk, world);
 
             var positions = new Vector3Int[Chunk.Size * Chunk.Size];
-            
+
             var wallTiles = new TileBase?[positions.Length];
             var groundTiles = new TileBase?[positions.Length];
             var mineralTiles = new TileBase?[positions.Length];
             var fogTiles = new TileBase?[positions.Length];
             var overlayTiles = new TileBase?[positions.Length];
 
-            for (var i = 0; i < Chunk.Size; i++)
+            foreach (var (x, y, index) in chunk.GetBrickPositionsAndIndices())
             {
-                for (var j = 0; j < Chunk.Size; j++)
+                var brick = chunk.bricks[index];
+
+                positions[index] = new Vector3Int(chunk.coords.x * Chunk.Size + x,
+                    chunk.coords.y * Chunk.Size + y);
+
+                wallTiles[index] = brick.wall?.tile;
+                groundTiles[index] = brick?.ground?.tile;
+                mineralTiles[index] = brick?.mineral?.tile;
+                fogTiles[index] = fogMap[x, y] ? null : fogTile;
+                overlayTiles[index] = brick?.mineral != null && !fogMap[x, y]
+                    ? WorldManager.instance.database.glitterTile
+                    : null;
+
+                var color = Color.clear;
+
+                if (brick.ground != null)
                 {
-                    var index = i + j * Chunk.Size;
-                    var brick = chunk.bricks[index];
-
-                    positions[index] = new Vector3Int(chunk.coords.x * Chunk.Size + i,
-                        chunk.coords.y * Chunk.Size + j);
-
-                    wallTiles[index] = brick.wall?.tile;
-                    groundTiles[index] = brick?.ground?.tile;
-                    mineralTiles[index] = brick?.mineral?.tile;
-                    fogTiles[index] = fogMap[i, j] ? null : fogTile;
-                    overlayTiles[index] = brick.mineral != null && !fogMap[i, j]
-                        ? WorldManager.instance.database.glitterTile
-                        : null;
-
-                    var color = Color.clear;
-
-                    if (brick.ground != null)
-                    {
-                        ColorUtility.TryParseHtmlString(brick.ground.color, out color);
-                    }
-
-                    texture.SetPixel(i, j, color);
+                    ColorUtility.TryParseHtmlString(brick.ground.color, out color);
                 }
+
+                texture.SetPixel(x, y, color);
             }
 
             wallTilemap.SetTiles(positions, wallTiles);
@@ -205,8 +250,8 @@ namespace Ciart.Pagomoa.Worlds
             mineralTilemap.SetTiles(positions, mineralTiles);
             fogTilemap.SetTiles(positions, fogTiles);
             overlayTilemap.SetTiles(positions, overlayTiles);
-            
-            _renderedChunks.Add(coords);
+
+            _activedChunks.Add(coords);
 
             texture.Apply();
             texture.filterMode = FilterMode.Point;
@@ -232,77 +277,59 @@ namespace Ciart.Pagomoa.Worlds
             spriteRenderer.sprite = sprite;
         }
 
-        // // // 
-        private void RenderEdgeFog()
+        public void UpdateLevel()
         {
-            var top = level.top;
-            var bottom = -level.bottom;
-            var left = -level.left - 1;
-            var right = level.right;
-            for (int i = left; i <= right; i++)
-            {
-                fogTilemap.SetTile(new Vector3Int(i, top), fogTile);
-                fogTilemap.SetTile(new Vector3Int(i, top - 1), fogTile);
-                fogTilemap.SetTile(new Vector3Int(i, bottom), fogTile);
-                fogTilemap.SetTile(new Vector3Int(i, bottom + 1), fogTile);
-            }
+            var playerChunk = GetPlayerChunk();
 
-            for (int i = bottom; i <= top; i++)
-            {
-                fogTilemap.SetTile(new Vector3Int(left, i), fogTile);
-                fogTilemap.SetTile(new Vector3Int(left + 1, i), fogTile);
-                fogTilemap.SetTile(new Vector3Int(right, i), fogTile);
-                fogTilemap.SetTile(new Vector3Int(right - 1, i), fogTile);
-            }
-        }
-
-        private IEnumerator RunActionWithChunks(IEnumerable<ChunkCoords> keys, Action<ChunkCoords> action)
-        {
-            foreach (var key in keys)
-            {
-                action(key);
-                yield return null;
-            }
-        }
-
-        private void OnChunkChanged(ChunkChangedEvent e)
-        {
-            if (!_renderedChunks.Contains(e.chunk.coords))
+            if (playerChunk is null || playerChunk == _lastPlayerChunk)
             {
                 return;
             }
 
-            if (e.level != level)
+            _lastPlayerChunk = playerChunk;
+
+            var activeChunks = new HashSet<ChunkCoords>();
+
+            for (var keyX = playerChunk.coords.x - renderChunkRange; keyX <= playerChunk.coords.x + renderChunkRange; keyX++)
             {
-                return;
+                for (var keyY = playerChunk.coords.y - renderChunkRange;
+                     keyY <= playerChunk.coords.y + renderChunkRange;
+                     keyY++)
+                {
+                    activeChunks.Add(new ChunkCoords(keyX, keyY));
+                }
             }
 
-            RenderChunk(e.chunk.coords);
-            RenderEdgeFog();
+            var chunksToClear = _activedChunks.Except(activeChunks).ToList();
+            var chunksToActivate = activeChunks.Except(_activedChunks).ToList();
+
+            if (_chunkUpdateCoroutine != null)
+            {
+                StopCoroutine(_chunkUpdateCoroutine);
+            }
+
+            if (_chunkClearCoroutine != null)
+            {
+                StopCoroutine(_chunkClearCoroutine);
+            }
+
+            IsLoading = true;
+
+            _chunkClearCoroutine = StartCoroutine(RunActionWithChunks(chunksToClear, ClearChunk));
+            _chunkUpdateCoroutine = StartCoroutine(RunActionWithChunks(chunksToActivate, UpdateChunk, () =>
+            {
+                IsLoading = false;
+            }));
+
+            UpdateEdgeFog();
         }
 
-        private void OnEnable()
+        private void UpdateBrokenEffect()
         {
-            EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            RenderLevel();
-            SpawnEntities();
-        }
-
-        private void OnDisable()
-        {
-            EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
-            DespawnEntities();
-        }
-
-        private void LateUpdate()
-        {
-            RenderLevel();
-
-            var worldManager = WorldManager.instance;
+            var worldManager = Game.Instance.World;
+            var brokenTiles = worldManager.database.brokenEffectTiles;
 
             groundOverlayTilemap.ClearAllTiles();
-
-            var brokenTiles = worldManager.database.brokenEffectTiles;
 
             foreach (var (key, value) in worldManager.brickDamage)
             {
@@ -311,6 +338,12 @@ namespace Ciart.Pagomoa.Worlds
 
                 groundOverlayTilemap.SetTile(position, brokenTiles[brokenStep]);
             }
+        }
+
+        private void LateUpdate()
+        {
+            UpdateLevel();
+            UpdateBrokenEffect();
         }
 
         public static void DrawChunkRectangle(Chunk chunk, int chunkSize, Color color)
@@ -327,61 +360,6 @@ namespace Ciart.Pagomoa.Worlds
                 color);
             Debug.DrawLine(position + new Vector3(chunkSize, chunkSize, 0), position + Vector3.up * chunkSize, color);
             Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
-        }
-
-        public void RenderLevel()
-        {
-            if (level is null)
-            {
-                return;
-            }
-
-            var playerCoord = WorldManager.ComputeCoords(Game.Instance.player?.transform.position ?? Vector3.zero);
-            var playerChunk = level.GetChunk(playerCoord.x, playerCoord.y);
-            
-            DrawChunkRectangle(playerChunk, Chunk.Size, Color.cyan);
-            
-            if (playerChunk is null) // || _currentChunk == playerChunk)
-            {
-                return;
-            }
-            
-            _currentChunk = playerChunk;
-            
-            var renderedChunks = new HashSet<ChunkCoords>();
-            
-            for (var keyX = playerChunk.coords.x - renderChunkRange; keyX <= playerChunk.coords.x + renderChunkRange; keyX++)
-            {
-                for (var keyY = playerChunk.coords.y - renderChunkRange;
-                     keyY <= playerChunk.coords.y + renderChunkRange;
-                     keyY++)
-                {
-                    renderedChunks.Add(new ChunkCoords(keyX, keyY));
-                }
-            }
-            
-            var clearChunks = _renderedChunks.Except(renderedChunks).ToList();
-            var renderChunks = renderedChunks.Except(_renderedChunks).ToList();
-
-            if (clearChunks.Any())
-            {
-                ClearChunk(clearChunks.First());
-            }
-
-            if (renderChunks.Any())
-            {
-                RenderChunk(renderChunks.First());
-            }
-            
-            // StartCoroutine(RunActionWithChunks(clearChunks, ClearChunk));
-            // StartCoroutine(RunActionWithChunks(renderChunks, RenderChunk));
-
-            // foreach (var chunkCoords in level.GetAllChunks().Keys)
-            // {
-            //     RenderChunk(chunkCoords);
-            // }
-
-            RenderEdgeFog();
         }
 
         private List<EntityController> _entities = new();
@@ -436,6 +414,35 @@ namespace Ciart.Pagomoa.Worlds
             level.entityDataList = dataList;
 
             _entities.Clear();
+        }
+
+        private void OnChunkChanged(ChunkChangedEvent e)
+        {
+            if (!_activedChunks.Contains(e.chunk.coords))
+            {
+                return;
+            }
+
+            if (e.level != level)
+            {
+                return;
+            }
+
+            UpdateChunk(e.chunk.coords);
+            UpdateEdgeFog();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
+            UpdateLevel();
+            SpawnEntities();
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
+            DespawnEntities();
         }
     }
 }
