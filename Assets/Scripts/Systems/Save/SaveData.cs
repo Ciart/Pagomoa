@@ -16,13 +16,20 @@ namespace Ciart.Pagomoa.Systems.Save
 
         public List<QuestSaveData> quests = new List<QuestSaveData>();
     }
-
-    /// <summary>
-    /// 스탯과는 관련 없는 플레이어 고유의 데이터입니다.
-    /// </summary>
+    
     [MemoryPackable]
     public partial class PlayerSaveData
     {
+        public float x;
+        
+        public float y;
+        
+        public float health;
+
+        public float oxygen;
+
+        public float hunger;
+        
         public InventorySaveData inventory;
     }
 

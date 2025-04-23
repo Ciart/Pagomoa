@@ -53,12 +53,14 @@ namespace Ciart.Pagomoa
         {
             EventManager.AddListener<StoryStarted>(RefreshView);
             EventManager.AddListener<QuestStoryStarted>(MakeQuestContentView);
+            Game.Instance.Time.PauseTime();
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<StoryStarted>(RefreshView);
             EventManager.RemoveListener<QuestStoryStarted>(MakeQuestContentView);
+            Game.Instance.Time.ResumeTime();
         }
 
         private void SetBtnSizeAfterContentSizeFitter()
