@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Worlds
 
         private Chunk _lastPlayerChunk;
 
-        private HashSet<ChunkCoords> _activedChunks = new();
+        private HashSet<ChunkCoords> _activeChunks = new();
 
         private Dictionary<ChunkCoords, SpriteRenderer> _minimapRenderers = new();
 
@@ -68,7 +68,7 @@ namespace Ciart.Pagomoa.Worlds
             fogTilemap.ClearAllTiles();
 
             _lastPlayerChunk = null;
-            _activedChunks = new HashSet<ChunkCoords>();
+            _activeChunks = new HashSet<ChunkCoords>();
             _minimapRenderers = new Dictionary<ChunkCoords, SpriteRenderer>();
         }
 
@@ -88,7 +88,7 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
-            _activedChunks.Remove(coords);
+            _activeChunks.Remove(coords);
 
             var entityManager = EntityManager.instance;
 
@@ -251,7 +251,7 @@ namespace Ciart.Pagomoa.Worlds
             fogTilemap.SetTiles(positions, fogTiles);
             overlayTilemap.SetTiles(positions, overlayTiles);
 
-            _activedChunks.Add(coords);
+            _activeChunks.Add(coords);
 
             texture.Apply();
             texture.filterMode = FilterMode.Point;
@@ -288,7 +288,7 @@ namespace Ciart.Pagomoa.Worlds
 
             _lastPlayerChunk = playerChunk;
 
-            var activeChunks = new HashSet<ChunkCoords>();
+            var playerNeighborChunks = new HashSet<ChunkCoords>();
 
             for (var keyX = playerChunk.coords.x - renderChunkRange; keyX <= playerChunk.coords.x + renderChunkRange; keyX++)
             {
@@ -296,12 +296,12 @@ namespace Ciart.Pagomoa.Worlds
                      keyY <= playerChunk.coords.y + renderChunkRange;
                      keyY++)
                 {
-                    activeChunks.Add(new ChunkCoords(keyX, keyY));
+                    playerNeighborChunks.Add(new ChunkCoords(keyX, keyY));
                 }
             }
 
-            var chunksToClear = _activedChunks.Except(activeChunks).ToList();
-            var chunksToActivate = activeChunks.Except(_activedChunks).ToList();
+            var chunksToClear = _activeChunks.Except(playerNeighborChunks).ToList();
+            var chunksToActivate = playerNeighborChunks.Except(_activeChunks).ToList();
 
             if (_chunkUpdateCoroutine != null)
             {
@@ -418,7 +418,7 @@ namespace Ciart.Pagomoa.Worlds
 
         private void OnChunkChanged(ChunkChangedEvent e)
         {
-            if (!_activedChunks.Contains(e.chunk.coords))
+            if (!_activeChunks.Contains(e.chunk.coords))
             {
                 return;
             }
