@@ -16,7 +16,8 @@ namespace Ciart.Pagomoa.Systems.Save
             private set;
         }
 
-        public void Save()
+        // TODO: 입출력을 비동기 함수로 바꿔야 함.
+        public async Awaitable Save()
         {
             Data = new SaveData();
 
@@ -27,7 +28,8 @@ namespace Ciart.Pagomoa.Systems.Save
             File.WriteAllBytes(path, raw);
         }
 
-        public void Load()
+        // TODO: 입출력을 비동기 함수로 바꿔야 함.
+        public async Awaitable Load()
         {
             var path = Application.persistentDataPath + "/" + GameDataFileName;
 
@@ -38,7 +40,15 @@ namespace Ciart.Pagomoa.Systems.Save
                 return;
             }
 
+            Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeIn, 1f);
+            await Awaitable.WaitForSecondsAsync(1f);
+
             EventManager.Notify(new DataLoadedEvent(Data));
+
+            await Game.Instance.World.WaitForLevelUpdate();
+
+            Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeOut, 1f);
+            await Awaitable.WaitForSecondsAsync(1f);
         }
 
         protected override void Awake()

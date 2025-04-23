@@ -9,9 +9,11 @@ namespace Ciart.Pagomoa.Worlds
 {
     public class WorldManager : Manager<WorldManager>
     {
-        public WorldDatabase database;
-
         public WorldGenerator worldGenerator;
+
+        public WorldRenderer worldRenderer;
+
+        public WorldDatabase database;
 
         public ItemEntity itemEntity;
 
@@ -39,11 +41,13 @@ namespace Ciart.Pagomoa.Worlds
             EventManager.AddListener<DataSaveEvent>(OnDataSaveEvent);
             EventManager.AddListener<DataLoadedEvent>(OnDataLoadedEvent);
 
+            worldGenerator = new WorldGenerator();
+            worldRenderer = Object.Instantiate(DataBase.data.GetWorldRenderer());
+
             database = DataBase.data.GetWorldData();
             itemEntity = DataBase.data.GetItemEntity();
-            worldGenerator = new WorldGenerator();
         }
-        
+
         private void OnDataSaveEvent(DataSaveEvent e)
         {
             e.saveData.world = world.CreateSaveData();
@@ -53,7 +57,7 @@ namespace Ciart.Pagomoa.Worlds
         {
             world = new World(e.saveData.world);
         }
-        
+
         public override void Start()
         {
             if (world is not null)
@@ -63,7 +67,7 @@ namespace Ciart.Pagomoa.Worlds
 
             world = worldGenerator.Generate();
         }
-        
+
         public override void OnDestroy()
         {
             EventManager.RemoveListener<DataSaveEvent>(OnDataSaveEvent);
@@ -447,6 +451,19 @@ namespace Ciart.Pagomoa.Worlds
                 _ufoInteraction.canMove = false;
                 StartCoroutine(_ufoInteraction.MoveToPlayer());
             }*/
+        }
+
+        public async Awaitable WaitForLevelUpdate()
+        {
+            while (true)
+            {
+                if (!worldRenderer.GetLevelRenderer(world.currentLevel).IsLoading)
+                {
+                    return;
+                }
+
+                await Awaitable.NextFrameAsync();
+            }
         }
     }
 }
