@@ -32,7 +32,7 @@ namespace Ciart.Pagomoa.Sounds
             _audioMixer.GetFloat("UI", out optionData.uiMixerValue);
         }
         public OptionData GetOptionData() { return optionData; }
-
+        
         public void SetOptionData(OptionData changedData)
         {
             optionData.masterMixerValue = changedData.masterMixerValue;

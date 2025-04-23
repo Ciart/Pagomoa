@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using Ciart.Pagomoa.CutScenes;
+using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Timelines;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.UI.Title

@@ -34,8 +34,6 @@ namespace Ciart.Pagomoa.UI
                 //Debug.Log("Scale Changed");
                 ScaleUI();
             }
-            
-            
         }
     
         private void ScaleUI()

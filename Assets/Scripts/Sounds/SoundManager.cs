@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Sounds
@@ -11,15 +12,41 @@ namespace Ciart.Pagomoa.Sounds
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
-        
+
+        private AudioSource _playerEffect;
+        private AudioSource _monsterEffect;
+
+        public bool isTitle;
         public override void Start()
         {
-            instance.musicSource = DataBase.data.GetAudioSource();
-            PlayMusic("WorldMusic");
+            musicSource = DataBase.data.GetAudioSource();
+            AudioSource[] sources = DataBase.data.GetSfxSources();
+            
+            foreach (AudioSource source in sources)
+            {
+                if (source.gameObject.name == nameof(SfxType.PlayerEffect))
+                    _playerEffect = source;
+                else if (source.gameObject.name == nameof(SfxType.MonsterEffect))
+                    _monsterEffect = source;
+            }
+
+            var idx = SceneManager.GetActiveScene().buildIndex;
+            if (idx == 1)
+            {
+                PlayMusic("WorldMusic");
+                isTitle = false;
+            }
+            else
+            {
+                musicSource.Stop();
+                isTitle = true;
+            }
         }
         
         public override void Update() // BGM Loop 시점 감지
         {
+            if (isTitle) return;
+            
             if (musicSource.timeSamples >= _loopEndSamples)
             {
                 musicSource.timeSamples -= _loopLengthSamples;
@@ -39,6 +66,7 @@ namespace Ciart.Pagomoa.Sounds
              
             musicSource.Play();
         }
+        
         public void PlaySfx(string bundleName, bool duplication, Vector3? position = null) // 효과음 재생
         {
             SfxBundle bundle = FindSfxBundle(bundleName);
@@ -59,10 +87,10 @@ namespace Ciart.Pagomoa.Sounds
                 switch (bundle.type)
                 {
                     case SfxType.MonsterEffect:
-                        FindAudioSource("MonsterEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
+                        _monsterEffect.PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
-                    case SfxType.TeamEffect:
-                        FindAudioSource("TeamEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
+                    case SfxType.PlayerEffect:
+                        _playerEffect.PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
                     case SfxType.UIEffect:
                         FindAudioSource("UIEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
@@ -80,14 +108,14 @@ namespace Ciart.Pagomoa.Sounds
                 switch (bundle.type)
                 {
                     case SfxType.MonsterEffect:
-                        FindAudioSource("MonsterEffect").clip = bundle.audioClip[random];
-                        FindAudioSource("MonsterEffect").volume = bundle.volume;
-                        FindAudioSource("MonsterEffect").Play();
+                        _monsterEffect.clip = bundle.audioClip[random];
+                        _monsterEffect.volume = bundle.volume;
+                        _monsterEffect.Play();
                         break;
-                    case SfxType.TeamEffect:
-                        FindAudioSource("TeamEffect").clip = bundle.audioClip[random];
-                        FindAudioSource("TeamEffect").volume = bundle.volume;
-                        FindAudioSource("TeamEffect").Play();
+                    case SfxType.PlayerEffect:
+                        _playerEffect.clip = bundle.audioClip[random];
+                        _playerEffect.volume = bundle.volume;
+                        _playerEffect.Play();
                         break;
                     case SfxType.UIEffect:
                         FindAudioSource("UIEffect").clip = bundle.audioClip[random];
@@ -105,7 +133,7 @@ namespace Ciart.Pagomoa.Sounds
         private void PlaySfxBundlePosition(SfxBundle bundle, Vector3? position)
         {
             int random = RandomClip(bundle);  
-            AudioSource.PlayClipAtPoint(bundle.audioClip[random], position.GetValueOrDefault(), FindAudioSource("TeamEffect").volume);
+            AudioSource.PlayClipAtPoint(bundle.audioClip[random], position.GetValueOrDefault(), _playerEffect.volume);
         }
         public AudioSource FindAudioSource(string audioSourceName)
         {
