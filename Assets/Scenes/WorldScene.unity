@@ -454,12 +454,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: musicBundleDB.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: 'sfxBundleDB.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: fc393ba8b34b4c547844f7874bc64f92, type: 2}
+      objectReference: {fileID: 11400000, guid: 1073205ba26be564085c4d52fbb1a1c2, type: 2}
     - target: {fileID: 3063220814337312247, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
       propertyPath: 'sfxBundleDB.Array.data[2]'
       value: 
@@ -585,6 +585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldDatabase: {fileID: 11400000, guid: a8c710945d378435da33792927f3906c, type: 2}
+  worldRenderer: {fileID: 3669576954988456613, guid: 801e316b22eb042c89ad722cc5493c33, type: 3}
   itemEntity: {fileID: 9201767070594165824, guid: 64e5d8029321e40489ae72026f4987c0, type: 3}
   particles:
   - {fileID: 4929765826255280206, guid: 393d5baa459e72a4a88a9efa8bed9d64, type: 3}
@@ -777,7 +778,6 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
-  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -864,7 +864,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 3.125
+  orthographic size: 8.291667
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3201,7 +3201,6 @@ SceneRoots:
   - {fileID: 1520502531}
   - {fileID: 409812967}
   - {fileID: 4421404336386197160}
-  - {fileID: 1517881707}
   - {fileID: 407164513}
   - {fileID: 1332227802}
   - {fileID: 1793737718}
@@ -3224,4 +3223,4 @@ SceneRoots:
   - {fileID: 1595614276}
   - {fileID: 120692002}
   - {fileID: 816190135}
-  - {fileID: 1642135107}
+  - {fileID: 491327389}
