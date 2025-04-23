@@ -22,14 +22,13 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private QuestData[] _entityQuests = Array.Empty<QuestData>();
 
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
-        private GameObject _questCompleteUI;
+        private QuestCompleteIcon _questCompleteUI;
         
         private bool _hasInit; 
         
         private void Start()
         {
             _questCompleteUI = Game.Instance.UI.CreateQuestCompleteUI(transform);
-            _questCompleteUI.SetActive(false);
             _questCompleteUI.transform.position += uiOffset;
             
             _hasInit = true;
@@ -67,7 +66,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
             questEvent?.CompleteEvent(id);
             
-            _questCompleteUI.SetActive(false);
+            _questCompleteUI.InactiveIcon();
         }
 
         public void StartDialogue()
@@ -101,12 +100,12 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             {
                 if (e.quest.id == entityQuest.id && e.quest.state == QuestState.Completed)
                 {
-                    _questCompleteUI.SetActive(true);
+                    _questCompleteUI.ActiveCompletableIcon();
                     return;
                 }
             }
             
-            _questCompleteUI.SetActive(false);
+            _questCompleteUI.InactiveIcon();
         }
 
         private void OnEnable()
@@ -128,7 +127,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var hasCompletedQuest = Game.Instance.Quest.FindCompletedQuest(_entityQuests);
             if (hasCompletedQuest)
             {
-                _questCompleteUI.SetActive(true);
+                _questCompleteUI.ActiveCompletableIcon();
             }
         }
 

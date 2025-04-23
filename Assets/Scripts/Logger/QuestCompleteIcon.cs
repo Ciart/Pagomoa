@@ -6,19 +6,30 @@ namespace Ciart.Pagomoa.Logger
 {
     public class QuestCompleteIcon : MonoBehaviour
     {
-        private int _siblingIndex;
-        private SpriteRenderer _finishIcon;
-        
+        public GameObject availableIcon;
+        public GameObject completableIcon;
+
         private void Awake()
         {
-            _finishIcon = GetComponent<SpriteRenderer>();
-            gameObject.SetActive(false);
+            InactiveIcon();
         }
-        
-        public void ActiveQuestComplete() { gameObject.SetActive(true); }
-        
-        public void InactiveQuestComplete() { gameObject.SetActive(false); }
 
-        public int GetIconIndex() { return _siblingIndex; }
+        public void ActiveAvailableIcon()
+        {
+            availableIcon.SetActive(true);
+            completableIcon.SetActive(false);
+        }
+
+        public void ActiveCompletableIcon()
+        {
+            availableIcon.SetActive(false);
+            completableIcon.SetActive(true);
+        }
+
+        public void InactiveIcon()
+        {
+            availableIcon.SetActive(false);
+            completableIcon.SetActive(false);
+        }
     }
 }
