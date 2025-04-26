@@ -85,8 +85,8 @@ namespace Ciart.Pagomoa.Systems
             Quest = new QuestManager();
             Sound = new SoundManager();
             Time = new TimeManager();
-            UI = new UIManager();
-            World = new WorldManager();
+            //UI = new UIManager();
+            //World = new WorldManager();
         }
 
         private void OnEnable()

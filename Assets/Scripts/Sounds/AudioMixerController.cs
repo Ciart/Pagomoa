@@ -17,19 +17,36 @@ namespace Ciart.Pagomoa.Sounds
         public float uiMixerValue;
     }
     
+    [RequireComponent(typeof(AudioClips))]
     public class AudioMixerController : SingletonMonoBehaviour<AudioMixerController>
     {
-        [SerializeField] private AudioMixer _audioMixer;
+        [SerializeField] private AudioClips _clips;
+        [SerializeField] private AudioMixer _mixer;
         private OptionData optionData;
-
+        public AudioClips GetAudioClips() { return _clips;}
+        public AudioMixer GetAudioMixer() { return _mixer;}
+        
+        
+        [SerializeField] private AudioSource _playerEffect;
+        [SerializeField] private AudioSource _monsterEffect;
+        [SerializeField] private AudioSource _drillSpinEffect;
+        [SerializeField] private AudioSource _drillHitEffect;
+        [SerializeField] private AudioSource _UIEffect;
+        
+        public AudioSource GetPlayerSource() { return _playerEffect; }
+        public AudioSource GetMonsterSource() { return _monsterEffect; }
+        public AudioSource GetDrillSpinSource() { return _drillSpinEffect; }
+        public AudioSource GetDrillHitSource() { return _drillHitEffect; }
+        public AudioSource GetUISource() { return _UIEffect; }
+        
         public void InitAudioMixer()
         {
-            _audioMixer.GetFloat("Master", out optionData.masterMixerValue);
-            _audioMixer.GetFloat("Music", out optionData.musicMixerValue);
-            _audioMixer.GetFloat("Sfx", out optionData.sfxMixerValue);
-            _audioMixer.GetFloat("Player", out optionData.playerMixerValue);
-            _audioMixer.GetFloat("Monster", out optionData.monsterMixerValue);
-            _audioMixer.GetFloat("UI", out optionData.uiMixerValue);
+            _mixer.GetFloat("Master", out optionData.masterMixerValue);
+            _mixer.GetFloat("Music", out optionData.musicMixerValue);
+            _mixer.GetFloat("Sfx", out optionData.sfxMixerValue);
+            _mixer.GetFloat("Player", out optionData.playerMixerValue);
+            _mixer.GetFloat("Monster", out optionData.monsterMixerValue);
+            _mixer.GetFloat("UI", out optionData.uiMixerValue);
         }
         public OptionData GetOptionData() { return optionData; }
         
@@ -45,27 +62,27 @@ namespace Ciart.Pagomoa.Sounds
         
         public void SetMasterVolume(float volume)
         {
-           _audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+           _mixer.SetFloat("Master", Mathf.Log10(volume) * 20);
         }
         public void SetMusicVolume(float volume)
         {
-            _audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+            _mixer.SetFloat("Music", Mathf.Log10(volume) * 20);
         }
         public void SetSfxVolume(float volume)
         {
-            _audioMixer.SetFloat("Sfx", Mathf.Log10(volume) * 20);
+            _mixer.SetFloat("Sfx", Mathf.Log10(volume) * 20);
         }
         public void SetPlayerVolume(float volume)
         {
-            _audioMixer.SetFloat("Player", Mathf.Log10(volume) * 20);
+            _mixer.SetFloat("Player", Mathf.Log10(volume) * 20);
         }
         public void SetMonsterVolume(float volume)
         {
-            _audioMixer.SetFloat("Monster", Mathf.Log10(volume) * 20);
+            _mixer.SetFloat("Monster", Mathf.Log10(volume) * 20);
         }
         public void SetUIVolume(float volume)
         {
-            _audioMixer.SetFloat("UI", Mathf.Log10(volume) * 20);
+            _mixer.SetFloat("UI", Mathf.Log10(volume) * 20);
         }
     }
 }

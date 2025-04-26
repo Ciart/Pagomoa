@@ -33,9 +33,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3898653872057593256}
+  - {fileID: 4404767868591191714}
   - {fileID: 7393844636596253753}
   - {fileID: 2673585906805889064}
-  - {fileID: 4404767868591191714}
   - {fileID: 3780380689648961552}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,13 +53,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicBundleDB:
   - {fileID: 11400000, guid: 1048e3ad76900ca408ede8dfe6ffedca, type: 2}
-  - {fileID: 0}
   sfxBundleDB:
   - {fileID: 11400000, guid: fc393ba8b34b4c547844f7874bc64f92, type: 2}
+  - {fileID: 11400000, guid: 1073205ba26be564085c4d52fbb1a1c2, type: 2}
   - {fileID: 11400000, guid: 97df7277819f71d48be4d7c37736e965, type: 2}
   - {fileID: 11400000, guid: e8be95aeb52c7d642bf87a93da466f5c, type: 2}
   - {fileID: 11400000, guid: f26498f419d44f347a95a751e92e5055, type: 2}
-  - {fileID: 11400000, guid: 1073205ba26be564085c4d52fbb1a1c2, type: 2}
 --- !u!114 &7715935370156328217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +71,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3038c27dca55284caae7d4a12145f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 24100000, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
+  _clips: {fileID: 3063220814337312247}
+  _mixer: {fileID: 24100000, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
+  _playerEffect: {fileID: 8076194479323560619}
+  _monsterEffect: {fileID: 5610829422032802557}
+  _drillSpinEffect: {fileID: 7402186613488132280}
+  _drillHitEffect: {fileID: 9079962053244220695}
+  _UIEffect: {fileID: 9180747622759243202}
 --- !u!82 &4879729061759785164
 AudioSource:
   m_ObjectHideFlags: 0

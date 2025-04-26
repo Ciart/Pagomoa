@@ -14,8 +14,6 @@ namespace Ciart.Pagomoa
         public WorldRenderer GetWorldRenderer();
         public ItemEntity GetItemEntity();
         public List<GameObject> GetParticles();
-        public AudioSource GetAudioSource();
-        public AudioSource[] GetSfxSources();
         public UIContainer GetUIData();
         public CutSceneController GetCutSceneController();
     }
@@ -32,10 +30,6 @@ namespace Ciart.Pagomoa
         
         [Header("Particle Data")]
         [SerializeField] private List<GameObject> particles;
-        
-        [Header("Sound Data")]
-        [SerializeField] private AudioSource musicSource;
-        [SerializeField] private AudioSource[] sfxSources;
         
         [Header("UI Data")]
         [SerializeField] private UIContainer uiContainer;
@@ -62,8 +56,6 @@ namespace Ciart.Pagomoa
         public WorldRenderer GetWorldRenderer() { return worldRenderer; }
         public ItemEntity GetItemEntity() { return itemEntity; }
         public List<GameObject> GetParticles() { return particles; }
-        public AudioSource GetAudioSource() { return musicSource; }
-        public AudioSource[] GetSfxSources() { return sfxSources; }
         public UIContainer GetUIData() { return uiContainer; }
         public CutSceneController GetCutSceneController() { return cutSceneController; }
     }

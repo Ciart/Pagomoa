@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ciart.Pagomoa.Sounds
 {
-    public class AudioClipDB : SingletonMonoBehaviour<AudioClipDB>
+    public class AudioClips : MonoBehaviour
     {
         [SerializeField] private MusicBundle[] musicBundleDB;
         [SerializeField] private SfxBundle[] sfxBundleDB;

@@ -7,29 +7,17 @@ namespace Ciart.Pagomoa.Sounds
 {
     public class SoundManager : Manager<SoundManager>
     {
+        public AudioMixerController controller;
         public AudioSource musicSource;
         
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
-
-        private AudioSource _playerEffect;
-        private AudioSource _monsterEffect;
-
+        
         public bool isTitle;
         public override void Start()
         {
-            musicSource = DataBase.data.GetAudioSource();
-            AudioSource[] sources = DataBase.data.GetSfxSources();
-            
-            foreach (AudioSource source in sources)
-            {
-                if (source.gameObject.name == nameof(SfxType.PlayerEffect))
-                    _playerEffect = source;
-                else if (source.gameObject.name == nameof(SfxType.MonsterEffect))
-                    _monsterEffect = source;
-            }
-
+            controller = AudioMixerController.Instance;
             var idx = SceneManager.GetActiveScene().buildIndex;
             if (idx == 1)
             {
@@ -45,7 +33,7 @@ namespace Ciart.Pagomoa.Sounds
         
         public override void Update() // BGM Loop 시점 감지
         {
-            if (isTitle) return;
+            if (isTitle == true) return;
             
             if (musicSource.timeSamples >= _loopEndSamples)
             {
@@ -87,19 +75,19 @@ namespace Ciart.Pagomoa.Sounds
                 switch (bundle.type)
                 {
                     case SfxType.MonsterEffect:
-                        _monsterEffect.PlayOneShot(bundle.audioClip[random], bundle.volume);
+                        controller.GetMonsterSource().PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
                     case SfxType.PlayerEffect:
-                        _playerEffect.PlayOneShot(bundle.audioClip[random], bundle.volume);
+                        controller.GetPlayerSource().PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
                     case SfxType.UIEffect:
-                        FindAudioSource("UIEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
+                        controller.GetUISource().PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
                     case SfxType.DrillSpinEffect:
-                        FindAudioSource("DrillSpinEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
+                        controller.GetDrillSpinSource().PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
                     case SfxType.DrillHitEffect:
-                        FindAudioSource("DrillHitEffect").PlayOneShot(bundle.audioClip[random], bundle.volume);
+                        controller.GetDrillHitSource().PlayOneShot(bundle.audioClip[random], bundle.volume);
                         break;
                 }
             }
@@ -108,24 +96,24 @@ namespace Ciart.Pagomoa.Sounds
                 switch (bundle.type)
                 {
                     case SfxType.MonsterEffect:
-                        _monsterEffect.clip = bundle.audioClip[random];
-                        _monsterEffect.volume = bundle.volume;
-                        _monsterEffect.Play();
+                        controller.GetMonsterSource().clip = bundle.audioClip[random];
+                        controller.GetMonsterSource().volume = bundle.volume;
+                        controller.GetMonsterSource().Play();
                         break;
                     case SfxType.PlayerEffect:
-                        _playerEffect.clip = bundle.audioClip[random];
-                        _playerEffect.volume = bundle.volume;
-                        _playerEffect.Play();
+                        controller.GetPlayerSource().clip = bundle.audioClip[random];
+                        controller.GetPlayerSource().volume = bundle.volume;
+                        controller.GetPlayerSource().Play();
                         break;
                     case SfxType.UIEffect:
-                        FindAudioSource("UIEffect").clip = bundle.audioClip[random];
-                        FindAudioSource("UIEffect").volume = bundle.volume;
-                        FindAudioSource("UIEffect").Play();
+                        controller.GetUISource().clip = bundle.audioClip[random];
+                        controller.GetUISource().volume = bundle.volume;
+                        controller.GetUISource().Play();
                         break;
                     case SfxType.DrillSpinEffect:
-                        FindAudioSource("DrillSpinEffect").clip = bundle.audioClip[random];
-                        FindAudioSource("DrillSpinEffect").volume = bundle.volume;
-                        FindAudioSource("DrillSpinEffect").Play();                        
+                        controller.GetDrillSpinSource().clip = bundle.audioClip[random];
+                        controller.GetDrillSpinSource().volume = bundle.volume;
+                        controller.GetDrillSpinSource().Play();                        
                         break;
                 }
             }
@@ -133,23 +121,18 @@ namespace Ciart.Pagomoa.Sounds
         private void PlaySfxBundlePosition(SfxBundle bundle, Vector3? position)
         {
             int random = RandomClip(bundle);  
-            AudioSource.PlayClipAtPoint(bundle.audioClip[random], position.GetValueOrDefault(), _playerEffect.volume);
-        }
-        public AudioSource FindAudioSource(string audioSourceName)
-        {
-            AudioSource sfxSource = Array.Find(DataBase.data.GetSfxSources(), source => source.gameObject.name == $"{audioSourceName}");
-            return sfxSource;
+            AudioSource.PlayClipAtPoint(bundle.audioClip[random], position.GetValueOrDefault(), controller.GetPlayerSource().volume);
         }
         private MusicBundle FindMusicBundle(string bundleName)
         {
             MusicBundle musicBundle =
-                Array.Find(AudioClipDB.instance.MusicBundleDB, bundle => bundle.name == bundleName);
+                Array.Find(controller.GetAudioClips().MusicBundleDB, bundle => bundle.name == bundleName);
             return musicBundle;
         }
         public SfxBundle FindSfxBundle(string bundleName)
         {
             SfxBundle sfxBundle = 
-                Array.Find(AudioClipDB.instance.SfxBundleDB, bundle => bundle.name == bundleName);
+                Array.Find(controller.GetAudioClips().SfxBundleDB, bundle => bundle.name == bundleName);
             return sfxBundle;
         }
         private int RandomClip(SfxBundle bundle)
