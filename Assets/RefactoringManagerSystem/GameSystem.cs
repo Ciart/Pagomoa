@@ -17,13 +17,7 @@ namespace Ciart.Pagomoa.Systems
         Playing,
         EndDay,
     }
-
-    public static class GameManager
-    {
-        [Obsolete("Game.Instance를 사용하세요.")]
-        public static GameSystem instance => GameSystem.Instance;
-    }
-
+    
     public static class Game
     {
         [Obsolete("Game.Instance를 사용하세요.")]
@@ -85,8 +79,8 @@ namespace Ciart.Pagomoa.Systems
             Quest = new QuestManager();
             Sound = new SoundManager();
             Time = new TimeManager();
-            //UI = new UIManager();
-            //World = new WorldManager();
+            UI = new UIManager();
+            World = new WorldManager();
         }
 
         private void OnEnable()

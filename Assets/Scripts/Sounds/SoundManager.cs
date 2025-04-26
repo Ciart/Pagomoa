@@ -8,7 +8,6 @@ namespace Ciart.Pagomoa.Sounds
     public class SoundManager : Manager<SoundManager>
     {
         public AudioMixerController controller;
-        public AudioSource musicSource;
         
         private int _loopStartSamples;
         private int _loopEndSamples;
@@ -18,41 +17,30 @@ namespace Ciart.Pagomoa.Sounds
         public override void Start()
         {
             controller = AudioMixerController.Instance;
-            var idx = SceneManager.GetActiveScene().buildIndex;
-            if (idx == 1)
-            {
-                PlayMusic("WorldMusic");
-                isTitle = false;
-            }
-            else
-            {
-                musicSource.Stop();
-                isTitle = true;
-            }
+            PlayMusic("WorldMusic");
         }
         
         public override void Update() // BGM Loop 시점 감지
         {
-            if (isTitle == true) return;
             
-            if (musicSource.timeSamples >= _loopEndSamples)
+            if (controller.GetMusincSource().timeSamples >= _loopEndSamples)
             {
-                musicSource.timeSamples -= _loopLengthSamples;
-                musicSource.Play();
+                controller.GetMusincSource().timeSamples -= _loopLengthSamples;
+                controller.GetMusincSource().Play();
             }
         }
         public void PlayMusic(string bundleName)// 배경음악 재생
         {
-            musicSource.Stop();
+            controller.GetMusincSource().Stop();
             MusicBundle bundle = FindMusicBundle(bundleName);
             
-            musicSource.clip = bundle.music;
+            controller.GetMusincSource().clip = bundle.music;
 
-             _loopStartSamples = (int)(bundle.loopStartTime * musicSource.clip.frequency);
-             _loopEndSamples = (int)(bundle.loopEndTime * musicSource.clip.frequency);
+             _loopStartSamples = (int)(bundle.loopStartTime * controller.GetMusincSource().clip.frequency);
+             _loopEndSamples = (int)(bundle.loopEndTime * controller.GetMusincSource().clip.frequency);
              _loopLengthSamples = _loopEndSamples - _loopStartSamples;
              
-            musicSource.Play();
+             controller.GetMusincSource().Play();
         }
         
         public void PlaySfx(string bundleName, bool duplication, Vector3? position = null) // 효과음 재생

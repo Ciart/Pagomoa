@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2520906588816333121}
   - component: {fileID: 3063220814337312247}
   - component: {fileID: 7715935370156328217}
-  - component: {fileID: 4879729061759785164}
   m_Layer: 0
   m_Name: SoundSystem
   m_TagString: Untagged
@@ -32,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7466031631728113454}
   - {fileID: 3898653872057593256}
   - {fileID: 4404767868591191714}
   - {fileID: 7393844636596253753}
@@ -73,24 +73,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clips: {fileID: 3063220814337312247}
   _mixer: {fileID: 24100000, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
+  _music: {fileID: 6666403064580139869}
   _playerEffect: {fileID: 8076194479323560619}
   _monsterEffect: {fileID: 5610829422032802557}
   _drillSpinEffect: {fileID: 7402186613488132280}
   _drillHitEffect: {fileID: 9079962053244220695}
   _UIEffect: {fileID: 9180747622759243202}
---- !u!82 &4879729061759785164
+--- !u!1 &3894939668382447150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4404767868591191714}
+  - component: {fileID: 5610829422032802557}
+  m_Layer: 0
+  m_Name: MonsterEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4404767868591191714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3894939668382447150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2520906588816333121}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &5610829422032802557
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72620862221755432}
+  m_GameObject: {fileID: 3894939668382447150}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1544338625942127187, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
+  OutputAudioMixerGroup: {fileID: 4279728527681036186, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -175,7 +208,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &3894939668382447150
+--- !u!1 &5276522102507934538
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,22 +216,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4404767868591191714}
-  - component: {fileID: 5610829422032802557}
+  - component: {fileID: 7466031631728113454}
+  - component: {fileID: 6666403064580139869}
   m_Layer: 0
-  m_Name: MonsterEffect
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4404767868591191714
+--- !u!4 &7466031631728113454
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3894939668382447150}
+  m_GameObject: {fileID: 5276522102507934538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -207,19 +240,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2520906588816333121}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &5610829422032802557
+--- !u!82 &6666403064580139869
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3894939668382447150}
+  m_GameObject: {fileID: 5276522102507934538}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4279728527681036186, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
+  OutputAudioMixerGroup: {fileID: 1544338625942127187, guid: 0bfde8472dbdb234284f4f094a2a6d11, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

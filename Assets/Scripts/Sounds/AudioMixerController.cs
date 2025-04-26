@@ -26,13 +26,14 @@ namespace Ciart.Pagomoa.Sounds
         public AudioClips GetAudioClips() { return _clips;}
         public AudioMixer GetAudioMixer() { return _mixer;}
         
-        
+        [SerializeField] private AudioSource _music;
         [SerializeField] private AudioSource _playerEffect;
         [SerializeField] private AudioSource _monsterEffect;
         [SerializeField] private AudioSource _drillSpinEffect;
         [SerializeField] private AudioSource _drillHitEffect;
         [SerializeField] private AudioSource _UIEffect;
         
+        public AudioSource GetMusincSource() { return _music; }
         public AudioSource GetPlayerSource() { return _playerEffect; }
         public AudioSource GetMonsterSource() { return _monsterEffect; }
         public AudioSource GetDrillSpinSource() { return _drillSpinEffect; }
