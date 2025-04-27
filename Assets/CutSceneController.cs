@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Timelines;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -10,14 +11,16 @@ namespace Ciart.Pagomoa
 {
     public enum StreamName
     {
+        MainCamera,
         Pago,
         Moa,
         Shopkeeper,
         Signal, 
     }
-    public class CutSceneController : MonoBehaviour, INotificationReceiver
+    public class CutSceneController : SingletonMonoBehaviour<CutSceneController>, INotificationReceiver
     {
         public Camera mainCamera;
+        public CinemachineBrain mainCinemachine;
         
         private PlayableDirector _director;
         private SignalReceiver _signalReceiver;
@@ -38,8 +41,9 @@ namespace Ciart.Pagomoa
         {
             _director = GetComponent<PlayableDirector>();
             _signalReceiver = GetComponent<SignalReceiver>();
-            
+
             mainCamera = Camera.main;
+            mainCinemachine = mainCamera.GetComponent<CinemachineBrain>(); 
             
             _director.stopped += EndCutScene;
 
@@ -58,7 +62,7 @@ namespace Ciart.Pagomoa
         {
             Game.Instance.UI.DeActiveUI();
             
-            var player = Game.instance.player;
+            var player = Game.Instance.player;
             for (int i = 0; i < player.transform.childCount; i++)
             {
                 player.transform.GetChild(i).gameObject.SetActive(false);    
@@ -104,6 +108,14 @@ namespace Ciart.Pagomoa
         {
             return _director.state == PlayState.Playing;
         }
+
+        public bool RePlayCutScene()
+        {
+            if (_director.state != PlayState.Paused) return false;
+            
+            _director.Play();
+            return true;
+        }
         
         private void PlayCutScene()
         {
@@ -128,9 +140,12 @@ namespace Ciart.Pagomoa
             if (notification.id == "0")
             {
                 var dialogue = notification as DialogueMarker;
-                
+
                 if (dialogue != null)
-                    Game.Instance.Dialogue.StartStory(dialogue.story);    
+                {
+                    _director.Pause();
+                    Game.Instance.Dialogue.StartStory(dialogue.story);
+                }
             }
             else if (notification.id == "1")
             {

@@ -11,11 +11,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class DialogueManager : Manager<DialogueManager>
     {
-        ~DialogueManager()
-        {
-            EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-        
         public Story? story;
         
         public EntityDialogue nowEntityDialogue;
@@ -58,16 +53,6 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             {
                 Debug.LogWarning("DialogueManager::StartStory(): Could not find UI container");
             }
-            
-            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-        }
-        
-        private void OnPlayerSpawned(PlayerSpawnedEvent e) 
-        {
-            var player = e.player;
-            var playerInput = player.GetComponent<PlayerInput>();
-            
-            
         }
 
         public void StartStory(TextAsset asset)
@@ -90,6 +75,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             story = null;
             _dialogueUI.gameObject.SetActive(false);
+            CutSceneController.Instance.RePlayCutScene();
         }
 
         public void StartDailyChat()

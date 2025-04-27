@@ -7,7 +7,6 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Ciart.Pagomoa
 {
-    
     public class Shopkeeper : CutScene
     {
         [Header("CutScene Character")]
@@ -15,9 +14,9 @@ namespace Ciart.Pagomoa
         [SerializeField] private GameObject mShopkeeper;
         [SerializeField] private GameObject mMoa;
         
-        [HideInInspector] public GameObject instancePago;
-        [HideInInspector] public GameObject instanceShopkeeper;
-        [HideInInspector] public GameObject instanceMoa;
+        [HideInInspector] public GameObject? instancePago;
+        [HideInInspector] public GameObject? instanceShopkeeper;
+        [HideInInspector] public GameObject? instanceMoa;
         
         public override void SetInstanceCharacter() 
         {
@@ -46,22 +45,26 @@ namespace Ciart.Pagomoa
                 instanceMoa,
                 instanceShopkeeper
             };
-
+            
             foreach (var output in outputs)
             {
-                if (output.streamName == StreamName.Pago.ToString())
+                if (output.streamName == nameof(StreamName.MainCamera))
+                {
+                    director.SetGenericBinding(output.sourceObject, CutSceneController.Instance.mainCinemachine);
+                }
+                else if (output.streamName == nameof(StreamName.Pago))
                 {
                     director.SetGenericBinding(output.sourceObject, instancePago);
                 } 
-                else if (output.streamName == StreamName.Moa.ToString())
+                else if (output.streamName == nameof(StreamName.Moa))
                 {
                     director.SetGenericBinding(output.sourceObject, instanceMoa);
                 }
-                else if (output.streamName == StreamName.Shopkeeper.ToString())
+                else if (output.streamName == nameof(StreamName.Shopkeeper))
                 {
                     director.SetGenericBinding(output.sourceObject, instanceShopkeeper);
                 }
-                else if (output.streamName == StreamName.Signal.ToString())
+                else if (output.streamName == nameof(StreamName.Signal))
                 {
                     director.SetGenericBinding(output.sourceObject, GetCutSceneController().GetSignalReceiver());
                 }

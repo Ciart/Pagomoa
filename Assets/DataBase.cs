@@ -50,6 +50,8 @@ namespace Ciart.Pagomoa
             {
                 Destroy(gameObject);
             }
+
+            cutSceneController = Instantiate(cutSceneController);
         }
         
         public WorldDatabase GetWorldData() { return worldDatabase; }
