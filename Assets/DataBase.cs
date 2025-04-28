@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using Cinemachine;
 using Logger;
@@ -17,7 +18,7 @@ namespace Ciart.Pagomoa
         public UIContainer GetUIData();
         public CutSceneController GetCutSceneController();
     }
-    public class DataBase : MonoBehaviour, IDataBase
+    public class DataBase : SingletonMonoBehaviour<DataBase>, IDataBase
     {
         [Header("World Data")]
         [SerializeField] private WorldDatabase worldDatabase;
@@ -41,6 +42,8 @@ namespace Ciart.Pagomoa
 
         protected void Awake()
         {
+            base.Awake();
+            
             if (data is null)
             {
                 data = this;

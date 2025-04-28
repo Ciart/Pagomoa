@@ -22,7 +22,6 @@ namespace Ciart.Pagomoa.Sounds
         
         public override void Update() // BGM Loop 시점 감지
         {
-            
             if (controller.GetMusincSource().timeSamples >= _loopEndSamples)
             {
                 controller.GetMusincSource().timeSamples -= _loopLengthSamples;

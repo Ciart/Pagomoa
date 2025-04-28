@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Ciart.Pagomoa.Systems;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,7 +15,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void Start()
         {
-            EntityManager.instance.Spawn(entityId, transform.position);
+            Game.Instance.Entity.Spawn(entityId, transform.position);
         }
 
         /*private void OnDrawGizmos()

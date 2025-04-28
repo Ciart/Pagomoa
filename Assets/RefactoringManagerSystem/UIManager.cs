@@ -18,6 +18,7 @@ namespace Ciart.Pagomoa.Systems
         private GameObject _dialogueUI;
         private DaySummaryUI _daySummaryUI;
         
+        public TitleUI titleUI { get; private set; }
         public MinimapUI minimapUI { get; private set; }
         public StatusUI StatusUI { get; private set; }
         public BookUI bookUI {get; private set;}
@@ -33,6 +34,7 @@ namespace Ciart.Pagomoa.Systems
         public override void PreStart()
         {
             _ui = Object.Instantiate(DataBase.data.GetUIData());
+            titleUI = Object.Instantiate(_ui.title, _ui.transform);
             
             minimapUI = Object.Instantiate(_ui.miniMapPanelPrefab, _ui.transform);
             StatusUI = Object.Instantiate(_ui.statusPanelPrefab, _ui.transform);
@@ -77,7 +79,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void UpdateGoldUI()
         {
-            var playerGold = Game.instance.player.inventory.gold;
+            var playerGold = Game.Instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
             StatusUI.playerGoldUI.text = playerGold.ToString();        
@@ -146,6 +148,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void DeActiveUI()
         {
+            if (!minimapUI) return;
             minimapUI.gameObject.SetActive(false);
             StatusUI.gameObject.SetActive(false);
             quickUI.gameObject.SetActive(false);
@@ -155,6 +158,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void ActiveUI()
         {
+            if (!minimapUI) return;
             minimapUI.gameObject.SetActive(true);
             StatusUI.gameObject.SetActive(true);
             quickUI.gameObject.SetActive(true);

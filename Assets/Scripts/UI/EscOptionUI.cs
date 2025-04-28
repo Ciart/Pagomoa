@@ -16,11 +16,11 @@ namespace Ciart.Pagomoa
         [SerializeField] private Button _goToMenuButton;
         [SerializeField] private Button _quitButton;
         [SerializeField] private Image _Logo;
-
+        
         void Start()
         {
-            _option._confirmButton.onClick.AddListener(OnToggleButton);
-            _option._cancleButton.onClick.AddListener(OnToggleButton);
+            _option.confirmButton.onClick.AddListener(OnToggleButton);
+            _option.cancleButton.onClick.AddListener(OnToggleButton);
             _optionButton.onClick.AddListener(OnToggleButton);
             _goToMenuButton.onClick.AddListener(GoToMenu);
             _quitButton.onClick.AddListener(Quit);
@@ -28,7 +28,6 @@ namespace Ciart.Pagomoa
 
         public void OnToggleButton()
         {
-            _option.UIToggle();
             _optionButton.gameObject.SetActive(!_optionButton.gameObject.activeSelf);
             _goToMenuButton.gameObject.SetActive(!_goToMenuButton.gameObject.activeSelf);
             _quitButton.gameObject.SetActive(!_quitButton.gameObject.activeSelf);

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1992445327424221123}
   - component: {fileID: 4965834635163241490}
   m_Layer: 0
-  m_Name: CutSceneMangaer
+  m_Name: CutSceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,8 +18,6 @@ namespace Ciart.Pagomoa.UI.Title
 
         public InfiniteScrollBackground[] backGrounds = new InfiniteScrollBackground[2];
 
-        public GameObject titlePanel;
-
         public Intro intro;
 
         private void Start()
@@ -30,19 +28,7 @@ namespace Ciart.Pagomoa.UI.Title
 
         public void StartGame(bool isContinue)
         {
-            // isFirstStart = DataManager.Instance.data.introData.isFirstStart;
-
-            // if (!isFirstStart || restart == true)
-            // {
-            //     SceneManager.LoadScene("Scenes/IntroScene");
-            //     DataManager.Instance.SaveGameData();
-            // }
-            // else
-            // {
-            //     SceneManager.LoadScene("Scenes/WorldScene");
-            // }
-            
-            titlePanel.SetActive(false);
+            Game.Instance.UI.titleUI.gameObject.SetActive(false);
 
             if (isContinue)
             {

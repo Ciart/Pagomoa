@@ -175,10 +175,6 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public void RegisterTickEvent(Action<int> action)
         {
-            Debug.Log(tickUpdated);
-            Debug.Log(tickUpdated.GetInvocationList());
-            Debug.Log(tickUpdated.GetInvocationList().Contains(action));
-            Debug.Log(action.Method.Name);
             if (!tickUpdated.GetInvocationList().Contains(action))
             {
                 tickUpdated += action;

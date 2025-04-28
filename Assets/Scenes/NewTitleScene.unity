@@ -1213,7 +1213,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12.4375
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1238,7 +1238,7 @@ Transform:
   m_GameObject: {fileID: 234978160}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3007,8 +3007,8 @@ MonoBehaviour:
   particles:
   - {fileID: 4929765826255280206, guid: 393d5baa459e72a4a88a9efa8bed9d64, type: 3}
   - {fileID: 5849672310036749508, guid: eab503777304a3447a1d23f946068d6c, type: 3}
-  uiContainer: {fileID: 0}
-  cutSceneController: {fileID: 0}
+  uiContainer: {fileID: 2784407036339335694, guid: f451272a3a0062c4c849bb3b3c8a5a19, type: 3}
+  cutSceneController: {fileID: 1114609587769996279, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
 --- !u!4 &738906076
 Transform:
   m_ObjectHideFlags: 0

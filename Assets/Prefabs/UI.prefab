@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c831f955b95733640b2bc15ffec07768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 6914945469599436003, guid: 63d9b33cdbc3a8c448a00673267c201c, type: 3}
   miniMapPanelPrefab: {fileID: 1917872846728318179, guid: 5863eeccc48919a4685b80a443b29fb5, type: 3}
   statusPanelPrefab: {fileID: 3907677986734665167, guid: 0429bab5b0500b949985969ce3c6fa81, type: 3}
   shopUIPrefab: {fileID: 1356624431031133237, guid: 652c909e8347bc64aa95d768f63edd80, type: 3}

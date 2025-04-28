@@ -14,17 +14,17 @@ namespace Ciart.Pagomoa.Systems {
         
         private TargetTimeValue _targetTimeValue;
         public void SetTargetTimeValue(int value) { _targetTimeValue = (TargetTimeValue)value; }
-        
-        private TextMeshProUGUI _tmpGuiText;
+        [SerializeField] private TextMeshProUGUI _tmpGuiText;
 
         private void Awake()
         {
-            _tmpGuiText = GetComponent<TextMeshProUGUI>();    
+            if (_tmpGuiText == null)
+                _tmpGuiText = GetComponent<TextMeshProUGUI>();    
         }
 
         public void UpdatePlayTimeOutput()
         {
-            var timeManager = TimeManager.instance;
+            var timeManager = Game.Instance.Time;
             
             if (_targetTimeValue == TargetTimeValue.TargetDate)
             {
