@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
 using Ciart.Pagomoa.Logger.ProcessScripts;
-using Ciart.Pagomoa.RefactoringManagerSystem;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
     public class EntityDialogue : MonoBehaviour
     {
-        public TextAsset basicDialogue = null;
+        public TextAsset basicDialogue;
 
         public DailyDialogue dailyDialogues;
 
@@ -121,9 +119,9 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var quests = ResourceSystem.instance.GetQuests(entityId);
             if (quests == null) return;
             _entityQuests = quests;
-
-            DebugCheck(); // TODO : 디버그용 함수
-            
+#if UNITY_EDITOR
+            DebugCheck();
+#endif          
             var hasCompletedQuest = Game.Instance.Quest.FindCompletedQuest(_entityQuests);
             if (hasCompletedQuest)
             {

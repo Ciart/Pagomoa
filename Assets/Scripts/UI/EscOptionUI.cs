@@ -15,12 +15,13 @@ namespace Ciart.Pagomoa
         [SerializeField] private Button _optionButton;
         [SerializeField] private Button _goToMenuButton;
         [SerializeField] private Button _quitButton;
+        [SerializeField] private Image _Logo;
 
         void Start()
         {
             _option._confirmButton.onClick.AddListener(OnToggleButton);
             _option._cancleButton.onClick.AddListener(OnToggleButton);
-            _optionButton.onClick.AddListener(SettingMenu);
+            _optionButton.onClick.AddListener(OnToggleButton);
             _goToMenuButton.onClick.AddListener(GoToMenu);
             _quitButton.onClick.AddListener(Quit);
         }
@@ -31,14 +32,7 @@ namespace Ciart.Pagomoa
             _optionButton.gameObject.SetActive(!_optionButton.gameObject.activeSelf);
             _goToMenuButton.gameObject.SetActive(!_goToMenuButton.gameObject.activeSelf);
             _quitButton.gameObject.SetActive(!_quitButton.gameObject.activeSelf);
-        }
-        
-        public void SettingMenu()
-        {
-            _option.UIToggle();
-            _optionButton.gameObject.SetActive(!_optionButton.gameObject.activeSelf);
-            _goToMenuButton.gameObject.SetActive(!_goToMenuButton.gameObject.activeSelf);
-            _quitButton.gameObject.SetActive(!_quitButton.gameObject.activeSelf);
+            _Logo.gameObject.SetActive(!_Logo.gameObject.activeSelf);
         }
         
         public void GoToMenu()
@@ -60,10 +54,12 @@ namespace Ciart.Pagomoa
 
         private void OnDisable()
         {
+            _option.CancelOption();
             _option.gameObject.SetActive(false);
             _optionButton.gameObject.SetActive(true);
             _goToMenuButton.gameObject.SetActive(true);
             _quitButton.gameObject.SetActive(true);
+            _Logo.gameObject.SetActive(true);
         }
     }
 }

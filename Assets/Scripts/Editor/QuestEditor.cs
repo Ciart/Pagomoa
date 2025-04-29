@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
-using Ciart.Pagomoa.Systems.Inventory;
-using Ciart.Pagomoa.Worlds;
 using Logger.ForEditorBaseScripts;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Ciart.Pagomoa.Editor
 {

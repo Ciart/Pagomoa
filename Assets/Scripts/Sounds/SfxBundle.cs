@@ -4,7 +4,7 @@ namespace Ciart.Pagomoa.Sounds
 {
     public enum SfxType
     {
-        TeamEffect,
+        PlayerEffect,
         MonsterEffect,
         UIEffect,
         DrillSpinEffect,

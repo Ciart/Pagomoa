@@ -61,7 +61,7 @@ AudioMixerController:
   - guid: bdf42d4b794e7404f9bbf80f3b6d48b7
     name: Sfx
   - guid: 6859931eea95fe842b012a39029736c6
-    name: Team
+    name: Player
   - guid: c60b75fb36519c14696e799a8cf988ad
     name: UI
   m_AudioMixerGroupViews:
@@ -120,8 +120,12 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 1733abbc23bb7394d8888c0b8b9d3334
   m_FloatValues:
-    6859931eea95fe842b012a39029736c6: 0
-    59e623ffc58e0b349bbf3403f0feb1f3: 0
+    c7430f5403527c04c835438a10d90b12: 1
+    d4de193a104735042b7ddaff236911f1: 1
+    bdf42d4b794e7404f9bbf80f3b6d48b7: 1
+    c60b75fb36519c14696e799a8cf988ad: 1
+    6859931eea95fe842b012a39029736c6: 1
+    59e623ffc58e0b349bbf3403f0feb1f3: 1
   m_TransitionOverrides: {}
 --- !u!244 &463630541764560995
 AudioMixerEffectController:
@@ -195,7 +199,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Team
+  m_Name: Player
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 8fe3d9cb51d4e6a4fb280ae2c537b20d
   m_Children: []

@@ -1,53 +1,71 @@
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.UI.Title;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Sounds
 {
+    public struct OptionData
+    {
+        public float masterMixerValue;
+        public float musicMixerValue;
+        public float sfxMixerValue;
+        public float playerMixerValue;
+        public float monsterMixerValue;
+        public float uiMixerValue;
+    }
+    
     public class AudioMixerController : SingletonMonoBehaviour<AudioMixerController>
     {
-        [SerializeField] private AudioMixer audioMixer;
-        public Slider masterSlider;
-        public Slider musicSlider;
-        public Slider sfxSlider;
-        public Slider playerSlider;
-        public Slider monsterSlider;
-        public Slider uiSlider;
+        [SerializeField] private AudioMixer _audioMixer;
+        private OptionData optionData;
 
-        public void AddSliderFunction()
+        public void InitAudioMixer()
         {
-            masterSlider.onValueChanged.AddListener(SetMasterVolume);
-            musicSlider.onValueChanged.AddListener(SetMusicVolume);
-            sfxSlider.onValueChanged.AddListener(SetSfxVolume);
-            playerSlider.onValueChanged.AddListener(SetTeamVolume);
-            monsterSlider.onValueChanged.AddListener(SetMonsterVolume);
-            uiSlider.onValueChanged.AddListener(SetUIVolume);
+            _audioMixer.GetFloat("Master", out optionData.masterMixerValue);
+            _audioMixer.GetFloat("Music", out optionData.musicMixerValue);
+            _audioMixer.GetFloat("Sfx", out optionData.sfxMixerValue);
+            _audioMixer.GetFloat("Player", out optionData.playerMixerValue);
+            _audioMixer.GetFloat("Monster", out optionData.monsterMixerValue);
+            _audioMixer.GetFloat("UI", out optionData.uiMixerValue);
+        }
+        public OptionData GetOptionData() { return optionData; }
+        
+        public void SetOptionData(OptionData changedData)
+        {
+            optionData.masterMixerValue = changedData.masterMixerValue;
+            optionData.musicMixerValue = changedData.musicMixerValue;
+            optionData.sfxMixerValue = changedData.sfxMixerValue;
+            optionData.playerMixerValue = changedData.playerMixerValue;
+            optionData.monsterMixerValue = changedData.monsterMixerValue;
+            optionData.uiMixerValue = changedData.uiMixerValue;
         }
         
-        private void SetMasterVolume(float volume)
+        public void SetMasterVolume(float volume)
         {
-            audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+           _audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
         }
-        private void SetMusicVolume(float volume)
+        public void SetMusicVolume(float volume)
         {
-            audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+            _audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
         }
-        private void SetSfxVolume(float volume)
+        public void SetSfxVolume(float volume)
         {
-            audioMixer.SetFloat("Sfx", Mathf.Log10(volume) * 20);
+            _audioMixer.SetFloat("Sfx", Mathf.Log10(volume) * 20);
         }
-        private void SetTeamVolume(float volume)
+        public void SetPlayerVolume(float volume)
         {
-            audioMixer.SetFloat("Team", Mathf.Log10(volume) * 20);
+            _audioMixer.SetFloat("Player", Mathf.Log10(volume) * 20);
         }
-        private void SetMonsterVolume(float volume)
+        public void SetMonsterVolume(float volume)
         {
-            audioMixer.SetFloat("Monster", Mathf.Log10(volume) * 20);
+            _audioMixer.SetFloat("Monster", Mathf.Log10(volume) * 20);
         }
-        private void SetUIVolume(float volume)
+        public void SetUIVolume(float volume)
         {
-            audioMixer.SetFloat("UI", Mathf.Log10(volume) * 20);
+            _audioMixer.SetFloat("UI", Mathf.Log10(volume) * 20);
         }
     }
 }
