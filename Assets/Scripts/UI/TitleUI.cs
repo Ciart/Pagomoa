@@ -2,6 +2,7 @@
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.UI.Title;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.UI
@@ -21,18 +22,28 @@ namespace Ciart.Pagomoa.UI
             
             _option.cancleButton.onClick.AddListener(_option.UIToggle);
             _option.confirmButton.onClick.AddListener(_option.UIToggle);
+
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+                gameObject.SetActive(false);
         }
         
         public void ExitGame() { Application.Quit(); }
 
+        
         private void OnEnable()
         {
             _restartButton.onClick.RemoveAllListeners();
             _continueButton.onClick.RemoveAllListeners();
             
             var title = TitleController.Instance;
-            _restartButton.onClick.AddListener(title.StartGame);
-            _continueButton.onClick.AddListener(title.ReStart);
+            _restartButton.onClick.AddListener(ReStart);
+            _continueButton.onClick.AddListener(title.StartGame);
+        }
+
+        private void ReStart()
+        {
+            var title = TitleController.Instance;
+            title.StartGame(false);
         }
     }
 }

@@ -15,7 +15,9 @@ namespace Ciart.Pagomoa
         Pago,
         Moa,
         Shopkeeper,
-        Signal, 
+        Signal,
+        
+        
     }
     public class CutSceneController : SingletonMonoBehaviour<CutSceneController>, INotificationReceiver
     {
@@ -53,10 +55,9 @@ namespace Ciart.Pagomoa
             }
         }
         
-        public CutScene GetOnPlayingCutScene()
-        {
-            return _targetCutScene;
-        }
+        // TODO : title 전용으로 한정하여 사용합니다. 추후에 변경해야 합니다.
+        public PlayableDirector GetDirector() { return _director; }
+        public CutScene GetOnPlayingCutScene() { return _targetCutScene; }
         
         public void StartCutScene(CutScene cutScene)
         {
@@ -72,7 +73,7 @@ namespace Ciart.Pagomoa
             CutSceneCameraSetting();
             
             _targetCutScene = cutScene;
-            PlayCutScene();
+            PlayCutScene(_targetCutScene);
         }
         
         private void EndCutScene(PlayableDirector director)
@@ -117,14 +118,16 @@ namespace Ciart.Pagomoa
             return true;
         }
         
-        private void PlayCutScene()
+        public void PlayCutScene(CutScene cutScene)
         {
+            if (!_targetCutScene) _targetCutScene = cutScene;
+                
             _targetCutScene.SetCutSceneController(this);
             _targetCutScene.SetBinding(_director);
             _targetCutScene.SetInstanceCharacter();
 
             _director.playableAsset = _targetCutScene.GetTimelineClip();
-            _director.timeUpdateMode = DirectorUpdateMode.GameTime;
+            _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
             
             foreach (var actor in _targetCutScene.GetActors())
             {

@@ -1,54 +1,28 @@
-using System;
-using System.Collections;
+﻿using System.Collections;
 using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Timelines;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Ciart.Pagomoa
+namespace Ciart.Pagomoa.Timelines
 {
-    public class CutSceneTrigger : MonoBehaviour
+    public class ShopkeeperTrigger : CutSceneTrigger
     {
-        public CutScene playableCutScene;
-        public Vector2  instantiatedPos;
-        
-        private BoxCollider2D _boxCollider;
+        [Header("ForShopkeeperCutScene")]
         private const string TargetTag = "Player";
-        [SerializeField] private GameObject _shopKeeperPrefab;
-
-        private CutSceneTrigger _trigger;
+        [SerializeField] private GameObject _shopKeeperPrefab; 
         
-        void Start()
-        {
-            _boxCollider = GetComponent<BoxCollider2D>();
-            _boxCollider.isTrigger = true;
-        }
-
         private void OnTriggerEnter2D(Collider2D targetObject)
         {
             if (targetObject.CompareTag(TargetTag))
                 StartCoroutine(StartFade());
         }
-
-        private void StartCutScene()
-        {
-            DataBase.data.GetCutSceneController().SetCutSceneTrigger(this);
-            DataBase.data.GetCutSceneController().StartCutScene(playableCutScene);
-            
-            Destroy(gameObject);
-        }
-
         private IEnumerator StartFade()
         {
             Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeIn, 1.0f);
-
             yield return new WaitForSeconds(1.0f);
-            
             StartCutScene();
         }
         
-
-        public void OnCutSceneTrigger(int tick)
+        public override void OnCutSceneTrigger(int tick)
         {
             if (tick == 18000 && Game.Instance.Time.date == 1)
             {
@@ -56,11 +30,20 @@ namespace Ciart.Pagomoa
                 Game.Instance.Time.UnregisterTickEvent(OnCutSceneTrigger);
             }
         }
-
-        public void OffCutSceneTrigger()
+        public override void OffCutSceneTrigger()
         {
             Instantiate(_shopKeeperPrefab, new Vector2(13.0f, 0.0f), Quaternion.identity);
             Destroy(_trigger);
         }
+        
+        private void StartCutScene()
+        {
+            DataBase.data.GetCutSceneController().SetCutSceneTrigger(this);
+            DataBase.data.GetCutSceneController().StartCutScene(playableCutScene);
+            
+            Destroy(gameObject);
+        }
+        
+        
     }
 }

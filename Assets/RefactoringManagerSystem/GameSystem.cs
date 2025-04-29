@@ -87,7 +87,7 @@ namespace Ciart.Pagomoa.Systems
 
         private void OnEnable()
         {
-            
+            EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
 
         private void OnDisable()
@@ -104,7 +104,6 @@ namespace Ciart.Pagomoa.Systems
             {
                 World = new WorldManager();
                 Game.Instance.Entity.Spawn("Player", transform.position);
-                EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
                 if (nowScene.isLoaded == false) return;
                 UI.ActiveUI();
                 UI.titleUI.gameObject.SetActive(false);

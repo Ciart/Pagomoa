@@ -8,6 +8,7 @@ using Ciart.Pagomoa.Timelines;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.UI.Title
@@ -17,8 +18,7 @@ namespace Ciart.Pagomoa.UI.Title
         public bool isFirstStart = false;
 
         public InfiniteScrollBackground[] backGrounds = new InfiniteScrollBackground[2];
-
-        public Intro intro;
+        [SerializeField] private CutScene _introCutScene;
 
         private void Start()
         {
@@ -82,23 +82,26 @@ namespace Ciart.Pagomoa.UI.Title
 
         private void FixedUpdate()
         {
-            if (intro.isPlayed) return;
+            // 컷씬 시작하면 더이상 작동하지 않음
+            PlayableDirector director = CutSceneController.Instance.GetDirector();
+            if (director.state == PlayState.Playing) return;
 
-            if (backGrounds[0].startIntro && !intro.isPlayed)
-                intro.PlayIntro();
+            if (backGrounds[0].startIntro && director.state != PlayState.Playing)
+            {
+                CutSceneController.Instance.PlayCutScene(_introCutScene);
+            }
         }
 
         public void StartGame()
         {
-            if (intro.isPlayed) intro.gameObject.SetActive(false);
+            //if (intro.isPlayed) intro.gameObject.SetActive(false);
 
             SceneManager.LoadScene("Scenes/WorldScene");
         }
 
         private void QuitToTitle(Scene scene, Scene title)
         {
-            Debug.Log(intro.isPlayed);
-            Debug.Log(backGrounds[0].stopScroll);
+            
         }
     }
 }
