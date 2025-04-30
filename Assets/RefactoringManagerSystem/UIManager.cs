@@ -179,6 +179,5 @@ namespace Ciart.Pagomoa.Systems
         {
             return Object.Instantiate(DataBase.data.GetUIData().questCompleteUI, parent);
         }
-
     }
 }

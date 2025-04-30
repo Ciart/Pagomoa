@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Timelines;
@@ -9,7 +10,14 @@ using UnityEngine.Timeline;
 
 namespace Ciart.Pagomoa
 {
-    public class CutSceneController : SingletonMonoBehaviour<CutSceneController>, INotificationReceiver
+    public enum StreamName
+    {
+        Pago,
+        Moa,
+        Shopkeeper,
+        Signal, 
+    }
+    public class CutSceneController : MonoBehaviour, INotificationReceiver
     {
         public Camera mainCamera;
         public CinemachineBrain mainCinemachine;
@@ -30,14 +38,17 @@ namespace Ciart.Pagomoa
         private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
         private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
-        private void Start()
+        private void Awake()
         {
             _director = GetComponent<PlayableDirector>();
             _signalReceiver = GetComponent<SignalReceiver>();
 
             mainCamera = Camera.main;
             mainCinemachine = mainCamera.GetComponent<CinemachineBrain>(); 
-            
+        }
+        
+        private void Start()
+        {
             _director.stopped += EndCutScene;
 
             foreach (var trigger in triggers)
@@ -45,10 +56,33 @@ namespace Ciart.Pagomoa
                 Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
             }
         }
-        
-        // TODO : title 전용으로 한정하여 사용합니다. 추후에 변경해야 합니다.
-        public PlayableDirector GetDirector() { return _director; }
-        public CutScene GetOnPlayingCutScene() { return _targetCutScene; }
+
+        private void OnPaused(PausedEvent e)
+        {
+            _director.Pause();
+        }
+
+        private void OnResumed(ResumedEvent e)
+        {
+            _director.Resume();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PausedEvent>(OnPaused);
+            EventManager.AddListener<ResumedEvent>(OnResumed);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PausedEvent>(OnPaused);
+            EventManager.RemoveListener<ResumedEvent>(OnResumed);
+        }
+
+        public CutScene GetOnPlayingCutScene()
+        {
+            return _targetCutScene;
+        }
         
         public void StartCutScene(CutScene cutScene)
         {

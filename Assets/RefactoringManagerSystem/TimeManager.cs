@@ -33,7 +33,8 @@ namespace Ciart.Pagomoa.Systems.Time
         /// </summary>
         public const int Morning = 0;
 
-        public bool IsTutorialDay {
+        public bool IsTutorialDay
+        {
             get => date == 0;
         }
 
@@ -74,13 +75,13 @@ namespace Ciart.Pagomoa.Systems.Time
                 {
                     Physics2D.simulationMode = SimulationMode2D.Script;
                     _isPause = true;
-                    paused?.Invoke();
+                    EventManager.Notify(new PausedEvent());
                 }
                 else
                 {
                     Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
                     _isPause = false;
-                    resumed?.Invoke();
+                    EventManager.Notify(new ResumedEvent());
                 }
             }
         }
