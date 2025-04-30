@@ -21,38 +21,77 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 
         public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
         private QuestCompleteIcon _questCompleteUI;
-        
-        private bool _hasInit; 
-        
+
+        private bool _hasInit;
+
         private void Start()
         {
             _questCompleteUI = Game.Instance.UI.CreateQuestCompleteUI(transform);
             _questCompleteUI.transform.position += uiOffset;
-            
+
             _hasInit = true;
             OnEnable();
         }
-        
+
+        private void UpdateQuestIconUI()
+        {
+            var questManager = Game.Instance.Quest;
+            var hasAvailableQuest = false;
+            var hasCompletedQuest = false;
+
+            foreach (var entityQuest in _entityQuests)
+            {
+                if (questManager.CheckQuestValidation(entityQuest))
+                {
+                    hasAvailableQuest = true;
+                    continue;
+                }
+
+                var quest = questManager.FindQuestById(entityQuest.id);
+
+                if (quest == null) continue;
+
+                if (quest.state == QuestState.Completed)
+                {
+                    hasCompletedQuest = true;
+                }
+            }
+
+
+            if (hasCompletedQuest)
+            {
+                _questCompleteUI.ActiveCompletableIcon();
+                return;
+            }
+            else if (hasAvailableQuest)
+            {
+                _questCompleteUI.ActiveAvailableIcon();
+                return;
+            }
+
+            _questCompleteUI.InactiveIcon();
+        }
+
         public QuestData[] GetValidationQuests()
-        { 
-            var questManager = Game.Instance.Quest; 
+        {
+            var questManager = Game.Instance.Quest;
             var result = new List<QuestData>();
 
             foreach (var quest in _entityQuests)
             {
                 if (questManager.CheckQuestValidation(quest))
-                { 
+                {
                     result.Add(quest);
                 }
             }
-            
+
             return result.ToArray();
         }
 
         public void QuestAccept(string id)
         {
             var entityId = _entityController.entityId;
-            
+
             Game.Instance.Quest.RegistrationQuest(entityId, id);
         }
 
@@ -63,8 +102,8 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             var questEvent = _entityController.GetComponent<IQuestEvent>();
 
             questEvent?.CompleteEvent(id);
-            
-            _questCompleteUI.InactiveIcon();
+
+            UpdateQuestIconUI();
         }
 
         public void StartDialogue()
@@ -78,40 +117,31 @@ namespace Ciart.Pagomoa.Systems.Dialogue
                 foreach (var quest in _entityQuests)
                 {
                     var progressQuest = questManager.FindQuestById(quest.id);
-                    
+
                     if (progressQuest is null || progressQuest.state != QuestState.Completed)
                     {
                         continue;
                     }
-                    
+
                     dialogueManager.StartStory(this, quest.completePrologue);
                     return;
                 }
             }
-            
+
             dialogueManager.StartStory(this, basicDialogue);
         }
 
         private void OnCompleteQuestsUpdated(QuestCompleted e)
         {
-            foreach (var entityQuest in _entityQuests)
-            {
-                if (e.quest.id == entityQuest.id && e.quest.state == QuestState.Completed)
-                {
-                    _questCompleteUI.ActiveCompletableIcon();
-                    return;
-                }
-            }
-            
-            _questCompleteUI.InactiveIcon();
+            UpdateQuestIconUI();
         }
 
         private void OnEnable()
         {
-            if(!_hasInit) return;
-            
+            if (!_hasInit) return;
+
             EventManager.AddListener<QuestCompleted>(OnCompleteQuestsUpdated);
-            
+
             _entityController = GetComponent<EntityController>();
             if (_entityController == null) return;
             var entityId = _entityController.entityId;
@@ -122,11 +152,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
 #if UNITY_EDITOR
             DebugCheck();
 #endif          
-            var hasCompletedQuest = Game.Instance.Quest.FindCompletedQuest(_entityQuests);
-            if (hasCompletedQuest)
-            {
-                _questCompleteUI.ActiveCompletableIcon();
-            }
+            UpdateQuestIconUI();
         }
 
         private void OnDisable()
