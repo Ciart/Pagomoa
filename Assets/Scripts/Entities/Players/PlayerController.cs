@@ -156,8 +156,10 @@ namespace Ciart.Pagomoa.Entities.Players
             }
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+
             UpdateState();
             UpdateSound();
 

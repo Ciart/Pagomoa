@@ -30,7 +30,7 @@ namespace Ciart.Pagomoa.Entities
     {
         public float amount;
     }
-    
+
     public class EntityDiedEventArgs
     {
         /// <summary>
@@ -44,8 +44,8 @@ namespace Ciart.Pagomoa.Entities
     {
         public string entityId;
 
-        private float _health; 
-        public float Health 
+        private float _health;
+        public float Health
         {
             get => _health;
             set
@@ -55,7 +55,7 @@ namespace Ciart.Pagomoa.Entities
                 healthChanged?.Invoke();
             }
         }
-        
+
         private float _maxHealth;
         public float MaxHealth
         {
@@ -109,7 +109,7 @@ namespace Ciart.Pagomoa.Entities
         public event Action<EntityDamagedEventArgs> damaged;
         public event Action<EntityExplodedEventArgs> exploded;
         public event Action<EntityDiedEventArgs> died;
-        
+
         public bool isDead => Health <= 0;
 
         protected SpriteRenderer _spriteRenderer;
@@ -163,20 +163,20 @@ namespace Ciart.Pagomoa.Entities
                 Speed = data.status.speed;
                 return;
             }
-            
+
             MaxHealth = entity.baseHealth;
             Health = entity.baseHealth;
             Attack = entity.attack;
             Defense = entity.defense;
             Speed = entity.speed;
         }
-        
+
         public EntityData GetEntityData()
         {
             if (this == null) return null;
 
             var position = transform.position;
-            
+
             var status = new EntityStatus
             {
                 health = Health,
@@ -185,7 +185,7 @@ namespace Ciart.Pagomoa.Entities
                 defense = Defense,
                 speed = Speed
             };
-            
+
             return new EntityData(entityId, position.x, position.y, status);
         }
 
@@ -196,7 +196,7 @@ namespace Ciart.Pagomoa.Entities
 
         public void TakeKnockback(float force, Vector2 direction)
         {
-            if(isDead) return;
+            if (isDead) return;
 
             Game.Instance.Particle.Make(0, gameObject, transform.position + Vector3.up * 0.5f, 0.5f);
 
@@ -218,7 +218,7 @@ namespace Ciart.Pagomoa.Entities
             Health -= damage;
             damaged?.Invoke(new EntityDamagedEventArgs { amount = damage, invincibleTime = invincibleTime, attacker = attacker, flag = flag });
             healthChanged?.Invoke();
-            
+
             if (Health <= 0)
             {
                 Health = 0;
@@ -248,11 +248,11 @@ namespace Ciart.Pagomoa.Entities
         public void Die()
         {
             Health = 0;
-            
+
             var args = new EntityDiedEventArgs();
-            
+
             died?.Invoke(args);
-            
+
             if (args.AutoDespawn)
             {
                 // TODO: EntityManager에서 관리해야 함
@@ -285,24 +285,27 @@ namespace Ciart.Pagomoa.Entities
             }
         }
 
-        private void Update()
+        private void CheckActive()
         {
-            CheckDeath();
+            var level = WorldManager.world.currentLevel;
+            var levelRenderer = Game.Instance.World.worldRenderer.GetLevelRenderer(level);
+            var worldCoords = WorldManager.ComputeCoords(transform.position);
+            var chunkCoords = level.GetChunk(worldCoords.x, worldCoords.y)?.coords;
 
-            var player = Game.Instance.player;
-            
-            if (player is null || this == player) return;
-
-            var distance = Vector3.Distance(transform.position, player.transform.position);
-
-            if (distance > 100f)
-            {
-                _rigidbody.simulated = false;
-            }
-            else
+            if (chunkCoords != null && levelRenderer.IsLiveChunk(chunkCoords.Value))
             {
                 _rigidbody.simulated = true;
             }
+            else
+            {
+                _rigidbody.simulated = false;
+            }
+        }
+
+        protected virtual void Update()
+        {
+            CheckDeath();
+            CheckActive();
 
             _invincibleTime -= Time.deltaTime;
         }
