@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Timelines;
@@ -48,7 +49,31 @@ namespace Ciart.Pagomoa
                 Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
             }
         }
-        
+
+        private void OnPaused(PausedEvent e)
+        {
+            // 이벤트의 호출 시점이 명확하지 않아서 직접 PlayableDirector를 찾아와야 합니다.
+            GetComponent<PlayableDirector>().Pause();
+        }
+
+        private void OnResumed(ResumedEvent e)
+        {
+            // 이벤트의 호출 시점이 명확하지 않아서 직접 PlayableDirector를 찾아와야 합니다.
+            GetComponent<PlayableDirector>().Resume();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PausedEvent>(OnPaused);
+            EventManager.AddListener<ResumedEvent>(OnResumed);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PausedEvent>(OnPaused);
+            EventManager.RemoveListener<ResumedEvent>(OnResumed);
+        }
+
         public CutScene GetOnPlayingCutScene()
         {
             return _targetCutScene;
