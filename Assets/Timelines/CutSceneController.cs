@@ -130,10 +130,8 @@ namespace Ciart.Pagomoa
         private void CutSceneCameraSetting() { mainCamera.cullingMask= CutSceneMasks; }
         private void DefaultCameraSetting() { mainCamera.cullingMask= InGameMasks; }
         
-        public bool CutSceneIsPlayed()
-        {
-            return _director.state == PlayState.Playing;
-        }
+        public PlayableDirector GetDirector() { return _director; }
+        public bool CutSceneIsPlayed() { return _director.state == PlayState.Playing; }
 
         public bool RePlayCutScene()
         {

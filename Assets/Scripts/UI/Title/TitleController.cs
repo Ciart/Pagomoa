@@ -83,12 +83,12 @@ namespace Ciart.Pagomoa.UI.Title
         private void FixedUpdate()
         {
             // 컷씬 시작하면 더이상 작동하지 않음
-            PlayableDirector director = CutSceneController.Instance.GetDirector();
+            PlayableDirector director = DataBase.Instance.GetCutSceneController().GetDirector();
             if (director.state == PlayState.Playing) return;
 
             if (backGrounds[0].startIntro && director.state != PlayState.Playing)
             {
-                CutSceneController.Instance.PlayCutScene(_introCutScene);
+                DataBase.Instance.GetCutSceneController().PlayCutScene(_introCutScene);
             }
         }
 

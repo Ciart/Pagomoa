@@ -63,7 +63,7 @@ namespace Ciart.Pagomoa.CutScenes
                 
                 if (output.streamName == nameof(ShopkeeperStreamName.MainCamera))
                 {
-                    director.SetGenericBinding(output.sourceObject, CutSceneController.Instance.mainCinemachine);
+                    director.SetGenericBinding(output.sourceObject, DataBase.Instance.GetCutSceneController().mainCinemachine);
                 }
                 else if (output.streamName == nameof(IntroStreamName.APago))
                 {
@@ -94,6 +94,10 @@ namespace Ciart.Pagomoa.CutScenes
                 else if (output.streamName == nameof(IntroStreamName.ALoopBackGround))
                 {
                     director.SetGenericBinding(output.sourceObject, _loopBackGround);
+                }
+                else if (output.streamName.Contains("Signal"))
+                {
+                    director.SetGenericBinding(output.sourceObject, DataBase.Instance.GetCutSceneController().GetSignalReceiver());
                 }
             }
 

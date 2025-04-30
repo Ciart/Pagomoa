@@ -59,7 +59,7 @@ namespace Ciart.Pagomoa
             {
                 if (output.streamName == nameof(ShopkeeperStreamName.MainCamera))
                 {
-                    director.SetGenericBinding(output.sourceObject, CutSceneController.Instance.mainCinemachine);
+                    director.SetGenericBinding(output.sourceObject, DataBase.Instance.GetCutSceneController().mainCinemachine);
                 }
                 else if (output.streamName == nameof(ShopkeeperStreamName.Pago))
                 {
