@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Timelines;
@@ -34,13 +35,16 @@ namespace Ciart.Pagomoa
         private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
         private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
-        private void Start()
+        private void Awake()
         {
             _director = GetComponent<PlayableDirector>();
             _signalReceiver = GetComponent<SignalReceiver>();
             
             mainCamera = Camera.main;
-            
+        }
+        
+        private void Start()
+        {
             _director.stopped += EndCutScene;
 
             foreach (var trigger in triggers)
@@ -48,7 +52,29 @@ namespace Ciart.Pagomoa
                 Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
             }
         }
-        
+
+        private void OnPaused(PausedEvent e)
+        {
+            _director.Pause();
+        }
+
+        private void OnResumed(ResumedEvent e)
+        {
+            _director.Resume();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.AddListener<PausedEvent>(OnPaused);
+            EventManager.AddListener<ResumedEvent>(OnResumed);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<PausedEvent>(OnPaused);
+            EventManager.RemoveListener<ResumedEvent>(OnResumed);
+        }
+
         public CutScene GetOnPlayingCutScene()
         {
             return _targetCutScene;
