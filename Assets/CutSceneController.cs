@@ -35,13 +35,16 @@ namespace Ciart.Pagomoa
         private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
         private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
-        private void Start()
+        private void Awake()
         {
             _director = GetComponent<PlayableDirector>();
             _signalReceiver = GetComponent<SignalReceiver>();
             
             mainCamera = Camera.main;
-            
+        }
+        
+        private void Start()
+        {
             _director.stopped += EndCutScene;
 
             foreach (var trigger in triggers)
@@ -52,14 +55,12 @@ namespace Ciart.Pagomoa
 
         private void OnPaused(PausedEvent e)
         {
-            // 이벤트의 호출 시점이 명확하지 않아서 직접 PlayableDirector를 찾아와야 합니다.
-            GetComponent<PlayableDirector>().Pause();
+            _director.Pause();
         }
 
         private void OnResumed(ResumedEvent e)
         {
-            // 이벤트의 호출 시점이 명확하지 않아서 직접 PlayableDirector를 찾아와야 합니다.
-            GetComponent<PlayableDirector>().Resume();
+            _director.Resume();
         }
 
         private void OnEnable()
