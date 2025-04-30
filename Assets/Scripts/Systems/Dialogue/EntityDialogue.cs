@@ -19,7 +19,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private EntityController _entityController;
         private QuestData[] _entityQuests = Array.Empty<QuestData>();
 
-        public Vector3 uiOffset = new Vector3(0f, 3.2f, 0f);
+        public Vector3 uiOffset = new Vector3(0f, 1.5f, 0f);
         private QuestCompleteIcon _questCompleteUI;
 
         private bool _hasInit;
@@ -36,6 +36,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         private void UpdateQuestIconUI()
         {
             var questManager = Game.Instance.Quest;
+
             var hasAvailableQuest = false;
             var hasCompletedQuest = false;
 
