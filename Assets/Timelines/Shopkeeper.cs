@@ -3,16 +3,25 @@ using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Timelines;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 using Vector3 = UnityEngine.Vector3;
 
 namespace Ciart.Pagomoa
 {
+    public enum ShopkeeperStreamName
+    {
+        MainCamera,
+        Pago,
+        Moa,
+        Shopkeeper,
+        Signal,
+    }
     public class Shopkeeper : CutScene
     {
         [Header("CutScene Character")]
-        [SerializeField] private GameObject mPago;
-        [SerializeField] private GameObject mShopkeeper;
-        [SerializeField] private GameObject mMoa;
+        [SerializeField] private GameObject _pago;
+        [SerializeField] private GameObject _shopkeeper;
+        [SerializeField] private GameObject _moa;
         
         [HideInInspector] public GameObject? instancePago;
         [HideInInspector] public GameObject? instanceShopkeeper;
@@ -35,9 +44,9 @@ namespace Ciart.Pagomoa
         {
             var outputs = GetTimelineClip().outputs;
 
-            instanceShopkeeper = Instantiate(mShopkeeper);
-            instancePago = Instantiate(mPago);
-            instanceMoa = Instantiate(mMoa);
+            instanceShopkeeper = Instantiate(_shopkeeper);
+            instancePago = Instantiate(_pago);
+            instanceMoa = Instantiate(_moa);
 
             actors = new List<GameObject>
             {
@@ -48,23 +57,23 @@ namespace Ciart.Pagomoa
             
             foreach (var output in outputs)
             {
-                if (output.streamName == nameof(StreamName.MainCamera))
+                if (output.streamName == nameof(ShopkeeperStreamName.MainCamera))
                 {
                     director.SetGenericBinding(output.sourceObject, CutSceneController.Instance.mainCinemachine);
                 }
-                else if (output.streamName == nameof(StreamName.Pago))
+                else if (output.streamName == nameof(ShopkeeperStreamName.Pago))
                 {
                     director.SetGenericBinding(output.sourceObject, instancePago);
                 } 
-                else if (output.streamName == nameof(StreamName.Moa))
+                else if (output.streamName == nameof(ShopkeeperStreamName.Moa))
                 {
                     director.SetGenericBinding(output.sourceObject, instanceMoa);
                 }
-                else if (output.streamName == nameof(StreamName.Shopkeeper))
+                else if (output.streamName == nameof(ShopkeeperStreamName.Shopkeeper))
                 {
                     director.SetGenericBinding(output.sourceObject, instanceShopkeeper);
                 }
-                else if (output.streamName == nameof(StreamName.Signal))
+                else if (output.streamName == nameof(ShopkeeperStreamName.Signal))
                 {
                     director.SetGenericBinding(output.sourceObject, GetCutSceneController().GetSignalReceiver());
                 }

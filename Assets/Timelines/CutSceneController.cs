@@ -9,20 +9,11 @@ using UnityEngine.Timeline;
 
 namespace Ciart.Pagomoa
 {
-    public enum StreamName
-    {
-        MainCamera,
-        Pago,
-        Moa,
-        Shopkeeper,
-        Signal,
-        
-        
-    }
     public class CutSceneController : SingletonMonoBehaviour<CutSceneController>, INotificationReceiver
     {
         public Camera mainCamera;
         public CinemachineBrain mainCinemachine;
+        public List<CinemachineVirtualCamera> cameras;
         
         private PlayableDirector _director;
         private SignalReceiver _signalReceiver;
@@ -82,7 +73,7 @@ namespace Ciart.Pagomoa
             Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeOut, fadeDelay);
             DefaultCameraSetting();
             
-            var player = Game.instance.player;
+            var player = Game.Instance.player;
             player.gameObject.SetActive(true);
             Game.Instance.UI.ActiveUI();
             

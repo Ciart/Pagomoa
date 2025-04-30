@@ -141,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   mainCinemachine: {fileID: 0}
+  cameras: []
   triggers:
   - {fileID: 3542688568733993921, guid: 3351da2ff436cb240b95b5077b6d7d15, type: 3}
   fadeDelay: 1
@@ -179,12 +180,59 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 3973909336483018379, guid: e6306a8744c647a49b34e8ea5fdaf509, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 8105547344128057719, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1326996521042850887, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 2776552536630659678}
+  - key: {fileID: -6680960113202392531, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 4337869419585058589}
+  - key: {fileID: 9184812500524257268, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 1945766149273712401}
+  - key: {fileID: -82066277967991386, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 746593953882664028}
+  - key: {fileID: -6402936285648135511, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 3394309319728262762}
+  - key: {fileID: 5646197724616354131, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 7326160246490513873}
+  - key: {fileID: -6627471403186744816, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8019707694410755200, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 9172893674480544274, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5221710621948113071, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6762534900637613036, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5188125635553189257, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8001560079488146740, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 4754176552030703162, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8746561543517329371, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8849096198961506782, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6298695137459920248, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 9126458172173123050, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2064539088675475862, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 06b660a6ae48c3743a96b93e322ebbea: {fileID: 1863047219035777310}
     - 051153b1bd9fb644382a19dd9a8045c1: {fileID: 2785385738827606225}
     - d6f9dc9abe47f63429b8fca157b7d1c0: {fileID: 2785385738827606225}
     - 6f1161cc29570cd4698f42487a2e6c2b: {fileID: 1863047219035777310}
+    - 5aac3da4e7944594fba9dd7d0c616918: {fileID: 5983722480888426673}
+    - 39eb89fad9801ef4c942f63fc180e203: {fileID: 2785385738827606225}
+    - 524c3cb2dfa1b894fae8d1405f3c23ac: {fileID: 1863047219035777310}
+    - 47643d94c3fd0ac44962ec363d90f313: {fileID: 1863047219035777310}
+    - c6ab196c5f435db47b526f0ace0dfada: {fileID: 2785385738827606225}
+    - a648cda0df34d8448bd95d4b982765c2: {fileID: 7431259091876143368}
+    - b4ef7505709d536429f9bcc0e277a75a: {fileID: 2831620833959158300}
     - 7a7facc6ed9bfce4c9ee710dedd61a84: {fileID: 1863047219035777310}
 --- !u!114 &4965834635163241490
 MonoBehaviour:
@@ -372,7 +420,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 3
+    GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
@@ -696,7 +744,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 3
+    GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:

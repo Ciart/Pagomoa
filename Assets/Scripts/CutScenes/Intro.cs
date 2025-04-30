@@ -60,7 +60,8 @@ namespace Ciart.Pagomoa.CutScenes
             
             foreach (var output in outputs)
             {
-                if (output.streamName == nameof(StreamName.MainCamera))
+                
+                if (output.streamName == nameof(ShopkeeperStreamName.MainCamera))
                 {
                     director.SetGenericBinding(output.sourceObject, CutSceneController.Instance.mainCinemachine);
                 }
