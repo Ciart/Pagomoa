@@ -53,10 +53,13 @@ namespace Ciart.Pagomoa
             {
                 Destroy(gameObject);
             }
+        }
 
+        private void Start()
+        {
             cutSceneController = Instantiate(cutSceneController);
         }
-        
+
         public WorldDatabase GetWorldData() { return worldDatabase; }
         public WorldRenderer GetWorldRenderer() { return worldRenderer; }
         public ItemEntity GetItemEntity() { return itemEntity; }
