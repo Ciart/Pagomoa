@@ -27,5 +27,17 @@ namespace Ciart.Pagomoa
         
         [Header("For Run Time Can be None")] 
         public DialogueUI? dialogueUI;
+        
+        private void Awake()
+        {
+            if (Application.isPlaying)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
