@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4082636478707286806}
   - component: {fileID: 3145007310914624458}
   - component: {fileID: 342332531156756706}
-  - component: {fileID: 1438842240499764763}
   m_Layer: 0
   m_Name: IntroPago
   m_TagString: Untagged
@@ -142,63 +141,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ef58fa4dab90a4ea5983e5b99e30ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1438842240499764763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7518215268570563484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 0e854a6d8babeb24fb7e3b185c3d3321, type: 2}
-    - {fileID: 11400000, guid: 2802a7adccc80e347ba3092b55dc3709, type: 2}
-    - {fileID: 11400000, guid: 7fd22e824269ac64e83382574ea77de6, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 342332531156756706}
-          m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Dialogue.Chat, Assembly-CSharp
-          m_MethodName: EaseChatting
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 342332531156756706}
-          m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Dialogue.Chat, Assembly-CSharp
-          m_MethodName: Chatting
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "\uB0B4...."
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 342332531156756706}
-          m_TargetAssemblyTypeName: Ciart.Pagomoa.Systems.Dialogue.Chat, Assembly-CSharp
-          m_MethodName: Chatting
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "\uB0B4..\uC9D1!!!!"
-            m_BoolArgument: 0
-          m_CallState: 2

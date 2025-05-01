@@ -151,7 +151,7 @@ namespace Ciart.Pagomoa
 
             _director.playableAsset = _targetCutScene.GetTimelineClip();
             _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
-            
+
             foreach (var actor in _targetCutScene.GetActors())
             {
                 actor.TryGetComponent<ChatBalloon>(out var chat);
@@ -182,7 +182,6 @@ namespace Ciart.Pagomoa
                 foreach (var actor in _targetCutScene.GetActors())
                 {
                     var targetName = chat.targetTalker.name + "(Clone)";
-                    
                     if (targetName != actor.name) continue;
                     
                     if (chat.content.Trim() == "")

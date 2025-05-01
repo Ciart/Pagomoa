@@ -51,8 +51,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ebc7cba58a6d22f499ef6dbb9781d633, type: 3}
   - {fileID: 21300000, guid: 629688f19ed4dc34094bdc7c6f1aa2ff, type: 2}
   dialogues: []
-  actors:
-  - {fileID: 0}
   miniChats:
   - "\uC800\uAE30 \uB204\uAC00 \uC788\uB294\uB370?"
   - ???
@@ -61,9 +59,9 @@ MonoBehaviour:
   - "\uC800 \uC0AC\uB78C\uC774 \uB204\uAD70\uB370?"
   - "\uB098\uC57C \uBAA8\uB974\uC9C0!"
   - "\uD074\uD760.. \uD07C.. \uD760\uD760.."
-  mPago: {fileID: 409387768824757805, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
-  mShopkeeper: {fileID: 1651167646812918115, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
-  mMoa: {fileID: 258473762284986154, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
+  _pago: {fileID: 409387768824757805, guid: 341c4c004a487af4ba064bbb324abaf2, type: 3}
+  _shopkeeper: {fileID: 1651167646812918115, guid: 2b38578aecbe330418273e5e993d1e24, type: 3}
+  _moa: {fileID: 258473762284986154, guid: 9d44e0df44408324591b78f43307e0de, type: 3}
   instancePago: {fileID: 0}
   instanceShopkeeper: {fileID: 0}
   instanceMoa: {fileID: 0}

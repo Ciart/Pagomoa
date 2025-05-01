@@ -35,43 +35,38 @@ namespace Ciart.Pagomoa.CutScenes
         [Header("Background")]
         [SerializeField] private GameObject _loopBackGround;
         
-        public List<PlayableBinding> playables; 
+        public List<PlayableBinding> playables;
+        private GameObject? _instancePago;
+        private GameObject? _instanceMoa;
         
-        public override List<GameObject> GetActors()
-        {
-            return new List<GameObject>();            
-        }
-
-        public override void SetInstanceCharacter()
-        {
-            
-        }
+        public override List<GameObject> GetActors() { return actors; }
+        public override void SetInstanceCharacter() { }
 
         public override void SetBinding(PlayableDirector director)
         {
             var outputs = GetTimelineClip().outputs;
 
-            /*actors = new List<GameObject>
+            _instancePago = Instantiate(_pago);
+            _instanceMoa = Instantiate(_moa);
+            actors = new List<GameObject>
             {
-                instancePago,
-                instanceMoa,
-                instanceShopkeeper
-            };*/
+                _instancePago,
+                _instanceMoa
+            };
             
             foreach (var output in outputs)
             {
-                
                 if (output.streamName == nameof(ShopkeeperStreamName.MainCamera))
                 {
                     director.SetGenericBinding(output.sourceObject, DataBase.Instance.GetCutSceneController().mainCinemachine);
                 }
                 else if (output.streamName == nameof(IntroStreamName.APago))
                 {
-                    director.SetGenericBinding(output.sourceObject, _pago);
+                    director.SetGenericBinding(output.sourceObject, _instancePago);
                 } 
                 else if (output.streamName == nameof(IntroStreamName.AMoa))
                 {
-                    director.SetGenericBinding(output.sourceObject, _moa);
+                    director.SetGenericBinding(output.sourceObject, _instanceMoa);
                 }
                 else if (output.streamName == nameof(IntroStreamName.ACreditFocus))
                 {

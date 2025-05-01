@@ -30,6 +30,7 @@ namespace Ciart.Pagomoa.Timelines
         public void ClearActors() {
             for (var i = actors.Count - 1; i >= 0; i--)
             {
+                if (!actors[i].gameObject) continue;
                 Destroy(actors[i].gameObject);
                 actors.RemoveAt(i);
             }

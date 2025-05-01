@@ -19,9 +19,11 @@ namespace Ciart.Pagomoa.UI.Title
 
         public InfiniteScrollBackground[] backGrounds = new InfiniteScrollBackground[2];
         [SerializeField] private CutScene _introCutScene;
-
+        private bool isIntro = false;
+        
         private void Start()
         {
+            isIntro = false;
             DataManager.Instance.LoadGameData();
             SceneManager.activeSceneChanged += QuitToTitle;
         }
@@ -84,11 +86,13 @@ namespace Ciart.Pagomoa.UI.Title
         {
             // 컷씬 시작하면 더이상 작동하지 않음
             PlayableDirector director = DataBase.Instance.GetCutSceneController().GetDirector();
+            if (isIntro) return;
             if (director.state == PlayState.Playing) return;
-
+            
             if (backGrounds[0].startIntro && director.state != PlayState.Playing)
             {
                 DataBase.Instance.GetCutSceneController().PlayCutScene(_introCutScene);
+                isIntro = true;
             }
         }
 

@@ -154,7 +154,7 @@ PlayableDirector:
   m_GameObject: {fileID: 2247904523322223008}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 2
@@ -184,8 +184,6 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -6680960113202392531, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
     value: {fileID: 4337869419585058589}
-  - key: {fileID: 9184812500524257268, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
-    value: {fileID: 1945766149273712401}
   - key: {fileID: -6627471403186744816, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
     value: {fileID: 0}
   - key: {fileID: 8019707694410755200, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
@@ -212,6 +210,8 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -2064539088675475862, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -3098896978437475133, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
+    value: {fileID: 2776552536630659678}
   m_ExposedReferences:
     m_References:
     - 1686c67a971ca1242a17e3e8b695b3f5: {fileID: 1863047219035777310}
@@ -240,8 +240,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Events:
-    m_Signals: []
-    m_Events: []
+    m_Signals:
+    - {fileID: 11400000, guid: e022d2ed6c28f2441b1d615ddf5abe66, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1580453170759157627, guid: 89ffb5fa162ec53489f21256077fea6d, type: 3}
+          m_TargetAssemblyTypeName: Ciart.Pagomoa.UI.Title.TitleController, Assembly-CSharp
+          m_MethodName: StartGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2274029348984943680
 GameObject:
   m_ObjectHideFlags: 0
