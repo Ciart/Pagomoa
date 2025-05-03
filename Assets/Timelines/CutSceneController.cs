@@ -45,6 +45,8 @@ namespace Ciart.Pagomoa
 
             mainCamera = Camera.main;
             mainCinemachine = mainCamera.GetComponent<CinemachineBrain>(); 
+            
+            DontDestroyOnLoad(this);
         }
         
         private void Start()
@@ -108,6 +110,13 @@ namespace Ciart.Pagomoa
             DefaultCameraSetting();
             
             var player = Game.Instance.player;
+            if (!player)
+            {
+                _targetCutScene = null;
+                _currentCutSceneTrigger = null;
+                director.playableAsset = null;
+                return;
+            }
             player.gameObject.SetActive(true);
             Game.Instance.UI.ActiveUI();
             
@@ -116,19 +125,28 @@ namespace Ciart.Pagomoa
                 player.transform.GetChild(i).gameObject.SetActive(true);    
             }
             
-            _currentCutSceneTrigger.OffCutSceneTrigger();
+            if (_currentCutSceneTrigger)
+                _currentCutSceneTrigger.OffCutSceneTrigger();
 
             _targetCutScene = null;
             _currentCutSceneTrigger = null;
+            director.playableAsset = null;
         }
-        
+
+        private void EndIntroCutScene() { }
+
         public SignalReceiver GetSignalReceiver()
         {
             return _signalReceiver;
         }
         
         private void CutSceneCameraSetting() { mainCamera.cullingMask= CutSceneMasks; }
-        private void DefaultCameraSetting() { mainCamera.cullingMask= InGameMasks; }
+
+        private void DefaultCameraSetting()
+        {
+            if (mainCamera)
+                mainCamera.cullingMask= InGameMasks;
+        }
         
         public PlayableDirector GetDirector() { return _director; }
         public bool CutSceneIsPlayed() { return _director.state == PlayState.Playing; }

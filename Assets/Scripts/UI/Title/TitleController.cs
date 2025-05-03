@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
-using Ciart.Pagomoa.CutScenes;
-using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Timelines;
-using Cinemachine;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
@@ -101,6 +95,7 @@ namespace Ciart.Pagomoa.UI.Title
             //if (intro.isPlayed) intro.gameObject.SetActive(false);
 
             SceneManager.LoadScene("Scenes/WorldScene");
+            DataBase.data.GetCutSceneController().GetDirector().Stop();
         }
 
         private void QuitToTitle(Scene scene, Scene title)

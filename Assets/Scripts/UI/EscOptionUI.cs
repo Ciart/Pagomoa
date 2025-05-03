@@ -28,6 +28,7 @@ namespace Ciart.Pagomoa
 
         public void OnToggleButton()
         {
+            _option.UIToggle();
             _optionButton.gameObject.SetActive(!_optionButton.gameObject.activeSelf);
             _goToMenuButton.gameObject.SetActive(!_goToMenuButton.gameObject.activeSelf);
             _quitButton.gameObject.SetActive(!_quitButton.gameObject.activeSelf);

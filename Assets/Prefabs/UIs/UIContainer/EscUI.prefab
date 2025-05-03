@@ -1383,6 +1383,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5637234370490318783, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
+      propertyPath: cancleButton
+      value: 
+      objectReference: {fileID: 2792120784365708600}
+    - target: {fileID: 5637234370490318783, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
+      propertyPath: confirmButton
+      value: 
+      objectReference: {fileID: 4644570702428618311}
     - target: {fileID: 5678464002496410285, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -1576,6 +1584,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
+--- !u!114 &2792120784365708600 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2660914902307059812, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
+  m_PrefabInstance: {fileID: 167445785629449564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4644570702428618311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4766558262137316123, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
+  m_PrefabInstance: {fileID: 167445785629449564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5314228894019934118 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5471042367479384826, guid: 57f403a2265485b48ba0e739df076e49, type: 3}
