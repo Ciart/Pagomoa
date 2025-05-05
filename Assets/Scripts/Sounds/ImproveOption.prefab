@@ -4491,8 +4491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4ba11ff22ef674f96e0efdfd2e7298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  confirmButton: {fileID: 0}
-  cancleButton: {fileID: 0}
+  confirmButton: {fileID: 4766558262137316123}
+  cancleButton: {fileID: 2660914902307059812}
   _masterSlider: {fileID: 1687096895612207856}
   _musicSlider: {fileID: 1693955696384019898}
   _sfxSlider: {fileID: 1217818081198457705}
