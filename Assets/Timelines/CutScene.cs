@@ -11,10 +11,9 @@ namespace Ciart.Pagomoa.Timelines
     public abstract class CutScene : MonoBehaviour
     {
         private CutSceneController _cutSceneController;
-        
-        [SerializeField] private PlayableAsset timelineClip;
-        [SerializeField] private List<Sprite> portraits;
-        [SerializeField] private List<TextAsset> dialogues;
+        [SerializeField] protected  PlayableAsset timelineClip;
+        [SerializeField] protected List<Sprite> portraits;
+        [SerializeField] protected  List<TextAsset> dialogues;
 
         protected List<GameObject> actors { get; set; }
         protected int index { get; set; } = 0;
@@ -31,6 +30,7 @@ namespace Ciart.Pagomoa.Timelines
         public void ClearActors() {
             for (var i = actors.Count - 1; i >= 0; i--)
             {
+                if (!actors[i].gameObject) continue;
                 Destroy(actors[i].gameObject);
                 actors.RemoveAt(i);
             }

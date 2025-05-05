@@ -58,7 +58,7 @@ namespace Ciart.Pagomoa.Worlds
             world = new World(e.saveData.world);
         }
 
-        public override void Start()
+        public void Init()
         {
             if (world is not null)
             {
