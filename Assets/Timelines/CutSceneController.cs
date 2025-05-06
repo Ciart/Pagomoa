@@ -6,6 +6,7 @@ using Ciart.Pagomoa.Timelines;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 
 namespace Ciart.Pagomoa
@@ -17,7 +18,7 @@ namespace Ciart.Pagomoa
         Shopkeeper,
         Signal, 
     }
-    public class CutSceneController : MonoBehaviour, INotificationReceiver
+    public class CutSceneController : SingletonMonoBehaviour<CutSceneController>, INotificationReceiver
     {
         public Camera mainCamera;
         public CinemachineBrain mainCinemachine;
@@ -32,13 +33,12 @@ namespace Ciart.Pagomoa
         private CutSceneTrigger? _currentCutSceneTrigger;
         public void SetCutSceneTrigger(CutSceneTrigger trigger) { _currentCutSceneTrigger = trigger; }
         
-        
         [SerializeField] private float fadeDelay;
         
         private LayerMask CutSceneMasks => LayerMask.GetMask("CutScene", "BackGround", "Platform", "Light", "DialogueUI");
         private LayerMask InGameMasks => LayerMask.GetMask("Default", "Entity", "BackGround", "Platform", "Light", "Player", "Ignore Raycast", "UI", "DialogueUI");
         
-        private void Awake()
+        private void Start()
         {
             _director = GetComponent<PlayableDirector>();
             _signalReceiver = GetComponent<SignalReceiver>();
@@ -46,11 +46,6 @@ namespace Ciart.Pagomoa
             mainCamera = Camera.main;
             mainCinemachine = mainCamera.GetComponent<CinemachineBrain>(); 
             
-            DontDestroyOnLoad(this);
-        }
-        
-        private void Start()
-        {
             _director.stopped += EndCutScene;
 
             foreach (var trigger in triggers)
@@ -61,11 +56,13 @@ namespace Ciart.Pagomoa
 
         private void OnPaused(PausedEvent e)
         {
+            if (!_director) return;
             _director.Pause();
         }
 
         private void OnResumed(ResumedEvent e)
         {
+            if (!_director) return;
             _director.Resume();
         }
 
@@ -73,12 +70,14 @@ namespace Ciart.Pagomoa
         {
             EventManager.AddListener<PausedEvent>(OnPaused);
             EventManager.AddListener<ResumedEvent>(OnResumed);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<PausedEvent>(OnPaused);
             EventManager.RemoveListener<ResumedEvent>(OnResumed);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         public CutScene GetOnPlayingCutScene()
@@ -88,6 +87,10 @@ namespace Ciart.Pagomoa
         
         public void StartCutScene(CutScene cutScene)
         {
+            mainCamera = Camera.main;
+            mainCamera.TryGetComponent<CinemachineBrain>(out var brain);
+            mainCinemachine = brain;
+            
             Game.Instance.UI.DeActiveUI();
             
             var player = Game.Instance.player;
@@ -114,7 +117,7 @@ namespace Ciart.Pagomoa
             {
                 _targetCutScene = null;
                 _currentCutSceneTrigger = null;
-                director.playableAsset = null;
+                _director.playableAsset = null;
                 return;
             }
             player.gameObject.SetActive(true);
@@ -130,10 +133,8 @@ namespace Ciart.Pagomoa
 
             _targetCutScene = null;
             _currentCutSceneTrigger = null;
-            director.playableAsset = null;
+            _director.playableAsset = null;
         }
-
-        private void EndIntroCutScene() { }
 
         public SignalReceiver GetSignalReceiver()
         {
@@ -177,6 +178,12 @@ namespace Ciart.Pagomoa
             }
             
             _director.Play();
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (_director != null)
+                _director.playableAsset = null;
         }
 
         public void OnNotify(Playable origin, INotification notification, object context)

@@ -40,8 +40,9 @@ namespace Ciart.Pagomoa.Entities
 
         public void Despawn(EntityController controller)
         {
+            if (!controller) return;
             _entities.Remove(controller);
-            if (controller is null) return;
+            if (!controller.gameObject) return;
             Object.Destroy(controller.gameObject);
         }
 

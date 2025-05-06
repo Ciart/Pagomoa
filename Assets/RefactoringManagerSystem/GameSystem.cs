@@ -105,15 +105,16 @@ namespace Ciart.Pagomoa.Systems
                 World = new WorldManager();
                 World.Init();
                 UI.ActiveUI();
-                var player = Entity.Spawn("Player", transform.position);
-                
-                UI.titleUI.gameObject.SetActive(false);
+                Entity.Spawn("Player", transform.position);
+                if (UI.titleUI)
+                    UI.titleUI.gameObject.SetActive(false);
             }
             else if (loadScene.buildIndex == title)
             {
                 UI.DeActiveUI();
-                if (!UI.titleUI) return;
-                UI.titleUI.gameObject.SetActive(true);
+                
+                if (UI.titleUI)
+                    UI.titleUI.gameObject.SetActive(true);
             }
         }
     }

@@ -261,7 +261,7 @@ namespace Ciart.Pagomoa
                 return;
             }
 
-            var cutSceneController = DataBase.data.GetCutSceneController();
+            var cutSceneController = CutSceneController.Instance;
 
             if (cutSceneController.CutSceneIsPlayed())
             {

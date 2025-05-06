@@ -64,7 +64,7 @@ namespace Ciart.Pagomoa
         }
 
         public void StandByFadeUI() { animator.SetTrigger(_animatorInActive); gameObject.SetActive(false); }
-        public void FadeIn() { animator.SetTrigger(FadeFlag.FadeIn.ToString()); }
-        public void FadeOut() { animator.SetTrigger(FadeFlag.FadeOut.ToString()); }
+        public void FadeIn() { animator.SetTrigger(nameof(FadeFlag.FadeIn)); }
+        public void FadeOut() { animator.SetTrigger(nameof(FadeFlag.FadeOut)); }
     }
 }

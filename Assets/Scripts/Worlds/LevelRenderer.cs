@@ -371,7 +371,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            var entityManager = EntityManager.instance;
+            var entityManager = Game.Instance.Entity;
 
             foreach (var entityData in level.entityDataList)
             {
@@ -394,7 +394,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            var entityManager = EntityManager.instance;
+            var entityManager = Game.Instance.Entity;
             var dataList = new List<EntityData>();
 
             foreach (var entityController in _entities)

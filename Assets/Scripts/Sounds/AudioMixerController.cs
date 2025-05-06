@@ -1,3 +1,4 @@
+using System;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.UI.Title;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Ciart.Pagomoa.Sounds
     }
     
     [RequireComponent(typeof(AudioClips))]
-    public class AudioMixerController : SingletonMonoBehaviour<AudioMixerController>
+    public class AudioMixerController : MonoBehaviour
     {
         [SerializeField] private AudioClips _clips;
         [SerializeField] private AudioMixer _mixer;
@@ -33,13 +34,24 @@ namespace Ciart.Pagomoa.Sounds
         [SerializeField] private AudioSource _drillHitEffect;
         [SerializeField] private AudioSource _UIEffect;
         
-        public AudioSource GetMusincSource() { return _music; }
+        public AudioSource GetMusicSource() { return _music; }
         public AudioSource GetPlayerSource() { return _playerEffect; }
         public AudioSource GetMonsterSource() { return _monsterEffect; }
         public AudioSource GetDrillSpinSource() { return _drillSpinEffect; }
         public AudioSource GetDrillHitSource() { return _drillHitEffect; }
         public AudioSource GetUISource() { return _UIEffect; }
-        
+
+        private void Awake()
+        {
+            if (Game.Instance.Sound.controller)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
+            DontDestroyOnLoad(gameObject);
+        }
+
         public void InitAudioMixer()
         {
             _mixer.GetFloat("Master", out optionData.masterMixerValue);

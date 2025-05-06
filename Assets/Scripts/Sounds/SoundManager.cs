@@ -1,45 +1,48 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Sounds
 {
     public class SoundManager : Manager<SoundManager>
     {
-        public AudioMixerController controller;
-        
+        private AudioMixerController _controller;
+
+        public AudioMixerController controller => _controller;
+
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
         
-        public bool isTitle;
         public override void Start()
         {
-            controller = AudioMixerController.Instance;
+            _controller = Object.Instantiate(DataBase.Instance.GetAudioController());
             PlayMusic("WorldMusic");
         }
         
         public override void Update() // BGM Loop 시점 감지
         {
-            if (controller.GetMusincSource().timeSamples >= _loopEndSamples)
+            return;
+            
+            if (controller.GetMusicSource().timeSamples >= _loopEndSamples)
             {
-                controller.GetMusincSource().timeSamples -= _loopLengthSamples;
-                controller.GetMusincSource().Play();
+                controller.GetMusicSource().timeSamples -= _loopLengthSamples;
+                controller.GetMusicSource().Play();
             }
         }
         public void PlayMusic(string bundleName)// 배경음악 재생
         {
-            controller.GetMusincSource().Stop();
+            controller.GetMusicSource().Stop();
             MusicBundle bundle = FindMusicBundle(bundleName);
             
-            controller.GetMusincSource().clip = bundle.music;
+            controller.GetMusicSource().clip = bundle.music;
 
-             _loopStartSamples = (int)(bundle.loopStartTime * controller.GetMusincSource().clip.frequency);
-             _loopEndSamples = (int)(bundle.loopEndTime * controller.GetMusincSource().clip.frequency);
+             _loopStartSamples = (int)(bundle.loopStartTime * controller.GetMusicSource().clip.frequency);
+             _loopEndSamples = (int)(bundle.loopEndTime * controller.GetMusicSource().clip.frequency);
              _loopLengthSamples = _loopEndSamples - _loopStartSamples;
              
-             controller.GetMusincSource().Play();
+             controller.GetMusicSource().Play();
         }
         
         public void PlaySfx(string bundleName, bool duplication, Vector3? position = null) // 효과음 재생
@@ -55,7 +58,7 @@ namespace Ciart.Pagomoa.Sounds
             }
         }
         private void PlaySfxBundle(SfxBundle bundle, bool duplication)
-        { 
+        {
             int random = RandomClip(bundle);
             if (duplication)
             {

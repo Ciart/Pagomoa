@@ -1,4 +1,5 @@
 using Ciart.Pagomoa.Sounds;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.UI.Title;
 using TMPro;
 using UnityEngine;
@@ -26,9 +27,8 @@ namespace Ciart.Pagomoa
             confirmButton.onClick.AddListener(ConfirmOption);
             cancleButton.onClick.AddListener(CancelOption);
             
-            AudioMixerController controller = AudioMixerController.Instance;
-            controller.InitAudioMixer();
-            OptionData data = controller.GetOptionData();
+            Game.Instance.Sound.controller.InitAudioMixer();
+            OptionData data = Game.Instance.Sound.controller.GetOptionData();
             _masterSlider.value = data.masterMixerValue;
             _musicSlider.value = data.musicMixerValue;
             _sfxSlider.value = data.sfxMixerValue;
@@ -39,8 +39,7 @@ namespace Ciart.Pagomoa
         
         public void CancelOption()
         {
-            AudioMixerController controller = AudioMixerController.Instance;
-            OptionData prevData = controller.GetOptionData();
+            OptionData prevData = Game.Instance.Sound.controller.GetOptionData();
             _masterSlider.value = prevData.masterMixerValue;
             _musicSlider.value = prevData.musicMixerValue;
             _sfxSlider.value = prevData.sfxMixerValue;
@@ -51,8 +50,6 @@ namespace Ciart.Pagomoa
         
         public void ConfirmOption()
         {
-            AudioMixerController controller = AudioMixerController.Instance;
-
             OptionData changerData = new OptionData()
             {
                 masterMixerValue = _masterSlider.value,
@@ -62,14 +59,14 @@ namespace Ciart.Pagomoa
                 monsterMixerValue = _monsterSlider.value,
                 uiMixerValue = _uiSlider.value,
             };
-            controller.SetOptionData(changerData);
+            Game.Instance.Sound.controller.SetOptionData(changerData);
         }
         
         public void UIToggle() { gameObject.SetActive(!gameObject.activeSelf); }
 
         private void MatchUIFunction()
         {
-            AudioMixerController controller = AudioMixerController.Instance;
+            var controller = Game.Instance.Sound.controller;
             _masterSlider.onValueChanged.AddListener(controller.SetMasterVolume);
             _musicSlider.onValueChanged.AddListener(controller.SetMusicVolume);
             _sfxSlider.onValueChanged.AddListener(controller.SetSfxVolume);
