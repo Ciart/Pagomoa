@@ -106,7 +106,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 transform.GetChild(i).TryGetComponent<QuickSlotUI>(out var quickSlot);
                 if (!quickSlot) continue;
-                
                 quickSlot.SetSlotID(index); 
                 quickSlot.SetSlot(quickSlots[index]);
                 _quickSlots.Add(quickSlot);

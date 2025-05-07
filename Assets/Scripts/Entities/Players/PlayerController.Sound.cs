@@ -8,11 +8,12 @@ namespace Ciart.Pagomoa.Entities.Players
     {
         private void UpdateSound()
         {
+            SoundManager sound = Game.Instance.Sound;
             if (state == PlayerState.Walk && isGrounded && MathF.Abs(_rigidbody.linearVelocity.x) > 0.1f)
             {
-                if (!Game.Instance.Sound.FindAudioSource("PlayerEffect").isPlaying)
+                if (!sound.controller.GetPlayerSource().isPlaying)
                 {
-                    Game.Instance.Sound.PlaySfx("FootSteps", true);
+                    sound.PlaySfx("FootSteps", true);
                 }
             }
         }

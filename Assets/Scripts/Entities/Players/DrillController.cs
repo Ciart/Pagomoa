@@ -137,7 +137,7 @@ namespace Ciart.Pagomoa.Entities.Players
                     drillPart.gameObject.SetActive(isDig);
             }
 
-            var soundManager = SoundManager.instance;
+            var soundManager = Game.Instance.Sound;
             
             if (!isDig)
             {
@@ -151,7 +151,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             if (isDig)
             {
-                if (!soundManager.FindAudioSource("DrillSpinEffect").isPlaying && isPlayed == false)
+                if (!soundManager.controller.GetDrillSpinSource().isPlaying && isPlayed == false)
                 {
                     soundManager.PlaySfx("DrillSpin", false);
                     isPlayed = true;
@@ -166,7 +166,7 @@ namespace Ciart.Pagomoa.Entities.Players
             }
             else
             {
-                soundManager.FindAudioSource("DrillSpinEffect").Stop();
+                soundManager.controller.GetDrillSpinSource().Stop();
                 isPlayed = false;
                 return;
             }
@@ -184,7 +184,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             foreach (var (x, y) in _target.targetCoordsList)
             {
-                var worldManager = WorldManager.instance;
+                var worldManager = Game.Instance.World;
                 worldManager.DigGround(new WorldCoords(x, y), _drills[_drillLevel].speed);
             }
         }
@@ -205,30 +205,30 @@ namespace Ciart.Pagomoa.Entities.Players
             
             if (isDig && isGroundHit)
             {
-                if (!soundManager.FindAudioSource("DrillHitEffect").isPlaying)
+                if (!soundManager.controller.GetDrillHitSource().isPlaying)
                 {
-                    if (soundManager.FindAudioSource("DrillHitEffect").clip ==
+                    if (soundManager.controller.GetDrillHitSource().clip ==
                         soundManager.FindSfxBundle("DrillHitGround").audioClip[0])
                     {
-                        soundManager.FindAudioSource("DrillHitEffect").clip =
+                        soundManager.controller.GetDrillHitSource().clip =
                             soundManager.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
-                        soundManager.FindAudioSource("DrillHitEffect").loop = true;
+                        soundManager.controller.GetDrillHitSource().loop = true;
                     }
                     else
                     {
-                        soundManager.FindAudioSource("DrillHitEffect").clip =
+                        soundManager.controller.GetDrillHitSource().clip =
                             soundManager.FindSfxBundle("DrillHitGround").audioClip[0];
-                        soundManager.FindAudioSource("DrillHitEffect").loop = false;
+                        soundManager.controller.GetDrillHitSource().loop = false;
                     }
-                    soundManager.FindAudioSource("DrillHitEffect").Play();
+                    soundManager.controller.GetDrillHitSource().Play();
                 }
             }
             else
             {
-                if (soundManager.FindAudioSource("DrillHitEffect").isPlaying)
+                if (soundManager.controller.GetDrillHitSource().isPlaying)
                 {
-                    soundManager.FindAudioSource("DrillHitEffect").Stop();
-                    soundManager.FindAudioSource("DrillHitEffect").clip =
+                    soundManager.controller.GetDrillHitSource().Stop();
+                    soundManager.controller.GetDrillHitSource().clip =
                         soundManager.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
                 }
             }

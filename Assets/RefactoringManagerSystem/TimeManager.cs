@@ -90,12 +90,16 @@ namespace Ciart.Pagomoa.Systems.Time
 
         private int _wantPauseCount = 0;
 
-        public event Action<int> tickUpdated;
+        public event Action<int> tickUpdated = delegate { };
+
+        public event Action paused;
+
+        public event Action resumed;
 
         public override void Update()
         {
-            if (DataBase.data.GetCutSceneController() == null) return;
-            if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;
+            /*if (DataBase.data.GetCutSceneController() == null) return; 
+            if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;*/
             if (IsPause == true) return;
             if (tick >= MaxTick) return;
 

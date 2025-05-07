@@ -2,14 +2,15 @@ using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.UI.Title;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa
 {
     public class OptionMenu : MonoBehaviour
     {
-        public Button _confirmButton;
-        public Button _cancleButton;
+        public Button confirmButton;
+        public Button cancleButton;
         
         [Header("Volume Slider")]
         [SerializeField] private Slider _masterSlider;
@@ -22,8 +23,8 @@ namespace Ciart.Pagomoa
         private void Awake()
         {
             MatchUIFunction();
-            _confirmButton.onClick.AddListener(ConfirmOption);
-            _cancleButton.onClick.AddListener(CancelOption);
+            confirmButton.onClick.AddListener(ConfirmOption);
+            cancleButton.onClick.AddListener(CancelOption);
             
             AudioMixerController controller = AudioMixerController.Instance;
             controller.InitAudioMixer();
