@@ -113,7 +113,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             targetQuest.Finish();
         }
 
-        public Quest FindQuestById(string id)
+        public Quest? FindQuestById(string id)
         {
             foreach (var quest in quests)
             {
