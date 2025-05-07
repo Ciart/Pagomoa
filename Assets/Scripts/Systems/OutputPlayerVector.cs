@@ -15,9 +15,8 @@ namespace Ciart.Pagomoa.Systems
         
         private Vector2 _playerPos;
         private TargetVector _targetVector;
+        [SerializeField] private TextMeshProUGUI _tmpGuiText;
         public void SetTargetVector(int value) { _targetVector = (TargetVector)value; }
-        
-        private TextMeshProUGUI _tmpGuiText;
 
         private void Awake()
         {
@@ -33,7 +32,6 @@ namespace Ciart.Pagomoa.Systems
 
             if (_targetVector == TargetVector.TargetX)
             {
-            
                 if (Math.Round(_playerPos.x) >= 1)
                     _tmpGuiText.text = $"{_playerPos.x:+0}";
                 else if(_playerPos.x < 1)

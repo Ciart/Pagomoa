@@ -33,7 +33,8 @@ namespace Ciart.Pagomoa.Systems.Time
         /// </summary>
         public const int Morning = 0;
 
-        public bool IsTutorialDay {
+        public bool IsTutorialDay
+        {
             get => date == 0;
         }
 
@@ -74,13 +75,13 @@ namespace Ciart.Pagomoa.Systems.Time
                 {
                     Physics2D.simulationMode = SimulationMode2D.Script;
                     _isPause = true;
-                    paused?.Invoke();
+                    EventManager.Notify(new PausedEvent());
                 }
                 else
                 {
                     Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
                     _isPause = false;
-                    resumed?.Invoke();
+                    EventManager.Notify(new ResumedEvent());
                 }
             }
         }
@@ -89,7 +90,7 @@ namespace Ciart.Pagomoa.Systems.Time
 
         private int _wantPauseCount = 0;
 
-        public event Action<int> tickUpdated;
+        public event Action<int> tickUpdated = delegate { };
 
         public event Action paused;
 
@@ -97,8 +98,8 @@ namespace Ciart.Pagomoa.Systems.Time
 
         public override void Update()
         {
-            if (DataBase.data.GetCutSceneController() == null) return; 
-            if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;
+            /*if (DataBase.data.GetCutSceneController() == null) return; 
+            if (DataBase.data.GetCutSceneController().CutSceneIsPlayed() == true) return;*/
             if (IsPause == true) return;
             if (tick >= MaxTick) return;
 

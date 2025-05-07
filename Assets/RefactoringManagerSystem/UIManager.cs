@@ -10,16 +10,16 @@ namespace Ciart.Pagomoa.Systems
 {
     public class UIManager : Manager<UIManager>
     {
+        private UIContainer _ui;
         ~UIManager()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
         }
-        
-        private UIContainer _uiContainer;
         private PlayerInput _playerInput;
         private GameObject _dialogueUI;
         private DaySummaryUI _daySummaryUI;
         
+        public TitleUI titleUI { get; private set; }
         public MinimapUI minimapUI { get; private set; }
         public StatusUI StatusUI { get; private set; }
         public BookUI bookUI {get; private set;}
@@ -28,32 +28,33 @@ namespace Ciart.Pagomoa.Systems
         public FadeUI fadeUI {get; private set;}
         public EscOptionUI escOptionUI {get; private set;}
         
-        public UIContainer GetUIContainer() { return _uiContainer; }
+        public UIContainer GetUIContainer() { return _ui; }
         
         private bool _isActiveInventory;
         
         public override void PreStart()
         {
-            _uiContainer = DataBase.data.GetUIData();
-
-            minimapUI = Object.Instantiate(_uiContainer.miniMapPanelPrefab, _uiContainer.transform);
-            StatusUI = Object.Instantiate(_uiContainer.statusPanelPrefab, _uiContainer.transform);
+            _ui = Object.Instantiate(DataBase.data.GetUIData());
+            titleUI = Object.Instantiate(_ui.title, _ui.transform);
             
-            bookUI = Object.Instantiate(_uiContainer.bookUIPrefab, _uiContainer.transform);
+            minimapUI = Object.Instantiate(_ui.miniMapPanelPrefab, _ui.transform);
+            StatusUI = Object.Instantiate(_ui.statusPanelPrefab, _ui.transform);
+            
+            bookUI = Object.Instantiate(_ui.bookUIPrefab, _ui.transform);
             bookUI.gameObject.SetActive(_isActiveInventory);
             
-            shopUI = Object.Instantiate(_uiContainer.shopUIPrefab, _uiContainer.transform);
-            quickUI = Object.Instantiate(_uiContainer.quickUIPrefab, _uiContainer.transform);
+            shopUI = Object.Instantiate(_ui.shopUIPrefab, _ui.transform);
+            quickUI = Object.Instantiate(_ui.quickUIPrefab, _ui.transform);
             
-            _dialogueUI = Object.Instantiate(_uiContainer.dialogueUIPrefab, _uiContainer.transform);
+            _dialogueUI = Object.Instantiate(_ui.dialogueUIPrefab, _ui.transform);
             _dialogueUI.SetActive(false);
-            _uiContainer.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
+            _ui.dialogueUI = _dialogueUI.GetComponent<DialogueUI>();
 
-            _daySummaryUI = Object.Instantiate(_uiContainer.daySummaryUIPrefab, _uiContainer.transform);
+            _daySummaryUI = Object.Instantiate(_ui.daySummaryUIPrefab, _ui.transform);
             _daySummaryUI.gameObject.SetActive(false);
 
-            fadeUI = Object.Instantiate(_uiContainer.fadeUIPrefab, _uiContainer.transform);
-            escOptionUI = Object.Instantiate(_uiContainer.escUI, _uiContainer.transform);
+            fadeUI = Object.Instantiate(_ui.fadeUIPrefab, _ui.transform);
+            escOptionUI = Object.Instantiate(_ui.escUI, _ui.transform);
         }
 
         public override void Start()
@@ -79,7 +80,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void UpdateGoldUI()
         {
-            var playerGold = Game.instance.player.inventory.gold;
+            var playerGold = Game.Instance.player.inventory.gold;
 
             shopUI.shopGoldUI.text = playerGold.ToString();
             StatusUI.playerGoldUI.text = playerGold.ToString();        
@@ -148,6 +149,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void DeActiveUI()
         {
+            if (!minimapUI) return;
             minimapUI.gameObject.SetActive(false);
             StatusUI.gameObject.SetActive(false);
             quickUI.gameObject.SetActive(false);
@@ -157,6 +159,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void ActiveUI()
         {
+            if (!minimapUI) return;
             minimapUI.gameObject.SetActive(true);
             StatusUI.gameObject.SetActive(true);
             quickUI.gameObject.SetActive(true);
@@ -164,6 +167,7 @@ namespace Ciart.Pagomoa.Systems
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
         {
+            if (fadeUI.gameObject.activeSelf) return;
             fadeUI.gameObject.SetActive(true);
             fadeUI.Fade(flag, duration);
         }

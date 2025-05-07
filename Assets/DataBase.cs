@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using Cinemachine;
 using Logger;
@@ -14,12 +15,10 @@ namespace Ciart.Pagomoa
         public WorldRenderer GetWorldRenderer();
         public ItemEntity GetItemEntity();
         public List<GameObject> GetParticles();
-        public AudioSource GetAudioSource();
-        public AudioSource[] GetSfxSources();
         public UIContainer GetUIData();
         public CutSceneController GetCutSceneController();
     }
-    public class DataBase : MonoBehaviour, IDataBase
+    public class DataBase : SingletonMonoBehaviour<DataBase>, IDataBase
     {
         [Header("World Data")]
         [SerializeField] private WorldDatabase worldDatabase;
@@ -33,10 +32,6 @@ namespace Ciart.Pagomoa
         [Header("Particle Data")]
         [SerializeField] private List<GameObject> particles;
         
-        [Header("Sound Data")]
-        [SerializeField] private AudioSource musicSource;
-        [SerializeField] private AudioSource[] sfxSources;
-        
         [Header("UI Data")]
         [SerializeField] private UIContainer uiContainer;
         
@@ -47,6 +42,8 @@ namespace Ciart.Pagomoa
 
         protected void Awake()
         {
+            base.Awake();
+            
             if (data is null)
             {
                 data = this;
@@ -57,13 +54,16 @@ namespace Ciart.Pagomoa
                 Destroy(gameObject);
             }
         }
-        
+
+        private void Start()
+        {
+            cutSceneController = Instantiate(cutSceneController);
+        }
+
         public WorldDatabase GetWorldData() { return worldDatabase; }
         public WorldRenderer GetWorldRenderer() { return worldRenderer; }
         public ItemEntity GetItemEntity() { return itemEntity; }
         public List<GameObject> GetParticles() { return particles; }
-        public AudioSource GetAudioSource() { return musicSource; }
-        public AudioSource[] GetSfxSources() { return sfxSources; }
         public UIContainer GetUIData() { return uiContainer; }
         public CutSceneController GetCutSceneController() { return cutSceneController; }
     }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6588845048697534260}
   - component: {fileID: 4892099478768494929}
-  - component: {fileID: 7060628855254321162}
+  - component: {fileID: 3542688568733993921}
   m_Layer: 0
   m_Name: ShopKeeperTrigger
   m_TagString: Untagged
@@ -79,7 +79,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 100, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7060628855254321162
+--- !u!114 &3542688568733993921
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,9 +88,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 993764492573001842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e9993367ea3daa4f9474f08b20e0d81, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d26d7293bf4fd1bcba3a1df93347aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useTrigger: 1
   playableCutScene: {fileID: 8007347994331867935, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
   instantiatedPos: {x: 0, y: 0}
-  _shopKeeperPrefab: {fileID: 7612459397517908787, guid: 4c99cfc365e1b9e448bd398da421ac85, type: 3}
+  _shopKeeperPrefab: {fileID: 1230195036051452472, guid: 8e4e19c440108e94185119286daec908, type: 3}

@@ -1,6 +1,7 @@
 using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI;
+using Ciart.Pagomoa.UI.Title;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +10,7 @@ namespace Ciart.Pagomoa
 {
     public class UIContainer : MonoBehaviour
     {
+        public TitleUI title;
         public MinimapUI miniMapPanelPrefab;
         public StatusUI statusPanelPrefab;
         public ShopUI shopUIPrefab;
@@ -26,5 +28,17 @@ namespace Ciart.Pagomoa
         
         [Header("For Run Time Can be None")] 
         public DialogueUI? dialogueUI;
+        
+        private void Awake()
+        {
+            if (Application.isPlaying)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

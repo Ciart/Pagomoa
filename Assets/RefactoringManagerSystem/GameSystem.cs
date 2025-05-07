@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
@@ -8,7 +9,8 @@ using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
-using UnityEngine;
+
+using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.Systems
 {
@@ -17,13 +19,7 @@ namespace Ciart.Pagomoa.Systems
         Playing,
         EndDay,
     }
-
-    public static class GameManager
-    {
-        [Obsolete("Game.Instance를 사용하세요.")]
-        public static GameSystem instance => GameSystem.Instance;
-    }
-
+    
     public static class Game
     {
         [Obsolete("Game.Instance를 사용하세요.")]
@@ -77,7 +73,8 @@ namespace Ciart.Pagomoa.Systems
         protected override void Awake()
         {
             base.Awake();
-
+            SceneManager.activeSceneChanged += LoadScene;
+            
             Event = new EventManager();
             Dialogue = new DialogueManager();
             Entity = new EntityManager();
@@ -86,7 +83,6 @@ namespace Ciart.Pagomoa.Systems
             Sound = new SoundManager();
             Time = new TimeManager();
             UI = new UIManager();
-            World = new WorldManager();
         }
 
         private void OnEnable()
@@ -97,6 +93,28 @@ namespace Ciart.Pagomoa.Systems
         private void OnDisable()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+        }
+        
+        private void LoadScene(Scene nowScene, Scene loadScene)
+        {
+            const int game = 1;
+            const int title = 0;
+            
+            if (loadScene.buildIndex == game)
+            {
+                World = new WorldManager();
+                World.Init();
+                UI.ActiveUI();
+                var player = Entity.Spawn("Player", transform.position);
+                
+                UI.titleUI.gameObject.SetActive(false);
+            }
+            else if (loadScene.buildIndex == title)
+            {
+                UI.DeActiveUI();
+                if (!UI.titleUI) return;
+                UI.titleUI.gameObject.SetActive(true);
+            }
         }
     }
 }
