@@ -1,5 +1,6 @@
 ﻿using Ciart.Pagomoa.Entities.Players;
 using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI;
 using UnityEngine;
@@ -176,7 +177,7 @@ namespace Ciart.Pagomoa.Systems
             return Object.Instantiate(DataBase.data.GetUIData().interactableUI, parent);
         }
 
-        public GameObject CreateQuestCompleteUI(Transform parent)
+        public QuestCompleteIcon CreateQuestCompleteUI(Transform parent)
         {
             return Object.Instantiate(DataBase.data.GetUIData().questCompleteUI, parent);
         }

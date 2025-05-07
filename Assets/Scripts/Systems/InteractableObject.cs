@@ -8,7 +8,7 @@ namespace Ciart.Pagomoa.Systems
 {
     public class InteractableObject : MonoBehaviour
     {
-        public Vector3 uiOffset = new Vector3(0f, 2f, 0f);
+        public Vector3 uiOffset = new Vector3(0f, -0.5f, 0f);
 
         // 유니티 이벤트 호출
         public UnityEvent interactionEvent; 
