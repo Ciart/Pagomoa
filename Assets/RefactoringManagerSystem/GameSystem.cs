@@ -19,7 +19,6 @@ namespace Ciart.Pagomoa.Systems
         Playing,
         EndDay,
     }
-    
     public static class Game
     {
         [Obsolete("Game.Instance를 사용하세요.")]

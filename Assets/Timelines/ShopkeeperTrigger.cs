@@ -38,8 +38,8 @@ namespace Ciart.Pagomoa.Timelines
         
         private void StartCutScene()
         {
-            CutSceneController.Instance.SetCutSceneTrigger(this);
-            CutSceneController.Instance.StartCutScene(playableCutScene);
+            DataBase.data.GetCutSceneController().SetCutSceneTrigger(this);
+            DataBase.data.GetCutSceneController().StartCutScene(playableCutScene);
             
             Destroy(gameObject);
         }

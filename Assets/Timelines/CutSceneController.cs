@@ -18,7 +18,7 @@ namespace Ciart.Pagomoa
         Shopkeeper,
         Signal, 
     }
-    public class CutSceneController : SingletonMonoBehaviour<CutSceneController>, INotificationReceiver
+    public class CutSceneController : MonoBehaviour, INotificationReceiver
     {
         public Camera mainCamera;
         public CinemachineBrain mainCinemachine;
@@ -42,12 +42,10 @@ namespace Ciart.Pagomoa
         {
             _director = GetComponent<PlayableDirector>();
             _signalReceiver = GetComponent<SignalReceiver>();
-
-            mainCamera = Camera.main;
-            mainCinemachine = mainCamera.GetComponent<CinemachineBrain>(); 
+            CheckCamera();
             
             _director.stopped += EndCutScene;
-
+            
             foreach (var trigger in triggers)
             {
                 Game.Instance.Time.RegisterTickEvent(trigger.OnCutSceneTrigger);
@@ -87,10 +85,7 @@ namespace Ciart.Pagomoa
         
         public void StartCutScene(CutScene cutScene)
         {
-            mainCamera = Camera.main;
-            mainCamera.TryGetComponent<CinemachineBrain>(out var brain);
-            mainCinemachine = brain;
-            
+            CheckCamera();
             Game.Instance.UI.DeActiveUI();
             
             var player = Game.Instance.player;
@@ -163,7 +158,8 @@ namespace Ciart.Pagomoa
         public void PlayCutScene(CutScene cutScene)
         {
             if (!_targetCutScene) _targetCutScene = cutScene;
-                
+            CheckCamera();
+            
             _targetCutScene.SetCutSceneController(this);
             _targetCutScene.SetBinding(_director);
             _targetCutScene.SetInstanceCharacter();
@@ -184,8 +180,20 @@ namespace Ciart.Pagomoa
         {
             if (_director != null)
                 _director.playableAsset = null;
+            
+            Game.Instance.UI.fadeUI.FadeOut();
         }
 
+        private void CheckCamera()
+        {
+            if (!mainCamera)
+            {
+                mainCamera = Camera.main;
+                mainCamera.TryGetComponent<CinemachineBrain>(out var brain);
+                mainCinemachine = brain;
+            }
+        }
+        
         public void OnNotify(Playable origin, INotification notification, object context)
         {
             if (notification.id == "0")

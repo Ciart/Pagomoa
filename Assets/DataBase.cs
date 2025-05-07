@@ -17,6 +17,7 @@ namespace Ciart.Pagomoa
         public ItemEntity GetItemEntity();
         public List<GameObject> GetParticles();
         public UIContainer GetUIData();
+        public CutSceneController GetCutSceneController();
         public AudioMixerController GetAudioController();
     }
     public class DataBase : SingletonMonoBehaviour<DataBase>, IDataBase
@@ -36,11 +37,11 @@ namespace Ciart.Pagomoa
         [Header("UI Data")]
         [SerializeField] private UIContainer uiContainer;
         
-        [Header("CutSceneController")]
-        [SerializeField] private CutSceneController cutSceneController;
-        
         [Header("AudioController")] 
         [SerializeField] private AudioMixerController audioMixerController;
+        
+        [Header("CutSceneControllerPrefab")]
+        [SerializeField] private CutSceneController _cutSceneController;
         
         public static IDataBase data { get; private set; }
 
@@ -61,7 +62,8 @@ namespace Ciart.Pagomoa
 
         private void Start()
         {
-            Instantiate(cutSceneController);
+            _cutSceneController = Instantiate(_cutSceneController);
+            DontDestroyOnLoad(_cutSceneController);
         }
 
         public WorldDatabase GetWorldData() { return worldDatabase; }
@@ -70,5 +72,6 @@ namespace Ciart.Pagomoa
         public List<GameObject> GetParticles() { return particles; }
         public UIContainer GetUIData() { return uiContainer; }
         public AudioMixerController GetAudioController() { return audioMixerController; }
+        public CutSceneController GetCutSceneController() { return _cutSceneController; }
     }
 }

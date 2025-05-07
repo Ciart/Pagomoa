@@ -9,18 +9,18 @@ namespace Ciart.Pagomoa.UI.Title
         public bool stopScroll;
         public bool startIntro;
 
-        [FormerlySerializedAs("needSlowDownScroll")] public bool needScrollDown;
+        public bool needScrollDown;
         public bool needSpeedUpScroll;
         private float _speedDecreaseRate;
         private float _speedIncreaseRate;
 
+        [Header("Scroll Duration")] 
+        public float decreaseDuration = 2.0f;
+        public float increaseDuration = 5.0f;
+        
         [Header("MaxMin Speed")] 
         [SerializeField] private float minSpeed = 0.0f;
         [SerializeField] private float maxSpeed = 150.0f;
-        
-        [Header("Scroll Duration")] 
-        [SerializeField] private float decreaseDuration = 2.0f;
-        [SerializeField] private float increaseDuration = 5.0f;
         
         [SerializeField] private float scrollOffset;
         [SerializeField] private float moveLength;

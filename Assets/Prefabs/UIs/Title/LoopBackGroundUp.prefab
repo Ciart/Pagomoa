@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3391002035231819297}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -320, y: -187, z: -0.22596544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -106,10 +106,10 @@ MonoBehaviour:
   startIntro: 0
   needScrollDown: 0
   needSpeedUpScroll: 0
+  decreaseDuration: 2
+  increaseDuration: 3
   minSpeed: 0
   maxSpeed: 150
-  decreaseDuration: 0
-  increaseDuration: 0
   scrollOffset: 48.2
   moveLength: 80.8
   currentMoveLength: 0
