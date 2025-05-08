@@ -1,3 +1,4 @@
+using Ciart.Pagomoa.Logger;
 using Ciart.Pagomoa.Systems.Inventory;
 using Ciart.Pagomoa.UI;
 using Ciart.Pagomoa.UI.Title;
@@ -23,7 +24,7 @@ namespace Ciart.Pagomoa
         
         [Header("상호 작용 아이콘")]
         public GameObject interactableUI;
-        public GameObject questCompleteUI;
+        public QuestCompleteIcon questCompleteUI;
         
         [Header("For Run Time Can be None")] 
         public DialogueUI? dialogueUI;

@@ -33,7 +33,7 @@ namespace Ciart.Pagomoa.Worlds
 
         public SpriteRenderer minimapRenderer;
 
-        [Range(1, 256)] public int renderChunkRange = 2;
+        public const int RenderChunkRange = 3;
 
         /// <summary>
         /// 청크 로딩 중인지 여부입니다.
@@ -42,7 +42,16 @@ namespace Ciart.Pagomoa.Worlds
 
         private Chunk _lastPlayerChunk;
 
+        /// <summary>
+        /// 렌더링 중인 청크들입니다. Player 주변 청크입니다.
+        /// </summary>
         private HashSet<ChunkCoords> _activeChunks = new();
+
+        /// <summary>
+        /// _activeChunks에 포함 된 청크들 중, 인접 청크가 모두 렌더링 중인 청크들입니다.
+        /// Entity는 Live Chunk 영역 밖에 있을 경우, 시뮬레이션되지 않습니다.
+        /// </summary>
+        private HashSet<ChunkCoords> _liveChunks = new();
 
         private Dictionary<ChunkCoords, SpriteRenderer> _minimapRenderers = new();
 
@@ -69,6 +78,7 @@ namespace Ciart.Pagomoa.Worlds
 
             _lastPlayerChunk = null;
             _activeChunks = new HashSet<ChunkCoords>();
+            _liveChunks = new HashSet<ChunkCoords>();
             _minimapRenderers = new Dictionary<ChunkCoords, SpriteRenderer>();
         }
 
@@ -89,6 +99,7 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             _activeChunks.Remove(coords);
+            _liveChunks = ComputeLiveChunks();
 
             var entityManager = EntityManager.instance;
 
@@ -252,6 +263,7 @@ namespace Ciart.Pagomoa.Worlds
             overlayTilemap.SetTiles(positions, overlayTiles);
 
             _activeChunks.Add(coords);
+            _liveChunks = ComputeLiveChunks();
 
             texture.Apply();
             texture.filterMode = FilterMode.Point;
@@ -290,10 +302,10 @@ namespace Ciart.Pagomoa.Worlds
 
             var playerNeighborChunks = new HashSet<ChunkCoords>();
 
-            for (var keyX = playerChunk.coords.x - renderChunkRange; keyX <= playerChunk.coords.x + renderChunkRange; keyX++)
+            for (var keyX = playerChunk.coords.x - RenderChunkRange; keyX <= playerChunk.coords.x + RenderChunkRange; keyX++)
             {
-                for (var keyY = playerChunk.coords.y - renderChunkRange;
-                     keyY <= playerChunk.coords.y + renderChunkRange;
+                for (var keyY = playerChunk.coords.y - RenderChunkRange;
+                     keyY <= playerChunk.coords.y + RenderChunkRange;
                      keyY++)
                 {
                     playerNeighborChunks.Add(new ChunkCoords(keyX, keyY));
@@ -414,6 +426,44 @@ namespace Ciart.Pagomoa.Worlds
             level.entityDataList = dataList;
 
             _entities.Clear();
+        }
+
+        private bool IsChunkActive(ChunkCoords coords)
+        {
+            return _activeChunks.Contains(coords);
+        }
+
+        private bool IsNeighborChunkActive(ChunkCoords coords)
+        {
+            foreach (var chunk in level.GetNeighborChunks(coords))
+            {
+                if (!IsChunkActive(coords))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private HashSet<ChunkCoords> ComputeLiveChunks()
+        {
+            var result = new HashSet<ChunkCoords>();
+
+            foreach (var chunk in _activeChunks)
+            {
+                if (IsNeighborChunkActive(chunk))
+                {
+                    result.Add(chunk);
+                }
+            }
+
+            return result;
+        }
+
+        public bool IsLiveChunk(ChunkCoords coords)
+        {
+            return _liveChunks.Contains(coords);
         }
 
         private void OnChunkChanged(ChunkChangedEvent e)

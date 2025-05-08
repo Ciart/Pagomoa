@@ -108,7 +108,7 @@ MonoBehaviour:
   basicDialogue: {fileID: 4900000, guid: 2917720dd06856745b9a14685ba6761c, type: 3}
   dailyDialogues: {fileID: 11400000, guid: bd21f2b850652454288c37febf83128d, type: 2}
   portrait: {fileID: -1306664058038191922, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
-  uiOffset: {x: 0, y: 3.2, z: 0}
+  uiOffset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &5511368561665960079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbf4aee7a5eff14f9b8f81f302e1552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiOffset: {x: 0, y: 2, z: 0}
+  uiOffset: {x: 0, y: -0.5, z: 0}
   interactionEvent:
     m_PersistentCalls:
       m_Calls:

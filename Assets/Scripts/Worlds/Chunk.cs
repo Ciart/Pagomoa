@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Worlds
     [Serializable]
     public class Chunk
     {
-        public const int Size = 16;
+        public const int Size = 8;
         
         [FormerlySerializedAs("key")] public ChunkCoords coords;
 
