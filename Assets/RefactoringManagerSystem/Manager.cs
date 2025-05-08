@@ -11,10 +11,6 @@ public class Manager<T> : IManager where T : Manager<T>
     
     public Manager()
     {
-        if (instance != null)
-        {
-            return;
-        }
         instance ??= this as T;
         
         var type = GetType();

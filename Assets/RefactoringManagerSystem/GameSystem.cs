@@ -72,6 +72,12 @@ namespace Ciart.Pagomoa.Systems
         protected override void Awake()
         {
             base.Awake();
+            
+            if (Instance != this)
+            {
+                return;
+            }
+            
             SceneManager.activeSceneChanged += LoadScene;
             
             Event = new EventManager();

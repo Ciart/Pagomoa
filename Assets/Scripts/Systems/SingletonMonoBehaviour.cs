@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Systems
             if (!instance)
             {
                 instance = (T)this;
-
+                
                 if (Application.isPlaying)
                 {
                     DontDestroyOnLoad(gameObject);
