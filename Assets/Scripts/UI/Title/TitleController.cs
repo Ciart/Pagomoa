@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Timelines;
@@ -10,14 +12,14 @@ namespace Ciart.Pagomoa.UI.Title
     public class TitleController : SingletonMonoBehaviour<TitleController>
     {
         public bool isFirstStart = false;
-
+        
         public InfiniteScrollBackground[] backGrounds = new InfiniteScrollBackground[2];
+        [SerializeField] private InfiniteScrollBackground backGroundUPPrefab;
+        [SerializeField] private InfiniteScrollBackground backGroundDownPrefab;
         [SerializeField] private CutScene _introCutScene;
-        private bool isIntro = false;
         
         private void Start()
         {
-            isIntro = false;
             DataManager.Instance.LoadGameData();
             SceneManager.activeSceneChanged += QuitToTitle;
         }
@@ -32,16 +34,12 @@ namespace Ciart.Pagomoa.UI.Title
                 StartGame();
                 return;
             }
-
+            
             foreach (var backGround in backGrounds)
             {
                 backGround.needScrollDown = true;
             }
-            // foreach (var backGround in backGrounds)
-            // {
-            //     backGround.needSlowDownScroll = true;
-            //     titlePanel.SetActive(false);
-            // }
+            StartCoroutine(StartIntro(backGrounds[0].decreaseDuration));
         }
 
         public void ReStart()
@@ -71,36 +69,38 @@ namespace Ciart.Pagomoa.UI.Title
             transform.Find("ReStartQuestion").gameObject.SetActive(true);
         }
 
-        public void EndGame()
-        {
-            Application.Quit();
-        }
-
-        private void FixedUpdate()
-        {
-            // 컷씬 시작하면 더이상 작동하지 않음
-            PlayableDirector director = DataBase.Instance.GetCutSceneController().GetDirector();
-            if (isIntro) return;
-            if (director.state == PlayState.Playing) return;
-            
-            if (backGrounds[0].startIntro && director.state != PlayState.Playing)
-            {
-                DataBase.Instance.GetCutSceneController().PlayCutScene(_introCutScene);
-                isIntro = true;
-            }
-        }
+        public void EndGame() { Application.Quit(); }
 
         public void StartGame()
         {
-            //if (intro.isPlayed) intro.gameObject.SetActive(false);
-
-            SceneManager.LoadScene("Scenes/WorldScene");
             DataBase.data.GetCutSceneController().GetDirector().Stop();
+            SceneManager.LoadScene("Scenes/WorldScene");
         }
 
-        private void QuitToTitle(Scene scene, Scene title)
+        private IEnumerator StartIntro(float delay)
         {
+            yield return new WaitForSeconds(delay);
+            yield return backGrounds[0].startIntro;
+            DataBase.data.GetCutSceneController().PlayCutScene(_introCutScene);
+        }
+
+        private void QuitToTitle(Scene scene, Scene loadScene)
+        {
+            const int game = 1;
+            const int title = 0;
             
+            if (loadScene.buildIndex == title)
+            {
+                if (!backGrounds[0])
+                    backGrounds[0] = Instantiate(backGroundUPPrefab, transform);
+                if (!backGrounds[1])
+                    backGrounds[1] = Instantiate(backGroundDownPrefab, transform);
+            }
+            else if (loadScene.buildIndex == game)
+            {
+                foreach (var backGround in backGrounds)
+                    Destroy(backGround.gameObject); 
+            }
         }
     }
 }

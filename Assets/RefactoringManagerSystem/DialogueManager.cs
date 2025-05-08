@@ -75,7 +75,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
         {
             story = null;
             _dialogueUI.gameObject.SetActive(false);
-            DataBase.Instance.GetCutSceneController().RePlayCutScene();
+            DataBase.data.GetCutSceneController().RePlayCutScene();
         }
 
         public void StartDailyChat()

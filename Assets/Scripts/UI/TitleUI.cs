@@ -28,7 +28,6 @@ namespace Ciart.Pagomoa.UI
         }
         
         public void ExitGame() { Application.Quit(); }
-
         
         private void OnEnable()
         {

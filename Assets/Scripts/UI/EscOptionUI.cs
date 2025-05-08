@@ -39,6 +39,7 @@ namespace Ciart.Pagomoa
         {
             Game.Instance.Time.ResumeTime();
             SceneManager.LoadScene("Scenes/NewTitleScene");
+            gameObject.SetActive(false);
         }
 
         public void Quit()

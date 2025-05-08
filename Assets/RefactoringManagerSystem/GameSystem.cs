@@ -19,7 +19,6 @@ namespace Ciart.Pagomoa.Systems
         Playing,
         EndDay,
     }
-    
     public static class Game
     {
         [Obsolete("Game.Instance를 사용하세요.")]
@@ -73,6 +72,12 @@ namespace Ciart.Pagomoa.Systems
         protected override void Awake()
         {
             base.Awake();
+            
+            if (Instance != this)
+            {
+                return;
+            }
+            
             SceneManager.activeSceneChanged += LoadScene;
             
             Event = new EventManager();
@@ -105,15 +110,18 @@ namespace Ciart.Pagomoa.Systems
                 World = new WorldManager();
                 World.Init();
                 UI.ActiveUI();
-                var player = Entity.Spawn("Player", transform.position);
-                
-                UI.titleUI.gameObject.SetActive(false);
+                Entity.Spawn("Player", transform.position);
+                if (UI.titleUI)
+                    UI.titleUI.gameObject.SetActive(false);
+                Sound.controller.GetMusicSource().UnPause();
             }
             else if (loadScene.buildIndex == title)
             {
                 UI.DeActiveUI();
-                if (!UI.titleUI) return;
-                UI.titleUI.gameObject.SetActive(true);
+                
+                if (UI.titleUI)
+                    UI.titleUI.gameObject.SetActive(true);
+                Sound.controller.GetMusicSource().Pause();
             }
         }
     }

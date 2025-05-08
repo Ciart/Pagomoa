@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using Cinemachine;
 using Logger;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ciart.Pagomoa
 {
@@ -17,6 +19,7 @@ namespace Ciart.Pagomoa
         public List<GameObject> GetParticles();
         public UIContainer GetUIData();
         public CutSceneController GetCutSceneController();
+        public AudioMixerController GetAudioController();
     }
     public class DataBase : SingletonMonoBehaviour<DataBase>, IDataBase
     {
@@ -35,12 +38,15 @@ namespace Ciart.Pagomoa
         [Header("UI Data")]
         [SerializeField] private UIContainer uiContainer;
         
-        [Header("CutSceneController")]
-        [SerializeField] private CutSceneController cutSceneController;
+        [Header("AudioController")] 
+        [SerializeField] private AudioMixerController _audioMixerController;
+        
+        [Header("CutSceneControllerPrefab")]
+        [SerializeField] private CutSceneController _cutSceneController;
         
         public static IDataBase data { get; private set; }
 
-        protected void Awake()
+        protected override void Awake()
         {
             base.Awake();
             
@@ -48,6 +54,7 @@ namespace Ciart.Pagomoa
             {
                 data = this;
                 DontDestroyOnLoad(gameObject);
+                
             }
             else
             {
@@ -57,7 +64,10 @@ namespace Ciart.Pagomoa
 
         private void Start()
         {
-            cutSceneController = Instantiate(cutSceneController);
+            _cutSceneController = Instantiate(_cutSceneController);
+            DontDestroyOnLoad(_cutSceneController);
+            _audioMixerController = Instantiate(_audioMixerController);
+            DontDestroyOnLoad(_audioMixerController);
         }
 
         public WorldDatabase GetWorldData() { return worldDatabase; }
@@ -65,6 +75,7 @@ namespace Ciart.Pagomoa
         public ItemEntity GetItemEntity() { return itemEntity; }
         public List<GameObject> GetParticles() { return particles; }
         public UIContainer GetUIData() { return uiContainer; }
-        public CutSceneController GetCutSceneController() { return cutSceneController; }
+        public AudioMixerController GetAudioController() { return _audioMixerController; }
+        public CutSceneController GetCutSceneController() { return _cutSceneController; }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using UnityEngine;
 
 public interface IManager {}
 
@@ -16,7 +17,7 @@ public class Manager<T> : IManager where T : Manager<T>
         var ms = ManagerSystem.Instance;
         
         MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
+        
         foreach (MethodInfo method in methods)
         {
             if (method.DeclaringType == type && method.GetBaseDefinition().DeclaringType != type)

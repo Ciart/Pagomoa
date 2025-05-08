@@ -64,7 +64,8 @@ namespace Ciart.Pagomoa.Systems
 
         public override void FixedUpdate()
         {
-            minimapUI.UpdateMinimap();
+            if (minimapUI)
+                minimapUI.UpdateMinimap();
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEvent e)

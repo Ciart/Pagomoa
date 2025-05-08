@@ -13,27 +13,22 @@ namespace Ciart.Pagomoa.CutScenes
     {
         // A Animator, G GameObject, 
         MainCamera,
-        ACreditFocus,
         GTwinkleEffect,
         GFallingMoa,
         AFallingMoa,
         GCredit,
         APago,
         AMoa,
-        ALoopBackGround,
     }
     public class Intro : CutScene
     {
         [Header("Credit")] 
-        [SerializeField] private GameObject _focus;             // vec3(,,)
         [SerializeField] private GameObject _twinkleEffect;     //
         [SerializeField] private GameObject _fallingMoa;        //
         [SerializeField] private GameObject _credit;
         [Header("Actor")]
         [SerializeField] private GameObject _pago;
         [SerializeField] private GameObject _moa;
-        [Header("Background")]
-        [SerializeField] private GameObject _loopBackGround;
         
         public List<PlayableBinding> playables;
         private GameObject? _instancePago;
@@ -58,7 +53,7 @@ namespace Ciart.Pagomoa.CutScenes
             {
                 if (output.streamName == nameof(ShopkeeperStreamName.MainCamera))
                 {
-                    director.SetGenericBinding(output.sourceObject, DataBase.Instance.GetCutSceneController().mainCinemachine);
+                    director.SetGenericBinding(output.sourceObject, DataBase.data.GetCutSceneController().mainCinemachine);
                 }
                 else if (output.streamName == nameof(IntroStreamName.APago))
                 {
@@ -67,10 +62,6 @@ namespace Ciart.Pagomoa.CutScenes
                 else if (output.streamName == nameof(IntroStreamName.AMoa))
                 {
                     director.SetGenericBinding(output.sourceObject, _instanceMoa);
-                }
-                else if (output.streamName == nameof(IntroStreamName.ACreditFocus))
-                {
-                    director.SetGenericBinding(output.sourceObject, _focus);
                 }
                 else if (output.streamName == nameof(IntroStreamName.GCredit))
                 {
@@ -86,36 +77,21 @@ namespace Ciart.Pagomoa.CutScenes
                 {
                     director.SetGenericBinding(output.sourceObject, _fallingMoa);
                 }
-                else if (output.streamName == nameof(IntroStreamName.ALoopBackGround))
-                {
-                    director.SetGenericBinding(output.sourceObject, _loopBackGround);
-                }
                 else if (output.streamName.Contains("Signal"))
                 {
-                    director.SetGenericBinding(output.sourceObject, DataBase.Instance.GetCutSceneController().GetSignalReceiver());
+                    director.SetGenericBinding(output.sourceObject, DataBase.data.GetCutSceneController().GetSignalReceiver());
+                }
+                else if (output.streamName == "FadeUI")
+                {
+                    director.SetGenericBinding(output.sourceObject, Game.Instance.UI.fadeUI.gameObject);
+                }
+                else if (output.streamName == "FadeAnimator")
+                {
+                    director.SetGenericBinding(output.sourceObject, Game.Instance.UI.fadeUI.animator);
                 }
             }
-
             index = 0;
         }
     }
-    
-    /*public class Intro : MonoBehaviour
-    {
-        public bool isPlayed;
-        
-        private PlayableDirector _director;
-        private float _time;
-
-        void Start()
-        {
-            _director = GetComponent<PlayableDirector>();
-        }
-
-        public void PlayIntro() { 
-            _director.Play();
-            isPlayed = true;
-        }
-    }    */
 }
 
