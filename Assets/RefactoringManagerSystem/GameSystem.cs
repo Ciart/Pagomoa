@@ -107,6 +107,7 @@ namespace Ciart.Pagomoa.Systems
                 Entity.Spawn("Player", transform.position);
                 if (UI.titleUI)
                     UI.titleUI.gameObject.SetActive(false);
+                Sound.controller.GetMusicSource().UnPause();
             }
             else if (loadScene.buildIndex == title)
             {
@@ -114,6 +115,7 @@ namespace Ciart.Pagomoa.Systems
                 
                 if (UI.titleUI)
                     UI.titleUI.gameObject.SetActive(true);
+                Sound.controller.GetMusicSource().Pause();
             }
         }
     }

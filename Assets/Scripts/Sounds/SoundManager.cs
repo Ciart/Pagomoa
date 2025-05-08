@@ -7,24 +7,22 @@ namespace Ciart.Pagomoa.Sounds
 {
     public class SoundManager : Manager<SoundManager>
     {
-        private AudioMixerController _controller;
-
+        private AudioMixerController _controller => DataBase.data.GetAudioController();
         public AudioMixerController controller => _controller;
 
         private int _loopStartSamples;
         private int _loopEndSamples;
         private int _loopLengthSamples;
-        
+
         public override void Start()
         {
-            _controller = Object.Instantiate(DataBase.Instance.GetAudioController());
             PlayMusic("WorldMusic");
+            controller.GetMusicSource().Pause();
         }
         
         public override void Update() // BGM Loop 시점 감지
         {
-            return;
-            
+            if (controller.GetMusicSource().isPlaying == false) return;
             if (controller.GetMusicSource().timeSamples >= _loopEndSamples)
             {
                 controller.GetMusicSource().timeSamples -= _loopLengthSamples;
@@ -37,7 +35,7 @@ namespace Ciart.Pagomoa.Sounds
             MusicBundle bundle = FindMusicBundle(bundleName);
             
             controller.GetMusicSource().clip = bundle.music;
-
+            
              _loopStartSamples = (int)(bundle.loopStartTime * controller.GetMusicSource().clip.frequency);
              _loopEndSamples = (int)(bundle.loopEndTime * controller.GetMusicSource().clip.frequency);
              _loopLengthSamples = _loopEndSamples - _loopStartSamples;

@@ -180,8 +180,8 @@ namespace Ciart.Pagomoa
         {
             if (_director != null)
                 _director.playableAsset = null;
-            
-            Game.Instance.UI.fadeUI.FadeOut();
+
+            Game.Instance.UI.fadeUI.Fade(FadeFlag.FadeOut, 1.0f);
         }
 
         private void CheckCamera()

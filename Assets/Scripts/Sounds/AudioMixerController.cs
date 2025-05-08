@@ -40,18 +40,7 @@ namespace Ciart.Pagomoa.Sounds
         public AudioSource GetDrillSpinSource() { return _drillSpinEffect; }
         public AudioSource GetDrillHitSource() { return _drillHitEffect; }
         public AudioSource GetUISource() { return _UIEffect; }
-
-        private void Awake()
-        {
-            if (Game.Instance.Sound.controller)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            
-            DontDestroyOnLoad(gameObject);
-        }
-
+        
         public void InitAudioMixer()
         {
             _mixer.GetFloat("Master", out optionData.masterMixerValue);

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WorldMusic
   m_EditorClassIdentifier: 
   music: {fileID: 8300000, guid: 4a27b4c1332dc0e468d152be038010ee, type: 3}
-  volume: 0.25
+  volume: 0.15
   loopStartTime: 16
   loopEndTime: 32

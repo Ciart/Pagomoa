@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 162080438}
   - component: {fileID: 162080437}
   - component: {fileID: 162080436}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FallingMoa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 5.7248106
+  field of view: 60
   orthographic: 1
   orthographic size: 11.25
   m_Depth: -1
@@ -405,7 +405,7 @@ Transform:
   m_GameObject: {fileID: 234978160}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 21.16047, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -523,7 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425048514}
   - component: {fileID: 425048513}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 538039787}
   - component: {fileID: 538039786}
   - component: {fileID: 538039785}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TwinkeEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ MonoBehaviour:
   - {fileID: 4929765826255280206, guid: 393d5baa459e72a4a88a9efa8bed9d64, type: 3}
   - {fileID: 5849672310036749508, guid: eab503777304a3447a1d23f946068d6c, type: 3}
   uiContainer: {fileID: 2784407036339335694, guid: f451272a3a0062c4c849bb3b3c8a5a19, type: 3}
-  audioMixerController: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
+  _audioMixerController: {fileID: 7715935370156328217, guid: 3e42a485c72579146b653d34e79177ba, type: 3}
   _cutSceneController: {fileID: 1114609587769996279, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
 --- !u!4 &738906076
 Transform:
@@ -1142,67 +1142,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &755290776
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1992445327424221123, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_PlayableAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 184a388659a1a8a4b9bd042647b9fcc5, type: 2}
-    - target: {fileID: 2247904523322223008, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_Name
-      value: CutSceneController
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949867875429601705, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0c7c671b10c29ef4ca0c592682c0be73, type: 3}
 --- !u!1 &834954112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,7 +1488,7 @@ GameObject:
   - component: {fileID: 986794885}
   - component: {fileID: 986794887}
   - component: {fileID: 986794886}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2290,7 +2229,7 @@ GameObject:
   - component: {fileID: 1656352966}
   - component: {fileID: 1656352968}
   - component: {fileID: 1656352967}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HeaderShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22134,7 +22073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2119816324}
   - component: {fileID: 2119816323}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BrokenTent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22225,7 +22164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1413321005154720650, guid: 2868eb34ecf7fff4e92276973a1d6d72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -187
+      value: -167
       objectReference: {fileID: 0}
     - target: {fileID: 1413321005154720650, guid: 2868eb34ecf7fff4e92276973a1d6d72, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22282,7 +22221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496444650962594537, guid: 7284605556b1c7748970f573b7d5ca07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -227
+      value: -207
       objectReference: {fileID: 0}
     - target: {fileID: 496444650962594537, guid: 7284605556b1c7748970f573b7d5ca07, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22481,4 +22420,3 @@ SceneRoots:
   - {fileID: 466428453}
   - {fileID: 514812386}
   - {fileID: 738906076}
-  - {fileID: 755290776}
