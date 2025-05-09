@@ -139,7 +139,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             var hasItemSlot = Array.FindIndex(_inventoryData,
                 (data) => data.GetSlotItemID() == itemID);
-
+            var hasItemList = FindSameItem(itemID);
             if (hasItemSlot > -1)
             {
                 var accCount = itemCount + _inventoryData[hasItemSlot].GetSlotItemCount();
@@ -504,6 +504,25 @@ namespace Ciart.Pagomoa.Systems.Inventory
     // 검색
     public partial class Inventory
     {
+        public bool CheckMaxInventory(string itemID, int itemCount = 1)
+        {
+            var list = FindSameItem(itemID);
+            var acc = 0;
+            foreach (var idx in list)
+            {
+                acc += MaxUseItemCount - _inventoryData[idx].GetSlotItemCount();
+            }
+
+            if (acc >= itemCount)
+                return false;
+            
+            var emptyList = FindSameItem("");
+                 
+            if (emptyList.Count != 0)
+                return false;
+            
+            return true;
+        }
         public Slot[] GetSlots(SlotType slotType)
         {
             switch (slotType)
