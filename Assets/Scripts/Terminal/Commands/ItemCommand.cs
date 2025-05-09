@@ -16,7 +16,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             Debug.Log($"giving item {ResourceSystem.instance.GetItem(subCommand).name}");
 
-            var itemCount1 = 2304;
+            var itemCount1 = 2369;
             /*var itemCount2 = 1;*/
             
             inventory.AddInventory(subCommand, itemCount1);
