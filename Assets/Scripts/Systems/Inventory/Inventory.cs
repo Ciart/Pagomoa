@@ -222,43 +222,6 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         emptySlot.SetSlotItemCount(remainVal);   
                     }
                 }
-                /*if (itemCount <= MaxUseItemCount)
-                {
-                    var hasEmptySlot = Array.FindIndex(_inventoryData,
-                        (data) => data.GetSlotItemID() == "");
-
-                    _inventoryData[hasEmptySlot].SetSlotItemID(itemID);
-                    _inventoryData[hasEmptySlot].SetSlotItemCount(itemCount);
-                }
-                else
-                {
-                    var divVal = (int)(itemCount / MaxUseItemCount);
-                    var remainVal = itemCount % MaxUseItemCount;
-
-                    if (divVal > 0)
-                    {
-                        for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
-                        {
-                            var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
-
-                            if (emptySlot != null)
-                            {
-                                emptySlot.SetSlotItemID(itemID);
-                                emptySlot.SetSlotItemCount(MaxUseItemCount);
-                            }
-                        }
-                    }
-                    if (remainVal != 0)
-                    {
-                        var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
-
-                        if (emptySlot != null)
-                        {
-                            emptySlot.SetSlotItemID(itemID);
-                            emptySlot.SetSlotItemCount(remainVal);
-                        }
-                    }
-                }*/
             }
 
             var registrationSlot = FindSlotByItemID(SlotType.Quick, itemID);
