@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial 3
   m_EditorClassIdentifier: 
   id: tutorial_3
+  owner: BrokenTent
   prevQuestIds: []
   title: "\uC815\uC0C1 \uC601\uC5C5 \uD569\uB2C8\uB2E4."
   description: "\uC800\uCABD \uD150\uD2B8\uAC00 \uBB34\uB108\uC84C\uB2E4\uACE0 \uD574\uC11C

@@ -180,7 +180,8 @@ namespace Ciart.Pagomoa.Systems
 
         public QuestCompleteIcon CreateQuestCompleteUI(Transform parent)
         {
-            return Object.Instantiate(DataBase.data.GetUIData().questCompleteUI, parent);
+            var uiObject = Object.Instantiate(DataBase.data.GetUIData().questCompleteUI, parent);
+            return uiObject.GetComponent<QuestCompleteIcon>();
         }
     }
 }

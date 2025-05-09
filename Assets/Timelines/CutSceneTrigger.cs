@@ -13,14 +13,13 @@ namespace Ciart.Pagomoa
         [SerializeField] private bool _useTrigger;
         public CutScene playableCutScene;
         public Vector2  instantiatedPos = Vector2.zero;
-        private BoxCollider2D _boxCollider;
+        public BoxCollider2D boxCollider;
         protected CutSceneTrigger _trigger;
         
         void Start()
         {
-            _boxCollider = GetComponent<BoxCollider2D>();
-            _boxCollider.isTrigger = _useTrigger;
-            _boxCollider.enabled = _useTrigger;
+            boxCollider = GetComponent<BoxCollider2D>();
+            //_boxCollider.isTrigger = _useTrigger;
         }
         
         public virtual void OnCutSceneTrigger(int tick) { }

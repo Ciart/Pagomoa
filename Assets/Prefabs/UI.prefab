@@ -216,5 +216,5 @@ MonoBehaviour:
   fadeUIPrefab: {fileID: 3649949960614969455, guid: 73aee344ceb9adb428fc789fc2a40bd5, type: 3}
   inventoryCamera: {fileID: 0}
   interactableUI: {fileID: 5055273826858856149, guid: 08d59496c571a4f0d938dd44d3a5a022, type: 3}
-  questCompleteUI: {fileID: 8066941655077391920, guid: abf165692bd09d344b428f7840bb9e8d, type: 3}
+  questCompleteUI: {fileID: -7352818095676281682, guid: abf165692bd09d344b428f7840bb9e8d, type: 3}
   dialogueUI: {fileID: 0}
