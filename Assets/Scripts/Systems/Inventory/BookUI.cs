@@ -35,6 +35,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             if (!gameObject.activeSelf) return;
             gameObject.SetActive(false);
+            Game.Instance.Time.ResumeTime();
         }
         
         private void OnClickTab(int index)

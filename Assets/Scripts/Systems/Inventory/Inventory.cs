@@ -187,7 +187,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                         _inventoryData[hasItemList[i]].SetSlotItemCount(MaxUseItemCount);
                     var lastIndex = hasItemList.Count - 1;
                     if (remainVal > 0)
-                        _inventoryData[lastIndex].SetSlotItemCount(remainVal);
+                        _inventoryData[hasItemList[lastIndex]].SetSlotItemCount(remainVal);
                 }
                 // TODO : 사용 아이템 이외에는 복수 장착이 있는가?
             }

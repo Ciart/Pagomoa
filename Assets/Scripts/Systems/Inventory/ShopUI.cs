@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Systems.Dialogue;
-using Ciart.Pagomoa.Systems.Time;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
