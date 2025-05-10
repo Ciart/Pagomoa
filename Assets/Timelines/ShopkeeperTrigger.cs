@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Logger.ProcessScripts;
 using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
@@ -8,7 +10,8 @@ namespace Ciart.Pagomoa.Timelines
     {
         [Header("ForShopkeeperCutScene")]
         private const string TargetTag = "Player";
-        [SerializeField] private GameObject _shopKeeperPrefab; 
+        [SerializeField] private GameObject _shopKeeperPrefab;
+        private int _tutorialCounter;
         
         private void OnTriggerEnter2D(Collider2D targetObject)
         {
@@ -24,16 +27,31 @@ namespace Ciart.Pagomoa.Timelines
         
         public override void OnCutSceneTrigger(int tick)
         {
-            if (tick == 18000 && Game.Instance.Time.date == 1)
+            if (!_trigger && Game.Instance.Time.date == 0)
             {
+                _tutorialCounter = 0;
                 _trigger = Instantiate(this, instantiatedPos, Quaternion.identity);
-                Game.Instance.Time.UnregisterTickEvent(OnCutSceneTrigger);
+                DontDestroyOnLoad(_trigger);
+                EventManager.AddListener<QuestUpdated>(CheckTutorialQuestEnd);
             }
         }
         public override void OffCutSceneTrigger()
         {
             Instantiate(_shopKeeperPrefab, new Vector2(13.0f, 0.0f), Quaternion.identity);
             Destroy(_trigger);
+            EventManager.RemoveListener<QuestUpdated>(CheckTutorialQuestEnd);
+        }
+
+        private void CheckTutorialQuestEnd(QuestUpdated e)
+        {
+            if (e.quest.state != QuestState.Finish) return;
+            var contains = e.quest.id.Contains("tutorial");
+            if (contains) _tutorialCounter++;
+            if (_tutorialCounter == 2)
+            {
+                boxCollider = gameObject.GetComponent<BoxCollider2D>();
+                _trigger.boxCollider.enabled= true;
+            }
         }
         
         private void StartCutScene()
