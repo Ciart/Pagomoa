@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial 1
   m_EditorClassIdentifier: 
   id: tutorial_1
+  owner: Moa
   prevQuestIds: []
   title: "\uBAA8\uC544\uB294 \uBC30\uACE0\uD30C"
   description: "\uAD6C\uB9AC 5\uAC1C \uBAA8\uC73C\uAE30\r\n\n\uBAA8\uC544\uB294 \uBA3C

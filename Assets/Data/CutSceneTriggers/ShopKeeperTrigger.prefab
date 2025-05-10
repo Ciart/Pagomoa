@@ -40,7 +40,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993764492573001842}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d26d7293bf4fd1bcba3a1df93347aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useTrigger: 1
+  _useTrigger: 0
   playableCutScene: {fileID: 8007347994331867935, guid: 12ab33992609a0945bfab6b3ef7e6a7a, type: 3}
   instantiatedPos: {x: 0, y: 0}
   _shopKeeperPrefab: {fileID: 1230195036051452472, guid: 8e4e19c440108e94185119286daec908, type: 3}
