@@ -60,6 +60,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             if (!gameObject.activeSelf) return;
             
             gameObject.SetActive(false);
+            Game.Instance.Time.ResumeTime();
         }
         
         public void BuyCheck(BuySlotUI buySlotUI)

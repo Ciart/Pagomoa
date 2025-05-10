@@ -1,6 +1,9 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Ciart.Pagomoa.Systems.Dialogue
 {
