@@ -1,4 +1,5 @@
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities
@@ -26,7 +27,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void OnDied(EntityDiedEventArgs e)
         {
-            EntityManager.instance.Spawn(spawnEntityId, transform.position);
+            Game.Instance.Entity.Spawn(spawnEntityId, transform.position);
         }
     }
 

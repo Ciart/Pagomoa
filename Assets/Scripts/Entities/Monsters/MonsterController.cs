@@ -48,7 +48,6 @@ namespace Ciart.Pagomoa.Entities.Monsters
             _animator = GetComponent<Animator>();
             _monster = GetComponent<Monster>();
             _entityController = GetComponent<EntityController>();
-                
         }
 
         private void OnEnable()

@@ -45,7 +45,7 @@ namespace Ciart.Pagomoa.Entities
             if (!controller.gameObject) return;
             Object.Destroy(controller.gameObject);
         }
-
+        
         [CanBeNull]
         public EntityController Find(string id)
         {
