@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Ciart.Pagomoa.Entities.Players;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Worlds;
 using UnityEditor;
@@ -250,12 +251,13 @@ namespace Ciart.Pagomoa.Entities
             Health = 0;
 
             var args = new EntityDiedEventArgs();
-
+            
             died?.Invoke(args);
 
             if (args.AutoDespawn)
             {
                 // TODO: EntityManager에서 관리해야 함
+                EventManager.Notify(new EntityDied(this));
                 Destroy(gameObject);
             }
         }

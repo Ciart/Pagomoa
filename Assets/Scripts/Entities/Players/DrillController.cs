@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Constants;
+using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Inventory;
@@ -192,11 +193,18 @@ namespace Ciart.Pagomoa.Entities.Players
         private void OnEnable()
         {
             Game.Instance.Time.tickUpdated += OnTickUpdated;
+            EventManager.AddListener<EntityDied>(OnEntityDied);
         }
 
         private void OnDisable()
         {
             Game.Instance.Time.tickUpdated -= OnTickUpdated;
+            EventManager.RemoveListener<EntityDied>(OnEntityDied);
+        }
+
+        private void OnEntityDied(EntityDied e)
+        {
+            _enemies.Remove(e.entity);
         }
         
         private void OnTickUpdated(int tick)
@@ -232,10 +240,12 @@ namespace Ciart.Pagomoa.Entities.Players
                         soundManager.FindSfxBundle("DrillHitGroundLoop").audioClip[0];
                 }
             }
-
+            
+            
             if (isDig)
             {
-                foreach (var enemy in _enemies)
+                var preFrameEnemy = _enemies.ToArray();
+                foreach (var enemy in preFrameEnemy)
                 {
                     // TODO: attacker 변경해야 함.
                     // TODO: 무적 시간을 빼고 다른 시각적 효과를 줘야 함.

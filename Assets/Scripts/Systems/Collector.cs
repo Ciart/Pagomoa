@@ -31,6 +31,9 @@ namespace Ciart.Pagomoa.Systems
                 return;
             }
 
+            var isMax = game.player.inventory.CheckMaxInventory(item.id);
+            if (isMax) return;
+            
             OnCollectEvent.Invoke();
             game.player.inventory.AddInventory(item.id);
             Destroy(itemEntity.gameObject);

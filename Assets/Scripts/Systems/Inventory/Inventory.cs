@@ -137,89 +137,89 @@ namespace Ciart.Pagomoa.Systems.Inventory
     {
         public void AddInventory(string itemID, int itemCount = 1)
         {
-            var hasItemSlot = Array.FindIndex(_inventoryData,
-                (data) => data.GetSlotItemID() == itemID);
-
-            if (hasItemSlot > -1)
+            var hasItemList = FindSameItem(itemID);
+            
+            if (hasItemList.Count > 0)
             {
-                var accCount = itemCount + _inventoryData[hasItemSlot].GetSlotItemCount();
-
-                if (accCount <= MaxUseItemCount) // 슬롯에 할당 가능한 아이템 상한  
+                var accCount = itemCount;
+                foreach (var idx in hasItemList)
                 {
-                    _inventoryData[hasItemSlot].SetSlotItemID(itemID);
-                    _inventoryData[hasItemSlot].SetSlotItemCount(accCount);
+                    accCount += _inventoryData[idx].GetSlotItemCount();
                 }
-                else // 2000 
+
+                var divVal = accCount / MaxUseItemCount;
+                var remainVal = accCount % MaxUseItemCount;
+                var emptySlotCount = remainVal > 0 ? divVal + 1 : divVal;
+                emptySlotCount -= hasItemList.Count;
+                
+                if (emptySlotCount > 0)
                 {
-                    accCount -= MaxUseItemCount;
-                    _inventoryData[hasItemSlot].SetSlotItemCount(MaxUseItemCount);
-
-                    var divVal = (int)(accCount / MaxUseItemCount);
-                    var remainVal = accCount % MaxUseItemCount;
-
-                    if (divVal > 0)
-                    {
-                        for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
-                        {
-                            var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
-
-                            if (emptySlot != null)
-                            {
-                                emptySlot.SetSlotItemID(itemID);
-                                emptySlot.SetSlotItemCount(MaxUseItemCount);
-                            }
-                        }
-                    }
-                    if (remainVal != 0)
+                    for(var i = 0; i < hasItemList.Count; i++)
+                        _inventoryData[hasItemList[i]].SetSlotItemCount(MaxUseItemCount);
+                    for (var i = 0; i < divVal - hasItemList.Count; i++)
                     {
                         var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
-
-                        if (emptySlot != null)
+                        if (emptySlot == null)
+                        {
+                            Debug.Log($"{itemID}가 {MaxUseItemCount}개 버려졌습니다.");
+                            continue;
+                        }
+                        emptySlot.SetSlotItemID(itemID);
+                        emptySlot.SetSlotItemCount(MaxUseItemCount);
+                    }
+                    if (remainVal > 0)
+                    {
+                        var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+                        if (emptySlot == null)
+                        {
+                            Debug.Log($"{itemID}가 {remainVal}개 버려졌습니다.");
+                        }
+                        else
                         {
                             emptySlot.SetSlotItemID(itemID);
                             emptySlot.SetSlotItemCount(remainVal);
                         }
                     }
-                }
-                // TODO : 사용 아이템 이외에는 복수 장착이 있는가?
-            }
-            else
-            {
-                if (itemCount <= MaxUseItemCount)
-                {
-                    var hasEmptySlot = Array.FindIndex(_inventoryData,
-                        (data) => data.GetSlotItemID() == "");
-
-                    _inventoryData[hasEmptySlot].SetSlotItemID(itemID);
-                    _inventoryData[hasEmptySlot].SetSlotItemCount(itemCount);
                 }
                 else
                 {
-                    var divVal = (int)(itemCount / MaxUseItemCount);
-                    var remainVal = itemCount % MaxUseItemCount;
-
-                    if (divVal > 0)
+                    for(var i = 0; i < divVal; i++)
+                        _inventoryData[hasItemList[i]].SetSlotItemCount(MaxUseItemCount);
+                    var lastIndex = hasItemList.Count - 1;
+                    if (remainVal > 0)
+                        _inventoryData[hasItemList[lastIndex]].SetSlotItemCount(remainVal);
+                }
+                // TODO : 사용 아이템 이외에는 복수 장착이 있는가?
+            }
+            else // 새로운 아이템을 획득했을 때
+            {
+                var divVal = itemCount / MaxUseItemCount;
+                var remainVal = itemCount % MaxUseItemCount;
+                var emptySlots = FindSameItem("");
+                
+                for (var i = 0; i < divVal; i++)
+                {
+                    if (emptySlots.Count - 1 < i)
                     {
-                        for (int divValIndex = 0; divValIndex < divVal; divValIndex++)
-                        {
-                            var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
-
-                            if (emptySlot != null)
-                            {
-                                emptySlot.SetSlotItemID(itemID);
-                                emptySlot.SetSlotItemCount(MaxUseItemCount);
-                            }
-                        }
+                        Debug.Log($"{itemID}가 {MaxUseItemCount}개 버려졌습니다.");
                     }
-                    if (remainVal != 0)
+                    else
                     {
-                        var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
-
-                        if (emptySlot != null)
-                        {
-                            emptySlot.SetSlotItemID(itemID);
-                            emptySlot.SetSlotItemCount(remainVal);
-                        }
+                        _inventoryData[emptySlots[i]].SetSlotItemID(itemID);
+                        _inventoryData[emptySlots[i]].SetSlotItemCount(MaxUseItemCount);   
+                    }
+                }
+                if (remainVal > 0)
+                {
+                    var emptySlot = FindSlotByItemID(SlotType.Inventory, "");
+                    if (emptySlot == null)
+                    {
+                        Debug.Log($"{itemID}가 {remainVal}개 버려졌습니다.");
+                    }
+                    else
+                    {
+                        emptySlot.SetSlotItemID(itemID);
+                        emptySlot.SetSlotItemCount(remainVal);   
                     }
                 }
             }
@@ -504,6 +504,25 @@ namespace Ciart.Pagomoa.Systems.Inventory
     // 검색
     public partial class Inventory
     {
+        public bool CheckMaxInventory(string itemID, int itemCount = 1)
+        {
+            var list = FindSameItem(itemID);
+            var acc = 0;
+            foreach (var idx in list)
+            {
+                acc += MaxUseItemCount - _inventoryData[idx].GetSlotItemCount();
+            }
+
+            if (acc >= itemCount)
+                return false;
+            
+            var emptyList = FindSameItem("");
+                 
+            if (emptyList.Count != 0)
+                return false;
+            
+            return true;
+        }
         public Slot[] GetSlots(SlotType slotType)
         {
             switch (slotType)
