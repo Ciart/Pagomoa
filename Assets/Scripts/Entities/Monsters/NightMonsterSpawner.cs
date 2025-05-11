@@ -30,7 +30,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         private void Awake()
         {
-            _timeManager = TimeManager.instance;
+            _timeManager = Game.Instance.Time;
         }
 
         private void Start()
@@ -43,9 +43,9 @@ namespace Ciart.Pagomoa.Entities.Monsters
         {
             if (monsters.Count >= maxCount) return;
             if (!(_timeManager.hour < 6 || _timeManager.hour >= 18)) return;
-            Debug.Log("소환" + TimeManager.instance.hour + ":" + TimeManager.instance.minute);
+            Debug.Log("소환" + Game.Instance.Time.hour + ":" + Game.Instance.Time.minute);
 
-            var entityManager = EntityManager.instance;
+            var entityManager = Game.Instance.Entity;
 
             var entityId = monster.GetComponent<EntityController>().entityId;
 
