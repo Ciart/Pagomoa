@@ -106,10 +106,12 @@ namespace Ciart.Pagomoa.Systems.Time
             if (_nextUpdateTime <= 0)
             {
                 // 튜토리얼 진행 중에는 시간이 흐르지 않습니다.
-                if (!IsTutorialDay)
+                /*if (!IsTutorialDay)
                 {
                     tick += 1;
-                }
+                }*/
+                if (tick >= 1800 * 18) return;
+                tick += 1 * 30;
 
                 //To do : tick have to change into 1, But should be do before Release. Not now.
                 _nextUpdateTime += 1f / tickSpeed;

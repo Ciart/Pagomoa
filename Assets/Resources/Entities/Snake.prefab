@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1575523148912464031}
   m_Layer: 8
   m_Name: Snake
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9022c208701b1240a55ac9ff2fe9c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseTime: 6
+  chaseTime: 5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512

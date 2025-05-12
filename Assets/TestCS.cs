@@ -14,7 +14,6 @@ namespace Ciart.Pagomoa
         // Update is called once per frame
         void Update()
         {
-        
         }
     }
 }
