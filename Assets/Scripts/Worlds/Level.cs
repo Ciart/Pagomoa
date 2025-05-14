@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ namespace Ciart.Pagomoa.Worlds
     public class Level
     {
         public readonly string id;
-        
+
         public readonly LevelType type;
-        
+
         public readonly int top;
 
         public readonly int bottom;
@@ -19,10 +20,12 @@ namespace Ciart.Pagomoa.Worlds
         public readonly int left;
 
         public readonly int right;
-        
+
         public List<EntityData> entityDataList;
-        
+
         private readonly Dictionary<ChunkCoords, Chunk> _chunks;
+
+        private readonly List<EntityController> _entities;
 
         public WorldBounds bounds => WorldBounds.FromTopBottomLeftRight(top, bottom, left, right);
 
@@ -36,8 +39,9 @@ namespace Ciart.Pagomoa.Worlds
             this.right = right;
 
             entityDataList = new List<EntityData>();
-            
+
             _chunks = new Dictionary<ChunkCoords, Chunk>();
+            _entities = new List<EntityController>();
 
             foreach (var key in bounds.GetChunkKeys())
             {
@@ -52,20 +56,21 @@ namespace Ciart.Pagomoa.Worlds
             left = saveData.left;
             right = saveData.right;
 
-            // entityDataList = levelData.entityDataList;
-            
-            entityDataList = new List<EntityData>();
-            
+            entityDataList = saveData.entities.Select(entity => new EntityData(entity)).ToList();
+
             _chunks = new Dictionary<ChunkCoords, Chunk>();
+            _entities = new List<EntityController>();
 
             foreach (var chunkData in saveData.chunks)
             {
                 _chunks.Add(chunkData.coords, new Chunk(chunkData));
             }
         }
-        
+
         public LevelSaveData CreateSaveData()
         {
+            RefreshEntityData();
+
             return new LevelSaveData()
             {
                 id = id,
@@ -74,7 +79,7 @@ namespace Ciart.Pagomoa.Worlds
                 bottom = bottom,
                 left = left,
                 right = right,
-                // entities = entityDataList.ToArray(),
+                entities = entityDataList.Select(entity => entity.CreateSaveData()).ToArray(),
                 chunks = _chunks.Values.Select(chunk => chunk.CreateSaveData()).ToArray()
             };
         }
@@ -129,14 +134,60 @@ namespace Ciart.Pagomoa.Worlds
             return chunk.bricks[brinkX + brinkY * Chunk.Size];
         }
 
-        public void AddEntity(float x, float y, string entityId, EntityStatus status = null)
+        public void AddEntityData(float x, float y, string entityId, EntityStatus status = null)
         {
             entityDataList.Add(new EntityData(entityId, x, y, status));
         }
 
-        public void AddEntity(EntityData entityData)
+        public void RefreshEntityData()
         {
-            entityDataList.Add(entityData);
+            var dataList = new List<EntityData>();
+
+            foreach (var entityController in _entities)
+            {
+                if (entityController.isDead)
+                {
+                    continue;
+                }
+
+                var data = entityController.GetEntityData();
+
+                dataList.Add(data);
+            }
+
+            entityDataList = dataList;
+        }
+
+        public void SpawnEntities()
+        {
+            var entityManager = Game.Instance.Entity;
+
+            foreach (var entityData in entityDataList)
+            {
+                var position = new Vector3(entityData.x, entityData.y);
+                var coords = WorldManager.ComputeCoords(position);
+
+                if (!bounds.Contains(coords))
+                {
+                    continue;
+                }
+
+                _entities.Add(entityManager.Spawn(entityData.id, position));
+            }
+        }
+
+        public void DespawnEntities()
+        {
+            RefreshEntityData();
+
+            var entityManager = Game.Instance.Entity;
+
+            foreach (var entityController in _entities)
+            {
+                entityManager.Despawn(entityController);
+            }
+
+            _entities.Clear();
         }
     }
 }

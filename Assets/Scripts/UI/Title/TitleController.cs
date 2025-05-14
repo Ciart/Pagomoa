@@ -27,14 +27,14 @@ namespace Ciart.Pagomoa.UI.Title
 
         public async Awaitable StartGame(bool isContinue)
         {
-            Game.Instance.UI.titleUI.gameObject.SetActive(false);
-
             if (isContinue)
             {
-                await SaveSystem.Instance.Load();
+                await SaveSystem.Instance.Load(false);
                 StartGame();
                 return;
             }
+
+            Game.Instance.UI.titleUI.gameObject.SetActive(false);
             
             foreach (var backGround in backGrounds)
             {
@@ -67,7 +67,7 @@ namespace Ciart.Pagomoa.UI.Title
         public void StartGame()
         {
             DataBase.data.GetCutSceneController().GetDirector().Stop();
-            SceneManager.LoadScene("Scenes/WorldScene");
+            SceneManager.LoadSceneAsync("Scenes/WorldScene");
         }
 
         private IEnumerator StartIntro(float delay)
