@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["walls", "grounds", "minerals"],
+  "properties": {
+    "walls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "isClimbable"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isClimbable": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "grounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "strength", "color"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "strength": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          }
+        }
+      }
+    },
+    "minerals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "tier", "itemId"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tier": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "itemId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+} 

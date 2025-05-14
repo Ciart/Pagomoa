@@ -1,14 +1,10 @@
-﻿using Ciart.Pagomoa.Events;
+﻿using System.Collections.Generic;
+using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Dialogue;
-using Ink.Runtime;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using Ciart.Pagomoa.Systems;
-using UnityEngine.Serialization;
 using Choice = Ink.Runtime.Choice;
 
 namespace Ciart.Pagomoa
@@ -18,7 +14,7 @@ namespace Ciart.Pagomoa
         In,
         Out
     }
-    
+
     public class DialogueUI : MonoBehaviour
     {
         public GameObject outButtonGroup;
@@ -41,12 +37,16 @@ namespace Ciart.Pagomoa
         private DialogueUI _dialogueUI = null;
 
         private DialogueManager _targetManager;
-        
+
         private bool _changeDialogue;
+
+        private Vector2 _talkImageOriginalPosition;
 
         private void Awake()
         {
             _dialogueUI = GetComponent<DialogueUI>();
+
+            _talkImageOriginalPosition = talkImage.rectTransform.anchoredPosition;
         }
 
         private void OnEnable()
@@ -64,14 +64,14 @@ namespace Ciart.Pagomoa
         }
 
         private void SetBtnSizeAfterContentSizeFitter()
-        { 
+        {
             if (!_targetManager.story) return; // 상점과 같은 버튼이 없는 대화 출력시 버튼 에러 방지
             var buttonCount = _targetManager.story.currentChoices.Count;
-            
+
             if (buttonCount == 0) buttonCount = 1; // 마지막 선택 시 때문에 설정
             _dialogueUI.outButtonGroup.TryGetComponent<RectTransform>(out var rect);
             var buttonSize = _outButtonPrefab.rectTransform.sizeDelta;
-            rect.anchoredPosition = new Vector2(0f, (buttonSize.y + 4)  * buttonCount);
+            rect.anchoredPosition = new Vector2(0f, (buttonSize.y + 4) * buttonCount);
         }
 
         private void RefreshView(StoryStarted obj)
@@ -81,17 +81,17 @@ namespace Ciart.Pagomoa
             else
             {
                 var dialogueManager = Game.Instance.Dialogue;
-                
+
                 _targetManager = dialogueManager;
             }
-            
+
             RefreshView();
         }
 
         private void RefreshView()
         {
             var story = _targetManager.story;
-            
+
             RemoveChildren(_dialogueUI.outButtonGroup);
             RemoveChildren(_dialogueUI.inButtonGroup);
             _dialogueUI.talkText.text = "";
@@ -103,7 +103,7 @@ namespace Ciart.Pagomoa
                 text = text.Trim();
 
                 if (text != "") text += "\n";
-                
+
                 ParseTag();
             }
             if (text != "") CreateContentView(text);
@@ -132,7 +132,7 @@ namespace Ciart.Pagomoa
             {
                 Button choice = CreateChoiceView("확인");
                 SetBtnSizeAfterContentSizeFitter();
-                
+
                 choice.onClick.AddListener(delegate
                 {
                     _targetManager.StopStory();
@@ -147,17 +147,14 @@ namespace Ciart.Pagomoa
             foreach (var currentTag in currentTags)
             {
                 var dialogueManager = Game.Instance.Dialogue;
-                
+
                 var prefix = currentTag.Split(' ')[0];
                 var param = currentTag.Split(' ')[1];
 
                 switch (prefix.ToLower())
                 {
-                    case "talker":
-                        SetTalkerName(param);
-                        break;
-                    case "sprite":
-                        SetSpriteImage(param);
+                    case "actor":
+                        SetActor(param);
                         break;
                     case "uimode":
                         if (param == "In") uiMode = UISelectMode.In;
@@ -193,7 +190,7 @@ namespace Ciart.Pagomoa
                         break;
                     case "reward":
                         dialogueManager.nowEntityDialogue.QuestComplete(param);
-                        break; 
+                        break;
                 }
             }
         }
@@ -217,18 +214,18 @@ namespace Ciart.Pagomoa
         {
             if (uiMode == UISelectMode.Out)
             {
-                var choice = Instantiate(_outButtonPrefab , outButtonGroup.transform, false);
+                var choice = Instantiate(_outButtonPrefab, outButtonGroup.transform, false);
                 foreach (var chosenText in choice.GetChoiceTexts())
                     chosenText.text = text;
-                
+
                 choice.ReSizeToFitChildren();
                 SetBtnSizeAfterContentSizeFitter();
-                
+
                 return choice.GetDialogueButton();
             }
             else
             {
-                var choice =  Instantiate(inButtonPrefab, inButtonGroup.transform, false);
+                var choice = Instantiate(inButtonPrefab, inButtonGroup.transform, false);
                 TextMeshProUGUI[] choiceText = choice.GetComponentsInChildren<TextMeshProUGUI>();
                 foreach (var chosenText in choiceText)
                     chosenText.text = text;
@@ -247,51 +244,24 @@ namespace Ciart.Pagomoa
             }
         }
 
-       
-        private void SetTalkerName(string talkerName)
+        private void SetActor(string actorId)
         {
-            nameText.text = talkerName;
-        }
+            var actor = ResourceSystem.instance.GetActor(actorId);
+            var portrait = actor.GetPortrait("Default"); // TODO: 여러 표정 초상화 지원 필요
 
-        private void SetSpriteImage(string param)
-        {
-            if (param == "null")
+            nameText.text = actor.name;
+
+            if (portrait?.sprite == null)
             {
                 talkImage.gameObject.SetActive(false);
-                return;
             }
-
-            /*var cutSceneController = CutSceneController.Instance;
-
-            if (cutSceneController.CutSceneIsPlayed())
+            else
             {
-                var target = cutSceneController.GetOnPlayingCutScene();
-                
-                foreach (var sprite in target.GetSprites())
-                {
-                    if (sprite.name.Replace(" ", string.Empty) == param)
-                    {
-                        talkImage.sprite = sprite;
-                        talkImage.gameObject.SetActive(true);
-                        return;
-                    }
-                }
-                
-                return;
-            }*/
-            
-            foreach (var sprite in spriteGroup)
-            {
-                string spriteName = sprite.name;
-                if (spriteName.Replace(" ", string.Empty) == param)
-                {
-                    talkImage.sprite = sprite;
-                    talkImage.gameObject.SetActive(true);
-                    return;
-                }
+                talkImage.sprite = portrait.sprite;
+                talkImage.rectTransform.anchoredPosition = _talkImageOriginalPosition + new Vector2(portrait.offsetX, portrait.offsetY);
+                talkImage.SetNativeSize();
+                talkImage.gameObject.SetActive(true);
             }
-
-            Debug.LogError("no image There");
         }
 
         private void MakeQuestContentView(QuestStoryStarted qc)

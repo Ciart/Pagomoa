@@ -5,6 +5,7 @@ using System.Reflection;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Items;
 using Ciart.Pagomoa.Logger.ForEditorBaseScripts;
+using Ciart.Pagomoa.Systems.Dialogue;
 using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
@@ -48,6 +49,8 @@ namespace Ciart.Pagomoa.Systems
         private Dictionary<string, Entity> entities = new();
         
         private Dictionary<string, List<QuestData>> matchQuests = new();
+
+        private Dictionary<string, Actor> actors = new();
 
         public static ResourceSystem instance { get; private set; }
 
@@ -143,6 +146,17 @@ namespace Ciart.Pagomoa.Systems
                         quest.owner = match.owner;
                     }
                 }
+            }
+        }
+
+        private void LoadActors()
+        {
+            var text = Resources.Load<TextAsset>("Actors");
+
+            foreach (var actor in JsonUtility.FromJson<JsonData<Actor>>(text.ToString()).data)
+            {
+                actors.Add(actor.id, actor);
+                actor.Init();
             }
         }
 
@@ -271,7 +285,17 @@ namespace Ciart.Pagomoa.Systems
 
             throw new Exception($"ResourceSystem: GetQuest - '{questId}' is not found");
         }
-        
+
+        public Actor GetActor(string id)
+        {
+            if (actors.TryGetValue(id, out var actor))
+            {
+                return actor;
+            }
+
+            throw new Exception($"ResourceSystem: GetActor - '{id}' is not found");
+        }
+
         private void Init()
         {
             items = new Dictionary<string, Item>();
@@ -280,11 +304,13 @@ namespace Ciart.Pagomoa.Systems
             minerals = new Dictionary<string, Mineral>();
             entities = new Dictionary<string, Entity>();
             matchQuests = new Dictionary<string, List<QuestData>>();
+            actors = new Dictionary<string, Actor>();
 
             LoadItems();
             LoadBricks();
             LoadEntities();
             LoadMatchQuests();
+            LoadActors();
         }
 
         private void Awake()
