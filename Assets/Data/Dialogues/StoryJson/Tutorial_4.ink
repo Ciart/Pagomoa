@@ -8,8 +8,7 @@
 *[다음] -> Conversation1
 
 === Conversation1
-#talker 파고
-#sprite 파고
+#actor Pago
 저... 저요?
 *[다음] -> Conversation2
 
@@ -20,8 +19,7 @@
 *[다음] -> Conversation3
 
 === Conversation3
-#talker 파고
-#sprite 파고
+#actor Pago
 무.. 무슨 일이신가요?
 *[다음] -> Conversation4
 
@@ -32,8 +30,7 @@
 *[다음] -> Conversation5
 
 === Conversation5
-#talker 파고
-#sprite 파고
+#actor Pago
 네, 있어요.
 *[다음] -> Conversation6
 
@@ -44,8 +41,7 @@
 *[다음] -> Conversation7
 
 === Conversation7
-#talker 파고
-#sprite 파고
+#actor Pago
 저야 좋죠. 얼만큼 필요하신가요?
 *[다음] -> Conversation8
 
@@ -57,8 +53,7 @@
 *[다음] -> Accept
 
 === Accept
-#talker 파고
-#sprite 파고
+#actor Pago
 #quest tutorial_4
 다섯 개 말이시죠? 알았어요.
 금방 가져다 드릴게요.

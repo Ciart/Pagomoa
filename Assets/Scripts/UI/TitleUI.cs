@@ -37,13 +37,19 @@ namespace Ciart.Pagomoa.UI
             var title = TitleController.Instance;
             if (!title) return;
             _restartButton.onClick.AddListener(ReStart);
-            _continueButton.onClick.AddListener(title.StartGame);
+            _continueButton.onClick.AddListener(Continue);
         }
 
         private void ReStart()
         {
             var title = TitleController.Instance;
             title.StartGame(false);
+        }
+
+        private void Continue()
+        {
+            var title = TitleController.Instance;
+            title.StartGame(true);
         }
     }
 }

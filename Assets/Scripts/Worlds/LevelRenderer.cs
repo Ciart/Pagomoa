@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Worlds
             this.level = level;
 
             UpdateLevel();
-            SpawnEntities();
+            level.SpawnEntities();
         }
 
         private void ClearLevel()
@@ -110,7 +110,7 @@ namespace Ciart.Pagomoa.Worlds
             {
                 var position = entityController.transform.position;
 
-                world.currentLevel.AddEntity(position.x, position.y, entityController.entityId);
+                world.currentLevel.AddEntityData(position.x, position.y, entityController.entityId);
 
                 entityManager.Despawn(entityController);
             }
@@ -374,60 +374,6 @@ namespace Ciart.Pagomoa.Worlds
             Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
         }
 
-        private List<EntityController> _entities = new();
-
-        public void SpawnEntities()
-        {
-            if (level is null)
-            {
-                return;
-            }
-
-            var entityManager = Game.Instance.Entity;
-
-            foreach (var entityData in level.entityDataList)
-            {
-                var position = new Vector3(entityData.x, entityData.y);
-                var coords = WorldManager.ComputeCoords(position);
-
-                if (!level.bounds.Contains(coords))
-                {
-                    continue;
-                }
-
-                _entities.Add(entityManager.Spawn(entityData.id, position));
-            }
-        }
-
-        public void DespawnEntities()
-        {
-            if (level is null)
-            {
-                return;
-            }
-
-            var entityManager = Game.Instance.Entity;
-            var dataList = new List<EntityData>();
-
-            foreach (var entityController in _entities)
-            {
-                if (entityController.isDead)
-                {
-                    continue;
-                }
-
-                var data = entityController.GetEntityData();
-
-                dataList.Add(data);
-
-                entityManager.Despawn(entityController);
-            }
-
-            level.entityDataList = dataList;
-
-            _entities.Clear();
-        }
-
         private bool IsChunkActive(ChunkCoords coords)
         {
             return _activeChunks.Contains(coords);
@@ -486,13 +432,13 @@ namespace Ciart.Pagomoa.Worlds
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
             UpdateLevel();
-            SpawnEntities();
+            level.SpawnEntities();
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
-            DespawnEntities();
+            level.DespawnEntities();
         }
     }
 }

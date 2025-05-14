@@ -81,9 +81,9 @@ namespace Ciart.Pagomoa.Systems.Save
     {
         public string id;
 
-        public int x;
+        public float x;
         
-        public int y;
+        public float y;
     }
 
     [MemoryPackable]

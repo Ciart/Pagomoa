@@ -1,8 +1,7 @@
 -> ShopkeeperCutScene4
 
 === ShopkeeperCutScene4
-#talker 파고
-#sprite 파고
+#actor Pago
 #UIMode Out
 안녕하세요오... 저기... 누구 신가요?
 *[다음] -> Conversation1
@@ -14,14 +13,12 @@
 *[다음] -> Conversation2
 
 === Conversation2
-#talker 파고
-#sprite 파고
+#actor Pago
 어... 저.. 저는
 *[다음] -> Conversation3
 
 === Conversation3
-#talker 모아
-#sprite 모아
+#actor Moa
 아이참~! 파고가 누구냐고 묻잖아!
 *[다음] -> Conversation4
 
@@ -39,8 +36,7 @@
 *[다음] -> Conversation6
 
 === Conversation6
-#talker 모아
-#sprite 모아
+#actor Moa
 모모? 그게 네 이름이야?
 *[다음] -> Conversation7
 
@@ -59,8 +55,7 @@
 *[다음] -> Conversation9
 
 === Conversation9
-#talker 모아
-#sprite 모아
+#actor Moa
 그러던가 말던가
 *[다음] -> Conversation10
 
@@ -72,8 +67,7 @@
 *[다음] -> Conversation11
 
 === Conversation11
-#talker 파고
-#sprite 파고
+#actor Pago
 은혜? 하해?
 *[다음] -> Conversation12
 
@@ -84,8 +78,7 @@
 *[다음] -> Conversation13
 
 === Conversation13
-#talker 파고
-#sprite 파고
+#actor Pago
 네... 그런데요?
 *[다음] -> Conversation14
 
@@ -96,8 +89,7 @@
 *[다음] -> Conversation15
 
 === Conversation15
-#talker 파고
-#sprite 파고
+#actor Pago
 어, 없진 않죠?
 *[다음] -> Conversation16
 
@@ -120,8 +112,7 @@
 *[다음] -> Conversation19
 
 === Conversation19
-#talker 파고
-#sprite 파고
+#actor Pago
 어... 계속 있으신다고...요?
 *[다음] -> Conversation20
 
@@ -132,8 +123,7 @@
 *[다음] -> Conversation21
 
 === Conversation21
-#talker 파고
-#sprite 파고
+#actor Pago
 아니요... 그건 아닌데요오...
 *[다음] -> Conversation22
 
@@ -151,14 +141,12 @@
 *[다음] -> Conversation24
 
 === Conversation24
-#talker 파고
-#sprite 파고
+#actor Pago
 네, 잘 부탁해요...?
 *[다음] -> Conversation25
 
 === Conversation25
-#talker 모아
-#sprite 모아
+#actor Moa
 흥.
     -> END
 

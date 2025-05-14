@@ -258,7 +258,7 @@ namespace Ciart.Pagomoa.Entities
             {
                 // TODO: EntityManager에서 관리해야 함
                 EventManager.Notify(new EntityDied(this));
-                Destroy(gameObject);
+                Game.Instance.Entity.Despawn(this);
             }
         }
 

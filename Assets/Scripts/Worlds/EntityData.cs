@@ -1,5 +1,6 @@
 using System;
 using Ciart.Pagomoa.Entities;
+using Ciart.Pagomoa.Systems.Save;
 using JetBrains.Annotations;
 using UnityEngine.Serialization;
 
@@ -22,6 +23,23 @@ namespace Ciart.Pagomoa.Worlds
             this.x = x;
             this.y = y;
             this.status = status;
+        }
+
+        public EntityData(EntitySaveData saveData)
+        {
+            id = saveData.id;
+            x = saveData.x;
+            y = saveData.y;
+            // status = saveData.status;
+        }
+
+        public EntitySaveData CreateSaveData()
+        {
+            return new EntitySaveData{
+                id = id,
+                x = x,
+                y = y
+            };
         }
     }
 }

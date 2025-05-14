@@ -168,7 +168,6 @@ namespace Ciart.Pagomoa.Systems
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
         {
-            if (fadeUI.gameObject.activeSelf) return;
             fadeUI.gameObject.SetActive(true);
             fadeUI.Fade(flag, duration);
         }
