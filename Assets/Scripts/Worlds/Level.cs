@@ -25,8 +25,6 @@ namespace Ciart.Pagomoa.Worlds
 
         private readonly Dictionary<ChunkCoords, Chunk> _chunks;
 
-        private readonly List<EntityController> _entities;
-
         public WorldBounds bounds => WorldBounds.FromTopBottomLeftRight(top, bottom, left, right);
 
         public Level(string id, LevelType type, int top, int bottom, int left, int right)
@@ -41,7 +39,6 @@ namespace Ciart.Pagomoa.Worlds
             entityDataList = new List<EntityData>();
 
             _chunks = new Dictionary<ChunkCoords, Chunk>();
-            _entities = new List<EntityController>();
 
             foreach (var key in bounds.GetChunkKeys())
             {
@@ -59,7 +56,6 @@ namespace Ciart.Pagomoa.Worlds
             entityDataList = saveData.entities.Select(entity => new EntityData(entity)).ToList();
 
             _chunks = new Dictionary<ChunkCoords, Chunk>();
-            _entities = new List<EntityController>();
 
             foreach (var chunkData in saveData.chunks)
             {
@@ -141,9 +137,10 @@ namespace Ciart.Pagomoa.Worlds
 
         public void RefreshEntityData()
         {
+            var entityManager = Game.Instance.Entity;
             var dataList = new List<EntityData>();
 
-            foreach (var entityController in _entities)
+            foreach (var entityController in entityManager.GetEntitiesInLevel(id))
             {
                 if (entityController.isDead)
                 {
@@ -172,22 +169,14 @@ namespace Ciart.Pagomoa.Worlds
                     continue;
                 }
 
-                _entities.Add(entityManager.Spawn(entityData.id, position));
+                entityManager.Spawn(entityData.id, position, levelId: id);
             }
         }
 
         public void DespawnEntities()
         {
             RefreshEntityData();
-
-            var entityManager = Game.Instance.Entity;
-
-            foreach (var entityController in _entities)
-            {
-                entityManager.Despawn(entityController);
-            }
-
-            _entities.Clear();
+            Game.Instance.Entity.DespawnInLevel(id);
         }
     }
 }
