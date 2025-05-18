@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Save;
 using UnityEngine;
 
 
@@ -62,6 +63,12 @@ namespace Ciart.Pagomoa.Worlds
         {
             if (world is not null)
             {
+                return;
+            }
+
+            if (SaveSystem.Instance.Data != null)
+            {
+                world = new World(SaveSystem.Instance.Data.world);
                 return;
             }
 

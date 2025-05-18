@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.Worlds
 {
     public class LevelRenderer : MonoBehaviour
     {
-        public Level level;
+        public Level? level;
 
         public Tilemap wallTilemap;
 
@@ -106,11 +106,11 @@ namespace Ciart.Pagomoa.Worlds
             var world = WorldManager.world;
             var chunk = world.currentLevel.GetChunk(coords) ?? new Chunk(coords);
 
-            foreach (var entityController in entityManager.FindAllEntityInChunk(chunk))
+            foreach (var entityController in entityManager.FindAllEntityInChunk(level.id, chunk))
             {
                 var position = entityController.transform.position;
 
-                world.currentLevel.AddEntity(position.x, position.y, entityController.entityId);
+                world.currentLevel.AddEntityData(position.x, position.y, entityController.entityId);
 
                 entityManager.Despawn(entityController);
             }
@@ -374,60 +374,6 @@ namespace Ciart.Pagomoa.Worlds
             Debug.DrawLine(position + Vector3.up * chunkSize, position, color);
         }
 
-        private List<EntityController> _entities = new();
-
-        public void SpawnEntities()
-        {
-            if (level is null)
-            {
-                return;
-            }
-
-            var entityManager = Game.Instance.Entity;
-
-            foreach (var entityData in level.entityDataList)
-            {
-                var position = new Vector3(entityData.x, entityData.y);
-                var coords = WorldManager.ComputeCoords(position);
-
-                if (!level.bounds.Contains(coords))
-                {
-                    continue;
-                }
-
-                _entities.Add(entityManager.Spawn(entityData.id, position));
-            }
-        }
-
-        public void DespawnEntities()
-        {
-            if (level is null)
-            {
-                return;
-            }
-
-            var entityManager = Game.Instance.Entity;
-            var dataList = new List<EntityData>();
-
-            foreach (var entityController in _entities)
-            {
-                if (entityController.isDead)
-                {
-                    continue;
-                }
-
-                var data = entityController.GetEntityData();
-
-                dataList.Add(data);
-
-                entityManager.Despawn(entityController);
-            }
-
-            level.entityDataList = dataList;
-
-            _entities.Clear();
-        }
-
         private bool IsChunkActive(ChunkCoords coords)
         {
             return _activeChunks.Contains(coords);
@@ -466,6 +412,40 @@ namespace Ciart.Pagomoa.Worlds
             return _liveChunks.Contains(coords);
         }
 
+        public void SpawnEntities()
+        {
+            if (level is null)
+            {
+                return;
+            }
+
+            var entityManager = Game.Instance.Entity;
+
+            foreach (var entityData in level.entityDataList)
+            {
+                var position = new Vector3(entityData.x, entityData.y);
+                var coords = WorldManager.ComputeCoords(position);
+
+                if (!level.bounds.Contains(coords))
+                {
+                    continue;
+                }
+
+                entityManager.Spawn(entityData.id, position, levelId: level.id);
+            }
+        }
+
+        public void DespawnEntities()
+        {
+            if (level is null)
+            {
+                return;
+            }
+
+            level.RefreshEntityData();
+            Game.Instance.Entity.DespawnInLevel(level.id);
+        }
+
         private void OnChunkChanged(ChunkChangedEvent e)
         {
             if (!_activeChunks.Contains(e.chunk.coords))
@@ -485,8 +465,8 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            UpdateLevel();
             SpawnEntities();
+            UpdateLevel();
         }
 
         private void OnDisable()

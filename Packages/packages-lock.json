@@ -7,12 +7,14 @@
       "dependencies": {},
       "hash": "fe31ad0904abee296b5ea72c6073157accba59e8"
     },
-    "com.jetbrains.riderflow": {
-      "version": "2023.1.0-25",
+    "com.justinpbarnett.unity-mcp": {
+      "version": "https://github.com/justinpbarnett/unity-mcp.git?path=/UnityMcpBridge",
       "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://npm.pkg.jetbrains.space/public/p/jetbrains-gamedev/jetbrains-gamedev"
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "hash": "cbe9b3a2f00e1bbc8f353ea71514580732922ed7"
     },
     "com.singularitygroup.hotreload": {
       "version": "git+https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.6",
@@ -203,6 +205,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.ide.windsurf": {
+      "version": "https://github.com/Asuta/com.unity.ide.windsurf.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.9"
+      },
+      "hash": "6161accf3e7beab96341813913e714c7e2fb5c5d"
+    },
     "com.unity.inputsystem": {
       "version": "1.11.2",
       "depth": 0,
@@ -230,6 +241,13 @@
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
       "depth": 3,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

@@ -1,0 +1,27 @@
+{
+    "$schema": "./Actors.schema.json",
+    "data": [
+        {
+            "id": "Pago",
+            "name": "파고",
+            "portraits": [
+                {
+                    "id": "Default",
+                    "offsetX": 0,
+                    "offsetY": -100
+                }
+            ]
+        },
+        {
+            "id": "Moa",
+            "name": "모아",
+            "portraits": [
+                {
+                    "id": "Default",
+                    "offsetX": 0,
+                    "offsetY": 0
+                }
+            ]
+        }
+    ]
+}

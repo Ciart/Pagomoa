@@ -1,4 +1,5 @@
 ﻿{
+  "$schema": "./Bricks.schema.json",
   "walls": [
     {
       "id": "SandWall",

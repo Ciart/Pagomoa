@@ -146,14 +146,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             _prevValue = 0;
 
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
-
-            var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
-            var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-
-            foreach (var slot in sameSlots)
-            {
-                _prevValue += inventoryList[slot].GetSlotItemCount();
-            }
+            EventManager.AddListener<UpdateInventoryEvent>(OnUpdateInventory);
         }
 
         public bool CheckComplete()
@@ -213,6 +206,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
             CheckComplete();
             questFinished.Invoke();
+        }
+
+        private void OnUpdateInventory(UpdateInventoryEvent e)
+        {
+            var inventory = e.inventory;
+            var sameSlots = inventory.FindSameItem(targetId);
+            var inventoryList = inventory.GetSlots(SlotType.Inventory);
+
+            foreach (var slot in sameSlots)
+            {
+                _prevValue += inventoryList[slot].GetSlotItemCount();
+            }
         }
 
         public string GetQuestSummary() { return summary; }

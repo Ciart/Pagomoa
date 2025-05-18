@@ -54,7 +54,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
         }
 
-        private void UpdateInventoryUI(UpdateInventory e)
+        private void UpdateInventoryUI(UpdateInventoryEvent e)
         {
             UpdateInventorySlot();
             UpdateArtifactSlot();
@@ -146,7 +146,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         {
             UpdateInventorySlot();
             UpdateArtifactSlot();
-            EventManager.AddListener<UpdateInventory>(UpdateInventoryUI);
+            EventManager.AddListener<UpdateInventoryEvent>(UpdateInventoryUI);
             EventManager.AddListener<PlayerSpawnedEvent>(UpdatePlayerStatValueUI);
 
             var player = Game.Instance.player;
@@ -156,7 +156,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
         private void OnDisable()
         {
-            EventManager.RemoveListener<UpdateInventory>(UpdateInventoryUI);
+            EventManager.RemoveListener<UpdateInventoryEvent>(UpdateInventoryUI);
         }
     }
 }

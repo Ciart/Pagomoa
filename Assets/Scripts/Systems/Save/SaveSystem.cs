@@ -1,4 +1,5 @@
-﻿using System.IO;
+using System.IO;
+using System.Threading.Tasks;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Worlds;
 using MemoryPack;
@@ -29,7 +30,7 @@ namespace Ciart.Pagomoa.Systems.Save
         }
 
         // TODO: 입출력을 비동기 함수로 바꿔야 함.
-        public async Awaitable Load()
+        public async Task Load(bool isFade = true)
         {
             var path = Application.persistentDataPath + "/" + GameDataFileName;
 
@@ -37,6 +38,12 @@ namespace Ciart.Pagomoa.Systems.Save
 
             if (Data == null)
             {
+                return;
+            }
+
+            if (!isFade)
+            {
+                EventManager.Notify(new DataLoadedEvent(Data));
                 return;
             }
 
@@ -51,14 +58,6 @@ namespace Ciart.Pagomoa.Systems.Save
             await Awaitable.WaitForSecondsAsync(1f);
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            if (PlayerPrefs.GetInt("SaveSlot") != 0)
-            {
-                Load();
-            }
-        }
+        // TODO: 세이브파일 없으면 이어하기 지우기
     }
 }

@@ -38,7 +38,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         }
         
         // <Summary> 인벤토리 아이템 퀵슬롯 등록 시 중복 아이템 체크 <Summary>
-        private void OnUpdateQuickSlot(UpdateInventory e) { UpdateQuickSlot(); }
+        private void OnUpdateQuickSlot(UpdateInventoryEvent e) { UpdateQuickSlot(); }
 
         public void UpdateQuickSlot()
         {
@@ -118,13 +118,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
         private void OnEnable()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.AddListener<UpdateInventory>(OnUpdateQuickSlot);
+            EventManager.AddListener<UpdateInventoryEvent>(OnUpdateQuickSlot);
         }
         
         private void OnDisable()
         {
             EventManager.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
-            EventManager.RemoveListener<UpdateInventory>(OnUpdateQuickSlot);
+            EventManager.RemoveListener<UpdateInventoryEvent>(OnUpdateQuickSlot);
         }
     }
 }

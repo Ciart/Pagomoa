@@ -200,7 +200,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var entityData in piece.entities)
             {
-                world.AddEntity(worldX - piece.pivot.x + entityData.x + 0.5f, worldY - piece.pivot.y + entityData.y + 0.5f,
+                world.AddEntityData(worldX - piece.pivot.x + entityData.x + 0.5f, worldY - piece.pivot.y + entityData.y + 0.5f,
                     entityData.id);
             }
         }
