@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.Worlds
 {
     public class LevelRenderer : MonoBehaviour
     {
-        public Level level;
+        public Level? level;
 
         public Tilemap wallTilemap;
 
@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Worlds
             this.level = level;
 
             UpdateLevel();
-            level.SpawnEntities();
+            SpawnEntities();
         }
 
         private void ClearLevel()
@@ -106,7 +106,7 @@ namespace Ciart.Pagomoa.Worlds
             var world = WorldManager.world;
             var chunk = world.currentLevel.GetChunk(coords) ?? new Chunk(coords);
 
-            foreach (var entityController in entityManager.FindAllEntityInChunk(chunk))
+            foreach (var entityController in entityManager.FindAllEntityInChunk(level.id, chunk))
             {
                 var position = entityController.transform.position;
 
@@ -412,6 +412,40 @@ namespace Ciart.Pagomoa.Worlds
             return _liveChunks.Contains(coords);
         }
 
+        public void SpawnEntities()
+        {
+            if (level is null)
+            {
+                return;
+            }
+
+            var entityManager = Game.Instance.Entity;
+
+            foreach (var entityData in level.entityDataList)
+            {
+                var position = new Vector3(entityData.x, entityData.y);
+                var coords = WorldManager.ComputeCoords(position);
+
+                if (!level.bounds.Contains(coords))
+                {
+                    continue;
+                }
+
+                entityManager.Spawn(entityData.id, position, levelId: level.id);
+            }
+        }
+
+        public void DespawnEntities()
+        {
+            if (level is null)
+            {
+                return;
+            }
+
+            level.RefreshEntityData();
+            Game.Instance.Entity.DespawnInLevel(level.id);
+        }
+
         private void OnChunkChanged(ChunkChangedEvent e)
         {
             if (!_activeChunks.Contains(e.chunk.coords))
@@ -431,14 +465,14 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
+            SpawnEntities();
             UpdateLevel();
-            level.SpawnEntities();
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<ChunkChangedEvent>(OnChunkChanged);
-            level.DespawnEntities();
+            DespawnEntities();
         }
     }
 }

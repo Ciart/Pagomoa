@@ -25,7 +25,7 @@ namespace Ciart.Pagomoa.UI.Title
             SceneManager.activeSceneChanged += QuitToTitle;
         }
 
-        public async Awaitable StartGame(bool isContinue)
+        public async void StartGame(bool isContinue)
         {
             if (isContinue)
             {

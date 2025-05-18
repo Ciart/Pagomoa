@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 using UnityEngine.Serialization;

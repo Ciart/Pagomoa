@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
@@ -11,7 +11,9 @@ namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : Manager<EntityManager>
     {
-        private Dictionary<string?, List<EntityController>> _entities = new();
+        private const string DEFAULT_LEVEL_ID = "__DEFAULT__";
+
+        private Dictionary<string, List<EntityController>> _entities = new();
 
         public EntityController? Spawn(string id, Vector3 position, EntityStatus? status = null, string? levelId = null)
         {
@@ -25,13 +27,15 @@ namespace Ciart.Pagomoa.Entities
             
             var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
 
-            if (_entities.TryGetValue(levelId, out var list))
+            var actualLevelId = levelId ?? DEFAULT_LEVEL_ID;
+            
+            if (_entities.TryGetValue(actualLevelId, out var list))
             {
                 list.Add(controller);
             }
             else
             {
-                _entities[levelId] = new List<EntityController> { controller };
+                _entities[actualLevelId] = new List<EntityController> { controller };
             }
             
             controller.Init(new EntityData(id, position.x, position.y, status));
@@ -62,7 +66,9 @@ namespace Ciart.Pagomoa.Entities
 
         public void DespawnInLevel(string levelId)
         {
-            foreach (var entityController in GetEntitiesInLevel(levelId))
+            var entities = GetEntitiesInLevel(levelId).ToList();
+
+            foreach (var entityController in entities)
             {
                 Despawn(entityController);
             }
@@ -79,16 +85,9 @@ namespace Ciart.Pagomoa.Entities
             return null;
         }
 
-        public List<EntityController> FindAllEntityInChunk(Chunk chunk) 
+        public List<EntityController> FindAllEntityInChunk(string levelId, Chunk chunk) 
         {
-            var result = new List<EntityController>();
-
-            foreach (var (_, list) in _entities)
-            {
-                result.AddRange(list.FindAll(controller => chunk.worldRect.Contains(controller.transform.position)));
-            }
-            
-            return result;
+            return GetEntitiesInLevel(levelId).FindAll(controller => chunk.worldRect.Contains(controller.transform.position));
         }
 
         public List<EntityController> GetEntitiesInLevel(string levelId)
@@ -97,7 +96,7 @@ namespace Ciart.Pagomoa.Entities
             {
                 return entities;
             }
-            
+
             return new List<EntityController>();
         }
     }

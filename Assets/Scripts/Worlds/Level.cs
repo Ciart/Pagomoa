@@ -48,12 +48,14 @@ namespace Ciart.Pagomoa.Worlds
 
         public Level(LevelSaveData saveData)
         {
+            id = saveData.id;
+            type = saveData.type;
             top = saveData.top;
             bottom = saveData.bottom;
             left = saveData.left;
             right = saveData.right;
 
-            entityDataList = saveData.entities.Select(entity => new EntityData(entity)).ToList();
+            entityDataList = saveData.entities?.Select(entity => new EntityData(entity)).ToList() ?? new List<EntityData>();
 
             _chunks = new Dictionary<ChunkCoords, Chunk>();
 
@@ -153,30 +155,6 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             entityDataList = dataList;
-        }
-
-        public void SpawnEntities()
-        {
-            var entityManager = Game.Instance.Entity;
-
-            foreach (var entityData in entityDataList)
-            {
-                var position = new Vector3(entityData.x, entityData.y);
-                var coords = WorldManager.ComputeCoords(position);
-
-                if (!bounds.Contains(coords))
-                {
-                    continue;
-                }
-
-                entityManager.Spawn(entityData.id, position, levelId: id);
-            }
-        }
-
-        public void DespawnEntities()
-        {
-            RefreshEntityData();
-            Game.Instance.Entity.DespawnInLevel(id);
         }
     }
 }

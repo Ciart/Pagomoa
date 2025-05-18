@@ -1,4 +1,5 @@
-﻿using System.IO;
+using System.IO;
+using System.Threading.Tasks;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Worlds;
 using MemoryPack;
@@ -29,7 +30,7 @@ namespace Ciart.Pagomoa.Systems.Save
         }
 
         // TODO: 입출력을 비동기 함수로 바꿔야 함.
-        public async Awaitable Load(bool isFade = true)
+        public async Task Load(bool isFade = true)
         {
             var path = Application.persistentDataPath + "/" + GameDataFileName;
 
