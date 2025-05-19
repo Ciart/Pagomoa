@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Systems.Save;
 using Ciart.Pagomoa.Timelines;
@@ -24,30 +25,22 @@ namespace Ciart.Pagomoa.UI.Title
             SceneManager.activeSceneChanged += QuitToTitle;
         }
 
-        public void StartGame(bool isContinue)
+        public async void StartGame(bool isContinue)
         {
-            Game.Instance.UI.titleUI.gameObject.SetActive(false);
-
             if (isContinue)
             {
-                PlayerPrefs.SetInt("SaveSlot", 1);
+                await SaveSystem.Instance.Load(false);
                 StartGame();
                 return;
             }
+
+            Game.Instance.UI.titleUI.gameObject.SetActive(false);
             
             foreach (var backGround in backGrounds)
             {
                 backGround.needScrollDown = true;
             }
             StartCoroutine(StartIntro(backGrounds[0].decreaseDuration));
-        }
-
-        public void ReStart()
-        {
-            DataManager.Instance.DeleteGameData();
-            DataManager.Instance.LoadGameData();
-
-            StartGame(true);
         }
 
         public void PressStartButton()
@@ -74,7 +67,7 @@ namespace Ciart.Pagomoa.UI.Title
         public void StartGame()
         {
             DataBase.data.GetCutSceneController().GetDirector().Stop();
-            SceneManager.LoadScene("Scenes/WorldScene");
+            SceneManager.LoadSceneAsync("Scenes/WorldScene");
         }
 
         private IEnumerator StartIntro(float delay)

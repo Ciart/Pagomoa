@@ -15,39 +15,33 @@
 *[다음] -> Conversation2
 
 === Conversation2
-#talker 모아
-#sprite 모아
+#actor Moa
 우릴 찾아온 것 같은데?
 *[다음] -> Conversation3
 
 === Conversation3
-#talker 파고
-#sprite 파고
+#actor Pago
 어... 어쩌지?
 *[다음] -> Conversation4
 
 === Conversation4
-#talker 모아
-#sprite 모아
+#actor Moa
 그냥 인사를 받아 주는 건 어때?
 *[다음] -> Conversation5
 
 === Conversation5
-#talker 파고
-#sprite 파고
+#actor Pago
 그게... 나 모르는 사람은 좀 그런데...
 *[다음] -> Conversation6
 
 === Conversation6
-#talker 모아
-#sprite 모아
+#actor Moa
 너한테는
 나도 모르는 사람이었어.
 *[다음] -> Conversation7
 
 === Conversation7
-#talker 파고
-#sprite 파고
+#actor Pago
 아니, 너랑은 상황이 다르지!
 *[다음] -> Conversation8
 
@@ -59,13 +53,11 @@
 *[다음] -> Conversation9
 
 === Conversation9
-#talker 모아
-#sprite 모아
+#actor Moa
 그렇다는데?
 *[다음] -> Conversation10
 
 === Conversation10
-#talker 파고
-#sprite 파고
+#actor Pago
 ...
     -> END

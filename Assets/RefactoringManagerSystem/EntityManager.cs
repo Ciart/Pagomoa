@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Events;
@@ -13,7 +13,7 @@ namespace Ciart.Pagomoa.Entities
 {
     public class EntityManager : Manager<EntityManager>
     {
-        private List<EntityController> _entities = new();
+        private const string DEFAULT_LEVEL_ID = "__DEFAULT__";
         
         public override void PreStart()
         {
@@ -24,8 +24,9 @@ namespace Ciart.Pagomoa.Entities
             Game.Instance.Time.UnregisterTickEvent(SleepAndWakeUpMonsterEntity);
         }
 
-        [CanBeNull]
-        public EntityController? Spawn(string id, Vector3 position, EntityStatus? status = null)
+        private Dictionary<string, List<EntityController>> _entities = new();
+
+        public EntityController? Spawn(string id, Vector3 position, EntityStatus? status = null, string? levelId = null)
         {
             var entity = ResourceSystem.instance.GetEntity(id);
 
@@ -36,8 +37,17 @@ namespace Ciart.Pagomoa.Entities
             }
             
             var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
-                       
-            _entities.Add(controller);
+
+            var actualLevelId = levelId ?? DEFAULT_LEVEL_ID;
+            
+            if (_entities.TryGetValue(actualLevelId, out var list))
+            {
+                list.Add(controller);
+            }
+            else
+            {
+                _entities[actualLevelId] = new List<EntityController> { controller };
+            }
             
             controller.Init(new EntityData(id, position.x, position.y, status));
             
@@ -52,37 +62,70 @@ namespace Ciart.Pagomoa.Entities
         public void Despawn(EntityController controller)
         {
             if (!controller) return;
-            _entities.Remove(controller);
+            
+            foreach (var (_, list) in _entities)
+            {
+                if (list.Remove(controller))
+                {
+                    break;
+                }
+            }
+
             if (!controller.gameObject) return;
             Object.Destroy(controller.gameObject);
         }
+
+        public void DespawnInLevel(string levelId)
+        {
+            var entities = GetEntitiesInLevel(levelId).ToList();
+
+            foreach (var entityController in entities)
+            {
+                Despawn(entityController);
+            }
+        }
         
-        [CanBeNull]
-        public EntityController Find(string id)
+        public EntityController? Find(string id)
         {
-            return _entities.Find(controller => controller.entityId == id);
+            foreach (var (_, list) in _entities)
+            {
+                var entity = list.Find(controller => controller.entityId == id);
+                if (entity != null) return entity;
+            }
+
+            return null;
         }
 
-        public List<EntityController> FindAllEntityInChunk(Chunk chunk) 
+        public List<EntityController> FindAllEntityInChunk(string levelId, Chunk chunk) 
         {
-            // TODO: Quad-Tree로 최적화 해야 함.
-            return _entities.FindAll((entity) => chunk.worldRect.Contains(entity.transform.position));
+            return GetEntitiesInLevel(levelId).FindAll(controller => chunk.worldRect.Contains(controller.transform.position));
         }
 
-        public void SleepAndWakeUpMonsterEntity(int tick)
+        public List<EntityController> GetEntitiesInLevel(string levelId)
+        {
+            if (_entities.TryGetValue(levelId, out var entities))
+            {
+                return entities;
+            }
+
+            return new List<EntityController>();
+        }
+
+        private void SleepAndWakeUpMonsterEntity(int tick)
         {
             if (tick is not (TimeManager.Morning 
                 or TimeManager.MaxTick - 4800)) return ;
             // 00시 부터 잠자기 시작
             
-            _entities = _entities.Where(e => e != null).ToList();
-            
-            foreach (var entity in _entities)
+            foreach (var entityList in _entities)
             {
-                if(!entity.CompareTag("Monster")) continue;
-                entity.GetComponent<MonsterController>().StateChanged(tick != TimeManager.Morning
-                    ? Monster.MonsterState.Sleep
-                    : Monster.MonsterState.Active);
+                if(!entityList.Value[0].CompareTag("Monster")) continue;
+                foreach (var monster in entityList.Value)
+                {
+                    monster.GetComponent<MonsterController>().StateChanged(tick != TimeManager.Morning
+                        ? Monster.MonsterState.Sleep
+                        : Monster.MonsterState.Active);
+                }
             }
         }
     }

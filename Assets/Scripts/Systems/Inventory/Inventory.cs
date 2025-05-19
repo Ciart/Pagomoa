@@ -84,7 +84,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryData[i].SetSlotItemCount(saveData.inventorySlots[i].count);
             }
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             artifactChanged?.Invoke();
         }
 
@@ -238,7 +238,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 accItemCount += _inventoryData[slotID].GetSlotItemCount();
             }
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             EventManager.Notify(new ItemCountChangedEvent(itemID, accItemCount));
         }
 
@@ -282,7 +282,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             {
                 accItemCount += _inventoryData[slotID].GetSlotItemCount();
             }
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             EventManager.Notify(new ItemCountChangedEvent(slotItemID, accItemCount));
             EventManager.Notify(new ItemUsedEvent(slotItemID, accItemCount));
         }
@@ -308,7 +308,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 accItemCount += _inventoryData[slotID].GetSlotItemCount();
             }
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             EventManager.Notify(new ItemCountChangedEvent(slotItemID, accItemCount));
         }
 
@@ -332,13 +332,13 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 source.SetSlotItemCount(remainCount);
             }
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
         }
 
         public void SwapInventorySlot(int dropID, int targetID)
         {
             (_inventoryData[dropID], _inventoryData[targetID]) = (_inventoryData[targetID], _inventoryData[dropID]);
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
         }
     }
     #endregion
@@ -403,7 +403,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             _quickData[targetSlotID].SetSlotItemID(droppedSlot.GetSlotItemID());
             UpdateQuickSlot();
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
         }
 
         private void UpdateQuickSlot()
@@ -452,7 +452,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             artifactItemSlot.SetSlotItemID("");
             artifactItemSlot.SetSlotItemCount(0);
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             artifactChanged?.Invoke();
 
             // 메뉴 등록
@@ -470,7 +470,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             draggedSlot.SetSlotItemID("");
             draggedSlot.SetSlotItemCount(0);
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             artifactChanged?.Invoke();
 
             // 드래그 드롭 등록
@@ -486,7 +486,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             _artifactSlots[targetSlot.GetSlotID()].SetSlotItemID("");
 
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             artifactChanged?.Invoke();
         }
 
@@ -496,7 +496,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
 
             (_artifactSlots[draggedSlot.GetSlotID()], _artifactSlots[targetSlot.GetSlotID()])
                 = (_artifactSlots[targetSlot.GetSlotID()], _artifactSlots[draggedSlot.GetSlotID()]);
-            EventManager.Notify(new UpdateInventory());
+            EventManager.Notify(new UpdateInventoryEvent(this));
             artifactChanged?.Invoke();
         }
     }

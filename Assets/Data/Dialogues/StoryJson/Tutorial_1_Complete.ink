@@ -1,15 +1,13 @@
 -> Tutorial_1_RestoreTent_Complete
 
 === Tutorial_1_RestoreTent_Complete
-#talker 파고
-#sprite 파고
+#actor Pago
 #UIMode Out
 혹시... 너가 말한 게 이거야?
 *[다음] -> Conversation1
 
 === Conversation1
-#talker 모아
-#sprite 모아
+#actor Moa
 와! 맞아! 그거야 그거!
 *[수락] -> Accept
 
