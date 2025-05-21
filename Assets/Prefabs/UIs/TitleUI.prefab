@@ -397,7 +397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f31656ac03e0549bf52e8cfe87c614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 6589817334813257489}
+  _anim: {fileID: 6589817334813257489}
+  _defaultSprite: {fileID: 228892228, guid: 2c0abf549dcacf441be790e7e83e8bbc, type: 3}
 --- !u!95 &6589817334813257489
 Animator:
   serializedVersion: 7
@@ -554,7 +555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f31656ac03e0549bf52e8cfe87c614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 7402575982088155853}
+  _anim: {fileID: 7402575982088155853}
+  _defaultSprite: {fileID: -1585390156, guid: 2c0abf549dcacf441be790e7e83e8bbc, type: 3}
 --- !u!95 &7402575982088155853
 Animator:
   serializedVersion: 7
@@ -711,7 +713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f31656ac03e0549bf52e8cfe87c614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 8398038221196800669}
+  _anim: {fileID: 8398038221196800669}
+  _defaultSprite: {fileID: 1530734667, guid: 2c0abf549dcacf441be790e7e83e8bbc, type: 3}
 --- !u!95 &8398038221196800669
 Animator:
   serializedVersion: 7

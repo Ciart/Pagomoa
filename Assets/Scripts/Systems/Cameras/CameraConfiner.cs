@@ -1,4 +1,5 @@
 ﻿using Ciart.Pagomoa.Events;
+using Ciart.Pagomoa.Systems;
 using Cinemachine;
 using UnityEngine;
 
@@ -18,6 +19,11 @@ namespace Ciart.Pagomoa
             }
         }
 
+        private void Start()
+        {
+            confiner.InvalidateCache();
+        }
+        
         private void OnEnable()
         {
             EventManager.AddListener<WorldCreatedEvent>(OnWorldCreated);
@@ -28,7 +34,6 @@ namespace Ciart.Pagomoa
         {
             EventManager.RemoveListener<WorldCreatedEvent>(OnWorldCreated);
             EventManager.RemoveListener<LevelChangedEvent>(OnLevelChanged);
-
         }
 
         private void OnLevelChanged(LevelChangedEvent e)
@@ -42,8 +47,7 @@ namespace Ciart.Pagomoa
             var currentLevel = e.world.currentLevel;
             SetCameraBorder(currentLevel.top, currentLevel.bottom, currentLevel.left, currentLevel.right);
         }
-
-
+        
         private void SetCameraBorder(int top, int bottom, int left, int right)
         {
             Vector2[] paths = new Vector2[4];
@@ -54,7 +58,7 @@ namespace Ciart.Pagomoa
 
             cameraBorderCollider.isTrigger = true;
             cameraBorderCollider.points = paths;
-
+            
             var virtualCamera = GameObject.Find("VirtualCamera");
 
             if (!virtualCamera.TryGetComponent<CinemachineConfiner2D>(out confiner))

@@ -14,7 +14,6 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         [SerializeField] protected float chaseTime = 6f;
 
-
         public abstract void StateChanged(Monster.MonsterState state);
         protected abstract IEnumerator Chase();
         protected abstract IEnumerator Patroll();
@@ -30,7 +29,7 @@ namespace Ciart.Pagomoa.Entities.Monsters
 
         protected virtual void OnHit(EntityDamagedEventArgs args)
         {
-            if (args.attacker == null) return;
+            if (!args.attacker) return;
             if (_entityController.isDead) return;
  
             _monster.target = args.attacker.gameObject;

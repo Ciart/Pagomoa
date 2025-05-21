@@ -12,6 +12,7 @@ namespace Ciart.Pagomoa.Timelines
         private const string TargetTag = "Player";
         [SerializeField] private GameObject _shopKeeperPrefab;
         private int _tutorialCounter;
+        private Vector3 _beforePosition;
         
         private void OnTriggerEnter2D(Collider2D targetObject)
         {
@@ -22,6 +23,9 @@ namespace Ciart.Pagomoa.Timelines
         {
             Game.Instance.UI.PlayFadeAnimation(FadeFlag.FadeIn, 1.0f);
             yield return new WaitForSeconds(1.0f);
+            var pos = Game.Instance.player.transform.position;
+            _beforePosition = new Vector3(pos.x, pos.y);
+            Game.Instance.player.transform.position = Vector3.zero + new Vector3(0, 1f, 0);
             StartCutScene();
         }
         
@@ -37,6 +41,7 @@ namespace Ciart.Pagomoa.Timelines
         }
         public override void OffCutSceneTrigger()
         {
+            Game.Instance.player.transform.position = _beforePosition;
             Instantiate(_shopKeeperPrefab, new Vector2(13.0f, 0.0f), Quaternion.identity);
             Destroy(_trigger);
             EventManager.RemoveListener<QuestUpdated>(CheckTutorialQuestEnd);

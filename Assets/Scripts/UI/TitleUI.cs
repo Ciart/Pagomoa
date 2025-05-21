@@ -4,6 +4,7 @@ using Ciart.Pagomoa.UI.Title;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Ciart.Pagomoa.UI
 {
@@ -19,7 +20,6 @@ namespace Ciart.Pagomoa.UI
         {
             _optionButton.onClick.AddListener(_option.UIToggle);
             _exitButton.onClick.AddListener(ExitGame);
-            
             _option.cancleButton.onClick.AddListener(_option.UIToggle);
             _option.confirmButton.onClick.AddListener(_option.UIToggle);
 

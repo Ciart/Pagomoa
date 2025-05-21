@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -12,6 +14,15 @@ namespace Ciart.Pagomoa.Entities
     public class EntityManager : Manager<EntityManager>
     {
         private const string DEFAULT_LEVEL_ID = "__DEFAULT__";
+        
+        public override void PreStart()
+        {
+            Game.Instance.Time.RegisterTickEvent(SleepAndWakeUpMonsterEntity);   
+        }
+        public override void OnDestroy()
+        {
+            Game.Instance.Time.UnregisterTickEvent(SleepAndWakeUpMonsterEntity);
+        }
 
         private Dictionary<string, List<EntityController>> _entities = new();
 
@@ -98,6 +109,23 @@ namespace Ciart.Pagomoa.Entities
             }
 
             return new List<EntityController>();
+        }
+
+        private void SleepAndWakeUpMonsterEntity(int tick)
+        {
+            if (tick is not (TimeManager.Morning 
+                or TimeManager.MaxTick - 6000)) return ;
+            
+            foreach (var entityList in _entities)
+            {
+                foreach (var monster in entityList.Value)
+                {
+                    if (!monster || monster.CompareTag("Monster")) continue;
+                    monster.GetComponent<MonsterController>().StateChanged(tick != TimeManager.Morning
+                        ? Monster.MonsterState.Sleep
+                        : Monster.MonsterState.Active);
+                }
+            }
         }
     }
 }
