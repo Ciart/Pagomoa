@@ -5,6 +5,7 @@ using UnityEngine.UI;
 namespace Ciart.Pagomoa.UI.Title
 {
     public class UIAnimationBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    , IPointerUpHandler
     {
         [SerializeField] private Animator _anim;
         [SerializeField] private Sprite _defaultSprite;
@@ -15,7 +16,12 @@ namespace Ciart.Pagomoa.UI.Title
         }
         public void OnPointerExit(PointerEventData eventData)
         {
+            GetComponent<Image>().sprite = _defaultSprite;
             _anim.SetBool("Play", false);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
             GetComponent<Image>().sprite = _defaultSprite;
         }
     }

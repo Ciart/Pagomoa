@@ -114,14 +114,13 @@ namespace Ciart.Pagomoa.Entities
         private void SleepAndWakeUpMonsterEntity(int tick)
         {
             if (tick is not (TimeManager.Morning 
-                or TimeManager.MaxTick - 4800)) return ;
-            // 00시 부터 잠자기 시작
+                or TimeManager.MaxTick - 6000)) return ;
             
             foreach (var entityList in _entities)
             {
-                if(!entityList.Value[0].CompareTag("Monster")) continue;
                 foreach (var monster in entityList.Value)
                 {
+                    if (!monster || monster.CompareTag("Monster")) continue;
                     monster.GetComponent<MonsterController>().StateChanged(tick != TimeManager.Morning
                         ? Monster.MonsterState.Sleep
                         : Monster.MonsterState.Active);

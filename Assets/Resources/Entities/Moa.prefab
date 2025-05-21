@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicDialogue: {fileID: 4900000, guid: 36fb84424f5fe6f45b6938d663d1cd82, type: 3}
   dailyDialogues: {fileID: 11400000, guid: 09ec98392b38c1a4799f096c95ca3b98, type: 2}
-  portrait: {fileID: 21300000, guid: ebc7cba58a6d22f499ef6dbb9781d633, type: 3}
+  portrait: {fileID: 21300000, guid: 9c215f7be55c84803b77fb326f82a861, type: 3}
   uiOffset: {x: 0, y: 1.5, z: 0}
 --- !u!50 &8064155648946938485
 Rigidbody2D:
