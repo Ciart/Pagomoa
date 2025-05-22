@@ -1,5 +1,6 @@
 ﻿using System;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.Systems;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace Ciart.Pagomoa.UI.Book
         public Sprite defaultProgressFillSprite;
         
         public Sprite selectedProgressFillSprite;
+
+        public Sprite completedSprite;
         
         public Color defaultTextColor;
         
@@ -47,8 +50,20 @@ namespace Ciart.Pagomoa.UI.Book
             set
             {
                 _isSelected = value;
-                
+
+                var quest = Game.Instance.Quest.FindQuestById(questID);
                 if (questID == "") return;
+                if (quest.state == QuestState.Finish)
+                {
+                    progressText.text = "완료";
+                    progressText.color = _isSelected ? 
+                        new Color32(0x8f, 0xf8, 0xe2, 255) : Color.white; 
+                    titleText.color = _isSelected ? 
+                        new Color32(0x8f, 0xf8, 0xe2, 255) : Color.white;
+                    _image.sprite = completedSprite;
+                    _image.type = Image.Type.Tiled;
+                    return;
+                }
                 
                 _image.sprite = _isSelected ? selectedBackgroundSprite : defaultBackgroundSprite;
                 progressBarFill.sprite = _isSelected ? selectedProgressFillSprite : defaultProgressFillSprite;
@@ -80,19 +95,19 @@ namespace Ciart.Pagomoa.UI.Book
                 return;
             }
             
-            _image.sprite = defaultBackgroundSprite;
-            _image.type = Image.Type.Sliced;
-            
             questID = quest.id;
             titleText.text = quest.title;
             progressText.text = $"{(int) (quest.progress * 100)}%";
-
+            _image.sprite = defaultBackgroundSprite;
+            _image.type = Image.Type.Sliced;
+            
             progressBar.gameObject.SetActive(true);
             titleText.gameObject.SetActive(true);
             progressText.gameObject.SetActive(true);
             
             progressBar.value = quest.progress;
             progressBarFill.enabled = quest.progress != 0; // 진행도 0%일 경우 아예 비활성화
+            progressBarFill.enabled = quest.state != QuestState.Finish;
             
             // TODO: 완료된 퀘스트 표시
         }
