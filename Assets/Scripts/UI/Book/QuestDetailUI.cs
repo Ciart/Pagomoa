@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ciart.Pagomoa.Logger.ProcessScripts;
+using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.Utilities;
 using JetBrains.Annotations;
 using TMPro;
@@ -47,10 +48,12 @@ namespace Ciart.Pagomoa.UI.Book
             titleText.text = quest.title;
             descriptionText.text = quest.description;
             npcImage.sprite = quest.npcSprite;
+            var itemName = ResourceSystem.instance.GetItem(quest.reward.itemID).name;
             questRewardText.text =
                 $"보상\n" +
                 $"골드 X {quest.reward.gold}\n" + 
-                $"{quest.reward.itemID} X {quest.reward.value}";
+                $"{itemName} X {quest.reward.value}";
+            
             
             wellDoneStamp.SetActive(quest.state == QuestState.Finish);
             
