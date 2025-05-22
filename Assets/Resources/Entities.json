@@ -62,7 +62,7 @@
       "baseHealth": 100
     },
     {
-      "id": "Shopkeeper",
+      "id": "MoMo",
       "name": "상점 주인",
       "description": "",
       "isEnemy": false,
