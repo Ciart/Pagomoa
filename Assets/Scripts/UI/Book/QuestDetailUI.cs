@@ -21,14 +21,19 @@ namespace Ciart.Pagomoa.UI.Book
         
         public QuestConditionUI questConditionUIPrefab;
         
+        public TextMeshProUGUI questRewardText;
+        public GameObject wellDoneStamp;
+        
         private List<QuestConditionUI> _questConditionItems = new();
         
         public void UpdateUI(Quest? quest)
         {
             if (quest is null)
             {
+                wellDoneStamp.SetActive(false);
                 titleText.text = "";
                 descriptionText.text = "";
+                questRewardText.text = "";
                 npcImage.sprite = null;
                 
                 foreach (var item in _questConditionItems)
@@ -42,6 +47,12 @@ namespace Ciart.Pagomoa.UI.Book
             titleText.text = quest.title;
             descriptionText.text = quest.description;
             npcImage.sprite = quest.npcSprite;
+            questRewardText.text =
+                $"보상\n" +
+                $"골드 X {quest.reward.gold}\n" + 
+                $"{quest.reward.itemID} X {quest.reward.value}";
+            
+            wellDoneStamp.SetActive(quest.state == QuestState.Finish);
             
             PrefabUtility.ResizeParentList(_questConditionItems, questConditionParent, questConditionUIPrefab, quest.conditions.Count);
             
