@@ -106,10 +106,7 @@ namespace Ciart.Pagomoa.UI.Book
             progressText.gameObject.SetActive(true);
             
             progressBar.value = quest.progress;
-            progressBarFill.enabled = quest.progress != 0; // 진행도 0%일 경우 아예 비활성화
-            progressBarFill.enabled = quest.state != QuestState.Finish;
-            
-            // TODO: 완료된 퀘스트 표시
+            progressBarFill.enabled = quest.progress != 0 && quest.state != QuestState.Finish;
         }
 
         protected override void Awake()
