@@ -14,7 +14,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             if (Terminal.IssuedError) return;
             
-            Debug.Log($"giving item {ResourceSystem.instance.GetItem(subCommand).name}");
+            Debug.Log($"giving item {ResourceSystem.Instance.GetItem(subCommand).name}");
 
             var itemCount1 = 64;
             /*var itemCount2 = 1;*/
@@ -29,7 +29,7 @@ namespace Ciart.Pagomoa.Terminal.Commands
             
             if (Terminal.IssuedError) return;
             
-            ResourceSystem.instance.GetItem(subCommand).DisplayUseEffect();
+            ResourceSystem.Instance.GetItem(subCommand).DisplayUseEffect();
         }
     }
 }

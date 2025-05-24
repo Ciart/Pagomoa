@@ -127,7 +127,7 @@ namespace Ciart.Pagomoa.Entities.Players
         {
             base.Init(data);
 
-            var entity = ResourceSystem.instance.GetEntity(data.id);
+            var entity = ResourceSystem.Instance.GetEntity(data.id);
 
             MaxOxygen = entity.oxygen;
             MaxHunger = 100.0f;
@@ -352,7 +352,7 @@ namespace Ciart.Pagomoa.Entities.Players
                 statusModifier += item.status;
             }
 
-            var entity = ResourceSystem.instance.GetEntity(entityId);
+            var entity = ResourceSystem.Instance.GetEntity(entityId);
 
             MaxHealth = (entity.baseHealth + statusModifier.health) * statusModifier.healthMultiplier;
             Attack = (entity.attack + statusModifier.attack) * statusModifier.attackMultiplier;

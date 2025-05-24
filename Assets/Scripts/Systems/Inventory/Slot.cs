@@ -45,12 +45,12 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 return;
             }
             
-            _itemType = ResourceSystem.instance.GetItem(_itemID).type;
+            _itemType = ResourceSystem.Instance.GetItem(_itemID).type;
         }
         public Item? GetSlotItem() {
             if (string.IsNullOrEmpty(_itemID)) return null;
 
-            return ResourceSystem.instance.GetItem(_itemID);
+            return ResourceSystem.Instance.GetItem(_itemID);
         }
         
         

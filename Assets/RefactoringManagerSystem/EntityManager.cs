@@ -30,7 +30,7 @@ namespace Ciart.Pagomoa.Entities
 
         public EntityController? Spawn(string id, Vector3 position, EntityStatus? status = null, string? levelId = null)
         {
-            var entity = ResourceSystem.instance.GetEntity(id);
+            var entity = ResourceSystem.Instance.GetEntity(id);
 
             if (entity.prefab == null)
             {

@@ -85,7 +85,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = Game.Instance.UI.shopUI;
-            var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
+            var item = ResourceSystem.Instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
             
             if (item.type == ItemType.Use)
             {
@@ -100,7 +100,7 @@ namespace Ciart.Pagomoa
         {
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = Game.Instance.UI.shopUI;
-            var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
+            var item = ResourceSystem.Instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
             
             if (inputCount > 1)
             {
@@ -115,7 +115,7 @@ namespace Ciart.Pagomoa
             var inventory = Game.Instance.player.inventory;
             var slotID = _chosenSlot.GetSlotID();
             var shopUI = Game.Instance.UI.shopUI;
-            var item = ResourceSystem.instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
+            var item = ResourceSystem.Instance.GetItem(shopUI.GetShopItemIDs()[slotID]);
 
             if (item.type == ItemType.Use)
             {

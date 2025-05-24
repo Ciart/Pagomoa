@@ -64,7 +64,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public void BuyCheck(BuySlotUI buySlotUI)
         {
             var shopItemID = _shopItemIDs[buySlotUI.GetSlotID()];
-            var item = ResourceSystem.instance.GetItem(shopItemID);
+            var item = ResourceSystem.Instance.GetItem(shopItemID);
             
             countUI.gameObject.SetActive(true);
             countUI.ActiveCountUI(buySlotUI);

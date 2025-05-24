@@ -97,7 +97,7 @@ namespace Ciart.Pagomoa.Editor
 
             _tabIndex = GUILayout.Toolbar(_tabIndex, _tabStrings, GUILayout.Width(width));
 
-            var resourceManager = ResourceSystem.instance;
+            var resourceManager = ResourceSystem.Instance;
 
             if (resourceManager is null)
             {

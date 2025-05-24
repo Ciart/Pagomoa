@@ -150,7 +150,7 @@ namespace Ciart.Pagomoa.Entities
 
         public virtual void Init(EntityData data)
         {
-            var entity = ResourceSystem.instance.GetEntity(data.id);
+            var entity = ResourceSystem.Instance.GetEntity(data.id);
             entityId = entity.id;
             isEnemy = entity.isEnemy;
             isInvincible = entity.isInvincible;

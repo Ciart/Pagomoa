@@ -42,7 +42,7 @@ namespace Ciart.Pagomoa.Worlds
                 if (string.IsNullOrEmpty(wallId))
                     return null;
                 
-                return ResourceSystem.instance.GetWall(wallId);
+                return ResourceSystem.Instance.GetWall(wallId);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Ciart.Pagomoa.Worlds
                 if (string.IsNullOrEmpty(groundId))
                     return null;
 
-                return ResourceSystem.instance.GetGround(groundId); // 여기
+                return ResourceSystem.Instance.GetGround(groundId); // 여기
             }
         }
 
@@ -64,7 +64,7 @@ namespace Ciart.Pagomoa.Worlds
                 if (string.IsNullOrEmpty(mineralId))
                     return null;
                 
-                return ResourceSystem.instance.GetMineral(mineralId);
+                return ResourceSystem.Instance.GetMineral(mineralId);
             }
         }
 

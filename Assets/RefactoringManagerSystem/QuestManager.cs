@@ -56,7 +56,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
             foreach (var questData in e.saveData.quests)
             {
-                var quest = new Quest(ResourceSystem.instance.GetQuest(questData.id));
+                var quest = new Quest(ResourceSystem.Instance.GetQuest(questData.id));
                 quest.state = questData.state;
 
                 for (var i = 0; i < questData.conditions.Length; i++)
@@ -70,7 +70,7 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
 
         public void RegistrationQuest(string entityId, string questId)
         {
-            var targetQuests = ResourceSystem.instance.GetQuests(entityId);
+            var targetQuests = ResourceSystem.Instance.GetQuests(entityId);
 
             foreach (var quest in targetQuests)
             {

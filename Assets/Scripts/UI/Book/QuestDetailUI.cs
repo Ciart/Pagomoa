@@ -48,7 +48,7 @@ namespace Ciart.Pagomoa.UI.Book
             titleText.text = quest.title;
             descriptionText.text = quest.description;
             npcImage.sprite = quest.npcSprite;
-            var itemName = ResourceSystem.instance.GetItem(quest.reward.itemID).name;
+            var itemName = ResourceSystem.Instance.GetItem(quest.reward.itemID).name;
             questRewardText.text =
                 $"보상\n" +
                 $"골드 X {quest.reward.gold}\n" + 

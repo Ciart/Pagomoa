@@ -246,7 +246,7 @@ namespace Ciart.Pagomoa
 
         private void SetActor(string actorId)
         {
-            var actor = ResourceSystem.instance.GetActor(actorId);
+            var actor = ResourceSystem.Instance.GetActor(actorId);
             var portrait = actor.GetPortrait("Default"); // TODO: 여러 표정 초상화 지원 필요
 
             nameText.text = actor.name;

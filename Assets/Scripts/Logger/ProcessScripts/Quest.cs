@@ -36,7 +36,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             reward = questData.reward;
             conditions = new List<IQuestElements>();
             state = QuestState.InProgress;
-            if (questData.owner != null) npcSprite = ResourceSystem.instance.GetEntity(questData.owner).portrait;
+            if (questData.owner != null) npcSprite = ResourceSystem.Instance.GetEntity(questData.owner).portrait;
 
             foreach (var condition in questData.questList)
             {

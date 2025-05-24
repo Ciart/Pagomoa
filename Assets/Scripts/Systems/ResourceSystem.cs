@@ -47,12 +47,27 @@ namespace Ciart.Pagomoa.Systems
         private Dictionary<string, Mineral> minerals = new();
 
         private Dictionary<string, Entity> entities = new();
-        
+
         private Dictionary<string, List<QuestData>> matchQuests = new();
 
         private Dictionary<string, Actor> actors = new();
 
-        public static ResourceSystem instance { get; private set; }
+        private static ResourceSystem _instance;
+
+        private static ResourceSystem _editorInstance;
+
+        public static ResourceSystem Instance
+        {
+            get
+            {
+                if (Application.isPlaying)
+                {
+                    return _instance;
+                }
+
+                return _editorInstance;
+            }
+        }
 
         private Dictionary<string, NewItemEffect> LoadItemEffects()
         {
@@ -131,13 +146,13 @@ namespace Ciart.Pagomoa.Systems
             var data = JsonUtility.FromJson<MatchData>(text.text);
             var questData = Resources.LoadAll<QuestData>("Quests");
             var prevMatch = string.Empty;
-            
+
             foreach (var match in data.data)
             {
                 if (prevMatch != match.owner)
                     matchQuests.Add(match.owner, new List<QuestData>());
                 prevMatch = match.owner;
-                
+
                 foreach (var quest in questData)
                 {
                     if (quest.id == match.id)
@@ -315,12 +330,17 @@ namespace Ciart.Pagomoa.Systems
 
         private void Awake()
         {
-            if (instance == null)
+            if (!Application.isPlaying)
             {
-                instance = this;
+                return;
             }
 
-            if (instance != this)
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+
+            if (_instance != this)
             {
                 Destroy(gameObject);
             }
@@ -328,9 +348,28 @@ namespace Ciart.Pagomoa.Systems
             Init();
         }
 
-        private void OnValidate()
+        private void OnEnable()
         {
-            Init();
+            if (!Application.isPlaying)
+            {
+                if (_editorInstance == null)
+                {
+                    _editorInstance = this;
+                    Init();
+                }
+                else if (_editorInstance != this)
+                {
+                    DestroyImmediate(gameObject, true);
+                }
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (!Application.isPlaying && _editorInstance == this)
+            {
+                _editorInstance = null;
+            }
         }
     }
 }

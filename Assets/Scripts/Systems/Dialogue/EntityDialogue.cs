@@ -147,7 +147,7 @@ namespace Ciart.Pagomoa.Systems.Dialogue
             if (_entityController == null) return;
             var entityId = _entityController.entityId;
 
-            var quests = ResourceSystem.instance.GetQuests(entityId);
+            var quests = ResourceSystem.Instance.GetQuests(entityId);
             if (quests == null) return;
             _entityQuests = quests;
 #if UNITY_EDITOR

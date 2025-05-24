@@ -21,7 +21,7 @@ namespace Ciart.Pagomoa.Worlds
         
         public TileBase tile;
 
-        public Item item => ResourceSystem.instance.GetItem(itemId);
+        public Item item => ResourceSystem.Instance.GetItem(itemId);
         
         private void LoadResources()
         {

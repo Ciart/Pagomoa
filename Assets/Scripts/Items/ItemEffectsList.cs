@@ -10,7 +10,7 @@ namespace Ciart.Pagomoa.Items
         public override void Effect(string itemID)
         {
             var player = Game.Instance.player;
-            var copper = ResourceSystem.instance.GetItem(itemID);
+            var copper = ResourceSystem.Instance.GetItem(itemID);
             if (copper.type == ItemType.Mineral)
             {
                 player.Hunger += copper.hungerPoint;
@@ -40,7 +40,7 @@ namespace Ciart.Pagomoa.Items
 
             if (entity.transform.GetChild(0).TryGetComponent<BoxCollider2D>(out var col)) { col.enabled = false; }
 
-            entity.Item = ResourceSystem.instance.GetItem("Bomb");
+            entity.Item = ResourceSystem.Instance.GetItem("Bomb");
 
             entity.gameObject.AddComponent<Bomb>().Init(3, 3);
         }

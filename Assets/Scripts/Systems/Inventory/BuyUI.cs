@@ -35,7 +35,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             for (int i = 0; i < itemIDs.Count; i++)
             {
-                var item = ResourceSystem.instance.GetItem(itemIDs[i]);
+                var item = ResourceSystem.Instance.GetItem(itemIDs[i]);
                 if (item.type == ItemType.Equipment)
                 {
                     var spawnedSlot = Instantiate(instanceArtifactSlotUI, artifactPanel.transform);
@@ -106,7 +106,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             
             foreach (var id in shopUI.GetShopItemIDs())
             {
-                var item = ResourceSystem.instance.GetItem(id);
+                var item = ResourceSystem.Instance.GetItem(id);
                 if (item.type == ItemType.Equipment)
                 {
                     artifactSlots[equipIndex].slotImage.sprite = _papersSprites[equipIndex];
