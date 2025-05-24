@@ -22,6 +22,55 @@
                     "offsetY": 0
                 }
             ]
+        },
+        {
+          "id": "MoMo",
+          "name": "모모",
+          "portraits": [
+            {
+              "id": "Default",
+              "offsetX": 0,
+              "offsetY": -40
+            }
+          ]
+        },
+        {
+          "id": "IntroMoa",
+          "name": "모아",
+          "portraits": [
+            {
+              "id": "Default",
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          ]
+        },
+        {
+          "id": "IntroPago",
+          "name": "파고",
+          "portraits": [
+            {
+              "id": "Default",
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          ]
+        },
+        {
+          "id": "Tent",
+          "name": "텐트",
+          "portraits": [
+            {
+              "id": "Broken",
+              "offsetX": 0,
+              "offsetY": 0
+            },
+            {
+              "id": "Default",
+              "offsetX": 0,
+              "offsetY": 0
+            }
+          ]
         }
     ]
 }

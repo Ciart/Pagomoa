@@ -1,8 +1,7 @@
 -> Tutorial_4_Complete
     
 === Tutorial_4_Complete
-#talker 모모
-#sprite MoMo
+#actor MoMo
 #UIMode Out
 고맙네. 여긴 대금일세. 넉넉하게 넣었으니 확인해 보게. 
 *[다음] -> Conversation1
@@ -45,8 +44,7 @@
 *[다음] -> Conversation8
 
 === Conversation8
-#talker 모모
-#sprite MoMo
+#actor MoMo
 예, 한 치의 거짓 없는 사실입니다.
 *[다음] -> Conversation9
 
@@ -56,8 +54,7 @@
 *[다음] -> Conversation10
 
 === Conversation10
-#talker 모모
-#sprite MoMo
+#actor MoMo
 예, 진짜진짜 입니다. 
 *[다음] -> Conversation11
 

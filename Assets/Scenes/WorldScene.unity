@@ -1943,6 +1943,14 @@ PrefabInstance:
       propertyPath: entityId
       value: BrokenTent
       objectReference: {fileID: 0}
+    - target: {fileID: 8602330363336809136, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -270781315454099631, guid: 1bb9b144f7283c642940f2a8c3ad3b32, type: 3}
+    - target: {fileID: 8602330363336809136, guid: a6488abe4203da94db4e25b25cd84b9a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
