@@ -98,6 +98,11 @@ namespace Ciart.Pagomoa.RefactoringManagerSystem
             GetReward(id);
 
             EventManager.Notify(new QuestCompleted(FindQuestById(id)));
+
+            if (Game.Instance.Time.IsTutorialDay)
+            {
+                SaveSystem.Instance.Save();
+            }
         }
 
         private void GetReward(string id)

@@ -67,8 +67,6 @@ namespace Ciart.Pagomoa.Worlds
 
         public LevelSaveData CreateSaveData()
         {
-            RefreshEntityData();
-
             return new LevelSaveData()
             {
                 id = id,
@@ -77,7 +75,7 @@ namespace Ciart.Pagomoa.Worlds
                 bottom = bottom,
                 left = left,
                 right = right,
-                entities = entityDataList.Select(entity => entity.CreateSaveData()).ToArray(),
+                entities = CreateEntitiesData().Select(entity => entity.CreateSaveData()).ToArray(),
                 chunks = _chunks.Values.Select(chunk => chunk.CreateSaveData()).ToArray()
             };
         }
@@ -137,10 +135,10 @@ namespace Ciart.Pagomoa.Worlds
             entityDataList.Add(new EntityData(entityId, x, y, status));
         }
 
-        public void RefreshEntityData()
+        public List<EntityData> CreateEntitiesData()
         {
             var entityManager = Game.Instance.Entity;
-            var dataList = new List<EntityData>();
+            var dataList = entityDataList.ToList();
 
             foreach (var entityController in entityManager.GetEntitiesInLevel(id))
             {
@@ -154,7 +152,7 @@ namespace Ciart.Pagomoa.Worlds
                 dataList.Add(data);
             }
 
-            entityDataList = dataList;
+            return dataList;
         }
     }
 }
