@@ -120,8 +120,9 @@ namespace Ciart.Pagomoa.Entities
             {
                 foreach (var monster in entityList.Value)
                 {
-                    if (!monster || monster.CompareTag("Monster")) continue;
-                    monster.GetComponent<MonsterController>().StateChanged(tick != TimeManager.Morning
+                    var controller = monster.GetComponent<MonsterController>();
+                    if (!controller || monster.CompareTag("Monster")) continue;
+                    controller.StateChanged(tick != TimeManager.Morning
                         ? Monster.MonsterState.Sleep
                         : Monster.MonsterState.Active);
                 }
