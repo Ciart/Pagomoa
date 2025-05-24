@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Entities.Monsters;
 using Ciart.Pagomoa.Events;
@@ -7,6 +7,7 @@ using Ciart.Pagomoa.Systems.Time;
 using Ciart.Pagomoa.Worlds;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using PlayerController = Ciart.Pagomoa.Entities.Players.PlayerController;
 
 namespace Ciart.Pagomoa.Entities
@@ -14,10 +15,11 @@ namespace Ciart.Pagomoa.Entities
     public class EntityManager : Manager<EntityManager>
     {
         private const string DEFAULT_LEVEL_ID = "__DEFAULT__";
-        
+
         public override void PreStart()
         {
-            Game.Instance.Time.RegisterTickEvent(SleepAndWakeUpMonsterEntity);   
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            Game.Instance.Time.RegisterTickEvent(SleepAndWakeUpMonsterEntity);
         }
         public override void OnDestroy()
         {
@@ -35,11 +37,11 @@ namespace Ciart.Pagomoa.Entities
                 Debug.LogError($"EntityManager: {id}의 프리팹이 존재하지 않습니다.");
                 return null;
             }
-            
+
             var controller = Object.Instantiate(entity.prefab, position, Quaternion.identity);
 
             var actualLevelId = levelId ?? DEFAULT_LEVEL_ID;
-            
+
             if (_entities.TryGetValue(actualLevelId, out var list))
             {
                 list.Add(controller);
@@ -48,21 +50,21 @@ namespace Ciart.Pagomoa.Entities
             {
                 _entities[actualLevelId] = new List<EntityController> { controller };
             }
-            
+
             controller.Init(new EntityData(id, position.x, position.y, status));
-            
+
             if (controller is PlayerController playerController)
             {
                 EventManager.Notify(new PlayerSpawnedEvent(playerController));
             }
-            
+
             return controller;
         }
 
         public void Despawn(EntityController controller)
         {
             if (!controller) return;
-            
+
             foreach (var (_, list) in _entities)
             {
                 if (list.Remove(controller))
@@ -84,7 +86,7 @@ namespace Ciart.Pagomoa.Entities
                 Despawn(entityController);
             }
         }
-        
+
         public EntityController? Find(string id)
         {
             foreach (var (_, list) in _entities)
@@ -96,7 +98,7 @@ namespace Ciart.Pagomoa.Entities
             return null;
         }
 
-        public List<EntityController> FindAllEntityInChunk(string levelId, Chunk chunk) 
+        public List<EntityController> FindAllEntityInChunk(string levelId, Chunk chunk)
         {
             return GetEntitiesInLevel(levelId).FindAll(controller => chunk.worldRect.Contains(controller.transform.position));
         }
@@ -113,9 +115,9 @@ namespace Ciart.Pagomoa.Entities
 
         private void SleepAndWakeUpMonsterEntity(int tick)
         {
-            if (tick is not (TimeManager.Morning 
-                or TimeManager.MaxTick - 6000)) return ;
-            
+            if (tick is not (TimeManager.Morning
+                or TimeManager.MaxTick - 6000)) return;
+
             foreach (var entityList in _entities)
             {
                 foreach (var monster in entityList.Value)
@@ -126,6 +128,14 @@ namespace Ciart.Pagomoa.Entities
                         ? Monster.MonsterState.Sleep
                         : Monster.MonsterState.Active);
                 }
+            }
+        }
+
+        private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
+        {
+            foreach (var entityList in _entities)
+            {
+                entityList.Value.RemoveAll(entity => entity == null || entity.isDead);
             }
         }
     }

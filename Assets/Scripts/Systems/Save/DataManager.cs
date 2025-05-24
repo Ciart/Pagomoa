@@ -1,9 +1,11 @@
+using System;
 using System.IO;
 using MemoryPack;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
+    [Obsolete("DataManager is deprecated. Use SaveSystem instead.")]
     public class DataManager : MonoBehaviour
     {
         static private GameObject container;

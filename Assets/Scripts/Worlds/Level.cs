@@ -142,7 +142,7 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var entityController in entityManager.GetEntitiesInLevel(id))
             {
-                if (entityController.isDead)
+                if (entityController == null || entityController.isDead)
                 {
                     continue;
                 }
