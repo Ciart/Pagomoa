@@ -66,7 +66,6 @@ namespace Ciart.Pagomoa.Worlds
             this.level = level;
 
             UpdateLevel();
-            // SpawnEntities();
         }
 
         private void ClearLevel()
@@ -435,29 +434,6 @@ namespace Ciart.Pagomoa.Worlds
             return _liveChunks.Contains(coords);
         }
 
-        // public void SpawnEntities()
-        // {
-        //     if (level is null)
-        //     {
-        //         return;
-        //     }
-
-        //     var entityManager = Game.Instance.Entity;
-
-        //     foreach (var entityData in level.entityDataList)
-        //     {
-        //         var position = new Vector3(entityData.x, entityData.y);
-        //         var coords = WorldManager.ComputeCoords(position);
-
-        //         if (!level.bounds.Contains(coords))
-        //         {
-        //             continue;
-        //         }
-
-        //         entityManager.Spawn(entityData.id, position, levelId: level.id);
-        //     }
-        // }
-
         public void DespawnEntities()
         {
             if (level is null)
@@ -488,7 +464,6 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            // SpawnEntities();
             UpdateLevel();
         }
 
