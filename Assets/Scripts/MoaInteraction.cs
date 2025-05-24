@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa
         
         [SerializeField] private float moaSpeed;
         [SerializeField] private float minSpeed;
-
+        
         private InteractableObject _interactableObject;
         private bool _canInteraction;
         
@@ -28,10 +28,13 @@ namespace Ciart.Pagomoa
         private bool _wasDigging;
 
         private const float LinearPoint = 1f;
+        
+        private SpriteRenderer _spriteRenderer;
 
         void Start()
         {
             _interactableObject = GetComponent<InteractableObject>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
         
         void Update()
@@ -95,7 +98,7 @@ namespace Ciart.Pagomoa
         
         public void InitMoa()
         {
-            var player = FindObjectOfType<PlayerMovement>();
+            var player = FindAnyObjectByType<PlayerMovement>();
             if (!player.gameObject) return;
             
             target = player.transform;
@@ -131,12 +134,12 @@ namespace Ciart.Pagomoa
             if (transform.parent) transform.SetParent(null);
 
             var distancePos = destinationPos - transform.position;
-
+            
             var xDistance = Mathf.Abs(distancePos.x);
             var yDistance = Mathf.Abs(distancePos.y);
-            
+            _spriteRenderer.flipX = distancePos.x > 0;    
             if (moaSpeed > 10f && (xDistance < 10f || yDistance < 10f)) moaSpeed += 0.02f;
-
+        
             if (xDistance > 2f || yDistance > 2f) moaSpeed += 0.02f;
             else moaSpeed = minSpeed;
             
