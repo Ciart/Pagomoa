@@ -1,5 +1,6 @@
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Systems;
+using Ciart.Pagomoa.Worlds;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Entities
@@ -27,7 +28,8 @@ namespace Ciart.Pagomoa.Entities
 
         private void OnDied(EntityDiedEventArgs e)
         {
-            Game.Instance.Entity.Spawn(spawnEntityId, transform.position);
+            var currentLevel = WorldManager.world.currentLevel;
+            Game.Instance.Entity.Spawn(spawnEntityId, transform.position, levelId: currentLevel.id);
         }
     }
 

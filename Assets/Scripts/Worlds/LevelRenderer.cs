@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +66,7 @@ namespace Ciart.Pagomoa.Worlds
             this.level = level;
 
             UpdateLevel();
-            SpawnEntities();
+            // SpawnEntities();
         }
 
         private void ClearLevel()
@@ -210,6 +210,27 @@ namespace Ciart.Pagomoa.Worlds
             }
         }
 
+        private void SpawnEntitiesInChunk(Chunk chunk)
+        {
+            if (level is null)
+            {
+                Debug.LogError("Level is null");
+                return;
+            }
+
+            var entityManager = Game.Instance.Entity;
+
+            var entities = level.entityDataList.Where(entityData =>
+                entityData.x >= chunk.worldRect.xMin && entityData.x <= chunk.worldRect.xMax &&
+                entityData.y >= chunk.worldRect.yMin && entityData.y <= chunk.worldRect.yMax).ToList();
+
+            foreach (var entityData in entities)
+            {
+                entityManager.Spawn(entityData.id, new Vector3(entityData.x, entityData.y), entityData.status, level.id);
+                level.entityDataList.Remove(entityData);
+            }
+        }
+
         private void UpdateChunk(ChunkCoords coords)
         {
             var world = WorldManager.world;
@@ -287,6 +308,8 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             spriteRenderer.sprite = sprite;
+
+            SpawnEntitiesInChunk(chunk);
         }
 
         public void UpdateLevel()
@@ -412,28 +435,28 @@ namespace Ciart.Pagomoa.Worlds
             return _liveChunks.Contains(coords);
         }
 
-        public void SpawnEntities()
-        {
-            if (level is null)
-            {
-                return;
-            }
+        // public void SpawnEntities()
+        // {
+        //     if (level is null)
+        //     {
+        //         return;
+        //     }
 
-            var entityManager = Game.Instance.Entity;
+        //     var entityManager = Game.Instance.Entity;
 
-            foreach (var entityData in level.entityDataList)
-            {
-                var position = new Vector3(entityData.x, entityData.y);
-                var coords = WorldManager.ComputeCoords(position);
+        //     foreach (var entityData in level.entityDataList)
+        //     {
+        //         var position = new Vector3(entityData.x, entityData.y);
+        //         var coords = WorldManager.ComputeCoords(position);
 
-                if (!level.bounds.Contains(coords))
-                {
-                    continue;
-                }
+        //         if (!level.bounds.Contains(coords))
+        //         {
+        //             continue;
+        //         }
 
-                entityManager.Spawn(entityData.id, position, levelId: level.id);
-            }
-        }
+        //         entityManager.Spawn(entityData.id, position, levelId: level.id);
+        //     }
+        // }
 
         public void DespawnEntities()
         {
@@ -442,7 +465,7 @@ namespace Ciart.Pagomoa.Worlds
                 return;
             }
 
-            level.RefreshEntityData();
+            level.entityDataList = level.CreateEntitiesData();
             Game.Instance.Entity.DespawnInLevel(level.id);
         }
 
@@ -465,7 +488,7 @@ namespace Ciart.Pagomoa.Worlds
         private void OnEnable()
         {
             EventManager.AddListener<ChunkChangedEvent>(OnChunkChanged);
-            SpawnEntities();
+            // SpawnEntities();
             UpdateLevel();
         }
 
