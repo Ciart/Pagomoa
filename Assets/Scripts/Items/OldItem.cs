@@ -1,8 +1,10 @@
+using System;
 using Ciart.Pagomoa.Entities.Players;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Items
 {
+    [Obsolete("OldItem is deprecated. Use Item instead.")]
     [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
     public class OldItem : ScriptableObject
     {
