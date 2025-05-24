@@ -43,7 +43,8 @@ namespace Ciart.Pagomoa.Timelines
         {
             Game.Instance.player.transform.position = _beforePosition;
             Instantiate(_shopKeeperPrefab, new Vector2(13.0f, 0.0f), Quaternion.identity);
-            Destroy(_trigger);
+            Destroy(_trigger.gameObject);
+            Destroy(gameObject);
             EventManager.RemoveListener<QuestUpdated>(CheckTutorialQuestEnd);
         }
 
