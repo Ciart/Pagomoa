@@ -23,7 +23,7 @@ namespace Ciart.Pagomoa
             if (targetSlot.GetSlotItemID() == "") return;
             _itemName.text = targetSlot.GetSlotItem().name;
             _itemInfo.text = targetSlot.GetSlotItem().description;
-            _itemType.text = targetSlot.GetSlotItem().type.ToString();
+            _itemType.text = "";
             _itemCount.text = $"보유량 : {targetSlot.GetSlotItemCount().ToString()}";
         }
 
