@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Worlds;
 using MemoryPack;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Save
@@ -11,10 +12,17 @@ namespace Ciart.Pagomoa.Systems.Save
     {
         private const string GameDataFileName = "NewSave.dat";
 
+        private string SaveFilePath => Application.persistentDataPath + "/" + GameDataFileName;
+
         public SaveData? Data
         {
             get;
             private set;
+        }
+
+        public bool ExistSaveFile()
+        {
+            return File.Exists(SaveFilePath);
         }
 
         // TODO: 입출력을 비동기 함수로 바꿔야 함.
@@ -24,17 +32,14 @@ namespace Ciart.Pagomoa.Systems.Save
 
             EventManager.Notify(new DataSaveEvent(Data));
 
-            var path = Application.persistentDataPath + "/" + GameDataFileName;
             var raw = MemoryPackSerializer.Serialize(Data);
-            File.WriteAllBytes(path, raw);
+            File.WriteAllBytes(SaveFilePath, raw);
         }
 
         // TODO: 입출력을 비동기 함수로 바꿔야 함.
         public async Task Load(bool isFade = true)
         {
-            var path = Application.persistentDataPath + "/" + GameDataFileName;
-
-            Data = MemoryPackSerializer.Deserialize<SaveData>(File.ReadAllBytes(path));
+            Data = MemoryPackSerializer.Deserialize<SaveData>(File.ReadAllBytes(SaveFilePath));
 
             if (Data == null)
             {

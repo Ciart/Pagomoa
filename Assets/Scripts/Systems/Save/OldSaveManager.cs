@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ciart.Pagomoa.Entities;
 using Ciart.Pagomoa.Entities.Players;
@@ -10,6 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace Ciart.Pagomoa.Systems.Save
 {
+    [Obsolete("OldSaveManager is deprecated. Use SaveSystem instead.")]
     public class OldSaveManager
     {
         static private GameObject container;
