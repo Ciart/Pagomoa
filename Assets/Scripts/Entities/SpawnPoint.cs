@@ -15,7 +15,7 @@ namespace Ciart.Pagomoa.Entities
 
         private void Start()
         {
-            Game.Instance.Entity.Spawn(entityId, transform.position);
+            //Game.Instance.Entity.Spawn(entityId, transform.position);
         }
 
         /*private void OnDrawGizmos()
