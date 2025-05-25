@@ -210,6 +210,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
 
         private void OnUpdateInventory(UpdateInventoryEvent e)
         {
+            return ;
             var inventory = e.inventory;
             var sameSlots = inventory.FindSameItem(targetId);
             var inventoryList = inventory.GetSlots(SlotType.Inventory);
