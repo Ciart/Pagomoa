@@ -146,7 +146,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             _prevValue = 0;
 
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
-            EventManager.AddListener<UpdateInventoryEvent>(OnUpdateInventory);
+            EventManager.AddListener<LoadInventoryEvent>(OnLoadInventory);
         }
 
         public bool CheckComplete()
@@ -208,9 +208,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             questFinished.Invoke();
         }
 
-        private void OnUpdateInventory(UpdateInventoryEvent e)
+        private void OnLoadInventory(LoadInventoryEvent e)
         {
-            return ;
             var inventory = e.inventory;
             var sameSlots = inventory.FindSameItem(targetId);
             var inventoryList = inventory.GetSlots(SlotType.Inventory);
