@@ -176,6 +176,13 @@ namespace Ciart.Pagomoa.Worlds
                 }
 
                 var brickHealth = BrickHealth.FromBrick(brick);
+
+                // -1은 파괴 불가 판정
+                if (brickHealth.maxHealth == -1)
+                {
+                    continue;
+                }
+
                 brickHealth.health -= damage;
 
                 brickDamage.Add(coords, brickHealth);

@@ -194,7 +194,6 @@ namespace Ciart.Pagomoa.Worlds
                     }
 
                     piece.GetBrick(x, y).CopyTo(worldBrick);
-                    worldBrick.wallId = wall;
                 }
             }
 

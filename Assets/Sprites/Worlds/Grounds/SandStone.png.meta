@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SandStone_0
+      name: Sandstone_0
       rect:
         serializedVersion: 2
         x: 0
@@ -113,16 +113,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6aa07d0fd598715f0800000000000000
-      internalID: -786008573387273562
+      spriteID: 18a6ba621e2587e439fe62534d3a7ef7
+      internalID: -2136625673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_1
+      name: Sandstone_1
       rect:
         serializedVersion: 2
         x: 16
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 683315c1e89e5ba4c939e2e4f5f5bda8
-      internalID: -368649869
+      spriteID: a576b2a5e899f35419a2ec199d8ced07
+      internalID: -1153727360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_2
+      name: Sandstone_2
       rect:
         serializedVersion: 2
         x: 32
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a534d307c2d5694a8b4051b38ac80ac
-      internalID: 1672266903
+      spriteID: 19bcb67cca2fe184c80589322419b6f2
+      internalID: 347208511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_3
+      name: Sandstone_3
       rect:
         serializedVersion: 2
         x: 48
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ae14389eb4d1dc4baf12304a92df12e
-      internalID: -1264969591
+      spriteID: ccf6ff038a8db09439e4d49636dc4911
+      internalID: -1478945944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_4
+      name: Sandstone_4
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 172866fd118ea134bbc9b365c7ddae88
-      internalID: 733677351
+      spriteID: 2e9b4eadd71fe00418a5e7c5cae454c8
+      internalID: 1247072062
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_5
+      name: Sandstone_5
       rect:
         serializedVersion: 2
         x: 16
@@ -225,14 +225,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dca683bfe28abf24287f22d29bbe546f
-      internalID: 426042748
+      spriteID: 8d69e25c422b2d34d8f50476c49a9776
+      internalID: 1198507233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_6
+      name: Sandstone_6
       rect:
         serializedVersion: 2
         x: 32
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27f011290e725b04b82b11bd5a184081
-      internalID: 158552240
+      spriteID: d23fc93a2ec47f042ab35d63ab9d50d6
+      internalID: -457428845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_7
+      name: Sandstone_7
       rect:
         serializedVersion: 2
         x: 48
@@ -269,14 +269,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 850ea1e394151e44695a6c4370b8c139
-      internalID: 1335639528
+      spriteID: 5d00d09bef099464cb11041d9b0af357
+      internalID: 774007146
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SandStone_8
+      name: Sandstone_8
       rect:
         serializedVersion: 2
         x: 0
@@ -291,8 +291,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76f7deaf8d5a0a94686c6b37f5f80127
-      internalID: -1073924910
+      spriteID: cedf0beb2c188934ebc8d5587530ed7c
+      internalID: 135525871
       vertices: []
       indices: 
       edges: []
@@ -311,15 +311,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SandStone_0: -786008573387273562
-      SandStone_1: -368649869
-      SandStone_2: 1672266903
-      SandStone_3: -1264969591
-      SandStone_4: 733677351
-      SandStone_5: 426042748
-      SandStone_6: 158552240
-      SandStone_7: 1335639528
-      SandStone_8: -1073924910
+      Sandstone_0: -2136625673
+      Sandstone_1: -1153727360
+      Sandstone_2: 347208511
+      Sandstone_3: -1478945944
+      Sandstone_4: 1247072062
+      Sandstone_5: 1198507233
+      Sandstone_6: -457428845
+      Sandstone_7: 774007146
+      Sandstone_8: 135525871
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

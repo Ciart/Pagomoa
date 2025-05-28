@@ -116,6 +116,14 @@
       "isEnemy": false,
       "isInvincible": true,
       "baseHealth": 100
+    },
+    {
+      "id": "YellowStone",
+      "name": "노랑 스톤",
+      "description": "",
+      "isEnemy": false,
+      "isInvincible": true,
+      "baseHealth": 100
     }
   ]
 }

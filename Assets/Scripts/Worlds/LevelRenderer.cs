@@ -159,6 +159,8 @@ namespace Ciart.Pagomoa.Worlds
                 }
             }
 
+            UpdateEdgeFog();
+
             return fogMap;
         }
 
@@ -197,7 +199,7 @@ namespace Ciart.Pagomoa.Worlds
                 fogTilemap.SetTile(new Vector3Int(i, top), fogTile);
                 fogTilemap.SetTile(new Vector3Int(i, top - 1), fogTile);
                 fogTilemap.SetTile(new Vector3Int(i, bottom), fogTile);
-                fogTilemap.SetTile(new Vector3Int(i, bottom + 1), fogTile);
+                fogTilemap.SetTile(new Vector3Int(i, bottom - 1), fogTile);
             }
 
             for (int i = bottom; i <= top; i++)
@@ -253,17 +255,17 @@ namespace Ciart.Pagomoa.Worlds
 
             foreach (var (x, y, index) in chunk.GetBrickPositionsAndIndices())
             {
-                var brick = chunk.bricks[index];
+                var brick = chunk.bricks[index]!;
 
                 positions[index] = new Vector3Int(chunk.coords.x * Chunk.Size + x,
                     chunk.coords.y * Chunk.Size + y);
 
                 wallTiles[index] = brick.wall?.tile;
-                groundTiles[index] = brick?.ground?.tile;
-                mineralTiles[index] = brick?.mineral?.tile;
+                groundTiles[index] = brick.ground?.tile;
+                mineralTiles[index] = brick.mineral?.tile;
                 fogTiles[index] = fogMap[x, y] ? null : fogTile;
-                overlayTiles[index] = brick?.mineral != null && !fogMap[x, y]
-                    ? WorldManager.instance.database.glitterTile
+                overlayTiles[index] = brick.mineral != null && !fogMap[x, y]
+                    ? Game.Instance.World.database.glitterTile
                     : null;
 
                 var color = Color.clear;
@@ -281,6 +283,8 @@ namespace Ciart.Pagomoa.Worlds
             mineralTilemap.SetTiles(positions, mineralTiles);
             fogTilemap.SetTiles(positions, fogTiles);
             overlayTilemap.SetTiles(positions, overlayTiles);
+
+            UpdateEdgeFog();
 
             _activeChunks.Add(coords);
             _liveChunks = ComputeLiveChunks();
@@ -354,8 +358,6 @@ namespace Ciart.Pagomoa.Worlds
             {
                 IsLoading = false;
             }));
-
-            UpdateEdgeFog();
         }
 
         private void UpdateBrokenEffect()
@@ -458,7 +460,6 @@ namespace Ciart.Pagomoa.Worlds
             }
 
             UpdateChunk(e.chunk.coords);
-            UpdateEdgeFog();
         }
 
         private void OnEnable()

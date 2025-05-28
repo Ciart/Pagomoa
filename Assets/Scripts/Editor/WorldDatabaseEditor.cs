@@ -144,6 +144,11 @@ namespace Ciart.Pagomoa.Editor
 
         private void DrawWorkspace()
         {
+            if (_database is null)
+            {
+                return;
+            }
+
             var piece = _database.pieces[_database.selectIndex];
 
             if (!piece.isValid)
@@ -159,8 +164,8 @@ namespace Ciart.Pagomoa.Editor
                 for (var y = 0; y < piece.height; y++)
                 {
                     var brick = piece.GetBrick(x, y);
-                    var xMin = x * 36 + 8;
-                    var yMin = piece.height * 36 - (y + 1) * 36 + 8;
+                    var xMin = x * 33 + 8;
+                    var yMin = piece.height * 33 - (y + 1) * 33 + 8;
                     var rect = Rect.MinMaxRect(xMin, yMin, xMin + 32, yMin + 32);
 
                     EditorGUI.DrawRect(rect, Color.gray);
@@ -243,14 +248,14 @@ namespace Ciart.Pagomoa.Editor
                 }
             }
 
-            var pivotX = piece.pivot.x * 36 + 8;
-            var pivotY = piece.height * 36 - (piece.pivot.y + 1) * 36;
+            var pivotX = piece.pivot.x * 33 + 8;
+            var pivotY = piece.height * 33 - (piece.pivot.y + 1) * 33;
             var pivotRect = Rect.MinMaxRect(pivotX, pivotY, pivotX + 32, pivotY + 32);
 
             foreach (var prefab in piece.entities)
             {
-                var prefabX = prefab.x * 36 + 8;
-                var prefabY = piece.height * 36 - (prefab.y + 1) * 36;
+                var prefabX = prefab.x * 33 + 8;
+                var prefabY = piece.height * 33 - (prefab.y + 1) * 33;
                 EditorGUI.DrawRect(Rect.MinMaxRect(prefabX + 12, prefabY + 12, prefabX + 20, prefabY + 20),
                     Color.red);
             }
@@ -268,7 +273,7 @@ namespace Ciart.Pagomoa.Editor
             EditorGUILayout.BeginVertical();
             EditorGUILayout.Space(1000);
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.Space(1000);
+            EditorGUILayout.Space(4000);
             DrawWorkspace();
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
