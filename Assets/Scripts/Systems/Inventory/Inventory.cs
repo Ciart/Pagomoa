@@ -83,7 +83,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
                 _inventoryData[i].SetSlotItemID(saveData.inventorySlots[i].id);
                 _inventoryData[i].SetSlotItemCount(saveData.inventorySlots[i].count);
             }
-
+            
+            EventManager.Notify(new LoadInventoryEvent(this));
             EventManager.Notify(new UpdateInventoryEvent(this));
             artifactChanged?.Invoke();
         }
