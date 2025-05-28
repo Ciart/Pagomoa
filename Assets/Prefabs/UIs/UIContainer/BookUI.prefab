@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 8036522024457805717}
   - component: {fileID: 1536268682262888860}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NeedStoneText (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7119,7 +7119,7 @@ GameObject:
   - component: {fileID: 337458761994211309}
   - component: {fileID: 7398125431908022617}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NeedStoneText (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

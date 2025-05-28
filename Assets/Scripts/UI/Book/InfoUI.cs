@@ -1,9 +1,4 @@
-﻿using Ciart.Pagomoa.Entities.Players;
-using Ciart.Pagomoa.Events;
-using Ciart.Pagomoa.Systems;
-using Ciart.Pagomoa.Worlds;
-using System;
-using System.Collections.Generic;
+﻿using Ciart.Pagomoa.Systems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

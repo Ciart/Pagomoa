@@ -319,7 +319,8 @@ namespace Ciart.Pagomoa.Entities.Players
             OnDrillUpgrade?.Invoke(_drills[_drillLevel]);
             Debug.Log("업그레이드 완료" + _drills[_drillLevel]);
         }
-
+        
+        [Obsolete]
         private void RemoveThisIfItWorkedProperly()
         {
             if (Input.GetKeyDown(KeyCode.U)) DrillUpgrade();
