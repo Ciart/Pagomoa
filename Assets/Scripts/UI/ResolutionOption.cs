@@ -89,8 +89,9 @@ namespace Ciart.Pagomoa
                 default:
                     Screen.SetResolution(_resolutions[_dropDown.value].width
                         , _resolutions[_dropDown.value].height
-                        , FullScreenMode.ExclusiveFullScreen);
+                        , Screen.fullScreenMode);
                     break;
+                
             }
 
             

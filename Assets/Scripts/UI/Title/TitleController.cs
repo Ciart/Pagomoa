@@ -18,11 +18,16 @@ namespace Ciart.Pagomoa.UI.Title
         [SerializeField] private InfiniteScrollBackground backGroundUPPrefab;
         [SerializeField] private InfiniteScrollBackground backGroundDownPrefab;
         [SerializeField] private CutScene _introCutScene;
+
+        [SerializeField] private GameObject _cutSceneCredit;
+        [SerializeField] private GameObject _introSprite;
         
         private void Start()
         {
             DataManager.Instance.LoadGameData();
             SceneManager.activeSceneChanged += QuitToTitle;
+            DontDestroyOnLoad(_cutSceneCredit);
+            DontDestroyOnLoad(_introSprite);
         }
 
         public async void StartGame(bool isContinue)
@@ -85,15 +90,18 @@ namespace Ciart.Pagomoa.UI.Title
             if (loadScene.buildIndex == title)
             {
                 if (!backGrounds[0])
-                    backGrounds[0] = Instantiate(backGroundUPPrefab, transform);
+                    backGrounds[0] = Instantiate(backGroundUPPrefab);
                 if (!backGrounds[1])
-                    backGrounds[1] = Instantiate(backGroundDownPrefab, transform);
+                    backGrounds[1] = Instantiate(backGroundDownPrefab);
             }
             else if (loadScene.buildIndex == game)
             {
                 foreach (var backGround in backGrounds)
                     Destroy(backGround.gameObject); 
             }
+            
+            _cutSceneCredit.gameObject.SetActive(!_cutSceneCredit.gameObject.activeSelf);
+            _introSprite.gameObject.SetActive(!_introSprite.gameObject.activeSelf);
         }
     }
 }
