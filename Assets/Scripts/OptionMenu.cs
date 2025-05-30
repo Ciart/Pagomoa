@@ -1,4 +1,3 @@
-using System;
 using Ciart.Pagomoa.Sounds;
 using Ciart.Pagomoa.Systems;
 using Ciart.Pagomoa.UI.Title;
@@ -11,15 +10,8 @@ namespace Ciart.Pagomoa
 {
     public class OptionMenu : MonoBehaviour
     {
-        public Button resoltionTabButton;
-        public Button soundTabButton;
-        
         public Button confirmButton;
         public Button cancleButton;
-
-        [Header("Option Tabs")]
-        [SerializeField] private GameObject _resolutionTab;
-        [SerializeField] private GameObject _soundTab;
         
         [Header("Volume Slider")]
         [SerializeField] private Slider _masterSlider;
@@ -35,9 +27,6 @@ namespace Ciart.Pagomoa
             confirmButton.onClick.AddListener(ConfirmOption);
             cancleButton.onClick.AddListener(CancelOption);
             
-            resoltionTabButton.onClick.AddListener(TabToggle);
-            soundTabButton.onClick.AddListener(TabToggle);
-            
             Game.Instance.Sound.controller.InitAudioMixer();
             OptionData data = Game.Instance.Sound.controller.GetOptionData();
             _masterSlider.value = data.masterMixerValue;
@@ -47,7 +36,7 @@ namespace Ciart.Pagomoa
             _monsterSlider.value = data.monsterMixerValue;
             _uiSlider.value = data.uiMixerValue;
         }
-
+        
         public void CancelOption()
         {
             OptionData prevData = Game.Instance.Sound.controller.GetOptionData();
@@ -84,12 +73,6 @@ namespace Ciart.Pagomoa
             _playerSlider.onValueChanged.AddListener(controller.SetPlayerVolume);
             _monsterSlider.onValueChanged.AddListener(controller.SetMonsterVolume);
             _uiSlider.onValueChanged.AddListener(controller.SetUIVolume);
-        }
-
-        private void TabToggle()
-        {
-            _resolutionTab.SetActive(!_resolutionTab.activeSelf);
-            _soundTab.SetActive(!_soundTab.activeSelf);
         }
     }
 }
