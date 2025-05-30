@@ -285,7 +285,7 @@ namespace Ciart.Pagomoa.Systems.Inventory
             }
             EventManager.Notify(new UpdateInventoryEvent(this));
             EventManager.Notify(new ItemCountChangedEvent(slotItemID, accItemCount));
-            EventManager.Notify(new ItemUsedEvent(slotItemID, accItemCount));
+            EventManager.Notify(new ItemUsedEvent(slotItemID, itemCount));
         }
 
         public void RemoveItem(ISlot targetSlot)

@@ -238,8 +238,6 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
     #region UseItem 소모성, 액티브 아이템 사용 
     public class UseItem : QuestCondition, IQuestElements
     {
-        private int _prevValue;
-
         public UseItem(QuestConditionData conditions)
         {
             questType = conditions.questType;
@@ -248,17 +246,8 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             targetId = conditions.targetID;
             valueType = conditions.value;
             compareValue = 0;
-            _prevValue = 0;
 
             EventManager.AddListener<ItemUsedEvent>(HasUsingItem);
-
-            var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
-            var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-
-            foreach (var slot in sameSlots)
-            {
-                _prevValue += inventoryList[slot].GetSlotItemCount();
-            }
         }
 
         private void HasUsingItem(ItemUsedEvent e)
@@ -276,9 +265,9 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         {
             if (compareValue == value) return;
             var usedItemEvent = (ItemUsedEvent)e;
-
-            compareValue += _prevValue - usedItemEvent.count;
-            _prevValue = usedItemEvent.count;
+            
+            Debug.Log($"{compareValue} & {usedItemEvent.count} & {value}");
+            compareValue += usedItemEvent.count;
 
             if (compareValue > value) compareValue = value;
         }
