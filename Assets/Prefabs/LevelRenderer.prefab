@@ -1630,7 +1630,6 @@ MonoBehaviour:
   fogTile: {fileID: 11400000, guid: 8d326af4ff44e0f419cf2c4b6c60ba61, type: 2}
   sight: 2
   minimapRenderer: {fileID: 5324834388505541916, guid: 113854981984ec04ab5ef99442043a27, type: 3}
-  renderChunkRange: 2
 --- !u!1 &7262266503640791605
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,9 +90,15 @@ namespace Ciart.Pagomoa.UI.Title
             if (loadScene.buildIndex == title)
             {
                 if (!backGrounds[0])
+                {
                     backGrounds[0] = Instantiate(backGroundUPPrefab);
+                }
+
                 if (!backGrounds[1])
+                {
                     backGrounds[1] = Instantiate(backGroundDownPrefab);
+                }
+                    
             }
             else if (loadScene.buildIndex == game)
             {
@@ -102,6 +108,18 @@ namespace Ciart.Pagomoa.UI.Title
             
             _cutSceneCredit.gameObject.SetActive(!_cutSceneCredit.gameObject.activeSelf);
             _introSprite.gameObject.SetActive(!_introSprite.gameObject.activeSelf);
+        }
+
+        public void CheckIntroInstance(GameObject g)
+        {
+            if (backGrounds[0].gameObject == g
+                || backGrounds[1].gameObject == g
+                || _cutSceneCredit == g
+                || _introSprite == g)
+            {
+                return;
+            }
+            Destroy(g);
         }
     }
 }
