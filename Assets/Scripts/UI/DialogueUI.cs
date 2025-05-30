@@ -99,10 +99,13 @@ namespace Ciart.Pagomoa
             string text = "";
             while (story.canContinue)
             {
-                text += story.Continue();
-                text = text.Trim();
+                var currentText = story.Continue();
 
-                if (text != "") text += "\n";
+                if (currentText == "/") break;
+
+                if (currentText != "") currentText += "\n";
+
+                text += currentText;
 
                 ParseTag();
             }
@@ -127,7 +130,16 @@ namespace Ciart.Pagomoa
                     });
                 }
             }
-            // If we've read all the content and there's no choices, the story is finished!
+            else if (story.canContinue)
+            {
+                Button choice = CreateChoiceView("다음");
+                SetBtnSizeAfterContentSizeFitter();
+
+                choice.onClick.AddListener(delegate
+                {
+                    RefreshView();
+                });
+            }
             else
             {
                 Button choice = CreateChoiceView("확인");
