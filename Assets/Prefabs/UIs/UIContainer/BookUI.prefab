@@ -8127,19 +8127,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 526737330126835618}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9036683792300616078}
-        m_TargetAssemblyTypeName: InventoryUIManager, Assembly-CSharp
-        m_MethodName: ClickXBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6390866423871470468
 GameObject:
   m_ObjectHideFlags: 0
@@ -10062,6 +10050,7 @@ MonoBehaviour:
   _inventoryUI: {fileID: 2293715208865457361}
   _rightClickMenu: {fileID: 3805041255586921162}
   _hoverItemInfo: {fileID: 2420359236831586129}
+  _closeButton: {fileID: 3110343519853117710}
 --- !u!1 &7548981395159828979
 GameObject:
   m_ObjectHideFlags: 0

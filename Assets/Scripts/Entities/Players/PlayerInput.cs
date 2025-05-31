@@ -68,6 +68,7 @@ namespace Ciart.Pagomoa.Entities.Players
 
             playerInput.Actions.Inventory.performed += context => { Actable = !Actable; StopAct(); };
             playerInput.Actions.Menu.performed += context => { Actable = true;};
+            Game.Instance.UI.bookUI.GetCloseButton().onClick.AddListener( () => Actable = true );
         }
 
         private void StopAct()

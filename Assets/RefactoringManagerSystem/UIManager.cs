@@ -31,6 +31,7 @@ namespace Ciart.Pagomoa.Systems
         public UIContainer GetUIContainer() { return _ui; }
         
         private bool _isActiveInventory;
+        public void SwitchInventoryActivation() { _isActiveInventory = !_isActiveInventory; }
         
         public override void PreStart()
         {
@@ -60,6 +61,7 @@ namespace Ciart.Pagomoa.Systems
         public override void Start()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            _ui.escUIButton.onClick.AddListener(ToggleEscUI);
         }
 
         public override void FixedUpdate()
@@ -132,7 +134,8 @@ namespace Ciart.Pagomoa.Systems
 
         private void ToggleInventoryUI()
         {
-            if (Game.Instance.UI.shopUI.gameObject.activeSelf) return;
+            if (shopUI.gameObject.activeSelf) return;
+            if (escOptionUI.gameObject.activeSelf) return;
             if (_dialogueUI.gameObject.activeSelf)
             {
                 bookUI.DeActiveBook();
@@ -154,6 +157,7 @@ namespace Ciart.Pagomoa.Systems
             minimapUI.gameObject.SetActive(false);
             StatusUI.gameObject.SetActive(false);
             quickUI.gameObject.SetActive(false);
+            _ui.escUIButton.gameObject.SetActive(false);
             
             bookUI.DeActiveBook();
         }
@@ -164,6 +168,7 @@ namespace Ciart.Pagomoa.Systems
             minimapUI.gameObject.SetActive(true);
             StatusUI.gameObject.SetActive(true);
             quickUI.gameObject.SetActive(true);
+            _ui.escUIButton.gameObject.SetActive(true);
         }
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
