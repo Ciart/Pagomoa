@@ -31,6 +31,7 @@ namespace Ciart.Pagomoa.Systems
         public UIContainer GetUIContainer() { return _ui; }
         
         private bool _isActiveInventory;
+        public void SwitchInventoryActivation() { _isActiveInventory = !_isActiveInventory; }
         
         public override void PreStart()
         {

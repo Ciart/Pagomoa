@@ -3,6 +3,7 @@ using System.Linq;
 using Ciart.Pagomoa.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.Systems.Inventory
 {
@@ -24,7 +25,9 @@ namespace Ciart.Pagomoa.Systems.Inventory
         public RightClickMenu GetRightClickMenu() => _rightClickMenu;
         [SerializeField] private  HoverItemInfo _hoverItemInfo;
         public HoverItemInfo GetHoverItemInfo() => _hoverItemInfo;
-
+        [SerializeField] private Button _closeButton;
+        public Button GetCloseButton() => _closeButton;
+        
         public void ActiveBook()
         {
             if (gameObject.activeSelf) return;
@@ -49,6 +52,8 @@ namespace Ciart.Pagomoa.Systems.Inventory
         
         private void Awake()
         {
+            _closeButton.onClick.AddListener(DeActiveBook);
+            _closeButton.onClick.AddListener(Game.Instance.UI.SwitchInventoryActivation);
             foreach (var (i, tabItem) in tabItems.Select((value, index) => (index, value)))
             {
                 tabItem.tabButton.onClick.AddListener(() => OnClickTab(i));

@@ -32,6 +32,7 @@ namespace Ciart.Pagomoa
         {
             _option.UIToggle();
             _optionButton.gameObject.SetActive(!_optionButton.gameObject.activeSelf);
+            _cancelButton.gameObject.SetActive(!_cancelButton.gameObject.activeSelf);
             _goToMenuButton.gameObject.SetActive(!_goToMenuButton.gameObject.activeSelf);
             _quitButton.gameObject.SetActive(!_quitButton.gameObject.activeSelf);
             _Logo.gameObject.SetActive(!_Logo.gameObject.activeSelf);
@@ -65,6 +66,7 @@ namespace Ciart.Pagomoa
         {
             _option.CancelOption();
             _option.gameObject.SetActive(false);
+            _cancelButton.gameObject.SetActive(true);
             _optionButton.gameObject.SetActive(true);
             _goToMenuButton.gameObject.SetActive(true);
             _quitButton.gameObject.SetActive(true);
