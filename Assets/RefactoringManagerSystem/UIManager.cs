@@ -157,6 +157,7 @@ namespace Ciart.Pagomoa.Systems
             minimapUI.gameObject.SetActive(false);
             StatusUI.gameObject.SetActive(false);
             quickUI.gameObject.SetActive(false);
+            _ui.escUIButton.gameObject.SetActive(false);
             
             bookUI.DeActiveBook();
         }
@@ -167,6 +168,7 @@ namespace Ciart.Pagomoa.Systems
             minimapUI.gameObject.SetActive(true);
             StatusUI.gameObject.SetActive(true);
             quickUI.gameObject.SetActive(true);
+            _ui.escUIButton.gameObject.SetActive(true);
         }
 
         public void PlayFadeAnimation(FadeFlag flag, float duration)
