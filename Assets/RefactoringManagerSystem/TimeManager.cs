@@ -103,12 +103,17 @@ namespace Ciart.Pagomoa.Systems.Time
             if (IsPause == true) return;
             if (tick >= MaxTick) return;
 
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+                tick += 1600;
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+                tick += 30;
             if (_nextUpdateTime <= 0)
             {
                 // 튜토리얼 진행 중에는 시간이 흐르지 않습니다.
                 if (!IsTutorialDay)
                 {
                     tick += 1;
+                    Debug.Log(tick);
                 }
 
                 //To do : tick have to change into 1, But should be do before Release. Not now.
@@ -129,6 +134,7 @@ namespace Ciart.Pagomoa.Systems.Time
         {
             AddDay(1);
             tick = Morning;
+            tickUpdated.Invoke(tick);
         }
 
         public void AddTime(int hourToAdd, int minuteToAdd)
