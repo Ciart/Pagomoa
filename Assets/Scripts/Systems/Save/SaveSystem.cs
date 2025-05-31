@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Ciart.Pagomoa.Events;
 using Ciart.Pagomoa.Worlds;
 using MemoryPack;
-
 using UnityEngine;
 
 namespace Ciart.Pagomoa.Systems.Save

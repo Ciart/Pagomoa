@@ -7,20 +7,36 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ciart.Pagomoa.UI.Book
 {
     public class InfoUI : UIBehaviour
     {
-        [SerializeField] private TextMeshProUGUI[] needStoneText;
-        [SerializeField] private Image[] needStoneImage;
+        [Header("Info Tabs")]
+        [SerializeField] private Button _upgradeTabButton;
+        [SerializeField] private Button _powerStoneTabButton;
+        [SerializeField] private Image _upgradeTabImage;
+        [SerializeField] private Image _powerStoneTabImage;
+        
+        [Header("Upgrade Tab")] 
+        [SerializeField] private GameObject _upgradeLeftPage;
+        [SerializeField] private GameObject _upgradeRightPage;
+        
+        [SerializeField] private TextMeshProUGUI[] _needStoneText;
+        [SerializeField] private Image[] _needStoneImage;
 
-        [SerializeField] private TextMeshProUGUI drillName;
-        [SerializeField] private TextMeshProUGUI drillDescription;
+        [SerializeField] private TextMeshProUGUI _drillName;
+        [SerializeField] private TextMeshProUGUI _drillDescription;
 
-        [SerializeField] private Button upgradeBtn;
-
+        [SerializeField] private Button _upgradeBtn;
+        
+        [Header("PowerStone Tab")]
+        [SerializeField] private GameObject _powerStoneLeftPage;
+        [SerializeField] private PowerStoneInfoUI _powerStoneRightPage;
+        
+        
         private void SetMineralCount(string id, int count)
         {
             UIUpdate();
@@ -30,19 +46,21 @@ namespace Ciart.Pagomoa.UI.Book
         {
             base.Start();
             
-            upgradeBtn?.onClick.AddListener(Game.Instance.player.drill.DrillUpgrade);
-            upgradeBtn?.onClick.AddListener(UIUpdate);
+            _upgradeBtn?.onClick.AddListener(Game.Instance.player.drill.DrillUpgrade);
+            _upgradeBtn?.onClick.AddListener(UIUpdate);
+
+            _upgradeTabButton?.onClick.AddListener(ToggleInfoTab);
+            _powerStoneTabButton?.onClick.AddListener(ToggleInfoTab);
         }
 
         private void UIUpdate()
         {
-            if (Game.Instance.player == null) return;
+            if (!Game.Instance.player) return;
 
             var nowDrill = Game.Instance.player.drill.nowDrill;
-            drillName.text = nowDrill.drillName;
-            drillDescription.text = nowDrill.drillDescription;
-
-
+            _drillName.text = nowDrill.drillName;
+            _drillDescription.text = nowDrill.drillDescription;
+            
             var nextDrill = Game.Instance.player.drill.nextDrill;
 
             for (int i = 0; i < nextDrill.upgradeNeeds.Length; i++)
@@ -52,19 +70,28 @@ namespace Ciart.Pagomoa.UI.Book
                 var currentCount = MineralCollector.GetMineralCount(mineralID);
                 var maxCount = nextDrill.upgradeNeeds[i].count;
 
-                needStoneImage[i].sprite = Resources.Load<Sprite>("Items/" + mineralID);
-                needStoneImage[i].enabled = true;
-                needStoneText[i].text = $"{mineralName} {currentCount}/{maxCount}";
-                needStoneText[i].enabled = true;
+                _needStoneImage[i].sprite = Resources.Load<Sprite>("Items/" + mineralID);
+                _needStoneImage[i].enabled = true;
+                _needStoneText[i].text = $"{mineralName} {currentCount}/{maxCount}";
+                _needStoneText[i].enabled = true;
             }
-            for (int i = nextDrill.upgradeNeeds.Length; i < needStoneText.Length; i++)
+            for (int i = nextDrill.upgradeNeeds.Length; i < _needStoneText.Length; i++)
             {
-                needStoneText[i].enabled = false;
-                needStoneImage[i].enabled = false;
+                _needStoneText[i].enabled = false;
+                _needStoneImage[i].enabled = false;
             }
         }
 
-
+        private void ToggleInfoTab()
+        {
+            _upgradeLeftPage.SetActive(!_upgradeLeftPage.activeSelf);
+            _upgradeRightPage.SetActive(!_upgradeRightPage.activeSelf);
+            _powerStoneLeftPage.SetActive(!_powerStoneLeftPage.activeSelf);
+            _powerStoneRightPage.gameObject.SetActive(!_powerStoneRightPage.gameObject.activeSelf);
+            _upgradeTabImage.gameObject.SetActive(!_upgradeTabImage.gameObject.activeSelf);
+            _powerStoneTabImage.gameObject.SetActive(!_powerStoneTabImage.gameObject.activeSelf);
+        }
+        
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -76,6 +103,12 @@ namespace Ciart.Pagomoa.UI.Book
         {
             base.OnDisable();
             MineralCollector.OnMineralsChange -= SetMineralCount;
+            _upgradeLeftPage.SetActive(true);
+            _upgradeRightPage.SetActive(true);
+            _upgradeTabImage.gameObject.SetActive(true);
+            _powerStoneLeftPage.SetActive(false);
+            _powerStoneRightPage.gameObject.SetActive(false);
+            _powerStoneTabImage.gameObject.SetActive(false);
         }
     }
 }
