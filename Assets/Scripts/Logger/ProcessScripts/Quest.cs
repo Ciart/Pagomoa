@@ -400,14 +400,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
             compareValue = 0;
 
             EventManager.AddListener<ItemCountChangedEvent>(CountItem);
-
-            var sameSlots = Game.Instance.player.inventory.FindSameItem(targetId);
-            var inventoryList = Game.Instance.player.inventory.GetSlots(SlotType.Inventory);
-
-            foreach (var slot in sameSlots)
-            {
-                compareValue += inventoryList[slot].GetSlotItemCount();
-            }
+            EventManager.AddListener<LoadInventoryEvent>(CheckItemFromInventory);
         }
 
         public bool CheckComplete()
@@ -455,6 +448,7 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
         public void Finish()
         {
             EventManager.RemoveListener<ItemCountChangedEvent>(CountItem);
+            EventManager.RemoveListener<LoadInventoryEvent>(CheckItemFromInventory);
 
             var itemList = Game.Instance.player.inventory.FindSameItem(GetTargetID());
 
@@ -467,6 +461,18 @@ namespace Ciart.Pagomoa.Logger.ProcessScripts
                     break;
                 }
             }
+        }
+
+        private void CheckItemFromInventory(LoadInventoryEvent e)
+        {
+            var items = e.inventory.FindSameItem(targetId);
+            foreach (var itemCount in items)
+            {
+                compareValue += itemCount;
+            }
+            
+            CheckComplete();
+            questFinished.Invoke();
         }
 
         public int GetCompareValue()
