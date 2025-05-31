@@ -31,13 +31,14 @@ namespace Ciart.Pagomoa.Timelines
         
         public override void OnCutSceneTrigger(int tick)
         {
-            if (!_trigger && Game.Instance.Time.date == 0)
+            if (!_trigger && Game.Instance.Time.IsTutorialDay)
             {
                 _tutorialCounter = 0;
                 _trigger = Instantiate(this, instantiatedPos, Quaternion.identity);
                 DontDestroyOnLoad(_trigger);
                 EventManager.AddListener<QuestUpdated>(CheckTutorialQuestEnd);
             }
+            
         }
         public override void OffCutSceneTrigger()
         {
@@ -51,7 +52,7 @@ namespace Ciart.Pagomoa.Timelines
         private void CheckTutorialQuestEnd(QuestUpdated e)
         {
             if (e.quest.state != QuestState.Finish) return;
-            var contains = e.quest.id.Contains("tutorial");
+            var contains = e.quest.id.Contains("tutorial_2") || e.quest.id.Contains("tutorial_1");
             if (contains) _tutorialCounter++;
             if (_tutorialCounter == 2)
             {
@@ -67,7 +68,5 @@ namespace Ciart.Pagomoa.Timelines
             
             Destroy(gameObject);
         }
-        
-        
     }
 }
