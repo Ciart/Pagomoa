@@ -61,6 +61,7 @@ namespace Ciart.Pagomoa.Systems
         public override void Start()
         {
             EventManager.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
+            _ui.escUIButton.onClick.AddListener(ToggleEscUI);
         }
 
         public override void FixedUpdate()

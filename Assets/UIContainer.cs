@@ -5,6 +5,7 @@ using Ciart.Pagomoa.UI.Title;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Ciart.Pagomoa
 {
@@ -19,7 +20,9 @@ namespace Ciart.Pagomoa
         public GameObject dialogueUIPrefab;
         public DaySummaryUI daySummaryUIPrefab;
         public EscOptionUI escUI;
+        public Button escUIButton;
         public FadeUI fadeUIPrefab;
+         
         public CinemachineVirtualCamera inventoryCamera;
         
         [Header("상호 작용 아이콘")]
