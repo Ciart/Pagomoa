@@ -132,7 +132,8 @@ namespace Ciart.Pagomoa.Systems
 
         private void ToggleInventoryUI()
         {
-            if (Game.Instance.UI.shopUI.gameObject.activeSelf) return;
+            if (shopUI.gameObject.activeSelf) return;
+            if (escOptionUI.gameObject.activeSelf) return;
             if (_dialogueUI.gameObject.activeSelf)
             {
                 bookUI.DeActiveBook();
